@@ -1,0 +1,58 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/config.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/offline_compiler.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/ng_compiler.dart",
+        "5": false
+      },
+      {
+        "1": "package:build/build.dart",
+        "5": false
+      },
+      {
+        "1": "find_components.dart",
+        "5": false
+      },
+      {
+        "1": "ng_deps_visitor.dart",
+        "5": false
+      },
+      {
+        "1": "template_compiler_outputs.dart",
+        "5": false
+      }
+    ],
+    "6": "template_processor.dart"
+  },
+  "type": {
+    "processTemplates": {
+      "class": "Identifier",
+      "name": "processTemplates",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/template_processor.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

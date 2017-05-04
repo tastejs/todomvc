@@ -1,0 +1,123 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable",
+          "Inject",
+          "OpaqueToken"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/zone/ng_zone.dart",
+        "2": [
+          "NgZone"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "EventManager",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "List",
+            "2": "<EventManagerPlugin>",
+            "3": [
+              "const Inject(EVENT_MANAGER_PLUGINS)"
+            ],
+            "4": "plugins"
+          },
+          {
+            "1": "NgZone",
+            "4": "_zone"
+          }
+        ]
+      }
+    ],
+    "6": "event_manager.dart"
+  },
+  "type": {
+    "EVENT_MANAGER_PLUGINS": {
+      "class": "Identifier",
+      "name": "EVENT_MANAGER_PLUGINS",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EventManager": {
+      "class": "Type",
+      "name": "EventManager",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "EVENT_MANAGER_PLUGINS",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NgZone",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "EventManagerPlugin": {
+      "class": "Identifier",
+      "name": "EventManagerPlugin",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

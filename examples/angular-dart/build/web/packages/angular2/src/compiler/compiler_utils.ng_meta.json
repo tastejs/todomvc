@@ -1,0 +1,45 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/lang.dart",
+        "2": [
+          "jsSplit"
+        ],
+        "5": false
+      }
+    ],
+    "6": "compiler_utils.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/lang.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "MODULE_SUFFIX": {
+      "class": "Identifier",
+      "name": "MODULE_SUFFIX",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compiler_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "sanitizeIdentifier": {
+      "class": "Identifier",
+      "name": "sanitizeIdentifier",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compiler_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "splitAtColon": {
+      "class": "Identifier",
+      "name": "splitAtColon",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compiler_utils.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

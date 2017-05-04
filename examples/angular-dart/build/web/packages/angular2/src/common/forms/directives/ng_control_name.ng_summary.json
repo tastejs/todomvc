@@ -1,0 +1,278 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "OnChanges",
+          "OnDestroy",
+          "SimpleChange",
+          "Directive",
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "SkipSelf",
+          "Inject",
+          "Optional",
+          "Self"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      },
+      {
+        "1": "../model.dart",
+        "2": [
+          "Control"
+        ],
+        "5": false
+      },
+      {
+        "1": "../validators.dart",
+        "2": [
+          "NG_VALIDATORS"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_container.dart",
+        "2": [
+          "ControlContainer"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_value_accessor.dart",
+        "2": [
+          "ControlValueAccessor",
+          "NG_VALUE_ACCESSOR"
+        ],
+        "5": false
+      },
+      {
+        "1": "form_interface.dart",
+        "2": [
+          "Form"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control.dart",
+        "2": [
+          "NgControl"
+        ],
+        "5": false
+      },
+      {
+        "1": "shared.dart",
+        "2": [
+          "controlPath",
+          "composeValidators",
+          "isPropertyUpdated",
+          "selectValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "validators.dart",
+        "2": [
+          "ValidatorFn"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "NgControlName",
+        "5": [
+          {
+            "1": "ControlContainer",
+            "3": [
+              "const SkipSelf()"
+            ],
+            "4": "_parent"
+          },
+          {
+            "1": "List",
+            "2": "<dynamic>",
+            "3": [
+              "const Optional()",
+              "const Self()",
+              "const Inject(NG_VALIDATORS)"
+            ],
+            "4": "_validators"
+          },
+          {
+            "1": "List",
+            "2": "<ControlValueAccessor>",
+            "3": [
+              "const Optional()",
+              "const Self()",
+              "const Inject(NG_VALUE_ACCESSOR)"
+            ],
+            "4": "valueAccessors"
+          }
+        ],
+        "6": [
+          "OnChanges",
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "ng_control_name.dart"
+  },
+  "type": {
+    "NgControlName": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[ngControl]",
+      "exportAs": "ngForm",
+      "type": {
+        "class": "Type",
+        "name": "NgControlName",
+        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_control_name.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ControlContainer",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": true,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NG_VALIDATORS",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": true,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NG_VALUE_ACCESSOR",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": true,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "name": "ngControl",
+        "model": "ngModel"
+      },
+      "inputTypes": {},
+      "outputs": {
+        "update": "ngModelChange"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        3,
+        1
+      ],
+      "template": null,
+      "providers": [
+        {
+          "class": "Identifier",
+          "name": "controlNameBinding",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "controlNameBinding": {
+      "class": "Identifier",
+      "name": "controlNameBinding",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_control_name.dart",
+      "prefix": null,
+      "value": {
+        "class": "Provider",
+        "token": {
+          "value": null,
+          "identifier": {
+            "class": "Identifier",
+            "name": "NgControl",
+            "moduleUrl": null,
+            "prefix": null,
+            "value": null
+          },
+          "identifierIsInstance": false
+        },
+        "useClass": null,
+        "useExisting": {
+          "value": null,
+          "identifier": {
+            "class": "Identifier",
+            "name": "NgControlName",
+            "moduleUrl": null,
+            "prefix": null,
+            "value": null
+          },
+          "identifierIsInstance": false
+        },
+        "useValue": null,
+        "useFactory": null,
+        "multi": false,
+        "deps": null
+      }
+    }
+  },
+  "alias": {}
+}

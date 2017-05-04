@@ -1,0 +1,114 @@
+{
+  "ngDeps": {
+    "1": "angular2_testing.angular2_testing",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/testing/browser.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di/reflective_exceptions.dart",
+        "2": [
+          "NoAnnotationError"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "5": false
+      },
+      {
+        "1": "package:test/test.dart",
+        "5": false
+      },
+      {
+        "1": "internal.dart",
+        "2": [
+          "TestComponentBuilder",
+          "ComponentFixture",
+          "setBaseTestProviders",
+          "getTestInjector",
+          "inject"
+        ],
+        "5": false
+      },
+      {
+        "1": "internal_injector.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "internal.dart",
+        "2": [
+          "TestComponentBuilder",
+          "ComponentFixture",
+          "setBaseTestProviders",
+          "getTestInjector",
+          "inject"
+        ]
+      }
+    ],
+    "6": "angular2_testing.dart"
+  },
+  "type": {
+    "_addTestInjectorTearDown": {
+      "class": "Identifier",
+      "name": "_addTestInjectorTearDown",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_runInjectableFunction": {
+      "class": "Identifier",
+      "name": "_runInjectableFunction",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    },
+    "initAngularTests": {
+      "class": "Identifier",
+      "name": "initAngularTests",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ngComponentTest": {
+      "class": "Identifier",
+      "name": "ngComponentTest",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ngSetUp": {
+      "class": "Identifier",
+      "name": "ngSetUp",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ngTest": {
+      "class": "Identifier",
+      "name": "ngTest",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    },
+    "setUpProviders": {
+      "class": "Identifier",
+      "name": "setUpProviders",
+      "moduleUrl": "asset:angular2/lib/src/testing/angular2_testing.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

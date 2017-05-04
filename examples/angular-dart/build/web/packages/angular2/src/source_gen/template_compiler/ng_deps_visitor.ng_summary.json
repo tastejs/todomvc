@@ -1,0 +1,108 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/analyzer.dart",
+        "3": [
+          "Directive"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/visitor.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/compile_metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/annotation_matcher.dart",
+        "4": "annotation_matcher",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/annotation_model.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/namespace_model.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/ng_deps_model.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/parameter_model.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/references.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/reflection_info_model.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:build/build.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/code_builder.dart",
+        "5": false
+      },
+      {
+        "1": "package:meta/meta.dart",
+        "5": false
+      },
+      {
+        "1": "compile_metadata.dart",
+        "5": false
+      }
+    ],
+    "6": "ng_deps_visitor.dart"
+  },
+  "type": {
+    "ReflectableVisitor": {
+      "class": "Identifier",
+      "name": "ReflectableVisitor",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/ng_deps_visitor.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_isDeferred": {
+      "class": "Identifier",
+      "name": "_isDeferred",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/ng_deps_visitor.dart",
+      "prefix": null,
+      "value": null
+    },
+    "resolveNgDepsFor": {
+      "class": "Identifier",
+      "name": "resolveNgDepsFor",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/ng_deps_visitor.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

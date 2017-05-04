@@ -1,0 +1,145 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/application_tokens.dart",
+        "2": [
+          "PACKAGE_ROOT_URL"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable",
+          "Inject",
+          "Provider"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "UrlResolver",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "String",
+            "3": [
+              "const Inject(PACKAGE_ROOT_URL)"
+            ],
+            "4": "_packagePrefix"
+          }
+        ]
+      }
+    ],
+    "6": "url_resolver.dart"
+  },
+  "type": {
+    "DEFAULT_PACKAGE_URL_PROVIDER": {
+      "class": "Identifier",
+      "name": "DEFAULT_PACKAGE_URL_PROVIDER",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": {
+        "class": "Provider",
+        "token": {
+          "value": null,
+          "identifier": {
+            "class": "Identifier",
+            "name": "PACKAGE_ROOT_URL",
+            "moduleUrl": null,
+            "prefix": null,
+            "value": null
+          },
+          "identifierIsInstance": false
+        },
+        "useClass": null,
+        "useExisting": null,
+        "useValue": "packages",
+        "useFactory": null,
+        "multi": false,
+        "deps": null
+      }
+    },
+    "UrlResolver": {
+      "class": "Type",
+      "name": "UrlResolver",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PACKAGE_ROOT_URL",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "_ASSET_SCHEME": {
+      "class": "Identifier",
+      "name": "_ASSET_SCHEME",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_removeLeadingChars": {
+      "class": "Identifier",
+      "name": "_removeLeadingChars",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_removeTrailingSlash": {
+      "class": "Identifier",
+      "name": "_removeTrailingSlash",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createOfflineCompileUrlResolver": {
+      "class": "Identifier",
+      "name": "createOfflineCompileUrlResolver",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createUrlResolverWithoutPackagePrefix": {
+      "class": "Identifier",
+      "name": "createUrlResolverWithoutPackagePrefix",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getUrlScheme": {
+      "class": "Identifier",
+      "name": "getUrlScheme",
+      "moduleUrl": "asset:angular2/lib/src/compiler/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head>
+    <script>
+        // WARNING: DO NOT set the <base href> like this in production!
+        // Details: https://webdev.dartlang.org/angular/guide/router
+        (function () {
+            var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
+            document.write('<base href="' + (m ? m[0] : '/') + '" />');
+        }());
+    </script>
+
+    <meta charset="utf-8">
+    <title>AngularDart • TodoMVC</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script defer="" src="packages/angular_dart_todomvc/node_modules/todomvc-common/base.js"></script>
+
+    <script defer="" src="main.dart.js"></script>
+    
+
+    <link rel="stylesheet" href="packages/angular_dart_todomvc/node_modules/todomvc-common/base.css">
+    <link rel="stylesheet" href="packages/angular_dart_todomvc/node_modules/todomvc-app-css/index.css">
+</head>
+<body>
+    <todomvc-app></todomvc-app>
+    <footer-info></footer-info>
+
+</body></html>

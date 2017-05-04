@@ -1,0 +1,55 @@
+{
+  "ngDeps": null,
+  "type": {
+    "CanActivate": {
+      "class": "Identifier",
+      "name": "CanActivate",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteLifecycleHook": {
+      "class": "Identifier",
+      "name": "RouteLifecycleHook",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    },
+    "routerCanDeactivate": {
+      "class": "Identifier",
+      "name": "routerCanDeactivate",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    },
+    "routerCanReuse": {
+      "class": "Identifier",
+      "name": "routerCanReuse",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    },
+    "routerOnActivate": {
+      "class": "Identifier",
+      "name": "routerOnActivate",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    },
+    "routerOnDeactivate": {
+      "class": "Identifier",
+      "name": "routerOnDeactivate",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    },
+    "routerOnReuse": {
+      "class": "Identifier",
+      "name": "routerOnReuse",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/lifecycle_annotations.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

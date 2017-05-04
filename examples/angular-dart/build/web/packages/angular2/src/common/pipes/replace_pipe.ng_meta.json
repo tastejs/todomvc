@@ -1,0 +1,79 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable",
+          "PipeTransform",
+          "Pipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "invalid_pipe_argument_exception.dart",
+        "2": [
+          "InvalidPipeArgumentException"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ReplacePipe",
+        "4": [
+          {
+            "1": "Pipe",
+            "2": [
+              "\"replace\""
+            ],
+            "4": false
+          },
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "6": [
+          "PipeTransform"
+        ]
+      }
+    ],
+    "6": "replace_pipe.dart",
+    "7": [
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "invalid_pipe_argument_exception.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "ReplacePipe": {
+      "class": "Pipe",
+      "type": {
+        "class": "Type",
+        "name": "ReplacePipe",
+        "moduleUrl": "asset:angular2/lib/src/common/pipes/replace_pipe.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "name": "replace",
+      "pure": true
+    },
+    "_Matcher": {
+      "class": "Identifier",
+      "name": "_Matcher",
+      "moduleUrl": "asset:angular2/lib/src/common/pipes/replace_pipe.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

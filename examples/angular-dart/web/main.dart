@@ -1,13 +1,8 @@
-import 'package:di/di.dart';
-import 'package:angular/angular.dart';
+import 'package:angular2/platform/browser.dart';
+import 'package:angular_dart_todomvc/components/app/app.dart';
+import 'package:angular_dart_todomvc/components/footer_info.dart';
 
-import 'todo.dart';
-import 'directives.dart';
-
-main() {
-	var module = new Module()
-		..type(StorageService)
-		..type(TodoController)
-		..type(TodoDOMEventDirective);
-	ngBootstrap(module: module);
+void main() {
+  bootstrap(TodoMvcApp);
+  bootstrap(FooterInfo);
 }

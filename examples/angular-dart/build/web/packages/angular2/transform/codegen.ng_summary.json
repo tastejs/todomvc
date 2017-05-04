@@ -1,0 +1,72 @@
+{
+  "ngDeps": {
+    "1": "angular2.transform.codegen.dart",
+    "3": [
+      {
+        "1": "package:angular2/src/transform/asset_consumer/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/eager_transformer_wrapper.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/formatter.dart",
+        "4": "formatter",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/directive_metadata_linker/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/directive_processor/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/inliner_for_test/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/stylesheet_compiler/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/template_compiler/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_style/dart_style.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "package:angular2/src/transform/common/options.dart"
+      }
+    ],
+    "6": "codegen.dart"
+  },
+  "type": {
+    "CodegenTransformer": {
+      "class": "Identifier",
+      "name": "CodegenTransformer",
+      "moduleUrl": "asset:angular2/lib/transform/codegen.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

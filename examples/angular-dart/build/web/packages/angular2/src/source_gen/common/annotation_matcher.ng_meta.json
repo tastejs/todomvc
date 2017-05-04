@@ -1,0 +1,129 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/src/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:logging/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:source_gen/src/annotation.dart",
+        "4": "source_gen",
+        "5": false
+      }
+    ],
+    "6": "annotation_matcher.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/metadata.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "AnnotationMatcher": {
+      "class": "Identifier",
+      "name": "AnnotationMatcher",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_isInjectable": {
+      "class": "Identifier",
+      "name": "_isInjectable",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "hasDirectives": {
+      "class": "Identifier",
+      "name": "hasDirectives",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isComponent": {
+      "class": "Identifier",
+      "name": "isComponent",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isDirective": {
+      "class": "Identifier",
+      "name": "isDirective",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isInjectable": {
+      "class": "Identifier",
+      "name": "isInjectable",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isPipe": {
+      "class": "Identifier",
+      "name": "isPipe",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "matchAnnotation": {
+      "class": "Identifier",
+      "name": "matchAnnotation",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "matchTypes": {
+      "class": "Identifier",
+      "name": "matchTypes",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "safeIsInjectable": {
+      "class": "Identifier",
+      "name": "safeIsInjectable",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "safeMatcher": {
+      "class": "Identifier",
+      "name": "safeMatcher",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "safeMatcherType": {
+      "class": "Identifier",
+      "name": "safeMatcherType",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "safeMatcherTypes": {
+      "class": "Identifier",
+      "name": "safeMatcherTypes",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/annotation_matcher.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

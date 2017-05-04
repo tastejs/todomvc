@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/src/generated/java_core.dart",
+        "5": false
+      }
+    ],
+    "6": "async_string_writer.dart"
+  },
+  "type": {
+    "AsyncStringWriter": {
+      "class": "Identifier",
+      "name": "AsyncStringWriter",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/async_string_writer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

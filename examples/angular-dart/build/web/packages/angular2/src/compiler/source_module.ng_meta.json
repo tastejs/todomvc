@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "SourceModule": {
+      "class": "Identifier",
+      "name": "SourceModule",
+      "moduleUrl": "asset:angular2/lib/src/compiler/source_module.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,62 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:mirrors",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata/lifecycle_hooks.dart",
+        "5": false
+      },
+      {
+        "1": "platform_reflection_capabilities.dart",
+        "5": false
+      },
+      {
+        "1": "types.dart",
+        "5": false
+      }
+    ],
+    "6": "reflection_capabilities.dart"
+  },
+  "type": {
+    "MissingInterfaceError": {
+      "class": "Identifier",
+      "name": "MissingInterfaceError",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "ReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_assertDeclaresLifecycleHooks": {
+      "class": "Identifier",
+      "name": "_assertDeclaresLifecycleHooks",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_checkDeclares": {
+      "class": "Identifier",
+      "name": "_checkDeclares",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_checkImplements": {
+      "class": "Identifier",
+      "name": "_checkImplements",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,83 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:math",
+        "4": "math",
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable",
+          "PipeTransform",
+          "Pipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "invalid_pipe_argument_exception.dart",
+        "2": [
+          "InvalidPipeArgumentException"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "SlicePipe",
+        "4": [
+          {
+            "1": "Pipe",
+            "2": [
+              "\"slice\""
+            ],
+            "3": [
+              {
+                "1": "pure",
+                "2": "false"
+              }
+            ],
+            "4": false
+          },
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "6": [
+          "PipeTransform"
+        ]
+      }
+    ],
+    "6": "slice_pipe.dart",
+    "7": [
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "invalid_pipe_argument_exception.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "SlicePipe": {
+      "class": "Pipe",
+      "type": {
+        "class": "Type",
+        "name": "SlicePipe",
+        "moduleUrl": "asset:angular2/lib/src/common/pipes/slice_pipe.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "name": "slice",
+      "pure": false
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,13 @@
+{
+  "ngDeps": {
+    "1": "angular2.platform.common",
+    "4": [
+      {
+        "1": "package:angular2/src/platform/location.dart"
+      }
+    ],
+    "6": "common.dart"
+  },
+  "type": {},
+  "alias": {}
+}

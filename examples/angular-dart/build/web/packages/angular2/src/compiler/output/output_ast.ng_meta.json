@@ -1,0 +1,584 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompileIdentifierMetadata"
+        ],
+        "5": false
+      }
+    ],
+    "6": "output_ast.dart",
+    "7": [
+      {
+        "1": "../compile_metadata.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "AbstractClassPart": {
+      "class": "Identifier",
+      "name": "AbstractClassPart",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ArrayType": {
+      "class": "Identifier",
+      "name": "ArrayType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BOOL_TYPE": {
+      "class": "Identifier",
+      "name": "BOOL_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BinaryOperator": {
+      "class": "Identifier",
+      "name": "BinaryOperator",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BinaryOperatorExpr": {
+      "class": "Identifier",
+      "name": "BinaryOperatorExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BuiltinMethod": {
+      "class": "Identifier",
+      "name": "BuiltinMethod",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BuiltinType": {
+      "class": "Identifier",
+      "name": "BuiltinType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BuiltinTypeName": {
+      "class": "Identifier",
+      "name": "BuiltinTypeName",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BuiltinVar": {
+      "class": "Identifier",
+      "name": "BuiltinVar",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CastExpr": {
+      "class": "Identifier",
+      "name": "CastExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ClassField": {
+      "class": "Identifier",
+      "name": "ClassField",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ClassGetter": {
+      "class": "Identifier",
+      "name": "ClassGetter",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ClassMethod": {
+      "class": "Identifier",
+      "name": "ClassMethod",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ClassStmt": {
+      "class": "Identifier",
+      "name": "ClassStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CommentStmt": {
+      "class": "Identifier",
+      "name": "CommentStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ConditionalExpr": {
+      "class": "Identifier",
+      "name": "ConditionalExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DOUBLE_TYPE": {
+      "class": "Identifier",
+      "name": "DOUBLE_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DYNAMIC_TYPE": {
+      "class": "Identifier",
+      "name": "DYNAMIC_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DeclareFunctionStmt": {
+      "class": "Identifier",
+      "name": "DeclareFunctionStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DeclareVarStmt": {
+      "class": "Identifier",
+      "name": "DeclareVarStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Expression": {
+      "class": "Identifier",
+      "name": "Expression",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExpressionStatement": {
+      "class": "Identifier",
+      "name": "ExpressionStatement",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExpressionTransformer": {
+      "class": "Identifier",
+      "name": "ExpressionTransformer",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExpressionVisitor": {
+      "class": "Identifier",
+      "name": "ExpressionVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExternalExpr": {
+      "class": "Identifier",
+      "name": "ExternalExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExternalType": {
+      "class": "Identifier",
+      "name": "ExternalType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "FUNCTION_TYPE": {
+      "class": "Identifier",
+      "name": "FUNCTION_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "FnParam": {
+      "class": "Identifier",
+      "name": "FnParam",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "FunctionExpr": {
+      "class": "Identifier",
+      "name": "FunctionExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "INT_TYPE": {
+      "class": "Identifier",
+      "name": "INT_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "IfNullExpr": {
+      "class": "Identifier",
+      "name": "IfNullExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "IfStmt": {
+      "class": "Identifier",
+      "name": "IfStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "InstantiateExpr": {
+      "class": "Identifier",
+      "name": "InstantiateExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "InvokeFunctionExpr": {
+      "class": "Identifier",
+      "name": "InvokeFunctionExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "InvokeMemberMethodExpr": {
+      "class": "Identifier",
+      "name": "InvokeMemberMethodExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "InvokeMethodExpr": {
+      "class": "Identifier",
+      "name": "InvokeMethodExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LiteralArrayExpr": {
+      "class": "Identifier",
+      "name": "LiteralArrayExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LiteralExpr": {
+      "class": "Identifier",
+      "name": "LiteralExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LiteralMapExpr": {
+      "class": "Identifier",
+      "name": "LiteralMapExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MapType": {
+      "class": "Identifier",
+      "name": "MapType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NUMBER_TYPE": {
+      "class": "Identifier",
+      "name": "NUMBER_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NotExpr": {
+      "class": "Identifier",
+      "name": "NotExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OutputType": {
+      "class": "Identifier",
+      "name": "OutputType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReadClassMemberExpr": {
+      "class": "Identifier",
+      "name": "ReadClassMemberExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReadKeyExpr": {
+      "class": "Identifier",
+      "name": "ReadKeyExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReadPropExpr": {
+      "class": "Identifier",
+      "name": "ReadPropExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReadStaticMemberExpr": {
+      "class": "Identifier",
+      "name": "ReadStaticMemberExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReadVarExpr": {
+      "class": "Identifier",
+      "name": "ReadVarExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RecursiveExpressionVisitor": {
+      "class": "Identifier",
+      "name": "RecursiveExpressionVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReturnStatement": {
+      "class": "Identifier",
+      "name": "ReturnStatement",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "STRING_TYPE": {
+      "class": "Identifier",
+      "name": "STRING_TYPE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Statement": {
+      "class": "Identifier",
+      "name": "Statement",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "StatementVisitor": {
+      "class": "Identifier",
+      "name": "StatementVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "StmtModifier": {
+      "class": "Identifier",
+      "name": "StmtModifier",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ThrowStmt": {
+      "class": "Identifier",
+      "name": "ThrowStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TryCatchStmt": {
+      "class": "Identifier",
+      "name": "TryCatchStmt",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TypeModifier": {
+      "class": "Identifier",
+      "name": "TypeModifier",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TypeVisitor": {
+      "class": "Identifier",
+      "name": "TypeVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WriteClassMemberExpr": {
+      "class": "Identifier",
+      "name": "WriteClassMemberExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WriteIfNullExpr": {
+      "class": "Identifier",
+      "name": "WriteIfNullExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WriteKeyExpr": {
+      "class": "Identifier",
+      "name": "WriteKeyExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WritePropExpr": {
+      "class": "Identifier",
+      "name": "WritePropExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WriteStaticMemberExpr": {
+      "class": "Identifier",
+      "name": "WriteStaticMemberExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WriteVarExpr": {
+      "class": "Identifier",
+      "name": "WriteVarExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReplaceReadClassMemberTransformer": {
+      "class": "Identifier",
+      "name": "_ReplaceReadClassMemberTransformer",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReplaceVariableTransformer": {
+      "class": "Identifier",
+      "name": "_ReplaceVariableTransformer",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_VariableFinder": {
+      "class": "Identifier",
+      "name": "_VariableFinder",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "findReadVarNames": {
+      "class": "Identifier",
+      "name": "findReadVarNames",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "fn": {
+      "class": "Identifier",
+      "name": "fn",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "importDeferred": {
+      "class": "Identifier",
+      "name": "importDeferred",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "importExpr": {
+      "class": "Identifier",
+      "name": "importExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "importType": {
+      "class": "Identifier",
+      "name": "importType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "literal": {
+      "class": "Identifier",
+      "name": "literal",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "literalArr": {
+      "class": "Identifier",
+      "name": "literalArr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "literalMap": {
+      "class": "Identifier",
+      "name": "literalMap",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "not": {
+      "class": "Identifier",
+      "name": "not",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "replaceReadClassMemberInExpression": {
+      "class": "Identifier",
+      "name": "replaceReadClassMemberInExpression",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "replaceVarInExpression": {
+      "class": "Identifier",
+      "name": "replaceVarInExpression",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "replaceVarInStatement": {
+      "class": "Identifier",
+      "name": "replaceVarInStatement",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "variable": {
+      "class": "Identifier",
+      "name": "variable",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_ast.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

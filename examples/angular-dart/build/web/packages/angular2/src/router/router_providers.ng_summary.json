@@ -1,0 +1,89 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/common.dart",
+        "2": [
+          "PlatformLocation"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/platform/browser/location/browser_platform_location.dart",
+        "2": [
+          "BrowserPlatformLocation"
+        ],
+        "5": false
+      },
+      {
+        "1": "router_providers_common.dart",
+        "2": [
+          "ROUTER_PROVIDERS_COMMON"
+        ],
+        "5": false
+      }
+    ],
+    "6": "router_providers.dart"
+  },
+  "type": {
+    "ROUTER_BINDINGS": {
+      "class": "Identifier",
+      "name": "ROUTER_BINDINGS",
+      "moduleUrl": "asset:angular2/lib/src/router/router_providers.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ROUTER_PROVIDERS": {
+      "class": "Identifier",
+      "name": "ROUTER_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/src/router/router_providers.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "ROUTER_PROVIDERS_COMMON",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PlatformLocation",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "BrowserPlatformLocation",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

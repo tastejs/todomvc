@@ -1,0 +1,99 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "2": [
+          "Element",
+          "NodeTreeSanitizer"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/security.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "SafeInnerHtmlDirective",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "elementRef"
+          }
+        ]
+      }
+    ],
+    "6": "safe_inner_html.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/security.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "SafeInnerHtmlDirective": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[safeInnerHtml]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "SafeInnerHtmlDirective",
+        "moduleUrl": "asset:angular2/lib/src/security/safe_inner_html.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "safeInnerHtml": "safeInnerHtml"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

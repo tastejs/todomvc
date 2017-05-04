@@ -1,0 +1,57 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "2": [
+          "Element",
+          "Event"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:meta/meta.dart",
+        "5": false
+      },
+      {
+        "1": "event_manager.dart",
+        "2": [
+          "EventManagerPlugin"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "DomEventsPlugin",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "dom_events.dart"
+  },
+  "type": {
+    "DomEventsPlugin": {
+      "class": "Type",
+      "name": "DomEventsPlugin",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/dom_events.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

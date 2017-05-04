@@ -1,0 +1,77 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/compiler/view_resolver.dart",
+        "2": [
+          "ViewResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../core/metadata.dart",
+        "2": [
+          "View"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MockViewResolver",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "view_resolver_mock.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/compiler/view_resolver.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../core/metadata.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "MockViewResolver": {
+      "class": "Type",
+      "name": "MockViewResolver",
+      "moduleUrl": "asset:angular2/lib/src/mock/view_resolver_mock.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

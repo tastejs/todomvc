@@ -1,0 +1,131 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../core/security.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "../core/security.dart"
+      }
+    ],
+    "6": "dom_sanitization_service.dart",
+    "7": [
+      {
+        "1": "../core/security.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "DomSanitizationService": {
+      "class": "Identifier",
+      "name": "DomSanitizationService",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeHtml": {
+      "class": "Identifier",
+      "name": "SafeHtml",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeHtmlImpl": {
+      "class": "Identifier",
+      "name": "SafeHtmlImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeResourceUrl": {
+      "class": "Identifier",
+      "name": "SafeResourceUrl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeResourceUrlImpl": {
+      "class": "Identifier",
+      "name": "SafeResourceUrlImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeScript": {
+      "class": "Identifier",
+      "name": "SafeScript",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeScriptImpl": {
+      "class": "Identifier",
+      "name": "SafeScriptImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeStyle": {
+      "class": "Identifier",
+      "name": "SafeStyle",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeStyleImpl": {
+      "class": "Identifier",
+      "name": "SafeStyleImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeUrl": {
+      "class": "Identifier",
+      "name": "SafeUrl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeUrlImpl": {
+      "class": "Identifier",
+      "name": "SafeUrlImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeValue": {
+      "class": "Identifier",
+      "name": "SafeValue",
+      "moduleUrl": "asset:angular2/lib/src/core/security.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeValueImpl": {
+      "class": "Identifier",
+      "name": "SafeValueImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SanitizationService": {
+      "class": "Identifier",
+      "name": "SanitizationService",
+      "moduleUrl": "asset:angular2/lib/src/core/security.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TemplateSecurityContext": {
+      "class": "Identifier",
+      "name": "TemplateSecurityContext",
+      "moduleUrl": "asset:angular2/lib/src/core/security.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

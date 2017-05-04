@@ -1,0 +1,65 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "output_ast.dart",
+        "4": "o",
+        "5": false
+      }
+    ],
+    "6": "abstract_emitter.dart"
+  },
+  "type": {
+    "AbstractEmitterVisitor": {
+      "class": "Identifier",
+      "name": "AbstractEmitterVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/abstract_emitter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EmitterVisitorContext": {
+      "class": "Identifier",
+      "name": "EmitterVisitorContext",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/abstract_emitter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OutputEmitter": {
+      "class": "Identifier",
+      "name": "OutputEmitter",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/abstract_emitter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_EmittedLine": {
+      "class": "Identifier",
+      "name": "_EmittedLine",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/abstract_emitter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_createIndent": {
+      "class": "Identifier",
+      "name": "_createIndent",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/abstract_emitter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "escapeSingleQuoteString": {
+      "class": "Identifier",
+      "name": "escapeSingleQuoteString",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/abstract_emitter.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

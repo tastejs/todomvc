@@ -1,0 +1,396 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.dart",
+        "2": [
+          "ComponentFactory",
+          "NgViewFactory"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_resolver.dart",
+        "2": [
+          "ComponentResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_metadata.dart",
+        "2": [
+          "createHostComponentMeta",
+          "CompileDirectiveMetadata",
+          "CompilePipeMetadata",
+          "CompileIdentifierMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "directive_normalizer.dart",
+        "2": [
+          "DirectiveNormalizer"
+        ],
+        "5": false
+      },
+      {
+        "1": "output/interpretive_view.dart",
+        "2": [
+          "InterpretiveAppViewInstanceFactory"
+        ],
+        "5": false
+      },
+      {
+        "1": "output/output_ast.dart",
+        "4": "ir",
+        "5": false
+      },
+      {
+        "1": "output/output_interpreter.dart",
+        "2": [
+          "interpretStatements"
+        ],
+        "5": false
+      },
+      {
+        "1": "runtime_metadata.dart",
+        "2": [
+          "RuntimeMetadataResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "style_compiler.dart",
+        "2": [
+          "StyleCompiler",
+          "StylesCompileDependency",
+          "StylesCompileResult"
+        ],
+        "5": false
+      },
+      {
+        "1": "template_ast.dart",
+        "2": [
+          "TemplateAst"
+        ],
+        "5": false
+      },
+      {
+        "1": "template_parser.dart",
+        "2": [
+          "TemplateParser"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_compiler/view_compiler.dart",
+        "2": [
+          "ViewCompiler"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_compiler/view_compiler_utils.dart",
+        "2": [
+          "getViewFactoryName"
+        ],
+        "5": false
+      },
+      {
+        "1": "xhr.dart",
+        "2": [
+          "XHR"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "RuntimeCompiler",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "RuntimeMetadataResolver",
+            "4": "_runtimeMetadataResolver"
+          },
+          {
+            "1": "DirectiveNormalizer",
+            "4": "_templateNormalizer"
+          },
+          {
+            "1": "TemplateParser",
+            "4": "_templateParser"
+          },
+          {
+            "1": "StyleCompiler",
+            "4": "_styleCompiler"
+          },
+          {
+            "1": "ViewCompiler",
+            "4": "_viewCompiler"
+          },
+          {
+            "1": "XHR",
+            "4": "_xhr"
+          }
+        ],
+        "6": [
+          "ComponentResolver"
+        ]
+      }
+    ],
+    "6": "runtime_compiler.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_resolver.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "compile_metadata.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "directive_normalizer.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "output/interpretive_view.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "output/output_ast.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "output/output_interpreter.template.dart",
+        "4": "i9"
+      },
+      {
+        "1": "runtime_metadata.template.dart",
+        "4": "i10"
+      },
+      {
+        "1": "style_compiler.template.dart",
+        "4": "i11"
+      },
+      {
+        "1": "template_ast.template.dart",
+        "4": "i12"
+      },
+      {
+        "1": "template_parser.template.dart",
+        "4": "i13"
+      },
+      {
+        "1": "view_compiler/view_compiler.template.dart",
+        "4": "i14"
+      },
+      {
+        "1": "view_compiler/view_compiler_utils.template.dart",
+        "4": "i15"
+      },
+      {
+        "1": "xhr.template.dart",
+        "4": "i16"
+      }
+    ]
+  },
+  "type": {
+    "CompiledTemplate": {
+      "class": "Identifier",
+      "name": "CompiledTemplate",
+      "moduleUrl": "asset:angular2/lib/src/compiler/runtime_compiler.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RuntimeCompiler": {
+      "class": "Type",
+      "name": "RuntimeCompiler",
+      "moduleUrl": "asset:angular2/lib/src/compiler/runtime_compiler.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "RuntimeMetadataResolver",
+              "moduleUrl": "asset:angular2/lib/src/compiler/runtime_metadata.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DirectiveNormalizer",
+              "moduleUrl": "asset:angular2/lib/src/compiler/directive_normalizer.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "TemplateParser",
+              "moduleUrl": "asset:angular2/lib/src/compiler/template_parser.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "StyleCompiler",
+              "moduleUrl": "asset:angular2/lib/src/compiler/style_compiler.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ViewCompiler",
+              "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/view_compiler.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "XHR",
+              "moduleUrl": "asset:angular2/lib/src/compiler/xhr.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "_ResolvedStyles": {
+      "class": "Identifier",
+      "name": "_ResolvedStyles",
+      "moduleUrl": "asset:angular2/lib/src/compiler/runtime_compiler.dart",
+      "prefix": null,
+      "value": null
+    },
+    "assertComponent": {
+      "class": "Identifier",
+      "name": "assertComponent",
+      "moduleUrl": "asset:angular2/lib/src/compiler/runtime_compiler.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

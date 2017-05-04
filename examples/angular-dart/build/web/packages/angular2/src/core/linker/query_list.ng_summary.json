@@ -1,0 +1,20 @@
+{
+  "ngDeps": null,
+  "type": {
+    "QueryList": {
+      "class": "Identifier",
+      "name": "QueryList",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/query_list.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_flattenList": {
+      "class": "Identifier",
+      "name": "_flattenList",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/query_list.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

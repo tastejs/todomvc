@@ -1,0 +1,38 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:convert",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/template_compiler/find_components.dart",
+        "5": false
+      },
+      {
+        "1": "package:build/build.dart",
+        "5": false
+      }
+    ],
+    "6": "component_extractor_generator.dart"
+  },
+  "type": {
+    "TestComponentExtractor": {
+      "class": "Identifier",
+      "name": "TestComponentExtractor",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/testing/component_extractor_generator.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

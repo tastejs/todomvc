@@ -1,0 +1,27 @@
+{
+  "ngDeps": null,
+  "type": {
+    "SafeValue": {
+      "class": "Identifier",
+      "name": "SafeValue",
+      "moduleUrl": "asset:angular2/lib/src/core/security.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SanitizationService": {
+      "class": "Identifier",
+      "name": "SanitizationService",
+      "moduleUrl": "asset:angular2/lib/src/core/security.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TemplateSecurityContext": {
+      "class": "Identifier",
+      "name": "TemplateSecurityContext",
+      "moduleUrl": "asset:angular2/lib/src/core/security.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,98 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/metadata/lifecycle_hooks.dart",
+        "2": [
+          "LifecycleHooks"
+        ],
+        "5": false
+      },
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompileDirectiveMetadata",
+          "CompilePipeMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "../identifiers.dart",
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "../template_ast.dart",
+        "2": [
+          "DirectiveAst"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_element.dart",
+        "2": [
+          "CompileElement"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_view.dart",
+        "2": [
+          "CompileView"
+        ],
+        "5": false
+      },
+      {
+        "1": "constants.dart",
+        "2": [
+          "DetectChangesVars"
+        ],
+        "5": false
+      }
+    ],
+    "6": "lifecycle_binder.dart"
+  },
+  "type": {
+    "bindDirectiveAfterContentLifecycleCallbacks": {
+      "class": "Identifier",
+      "name": "bindDirectiveAfterContentLifecycleCallbacks",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/lifecycle_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindDirectiveAfterViewLifecycleCallbacks": {
+      "class": "Identifier",
+      "name": "bindDirectiveAfterViewLifecycleCallbacks",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/lifecycle_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindDirectiveDestroyLifecycleCallbacks": {
+      "class": "Identifier",
+      "name": "bindDirectiveDestroyLifecycleCallbacks",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/lifecycle_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindDirectiveDetectChangesLifecycleCallbacks": {
+      "class": "Identifier",
+      "name": "bindDirectiveDetectChangesLifecycleCallbacks",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/lifecycle_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindPipeDestroyLifecycleCallbacks": {
+      "class": "Identifier",
+      "name": "bindPipeDestroyLifecycleCallbacks",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/lifecycle_binder.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

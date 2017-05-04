@@ -1,0 +1,36 @@
+{
+  "ngDeps": {
+    "1": "angular2.src.transform.common.model.proto_parameter_model",
+    "3": [
+      {
+        "1": "package:protobuf/protobuf.dart",
+        "5": false
+      }
+    ],
+    "6": "parameter_model.pb.dart"
+  },
+  "type": {
+    "ParameterModel": {
+      "class": "Identifier",
+      "name": "ParameterModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/parameter_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ParameterModel$json": {
+      "class": "Identifier",
+      "name": "ParameterModel$json",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/parameter_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReadonlyParameterModel": {
+      "class": "Identifier",
+      "name": "_ReadonlyParameterModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/parameter_model.pb.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

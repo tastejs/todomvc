@@ -1,0 +1,131 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injector",
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "app_view_utils.dart",
+        "2": [
+          "OnDestroyCallback"
+        ],
+        "5": false
+      },
+      {
+        "1": "component_factory.dart",
+        "2": [
+          "ComponentRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "component_resolver.dart",
+        "2": [
+          "ComponentResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_container_ref.dart",
+        "2": [
+          "ViewContainerRef"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "DynamicComponentLoaderImpl",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "ComponentResolver",
+            "4": "_compiler"
+          }
+        ]
+      }
+    ],
+    "6": "dynamic_component_loader.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "app_view_utils.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "component_factory.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "component_resolver.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "view_container_ref.template.dart",
+        "4": "i4"
+      }
+    ]
+  },
+  "type": {
+    "DynamicComponentLoader": {
+      "class": "Identifier",
+      "name": "DynamicComponentLoader",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/dynamic_component_loader.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DynamicComponentLoaderImpl": {
+      "class": "Type",
+      "name": "DynamicComponentLoaderImpl",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/dynamic_component_loader.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ComponentResolver",
+              "moduleUrl": "asset:angular2/lib/src/core/linker/component_resolver.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "Item": {
+      "class": "Identifier",
+      "name": "Item",
+      "moduleUrl": "asset:angular_dart_todomvc/lib/models/item.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

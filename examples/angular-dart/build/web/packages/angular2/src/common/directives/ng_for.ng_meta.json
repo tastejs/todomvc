@@ -1,0 +1,142 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "DoCheck",
+          "Directive",
+          "ViewContainerRef",
+          "ViewRef",
+          "TemplateRef",
+          "EmbeddedViewRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "../../core/change_detection/differs/default_iterable_differ.dart",
+        "2": [
+          "DefaultIterableDiffer",
+          "CollectionChangeRecord",
+          "TrackByFn"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "NgFor",
+        "5": [
+          {
+            "1": "ViewContainerRef",
+            "4": "_viewContainer"
+          },
+          {
+            "1": "TemplateRef",
+            "4": "_templateRef"
+          }
+        ],
+        "6": [
+          "DoCheck"
+        ]
+      }
+    ],
+    "6": "ng_for.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../../core/change_detection/differs/default_iterable_differ.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "NgFor": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[ngFor][ngForOf]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "NgFor",
+        "moduleUrl": "asset:angular2/lib/src/common/directives/ng_for.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ViewContainerRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "TemplateRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "ngForTrackBy": "ngForTrackBy",
+        "ngForOf": "ngForOf",
+        "ngForTemplate": "ngForTemplate"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        2
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "RecordViewTuple": {
+      "class": "Identifier",
+      "name": "RecordViewTuple",
+      "moduleUrl": "asset:angular2/lib/src/common/directives/ng_for.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

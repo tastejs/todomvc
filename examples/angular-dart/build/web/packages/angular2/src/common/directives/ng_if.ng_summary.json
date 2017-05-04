@@ -1,0 +1,106 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive",
+          "ViewContainerRef",
+          "TemplateRef"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "NgIf",
+        "5": [
+          {
+            "1": "ViewContainerRef",
+            "4": "_viewContainer"
+          },
+          {
+            "1": "TemplateRef",
+            "4": "_templateRef"
+          }
+        ]
+      }
+    ],
+    "6": "ng_if.dart"
+  },
+  "type": {
+    "NgIf": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[ngIf]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "NgIf",
+        "moduleUrl": "asset:angular2/lib/src/common/directives/ng_if.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ViewContainerRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "TemplateRef",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "ngIf": "ngIf"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

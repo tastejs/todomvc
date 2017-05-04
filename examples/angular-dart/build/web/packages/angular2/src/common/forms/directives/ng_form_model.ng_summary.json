@@ -1,0 +1,217 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "SimpleChange",
+          "OnChanges",
+          "Directive",
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Optional",
+          "Inject",
+          "Self"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../model.dart",
+        "2": [
+          "Control",
+          "ControlGroup"
+        ],
+        "5": false
+      },
+      {
+        "1": "../validators.dart",
+        "2": [
+          "Validators",
+          "NG_VALIDATORS"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_container.dart",
+        "2": [
+          "ControlContainer"
+        ],
+        "5": false
+      },
+      {
+        "1": "form_interface.dart",
+        "2": [
+          "Form"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control.dart",
+        "2": [
+          "NgControl"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control_group.dart",
+        "5": false
+      },
+      {
+        "1": "shared.dart",
+        "2": [
+          "setUpControl",
+          "setUpControlGroup",
+          "composeValidators"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "NgFormModel",
+        "5": [
+          {
+            "1": "List",
+            "2": "<dynamic>",
+            "3": [
+              "const Optional()",
+              "const Self()",
+              "const Inject(NG_VALIDATORS)"
+            ],
+            "4": "_validators"
+          }
+        ],
+        "6": [
+          "Form",
+          "OnChanges"
+        ]
+      }
+    ],
+    "6": "ng_form_model.dart"
+  },
+  "type": {
+    "NgFormModel": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[ngFormModel]",
+      "exportAs": "ngForm",
+      "type": {
+        "class": "Type",
+        "name": "NgFormModel",
+        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_form_model.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NG_VALIDATORS",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": true,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "form": "ngFormModel"
+      },
+      "inputTypes": {},
+      "outputs": {
+        "ngSubmit": "ngSubmit",
+        "ngBeforeSubmit": "ngBeforeSubmit"
+      },
+      "hostListeners": {
+        "submit": "onSubmit()"
+      },
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        3
+      ],
+      "template": null,
+      "providers": [
+        {
+          "class": "Identifier",
+          "name": "formDirectiveProvider",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "formDirectiveProvider": {
+      "class": "Identifier",
+      "name": "formDirectiveProvider",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_form_model.dart",
+      "prefix": null,
+      "value": {
+        "class": "Provider",
+        "token": {
+          "value": null,
+          "identifier": {
+            "class": "Identifier",
+            "name": "ControlContainer",
+            "moduleUrl": null,
+            "prefix": null,
+            "value": null
+          },
+          "identifierIsInstance": false
+        },
+        "useClass": null,
+        "useExisting": {
+          "value": null,
+          "identifier": {
+            "class": "Identifier",
+            "name": "NgFormModel",
+            "moduleUrl": null,
+            "prefix": null,
+            "value": null
+          },
+          "identifierIsInstance": false
+        },
+        "useValue": null,
+        "useFactory": null,
+        "multi": false,
+        "deps": null
+      }
+    }
+  },
+  "alias": {}
+}

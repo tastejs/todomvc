@@ -1,0 +1,75 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompilePipeMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "../identifiers.dart",
+        "2": [
+          "Identifiers",
+          "identifierToken"
+        ],
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "compile_view.dart",
+        "2": [
+          "CompileView"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_compiler_utils.dart",
+        "2": [
+          "injectFromViewParentInjector",
+          "createPureProxy",
+          "getPropertyInView"
+        ],
+        "5": false
+      }
+    ],
+    "6": "compile_pipe.dart"
+  },
+  "type": {
+    "CompilePipe": {
+      "class": "Identifier",
+      "name": "CompilePipe",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_pipe.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_PurePipeProxy": {
+      "class": "Identifier",
+      "name": "_PurePipeProxy",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_pipe.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_findPipeMeta": {
+      "class": "Identifier",
+      "name": "_findPipeMeta",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_pipe.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

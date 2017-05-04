@@ -1,0 +1,133 @@
+{
+  "ngDeps": {
+    "1": "angular2.platform.testing.browser",
+    "3": [
+      {
+        "1": "package:angular2/di.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/browser_static.dart",
+        "2": [
+          "BROWSER_APP_PROVIDERS"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/testing/browser_static.dart",
+        "2": [
+          "TEST_BROWSER_STATIC_PLATFORM_PROVIDERS",
+          "ADDITIONAL_TEST_BROWSER_PROVIDERS"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/runtime_compiler.dart",
+        "2": [
+          "RuntimeCompiler"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_resolver.dart",
+        "2": [
+          "ComponentResolver"
+        ],
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "package:angular2/src/debug/debug_node.dart",
+        "2": [
+          "inspectNativeElement",
+          "DebugNode",
+          "DebugElement",
+          "By"
+        ]
+      }
+    ],
+    "6": "browser.dart"
+  },
+  "type": {
+    "TEST_BROWSER_APPLICATION_PROVIDERS": {
+      "class": "Identifier",
+      "name": "TEST_BROWSER_APPLICATION_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "BROWSER_APP_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "RuntimeCompiler",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ComponentResolver",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "RuntimeCompiler",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ADDITIONAL_TEST_BROWSER_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    },
+    "TEST_BROWSER_PLATFORM_PROVIDERS": {
+      "class": "Identifier",
+      "name": "TEST_BROWSER_PLATFORM_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "TEST_BROWSER_STATIC_PLATFORM_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "TEST_BROWSER_PLATFORM_PROVIDERS": [
+      "TEST_BROWSER_STATIC_PLATFORM_PROVIDERS"
+    ]
+  }
+}

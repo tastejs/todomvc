@@ -1,0 +1,176 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:source_span/source_span.dart",
+        "5": false
+      },
+      {
+        "1": "../core/security.dart",
+        "5": false
+      },
+      {
+        "1": "compile_metadata.dart",
+        "2": [
+          "CompileDirectiveMetadata",
+          "CompileTokenMetadata",
+          "CompileProviderMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "expression_parser/ast.dart",
+        "2": [
+          "AST"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/view_compiler/parse_utils.dart",
+        "2": [
+          "handlerTypeFromExpression",
+          "HandlerType"
+        ],
+        "5": false
+      }
+    ],
+    "6": "template_ast.dart"
+  },
+  "type": {
+    "AttrAst": {
+      "class": "Identifier",
+      "name": "AttrAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BoundDirectivePropertyAst": {
+      "class": "Identifier",
+      "name": "BoundDirectivePropertyAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BoundElementPropertyAst": {
+      "class": "Identifier",
+      "name": "BoundElementPropertyAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BoundEventAst": {
+      "class": "Identifier",
+      "name": "BoundEventAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BoundTextAst": {
+      "class": "Identifier",
+      "name": "BoundTextAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DirectiveAst": {
+      "class": "Identifier",
+      "name": "DirectiveAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ElementAst": {
+      "class": "Identifier",
+      "name": "ElementAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ElementProviderUsage": {
+      "class": "Identifier",
+      "name": "ElementProviderUsage",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EmbeddedTemplateAst": {
+      "class": "Identifier",
+      "name": "EmbeddedTemplateAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NgContentAst": {
+      "class": "Identifier",
+      "name": "NgContentAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PropertyBindingType": {
+      "class": "Identifier",
+      "name": "PropertyBindingType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ProviderAst": {
+      "class": "Identifier",
+      "name": "ProviderAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ProviderAstType": {
+      "class": "Identifier",
+      "name": "ProviderAstType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReferenceAst": {
+      "class": "Identifier",
+      "name": "ReferenceAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TemplateAst": {
+      "class": "Identifier",
+      "name": "TemplateAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TemplateAstVisitor": {
+      "class": "Identifier",
+      "name": "TemplateAstVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TextAst": {
+      "class": "Identifier",
+      "name": "TextAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "VariableAst": {
+      "class": "Identifier",
+      "name": "VariableAst",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "templateVisitAll": {
+      "class": "Identifier",
+      "name": "templateVisitAll",
+      "moduleUrl": "asset:angular2/lib/src/compiler/template_ast.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

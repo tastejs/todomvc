@@ -1,0 +1,106 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/constant/value.dart",
+        "5": false
+      }
+    ],
+    "6": "dart_object_utils.dart"
+  },
+  "type": {
+    "RecurseFn": {
+      "class": "Identifier",
+      "name": "RecurseFn",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_findEnumByIndex": {
+      "class": "Identifier",
+      "name": "_findEnumByIndex",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_findEnumByName": {
+      "class": "Identifier",
+      "name": "_findEnumByName",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceBool": {
+      "class": "Identifier",
+      "name": "coerceBool",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceEnum": {
+      "class": "Identifier",
+      "name": "coerceEnum",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceList": {
+      "class": "Identifier",
+      "name": "coerceList",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceMap": {
+      "class": "Identifier",
+      "name": "coerceMap",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceString": {
+      "class": "Identifier",
+      "name": "coerceString",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceStringList": {
+      "class": "Identifier",
+      "name": "coerceStringList",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "coerceStringMap": {
+      "class": "Identifier",
+      "name": "coerceStringMap",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getField": {
+      "class": "Identifier",
+      "name": "getField",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isNull": {
+      "class": "Identifier",
+      "name": "isNull",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "visitAll": {
+      "class": "Identifier",
+      "name": "visitAll",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/dart_object_utils.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

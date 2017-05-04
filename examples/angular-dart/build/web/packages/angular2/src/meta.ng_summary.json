@@ -1,0 +1,17 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "meta/types.dart",
+        "2": [
+          "AngularMetadataTypes",
+          "StaticTypes"
+        ]
+      }
+    ],
+    "6": "meta.dart"
+  },
+  "type": {},
+  "alias": {}
+}

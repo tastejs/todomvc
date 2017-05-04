@@ -1,0 +1,107 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      },
+      {
+        "1": "location_strategy.dart",
+        "2": [
+          "LocationStrategy"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "Location",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "LocationStrategy",
+            "4": "platformStrategy"
+          }
+        ]
+      }
+    ],
+    "6": "location.dart",
+    "7": [
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/facade/async.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "location_strategy.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "Location": {
+      "class": "Type",
+      "name": "Location",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/location/location.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "LocationStrategy",
+              "moduleUrl": "asset:angular2/lib/src/platform/browser/location/location_strategy.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "_stripBaseHref": {
+      "class": "Identifier",
+      "name": "_stripBaseHref",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/location/location.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_stripIndexHtml": {
+      "class": "Identifier",
+      "name": "_stripIndexHtml",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/location/location.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

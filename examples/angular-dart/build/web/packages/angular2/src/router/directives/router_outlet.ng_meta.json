@@ -1,0 +1,247 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive",
+          "Attribute",
+          "ComponentResolver",
+          "ComponentFactory",
+          "ComponentRef",
+          "ViewContainerRef",
+          "OnDestroy",
+          "Output",
+          "Injector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:collection/collection.dart",
+        "2": [
+          "MapEquality"
+        ],
+        "5": false
+      },
+      {
+        "1": "../instruction.dart",
+        "2": [
+          "ComponentInstruction",
+          "RouteParams",
+          "RouteData"
+        ],
+        "5": false
+      },
+      {
+        "1": "../interfaces.dart",
+        "2": [
+          "OnActivate",
+          "CanReuse",
+          "OnReuse",
+          "OnDeactivate",
+          "CanDeactivate"
+        ],
+        "5": false
+      },
+      {
+        "1": "../lifecycle/lifecycle_annotations.dart",
+        "4": "hook_mod",
+        "5": false
+      },
+      {
+        "1": "../lifecycle/route_lifecycle_reflector.dart",
+        "2": [
+          "hasLifecycleHook"
+        ],
+        "5": false
+      },
+      {
+        "1": "../router.dart",
+        "4": "router_mod",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "RouterOutlet",
+        "5": [
+          {
+            "1": "ViewContainerRef",
+            "4": "_viewContainerRef"
+          },
+          {
+            "1": "ComponentResolver",
+            "4": "_loader"
+          },
+          {
+            "1": "router_mod.Router",
+            "4": "_parentRouter"
+          },
+          {
+            "1": "String",
+            "3": [
+              "const Attribute(\"name\")"
+            ],
+            "4": "nameAttr"
+          }
+        ],
+        "6": [
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "router_outlet.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/facade/async.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../instruction.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../interfaces.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "../lifecycle/lifecycle_annotations.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "../lifecycle/route_lifecycle_reflector.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "../router.template.dart",
+        "4": "i6"
+      }
+    ]
+  },
+  "type": {
+    "RouterOutlet": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "router-outlet",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "RouterOutlet",
+        "moduleUrl": "asset:angular2/lib/src/router/directives/router_outlet.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ViewContainerRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ComponentResolver",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/component_resolver.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Router",
+                "moduleUrl": "asset:angular2/lib/src/router/router.dart",
+                "prefix": "router_mod",
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": "name",
+              "identifier": null,
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": true,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {
+        "activateEvents": "activate"
+      },
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

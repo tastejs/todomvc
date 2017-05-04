@@ -1,0 +1,874 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "ng_class.dart",
+        "2": [
+          "NgClass"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_for.dart",
+        "2": [
+          "NgFor"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_if.dart",
+        "2": [
+          "NgIf"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_style.dart",
+        "2": [
+          "NgStyle"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_switch.dart",
+        "2": [
+          "NgSwitch",
+          "NgSwitchWhen",
+          "NgSwitchDefault"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_template_outlet.dart",
+        "2": [
+          "NgTemplateOutlet"
+        ],
+        "5": false
+      }
+    ],
+    "6": "core_directives.dart",
+    "7": [
+      {
+        "1": "ng_class.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "ng_for.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "ng_if.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "ng_style.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "ng_switch.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "ng_template_outlet.template.dart",
+        "4": "i5"
+      }
+    ]
+  },
+  "type": {
+    "CORE_DIRECTIVES": {
+      "class": "Identifier",
+      "name": "CORE_DIRECTIVES",
+      "moduleUrl": "asset:angular2/lib/src/common/directives/core_directives.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgClass",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_class.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgClass",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_class.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ElementRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgFor",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_for.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ViewContainerRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "TemplateRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgFor",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_for.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ViewContainerRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "TemplateRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgIf",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_if.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ViewContainerRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "TemplateRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgIf",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_if.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ViewContainerRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "TemplateRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgTemplateOutlet",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_template_outlet.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ViewContainerRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgTemplateOutlet",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_template_outlet.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ViewContainerRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgStyle",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_style.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgStyle",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_style.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ElementRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgSwitch",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": []
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgSwitch",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgSwitchWhen",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ViewContainerRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "TemplateRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "NgSwitch",
+                      "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": true,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgSwitchWhen",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ViewContainerRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "TemplateRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "NgSwitch",
+                    "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": true,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "NgSwitchDefault",
+              "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ViewContainerRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "TemplateRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "NgSwitch",
+                      "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": true,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "NgSwitchDefault",
+            "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": [
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "ViewContainerRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "TemplateRef",
+                    "moduleUrl": "asset:angular2/lib/src/core/linker/template_ref.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": false,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              },
+              {
+                "token": {
+                  "value": null,
+                  "identifier": {
+                    "class": "Identifier",
+                    "name": "NgSwitch",
+                    "moduleUrl": "asset:angular2/lib/src/common/directives/ng_switch.dart",
+                    "prefix": null,
+                    "value": null
+                  },
+                  "identifierIsInstance": false
+                },
+                "value": null,
+                "isAttribute": false,
+                "isSelf": false,
+                "isHost": true,
+                "isSkipSelf": false,
+                "isOptional": false,
+                "isValue": false
+              }
+            ]
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "CORE_DIRECTIVES": [
+      "NgClass",
+      "NgFor",
+      "NgIf",
+      "NgStyle",
+      "NgSwitch",
+      "NgSwitchDefault",
+      "NgSwitchWhen",
+      "NgTemplateOutlet"
+    ]
+  }
+}

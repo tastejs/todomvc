@@ -1,0 +1,368 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive",
+          "Provider",
+          "ElementRef",
+          "Input",
+          "OnDestroy"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Host",
+          "Optional"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/lang.dart",
+        "2": [
+          "isPrimitive",
+          "looseIdentical"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:func/func.dart",
+        "2": [
+          "Func0",
+          "VoidFunc1"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_value_accessor.dart",
+        "2": [
+          "NG_VALUE_ACCESSOR",
+          "ControlValueAccessor"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "SelectControlValueAccessor",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "_elementRef"
+          }
+        ],
+        "6": [
+          "ControlValueAccessor"
+        ]
+      },
+      {
+        "1": "NgSelectOption",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "_element"
+          },
+          {
+            "1": "SelectControlValueAccessor",
+            "3": [
+              "const Optional()",
+              "const Host()"
+            ],
+            "4": "_select"
+          }
+        ],
+        "6": [
+          "OnDestroy"
+        ]
+      }
+    ],
+    "6": "select_control_value_accessor.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/facade/lang.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "control_value_accessor.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "NgSelectOption": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "option",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "NgSelectOption",
+        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "SelectControlValueAccessor",
+                "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": true,
+            "isSkipSelf": false,
+            "isOptional": true,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "ngValue": "ngValue",
+        "value": "value"
+      },
+      "inputTypes": {
+        "ngValue": " dynamic",
+        "value": " dynamic"
+      },
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1
+      ],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "SELECT_VALUE_ACCESSOR": {
+      "class": "Identifier",
+      "name": "SELECT_VALUE_ACCESSOR",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NG_VALUE_ACCESSOR",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/control_value_accessor.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "SelectControlValueAccessor",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "multi": true,
+          "deps": null
+        }
+      ]
+    },
+    "SelectControlValueAccessor": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "select[ngControl],select[ngFormControl],select[ngModel]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "SelectControlValueAccessor",
+        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {
+        "blur": "touchHandler()",
+        "change": "onChange($event.target.value)"
+      },
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NG_VALUE_ACCESSOR",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/control_value_accessor.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "SelectControlValueAccessor",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "multi": true,
+          "deps": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    },
+    "_buildValueString": {
+      "class": "Identifier",
+      "name": "_buildValueString",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_extractId": {
+      "class": "Identifier",
+      "name": "_extractId",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/select_control_value_accessor.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,52 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/platform/common.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "SpyLocation",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "6": [
+          "Location"
+        ]
+      }
+    ],
+    "6": "location_mock.dart"
+  },
+  "type": {
+    "SpyLocation": {
+      "class": "Type",
+      "name": "SpyLocation",
+      "moduleUrl": "asset:angular2/lib/src/mock/location_mock.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

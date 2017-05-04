@@ -1,0 +1,52 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "meta/types.dart",
+        "2": [
+          "AngularMetadataTypes",
+          "StaticTypes"
+        ]
+      }
+    ],
+    "6": "meta.dart",
+    "7": [
+      {
+        "1": "meta/types.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "AngularMetadataTypes": {
+      "class": "Identifier",
+      "name": "AngularMetadataTypes",
+      "moduleUrl": "asset:angular2/lib/src/meta/types.dart",
+      "prefix": null,
+      "value": null
+    },
+    "StaticTypes": {
+      "class": "Identifier",
+      "name": "StaticTypes",
+      "moduleUrl": "asset:angular2/lib/src/meta/types.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_LibraryStaticTypes": {
+      "class": "Identifier",
+      "name": "_LibraryStaticTypes",
+      "moduleUrl": "asset:angular2/lib/src/meta/types.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_MirrorsStaticTypes": {
+      "class": "Identifier",
+      "name": "_MirrorsStaticTypes",
+      "moduleUrl": "asset:angular2/lib/src/meta/types.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,36 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      }
+    ],
+    "6": "eager_transformer_wrapper.dart"
+  },
+  "type": {
+    "EagerTransformerWrapper": {
+      "class": "Identifier",
+      "name": "EagerTransformerWrapper",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/eager_transformer_wrapper.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_EagerAggregateTransformerWrapper": {
+      "class": "Identifier",
+      "name": "_EagerAggregateTransformerWrapper",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/eager_transformer_wrapper.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_EagerTransformerWrapper": {
+      "class": "Identifier",
+      "name": "_EagerTransformerWrapper",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/eager_transformer_wrapper.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

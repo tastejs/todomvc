@@ -1,0 +1,73 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/platform/common.dart",
+        "2": [
+          "LocationStrategy"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "MockLocationStrategy",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "mock_location_strategy.dart",
+    "7": [
+      {
+        "1": "package:angular2/platform/common.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/facade/async.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "MockLocationStrategy": {
+      "class": "Type",
+      "name": "MockLocationStrategy",
+      "moduleUrl": "asset:angular2/lib/src/mock/mock_location_strategy.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "_MockPopStateEvent": {
+      "class": "Identifier",
+      "name": "_MockPopStateEvent",
+      "moduleUrl": "asset:angular2/lib/src/mock/mock_location_strategy.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

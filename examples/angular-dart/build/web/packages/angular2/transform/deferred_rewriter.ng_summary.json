@@ -1,0 +1,34 @@
+{
+  "ngDeps": {
+    "1": "angular2.transform.deferred_rewriter.dart",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/deferred_rewriter/transformer.dart",
+        "2": [
+          "DeferredRewriter"
+        ],
+        "4": "base",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      }
+    ],
+    "6": "deferred_rewriter.dart"
+  },
+  "type": {
+    "DeferredRewriter": {
+      "class": "Identifier",
+      "name": "DeferredRewriter",
+      "moduleUrl": "asset:angular2/lib/transform/deferred_rewriter.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

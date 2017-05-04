@@ -1,0 +1,28 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "async.dart",
+        "2": [
+          "EventEmitter"
+        ]
+      },
+      {
+        "1": "exception_handler.dart",
+        "2": [
+          "ExceptionHandler"
+        ]
+      },
+      {
+        "1": "exceptions.dart",
+        "2": [
+          "WrappedException"
+        ]
+      }
+    ],
+    "6": "facade.dart"
+  },
+  "type": {},
+  "alias": {}
+}

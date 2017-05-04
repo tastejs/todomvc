@@ -1,0 +1,42 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "OpaqueToken"
+        ],
+        "5": false
+      }
+    ],
+    "6": "location_strategy.dart",
+    "7": [
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "APP_BASE_HREF": {
+      "class": "Identifier",
+      "name": "APP_BASE_HREF",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/location/location_strategy.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LocationStrategy": {
+      "class": "Identifier",
+      "name": "LocationStrategy",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/location/location_strategy.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

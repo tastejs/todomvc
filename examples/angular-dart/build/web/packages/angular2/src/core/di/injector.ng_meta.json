@@ -1,0 +1,50 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:meta/meta.dart",
+        "5": false
+      }
+    ],
+    "6": "injector.dart"
+  },
+  "type": {
+    "Injector": {
+      "class": "Identifier",
+      "name": "Injector",
+      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MissingProviderError": {
+      "class": "Identifier",
+      "name": "MissingProviderError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "THROW_IF_NOT_FOUND": {
+      "class": "Identifier",
+      "name": "THROW_IF_NOT_FOUND",
+      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_EmptyInjector": {
+      "class": "Identifier",
+      "name": "_EmptyInjector",
+      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_MapInjector": {
+      "class": "Identifier",
+      "name": "_MapInjector",
+      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

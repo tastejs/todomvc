@@ -1,0 +1,13 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "package:angular2/src/core/di/decorators.dart"
+      }
+    ],
+    "6": "di.dart"
+  },
+  "type": {},
+  "alias": {}
+}

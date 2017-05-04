@@ -1,0 +1,28 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "types.dart",
+        "5": false
+      }
+    ],
+    "6": "platform_reflection_capabilities.dart",
+    "7": [
+      {
+        "1": "types.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "PlatformReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "PlatformReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/platform_reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

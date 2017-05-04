@@ -1,0 +1,101 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompileQueryMetadata",
+          "CompileTokenMap"
+        ],
+        "5": false
+      },
+      {
+        "1": "../identifiers.dart",
+        "2": [
+          "Identifiers"
+        ],
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "compile_element.dart",
+        "2": [
+          "CompileElement"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_method.dart",
+        "2": [
+          "CompileMethod"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_view.dart",
+        "2": [
+          "CompileView"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_compiler_utils.dart",
+        "2": [
+          "getPropertyInView"
+        ],
+        "5": false
+      }
+    ],
+    "6": "compile_query.dart"
+  },
+  "type": {
+    "CompileQuery": {
+      "class": "Identifier",
+      "name": "CompileQuery",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_query.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ViewQueryValues": {
+      "class": "Identifier",
+      "name": "ViewQueryValues",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_query.dart",
+      "prefix": null,
+      "value": null
+    },
+    "addQueryToTokenMap": {
+      "class": "Identifier",
+      "name": "addQueryToTokenMap",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_query.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createQueryListField": {
+      "class": "Identifier",
+      "name": "createQueryListField",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_query.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createQueryValues": {
+      "class": "Identifier",
+      "name": "createQueryValues",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_query.dart",
+      "prefix": null,
+      "value": null
+    },
+    "mapNestedViews": {
+      "class": "Identifier",
+      "name": "mapNestedViews",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_query.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

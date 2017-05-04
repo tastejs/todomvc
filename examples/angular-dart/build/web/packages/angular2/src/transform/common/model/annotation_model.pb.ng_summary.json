@@ -1,0 +1,57 @@
+{
+  "ngDeps": {
+    "1": "angular2.src.transform.common.model.proto_annotation_model",
+    "3": [
+      {
+        "1": "package:protobuf/protobuf.dart",
+        "5": false
+      }
+    ],
+    "6": "annotation_model.pb.dart"
+  },
+  "type": {
+    "AnnotationModel": {
+      "class": "Identifier",
+      "name": "AnnotationModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/annotation_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AnnotationModel$json": {
+      "class": "Identifier",
+      "name": "AnnotationModel$json",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/annotation_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NamedParameter": {
+      "class": "Identifier",
+      "name": "NamedParameter",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/annotation_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NamedParameter$json": {
+      "class": "Identifier",
+      "name": "NamedParameter$json",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/annotation_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReadonlyAnnotationModel": {
+      "class": "Identifier",
+      "name": "_ReadonlyAnnotationModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/annotation_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReadonlyNamedParameter": {
+      "class": "Identifier",
+      "name": "_ReadonlyNamedParameter",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/annotation_model.pb.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

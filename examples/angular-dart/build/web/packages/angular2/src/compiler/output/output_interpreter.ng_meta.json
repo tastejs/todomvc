@@ -1,0 +1,234 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/common/directives/ng_for.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/common/directives/ng_if.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/identifiers.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker.dart",
+        "2": [
+          "QueryList"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view_utils.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/template_ref.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/view_container.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/view_container_ref.dart",
+        "2": [
+          "ViewContainerRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "2": [
+          "reflector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/debug/debug_app_view.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/debug/debug_context.dart",
+        "2": [
+          "StaticNodeDebugInfo",
+          "DebugContext"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "dart_emitter.dart",
+        "2": [
+          "debugOutputAstAsDart"
+        ],
+        "5": false
+      },
+      {
+        "1": "dynamic_instance.dart",
+        "5": false
+      },
+      {
+        "1": "output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view_utils.dart",
+        "4": "appviewutils",
+        "5": false
+      }
+    ],
+    "6": "output_interpreter.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/common/directives/ng_for.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/common/directives/ng_if.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/compiler/identifiers.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/core/linker.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view_utils.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "package:angular2/src/core/linker/template_ref.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "package:angular2/src/core/linker/view_container.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "package:angular2/src/core/linker/view_container_ref.template.dart",
+        "4": "i9"
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.template.dart",
+        "4": "i10"
+      },
+      {
+        "1": "package:angular2/src/debug/debug_app_view.template.dart",
+        "4": "i11"
+      },
+      {
+        "1": "package:angular2/src/debug/debug_context.template.dart",
+        "4": "i12"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i13"
+      },
+      {
+        "1": "dart_emitter.template.dart",
+        "4": "i14"
+      },
+      {
+        "1": "dynamic_instance.template.dart",
+        "4": "i15"
+      },
+      {
+        "1": "output_ast.template.dart",
+        "4": "i16"
+      }
+    ]
+  },
+  "type": {
+    "ReturnValue": {
+      "class": "Identifier",
+      "name": "ReturnValue",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "StatementInterpreter": {
+      "class": "Identifier",
+      "name": "StatementInterpreter",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_DynamicClass": {
+      "class": "Identifier",
+      "name": "_DynamicClass",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ExecutionContext": {
+      "class": "Identifier",
+      "name": "_ExecutionContext",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_declareFn": {
+      "class": "Identifier",
+      "name": "_declareFn",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_executeFunctionStatements": {
+      "class": "Identifier",
+      "name": "_executeFunctionStatements",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_initializeInterpreter": {
+      "class": "Identifier",
+      "name": "_initializeInterpreter",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "interpretStatements": {
+      "class": "Identifier",
+      "name": "interpretStatements",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/output_interpreter.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

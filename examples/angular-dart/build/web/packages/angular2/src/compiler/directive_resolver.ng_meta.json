@@ -1,0 +1,116 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "2": [
+          "Reflector",
+          "reflector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "DirectiveResolver",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "Reflector",
+            "4": "_reflector"
+          }
+        ]
+      }
+    ],
+    "6": "directive_resolver.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/metadata.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "DirectiveResolver": {
+      "class": "Type",
+      "name": "DirectiveResolver",
+      "moduleUrl": "asset:angular2/lib/src/compiler/directive_resolver.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Reflector",
+              "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "NoDirectiveAnnotationError": {
+      "class": "Identifier",
+      "name": "NoDirectiveAnnotationError",
+      "moduleUrl": "asset:angular2/lib/src/compiler/directive_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_isDirectiveMetadata": {
+      "class": "Identifier",
+      "name": "_isDirectiveMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/directive_resolver.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

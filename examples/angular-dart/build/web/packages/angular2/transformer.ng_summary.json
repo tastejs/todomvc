@@ -1,0 +1,13 @@
+{
+  "ngDeps": {
+    "1": "angular2.transformer_dart",
+    "4": [
+      {
+        "1": "src/transform/transformer.dart"
+      }
+    ],
+    "6": "transformer.dart"
+  },
+  "type": {},
+  "alias": {}
+}

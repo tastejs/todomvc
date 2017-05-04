@@ -1,0 +1,134 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/compiler.dart",
+        "2": [
+          "DirectiveResolver",
+          "ViewResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "ComponentRef",
+          "DynamicComponentLoader",
+          "Injector",
+          "View",
+          "ElementRef",
+          "ChangeDetectorRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/common_dom.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view_utils.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/debug/debug_node.dart",
+        "2": [
+          "DebugElement",
+          "getDebugNode"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/platform/dom/dom_tokens.dart",
+        "2": [
+          "DOCUMENT"
+        ],
+        "5": false
+      },
+      {
+        "1": "fake_async.dart",
+        "2": [
+          "tick"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/platform/dom/shared_styles_host.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "TestComponentBuilder",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "Injector",
+            "4": "_injector"
+          }
+        ]
+      }
+    ],
+    "6": "test_component_builder.dart"
+  },
+  "type": {
+    "ComponentFixture": {
+      "class": "Identifier",
+      "name": "ComponentFixture",
+      "moduleUrl": "asset:angular2/lib/src/testing/test_component_builder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TestComponentBuilder": {
+      "class": "Type",
+      "name": "TestComponentBuilder",
+      "moduleUrl": "asset:angular2/lib/src/testing/test_component_builder.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Injector",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

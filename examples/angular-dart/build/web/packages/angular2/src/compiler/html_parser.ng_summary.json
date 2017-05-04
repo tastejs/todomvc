@@ -1,0 +1,106 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:source_span/source_span.dart",
+        "5": false
+      },
+      {
+        "1": "html_ast.dart",
+        "5": false
+      },
+      {
+        "1": "html_lexer.dart",
+        "2": [
+          "HtmlToken",
+          "HtmlTokenType",
+          "tokenizeHtml"
+        ],
+        "5": false
+      },
+      {
+        "1": "html_tags.dart",
+        "2": [
+          "getHtmlTagDefinition",
+          "getNsPrefix",
+          "mergeNsAndName"
+        ],
+        "5": false
+      },
+      {
+        "1": "parse_util.dart",
+        "2": [
+          "ParseError"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "HtmlParser",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "html_parser.dart"
+  },
+  "type": {
+    "HtmlParseTreeResult": {
+      "class": "Identifier",
+      "name": "HtmlParseTreeResult",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HtmlParser": {
+      "class": "Type",
+      "name": "HtmlParser",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_parser.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "HtmlTreeBuilder": {
+      "class": "Identifier",
+      "name": "HtmlTreeBuilder",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HtmlTreeError": {
+      "class": "Identifier",
+      "name": "HtmlTreeError",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getElementFullName": {
+      "class": "Identifier",
+      "name": "getElementFullName",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "lastOnStack": {
+      "class": "Identifier",
+      "name": "lastOnStack",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_parser.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

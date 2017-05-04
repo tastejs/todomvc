@@ -1,0 +1,62 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "src/core/reflection/reflection.dart",
+        "5": false
+      },
+      {
+        "1": "src/core/reflection/reflection_capabilities.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "src/compiler/xhr.dart",
+        "2": [
+          "XHR"
+        ]
+      }
+    ],
+    "6": "reflection.dart",
+    "7": [
+      {
+        "1": "src/core/reflection/reflection.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "src/core/reflection/reflection_capabilities.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "src/compiler/xhr.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "XHR": {
+      "class": "Identifier",
+      "name": "XHR",
+      "moduleUrl": "asset:angular2/lib/src/compiler/xhr.dart",
+      "prefix": null,
+      "value": null
+    },
+    "allowRuntimeReflection": {
+      "class": "Identifier",
+      "name": "allowRuntimeReflection",
+      "moduleUrl": "asset:angular2/lib/reflection.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isReflectionEnabled": {
+      "class": "Identifier",
+      "name": "isReflectionEnabled",
+      "moduleUrl": "asset:angular2/lib/reflection.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

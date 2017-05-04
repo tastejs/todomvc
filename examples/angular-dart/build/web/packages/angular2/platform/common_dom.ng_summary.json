@@ -1,0 +1,28 @@
+{
+  "ngDeps": {
+    "1": "angular2.platform.common_dom",
+    "4": [
+      {
+        "1": "package:angular2/src/core/render/api.dart",
+        "2": [
+          "sharedStylesHost"
+        ]
+      },
+      {
+        "1": "package:angular2/src/platform/dom/dom_tokens.dart",
+        "2": [
+          "DOCUMENT"
+        ]
+      },
+      {
+        "1": "package:angular2/src/platform/dom/events/event_manager.dart",
+        "2": [
+          "EventManagerPlugin"
+        ]
+      }
+    ],
+    "6": "common_dom.dart"
+  },
+  "type": {},
+  "alias": {}
+}

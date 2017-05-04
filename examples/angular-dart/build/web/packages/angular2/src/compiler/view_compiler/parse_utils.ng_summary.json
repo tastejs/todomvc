@@ -1,0 +1,47 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../expression_parser/ast.dart",
+        "2": [
+          "AST",
+          "ASTWithSource",
+          "ImplicitReceiver",
+          "MethodCall",
+          "PropertyRead"
+        ],
+        "5": false
+      },
+      {
+        "1": "constants.dart",
+        "5": false
+      }
+    ],
+    "6": "parse_utils.dart"
+  },
+  "type": {
+    "HandlerType": {
+      "class": "Identifier",
+      "name": "HandlerType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/parse_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "handlerTypeFromExpression": {
+      "class": "Identifier",
+      "name": "handlerTypeFromExpression",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/parse_utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "sanitizeEventName": {
+      "class": "Identifier",
+      "name": "sanitizeEventName",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/parse_utils.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

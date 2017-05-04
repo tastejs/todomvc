@@ -1,0 +1,70 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/zone/ng_zone.dart",
+        "2": [
+          "NgZone"
+        ],
+        "5": false
+      },
+      {
+        "1": "event_manager.dart",
+        "2": [
+          "EventManagerPlugin"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "KeyEventsPlugin",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "key_events.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/zone/ng_zone.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "event_manager.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "KeyEventsPlugin": {
+      "class": "Type",
+      "name": "KeyEventsPlugin",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/key_events.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,97 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/analyzer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/mirror_matcher.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/import_export_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      }
+    ],
+    "6": "import_export_code.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/transform/common/mirror_matcher.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/import_export_model.pb.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "ExportVisitor": {
+      "class": "Identifier",
+      "name": "ExportVisitor",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExportWriterMixin": {
+      "class": "Identifier",
+      "name": "ExportWriterMixin",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ImportVisitor": {
+      "class": "Identifier",
+      "name": "ImportVisitor",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ImportWriterMixin": {
+      "class": "Identifier",
+      "name": "ImportWriterMixin",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_mirrorMatcher": {
+      "class": "Identifier",
+      "name": "_mirrorMatcher",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_populateCombinators": {
+      "class": "Identifier",
+      "name": "_populateCombinators",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_updateIfBootstrap": {
+      "class": "Identifier",
+      "name": "_updateIfBootstrap",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_writeCombinators": {
+      "class": "Identifier",
+      "name": "_writeCombinators",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/import_export_code.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

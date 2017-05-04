@@ -1,0 +1,41 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "exception_handler.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "exception_handler.dart"
+      }
+    ],
+    "6": "exceptions.dart"
+  },
+  "type": {
+    "BaseException": {
+      "class": "Identifier",
+      "name": "BaseException",
+      "moduleUrl": "asset:angular2/lib/src/facade/exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WrappedException": {
+      "class": "Identifier",
+      "name": "WrappedException",
+      "moduleUrl": "asset:angular2/lib/src/facade/exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "makeTypeError": {
+      "class": "Identifier",
+      "name": "makeTypeError",
+      "moduleUrl": "asset:angular2/lib/src/facade/exceptions.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

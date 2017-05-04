@@ -1,0 +1,131 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/common.dart",
+        "2": [
+          "Location"
+        ],
+        "5": false
+      },
+      {
+        "1": "../instruction.dart",
+        "2": [
+          "Instruction"
+        ],
+        "5": false
+      },
+      {
+        "1": "../router.dart",
+        "2": [
+          "Router"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "RouterLink",
+        "5": [
+          {
+            "1": "Router",
+            "4": "_router"
+          },
+          {
+            "1": "Location",
+            "4": "_location"
+          }
+        ]
+      }
+    ],
+    "6": "router_link.dart"
+  },
+  "type": {
+    "RouterLink": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[routerLink]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "RouterLink",
+        "moduleUrl": "asset:angular2/lib/src/router/directives/router_link.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Router",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Location",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "routeParams": "routerLink",
+        "target": "target"
+      },
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {
+        "click": "onClick($event.button, $event.ctrlKey, $event.metaKey)"
+      },
+      "hostProperties": {
+        "class.router-link-active": "isRouteActive",
+        "attr.href": "visibleHref"
+      },
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

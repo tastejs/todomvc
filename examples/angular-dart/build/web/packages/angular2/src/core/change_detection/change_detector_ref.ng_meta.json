@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "ChangeDetectorRef": {
+      "class": "Identifier",
+      "name": "ChangeDetectorRef",
+      "moduleUrl": "asset:angular2/lib/src/core/change_detection/change_detector_ref.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

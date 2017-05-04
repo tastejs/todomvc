@@ -1,0 +1,143 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "dart:js",
+        "4": "js",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable",
+          "Inject",
+          "OpaqueToken"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "./hammer_common.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "HammerGestureConfig",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      },
+      {
+        "1": "HammerGesturesPlugin",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "HammerGestureConfig",
+            "3": [
+              "const Inject(HAMMER_GESTURE_CONFIG)"
+            ],
+            "4": "_config"
+          }
+        ]
+      }
+    ],
+    "6": "hammer_gestures.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "./hammer_common.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "HAMMER_GESTURE_CONFIG": {
+      "class": "Identifier",
+      "name": "HAMMER_GESTURE_CONFIG",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/hammer_gestures.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HammerEvent": {
+      "class": "Identifier",
+      "name": "HammerEvent",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/hammer_gestures.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HammerGestureConfig": {
+      "class": "Type",
+      "name": "HammerGestureConfig",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/hammer_gestures.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "HammerGesturesPlugin": {
+      "class": "Type",
+      "name": "HammerGesturesPlugin",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/hammer_gestures.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "HAMMER_GESTURE_CONFIG",
+              "moduleUrl": "asset:angular2/lib/src/platform/dom/events/hammer_gestures.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "overrideDefault": {
+      "class": "Identifier",
+      "name": "overrideDefault",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/hammer_gestures.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

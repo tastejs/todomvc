@@ -1,0 +1,20 @@
+{
+  "ngDeps": null,
+  "type": {
+    "KeyRegistry": {
+      "class": "Identifier",
+      "name": "KeyRegistry",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_key.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReflectiveKey": {
+      "class": "Identifier",
+      "name": "ReflectiveKey",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_key.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

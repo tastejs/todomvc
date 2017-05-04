@@ -1,0 +1,58 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/code_builder.dart",
+        "5": false
+      },
+      {
+        "1": "package:quiver/iterables.dart",
+        "5": false
+      }
+    ],
+    "6": "namespace_model.dart"
+  },
+  "type": {
+    "ExportModel": {
+      "class": "Identifier",
+      "name": "ExportModel",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/namespace_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ImportModel": {
+      "class": "Identifier",
+      "name": "ImportModel",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/namespace_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_NamespaceModel": {
+      "class": "Identifier",
+      "name": "_NamespaceModel",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/namespace_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_hideCombinators": {
+      "class": "Identifier",
+      "name": "_hideCombinators",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/namespace_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_showCombinators": {
+      "class": "Identifier",
+      "name": "_showCombinators",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/namespace_model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

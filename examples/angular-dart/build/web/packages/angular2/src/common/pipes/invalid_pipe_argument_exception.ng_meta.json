@@ -1,0 +1,31 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      }
+    ],
+    "6": "invalid_pipe_argument_exception.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "InvalidPipeArgumentException": {
+      "class": "Identifier",
+      "name": "InvalidPipeArgumentException",
+      "moduleUrl": "asset:angular2/lib/src/common/pipes/invalid_pipe_argument_exception.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

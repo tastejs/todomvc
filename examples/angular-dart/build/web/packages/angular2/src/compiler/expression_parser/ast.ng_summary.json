@@ -1,0 +1,188 @@
+{
+  "ngDeps": null,
+  "type": {
+    "AST": {
+      "class": "Identifier",
+      "name": "AST",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ASTWithSource": {
+      "class": "Identifier",
+      "name": "ASTWithSource",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AstTransformer": {
+      "class": "Identifier",
+      "name": "AstTransformer",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AstVisitor": {
+      "class": "Identifier",
+      "name": "AstVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Binary": {
+      "class": "Identifier",
+      "name": "Binary",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BindingPipe": {
+      "class": "Identifier",
+      "name": "BindingPipe",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Chain": {
+      "class": "Identifier",
+      "name": "Chain",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Conditional": {
+      "class": "Identifier",
+      "name": "Conditional",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EmptyExpr": {
+      "class": "Identifier",
+      "name": "EmptyExpr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "FunctionCall": {
+      "class": "Identifier",
+      "name": "FunctionCall",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "IfNull": {
+      "class": "Identifier",
+      "name": "IfNull",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ImplicitReceiver": {
+      "class": "Identifier",
+      "name": "ImplicitReceiver",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Interpolation": {
+      "class": "Identifier",
+      "name": "Interpolation",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "KeyedRead": {
+      "class": "Identifier",
+      "name": "KeyedRead",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "KeyedWrite": {
+      "class": "Identifier",
+      "name": "KeyedWrite",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LiteralArray": {
+      "class": "Identifier",
+      "name": "LiteralArray",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LiteralMap": {
+      "class": "Identifier",
+      "name": "LiteralMap",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LiteralPrimitive": {
+      "class": "Identifier",
+      "name": "LiteralPrimitive",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MethodCall": {
+      "class": "Identifier",
+      "name": "MethodCall",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PrefixNot": {
+      "class": "Identifier",
+      "name": "PrefixNot",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PropertyRead": {
+      "class": "Identifier",
+      "name": "PropertyRead",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PropertyWrite": {
+      "class": "Identifier",
+      "name": "PropertyWrite",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RecursiveAstVisitor": {
+      "class": "Identifier",
+      "name": "RecursiveAstVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafeMethodCall": {
+      "class": "Identifier",
+      "name": "SafeMethodCall",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SafePropertyRead": {
+      "class": "Identifier",
+      "name": "SafePropertyRead",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TemplateBinding": {
+      "class": "Identifier",
+      "name": "TemplateBinding",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/ast.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,56 @@
+{
+  "ngDeps": {
+    "1": "angular2.transform.reflection_remover.dart",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/reflection_remover/transformer.dart",
+        "2": [
+          "ReflectionRemover"
+        ],
+        "4": "base",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      }
+    ],
+    "6": "reflection_remover.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/transform/common/options.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/transform/common/options_reader.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/transform/reflection_remover/transformer.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "ReflectionRemover": {
+      "class": "Identifier",
+      "name": "ReflectionRemover",
+      "moduleUrl": "asset:angular2/lib/transform/reflection_remover.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

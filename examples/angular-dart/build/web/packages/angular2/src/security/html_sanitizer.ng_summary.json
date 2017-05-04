@@ -1,0 +1,34 @@
+{
+  "ngDeps": null,
+  "type": {
+    "_getInertElement": {
+      "class": "Identifier",
+      "name": "_getInertElement",
+      "moduleUrl": "asset:angular2/lib/src/security/html_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "mXSSProtection": {
+      "class": "Identifier",
+      "name": "mXSSProtection",
+      "moduleUrl": "asset:angular2/lib/src/security/html_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "sanitizeHtmlInternal": {
+      "class": "Identifier",
+      "name": "sanitizeHtmlInternal",
+      "moduleUrl": "asset:angular2/lib/src/security/html_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "stripCustomNsAttrs": {
+      "class": "Identifier",
+      "name": "stripCustomNsAttrs",
+      "moduleUrl": "asset:angular2/lib/src/security/html_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

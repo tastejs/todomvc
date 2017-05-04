@@ -1,0 +1,48 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/type.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/src/dart/resolver/scope.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/code_builder.dart",
+        "5": false
+      }
+    ],
+    "6": "references.dart"
+  },
+  "type": {
+    "_coerceTypeArgs": {
+      "class": "Identifier",
+      "name": "_coerceTypeArgs",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/references.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_importFrom": {
+      "class": "Identifier",
+      "name": "_importFrom",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/references.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toBuilder": {
+      "class": "Identifier",
+      "name": "toBuilder",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/references.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

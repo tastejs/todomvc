@@ -1,0 +1,54 @@
+{
+  "ngDeps": {
+    "1": "angular2.src.transform.common.model.proto_ng_deps_model",
+    "3": [
+      {
+        "1": "package:protobuf/protobuf.dart",
+        "5": false
+      },
+      {
+        "1": "import_export_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "reflection_info_model.pb.dart",
+        "5": false
+      }
+    ],
+    "6": "ng_deps_model.pb.dart",
+    "7": [
+      {
+        "1": "import_export_model.pb.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "reflection_info_model.pb.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "NgDepsModel": {
+      "class": "Identifier",
+      "name": "NgDepsModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/ng_deps_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NgDepsModel$json": {
+      "class": "Identifier",
+      "name": "NgDepsModel$json",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/ng_deps_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReadonlyNgDepsModel": {
+      "class": "Identifier",
+      "name": "_ReadonlyNgDepsModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/ng_deps_model.pb.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

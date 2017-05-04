@@ -1,0 +1,44 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/platform/browser_static.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/app/app.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/footer_info.dart",
+        "5": false
+      }
+    ],
+    "6": "main.dart",
+    "7": [
+      {
+        "1": "package:angular2/platform/browser_static.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/app/app.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/footer_info.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "main": {
+      "class": "Identifier",
+      "name": "main",
+      "moduleUrl": "asset:angular_dart_todomvc/web/main.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

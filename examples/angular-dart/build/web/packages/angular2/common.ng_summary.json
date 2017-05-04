@@ -1,0 +1,22 @@
+{
+  "ngDeps": {
+    "1": "angular2.common",
+    "4": [
+      {
+        "1": "src/common/common_directives.dart"
+      },
+      {
+        "1": "src/common/directives.dart"
+      },
+      {
+        "1": "src/common/forms.dart"
+      },
+      {
+        "1": "src/common/pipes.dart"
+      }
+    ],
+    "6": "common.dart"
+  },
+  "type": {},
+  "alias": {}
+}

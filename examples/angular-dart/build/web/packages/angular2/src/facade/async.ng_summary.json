@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "EventEmitter": {
+      "class": "Identifier",
+      "name": "EventEmitter",
+      "moduleUrl": "asset:angular2/lib/src/facade/async.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

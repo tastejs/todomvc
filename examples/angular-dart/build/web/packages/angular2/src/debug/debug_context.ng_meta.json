@@ -1,0 +1,59 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/render/api.dart",
+        "2": [
+          "RenderDebugInfo"
+        ],
+        "5": false
+      },
+      {
+        "1": "debug_app_view.dart",
+        "5": false
+      }
+    ],
+    "6": "debug_context.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/render/api.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "debug_app_view.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "DebugContext": {
+      "class": "Identifier",
+      "name": "DebugContext",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_context.dart",
+      "prefix": null,
+      "value": null
+    },
+    "StaticNodeDebugInfo": {
+      "class": "Identifier",
+      "name": "StaticNodeDebugInfo",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_context.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {
+    "_EMPTY_DEBUG_PROVIDERS": []
+  }
+}

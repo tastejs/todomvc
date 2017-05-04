@@ -1,0 +1,63 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/code_builder.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/dart/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:quiver/iterables.dart",
+        "5": false
+      },
+      {
+        "1": "namespace_model.dart",
+        "5": false
+      },
+      {
+        "1": "reflection_info_model.dart",
+        "5": false
+      }
+    ],
+    "6": "ng_deps_model.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/transform/common/names.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "namespace_model.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "reflection_info_model.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "NgDepsModel": {
+      "class": "Identifier",
+      "name": "NgDepsModel",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/ng_deps_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_visited": {
+      "class": "Identifier",
+      "name": "_visited",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/ng_deps_model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

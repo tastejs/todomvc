@@ -1,0 +1,60 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/analyzer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/annotation_matcher.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/reflection_info_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "2": [
+          "AssetId"
+        ],
+        "5": false
+      },
+      {
+        "1": "annotation_code.dart",
+        "5": false
+      },
+      {
+        "1": "parameter_code.dart",
+        "5": false
+      }
+    ],
+    "6": "reflection_info_code.dart"
+  },
+  "type": {
+    "ReflectionInfoVisitor": {
+      "class": "Identifier",
+      "name": "ReflectionInfoVisitor",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/reflection_info_code.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReflectionWriterMixin": {
+      "class": "Identifier",
+      "name": "ReflectionWriterMixin",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/code/reflection_info_code.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

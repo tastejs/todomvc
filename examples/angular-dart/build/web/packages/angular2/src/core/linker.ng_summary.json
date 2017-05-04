@@ -1,0 +1,66 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "linker/component_factory.dart",
+        "2": [
+          "ComponentRef",
+          "ComponentFactory"
+        ]
+      },
+      {
+        "1": "linker/component_resolver.dart",
+        "2": [
+          "ComponentResolver"
+        ]
+      },
+      {
+        "1": "linker/dynamic_component_loader.dart",
+        "2": [
+          "DynamicComponentLoader"
+        ]
+      },
+      {
+        "1": "linker/element_ref.dart",
+        "2": [
+          "ElementRef"
+        ]
+      },
+      {
+        "1": "linker/exceptions.dart",
+        "2": [
+          "ExpressionChangedAfterItHasBeenCheckedException"
+        ]
+      },
+      {
+        "1": "linker/query_list.dart",
+        "2": [
+          "QueryList"
+        ]
+      },
+      {
+        "1": "linker/template_ref.dart",
+        "2": [
+          "TemplateRef"
+        ]
+      },
+      {
+        "1": "linker/view_container_ref.dart",
+        "2": [
+          "ViewContainerRef"
+        ]
+      },
+      {
+        "1": "linker/view_ref.dart",
+        "2": [
+          "EmbeddedViewRef",
+          "ViewRef"
+        ]
+      }
+    ],
+    "6": "linker.dart"
+  },
+  "type": {},
+  "alias": {}
+}

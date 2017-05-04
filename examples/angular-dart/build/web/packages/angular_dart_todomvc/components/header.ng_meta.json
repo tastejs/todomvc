@@ -1,0 +1,104 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/models/item.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/services/todos.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "TodoMvcHeader",
+        "5": [
+          {
+            "1": "TodosService",
+            "4": "_todos"
+          }
+        ]
+      }
+    ],
+    "6": "header.dart",
+    "7": [
+      {
+        "1": "package:angular2/angular2.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular_dart_todomvc/models/item.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular_dart_todomvc/services/todos.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "TodoMvcHeader": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "todomvc-header",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "TodoMvcHeader",
+        "moduleUrl": "asset:angular_dart_todomvc/lib/components/header.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "TodosService",
+                "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<header id=\"header\">\n    <h1>todos</h1>\n    <input type=\"text\" id=\"new-todo\" placeholder=\"What needs to be done?\" [(ngModel)]=\"newItem.title\" autofocus (keyup.enter)=\"add()\">\n</header>\n    ",
+        "templateUrl": "asset:angular_dart_todomvc/lib/components/header.dart",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

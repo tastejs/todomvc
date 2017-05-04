@@ -1,0 +1,53 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/ast/ast.dart",
+        "5": false
+      },
+      {
+        "1": "names.dart",
+        "5": false
+      }
+    ],
+    "6": "mirror_matcher.dart",
+    "7": [
+      {
+        "1": "names.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "BOOTSTRAP_STATIC_URI": {
+      "class": "Identifier",
+      "name": "BOOTSTRAP_STATIC_URI",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/mirror_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MirrorMatcher": {
+      "class": "Identifier",
+      "name": "MirrorMatcher",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/mirror_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_BOOTSTRAP_URI": {
+      "class": "Identifier",
+      "name": "_BOOTSTRAP_URI",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/mirror_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_REFLECTION_CAPABILITIES_URI": {
+      "class": "Identifier",
+      "name": "_REFLECTION_CAPABILITIES_URI",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/mirror_matcher.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

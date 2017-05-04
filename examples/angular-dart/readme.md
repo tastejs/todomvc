@@ -1,13 +1,12 @@
 # AngularDart TodoMVC Example
 
-> AngularDart is heavily inspired by AngularJS and is supercharged for Dart.
-> Core Angular features such as directives, data binding, and dependency
-> injection, are all there, and they've taken advantage of Dart's features
-> like metadata, types, and classes to feel natural for Dart developers.
-> AngularDart is also the first version of Angular to be built on emerging
-> web standards like Shadow DOM.
+> AngularDart
+> —also called Angular 2 for Dart or simply Angular—
+> is a web app framework that focuses on productivity, performance, and stability. 
+> Hundreds of Google engineers use AngularDart to build the sophisticated, 
+> mission-critical apps that bring in much of Google’s revenue.
 
-_[AngularDart](http://news.dartlang.org/2013/11/angular-announces-angulardart.html)_
+_[AngularDart](https://webdev.dartlang.org/angular)_
 
 ## Learning Dart
 
@@ -15,19 +14,17 @@ The [Dart website](http://www.dartlang.org) is a great resource for getting star
 
 Here are some links you may find helpful:
 
-* [Documentation](http://www.dartlang.org/docs/technical-overview)
-* [API Reference](http://api.dartlang.org/docs/releases/latest)
-* [A Tour of the Dart Language](http://www.dartlang.org/docs/dart-up-and-running/contents/ch02.html)
+* [Get Started](https://www.dartlang.org/guides/get-started)
+* [API Reference](https://www.dartlang.org/guides/libraries)
+* [A Tour of the Dart Language](https://www.dartlang.org/guides/language/language-tour)
 * [Articles](http://www.dartlang.org/articles)
 * [Tutorials](http://www.dartlang.org/docs/tutorials)
 * [FAQ](http://www.dartlang.org/support/faq.html)
-
-Articles and guides from the community:
-
-* [Getting started with Google Dart](http://www.techrepublic.com/blog/webmaster/getting-started-with-google-dart/931)
+* [Getting started with Angular Dart](https://webdev.dartlang.org/guides/get-started)
 
 Get help from other Dart users:
 
+* [Dart on Gitter](https://gitter.im/dart-lang/TALK-general)
 * [Dart on StackOverflow](http://stackoverflow.com/questions/tagged/dart)
 * [Dart on Twitter](http://twitter.com/dart_lang)
 * [Dart on Google +](https://plus.google.com/+dartlang/posts)
@@ -42,18 +39,16 @@ run in its own virtual machine.
 Both Dart files and JS compilation result are provided in this sample,
 therefore it actually works in any browser.
 
-To edit and debug the code, you can use Dart Editor. The editor ships with the
-[SDK](http://dartlang.org) and [Dartium](http://www.dartlang.org/dartium/), a
-dedicated version of Chromium with an embedded Dart VM.
-
-If you would like to edit the code without an IDE you must install Dart and run `pub get` to install the dependencies from the project root.
+Run the `pub get` command first.
+To edit and debug the code, you can use Webstorm, or any editor with the dart [plugin](https://www.dartlang.org/tools).
+Then use the `pub serve` command to launch the development server.
 
 ## Compiling
 
 ```
-dart2js web/main.dart -o web/main.js
+pub build
 ```
 
 The dart2js compilator can be found in the SDK.
 
-The currently provided JS is minified (dart2js [...] --minify).
+The currently provided JS is minified (see `pubspec.yaml` file).

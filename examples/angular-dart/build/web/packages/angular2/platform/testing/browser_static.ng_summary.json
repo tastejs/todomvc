@@ -1,0 +1,412 @@
+{
+  "ngDeps": {
+    "1": "angular2.platform.testing.browser_static",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/compiler.dart",
+        "2": [
+          "DirectiveResolver",
+          "ViewResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/compiler.dart",
+        "2": [
+          "XHR"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "APP_ID",
+          "NgZone",
+          "Provider",
+          "PLATFORM_COMMON_PROVIDERS",
+          "PLATFORM_INITIALIZER"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/common.dart",
+        "2": [
+          "LocationStrategy"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view_utils.dart",
+        "2": [
+          "AppViewUtils"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/mock/directive_resolver_mock.dart",
+        "2": [
+          "MockDirectiveResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/mock/mock_location_strategy.dart",
+        "2": [
+          "MockLocationStrategy"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/mock/ng_zone_mock.dart",
+        "2": [
+          "MockNgZone"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/mock/view_resolver_mock.dart",
+        "2": [
+          "MockViewResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/platform/browser/xhr_impl.dart",
+        "2": [
+          "XHRImpl"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/platform/browser_common.dart",
+        "2": [
+          "BROWSER_APP_COMMON_PROVIDERS"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/platform/dom/dom_tokens.dart",
+        "2": [
+          "DOCUMENT"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/testing/test_component_builder.dart",
+        "2": [
+          "TestComponentBuilder"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/testing/utils.dart",
+        "2": [
+          "BrowserDetection",
+          "Log"
+        ],
+        "5": false
+      }
+    ],
+    "6": "browser_static.dart"
+  },
+  "type": {
+    "ADDITIONAL_TEST_BROWSER_PROVIDERS": {
+      "class": "Identifier",
+      "name": "ADDITIONAL_TEST_BROWSER_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser_static.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "APP_ID",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": "a",
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DirectiveResolver",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "MockDirectiveResolver",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ViewResolver",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "MockViewResolver",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Identifier",
+          "name": "AppViewUtils",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "Log",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "TestComponentBuilder",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NgZone",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "MockNgZone",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "LocationStrategy",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "MockLocationStrategy",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        }
+      ]
+    },
+    "TEST_BROWSER_STATIC_APPLICATION_PROVIDERS": {
+      "class": "Identifier",
+      "name": "TEST_BROWSER_STATIC_APPLICATION_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser_static.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "BROWSER_APP_COMMON_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "XHR",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "XHRImpl",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ADDITIONAL_TEST_BROWSER_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DOCUMENT",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Factory",
+            "name": "createDoc",
+            "prefix": null,
+            "moduleUrl": null,
+            "value": null,
+            "diDeps": []
+          },
+          "multi": false,
+          "deps": []
+        }
+      ]
+    },
+    "TEST_BROWSER_STATIC_PLATFORM_PROVIDERS": {
+      "class": "Identifier",
+      "name": "TEST_BROWSER_STATIC_PLATFORM_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser_static.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "PLATFORM_COMMON_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PLATFORM_INITIALIZER",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": {
+            "class": "Identifier",
+            "name": "initBrowserTests",
+            "moduleUrl": null,
+            "prefix": null,
+            "value": null
+          },
+          "useFactory": null,
+          "multi": true,
+          "deps": null
+        }
+      ]
+    },
+    "createDoc": {
+      "class": "Identifier",
+      "name": "createDoc",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser_static.dart",
+      "prefix": null,
+      "value": null
+    },
+    "initBrowserTests": {
+      "class": "Identifier",
+      "name": "initBrowserTests",
+      "moduleUrl": "asset:angular2/lib/platform/testing/browser_static.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

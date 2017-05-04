@@ -1,0 +1,123 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/linker/view_type.dart",
+        "2": [
+          "ViewType"
+        ],
+        "5": false
+      },
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompileDirectiveMetadata",
+          "CompilePipeMetadata",
+          "CompileIdentifierMetadata",
+          "CompileQueryMetadata",
+          "CompileTokenMap"
+        ],
+        "5": false
+      },
+      {
+        "1": "../config.dart",
+        "2": [
+          "CompilerConfig"
+        ],
+        "5": false
+      },
+      {
+        "1": "../identifiers.dart",
+        "2": [
+          "Identifiers"
+        ],
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "compile_binding.dart",
+        "2": [
+          "CompileBinding"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_element.dart",
+        "2": [
+          "CompileElement",
+          "CompileNode"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_method.dart",
+        "2": [
+          "CompileMethod"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_pipe.dart",
+        "2": [
+          "CompilePipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_query.dart",
+        "2": [
+          "CompileQuery",
+          "createQueryListField",
+          "addQueryToTokenMap"
+        ],
+        "5": false
+      },
+      {
+        "1": "constants.dart",
+        "2": [
+          "EventHandlerVars"
+        ],
+        "5": false
+      },
+      {
+        "1": "expression_converter.dart",
+        "2": [
+          "NameResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_compiler_utils.dart",
+        "2": [
+          "getViewFactoryName",
+          "getPropertyInView",
+          "createPureProxy"
+        ],
+        "5": false
+      }
+    ],
+    "6": "compile_view.dart"
+  },
+  "type": {
+    "CompileView": {
+      "class": "Identifier",
+      "name": "CompileView",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getViewType": {
+      "class": "Identifier",
+      "name": "getViewType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_view.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

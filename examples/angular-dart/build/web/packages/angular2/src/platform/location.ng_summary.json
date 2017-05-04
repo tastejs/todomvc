@@ -1,0 +1,28 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "browser/location/browser_platform_location.dart"
+      },
+      {
+        "1": "browser/location/hash_location_strategy.dart"
+      },
+      {
+        "1": "browser/location/location.dart"
+      },
+      {
+        "1": "browser/location/location_strategy.dart"
+      },
+      {
+        "1": "browser/location/path_location_strategy.dart"
+      },
+      {
+        "1": "browser/location/platform_location.dart"
+      }
+    ],
+    "6": "location.dart"
+  },
+  "type": {},
+  "alias": {}
+}

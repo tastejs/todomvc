@@ -1,0 +1,27 @@
+{
+  "ngDeps": null,
+  "type": {
+    "ChangeDetectionStrategy": {
+      "class": "Identifier",
+      "name": "ChangeDetectionStrategy",
+      "moduleUrl": "asset:angular2/lib/src/core/change_detection/constants.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ChangeDetectorState": {
+      "class": "Identifier",
+      "name": "ChangeDetectorState",
+      "moduleUrl": "asset:angular2/lib/src/core/change_detection/constants.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isDefaultChangeDetectionStrategy": {
+      "class": "Identifier",
+      "name": "isDefaultChangeDetectionStrategy",
+      "moduleUrl": "asset:angular2/lib/src/core/change_detection/constants.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

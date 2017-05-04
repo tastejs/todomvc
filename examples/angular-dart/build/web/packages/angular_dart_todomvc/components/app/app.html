@@ -1,0 +1,9 @@
+<section id="todoapp">
+    <todomvc-header></todomvc-header>
+    <section id="main" *ngIf="items.isNotEmpty">
+        <input id="toggle-all" type="checkbox" [(ngModel)]="allChecked">
+        <label for="toggle-all">Mark all as complete</label>
+        <todos-list></todos-list>
+    </section>
+    <todomvc-footer></todomvc-footer>
+</section>

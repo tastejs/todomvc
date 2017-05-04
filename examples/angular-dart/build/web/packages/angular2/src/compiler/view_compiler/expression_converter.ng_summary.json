@@ -1,0 +1,109 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../chars.dart",
+        "5": false
+      },
+      {
+        "1": "../expression_parser/ast.dart",
+        "4": "compiler_ast",
+        "5": false
+      },
+      {
+        "1": "../identifiers.dart",
+        "2": [
+          "Identifiers"
+        ],
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      }
+    ],
+    "6": "expression_converter.dart"
+  },
+  "type": {
+    "ExpressionWithWrappedValueInfo": {
+      "class": "Identifier",
+      "name": "ExpressionWithWrappedValueInfo",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NameResolver": {
+      "class": "Identifier",
+      "name": "NameResolver",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_AstToIrVisitor": {
+      "class": "Identifier",
+      "name": "_AstToIrVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_Mode": {
+      "class": "Identifier",
+      "name": "_Mode",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "convertCdExpressionToIr": {
+      "class": "Identifier",
+      "name": "convertCdExpressionToIr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "convertCdStatementToIr": {
+      "class": "Identifier",
+      "name": "convertCdStatementToIr",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "convertToStatementIfNeeded": {
+      "class": "Identifier",
+      "name": "convertToStatementIfNeeded",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ensureExpressionMode": {
+      "class": "Identifier",
+      "name": "ensureExpressionMode",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ensureStatementMode": {
+      "class": "Identifier",
+      "name": "ensureStatementMode",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "flattenStatements": {
+      "class": "Identifier",
+      "name": "flattenStatements",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/expression_converter.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

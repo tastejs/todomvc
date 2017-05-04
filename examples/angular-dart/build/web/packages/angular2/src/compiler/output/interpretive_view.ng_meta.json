@@ -1,0 +1,81 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/linker/app_view.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/debug/debug_app_view.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/debug/debug_context.dart",
+        "2": [
+          "StaticNodeDebugInfo"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "dynamic_instance.dart",
+        "5": false
+      }
+    ],
+    "6": "interpretive_view.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/linker/app_view.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/debug/debug_app_view.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/debug/debug_context.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "dynamic_instance.template.dart",
+        "4": "i5"
+      }
+    ]
+  },
+  "type": {
+    "InterpretiveAppViewInstanceFactory": {
+      "class": "Identifier",
+      "name": "InterpretiveAppViewInstanceFactory",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/interpretive_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_InterpretiveAppView": {
+      "class": "Identifier",
+      "name": "_InterpretiveAppView",
+      "moduleUrl": "asset:angular2/lib/src/compiler/output/interpretive_view.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,112 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:collection",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/analyzer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/compile_metadata.dart",
+        "2": [
+          "CompileIdentifierMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/config.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/offline_compiler.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/annotation_matcher.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/asset_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/code/ng_deps_code.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/interface_matcher.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/ng_compiler.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/ng_meta.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/type_metadata_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/url_resolver.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/zone.dart",
+        "4": "zone",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "2": [
+          "AssetId"
+        ],
+        "5": false
+      },
+      {
+        "1": "deferred_import_validator.dart",
+        "5": false
+      },
+      {
+        "1": "inliner.dart",
+        "5": false
+      }
+    ],
+    "6": "rewriter.dart"
+  },
+  "type": {
+    "_NgMetaVisitor": {
+      "class": "Identifier",
+      "name": "_NgMetaVisitor",
+      "moduleUrl": "asset:angular2/lib/src/transform/directive_processor/rewriter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createNgMeta": {
+      "class": "Identifier",
+      "name": "createNgMeta",
+      "moduleUrl": "asset:angular2/lib/src/transform/directive_processor/rewriter.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

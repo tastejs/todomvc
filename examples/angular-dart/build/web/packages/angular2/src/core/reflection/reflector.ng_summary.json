@@ -1,0 +1,55 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "platform_reflection_capabilities.dart",
+        "5": false
+      },
+      {
+        "1": "types.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "platform_reflection_capabilities.dart"
+      },
+      {
+        "1": "types.dart"
+      }
+    ],
+    "6": "reflector.dart"
+  },
+  "type": {
+    "ReflectionInfo": {
+      "class": "Identifier",
+      "name": "ReflectionInfo",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Reflector": {
+      "class": "Identifier",
+      "name": "Reflector",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_mergeMaps": {
+      "class": "Identifier",
+      "name": "_mergeMaps",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

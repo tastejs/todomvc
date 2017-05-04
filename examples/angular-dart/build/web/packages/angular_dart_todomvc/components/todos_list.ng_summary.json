@@ -1,0 +1,99 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/todo.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/models/item.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/services/todos.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "TodosList",
+        "5": [
+          {
+            "1": "TodosService",
+            "4": "_todos"
+          }
+        ],
+        "7": [
+          {
+            "2": "TodoItem"
+          }
+        ]
+      }
+    ],
+    "6": "todos_list.dart"
+  },
+  "type": {
+    "TodosList": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "todos-list",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "TodosList",
+        "moduleUrl": "asset:angular_dart_todomvc/lib/components/todos_list.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "TodosService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": " <ul id=\"todo-list\">\n    <todo-item *ngFor=\"let item of items\" [item]=\"item\"></todo-item>\n </ul>\n    ",
+        "templateUrl": "asset:angular_dart_todomvc/lib/components/todos_list.dart",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

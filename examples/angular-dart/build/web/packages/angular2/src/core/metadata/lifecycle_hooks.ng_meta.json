@@ -1,0 +1,87 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/change_detection/change_detection_util.dart",
+        "2": [
+          "SimpleChange"
+        ],
+        "5": false
+      }
+    ],
+    "6": "lifecycle_hooks.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/change_detection/change_detection_util.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "AfterContentChecked": {
+      "class": "Identifier",
+      "name": "AfterContentChecked",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AfterContentInit": {
+      "class": "Identifier",
+      "name": "AfterContentInit",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AfterViewChecked": {
+      "class": "Identifier",
+      "name": "AfterViewChecked",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AfterViewInit": {
+      "class": "Identifier",
+      "name": "AfterViewInit",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DoCheck": {
+      "class": "Identifier",
+      "name": "DoCheck",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LifecycleHooks": {
+      "class": "Identifier",
+      "name": "LifecycleHooks",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OnChanges": {
+      "class": "Identifier",
+      "name": "OnChanges",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OnDestroy": {
+      "class": "Identifier",
+      "name": "OnDestroy",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OnInit": {
+      "class": "Identifier",
+      "name": "OnInit",
+      "moduleUrl": "asset:angular2/lib/src/core/metadata/lifecycle_hooks.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

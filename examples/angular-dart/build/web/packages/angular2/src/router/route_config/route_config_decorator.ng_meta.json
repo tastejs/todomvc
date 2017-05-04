@@ -1,0 +1,96 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../route_definition.dart",
+        "2": [
+          "RouteDefinition"
+        ],
+        "5": false
+      },
+      {
+        "1": "../rules/route_paths/regex_route_path.dart",
+        "2": [
+          "RegexSerializer"
+        ],
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "../route_definition.dart",
+        "2": [
+          "RouteDefinition"
+        ]
+      }
+    ],
+    "6": "route_config_decorator.dart",
+    "7": [
+      {
+        "1": "../route_definition.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../rules/route_paths/regex_route_path.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "AbstractRoute": {
+      "class": "Identifier",
+      "name": "AbstractRoute",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_decorator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AsyncRoute": {
+      "class": "Identifier",
+      "name": "AsyncRoute",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_decorator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AuxRoute": {
+      "class": "Identifier",
+      "name": "AuxRoute",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_decorator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Redirect": {
+      "class": "Identifier",
+      "name": "Redirect",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_decorator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Route": {
+      "class": "Identifier",
+      "name": "Route",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_decorator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteConfig": {
+      "class": "Identifier",
+      "name": "RouteConfig",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_decorator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteDefinition": {
+      "class": "Identifier",
+      "name": "RouteDefinition",
+      "moduleUrl": "asset:angular2/lib/src/router/route_definition.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

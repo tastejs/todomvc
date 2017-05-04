@@ -1,0 +1,22 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/security.dart",
+        "5": false
+      }
+    ],
+    "6": "element_schema_registry.dart"
+  },
+  "type": {
+    "ElementSchemaRegistry": {
+      "class": "Identifier",
+      "name": "ElementSchemaRegistry",
+      "moduleUrl": "asset:angular2/lib/src/compiler/schema/element_schema_registry.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

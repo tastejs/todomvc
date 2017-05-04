@@ -1,0 +1,67 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "pipes/async_pipe.dart",
+        "2": [
+          "AsyncPipe"
+        ]
+      },
+      {
+        "1": "pipes/common_pipes.dart",
+        "2": [
+          "COMMON_PIPES"
+        ]
+      },
+      {
+        "1": "pipes/date_pipe.dart",
+        "2": [
+          "DatePipe"
+        ]
+      },
+      {
+        "1": "pipes/json_pipe.dart",
+        "2": [
+          "JsonPipe"
+        ]
+      },
+      {
+        "1": "pipes/lowercase_pipe.dart",
+        "2": [
+          "LowerCasePipe"
+        ]
+      },
+      {
+        "1": "pipes/number_pipe.dart",
+        "2": [
+          "NumberPipe",
+          "DecimalPipe",
+          "PercentPipe",
+          "CurrencyPipe"
+        ]
+      },
+      {
+        "1": "pipes/replace_pipe.dart",
+        "2": [
+          "ReplacePipe"
+        ]
+      },
+      {
+        "1": "pipes/slice_pipe.dart",
+        "2": [
+          "SlicePipe"
+        ]
+      },
+      {
+        "1": "pipes/uppercase_pipe.dart",
+        "2": [
+          "UpperCasePipe"
+        ]
+      }
+    ],
+    "6": "pipes.dart"
+  },
+  "type": {},
+  "alias": {}
+}

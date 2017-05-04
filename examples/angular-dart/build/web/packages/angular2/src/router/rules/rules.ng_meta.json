@@ -1,0 +1,116 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../instruction.dart",
+        "2": [
+          "ComponentInstruction"
+        ],
+        "5": false
+      },
+      {
+        "1": "../url_parser.dart",
+        "2": [
+          "Url",
+          "convertUrlParamsToArray"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_handlers/route_handler.dart",
+        "2": [
+          "RouteHandler"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_paths/route_path.dart",
+        "2": [
+          "GeneratedUrl",
+          "RoutePath"
+        ],
+        "5": false
+      }
+    ],
+    "6": "rules.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../instruction.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../url_parser.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "route_handlers/route_handler.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "route_paths/route_path.template.dart",
+        "4": "i4"
+      }
+    ]
+  },
+  "type": {
+    "AbstractRule": {
+      "class": "Identifier",
+      "name": "AbstractRule",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rules.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PathMatch": {
+      "class": "Identifier",
+      "name": "PathMatch",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rules.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RedirectMatch": {
+      "class": "Identifier",
+      "name": "RedirectMatch",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rules.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RedirectRule": {
+      "class": "Identifier",
+      "name": "RedirectRule",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rules.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteMatch": {
+      "class": "Identifier",
+      "name": "RouteMatch",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rules.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteRule": {
+      "class": "Identifier",
+      "name": "RouteRule",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rules.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,132 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/footer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/header.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/todos_list.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/models/item.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/services/storage.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/services/todos.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "TodoMvcApp",
+        "5": [
+          {
+            "1": "TodosService",
+            "4": "_todos"
+          }
+        ],
+        "7": [
+          {
+            "2": "TodoMvcHeader"
+          },
+          {
+            "2": "TodoMvcFooter"
+          },
+          {
+            "2": "TodosList"
+          }
+        ]
+      }
+    ],
+    "6": "app.dart"
+  },
+  "type": {
+    "TodoMvcApp": {
+      "class": "Directive",
+      "isComponent": true,
+      "selector": "todomvc-app",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "TodoMvcApp",
+        "moduleUrl": "asset:angular_dart_todomvc/lib/components/app/app.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "TodosService",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": {
+        "encapsulation": 2,
+        "template": "<section id=\"todoapp\">\n    <todomvc-header></todomvc-header>\n    <section id=\"main\" *ngIf=\"items.isNotEmpty\">\n        <input id=\"toggle-all\" type=\"checkbox\" [(ngModel)]=\"allChecked\">\n        <label for=\"toggle-all\">Mark all as complete</label>\n        <todos-list></todos-list>\n    </section>\n    <todomvc-footer></todomvc-footer>\n</section>",
+        "templateUrl": "asset:angular_dart_todomvc/lib/components/app/app.html",
+        "styles": [],
+        "styleUrls": [],
+        "ngContentSelectors": []
+      },
+      "providers": [
+        {
+          "class": "Identifier",
+          "name": "StorageService",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "TodosService",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

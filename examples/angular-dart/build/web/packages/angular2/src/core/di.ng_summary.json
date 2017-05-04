@@ -1,0 +1,66 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "di/decorators.dart"
+      },
+      {
+        "1": "di/injector.dart",
+        "2": [
+          "Injector"
+        ]
+      },
+      {
+        "1": "di/opaque_token.dart",
+        "2": [
+          "OpaqueToken"
+        ]
+      },
+      {
+        "1": "di/provider.dart",
+        "2": [
+          "Provider",
+          "provide",
+          "noValueProvided"
+        ]
+      },
+      {
+        "1": "di/reflective_exceptions.dart",
+        "2": [
+          "NoProviderError",
+          "AbstractProviderError",
+          "CyclicDependencyError",
+          "InstantiationError",
+          "InvalidProviderError",
+          "NoAnnotationError",
+          "OutOfBoundsError"
+        ]
+      },
+      {
+        "1": "di/reflective_injector.dart",
+        "2": [
+          "ReflectiveInjector"
+        ]
+      },
+      {
+        "1": "di/reflective_key.dart",
+        "2": [
+          "ReflectiveKey"
+        ]
+      },
+      {
+        "1": "di/reflective_provider.dart",
+        "2": [
+          "ResolvedReflectiveBinding",
+          "ResolvedReflectiveFactory",
+          "ReflectiveDependency",
+          "ResolvedReflectiveProvider"
+        ]
+      }
+    ],
+    "6": "di.dart"
+  },
+  "type": {},
+  "alias": {}
+}

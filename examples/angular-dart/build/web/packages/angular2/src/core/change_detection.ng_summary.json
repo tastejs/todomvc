@@ -1,0 +1,29 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "change_detection/change_detection.dart",
+        "2": [
+          "ChangeDetectionStrategy",
+          "ChangeDetectorRef",
+          "WrappedValue",
+          "SimpleChange",
+          "PipeTransform"
+        ]
+      },
+      {
+        "1": "change_detection/component_state.dart"
+      },
+      {
+        "1": "change_detection/differs/default_iterable_differ.dart",
+        "2": [
+          "TrackByFn"
+        ]
+      }
+    ],
+    "6": "change_detection.dart"
+  },
+  "type": {},
+  "alias": {}
+}

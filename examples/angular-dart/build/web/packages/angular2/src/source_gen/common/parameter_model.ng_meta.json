@@ -1,0 +1,60 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/analyzer.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/code_builder.dart",
+        "5": false
+      },
+      {
+        "1": "package:code_builder/dart/core.dart",
+        "5": false
+      },
+      {
+        "1": "annotation_model.dart",
+        "5": false
+      },
+      {
+        "1": "references.dart",
+        "4": "references",
+        "5": false
+      }
+    ],
+    "6": "parameter_model.dart",
+    "7": [
+      {
+        "1": "annotation_model.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "references.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "ParameterModel": {
+      "class": "Identifier",
+      "name": "ParameterModel",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/parameter_model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "optionalPackage": {
+      "class": "Identifier",
+      "name": "optionalPackage",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/common/parameter_model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

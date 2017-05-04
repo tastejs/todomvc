@@ -1,0 +1,78 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "async.dart",
+        "2": [
+          "EventEmitter"
+        ]
+      },
+      {
+        "1": "exception_handler.dart",
+        "2": [
+          "ExceptionHandler"
+        ]
+      },
+      {
+        "1": "exceptions.dart",
+        "2": [
+          "WrappedException"
+        ]
+      }
+    ],
+    "6": "facade.dart",
+    "7": [
+      {
+        "1": "async.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "exception_handler.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "exceptions.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "BaseException": {
+      "class": "Identifier",
+      "name": "BaseException",
+      "moduleUrl": "asset:angular2/lib/src/facade/exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EventEmitter": {
+      "class": "Identifier",
+      "name": "EventEmitter",
+      "moduleUrl": "asset:angular2/lib/src/facade/async.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExceptionHandler": {
+      "class": "Identifier",
+      "name": "ExceptionHandler",
+      "moduleUrl": "asset:angular2/lib/src/facade/exception_handler.dart",
+      "prefix": null,
+      "value": null
+    },
+    "WrappedException": {
+      "class": "Identifier",
+      "name": "WrappedException",
+      "moduleUrl": "asset:angular2/lib/src/facade/exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "makeTypeError": {
+      "class": "Identifier",
+      "name": "makeTypeError",
+      "moduleUrl": "asset:angular2/lib/src/facade/exceptions.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

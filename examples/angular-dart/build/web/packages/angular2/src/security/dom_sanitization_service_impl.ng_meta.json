@@ -1,0 +1,87 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "../core/security.dart",
+        "5": false
+      },
+      {
+        "1": "dom_sanitization_service.dart",
+        "5": false
+      },
+      {
+        "1": "html_sanitizer.dart",
+        "5": false
+      },
+      {
+        "1": "style_sanitizer.dart",
+        "5": false
+      },
+      {
+        "1": "url_sanitizer.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "DomSanitizationServiceImpl",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "6": [
+          "DomSanitizationService"
+        ]
+      }
+    ],
+    "6": "dom_sanitization_service_impl.dart",
+    "7": [
+      {
+        "1": "../core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../core/security.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "dom_sanitization_service.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "html_sanitizer.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "style_sanitizer.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "url_sanitizer.template.dart",
+        "4": "i5"
+      }
+    ]
+  },
+  "type": {
+    "DomSanitizationServiceImpl": {
+      "class": "Type",
+      "name": "DomSanitizationServiceImpl",
+      "moduleUrl": "asset:angular2/lib/src/security/dom_sanitization_service_impl.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

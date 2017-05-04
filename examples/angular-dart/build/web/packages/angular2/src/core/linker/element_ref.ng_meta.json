@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "ElementRef": {
+      "class": "Identifier",
+      "name": "ElementRef",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

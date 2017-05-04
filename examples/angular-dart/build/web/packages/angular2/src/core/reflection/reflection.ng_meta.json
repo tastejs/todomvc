@@ -1,0 +1,105 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "platform_reflection_capabilities.dart",
+        "5": false
+      },
+      {
+        "1": "reflector.dart",
+        "5": false
+      },
+      {
+        "1": "types.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "reflector.dart"
+      }
+    ],
+    "6": "reflection.dart",
+    "7": [
+      {
+        "1": "platform_reflection_capabilities.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "reflector.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "types.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "GetterFn": {
+      "class": "Identifier",
+      "name": "GetterFn",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/types.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MethodFn": {
+      "class": "Identifier",
+      "name": "MethodFn",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/types.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NoReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "NoReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NoReflectionCapabilitiesError": {
+      "class": "Identifier",
+      "name": "NoReflectionCapabilitiesError",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflection.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PlatformReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "PlatformReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/platform_reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReflectionInfo": {
+      "class": "Identifier",
+      "name": "ReflectionInfo",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Reflector": {
+      "class": "Identifier",
+      "name": "Reflector",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SetterFn": {
+      "class": "Identifier",
+      "name": "SetterFn",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/types.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_mergeMaps": {
+      "class": "Identifier",
+      "name": "_mergeMaps",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

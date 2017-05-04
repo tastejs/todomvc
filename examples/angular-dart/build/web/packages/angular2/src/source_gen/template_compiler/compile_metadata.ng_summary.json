@@ -1,0 +1,110 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/ast/ast.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/constant/value.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/type.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/element/visitor.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/src/dart/constant/value.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/src/dart/element/element.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/src/generated/utilities_dart.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/compile_metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di/decorators.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/annotation_matcher.dart",
+        "4": "annotation_matcher",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/url_resolver.dart",
+        "5": false
+      },
+      {
+        "1": "package:logging/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:protobuf/protobuf.dart",
+        "5": false
+      },
+      {
+        "1": "package:quiver/strings.dart",
+        "4": "strings",
+        "5": false
+      },
+      {
+        "1": "package:source_gen/src/annotation.dart",
+        "4": "source_gen",
+        "5": false
+      },
+      {
+        "1": "dart_object_utils.dart",
+        "4": "dart_objects",
+        "5": false
+      }
+    ],
+    "6": "compile_metadata.dart"
+  },
+  "type": {
+    "CompileTypeMetadataVisitor": {
+      "class": "Identifier",
+      "name": "CompileTypeMetadataVisitor",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_PrivateConstructorException": {
+      "class": "Identifier",
+      "name": "_PrivateConstructorException",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,66 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/ast/ast.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "2": [
+          "AssetId"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:path/path.dart",
+        "4": "path",
+        "5": false
+      },
+      {
+        "1": "logging.dart",
+        "2": [
+          "log"
+        ],
+        "5": false
+      },
+      {
+        "1": "url_resolver.dart",
+        "5": false
+      }
+    ],
+    "6": "class_matcher_base.dart"
+  },
+  "type": {
+    "ClassDescriptor": {
+      "class": "Identifier",
+      "name": "ClassDescriptor",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/class_matcher_base.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ClassMatcherBase": {
+      "class": "Identifier",
+      "name": "ClassMatcherBase",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/class_matcher_base.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_getMatchingImport": {
+      "class": "Identifier",
+      "name": "_getMatchingImport",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/class_matcher_base.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isMatch": {
+      "class": "Identifier",
+      "name": "isMatch",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/class_matcher_base.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

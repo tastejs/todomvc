@@ -1,0 +1,420 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:js_util",
+        "4": "js_util",
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive",
+          "ElementRef",
+          "Provider",
+          "Input",
+          "OnInit",
+          "OnDestroy",
+          "Injector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:func/func.dart",
+        "2": [
+          "Func0",
+          "VoidFunc0"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_value_accessor.dart",
+        "2": [
+          "NG_VALUE_ACCESSOR",
+          "ControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control.dart",
+        "2": [
+          "NgControl"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "RadioControlRegistry",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      },
+      {
+        "1": "RadioControlValueAccessor",
+        "5": [
+          {
+            "1": "ElementRef",
+            "4": "_elementRef"
+          },
+          {
+            "1": "RadioControlRegistry",
+            "4": "_registry"
+          },
+          {
+            "1": "Injector",
+            "4": "_injector"
+          }
+        ],
+        "6": [
+          "ControlValueAccessor",
+          "OnDestroy",
+          "OnInit"
+        ]
+      }
+    ],
+    "6": "radio_control_value_accessor.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "control_value_accessor.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "ng_control.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "RADIO_VALUE_ACCESSOR": {
+      "class": "Identifier",
+      "name": "RADIO_VALUE_ACCESSOR",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NG_VALUE_ACCESSOR",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/control_value_accessor.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "RadioControlValueAccessor",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "RadioControlRegistry",
+                      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "Injector",
+                      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "multi": true,
+          "deps": null
+        }
+      ]
+    },
+    "RadioButtonState": {
+      "class": "Identifier",
+      "name": "RadioButtonState",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RadioControlRegistry": {
+      "class": "Type",
+      "name": "RadioControlRegistry",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "RadioControlValueAccessor": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "input[type=radio][ngControl],input[type=radio][ngFormControl],input[type=radio][ngModel]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "RadioControlValueAccessor",
+        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ElementRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "RadioControlRegistry",
+                "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Injector",
+                "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "name": "name"
+      },
+      "inputTypes": {
+        "name": " String"
+      },
+      "outputs": {},
+      "hostListeners": {
+        "blur": "touchHandler()",
+        "change": "changeHandler()"
+      },
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [
+        1,
+        0
+      ],
+      "template": null,
+      "providers": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NG_VALUE_ACCESSOR",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/control_value_accessor.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "RadioControlValueAccessor",
+              "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": [
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "ElementRef",
+                      "moduleUrl": "asset:angular2/lib/src/core/linker/element_ref.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "RadioControlRegistry",
+                      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/radio_control_value_accessor.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                },
+                {
+                  "token": {
+                    "value": null,
+                    "identifier": {
+                      "class": "Identifier",
+                      "name": "Injector",
+                      "moduleUrl": "asset:angular2/lib/src/core/di/injector.dart",
+                      "prefix": null,
+                      "value": null
+                    },
+                    "identifierIsInstance": false
+                  },
+                  "value": null,
+                  "isAttribute": false,
+                  "isSelf": false,
+                  "isHost": false,
+                  "isSkipSelf": false,
+                  "isOptional": false,
+                  "isValue": false
+                }
+              ]
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "multi": true,
+          "deps": null
+        }
+      ],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

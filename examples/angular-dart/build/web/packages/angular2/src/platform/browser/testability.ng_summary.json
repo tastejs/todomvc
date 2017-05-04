@@ -1,0 +1,49 @@
+{
+  "ngDeps": {
+    "1": "browser.testability",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:js/js.dart",
+        "5": false
+      },
+      {
+        "1": "package:js/js_util.dart",
+        "4": "js_util",
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "5": false
+      }
+    ],
+    "6": "testability.dart"
+  },
+  "type": {
+    "BrowserGetTestability": {
+      "class": "Identifier",
+      "name": "BrowserGetTestability",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/testability.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PublicTestability": {
+      "class": "Identifier",
+      "name": "PublicTestability",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/testability.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_self": {
+      "class": "Identifier",
+      "name": "_self",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/testability.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

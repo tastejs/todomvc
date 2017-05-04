@@ -1,0 +1,33 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/metadata/lifecycle_hooks.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "5": false
+      }
+    ],
+    "6": "directive_lifecycle_reflector.dart"
+  },
+  "type": {
+    "INTERFACES": {
+      "class": "Identifier",
+      "name": "INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/compiler/directive_lifecycle_reflector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "hasLifecycleHook": {
+      "class": "Identifier",
+      "name": "hasLifecycleHook",
+      "moduleUrl": "asset:angular2/lib/src/compiler/directive_lifecycle_reflector.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

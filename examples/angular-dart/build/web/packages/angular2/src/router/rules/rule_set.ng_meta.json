@@ -1,0 +1,153 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../instruction.dart",
+        "2": [
+          "ComponentInstruction"
+        ],
+        "5": false
+      },
+      {
+        "1": "../route_config/route_config_decorator.dart",
+        "2": [
+          "Route",
+          "AsyncRoute",
+          "AuxRoute",
+          "Redirect",
+          "RouteDefinition"
+        ],
+        "5": false
+      },
+      {
+        "1": "../rules/route_paths/regex_route_path.dart",
+        "2": [
+          "RegexSerializer"
+        ],
+        "5": false
+      },
+      {
+        "1": "../url_parser.dart",
+        "2": [
+          "Url"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_handlers/async_route_handler.dart",
+        "2": [
+          "AsyncRouteHandler"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_handlers/sync_route_handler.dart",
+        "2": [
+          "SyncRouteHandler"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_paths/param_route_path.dart",
+        "2": [
+          "ParamRoutePath"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_paths/regex_route_path.dart",
+        "2": [
+          "RegexRoutePath"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_paths/route_path.dart",
+        "2": [
+          "RoutePath"
+        ],
+        "5": false
+      },
+      {
+        "1": "rules.dart",
+        "2": [
+          "AbstractRule",
+          "RouteRule",
+          "RedirectRule",
+          "RouteMatch",
+          "PathMatch"
+        ],
+        "5": false
+      }
+    ],
+    "6": "rule_set.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../instruction.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../route_config/route_config_decorator.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../rules/route_paths/regex_route_path.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "../url_parser.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "route_handlers/async_route_handler.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "route_handlers/sync_route_handler.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "route_paths/param_route_path.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "route_paths/regex_route_path.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "route_paths/route_path.template.dart",
+        "4": "i9"
+      },
+      {
+        "1": "rules.template.dart",
+        "4": "i10"
+      }
+    ]
+  },
+  "type": {
+    "RuleSet": {
+      "class": "Identifier",
+      "name": "RuleSet",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/rule_set.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

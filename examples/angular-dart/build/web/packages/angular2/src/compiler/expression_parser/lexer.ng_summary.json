@@ -1,0 +1,542 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di/decorators.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "Lexer",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "lexer.dart"
+  },
+  "type": {
+    "$$": {
+      "class": "Identifier",
+      "name": "$$",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$0": {
+      "class": "Identifier",
+      "name": "$0",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$9": {
+      "class": "Identifier",
+      "name": "$9",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$A": {
+      "class": "Identifier",
+      "name": "$A",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$AMPERSAND": {
+      "class": "Identifier",
+      "name": "$AMPERSAND",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$BACKSLASH": {
+      "class": "Identifier",
+      "name": "$BACKSLASH",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$BANG": {
+      "class": "Identifier",
+      "name": "$BANG",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$BAR": {
+      "class": "Identifier",
+      "name": "$BAR",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$BT": {
+      "class": "Identifier",
+      "name": "$BT",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$CARET": {
+      "class": "Identifier",
+      "name": "$CARET",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$COLON": {
+      "class": "Identifier",
+      "name": "$COLON",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$COMMA": {
+      "class": "Identifier",
+      "name": "$COMMA",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$CR": {
+      "class": "Identifier",
+      "name": "$CR",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$DQ": {
+      "class": "Identifier",
+      "name": "$DQ",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$E": {
+      "class": "Identifier",
+      "name": "$E",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$EOF": {
+      "class": "Identifier",
+      "name": "$EOF",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$EQ": {
+      "class": "Identifier",
+      "name": "$EQ",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$FF": {
+      "class": "Identifier",
+      "name": "$FF",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$GT": {
+      "class": "Identifier",
+      "name": "$GT",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$HASH": {
+      "class": "Identifier",
+      "name": "$HASH",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$LBRACE": {
+      "class": "Identifier",
+      "name": "$LBRACE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$LBRACKET": {
+      "class": "Identifier",
+      "name": "$LBRACKET",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$LF": {
+      "class": "Identifier",
+      "name": "$LF",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$LPAREN": {
+      "class": "Identifier",
+      "name": "$LPAREN",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$LT": {
+      "class": "Identifier",
+      "name": "$LT",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$MINUS": {
+      "class": "Identifier",
+      "name": "$MINUS",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$NBSP": {
+      "class": "Identifier",
+      "name": "$NBSP",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$PERCENT": {
+      "class": "Identifier",
+      "name": "$PERCENT",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$PERIOD": {
+      "class": "Identifier",
+      "name": "$PERIOD",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$PLUS": {
+      "class": "Identifier",
+      "name": "$PLUS",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$QUESTION": {
+      "class": "Identifier",
+      "name": "$QUESTION",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$RBRACE": {
+      "class": "Identifier",
+      "name": "$RBRACE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$RBRACKET": {
+      "class": "Identifier",
+      "name": "$RBRACKET",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$RPAREN": {
+      "class": "Identifier",
+      "name": "$RPAREN",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$SEMICOLON": {
+      "class": "Identifier",
+      "name": "$SEMICOLON",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$SLASH": {
+      "class": "Identifier",
+      "name": "$SLASH",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$SPACE": {
+      "class": "Identifier",
+      "name": "$SPACE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$SQ": {
+      "class": "Identifier",
+      "name": "$SQ",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$STAR": {
+      "class": "Identifier",
+      "name": "$STAR",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$TAB": {
+      "class": "Identifier",
+      "name": "$TAB",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$VTAB": {
+      "class": "Identifier",
+      "name": "$VTAB",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$Z": {
+      "class": "Identifier",
+      "name": "$Z",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$_": {
+      "class": "Identifier",
+      "name": "$_",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$a": {
+      "class": "Identifier",
+      "name": "$a",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$e": {
+      "class": "Identifier",
+      "name": "$e",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$f": {
+      "class": "Identifier",
+      "name": "$f",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$n": {
+      "class": "Identifier",
+      "name": "$n",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$r": {
+      "class": "Identifier",
+      "name": "$r",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$t": {
+      "class": "Identifier",
+      "name": "$t",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$u": {
+      "class": "Identifier",
+      "name": "$u",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$v": {
+      "class": "Identifier",
+      "name": "$v",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "$z": {
+      "class": "Identifier",
+      "name": "$z",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Lexer": {
+      "class": "Type",
+      "name": "Lexer",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "ScannerError": {
+      "class": "Identifier",
+      "name": "ScannerError",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Token": {
+      "class": "Identifier",
+      "name": "Token",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TokenType": {
+      "class": "Identifier",
+      "name": "TokenType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_Scanner": {
+      "class": "Identifier",
+      "name": "_Scanner",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isDigit": {
+      "class": "Identifier",
+      "name": "isDigit",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isExponentSign": {
+      "class": "Identifier",
+      "name": "isExponentSign",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isExponentStart": {
+      "class": "Identifier",
+      "name": "isExponentStart",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isIdentifier": {
+      "class": "Identifier",
+      "name": "isIdentifier",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isIdentifierPart": {
+      "class": "Identifier",
+      "name": "isIdentifierPart",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isIdentifierStart": {
+      "class": "Identifier",
+      "name": "isIdentifierStart",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isQuote": {
+      "class": "Identifier",
+      "name": "isQuote",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isWhitespace": {
+      "class": "Identifier",
+      "name": "isWhitespace",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "newCharacterToken": {
+      "class": "Identifier",
+      "name": "newCharacterToken",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "newIdentifierToken": {
+      "class": "Identifier",
+      "name": "newIdentifierToken",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "newKeywordToken": {
+      "class": "Identifier",
+      "name": "newKeywordToken",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "newNumberToken": {
+      "class": "Identifier",
+      "name": "newNumberToken",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "newOperatorToken": {
+      "class": "Identifier",
+      "name": "newOperatorToken",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "newStringToken": {
+      "class": "Identifier",
+      "name": "newStringToken",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "unescape": {
+      "class": "Identifier",
+      "name": "unescape",
+      "moduleUrl": "asset:angular2/lib/src/compiler/expression_parser/lexer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

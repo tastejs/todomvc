@@ -1,0 +1,51 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "src/compiler/url_resolver.dart",
+        "2": [
+          "UrlResolver"
+        ]
+      },
+      {
+        "1": "src/core/di.dart"
+      },
+      {
+        "1": "src/core/change_detection/pipe_transform.dart"
+      },
+      {
+        "1": "src/core/metadata.dart",
+        "2": [
+          "Component",
+          "Directive",
+          "Input",
+          "Output"
+        ]
+      },
+      {
+        "1": "src/core/metadata.dart",
+        "2": [
+          "Pipe"
+        ]
+      },
+      {
+        "1": "src/core/testability/testability.dart"
+      },
+      {
+        "1": "src/core/zone/ng_zone.dart"
+      },
+      {
+        "1": "src/facade/facade.dart",
+        "2": [
+          "EventEmitter",
+          "ExceptionHandler",
+          "WrappedException"
+        ]
+      }
+    ],
+    "6": "di.dart"
+  },
+  "type": {},
+  "alias": {}
+}

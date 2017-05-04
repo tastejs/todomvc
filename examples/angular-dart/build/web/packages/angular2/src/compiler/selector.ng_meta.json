@@ -1,0 +1,66 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      }
+    ],
+    "6": "selector.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "CssSelector": {
+      "class": "Identifier",
+      "name": "CssSelector",
+      "moduleUrl": "asset:angular2/lib/src/compiler/selector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MatchCallbackHandler": {
+      "class": "Identifier",
+      "name": "MatchCallbackHandler",
+      "moduleUrl": "asset:angular2/lib/src/compiler/selector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectorContext": {
+      "class": "Identifier",
+      "name": "SelectorContext",
+      "moduleUrl": "asset:angular2/lib/src/compiler/selector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectorListContext": {
+      "class": "Identifier",
+      "name": "SelectorListContext",
+      "moduleUrl": "asset:angular2/lib/src/compiler/selector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SelectorMatcher": {
+      "class": "Identifier",
+      "name": "SelectorMatcher",
+      "moduleUrl": "asset:angular2/lib/src/compiler/selector.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_EMPTY_ATTR_VALUE": {
+      "class": "Identifier",
+      "name": "_EMPTY_ATTR_VALUE",
+      "moduleUrl": "asset:angular2/lib/src/compiler/selector.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

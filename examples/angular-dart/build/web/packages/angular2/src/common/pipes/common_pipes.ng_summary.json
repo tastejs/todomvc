@@ -1,0 +1,160 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "async_pipe.dart",
+        "2": [
+          "AsyncPipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "date_pipe.dart",
+        "2": [
+          "DatePipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "json_pipe.dart",
+        "2": [
+          "JsonPipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "lowercase_pipe.dart",
+        "2": [
+          "LowerCasePipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "number_pipe.dart",
+        "2": [
+          "DecimalPipe",
+          "PercentPipe",
+          "CurrencyPipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "replace_pipe.dart",
+        "2": [
+          "ReplacePipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "slice_pipe.dart",
+        "2": [
+          "SlicePipe"
+        ],
+        "5": false
+      },
+      {
+        "1": "uppercase_pipe.dart",
+        "2": [
+          "UpperCasePipe"
+        ],
+        "5": false
+      }
+    ],
+    "6": "common_pipes.dart"
+  },
+  "type": {
+    "COMMON_PIPES": {
+      "class": "Identifier",
+      "name": "COMMON_PIPES",
+      "moduleUrl": "asset:angular2/lib/src/common/pipes/common_pipes.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "AsyncPipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "UpperCasePipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "LowerCasePipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "JsonPipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "SlicePipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "DecimalPipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "PercentPipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "CurrencyPipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "DatePipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "ReplacePipe",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "COMMON_PIPES": [
+      "AsyncPipe",
+      "CurrencyPipe",
+      "DatePipe",
+      "DecimalPipe",
+      "JsonPipe",
+      "LowerCasePipe",
+      "PercentPipe",
+      "ReplacePipe",
+      "SlicePipe",
+      "UpperCasePipe"
+    ]
+  }
+}

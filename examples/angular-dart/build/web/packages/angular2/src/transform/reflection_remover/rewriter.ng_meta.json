@@ -1,0 +1,102 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/ast/ast.dart",
+        "5": false
+      },
+      {
+        "1": "package:analyzer/dart/ast/visitor.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/mirror_matcher.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/mirror_mode.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:path/path.dart",
+        "4": "path",
+        "5": false
+      },
+      {
+        "1": "codegen.dart",
+        "5": false
+      },
+      {
+        "1": "entrypoint_matcher.dart",
+        "5": false
+      }
+    ],
+    "6": "rewriter.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/transform/common/logging.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/transform/common/mirror_matcher.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/transform/common/mirror_mode.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "codegen.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "entrypoint_matcher.template.dart",
+        "4": "i5"
+      }
+    ]
+  },
+  "type": {
+    "Rewriter": {
+      "class": "Identifier",
+      "name": "Rewriter",
+      "moduleUrl": "asset:angular2/lib/src/transform/reflection_remover/rewriter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_RewriterVisitor": {
+      "class": "Identifier",
+      "name": "_RewriterVisitor",
+      "moduleUrl": "asset:angular2/lib/src/transform/reflection_remover/rewriter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_importDebugReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "_importDebugReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/transform/reflection_remover/rewriter.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_instantiateVerboseReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "_instantiateVerboseReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/transform/reflection_remover/rewriter.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

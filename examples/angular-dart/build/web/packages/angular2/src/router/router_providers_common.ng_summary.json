@@ -1,0 +1,271 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "ApplicationRef",
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/common.dart",
+        "2": [
+          "LocationStrategy",
+          "PathLocationStrategy",
+          "Location"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_registry.dart",
+        "2": [
+          "RouteRegistry",
+          "ROUTER_PRIMARY_COMPONENT"
+        ],
+        "5": false
+      },
+      {
+        "1": "router.dart",
+        "2": [
+          "Router",
+          "RootRouter"
+        ],
+        "5": false
+      }
+    ],
+    "6": "router_providers_common.dart"
+  },
+  "type": {
+    "ROUTER_PROVIDERS_COMMON": {
+      "class": "Identifier",
+      "name": "ROUTER_PROVIDERS_COMMON",
+      "moduleUrl": "asset:angular2/lib/src/router/router_providers_common.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "RouteRegistry",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "LocationStrategy",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "PathLocationStrategy",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Identifier",
+          "name": "Location",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Router",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Factory",
+            "name": "routerFactory",
+            "prefix": null,
+            "moduleUrl": null,
+            "value": null,
+            "diDeps": []
+          },
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "RouteRegistry",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            },
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "Location",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            },
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "ROUTER_PRIMARY_COMPONENT",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            },
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "ApplicationRef",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ROUTER_PRIMARY_COMPONENT",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Factory",
+            "name": "routerPrimaryComponentFactory",
+            "prefix": null,
+            "moduleUrl": null,
+            "value": null,
+            "diDeps": []
+          },
+          "multi": false,
+          "deps": [
+            {
+              "token": {
+                "value": null,
+                "identifier": {
+                  "class": "Identifier",
+                  "name": "ApplicationRef",
+                  "moduleUrl": null,
+                  "prefix": null,
+                  "value": null
+                },
+                "identifierIsInstance": false
+              },
+              "value": null,
+              "isAttribute": false,
+              "isSelf": false,
+              "isHost": false,
+              "isSkipSelf": false,
+              "isOptional": false,
+              "isValue": false
+            }
+          ]
+        }
+      ]
+    },
+    "routerFactory": {
+      "class": "Identifier",
+      "name": "routerFactory",
+      "moduleUrl": "asset:angular2/lib/src/router/router_providers_common.dart",
+      "prefix": null,
+      "value": null
+    },
+    "routerPrimaryComponentFactory": {
+      "class": "Identifier",
+      "name": "routerPrimaryComponentFactory",
+      "moduleUrl": "asset:angular2/lib/src/router/router_providers_common.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

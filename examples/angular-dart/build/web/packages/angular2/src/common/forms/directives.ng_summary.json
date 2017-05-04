@@ -1,0 +1,335 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "directives/checkbox_value_accessor.dart",
+        "2": [
+          "CheckboxControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/default_value_accessor.dart",
+        "2": [
+          "DefaultValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/ng_control_group.dart",
+        "2": [
+          "NgControlGroup"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/ng_control_name.dart",
+        "2": [
+          "NgControlName"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/ng_form.dart",
+        "2": [
+          "NgForm"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/ng_form_control.dart",
+        "2": [
+          "NgFormControl"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/ng_form_model.dart",
+        "2": [
+          "NgFormModel"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/ng_model.dart",
+        "2": [
+          "NgModel"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/number_value_accessor.dart",
+        "2": [
+          "NumberValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/radio_control_value_accessor.dart",
+        "2": [
+          "RadioControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/select_control_value_accessor.dart",
+        "2": [
+          "SelectControlValueAccessor",
+          "NgSelectOption"
+        ],
+        "5": false
+      },
+      {
+        "1": "directives/validators.dart",
+        "2": [
+          "RequiredValidator",
+          "MinLengthValidator",
+          "MaxLengthValidator",
+          "PatternValidator"
+        ],
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "directives/checkbox_value_accessor.dart",
+        "2": [
+          "CheckboxControlValueAccessor"
+        ]
+      },
+      {
+        "1": "directives/control_value_accessor.dart",
+        "2": [
+          "ControlValueAccessor"
+        ]
+      },
+      {
+        "1": "directives/default_value_accessor.dart",
+        "2": [
+          "DefaultValueAccessor"
+        ]
+      },
+      {
+        "1": "directives/ng_control.dart",
+        "2": [
+          "NgControl"
+        ]
+      },
+      {
+        "1": "directives/ng_control_group.dart",
+        "2": [
+          "NgControlGroup"
+        ]
+      },
+      {
+        "1": "directives/ng_control_name.dart",
+        "2": [
+          "NgControlName"
+        ]
+      },
+      {
+        "1": "directives/ng_control_status.dart",
+        "2": [
+          "NgControlStatus"
+        ]
+      },
+      {
+        "1": "directives/ng_form.dart",
+        "2": [
+          "NgForm"
+        ]
+      },
+      {
+        "1": "directives/ng_form_control.dart",
+        "2": [
+          "NgFormControl"
+        ]
+      },
+      {
+        "1": "directives/ng_form_model.dart",
+        "2": [
+          "NgFormModel"
+        ]
+      },
+      {
+        "1": "directives/ng_model.dart",
+        "2": [
+          "NgModel"
+        ]
+      },
+      {
+        "1": "directives/number_value_accessor.dart",
+        "2": [
+          "NumberValueAccessor"
+        ]
+      },
+      {
+        "1": "directives/radio_control_value_accessor.dart",
+        "2": [
+          "RadioControlValueAccessor",
+          "RadioButtonState"
+        ]
+      },
+      {
+        "1": "directives/select_control_value_accessor.dart",
+        "2": [
+          "SelectControlValueAccessor",
+          "NgSelectOption"
+        ]
+      },
+      {
+        "1": "directives/validators.dart",
+        "2": [
+          "RequiredValidator",
+          "MinLengthValidator",
+          "MaxLengthValidator",
+          "PatternValidator"
+        ]
+      }
+    ],
+    "6": "directives.dart"
+  },
+  "type": {
+    "FORM_DIRECTIVES": {
+      "class": "Identifier",
+      "name": "FORM_DIRECTIVES",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "NgControlName",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgControlGroup",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgFormControl",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgModel",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgFormModel",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgForm",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NgSelectOption",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "DefaultValueAccessor",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "NumberValueAccessor",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "CheckboxControlValueAccessor",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "SelectControlValueAccessor",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "RadioControlValueAccessor",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "RequiredValidator",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "MinLengthValidator",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "MaxLengthValidator",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "PatternValidator",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "FORM_DIRECTIVES": [
+      "CheckboxControlValueAccessor",
+      "DefaultValueAccessor",
+      "MaxLengthValidator",
+      "MinLengthValidator",
+      "NgControlGroup",
+      "NgControlName",
+      "NgForm",
+      "NgFormControl",
+      "NgFormModel",
+      "NgModel",
+      "NgSelectOption",
+      "NumberValueAccessor",
+      "PatternValidator",
+      "RadioControlValueAccessor",
+      "RequiredValidator",
+      "SelectControlValueAccessor"
+    ]
+  }
+}

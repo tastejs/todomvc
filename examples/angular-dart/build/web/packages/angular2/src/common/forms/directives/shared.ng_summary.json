@@ -1,0 +1,177 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/lang.dart",
+        "2": [
+          "looseIdentical"
+        ],
+        "5": false
+      },
+      {
+        "1": "../model.dart",
+        "2": [
+          "Control",
+          "ControlGroup"
+        ],
+        "5": false
+      },
+      {
+        "1": "../validators.dart",
+        "2": [
+          "Validators"
+        ],
+        "5": false
+      },
+      {
+        "1": "abstract_control_directive.dart",
+        "2": [
+          "AbstractControlDirective"
+        ],
+        "5": false
+      },
+      {
+        "1": "checkbox_value_accessor.dart",
+        "2": [
+          "CheckboxControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_container.dart",
+        "2": [
+          "ControlContainer"
+        ],
+        "5": false
+      },
+      {
+        "1": "control_value_accessor.dart",
+        "2": [
+          "ControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "default_value_accessor.dart",
+        "2": [
+          "DefaultValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control.dart",
+        "2": [
+          "NgControl"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control_group.dart",
+        "2": [
+          "NgControlGroup"
+        ],
+        "5": false
+      },
+      {
+        "1": "normalize_validator.dart",
+        "2": [
+          "normalizeValidator"
+        ],
+        "5": false
+      },
+      {
+        "1": "number_value_accessor.dart",
+        "2": [
+          "NumberValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "radio_control_value_accessor.dart",
+        "2": [
+          "RadioControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "select_control_value_accessor.dart",
+        "2": [
+          "SelectControlValueAccessor"
+        ],
+        "5": false
+      },
+      {
+        "1": "validators.dart",
+        "2": [
+          "ValidatorFn"
+        ],
+        "5": false
+      }
+    ],
+    "6": "shared.dart"
+  },
+  "type": {
+    "_throwError": {
+      "class": "Identifier",
+      "name": "_throwError",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    },
+    "composeValidators": {
+      "class": "Identifier",
+      "name": "composeValidators",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    },
+    "controlPath": {
+      "class": "Identifier",
+      "name": "controlPath",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isPropertyUpdated": {
+      "class": "Identifier",
+      "name": "isPropertyUpdated",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    },
+    "selectValueAccessor": {
+      "class": "Identifier",
+      "name": "selectValueAccessor",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    },
+    "setUpControl": {
+      "class": "Identifier",
+      "name": "setUpControl",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    },
+    "setUpControlGroup": {
+      "class": "Identifier",
+      "name": "setUpControlGroup",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/directives/shared.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,97 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:analyzer/dart/ast/ast.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "2": [
+          "AssetId"
+        ],
+        "5": false
+      },
+      {
+        "1": "class_matcher_base.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "class_matcher_base.dart",
+        "2": [
+          "ClassDescriptor"
+        ]
+      }
+    ],
+    "6": "interface_matcher.dart"
+  },
+  "type": {
+    "InterfaceMatcher": {
+      "class": "Identifier",
+      "name": "InterfaceMatcher",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_DO_CHECK_INTERFACES": {
+      "class": "Identifier",
+      "name": "_DO_CHECK_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_AFTER_CONTENT_CHECKED_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_AFTER_CONTENT_CHECKED_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_AFTER_CONTENT_INIT_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_AFTER_CONTENT_INIT_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_AFTER_VIEW_CHECKED_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_AFTER_VIEW_CHECKED_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_AFTER_VIEW_INIT_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_AFTER_VIEW_INIT_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_CHANGE_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_CHANGE_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_DESTROY_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_DESTROY_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ON_INIT_INTERFACES": {
+      "class": "Identifier",
+      "name": "_ON_INIT_INTERFACES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/interface_matcher.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

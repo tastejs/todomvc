@@ -1,0 +1,240 @@
+{
+  "ngDeps": {
+    "1": "angular2.transform.codegen.dart",
+    "3": [
+      {
+        "1": "package:angular2/src/transform/asset_consumer/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/eager_transformer_wrapper.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/formatter.dart",
+        "4": "formatter",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/directive_metadata_linker/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/directive_processor/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/inliner_for_test/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/stylesheet_compiler/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/template_compiler/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_style/dart_style.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "package:angular2/src/transform/common/options.dart"
+      }
+    ],
+    "6": "codegen.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/transform/asset_consumer/transformer.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/transform/common/eager_transformer_wrapper.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/transform/common/formatter.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "package:angular2/src/transform/common/options_reader.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "package:angular2/src/transform/directive_metadata_linker/transformer.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "package:angular2/src/transform/directive_processor/transformer.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "package:angular2/src/transform/inliner_for_test/transformer.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "package:angular2/src/transform/stylesheet_compiler/transformer.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "package:angular2/src/transform/template_compiler/transformer.template.dart",
+        "4": "i9"
+      }
+    ]
+  },
+  "type": {
+    "CODEGEN_DEBUG_MODE": {
+      "class": "Identifier",
+      "name": "CODEGEN_DEBUG_MODE",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CODEGEN_MODE_PARAM": {
+      "class": "Identifier",
+      "name": "CODEGEN_MODE_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CUSTOM_ANNOTATIONS_PARAM": {
+      "class": "Identifier",
+      "name": "CUSTOM_ANNOTATIONS_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CodegenTransformer": {
+      "class": "Identifier",
+      "name": "CodegenTransformer",
+      "moduleUrl": "asset:angular2/lib/transform/codegen.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ENTRY_POINT_PARAM": {
+      "class": "Identifier",
+      "name": "ENTRY_POINT_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ERROR_ON_MISSING_IDENTIFIERS": {
+      "class": "Identifier",
+      "name": "ERROR_ON_MISSING_IDENTIFIERS",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "FORMAT_CODE_PARAM": {
+      "class": "Identifier",
+      "name": "FORMAT_CODE_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "IGNORE_REAL_TEMPLATE_ISSUES_PARAM": {
+      "class": "Identifier",
+      "name": "IGNORE_REAL_TEMPLATE_ISSUES_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "INIT_REFLECTOR_PARAM": {
+      "class": "Identifier",
+      "name": "INIT_REFLECTOR_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "INLINE_VIEWS_PARAM": {
+      "class": "Identifier",
+      "name": "INLINE_VIEWS_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "LAZY_TRANSFORMERS": {
+      "class": "Identifier",
+      "name": "LAZY_TRANSFORMERS",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MIRROR_MODE_PARAM": {
+      "class": "Identifier",
+      "name": "MIRROR_MODE_PARAM",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PLATFORM_DIRECTIVES": {
+      "class": "Identifier",
+      "name": "PLATFORM_DIRECTIVES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PLATFORM_PIPES": {
+      "class": "Identifier",
+      "name": "PLATFORM_PIPES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "REFLECT_PROPERTIES_AS_ATTRIBUTES": {
+      "class": "Identifier",
+      "name": "REFLECT_PROPERTIES_AS_ATTRIBUTES",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RESOLVED_IDENTIFIERS": {
+      "class": "Identifier",
+      "name": "RESOLVED_IDENTIFIERS",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TRANSLATIONS": {
+      "class": "Identifier",
+      "name": "TRANSLATIONS",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TransformerOptions": {
+      "class": "Identifier",
+      "name": "TransformerOptions",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    },
+    "USE_LEGACY_STYLE_ENCAPSULATION": {
+      "class": "Identifier",
+      "name": "USE_LEGACY_STYLE_ENCAPSULATION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/options.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

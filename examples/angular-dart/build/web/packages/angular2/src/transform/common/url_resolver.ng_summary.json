@@ -1,0 +1,58 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "package:angular2/src/compiler/url_resolver.dart",
+        "2": [
+          "createOfflineCompileUrlResolver"
+        ]
+      }
+    ],
+    "6": "url_resolver.dart"
+  },
+  "type": {
+    "fromUri": {
+      "class": "Identifier",
+      "name": "fromUri",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isDartCoreUri": {
+      "class": "Identifier",
+      "name": "isDartCoreUri",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "packageToAssetScheme": {
+      "class": "Identifier",
+      "name": "packageToAssetScheme",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toAssetScheme": {
+      "class": "Identifier",
+      "name": "toAssetScheme",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toAssetUri": {
+      "class": "Identifier",
+      "name": "toAssetUri",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/url_resolver.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

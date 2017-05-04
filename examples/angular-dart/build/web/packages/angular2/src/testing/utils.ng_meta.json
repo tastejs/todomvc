@@ -1,0 +1,90 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "Log",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ]
+      }
+    ],
+    "6": "utils.dart",
+    "7": [
+      {
+        "1": "package:angular2/di.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "BrowserDetection": {
+      "class": "Identifier",
+      "name": "BrowserDetection",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Log": {
+      "class": "Type",
+      "name": "Log",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "LogFunction": {
+      "class": "Identifier",
+      "name": "LogFunction",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "containsRegexp": {
+      "class": "Identifier",
+      "name": "containsRegexp",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "dispatchEvent": {
+      "class": "Identifier",
+      "name": "dispatchEvent",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "normalizeCSS": {
+      "class": "Identifier",
+      "name": "normalizeCSS",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "value": null
+    },
+    "stringifyElement": {
+      "class": "Identifier",
+      "name": "stringifyElement",
+      "moduleUrl": "asset:angular2/lib/src/testing/utils.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

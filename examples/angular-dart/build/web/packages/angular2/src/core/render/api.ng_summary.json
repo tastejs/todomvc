@@ -1,0 +1,46 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata/view.dart",
+        "2": [
+          "ViewEncapsulation"
+        ],
+        "5": false
+      }
+    ],
+    "6": "api.dart"
+  },
+  "type": {
+    "RenderComponentType": {
+      "class": "Identifier",
+      "name": "RenderComponentType",
+      "moduleUrl": "asset:angular2/lib/src/core/render/api.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RenderDebugInfo": {
+      "class": "Identifier",
+      "name": "RenderDebugInfo",
+      "moduleUrl": "asset:angular2/lib/src/core/render/api.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SharedStylesHost": {
+      "class": "Identifier",
+      "name": "SharedStylesHost",
+      "moduleUrl": "asset:angular2/lib/src/core/render/api.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

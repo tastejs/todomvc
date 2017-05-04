@@ -1,0 +1,157 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompileDirectiveMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "../template_ast.dart",
+        "2": [
+          "BoundEventAst",
+          "DirectiveAst"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_binding.dart",
+        "2": [
+          "CompileBinding"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_element.dart",
+        "2": [
+          "CompileElement"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_method.dart",
+        "2": [
+          "CompileMethod"
+        ],
+        "5": false
+      },
+      {
+        "1": "constants.dart",
+        "2": [
+          "EventHandlerVars"
+        ],
+        "5": false
+      },
+      {
+        "1": "expression_converter.dart",
+        "2": [
+          "convertCdStatementToIr"
+        ],
+        "5": false
+      },
+      {
+        "1": "parse_utils.dart",
+        "5": false
+      }
+    ],
+    "6": "event_binder.dart",
+    "7": [
+      {
+        "1": "../compile_metadata.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../output/output_ast.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../template_ast.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "compile_binding.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "compile_element.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "compile_method.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "constants.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "expression_converter.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "parse_utils.template.dart",
+        "4": "i8"
+      }
+    ]
+  },
+  "type": {
+    "CompileEventListener": {
+      "class": "Identifier",
+      "name": "CompileEventListener",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_extractFunction": {
+      "class": "Identifier",
+      "name": "_extractFunction",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindDirectiveOutputs": {
+      "class": "Identifier",
+      "name": "bindDirectiveOutputs",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindRenderOutputs": {
+      "class": "Identifier",
+      "name": "bindRenderOutputs",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "collectEventListeners": {
+      "class": "Identifier",
+      "name": "collectEventListeners",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "convertStmtIntoExpression": {
+      "class": "Identifier",
+      "name": "convertStmtIntoExpression",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isNativeHtmlEvent": {
+      "class": "Identifier",
+      "name": "isNativeHtmlEvent",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/event_binder.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

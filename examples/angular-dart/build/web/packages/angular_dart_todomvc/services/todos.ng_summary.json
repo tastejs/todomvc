@@ -1,0 +1,70 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/models/item.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/services/storage.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "TodosService",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "StorageService",
+            "4": "_storage"
+          }
+        ]
+      }
+    ],
+    "6": "todos.dart"
+  },
+  "type": {
+    "TodosService": {
+      "class": "Type",
+      "name": "TodosService",
+      "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "StorageService",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

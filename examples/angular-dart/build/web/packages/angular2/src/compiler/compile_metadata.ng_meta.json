@@ -1,0 +1,221 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/change_detection/change_detection.dart",
+        "2": [
+          "ChangeDetectionStrategy"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata/lifecycle_hooks.dart",
+        "2": [
+          "LifecycleHooks",
+          "LIFECYCLE_HOOKS_VALUES"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/metadata/view.dart",
+        "2": [
+          "ViewEncapsulation"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "compiler_utils.dart",
+        "5": false
+      },
+      {
+        "1": "selector.dart",
+        "2": [
+          "CssSelector"
+        ],
+        "5": false
+      },
+      {
+        "1": "url_resolver.dart",
+        "2": [
+          "getUrlScheme"
+        ],
+        "5": false
+      }
+    ],
+    "6": "compile_metadata.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/change_detection/change_detection.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/metadata/lifecycle_hooks.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/core/metadata/view.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "compiler_utils.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "selector.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "url_resolver.template.dart",
+        "4": "i6"
+      }
+    ]
+  },
+  "type": {
+    "CompileDiDependencyMetadata": {
+      "class": "Identifier",
+      "name": "CompileDiDependencyMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileDirectiveMetadata": {
+      "class": "Identifier",
+      "name": "CompileDirectiveMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileFactoryMetadata": {
+      "class": "Identifier",
+      "name": "CompileFactoryMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileIdentifierMetadata": {
+      "class": "Identifier",
+      "name": "CompileIdentifierMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileMetadataWithIdentifier": {
+      "class": "Identifier",
+      "name": "CompileMetadataWithIdentifier",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileMetadataWithType": {
+      "class": "Identifier",
+      "name": "CompileMetadataWithType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompilePipeMetadata": {
+      "class": "Identifier",
+      "name": "CompilePipeMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileProviderMetadata": {
+      "class": "Identifier",
+      "name": "CompileProviderMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileQueryMetadata": {
+      "class": "Identifier",
+      "name": "CompileQueryMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileTemplateMetadata": {
+      "class": "Identifier",
+      "name": "CompileTemplateMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileTokenMap": {
+      "class": "Identifier",
+      "name": "CompileTokenMap",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileTokenMetadata": {
+      "class": "Identifier",
+      "name": "CompileTokenMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileTypeMetadata": {
+      "class": "Identifier",
+      "name": "CompileTypeMetadata",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_arrayFromJson": {
+      "class": "Identifier",
+      "name": "_arrayFromJson",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_arrayToJson": {
+      "class": "Identifier",
+      "name": "_arrayToJson",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_objFromJson": {
+      "class": "Identifier",
+      "name": "_objFromJson",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_objToJson": {
+      "class": "Identifier",
+      "name": "_objToJson",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createHostComponentMeta": {
+      "class": "Identifier",
+      "name": "createHostComponentMeta",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    },
+    "metadataFromJson": {
+      "class": "Identifier",
+      "name": "metadataFromJson",
+      "moduleUrl": "asset:angular2/lib/src/compiler/compile_metadata.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

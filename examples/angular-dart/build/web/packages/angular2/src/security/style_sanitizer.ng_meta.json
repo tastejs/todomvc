@@ -1,0 +1,74 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:logging/logging.dart",
+        "5": false
+      },
+      {
+        "1": "url_sanitizer.dart",
+        "5": false
+      }
+    ],
+    "6": "style_sanitizer.dart",
+    "7": [
+      {
+        "1": "url_sanitizer.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "_COLOR_FNS": {
+      "class": "Identifier",
+      "name": "_COLOR_FNS",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_FN_ARGS": {
+      "class": "Identifier",
+      "name": "_FN_ARGS",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_KEY": {
+      "class": "Identifier",
+      "name": "_KEY",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_TRANSFORMATION_FNS": {
+      "class": "Identifier",
+      "name": "_TRANSFORMATION_FNS",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_VALUES": {
+      "class": "Identifier",
+      "name": "_VALUES",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "hasBalancedQuotes": {
+      "class": "Identifier",
+      "name": "hasBalancedQuotes",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "internalSanitizeStyle": {
+      "class": "Identifier",
+      "name": "internalSanitizeStyle",
+      "moduleUrl": "asset:angular2/lib/src/security/style_sanitizer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

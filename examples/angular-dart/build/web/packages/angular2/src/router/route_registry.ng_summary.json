@@ -1,0 +1,197 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:math",
+        "4": "math",
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "OpaqueToken",
+          "ComponentFactory"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injectable",
+          "Inject"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "instruction.dart",
+        "2": [
+          "Instruction",
+          "ResolvedInstruction",
+          "RedirectInstruction",
+          "UnresolvedInstruction",
+          "DefaultInstruction"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_config/route_config_decorator.dart",
+        "2": [
+          "RouteConfig",
+          "Route",
+          "AuxRoute",
+          "RouteDefinition"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_config/route_config_normalizer.dart",
+        "2": [
+          "normalizeRouteConfig",
+          "assertComponentExists"
+        ],
+        "5": false
+      },
+      {
+        "1": "rules/route_paths/route_path.dart",
+        "2": [
+          "GeneratedUrl"
+        ],
+        "5": false
+      },
+      {
+        "1": "rules/rule_set.dart",
+        "2": [
+          "RuleSet"
+        ],
+        "5": false
+      },
+      {
+        "1": "rules/rules.dart",
+        "2": [
+          "PathMatch",
+          "RedirectMatch",
+          "RouteMatch"
+        ],
+        "5": false
+      },
+      {
+        "1": "url_parser.dart",
+        "2": [
+          "parser",
+          "Url",
+          "convertUrlParamsToArray"
+        ],
+        "5": false
+      },
+      {
+        "1": "utils.dart",
+        "2": [
+          "getComponentAnnotations",
+          "getComponentType"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "RouteRegistry",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "dynamic",
+            "3": [
+              "const Inject(ROUTER_PRIMARY_COMPONENT)"
+            ],
+            "4": "_rootComponent"
+          }
+        ]
+      }
+    ],
+    "6": "route_registry.dart"
+  },
+  "type": {
+    "ROUTER_PRIMARY_COMPONENT": {
+      "class": "Identifier",
+      "name": "ROUTER_PRIMARY_COMPONENT",
+      "moduleUrl": "asset:angular2/lib/src/router/route_registry.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteRegistry": {
+      "class": "Type",
+      "name": "RouteRegistry",
+      "moduleUrl": "asset:angular2/lib/src/router/route_registry.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ROUTER_PRIMARY_COMPONENT",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "assertTerminalComponent": {
+      "class": "Identifier",
+      "name": "assertTerminalComponent",
+      "moduleUrl": "asset:angular2/lib/src/router/route_registry.dart",
+      "prefix": null,
+      "value": null
+    },
+    "compareSpecificityStrings": {
+      "class": "Identifier",
+      "name": "compareSpecificityStrings",
+      "moduleUrl": "asset:angular2/lib/src/router/route_registry.dart",
+      "prefix": null,
+      "value": null
+    },
+    "mostSpecific": {
+      "class": "Identifier",
+      "name": "mostSpecific",
+      "moduleUrl": "asset:angular2/lib/src/router/route_registry.dart",
+      "prefix": null,
+      "value": null
+    },
+    "splitAndFlattenLinkParams": {
+      "class": "Identifier",
+      "name": "splitAndFlattenLinkParams",
+      "moduleUrl": "asset:angular2/lib/src/router/route_registry.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

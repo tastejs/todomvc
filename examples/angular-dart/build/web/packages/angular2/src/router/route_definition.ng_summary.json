@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "RouteDefinition": {
+      "class": "Identifier",
+      "name": "RouteDefinition",
+      "moduleUrl": "asset:angular2/lib/src/router/route_definition.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

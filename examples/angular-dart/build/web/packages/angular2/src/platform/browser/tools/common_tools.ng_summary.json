@@ -1,0 +1,50 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/application_ref.dart",
+        "2": [
+          "ApplicationRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.dart",
+        "2": [
+          "ComponentRef"
+        ],
+        "5": false
+      }
+    ],
+    "6": "common_tools.dart"
+  },
+  "type": {
+    "AngularProfiler": {
+      "class": "Identifier",
+      "name": "AngularProfiler",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/tools/common_tools.dart",
+      "prefix": null,
+      "value": null
+    },
+    "AngularTools": {
+      "class": "Identifier",
+      "name": "AngularTools",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/tools/common_tools.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ChangeDetectionPerfRecord": {
+      "class": "Identifier",
+      "name": "ChangeDetectionPerfRecord",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/tools/common_tools.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

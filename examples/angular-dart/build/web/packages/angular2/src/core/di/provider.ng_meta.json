@@ -1,0 +1,27 @@
+{
+  "ngDeps": null,
+  "type": {
+    "Provider": {
+      "class": "Identifier",
+      "name": "Provider",
+      "moduleUrl": "asset:angular2/lib/src/core/di/provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "noValueProvided": {
+      "class": "Identifier",
+      "name": "noValueProvided",
+      "moduleUrl": "asset:angular2/lib/src/core/di/provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "provide": {
+      "class": "Identifier",
+      "name": "provide",
+      "moduleUrl": "asset:angular2/lib/src/core/di/provider.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

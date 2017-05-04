@@ -1,0 +1,190 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "2": [
+          "reflector",
+          "NoReflectionCapabilitiesError"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/lang.dart",
+        "2": [
+          "assertionsEnabled"
+        ],
+        "5": false
+      },
+      {
+        "1": "../metadata.dart",
+        "5": false
+      },
+      {
+        "1": "decorators.dart",
+        "5": false
+      },
+      {
+        "1": "provider.dart",
+        "2": [
+          "Provider",
+          "noValueProvided"
+        ],
+        "5": false
+      },
+      {
+        "1": "reflective_exceptions.dart",
+        "2": [
+          "NoAnnotationError",
+          "MixingMultiProvidersWithRegularProvidersError",
+          "InvalidProviderError"
+        ],
+        "5": false
+      },
+      {
+        "1": "reflective_key.dart",
+        "5": false
+      }
+    ],
+    "6": "reflective_provider.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/reflection/reflection.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/facade/lang.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../metadata.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "decorators.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "provider.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "reflective_exceptions.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "reflective_key.template.dart",
+        "4": "i6"
+      }
+    ]
+  },
+  "type": {
+    "ReflectiveDependency": {
+      "class": "Identifier",
+      "name": "ReflectiveDependency",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ResolvedReflectiveBinding": {
+      "class": "Identifier",
+      "name": "ResolvedReflectiveBinding",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ResolvedReflectiveFactory": {
+      "class": "Identifier",
+      "name": "ResolvedReflectiveFactory",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ResolvedReflectiveProvider": {
+      "class": "Identifier",
+      "name": "ResolvedReflectiveProvider",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ResolvedReflectiveProviderImpl": {
+      "class": "Identifier",
+      "name": "ResolvedReflectiveProviderImpl",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_createDependency": {
+      "class": "Identifier",
+      "name": "_createDependency",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_dependenciesFor": {
+      "class": "Identifier",
+      "name": "_dependenciesFor",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_extractToken": {
+      "class": "Identifier",
+      "name": "_extractToken",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_extractTokenUnwrappedParameters": {
+      "class": "Identifier",
+      "name": "_extractTokenUnwrappedParameters",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_normalizeProviders": {
+      "class": "Identifier",
+      "name": "_normalizeProviders",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "constructDependencies": {
+      "class": "Identifier",
+      "name": "constructDependencies",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "mergeResolvedReflectiveProviders": {
+      "class": "Identifier",
+      "name": "mergeResolvedReflectiveProviders",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "resolveReflectiveFactory": {
+      "class": "Identifier",
+      "name": "resolveReflectiveFactory",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "resolveReflectiveProvider": {
+      "class": "Identifier",
+      "name": "resolveReflectiveProvider",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    },
+    "resolveReflectiveProviders": {
+      "class": "Identifier",
+      "name": "resolveReflectiveProviders",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_provider.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

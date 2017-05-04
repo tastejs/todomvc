@@ -1,0 +1,37 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "../../instruction.dart",
+        "2": [
+          "RouteData",
+          "BLANK_ROUTE_DATA"
+        ],
+        "5": false
+      },
+      {
+        "1": "route_handler.dart",
+        "2": [
+          "RouteHandler"
+        ],
+        "5": false
+      }
+    ],
+    "6": "async_route_handler.dart"
+  },
+  "type": {
+    "AsyncRouteHandler": {
+      "class": "Identifier",
+      "name": "AsyncRouteHandler",
+      "moduleUrl": "asset:angular2/lib/src/router/rules/route_handlers/async_route_handler.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

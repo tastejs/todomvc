@@ -1,0 +1,191 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "application_ref.dart",
+        "2": [
+          "PLATFORM_CORE_PROVIDERS"
+        ],
+        "5": false
+      },
+      {
+        "1": "di.dart",
+        "2": [
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "reflection/reflection.dart",
+        "2": [
+          "Reflector",
+          "reflector"
+        ],
+        "5": false
+      },
+      {
+        "1": "testability/testability.dart",
+        "2": [
+          "TestabilityRegistry"
+        ],
+        "5": false
+      }
+    ],
+    "6": "platform_common_providers.dart",
+    "7": [
+      {
+        "1": "application_ref.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "di.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "reflection/reflection.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "testability/testability.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "PLATFORM_COMMON_PROVIDERS": {
+      "class": "Identifier",
+      "name": "PLATFORM_COMMON_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/src/core/platform_common_providers.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "PlatformRefImpl",
+              "moduleUrl": "asset:angular2/lib/src/core/application_ref.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": []
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "PlatformRefImpl",
+            "moduleUrl": "asset:angular2/lib/src/core/application_ref.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "PlatformRef",
+              "moduleUrl": "asset:angular2/lib/src/core/application_ref.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "PlatformRefImpl",
+              "moduleUrl": "asset:angular2/lib/src/core/application_ref.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": []
+            },
+            "identifierIsInstance": false
+          },
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "Reflector",
+              "moduleUrl": "asset:angular2/lib/src/core/reflection/reflector.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": null,
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": {
+            "class": "Identifier",
+            "name": "reflectorFactory",
+            "moduleUrl": "asset:angular2/lib/src/core/platform_common_providers.dart",
+            "prefix": null,
+            "value": null
+          },
+          "multi": false,
+          "deps": []
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Type",
+              "name": "TestabilityRegistry",
+              "moduleUrl": "asset:angular2/lib/src/core/testability/testability.dart",
+              "prefix": null,
+              "isHost": false,
+              "value": null,
+              "diDeps": []
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "TestabilityRegistry",
+            "moduleUrl": "asset:angular2/lib/src/core/testability/testability.dart",
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        }
+      ]
+    },
+    "reflectorFactory": {
+      "class": "Identifier",
+      "name": "reflectorFactory",
+      "moduleUrl": "asset:angular2/lib/src/core/platform_common_providers.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

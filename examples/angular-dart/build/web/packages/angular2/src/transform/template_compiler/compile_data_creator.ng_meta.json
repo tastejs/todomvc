@@ -1,0 +1,118 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:convert",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/compile_metadata.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/offline_compiler.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/asset_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/ng_deps_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/reflection_info_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/ng_meta.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/url_resolver.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      }
+    ],
+    "6": "compile_data_creator.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/compiler/compile_metadata.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/compiler/offline_compiler.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/transform/common/asset_reader.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/ng_deps_model.pb.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/reflection_info_model.pb.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "package:angular2/src/transform/common/ng_meta.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "package:angular2/src/transform/common/url_resolver.template.dart",
+        "4": "i8"
+      }
+    ]
+  },
+  "type": {
+    "CompileDataResults": {
+      "class": "Identifier",
+      "name": "CompileDataResults",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/compile_data_creator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_CompileDataCreator": {
+      "class": "Identifier",
+      "name": "_CompileDataCreator",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/compile_data_creator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createCompileData": {
+      "class": "Identifier",
+      "name": "createCompileData",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/compile_data_creator.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

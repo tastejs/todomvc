@@ -1,0 +1,172 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:convert",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "dart:js_util",
+        "4": "js_util",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/change_detection/change_detection.dart",
+        "2": [
+          "ChangeDetectionStrategy",
+          "ChangeDetectorState"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di/injector.dart",
+        "2": [
+          "THROW_IF_NOT_FOUND"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/exceptions.dart",
+        "2": [
+          "ExpressionChangedAfterItHasBeenCheckedException",
+          "ViewWrappedException"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/view_container.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/view_type.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/render/api.dart",
+        "5": false
+      },
+      {
+        "1": "package:js/js.dart",
+        "4": "js",
+        "5": false
+      },
+      {
+        "1": "package:meta/meta.dart",
+        "5": false
+      },
+      {
+        "1": "debug_context.dart",
+        "2": [
+          "StaticNodeDebugInfo",
+          "DebugContext"
+        ],
+        "5": false
+      },
+      {
+        "1": "debug_node.dart",
+        "2": [
+          "DebugElement",
+          "DebugNode",
+          "getDebugNode",
+          "indexDebugNode",
+          "inspectNativeElement",
+          "DebugEventListener",
+          "removeDebugNodeFromIndex"
+        ],
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "package:angular2/src/core/linker/app_view.dart"
+      },
+      {
+        "1": "debug_context.dart",
+        "2": [
+          "StaticNodeDebugInfo",
+          "DebugContext"
+        ]
+      }
+    ],
+    "6": "debug_app_view.dart"
+  },
+  "type": {
+    "DebugAppView": {
+      "class": "Identifier",
+      "name": "DebugAppView",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "INSPECT_GLOBAL_NAME": {
+      "class": "Identifier",
+      "name": "INSPECT_GLOBAL_NAME",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_appendDebugNestedViewRenderNodes": {
+      "class": "Identifier",
+      "name": "_appendDebugNestedViewRenderNodes",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_setGlobalVar": {
+      "class": "Identifier",
+      "name": "_setGlobalVar",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_templateCommentText": {
+      "class": "Identifier",
+      "name": "_templateCommentText",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createAndAppendDbg": {
+      "class": "Identifier",
+      "name": "createAndAppendDbg",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createAndAppendToShadowRootDbg": {
+      "class": "Identifier",
+      "name": "createAndAppendToShadowRootDbg",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    },
+    "dbgElm": {
+      "class": "Identifier",
+      "name": "dbgElm",
+      "moduleUrl": "asset:angular2/lib/src/debug/debug_app_view.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

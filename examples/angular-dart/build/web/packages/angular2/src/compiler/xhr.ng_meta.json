@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "XHR": {
+      "class": "Identifier",
+      "name": "XHR",
+      "moduleUrl": "asset:angular2/lib/src/compiler/xhr.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

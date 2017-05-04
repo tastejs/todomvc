@@ -1,8 +1,23 @@
-name: angular-dart-todomvc
+name: angular_dart_todomvc
 version: 0.0.0
+
 environment:
-  sdk: '>=1.0.0 <=1.9.1'
+  sdk: '>=1.23.0 <2.0.0'
+
 dependencies:
-  angular: '>=0.9.0 <0.10.0'
-  browser: '>=0.9.0 <0.10.0'
-  js: '>=0.2.0'
+  angular2: ^3.0.0
+
+dev_dependencies:
+  browser: ^0.10.0
+  dart_to_js_script_rewriter: ^1.0.1
+
+transformers:
+- angular2:
+    platform_directives:
+    - 'package:angular2/common.dart#COMMON_DIRECTIVES'
+    platform_pipes:
+    - 'package:angular2/common.dart#COMMON_PIPES'
+    entry_points: web/main.dart
+- $dart2js:
+    minify: true
+- dart_to_js_script_rewriter

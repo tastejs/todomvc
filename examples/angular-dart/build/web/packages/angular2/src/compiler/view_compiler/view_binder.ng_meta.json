@@ -1,0 +1,116 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../template_ast.dart",
+        "2": [
+          "TemplateAst",
+          "TemplateAstVisitor",
+          "NgContentAst",
+          "EmbeddedTemplateAst",
+          "ElementAst",
+          "ReferenceAst",
+          "VariableAst",
+          "BoundEventAst",
+          "BoundElementPropertyAst",
+          "AttrAst",
+          "BoundTextAst",
+          "TextAst",
+          "DirectiveAst",
+          "BoundDirectivePropertyAst",
+          "templateVisitAll"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_element.dart",
+        "2": [
+          "CompileElement"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_view.dart",
+        "2": [
+          "CompileView"
+        ],
+        "5": false
+      },
+      {
+        "1": "event_binder.dart",
+        "2": [
+          "bindRenderOutputs",
+          "collectEventListeners",
+          "bindDirectiveOutputs"
+        ],
+        "5": false
+      },
+      {
+        "1": "lifecycle_binder.dart",
+        "2": [
+          "bindDirectiveAfterContentLifecycleCallbacks",
+          "bindDirectiveAfterViewLifecycleCallbacks",
+          "bindDirectiveDestroyLifecycleCallbacks",
+          "bindPipeDestroyLifecycleCallbacks",
+          "bindDirectiveDetectChangesLifecycleCallbacks"
+        ],
+        "5": false
+      },
+      {
+        "1": "property_binder.dart",
+        "2": [
+          "bindRenderText",
+          "bindRenderInputs",
+          "bindDirectiveInputs",
+          "bindDirectiveHostProps"
+        ],
+        "5": false
+      }
+    ],
+    "6": "view_binder.dart",
+    "7": [
+      {
+        "1": "../template_ast.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "compile_element.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "compile_view.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "event_binder.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "lifecycle_binder.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "property_binder.template.dart",
+        "4": "i5"
+      }
+    ]
+  },
+  "type": {
+    "ViewBinderVisitor": {
+      "class": "Identifier",
+      "name": "ViewBinderVisitor",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/view_binder.dart",
+      "prefix": null,
+      "value": null
+    },
+    "bindView": {
+      "class": "Identifier",
+      "name": "bindView",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/view_binder.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

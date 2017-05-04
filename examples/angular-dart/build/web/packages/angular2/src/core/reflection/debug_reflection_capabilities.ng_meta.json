@@ -1,0 +1,50 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:mirrors",
+        "5": false
+      },
+      {
+        "1": "package:logging/logging.dart",
+        "4": "log",
+        "5": false
+      },
+      {
+        "1": "package:stack_trace/stack_trace.dart",
+        "5": false
+      },
+      {
+        "1": "reflection_capabilities.dart",
+        "4": "standard",
+        "5": false
+      },
+      {
+        "1": "types.dart",
+        "5": false
+      }
+    ],
+    "6": "debug_reflection_capabilities.dart",
+    "7": [
+      {
+        "1": "reflection_capabilities.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "types.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "ReflectionCapabilities": {
+      "class": "Identifier",
+      "name": "ReflectionCapabilities",
+      "moduleUrl": "asset:angular2/lib/src/core/reflection/debug_reflection_capabilities.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

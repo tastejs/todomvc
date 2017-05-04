@@ -1,0 +1,69 @@
+{
+  "ngDeps": null,
+  "type": {
+    "BLANK_ROUTE_DATA": {
+      "class": "Identifier",
+      "name": "BLANK_ROUTE_DATA",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ComponentInstruction": {
+      "class": "Identifier",
+      "name": "ComponentInstruction",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DefaultInstruction": {
+      "class": "Identifier",
+      "name": "DefaultInstruction",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Instruction": {
+      "class": "Identifier",
+      "name": "Instruction",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RedirectInstruction": {
+      "class": "Identifier",
+      "name": "RedirectInstruction",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ResolvedInstruction": {
+      "class": "Identifier",
+      "name": "ResolvedInstruction",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteData": {
+      "class": "Identifier",
+      "name": "RouteData",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RouteParams": {
+      "class": "Identifier",
+      "name": "RouteParams",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    },
+    "UnresolvedInstruction": {
+      "class": "Identifier",
+      "name": "UnresolvedInstruction",
+      "moduleUrl": "asset:angular2/lib/src/router/instruction.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

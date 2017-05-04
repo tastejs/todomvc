@@ -1,0 +1,57 @@
+{
+  "ngDeps": {
+    "1": "angular2.src.transform.common.model.proto_import_export_model",
+    "3": [
+      {
+        "1": "package:protobuf/protobuf.dart",
+        "5": false
+      }
+    ],
+    "6": "import_export_model.pb.dart"
+  },
+  "type": {
+    "ExportModel": {
+      "class": "Identifier",
+      "name": "ExportModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/import_export_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ExportModel$json": {
+      "class": "Identifier",
+      "name": "ExportModel$json",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/import_export_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ImportModel": {
+      "class": "Identifier",
+      "name": "ImportModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/import_export_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ImportModel$json": {
+      "class": "Identifier",
+      "name": "ImportModel$json",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/import_export_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReadonlyExportModel": {
+      "class": "Identifier",
+      "name": "_ReadonlyExportModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/import_export_model.pb.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_ReadonlyImportModel": {
+      "class": "Identifier",
+      "name": "_ReadonlyImportModel",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/model/import_export_model.pb.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,36 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/router/interfaces.dart",
+        "5": false
+      },
+      {
+        "1": "lifecycle_annotations.dart",
+        "5": false
+      }
+    ],
+    "6": "route_lifecycle_reflector.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/router/interfaces.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "lifecycle_annotations.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "hasLifecycleHook": {
+      "class": "Identifier",
+      "name": "hasLifecycleHook",
+      "moduleUrl": "asset:angular2/lib/src/router/lifecycle/route_lifecycle_reflector.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

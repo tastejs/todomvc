@@ -1,0 +1,55 @@
+{
+  "ngDeps": null,
+  "type": {
+    "HtmlTagContentType": {
+      "class": "Identifier",
+      "name": "HtmlTagContentType",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    },
+    "HtmlTagDefinition": {
+      "class": "Identifier",
+      "name": "HtmlTagDefinition",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NAMED_ENTITIES": {
+      "class": "Identifier",
+      "name": "NAMED_ENTITIES",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getHtmlTagDefinition": {
+      "class": "Identifier",
+      "name": "getHtmlTagDefinition",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getNsPrefix": {
+      "class": "Identifier",
+      "name": "getNsPrefix",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    },
+    "mergeNsAndName": {
+      "class": "Identifier",
+      "name": "mergeNsAndName",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    },
+    "splitNsName": {
+      "class": "Identifier",
+      "name": "splitNsName",
+      "moduleUrl": "asset:angular2/lib/src/compiler/html_tags.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,181 @@
+{
+  "ngDeps": null,
+  "type": {
+    "ALL_EXTENSIONS": {
+      "class": "Identifier",
+      "name": "ALL_EXTENSIONS",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BOOTSTRAP_NAME": {
+      "class": "Identifier",
+      "name": "BOOTSTRAP_NAME",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BOOTSTRAP_STATIC_NAME": {
+      "class": "Identifier",
+      "name": "BOOTSTRAP_STATIC_NAME",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CSS_EXTENSION": {
+      "class": "Identifier",
+      "name": "CSS_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DEFERRED_EXTENSION": {
+      "class": "Identifier",
+      "name": "DEFERRED_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "META_EXTENSION": {
+      "class": "Identifier",
+      "name": "META_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NON_SHIMMED_STYLESHEET_EXTENSION": {
+      "class": "Identifier",
+      "name": "NON_SHIMMED_STYLESHEET_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "REFLECTION_CAPABILITIES_NAME": {
+      "class": "Identifier",
+      "name": "REFLECTION_CAPABILITIES_NAME",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "REFLECTOR_IMPORT": {
+      "class": "Identifier",
+      "name": "REFLECTOR_IMPORT",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "REFLECTOR_PREFIX": {
+      "class": "Identifier",
+      "name": "REFLECTOR_PREFIX",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "REFLECTOR_VAR_NAME": {
+      "class": "Identifier",
+      "name": "REFLECTOR_VAR_NAME",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "REGISTER_TYPE_METHOD_NAME": {
+      "class": "Identifier",
+      "name": "REGISTER_TYPE_METHOD_NAME",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SETUP_METHOD_NAME": {
+      "class": "Identifier",
+      "name": "SETUP_METHOD_NAME",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SHIMMED_STYLESHEET_EXTENSION": {
+      "class": "Identifier",
+      "name": "SHIMMED_STYLESHEET_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SUMMARY_META_EXTENSION": {
+      "class": "Identifier",
+      "name": "SUMMARY_META_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TEMPLATE_EXTENSION": {
+      "class": "Identifier",
+      "name": "TEMPLATE_EXTENSION",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "TRANSFORM_DYNAMIC_MODE": {
+      "class": "Identifier",
+      "name": "TRANSFORM_DYNAMIC_MODE",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_toExtension": {
+      "class": "Identifier",
+      "name": "_toExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isGenerated": {
+      "class": "Identifier",
+      "name": "isGenerated",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toDeferredExtension": {
+      "class": "Identifier",
+      "name": "toDeferredExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toMetaExtension": {
+      "class": "Identifier",
+      "name": "toMetaExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toNonShimmedStylesheetExtension": {
+      "class": "Identifier",
+      "name": "toNonShimmedStylesheetExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toShimmedStylesheetExtension": {
+      "class": "Identifier",
+      "name": "toShimmedStylesheetExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toSummaryExtension": {
+      "class": "Identifier",
+      "name": "toSummaryExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    },
+    "toTemplateExtension": {
+      "class": "Identifier",
+      "name": "toTemplateExtension",
+      "moduleUrl": "asset:angular2/lib/src/transform/common/names.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:html",
+        "5": false
+      },
+      {
+        "1": "debug_node.dart",
+        "5": false
+      }
+    ],
+    "6": "by.dart"
+  },
+  "type": {
+    "By": {
+      "class": "Identifier",
+      "name": "By",
+      "moduleUrl": "asset:angular2/lib/src/debug/by.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

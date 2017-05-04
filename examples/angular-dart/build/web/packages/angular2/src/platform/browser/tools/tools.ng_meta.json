@@ -1,0 +1,53 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:js",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/component_factory.dart",
+        "2": [
+          "ComponentRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "common_tools.dart",
+        "2": [
+          "AngularTools"
+        ],
+        "5": false
+      }
+    ],
+    "6": "tools.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/linker/component_factory.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "common_tools.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "disableDebugTools": {
+      "class": "Identifier",
+      "name": "disableDebugTools",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/tools/tools.dart",
+      "prefix": null,
+      "value": null
+    },
+    "enableDebugTools": {
+      "class": "Identifier",
+      "name": "enableDebugTools",
+      "moduleUrl": "asset:angular2/lib/src/platform/browser/tools/tools.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

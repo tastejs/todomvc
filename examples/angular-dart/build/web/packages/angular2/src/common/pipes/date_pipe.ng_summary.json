@@ -1,0 +1,78 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:intl/intl.dart",
+        "5": false
+      },
+      {
+        "1": "invalid_pipe_argument_exception.dart",
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "DatePipe",
+        "4": [
+          {
+            "1": "Pipe",
+            "2": [
+              "\"date\""
+            ],
+            "3": [
+              {
+                "1": "pure",
+                "2": "true"
+              }
+            ],
+            "4": false
+          },
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "6": [
+          "PipeTransform"
+        ]
+      }
+    ],
+    "6": "date_pipe.dart"
+  },
+  "type": {
+    "DatePipe": {
+      "class": "Pipe",
+      "type": {
+        "class": "Type",
+        "name": "DatePipe",
+        "moduleUrl": "asset:angular2/lib/src/common/pipes/date_pipe.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": []
+      },
+      "name": "date",
+      "pure": true
+    },
+    "_formatDate": {
+      "class": "Identifier",
+      "name": "_formatDate",
+      "moduleUrl": "asset:angular2/lib/src/common/pipes/date_pipe.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_normalizeLocale": {
+      "class": "Identifier",
+      "name": "_normalizeLocale",
+      "moduleUrl": "asset:angular2/lib/src/common/pipes/date_pipe.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

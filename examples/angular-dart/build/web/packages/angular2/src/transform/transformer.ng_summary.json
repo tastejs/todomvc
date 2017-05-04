@@ -1,0 +1,76 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      },
+      {
+        "1": "package:dart_style/dart_style.dart",
+        "5": false
+      },
+      {
+        "1": "common/eager_transformer_wrapper.dart",
+        "5": false
+      },
+      {
+        "1": "common/formatter.dart",
+        "4": "formatter",
+        "5": false
+      },
+      {
+        "1": "common/options.dart",
+        "5": false
+      },
+      {
+        "1": "common/options_reader.dart",
+        "5": false
+      },
+      {
+        "1": "deferred_rewriter/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "directive_metadata_linker/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "directive_processor/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "inliner_for_test/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "reflection_remover/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "stylesheet_compiler/transformer.dart",
+        "5": false
+      },
+      {
+        "1": "template_compiler/transformer.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "common/options.dart"
+      }
+    ],
+    "6": "transformer.dart"
+  },
+  "type": {
+    "AngularTransformerGroup": {
+      "class": "Identifier",
+      "name": "AngularTransformerGroup",
+      "moduleUrl": "asset:angular2/lib/src/transform/transformer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

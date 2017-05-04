@@ -1,0 +1,13 @@
+{
+  "ngDeps": null,
+  "type": {
+    "CompilerConfig": {
+      "class": "Identifier",
+      "name": "CompilerConfig",
+      "moduleUrl": "asset:angular2/lib/src/compiler/config.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "angular2.transform.asset_consumer.transformer",
+    "3": [
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      }
+    ],
+    "6": "transformer.dart"
+  },
+  "type": {
+    "AssetConsumer": {
+      "class": "Identifier",
+      "name": "AssetConsumer",
+      "moduleUrl": "asset:angular2/lib/src/transform/asset_consumer/transformer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

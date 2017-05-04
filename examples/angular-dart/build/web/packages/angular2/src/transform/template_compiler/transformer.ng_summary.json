@@ -1,0 +1,77 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/ng_deps_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/source_module.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/asset_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/code/ng_deps_code.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/formatter.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/zone.dart",
+        "4": "zone",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      },
+      {
+        "1": "generator.dart",
+        "5": false
+      }
+    ],
+    "6": "transformer.dart"
+  },
+  "type": {
+    "TemplateCompiler": {
+      "class": "Identifier",
+      "name": "TemplateCompiler",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/transformer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_emptyNgDepsContents": {
+      "class": "Identifier",
+      "name": "_emptyNgDepsContents",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/transformer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "writeTemplateFile": {
+      "class": "Identifier",
+      "name": "writeTemplateFile",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/transformer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

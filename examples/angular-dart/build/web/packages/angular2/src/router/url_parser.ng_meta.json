@@ -1,0 +1,80 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      }
+    ],
+    "6": "url_parser.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "RootUrl": {
+      "class": "Identifier",
+      "name": "RootUrl",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Url": {
+      "class": "Identifier",
+      "name": "Url",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "UrlParser": {
+      "class": "Identifier",
+      "name": "UrlParser",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "convertUrlParamsToArray": {
+      "class": "Identifier",
+      "name": "convertUrlParamsToArray",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "matchUrlQueryParamValue": {
+      "class": "Identifier",
+      "name": "matchUrlQueryParamValue",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "matchUrlSegment": {
+      "class": "Identifier",
+      "name": "matchUrlSegment",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "pathSegmentsToUrl": {
+      "class": "Identifier",
+      "name": "pathSegmentsToUrl",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    },
+    "serializeParams": {
+      "class": "Identifier",
+      "name": "serializeParams",
+      "moduleUrl": "asset:angular2/lib/src/router/url_parser.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

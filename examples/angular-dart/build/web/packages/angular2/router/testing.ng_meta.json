@@ -1,0 +1,52 @@
+{
+  "ngDeps": {
+    "1": "angular2.router.testing",
+    "4": [
+      {
+        "1": "package:angular2/src/mock/location_mock.dart"
+      },
+      {
+        "1": "package:angular2/src/mock/mock_location_strategy.dart"
+      }
+    ],
+    "6": "testing.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/mock/location_mock.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/mock/mock_location_strategy.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "MockLocationStrategy": {
+      "class": "Type",
+      "name": "MockLocationStrategy",
+      "moduleUrl": "asset:angular2/lib/src/mock/mock_location_strategy.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "SpyLocation": {
+      "class": "Type",
+      "name": "SpyLocation",
+      "moduleUrl": "asset:angular2/lib/src/mock/location_mock.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    },
+    "_MockPopStateEvent": {
+      "class": "Identifier",
+      "name": "_MockPopStateEvent",
+      "moduleUrl": "asset:angular2/lib/src/mock/mock_location_strategy.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

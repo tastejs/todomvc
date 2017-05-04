@@ -1,0 +1,118 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException",
+          "WrappedException"
+        ],
+        "5": false
+      },
+      {
+        "1": "decorators.dart",
+        "5": false
+      },
+      {
+        "1": "provider.dart",
+        "5": false
+      },
+      {
+        "1": "reflective_injector.dart",
+        "2": [
+          "ReflectiveInjector"
+        ],
+        "5": false
+      },
+      {
+        "1": "reflective_key.dart",
+        "2": [
+          "ReflectiveKey"
+        ],
+        "5": false
+      }
+    ],
+    "6": "reflective_exceptions.dart"
+  },
+  "type": {
+    "AbstractProviderError": {
+      "class": "Identifier",
+      "name": "AbstractProviderError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CyclicDependencyError": {
+      "class": "Identifier",
+      "name": "CyclicDependencyError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "InstantiationError": {
+      "class": "Identifier",
+      "name": "InstantiationError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "InvalidProviderError": {
+      "class": "Identifier",
+      "name": "InvalidProviderError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "MixingMultiProvidersWithRegularProvidersError": {
+      "class": "Identifier",
+      "name": "MixingMultiProvidersWithRegularProvidersError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NoAnnotationError": {
+      "class": "Identifier",
+      "name": "NoAnnotationError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NoProviderError": {
+      "class": "Identifier",
+      "name": "NoProviderError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OutOfBoundsError": {
+      "class": "Identifier",
+      "name": "OutOfBoundsError",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "constructResolvingPath": {
+      "class": "Identifier",
+      "name": "constructResolvingPath",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "findFirstClosedCycle": {
+      "class": "Identifier",
+      "name": "findFirstClosedCycle",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    },
+    "findFirstClosedCycleReversed": {
+      "class": "Identifier",
+      "name": "findFirstClosedCycleReversed",
+      "moduleUrl": "asset:angular2/lib/src/core/di/reflective_exceptions.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

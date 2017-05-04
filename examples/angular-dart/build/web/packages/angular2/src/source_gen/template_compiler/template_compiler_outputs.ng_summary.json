@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/compiler/source_module.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/source_gen/common/ng_deps_model.dart",
+        "5": false
+      }
+    ],
+    "6": "template_compiler_outputs.dart"
+  },
+  "type": {
+    "TemplateCompilerOutputs": {
+      "class": "Identifier",
+      "name": "TemplateCompilerOutputs",
+      "moduleUrl": "asset:angular2/lib/src/source_gen/template_compiler/template_compiler_outputs.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

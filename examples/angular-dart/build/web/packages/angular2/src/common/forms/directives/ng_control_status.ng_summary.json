@@ -1,0 +1,111 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Self"
+        ],
+        "5": false
+      },
+      {
+        "1": "ng_control.dart",
+        "2": [
+          "NgControl"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "NgControlStatus",
+        "4": [
+          {
+            "1": "Deprecated",
+            "2": [
+              "'Use listeners or variable binding on the control itself instead. ' 'This adds overhead for every form control whether the class is ' 'used or not.'"
+            ],
+            "4": false
+          }
+        ],
+        "5": [
+          {
+            "1": "NgControl",
+            "3": [
+              "const Self()"
+            ],
+            "4": "_cd"
+          }
+        ]
+      }
+    ],
+    "6": "ng_control_status.dart"
+  },
+  "type": {
+    "NgControlStatus": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[ngControl],[ngModel],[ngFormControl]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "NgControlStatus",
+        "moduleUrl": "asset:angular2/lib/src/common/forms/directives/ng_control_status.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "NgControl",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": true,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {},
+      "inputTypes": {},
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {
+        "class.ng-invalid": "ngClassInvalid",
+        "class.ng-touched": "ngClassTouched",
+        "class.ng-untouched": "ngClassUntouched",
+        "class.ng-valid": "ngClassValid",
+        "class.ng-dirty": "ngClassDirty",
+        "class.ng-pristine": "ngClassPristine"
+      },
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

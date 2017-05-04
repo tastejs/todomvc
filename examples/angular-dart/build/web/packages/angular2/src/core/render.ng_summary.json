@@ -1,0 +1,16 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "render/api.dart",
+        "2": [
+          "RenderComponentType"
+        ]
+      }
+    ],
+    "6": "render.dart"
+  },
+  "type": {},
+  "alias": {}
+}

@@ -1,0 +1,52 @@
+{
+  "ngDeps": {
+    "1": "",
+    "4": [
+      {
+        "1": "change_detection_util.dart",
+        "2": [
+          "WrappedValue",
+          "ValueUnwrapper",
+          "SimpleChange",
+          "devModeEqual",
+          "looseIdentical"
+        ]
+      },
+      {
+        "1": "change_detector_ref.dart",
+        "2": [
+          "ChangeDetectorRef"
+        ]
+      },
+      {
+        "1": "constants.dart",
+        "2": [
+          "ChangeDetectionStrategy",
+          "ChangeDetectorState",
+          "isDefaultChangeDetectionStrategy"
+        ]
+      },
+      {
+        "1": "differs/default_iterable_differ.dart",
+        "2": [
+          "CollectionChangeRecord"
+        ]
+      },
+      {
+        "1": "differs/default_keyvalue_differ.dart",
+        "2": [
+          "KeyValueChangeRecord"
+        ]
+      },
+      {
+        "1": "pipe_transform.dart",
+        "2": [
+          "PipeTransform"
+        ]
+      }
+    ],
+    "6": "change_detection.dart"
+  },
+  "type": {},
+  "alias": {}
+}

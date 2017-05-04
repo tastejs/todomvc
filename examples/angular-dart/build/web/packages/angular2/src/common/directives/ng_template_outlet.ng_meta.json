@@ -1,0 +1,92 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "Directive",
+          "Input",
+          "ViewContainerRef",
+          "ViewRef",
+          "TemplateRef"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "NgTemplateOutlet",
+        "5": [
+          {
+            "1": "ViewContainerRef",
+            "4": "_viewContainerRef"
+          }
+        ]
+      }
+    ],
+    "6": "ng_template_outlet.dart",
+    "7": [
+      {
+        "1": "package:angular2/core.template.dart",
+        "4": "i0"
+      }
+    ]
+  },
+  "type": {
+    "NgTemplateOutlet": {
+      "class": "Directive",
+      "isComponent": false,
+      "selector": "[ngTemplateOutlet]",
+      "exportAs": null,
+      "type": {
+        "class": "Type",
+        "name": "NgTemplateOutlet",
+        "moduleUrl": "asset:angular2/lib/src/common/directives/ng_template_outlet.dart",
+        "prefix": null,
+        "isHost": false,
+        "value": null,
+        "diDeps": [
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "ViewContainerRef",
+                "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          }
+        ]
+      },
+      "changeDetection": 6,
+      "inputs": {
+        "ngTemplateOutlet": "ngTemplateOutlet"
+      },
+      "inputTypes": {
+        "ngTemplateOutlet": " TemplateRef"
+      },
+      "outputs": {},
+      "hostListeners": {},
+      "hostProperties": {},
+      "hostAttributes": {},
+      "lifecycleHooks": [],
+      "template": null,
+      "providers": [],
+      "viewProviders": [],
+      "queries": [],
+      "viewQueries": []
+    }
+  },
+  "alias": {}
+}

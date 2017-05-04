@@ -1,0 +1,68 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/async.dart",
+        "2": [
+          "EventEmitter"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:meta/meta.dart",
+        "5": false
+      },
+      {
+        "1": "directives/validators.dart",
+        "2": [
+          "ValidatorFn"
+        ],
+        "5": false
+      }
+    ],
+    "6": "model.dart"
+  },
+  "type": {
+    "AbstractControl": {
+      "class": "Identifier",
+      "name": "AbstractControl",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "Control": {
+      "class": "Identifier",
+      "name": "Control",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ControlArray": {
+      "class": "Identifier",
+      "name": "ControlArray",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ControlGroup": {
+      "class": "Identifier",
+      "name": "ControlGroup",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_find": {
+      "class": "Identifier",
+      "name": "_find",
+      "moduleUrl": "asset:angular2/lib/src/common/forms/model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

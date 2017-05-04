@@ -1,0 +1,49 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:angular2/src/core/di/injector.dart",
+        "2": [
+          "Injector"
+        ],
+        "5": false
+      },
+      {
+        "1": "component_factory.dart",
+        "2": [
+          "ComponentFactory",
+          "ComponentRef"
+        ],
+        "5": false
+      },
+      {
+        "1": "element_ref.dart",
+        "5": false
+      },
+      {
+        "1": "template_ref.dart",
+        "5": false
+      },
+      {
+        "1": "view_ref.dart",
+        "2": [
+          "EmbeddedViewRef",
+          "ViewRef"
+        ],
+        "5": false
+      }
+    ],
+    "6": "view_container_ref.dart"
+  },
+  "type": {
+    "ViewContainerRef": {
+      "class": "Identifier",
+      "name": "ViewContainerRef",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/view_container_ref.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

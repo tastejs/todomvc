@@ -1,0 +1,91 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/di.dart",
+        "2": [
+          "Injectable"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "2": [
+          "reflector"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "component_factory.dart",
+        "2": [
+          "ComponentFactory"
+        ],
+        "5": false
+      }
+    ],
+    "5": [
+      {
+        "1": "ReflectorComponentResolver",
+        "4": [
+          {
+            "1": "Injectable",
+            "4": false
+          }
+        ],
+        "6": [
+          "ComponentResolver"
+        ]
+      }
+    ],
+    "6": "component_resolver.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/di.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "component_factory.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "ComponentResolver": {
+      "class": "Identifier",
+      "name": "ComponentResolver",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/component_resolver.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ReflectorComponentResolver": {
+      "class": "Type",
+      "name": "ReflectorComponentResolver",
+      "moduleUrl": "asset:angular2/lib/src/core/linker/component_resolver.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": []
+    }
+  },
+  "alias": {}
+}

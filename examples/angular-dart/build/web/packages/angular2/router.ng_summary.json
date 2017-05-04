@@ -1,0 +1,129 @@
+{
+  "ngDeps": {
+    "1": "angular2.router",
+    "3": [
+      {
+        "1": "src/router/directives/router_link.dart",
+        "2": [
+          "RouterLink"
+        ],
+        "5": false
+      },
+      {
+        "1": "src/router/directives/router_outlet.dart",
+        "2": [
+          "RouterOutlet"
+        ],
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "core.dart",
+        "2": [
+          "OpaqueToken"
+        ]
+      },
+      {
+        "1": "src/router/directives/router_link.dart",
+        "2": [
+          "RouterLink"
+        ]
+      },
+      {
+        "1": "src/router/directives/router_outlet.dart",
+        "2": [
+          "RouterOutlet"
+        ]
+      },
+      {
+        "1": "src/router/instruction.dart",
+        "2": [
+          "Instruction",
+          "ComponentInstruction",
+          "RouteParams",
+          "RouteData"
+        ]
+      },
+      {
+        "1": "src/router/interfaces.dart",
+        "2": [
+          "OnActivate",
+          "OnDeactivate",
+          "OnReuse",
+          "CanDeactivate",
+          "CanReuse"
+        ]
+      },
+      {
+        "1": "src/router/lifecycle/lifecycle_annotations.dart",
+        "2": [
+          "CanActivate"
+        ]
+      },
+      {
+        "1": "src/router/route_config/route_config_decorator.dart"
+      },
+      {
+        "1": "src/router/route_definition.dart"
+      },
+      {
+        "1": "src/router/route_registry.dart",
+        "2": [
+          "RouteRegistry",
+          "ROUTER_PRIMARY_COMPONENT"
+        ]
+      },
+      {
+        "1": "src/router/router.dart",
+        "2": [
+          "Router"
+        ]
+      },
+      {
+        "1": "src/router/router_providers.dart",
+        "2": [
+          "ROUTER_PROVIDERS",
+          "ROUTER_BINDINGS"
+        ]
+      },
+      {
+        "1": "src/router/router_providers_common.dart",
+        "2": [
+          "ROUTER_PROVIDERS_COMMON"
+        ]
+      }
+    ],
+    "6": "router.dart"
+  },
+  "type": {
+    "ROUTER_DIRECTIVES": {
+      "class": "Identifier",
+      "name": "ROUTER_DIRECTIVES",
+      "moduleUrl": "asset:angular2/lib/router.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "RouterOutlet",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "RouterLink",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        }
+      ]
+    }
+  },
+  "alias": {
+    "ROUTER_DIRECTIVES": [
+      "RouterLink",
+      "RouterOutlet"
+    ]
+  }
+}

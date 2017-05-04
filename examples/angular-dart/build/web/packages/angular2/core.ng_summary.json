@@ -1,0 +1,80 @@
+{
+  "ngDeps": {
+    "1": "angular2.core",
+    "4": [
+      {
+        "1": "src/core/angular_entrypoint.dart",
+        "2": [
+          "AngularEntrypoint"
+        ]
+      },
+      {
+        "1": "src/core/application_common_providers.dart"
+      },
+      {
+        "1": "src/core/application_ref.dart",
+        "2": [
+          "createPlatform",
+          "disposePlatform",
+          "getPlatform",
+          "coreLoadAndBootstrap",
+          "coreBootstrap",
+          "createNgZone",
+          "PlatformRef",
+          "ApplicationRef"
+        ]
+      },
+      {
+        "1": "src/core/application_tokens.dart",
+        "2": [
+          "APP_ID",
+          "APP_INITIALIZER",
+          "PACKAGE_ROOT_URL",
+          "PLATFORM_INITIALIZER"
+        ]
+      },
+      {
+        "1": "src/core/change_detection.dart"
+      },
+      {
+        "1": "src/core/di.dart"
+      },
+      {
+        "1": "src/core/linker.dart"
+      },
+      {
+        "1": "src/core/metadata.dart"
+      },
+      {
+        "1": "src/core/platform_common_providers.dart",
+        "2": [
+          "PLATFORM_COMMON_PROVIDERS"
+        ]
+      },
+      {
+        "1": "src/core/platform_directives_and_pipes.dart"
+      },
+      {
+        "1": "src/core/reflection/reflection.dart",
+        "3": [
+          "NoReflectionCapabilitiesError"
+        ]
+      },
+      {
+        "1": "src/core/render.dart"
+      },
+      {
+        "1": "src/core/testability/testability.dart"
+      },
+      {
+        "1": "src/core/zone.dart"
+      },
+      {
+        "1": "src/facade/facade.dart"
+      }
+    ],
+    "6": "core.dart"
+  },
+  "type": {},
+  "alias": {}
+}

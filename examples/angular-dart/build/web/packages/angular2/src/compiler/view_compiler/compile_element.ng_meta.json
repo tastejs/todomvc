@@ -1,0 +1,161 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "../compile_metadata.dart",
+        "2": [
+          "CompileTokenMap",
+          "CompileDirectiveMetadata",
+          "CompileIdentifierMetadata",
+          "CompileTokenMetadata",
+          "CompileQueryMetadata",
+          "CompileProviderMetadata",
+          "CompileDiDependencyMetadata"
+        ],
+        "5": false
+      },
+      {
+        "1": "../identifiers.dart",
+        "2": [
+          "Identifiers",
+          "identifierToken"
+        ],
+        "5": false
+      },
+      {
+        "1": "../output/output_ast.dart",
+        "4": "o",
+        "5": false
+      },
+      {
+        "1": "../template_ast.dart",
+        "2": [
+          "TemplateAst",
+          "ProviderAst",
+          "ProviderAstType",
+          "ReferenceAst"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_method.dart",
+        "2": [
+          "CompileMethod"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_query.dart",
+        "2": [
+          "CompileQuery",
+          "createQueryListField",
+          "addQueryToTokenMap"
+        ],
+        "5": false
+      },
+      {
+        "1": "compile_view.dart",
+        "2": [
+          "CompileView"
+        ],
+        "5": false
+      },
+      {
+        "1": "constants.dart",
+        "2": [
+          "InjectMethodVars"
+        ],
+        "5": false
+      },
+      {
+        "1": "view_compiler_utils.dart",
+        "2": [
+          "getPropertyInView",
+          "getViewFactoryName",
+          "createDiTokenExpression",
+          "injectFromViewParentInjector",
+          "convertValueToOutputAst"
+        ],
+        "5": false
+      }
+    ],
+    "6": "compile_element.dart",
+    "7": [
+      {
+        "1": "../compile_metadata.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../identifiers.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../output/output_ast.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "../template_ast.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "compile_method.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "compile_query.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "compile_view.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "constants.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "view_compiler_utils.template.dart",
+        "4": "i8"
+      }
+    ]
+  },
+  "type": {
+    "CompileElement": {
+      "class": "Identifier",
+      "name": "CompileElement",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_element.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CompileNode": {
+      "class": "Identifier",
+      "name": "CompileNode",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_element.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_QueryWithRead": {
+      "class": "Identifier",
+      "name": "_QueryWithRead",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_element.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_createInjectInternalCondition": {
+      "class": "Identifier",
+      "name": "_createInjectInternalCondition",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_element.dart",
+      "prefix": null,
+      "value": null
+    },
+    "createProviderProperty": {
+      "class": "Identifier",
+      "name": "createProviderProperty",
+      "moduleUrl": "asset:angular2/lib/src/compiler/view_compiler/compile_element.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

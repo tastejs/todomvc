@@ -1,0 +1,48 @@
+{
+  "ngDeps": null,
+  "type": {
+    "_looseIdentical": {
+      "class": "Identifier",
+      "name": "_looseIdentical",
+      "moduleUrl": "asset:angular2/lib/src/facade/lang.dart",
+      "prefix": null,
+      "value": null
+    },
+    "assertionsEnabled": {
+      "class": "Identifier",
+      "name": "assertionsEnabled",
+      "moduleUrl": "asset:angular2/lib/src/facade/lang.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isDartVM": {
+      "class": "Identifier",
+      "name": "isDartVM",
+      "moduleUrl": "asset:angular2/lib/src/facade/lang.dart",
+      "prefix": null,
+      "value": null
+    },
+    "isPrimitive": {
+      "class": "Identifier",
+      "name": "isPrimitive",
+      "moduleUrl": "asset:angular2/lib/src/facade/lang.dart",
+      "prefix": null,
+      "value": null
+    },
+    "jsSplit": {
+      "class": "Identifier",
+      "name": "jsSplit",
+      "moduleUrl": "asset:angular2/lib/src/facade/lang.dart",
+      "prefix": null,
+      "value": null
+    },
+    "looseIdentical": {
+      "class": "Identifier",
+      "name": "looseIdentical",
+      "moduleUrl": "asset:angular2/lib/src/facade/lang.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

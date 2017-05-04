@@ -1,0 +1,152 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "application_ref.dart",
+        "2": [
+          "APPLICATION_CORE_PROVIDERS"
+        ],
+        "5": false
+      },
+      {
+        "1": "application_tokens.dart",
+        "2": [
+          "APP_ID_RANDOM_PROVIDER"
+        ],
+        "5": false
+      },
+      {
+        "1": "di.dart",
+        "2": [
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "linker/app_view_utils.dart",
+        "2": [
+          "AppViewUtils"
+        ],
+        "5": false
+      },
+      {
+        "1": "linker/component_resolver.dart",
+        "2": [
+          "ComponentResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "linker/component_resolver.dart",
+        "2": [
+          "ReflectorComponentResolver"
+        ],
+        "5": false
+      },
+      {
+        "1": "linker/dynamic_component_loader.dart",
+        "2": [
+          "DynamicComponentLoader"
+        ],
+        "5": false
+      },
+      {
+        "1": "linker/dynamic_component_loader.dart",
+        "2": [
+          "DynamicComponentLoaderImpl"
+        ],
+        "5": false
+      }
+    ],
+    "6": "application_common_providers.dart"
+  },
+  "type": {
+    "APPLICATION_COMMON_PROVIDERS": {
+      "class": "Identifier",
+      "name": "APPLICATION_COMMON_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/src/core/application_common_providers.dart",
+      "prefix": null,
+      "value": [
+        {
+          "class": "Identifier",
+          "name": "APPLICATION_CORE_PROVIDERS",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "ComponentResolver",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "ReflectorComponentResolver",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        },
+        {
+          "class": "Identifier",
+          "name": "APP_ID_RANDOM_PROVIDER",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Identifier",
+          "name": "AppViewUtils",
+          "moduleUrl": null,
+          "prefix": null,
+          "value": null
+        },
+        {
+          "class": "Provider",
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "DynamicComponentLoader",
+              "moduleUrl": null,
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "useClass": {
+            "class": "Type",
+            "name": "DynamicComponentLoaderImpl",
+            "moduleUrl": null,
+            "prefix": null,
+            "isHost": false,
+            "value": null,
+            "diDeps": []
+          },
+          "useExisting": null,
+          "useValue": null,
+          "useFactory": null,
+          "multi": false,
+          "deps": null
+        }
+      ]
+    }
+  },
+  "alias": {}
+}

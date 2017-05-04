@@ -1,0 +1,135 @@
+{
+  "ngDeps": {
+    "1": "angular2.platform.common_dom",
+    "4": [
+      {
+        "1": "package:angular2/src/core/render/api.dart",
+        "2": [
+          "sharedStylesHost"
+        ]
+      },
+      {
+        "1": "package:angular2/src/platform/dom/dom_tokens.dart",
+        "2": [
+          "DOCUMENT"
+        ]
+      },
+      {
+        "1": "package:angular2/src/platform/dom/events/event_manager.dart",
+        "2": [
+          "EventManagerPlugin"
+        ]
+      }
+    ],
+    "6": "common_dom.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/core/render/api.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/platform/dom/dom_tokens.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/platform/dom/events/event_manager.template.dart",
+        "4": "i2"
+      }
+    ]
+  },
+  "type": {
+    "DOCUMENT": {
+      "class": "Identifier",
+      "name": "DOCUMENT",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/dom_tokens.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EVENT_MANAGER_PLUGINS": {
+      "class": "Identifier",
+      "name": "EVENT_MANAGER_PLUGINS",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+      "prefix": null,
+      "value": null
+    },
+    "EventManager": {
+      "class": "Type",
+      "name": "EventManager",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+      "prefix": null,
+      "isHost": false,
+      "value": null,
+      "diDeps": [
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "EVENT_MANAGER_PLUGINS",
+              "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        },
+        {
+          "token": {
+            "value": null,
+            "identifier": {
+              "class": "Identifier",
+              "name": "NgZone",
+              "moduleUrl": "asset:angular2/lib/src/core/zone/ng_zone.dart",
+              "prefix": null,
+              "value": null
+            },
+            "identifierIsInstance": false
+          },
+          "value": null,
+          "isAttribute": false,
+          "isSelf": false,
+          "isHost": false,
+          "isSkipSelf": false,
+          "isOptional": false,
+          "isValue": false
+        }
+      ]
+    },
+    "EventManagerPlugin": {
+      "class": "Identifier",
+      "name": "EventManagerPlugin",
+      "moduleUrl": "asset:angular2/lib/src/platform/dom/events/event_manager.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RenderComponentType": {
+      "class": "Identifier",
+      "name": "RenderComponentType",
+      "moduleUrl": "asset:angular2/lib/src/core/render/api.dart",
+      "prefix": null,
+      "value": null
+    },
+    "RenderDebugInfo": {
+      "class": "Identifier",
+      "name": "RenderDebugInfo",
+      "moduleUrl": "asset:angular2/lib/src/core/render/api.dart",
+      "prefix": null,
+      "value": null
+    },
+    "SharedStylesHost": {
+      "class": "Identifier",
+      "name": "SharedStylesHost",
+      "moduleUrl": "asset:angular2/lib/src/core/render/api.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

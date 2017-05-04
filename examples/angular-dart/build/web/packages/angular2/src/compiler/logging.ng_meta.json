@@ -1,0 +1,33 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:logging/logging.dart",
+        "5": false
+      }
+    ],
+    "6": "logging.dart"
+  },
+  "type": {
+    "logger": {
+      "class": "Identifier",
+      "name": "logger",
+      "moduleUrl": "asset:angular2/lib/src/compiler/logging.dart",
+      "prefix": null,
+      "value": null
+    },
+    "loggerKey": {
+      "class": "Identifier",
+      "name": "loggerKey",
+      "moduleUrl": "asset:angular2/lib/src/compiler/logging.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

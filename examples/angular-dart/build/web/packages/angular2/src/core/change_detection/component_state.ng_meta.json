@@ -1,0 +1,20 @@
+{
+  "ngDeps": null,
+  "type": {
+    "ComponentState": {
+      "class": "Identifier",
+      "name": "ComponentState",
+      "moduleUrl": "asset:angular2/lib/src/core/change_detection/component_state.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ComponentStateCallback": {
+      "class": "Identifier",
+      "name": "ComponentStateCallback",
+      "moduleUrl": "asset:angular2/lib/src/core/change_detection/component_state.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

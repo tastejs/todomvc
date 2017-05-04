@@ -1,0 +1,66 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/facade/exceptions.dart",
+        "2": [
+          "BaseException"
+        ],
+        "5": false
+      },
+      {
+        "1": "../route_definition.dart",
+        "5": false
+      },
+      {
+        "1": "../route_registry.dart",
+        "5": false
+      },
+      {
+        "1": "route_config_decorator.dart",
+        "5": false
+      }
+    ],
+    "6": "route_config_normalizer.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/facade/exceptions.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "../route_definition.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "../route_registry.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "route_config_decorator.template.dart",
+        "4": "i3"
+      }
+    ]
+  },
+  "type": {
+    "assertComponentExists": {
+      "class": "Identifier",
+      "name": "assertComponentExists",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_normalizer.dart",
+      "prefix": null,
+      "value": null
+    },
+    "normalizeRouteConfig": {
+      "class": "Identifier",
+      "name": "normalizeRouteConfig",
+      "moduleUrl": "asset:angular2/lib/src/router/route_config/route_config_normalizer.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

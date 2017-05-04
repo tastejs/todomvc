@@ -1,0 +1,131 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/config.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/compiler/source_module.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/asset_reader.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/annotation_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/ng_deps_model.pb.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/ng_compiler.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/transform/common/zone.dart",
+        "4": "zone",
+        "5": false
+      },
+      {
+        "1": "package:barback/barback.dart",
+        "5": false
+      },
+      {
+        "1": "compile_data_creator.dart",
+        "5": false
+      }
+    ],
+    "6": "generator.dart",
+    "7": [
+      {
+        "1": "package:angular2/src/compiler/config.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:angular2/src/compiler/source_module.template.dart",
+        "4": "i1"
+      },
+      {
+        "1": "package:angular2/src/transform/common/asset_reader.template.dart",
+        "4": "i2"
+      },
+      {
+        "1": "package:angular2/src/transform/common/logging.template.dart",
+        "4": "i3"
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/annotation_model.pb.template.dart",
+        "4": "i4"
+      },
+      {
+        "1": "package:angular2/src/transform/common/model/ng_deps_model.pb.template.dart",
+        "4": "i5"
+      },
+      {
+        "1": "package:angular2/src/transform/common/names.template.dart",
+        "4": "i6"
+      },
+      {
+        "1": "package:angular2/src/transform/common/ng_compiler.template.dart",
+        "4": "i7"
+      },
+      {
+        "1": "package:angular2/src/transform/common/options.template.dart",
+        "4": "i8"
+      },
+      {
+        "1": "package:angular2/src/transform/common/zone.template.dart",
+        "4": "i9"
+      },
+      {
+        "1": "compile_data_creator.template.dart",
+        "4": "i10"
+      }
+    ]
+  },
+  "type": {
+    "Outputs": {
+      "class": "Identifier",
+      "name": "Outputs",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/generator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "processTemplates": {
+      "class": "Identifier",
+      "name": "processTemplates",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/generator.dart",
+      "prefix": null,
+      "value": null
+    },
+    "templatesAssetId": {
+      "class": "Identifier",
+      "name": "templatesAssetId",
+      "moduleUrl": "asset:angular2/lib/src/transform/template_compiler/generator.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

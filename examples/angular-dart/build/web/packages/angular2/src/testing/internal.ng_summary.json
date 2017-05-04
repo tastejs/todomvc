@@ -1,0 +1,102 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:angular2/core.dart",
+        "2": [
+          "PLATFORM_INITIALIZER"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/di.dart",
+        "2": [
+          "Injector",
+          "provide",
+          "Provider"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:angular2/platform/testing/browser.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/linker/app_view_utils.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/src/core/reflection/reflection.dart",
+        "5": false
+      },
+      {
+        "1": "internal_injector.dart",
+        "5": false
+      }
+    ],
+    "4": [
+      {
+        "1": "package:angular2/src/debug/debug_node.dart"
+      },
+      {
+        "1": "fake_async.dart"
+      },
+      {
+        "1": "internal_injector.dart"
+      },
+      {
+        "1": "matchers.dart"
+      },
+      {
+        "1": "test_component_builder.dart"
+      },
+      {
+        "1": "utils.dart"
+      }
+    ],
+    "6": "internal.dart"
+  },
+  "type": {
+    "_bootstrapInternalTests": {
+      "class": "Identifier",
+      "name": "_bootstrapInternalTests",
+      "moduleUrl": "asset:angular2/lib/src/testing/internal.dart",
+      "prefix": null,
+      "value": null
+    },
+    "beforeEachProviders": {
+      "class": "Identifier",
+      "name": "beforeEachProviders",
+      "moduleUrl": "asset:angular2/lib/src/testing/internal.dart",
+      "prefix": null,
+      "value": null
+    },
+    "getTestInjector": {
+      "class": "Identifier",
+      "name": "getTestInjector",
+      "moduleUrl": "asset:angular2/lib/src/testing/internal.dart",
+      "prefix": null,
+      "value": null
+    },
+    "inject": {
+      "class": "Identifier",
+      "name": "inject",
+      "moduleUrl": "asset:angular2/lib/src/testing/internal.dart",
+      "prefix": null,
+      "value": null
+    },
+    "setBaseTestProviders": {
+      "class": "Identifier",
+      "name": "setBaseTestProviders",
+      "moduleUrl": "asset:angular2/lib/src/testing/internal.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}
