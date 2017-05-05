@@ -5,10 +5,7 @@ Rectangle {
 	JsonStorage {
 		id: storage;
 
-		onLoaded: {
-			todoModel.buildModel(this.getValue(todoModel.name))
-			todoStatus.setFilter(this.getValue(todoStatus.name))
-		}
+		onLoaded: { todoModel.buildModel(this.getValue(todoModel.name)) }
 	}
 
 	TodoModel {
@@ -39,6 +36,7 @@ Rectangle {
 
 	Column {
 		id: content;
+		property string location: context.location.hash;
 		width: context.width > 550 ? 550 : context.width;
 		anchors.top: header.bottom;
 		anchors.horizontalCenter: parent.horizontalCenter;
@@ -54,8 +52,7 @@ Rectangle {
 
 		TodoList {
 			id: todoList;
-
-			filterMode: todoStatus.filter;
+			filterMode: parent.location;
 		}
 
 		TodoStatus {
@@ -65,7 +62,7 @@ Rectangle {
 			completedCount: todoModel.completedCount;
 
 			onClearCompleted: { todoModel.clearCompleted() }
-			onFilterChanged: { storage.setValue(this.name, { value: this.filter }) }
+			onFilterChanged: { window.location.hash = this.filter }
 		}
 	}
 

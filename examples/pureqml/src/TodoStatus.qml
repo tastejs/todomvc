@@ -28,12 +28,12 @@ Column {
 			height: contentHeight;
 			anchors.bottom: parent.bottom;
 			anchors.horizontalCenter: parent.horizontalCenter;
-			anchors.bottomMargin: 11;
+			anchors.bottomMargin: 10;
 			orientation: ListView.Horizontal;
 			spacing: 12;
 			contentFollowsCurrentItem: false;
 			model: ListModel {
-				ListElement { text: "All" } ListElement { text: "Active" } ListElement { text: "Completed" }
+				ListElement { text: "All"; filter: "#/all"; } ListElement { text: "Active"; filter: "#/active"; } ListElement { text: "Completed"; filter: "#/completed" }
 			}
 			delegate: Rectangle {
 				ClickMixin { }
@@ -58,7 +58,7 @@ Column {
 
 			choose(idx): {
 				this.currentIndex = idx
-				todoStatusProto.filter = this.model.get(idx).text
+				todoStatusProto.filter = this.model.get(idx).filter
 			}
 		}
 

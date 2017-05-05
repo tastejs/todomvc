@@ -10,11 +10,11 @@ ListView {
 
 		function filter(item) {
 			switch (this.parent.filterMode) {
-			case 'Active':
+			case '#/active':
 				return !item.completed
-			case 'Completed':
+			case '#/completed':
 				return item.completed
-			case 'All':
+			case '#/all':
 			default:
 				return true
 			}
