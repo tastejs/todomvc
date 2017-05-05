@@ -18,8 +18,9 @@ Column {
 			anchors.topMargin: 11;
 			anchors.leftMargin: 15;
 			font.pixelSize: 14;
+			font.weight: 300;
 			color: "#777";
-			text: parent.parent.todoCount + " item" + (todoStatusProto.todoCount > 1 ? "s " : " ") + "left";
+			text: "<strong>" + parent.parent.todoCount + "</strong> item" + (todoStatusProto.todoCount > 1 ? "s " : " ") + "left";
 		}
 
 		ListView {
@@ -67,7 +68,7 @@ Column {
 			property Mixin hoverMixin: HoverMixin { cursor: "pointer"; }
 			anchors.top: parent.top;
 			anchors.right: parent.right;
-			anchors.topMargin: 11;
+			anchors.topMargin: 12;
 			anchors.rightMargin: 15;
 			font.pixelSize: 14;
 			font.underline: hoverMixin.value;
