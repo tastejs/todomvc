@@ -62,10 +62,10 @@ TodoRectangle {
 		}
 
 		onKeyPressed: {
-			switch(key) {
+			switch (key) {
 				case 'Select':
 					if (this.text)
-						this.parent.edit(this.parent.index, this.text)
+						this.parent.edit(this.parent.index, this.text.trim())
 					else
 						this.parent.remove(this.parent.index)
 					this.parent.editMode = false
