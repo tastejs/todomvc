@@ -44,6 +44,7 @@ Rectangle {
 		radius: 40;
 
 		TodoInput {
+			id: input;
 			allCompleted: todoModel.count > 0 && todoModel.count == todoModel.completedCount;
 
 			onAddTodo(title): { todoModel.append({ title: title, completed: false }) }
@@ -53,6 +54,8 @@ Rectangle {
 		TodoList {
 			id: todoList;
 			filterMode: parent.location;
+
+			onEditModeChanged: { if (!value) input.focusInput() }
 		}
 
 		TodoStatus {

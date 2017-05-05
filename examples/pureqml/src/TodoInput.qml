@@ -49,4 +49,7 @@ Rectangle {
 			todoInput.text = ""
 		}
 	}
+
+	focusInput: { todoInput.setFocus() }
+	onCompleted: { this.focusInput() }
 }

@@ -1,5 +1,6 @@
 TodoRectangle {
 	ClickMixin { }
+	DoubleClickMixin { }
 	signal edit;
 	signal remove;
 	signal toggleCompleted;
@@ -23,7 +24,6 @@ TodoRectangle {
 	Text {
 		id: todoText;
 		HoverMixin { cursor: "default"; }
-		DoubleClickMixin { }
 		anchors.left: parent.left;
 		anchors.right: parent.right;
 		anchors.verticalCenter: parent.verticalCenter;
@@ -34,16 +34,10 @@ TodoRectangle {
 		text: model.title;
 		color: model.completed ? "#d9d9d9" : "#4d4d4d";
 		wrapMode: Text.WrapAnywhere;
-
-		onDoubleClicked: {
-			if (this.parent.editMode)
-				return
-
-			this.parent.editMode = true
-		}
 	}
 
 	TextInput {
+		id: editInput;
 		anchors.top: parent.top;
 		anchors.left: todoText.left;
 		anchors.right: parent.right;
@@ -91,5 +85,10 @@ TodoRectangle {
 		onClicked: { this.parent.remove(this.parent.index) }
 	}
 
-	onClicked: { this.parent.currentIndex = this.index; this.setFocus() }
+	onDoubleClicked: {
+		if (!this.editMode) {
+			this.editMode = true
+			editInput.setFocus()
+		}
+	}
 }

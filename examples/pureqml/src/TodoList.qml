@@ -1,4 +1,5 @@
 ListView {
+	property bool editMode;
 	property string filterMode;
 	height: contentHeight;
 	anchors.left: parent.left;
@@ -26,6 +27,19 @@ ListView {
 		onRemove(idx): { this.parent.remove(idx) }
 		onEdit(idx, text): { this.parent.edit(idx, text) }
 		onToggleCompleted(idx): { this.parent.toggleCompleted(idx) }
+		onEditModeChanged: { if (value) this.parent.editMode = value }
+
+		onClicked: {
+			if (this.parent.currentIndex == this.index)
+				return
+
+			if (this.parent.editMode) {
+				this.parent.editMode = false
+			} else {
+				this.parent.currentIndex = this.index
+				this.setFocus()
+			}
+		}
 	}
 
 	onFilterModeChanged: { this.model.rebuild() }
