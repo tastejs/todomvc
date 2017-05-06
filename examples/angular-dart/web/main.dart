@@ -6,5 +6,9 @@ import 'package:angular_dart_todomvc/components/app/app.dart';
 import 'package:angular_dart_todomvc/services/storage.dart';
 
 void main() {
-  bootstrap(TodoMvcApp, [StorageService, ROUTER_PROVIDERS, provide(LocationStrategy, useClass: HashLocationStrategy)]);
+  bootstrap(TodoMvcApp, [
+    StorageService,
+    ROUTER_PROVIDERS,
+    provide(LocationStrategy, useClass: HashLocationStrategy)
+  ]);
 }

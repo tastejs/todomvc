@@ -14,7 +14,6 @@ import 'package:angular_dart_todomvc/services/todos.dart';
     ''',
     directives: const [TodoItem])
 class TodosList {
-
   static const allPath = "/";
   static const completedPath = "/completed";
   static const activePath = "/active";
@@ -26,7 +25,6 @@ class TodosList {
 
   Iterable<Item> get items {
     return _todos.items.where((Item item) {
-
       if (_completed && item.completed == true) {
         return true;
       }

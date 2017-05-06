@@ -20,7 +20,7 @@
         "1": "TodoItem",
         "5": [
           {
-            "1": "TodosService",
+            "1": "TodosStore",
             "4": "_todos"
           }
         ]
@@ -47,7 +47,7 @@
               "value": null,
               "identifier": {
                 "class": "Identifier",
-                "name": "TodosService",
+                "name": "TodosStore",
                 "moduleUrl": null,
                 "prefix": null,
                 "value": null

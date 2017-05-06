@@ -7,7 +7,7 @@
         "5": false
       },
       {
-        "1": "package:angular_dart_todomvc/models/item.dart",
+        "1": "package:angular2/router.dart",
         "5": false
       },
       {
@@ -20,8 +20,13 @@
         "1": "TodoMvcFooter",
         "5": [
           {
-            "1": "TodosService",
+            "1": "TodosStore",
             "4": "_todos"
+          }
+        ],
+        "7": [
+          {
+            "2": "ROUTER_DIRECTIVES"
           }
         ]
       }
@@ -33,7 +38,7 @@
         "4": "i0"
       },
       {
-        "1": "package:angular_dart_todomvc/models/item.template.dart",
+        "1": "package:angular2/router.template.dart",
         "4": "i1"
       },
       {
@@ -61,7 +66,7 @@
               "value": null,
               "identifier": {
                 "class": "Identifier",
-                "name": "TodosService",
+                "name": "TodosStore",
                 "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
                 "prefix": null,
                 "value": null
@@ -88,7 +93,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<footer id=\"footer\" *ngIf=\"hasItems\">\n    <span id=\"todo-count\"><strong>{{remaining}}</strong> {{remainingTxt}}</span>\n    <button id=\"clear-completed\" (click)=\"clearCompleted()\" *ngIf=\"completed > 0\">Clear completed</button>\n</footer>\n    ",
+        "template": "<footer class=\"footer\">\n    <span class=\"todo-count\"><strong>{{remaining}}</strong> {{remainingTxt}}</span>\n    <ul class=\"filters\">\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<a [routerLink]=\"['TodoAll']\">All</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<a [routerLink]=\"['TodoActive']\">Active</a>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<a [routerLink]=\"['TodoCompleted']\">Completed</a>\n\t\t\t\t\t</li>\n\t\t</ul>\n    <button class=\"clear-completed\" (click)=\"clearCompleted()\" *ngIf=\"completed > 0\">Clear completed</button>\n</footer>\n    ",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/footer.dart",
         "styles": [],
         "styleUrls": [],

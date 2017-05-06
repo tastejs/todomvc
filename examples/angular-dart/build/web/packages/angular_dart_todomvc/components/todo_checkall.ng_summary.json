@@ -7,17 +7,13 @@
         "5": false
       },
       {
-        "1": "package:angular_dart_todomvc/models/item.dart",
-        "5": false
-      },
-      {
         "1": "package:angular_dart_todomvc/services/todos.dart",
         "5": false
       }
     ],
     "5": [
       {
-        "1": "TodoMvcHeader",
+        "1": "TodoCheckAll",
         "5": [
           {
             "1": "TodosStore",
@@ -26,18 +22,18 @@
         ]
       }
     ],
-    "6": "header.dart"
+    "6": "todo_checkall.dart"
   },
   "type": {
-    "TodoMvcHeader": {
+    "TodoCheckAll": {
       "class": "Directive",
       "isComponent": true,
-      "selector": "todomvc-header",
+      "selector": "todomvc-checkall",
       "exportAs": null,
       "type": {
         "class": "Type",
-        "name": "TodoMvcHeader",
-        "moduleUrl": "asset:angular_dart_todomvc/lib/components/header.dart",
+        "name": "TodoCheckAll",
+        "moduleUrl": "asset:angular_dart_todomvc/lib/components/todo_checkall.dart",
         "prefix": null,
         "isHost": false,
         "value": null,
@@ -74,8 +70,8 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<header class=\"header\">\n    <h1>todos</h1>\n    <input type=\"text\" class=\"new-todo\" placeholder=\"What needs to be done?\" (keydown.enter)=\"add()\" [(ngModel)]=\"newItem.title\" autofocus>\n</header>\n    ",
-        "templateUrl": "asset:angular_dart_todomvc/lib/components/header.dart",
+        "template": "<input class=\"toggle-all\" type=\"checkbox\" [(ngModel)]=\"allChecked\">\n    ",
+        "templateUrl": "asset:angular_dart_todomvc/lib/components/todo_checkall.dart",
         "styles": [],
         "styleUrls": [],
         "ngContentSelectors": []

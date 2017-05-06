@@ -45,7 +45,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<footer id=\"info\">\n        <p>Double-click to edit a todo</p>\n        <p>Written by <a>Hadrien Lejard</a> with Angular 2 For Dart</p>\n        <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n </footer>\n    ",
+        "template": "<footer class=\"info\">\n        <p>Double-click to edit a todo</p>\n        <p>Written by <a>Hadrien Lejard</a> with Angular 2 For Dart</p>\n        <p>Part of <a href=\"http://todomvc.com\">TodoMVC</a></p>\n </footer>\n    ",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/footer_info.dart",
         "styles": [],
         "styleUrls": [],

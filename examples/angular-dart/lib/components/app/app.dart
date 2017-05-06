@@ -8,9 +8,17 @@ import 'package:angular_dart_todomvc/components/todos_list.dart';
 import 'package:angular_dart_todomvc/services/todos.dart';
 
 @RouteConfig(const [
-  const Route(path: TodosList.allPath, name: 'TodoAll', component: TodosList, useAsDefault: true),
-  const Route(path: TodosList.activePath, name: 'TodoActive', component: TodosList),
-  const Route(path: TodosList.completedPath, name: 'TodoCompleted', component: TodosList)
+  const Route(
+      path: TodosList.allPath,
+      name: 'TodoAll',
+      component: TodosList,
+      useAsDefault: true),
+  const Route(
+      path: TodosList.activePath, name: 'TodoActive', component: TodosList),
+  const Route(
+      path: TodosList.completedPath,
+      name: 'TodoCompleted',
+      component: TodosList)
 ])
 @Component(
   selector: 'todomvc-app',

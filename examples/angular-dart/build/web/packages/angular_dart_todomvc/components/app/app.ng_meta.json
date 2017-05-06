@@ -3,11 +3,19 @@
     "1": "",
     "3": [
       {
-        "1": "package:angular2/core.dart",
+        "1": "package:angular2/angular2.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/router.dart",
         "5": false
       },
       {
         "1": "package:angular_dart_todomvc/components/footer.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular_dart_todomvc/components/footer_info.dart",
         "5": false
       },
       {
@@ -23,14 +31,6 @@
         "5": false
       },
       {
-        "1": "package:angular_dart_todomvc/models/item.dart",
-        "5": false
-      },
-      {
-        "1": "package:angular_dart_todomvc/services/storage.dart",
-        "5": false
-      },
-      {
         "1": "package:angular_dart_todomvc/services/todos.dart",
         "5": false
       }
@@ -38,9 +38,18 @@
     "5": [
       {
         "1": "TodoMvcApp",
+        "4": [
+          {
+            "1": "RouteConfig",
+            "2": [
+              "const [const Route(path: TodosList.allPath, name: 'TodoAll', component: TodosList, useAsDefault: true), const Route(path: TodosList.activePath, name: 'TodoActive', component: TodosList), const Route(path: TodosList.completedPath, name: 'TodoCompleted', component: TodosList)]"
+            ],
+            "4": false
+          }
+        ],
         "5": [
           {
-            "1": "TodosService",
+            "1": "TodosStore",
             "4": "_todos"
           }
         ],
@@ -56,6 +65,12 @@
           },
           {
             "2": "TodoCheckAll"
+          },
+          {
+            "2": "FooterInfo"
+          },
+          {
+            "2": "ROUTER_DIRECTIVES"
           }
         ]
       }
@@ -63,31 +78,31 @@
     "6": "app.dart",
     "7": [
       {
-        "1": "package:angular2/core.template.dart",
+        "1": "package:angular2/angular2.template.dart",
         "4": "i0"
       },
       {
-        "1": "package:angular_dart_todomvc/components/footer.template.dart",
+        "1": "package:angular2/router.template.dart",
         "4": "i1"
       },
       {
-        "1": "package:angular_dart_todomvc/components/header.template.dart",
+        "1": "package:angular_dart_todomvc/components/footer.template.dart",
         "4": "i2"
       },
       {
-        "1": "package:angular_dart_todomvc/components/todo_checkall.template.dart",
+        "1": "package:angular_dart_todomvc/components/footer_info.template.dart",
         "4": "i3"
       },
       {
-        "1": "package:angular_dart_todomvc/components/todos_list.template.dart",
+        "1": "package:angular_dart_todomvc/components/header.template.dart",
         "4": "i4"
       },
       {
-        "1": "package:angular_dart_todomvc/models/item.template.dart",
+        "1": "package:angular_dart_todomvc/components/todo_checkall.template.dart",
         "4": "i5"
       },
       {
-        "1": "package:angular_dart_todomvc/services/storage.template.dart",
+        "1": "package:angular_dart_todomvc/components/todos_list.template.dart",
         "4": "i6"
       },
       {
@@ -115,7 +130,7 @@
               "value": null,
               "identifier": {
                 "class": "Identifier",
-                "name": "TodosService",
+                "name": "TodosStore",
                 "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
                 "prefix": null,
                 "value": null
@@ -142,7 +157,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<section id=\"todoapp\">\n    <todomvc-header></todomvc-header>\n    <section id=\"main\" *ngIf=\"hasItems\">\n        <todomvc-checkall></todomvc-checkall>\n        <todos-list></todos-list>\n    </section>\n    <todomvc-footer></todomvc-footer>\n</section>",
+        "template": "<section class=\"todoapp\">\n    <todomvc-header></todomvc-header>\n    <section class=\"main\" *ngIf=\"hasItems\">\n        <todomvc-checkall></todomvc-checkall>\n        <router-outlet></router-outlet>\n    </section>\n    <todomvc-footer></todomvc-footer>\n</section>\n<footer-info></footer-info>",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/app/app.html",
         "styles": [],
         "styleUrls": [],
@@ -155,7 +170,7 @@
             "value": null,
             "identifier": {
               "class": "Type",
-              "name": "TodosService",
+              "name": "TodosStore",
               "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
               "prefix": null,
               "isHost": false,
@@ -187,7 +202,7 @@
           },
           "useClass": {
             "class": "Type",
-            "name": "TodosService",
+            "name": "TodosStore",
             "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
             "prefix": null,
             "isHost": false,

@@ -20,7 +20,7 @@
         "1": "TodoItem",
         "5": [
           {
-            "1": "TodosService",
+            "1": "TodosStore",
             "4": "_todos"
           }
         ]
@@ -61,7 +61,7 @@
               "value": null,
               "identifier": {
                 "class": "Identifier",
-                "name": "TodosService",
+                "name": "TodosStore",
                 "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
                 "prefix": null,
                 "value": null

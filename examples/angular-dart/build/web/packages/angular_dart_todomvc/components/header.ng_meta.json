@@ -20,7 +20,7 @@
         "1": "TodoMvcHeader",
         "5": [
           {
-            "1": "TodosService",
+            "1": "TodosStore",
             "4": "_todos"
           }
         ]
@@ -61,7 +61,7 @@
               "value": null,
               "identifier": {
                 "class": "Identifier",
-                "name": "TodosService",
+                "name": "TodosStore",
                 "moduleUrl": "asset:angular_dart_todomvc/lib/services/todos.dart",
                 "prefix": null,
                 "value": null
@@ -88,7 +88,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<header id=\"header\">\n    <h1>todos</h1>\n    <input type=\"text\" id=\"new-todo\" placeholder=\"What needs to be done?\" (keydown.enter)=\"add()\" [(ngModel)]=\"newItem.title\" autofocus>\n</header>\n    ",
+        "template": "<header class=\"header\">\n    <h1>todos</h1>\n    <input type=\"text\" class=\"new-todo\" placeholder=\"What needs to be done?\" (keydown.enter)=\"add()\" [(ngModel)]=\"newItem.title\" autofocus>\n</header>\n    ",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/header.dart",
         "styles": [],
         "styleUrls": [],

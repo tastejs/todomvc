@@ -7,6 +7,14 @@
         "5": false
       },
       {
+        "1": "package:angular2/platform/common.dart",
+        "5": false
+      },
+      {
+        "1": "package:angular2/router.dart",
+        "5": false
+      },
+      {
         "1": "package:angular_dart_todomvc/components/todo.dart",
         "5": false
       },
@@ -24,8 +32,12 @@
         "1": "TodosList",
         "5": [
           {
-            "1": "TodosService",
+            "1": "TodosStore",
             "4": "_todos"
+          },
+          {
+            "1": "Location",
+            "4": "_location"
           }
         ],
         "7": [
@@ -56,7 +68,27 @@
               "value": null,
               "identifier": {
                 "class": "Identifier",
-                "name": "TodosService",
+                "name": "TodosStore",
+                "moduleUrl": null,
+                "prefix": null,
+                "value": null
+              },
+              "identifierIsInstance": false
+            },
+            "value": null,
+            "isAttribute": false,
+            "isSelf": false,
+            "isHost": false,
+            "isSkipSelf": false,
+            "isOptional": false,
+            "isValue": false
+          },
+          {
+            "token": {
+              "value": null,
+              "identifier": {
+                "class": "Identifier",
+                "name": "Location",
                 "moduleUrl": null,
                 "prefix": null,
                 "value": null
@@ -83,7 +115,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": " <ul id=\"todo-list\">\n    <todo-item *ngFor=\"let item of items\" [item]=\"item\"></todo-item>\n </ul>\n    ",
+        "template": " <ul class=\"todo-list\">\n    <todo-item *ngFor=\"let item of items\" [item]=\"item\"></todo-item>\n </ul>\n    ",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/todos_list.dart",
         "styles": [],
         "styleUrls": [],
