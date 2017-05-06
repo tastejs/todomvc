@@ -5,17 +5,15 @@ import 'package:angular_dart_todomvc/services/todos.dart';
 
 @Component(
   selector: 'todos-list',
-  styleUrls: const [],
   template: '''
- <ul id="todo-list">
+ <ul class="todo-list">
     <todo-item *ngFor="let item of items" [item]="item"></todo-item>
  </ul>
     ''',
-  directives: const [TodoItem],
-  providers: const [],
+  directives: const [TodoItem]
 )
 class TodosList {
-  final TodosService _todos;
+  final TodosStore _todos;
   List<Item> get items => _todos.items;
   TodosList(this._todos);
 }

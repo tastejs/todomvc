@@ -4,7 +4,6 @@ import 'package:angular_dart_todomvc/services/todos.dart';
 
 @Component(
   selector: 'todo-item',
-  styleUrls: const [],
   template: '''
 <li [ngClass]="{'completed': item.completed, 'editing': editing}">
     <div class="view">
@@ -12,11 +11,9 @@ import 'package:angular_dart_todomvc/services/todos.dart';
         <label (dblclick)="editTodo()">{{item.title}}</label>
         <button class="destroy" (click)="remove()"></button>
     </div>
-    <input type="text" class="edit" [(ngModel)]="item.title" (keyup.escape)="revertEditing()" (keyup.enter)="doneEditing()"  (blur)="doneEditing()">
+    <input type="text" class="edit" [(ngModel)]="item.title" (keyup.escape)="revertEditing()" (keydown.enter)="doneEditing()"  (blur)="doneEditing()">
  </li>
-    ''',
-  directives: const [],
-  providers: const [],
+    '''
 )
 class TodoItem {
   @Input()
@@ -25,11 +22,11 @@ class TodoItem {
   Item _editedItem = null;
   Item _previousItem = null;
 
-  final TodosService _todos;
-
-  bool get editing => item == _editedItem;
+  final TodosStore _todos;
 
   TodoItem(this._todos);
+
+  bool get editing => item == _editedItem;
 
   void editTodo() {
     _editedItem = item;
@@ -49,7 +46,7 @@ class TodoItem {
       _todos.removeItem(item);
     } else {
       _editedItem.normalize();
-      _todos.persist();
+      save();
     }
 
     _editedItem = null;

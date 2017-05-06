@@ -18,6 +18,6 @@ transformers:
     platform_pipes:
     - 'package:angular2/common.dart#COMMON_PIPES'
     entry_points: web/main.dart
+- dart_to_js_script_rewriter
 - $dart2js:
     minify: true
-- dart_to_js_script_rewriter

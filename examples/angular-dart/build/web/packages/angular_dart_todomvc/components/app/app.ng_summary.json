@@ -15,6 +15,10 @@
         "5": false
       },
       {
+        "1": "package:angular_dart_todomvc/components/todo_checkall.dart",
+        "5": false
+      },
+      {
         "1": "package:angular_dart_todomvc/components/todos_list.dart",
         "5": false
       },
@@ -49,6 +53,9 @@
           },
           {
             "2": "TodosList"
+          },
+          {
+            "2": "TodoCheckAll"
           }
         ]
       }
@@ -101,20 +108,13 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<section id=\"todoapp\">\n    <todomvc-header></todomvc-header>\n    <section id=\"main\" *ngIf=\"items.isNotEmpty\">\n        <input id=\"toggle-all\" type=\"checkbox\" [(ngModel)]=\"allChecked\">\n        <label for=\"toggle-all\">Mark all as complete</label>\n        <todos-list></todos-list>\n    </section>\n    <todomvc-footer></todomvc-footer>\n</section>",
+        "template": "<section id=\"todoapp\">\n    <todomvc-header></todomvc-header>\n    <section id=\"main\" *ngIf=\"hasItems\">\n        <todomvc-checkall></todomvc-checkall>\n        <todos-list></todos-list>\n    </section>\n    <todomvc-footer></todomvc-footer>\n</section>",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/app/app.html",
         "styles": [],
         "styleUrls": [],
         "ngContentSelectors": []
       },
       "providers": [
-        {
-          "class": "Identifier",
-          "name": "StorageService",
-          "moduleUrl": null,
-          "prefix": null,
-          "value": null
-        },
         {
           "class": "Identifier",
           "name": "TodosService",

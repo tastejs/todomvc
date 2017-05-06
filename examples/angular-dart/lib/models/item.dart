@@ -13,7 +13,7 @@ class Item {
 
   Item clone() => new Item(this.title, this.completed);
 
-  String toString() => completed ? '[X]' : '[ ]' + ' ${this.title}';
+  String toString() => toJson().toString();
 
   void normalize() {
     title = title.trim();

@@ -78,7 +78,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<li [ngClass]=\"{'completed': item.completed, 'editing': editing}\">\n    <div class=\"view\">\n        <input type=\"checkbox\" class=\"toggle\" [(ngModel)]=\"item.completed\" (ngModelChange)=\"save()\">\n        <label (dblclick)=\"editTodo()\">{{item.title}}</label>\n        <button class=\"destroy\" (click)=\"remove()\"></button>\n    </div>\n    <input type=\"text\" class=\"edit\" [(ngModel)]=\"item.title\" (keyup.escape)=\"revertEditing()\" (keyup.enter)=\"doneEditing()\"  (blur)=\"doneEditing()\">\n </li>\n    ",
+        "template": "<li [ngClass]=\"{'completed': item.completed, 'editing': editing}\">\n    <div class=\"view\">\n        <input type=\"checkbox\" class=\"toggle\" [(ngModel)]=\"item.completed\" (ngModelChange)=\"save()\">\n        <label (dblclick)=\"editTodo()\">{{item.title}}</label>\n        <button class=\"destroy\" (click)=\"remove()\"></button>\n    </div>\n    <input type=\"text\" class=\"edit\" [(ngModel)]=\"item.title\" (keyup.escape)=\"revertEditing()\" (keydown.enter)=\"doneEditing()\"  (blur)=\"doneEditing()\">\n </li>\n    ",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/todo.dart",
         "styles": [],
         "styleUrls": [],

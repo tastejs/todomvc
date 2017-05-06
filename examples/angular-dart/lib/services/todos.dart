@@ -3,16 +3,19 @@ import 'package:angular_dart_todomvc/models/item.dart';
 import 'package:angular_dart_todomvc/services/storage.dart';
 
 @Injectable()
-class TodosService {
+class TodosStore {
   final StorageService _storage;
 
   List<Item> _items;
+  List<Item> get items => _items;
 
-  TodosService(this._storage) {
+  TodosStore(this._storage) {
     _items = _storage.loadItems();
   }
 
-  List<Item> get items => _items;
+  void persist() {
+    _storage.saveItems(_items);
+  }
 
   void addItem(Item item) {
     _items.add(item);
@@ -24,7 +27,19 @@ class TodosService {
     persist();
   }
 
-  void persist() {
-    _storage.saveItems(_items);
+  void clearCompleted() {
+    _items.removeWhere((i) => i.completed);
+    persist();
   }
+
+  bool get allChecked => items.every((i) => i.completed);
+
+  void set allChecked(value) {
+    items.forEach((i) => i.completed = value);
+    persist();
+  }
+
+  int get remaining => items.where((item) => !item.completed).length;
+
+  int get completed => items.where((item) => item.completed).length;
 }

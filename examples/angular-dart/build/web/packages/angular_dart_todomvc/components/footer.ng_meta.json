@@ -88,7 +88,7 @@
       "lifecycleHooks": [],
       "template": {
         "encapsulation": 2,
-        "template": "<footer id=\"footer\" *ngIf=\"items.isNotEmpty\">\n    <span id=\"todo-count\"><strong>{{remaining}}</strong> {{remainingTxt}}</span>\n    <button id=\"clear-completed\" (click)=\"clearCompleted()\" *ngIf=\"completed > 0\">Clear completed</button>\n</footer>\n    ",
+        "template": "<footer id=\"footer\" *ngIf=\"hasItems\">\n    <span id=\"todo-count\"><strong>{{remaining}}</strong> {{remainingTxt}}</span>\n    <button id=\"clear-completed\" (click)=\"clearCompleted()\" *ngIf=\"completed > 0\">Clear completed</button>\n</footer>\n    ",
         "templateUrl": "asset:angular_dart_todomvc/lib/components/footer.dart",
         "styles": [],
         "styleUrls": [],
