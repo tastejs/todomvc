@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script>
-        // WARNING: DO NOT set the <base href> like this in production!
-        // Details: https://webdev.dartlang.org/angular/guide/router
-        (function () {
-            var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
-            document.write('<base href="' + (m ? m[0] : '/') + '" />');
-        }());
-    </script>
+    <style>
+        .filters .router-link-active {
+            border-color: rgba(175, 47, 47, 0.2);
+        }
+    </style>
 
     <meta charset="utf-8">
     <title>AngularDart • TodoMVC</title>

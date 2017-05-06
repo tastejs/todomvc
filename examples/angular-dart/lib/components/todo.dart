@@ -3,8 +3,8 @@ import 'package:angular_dart_todomvc/models/item.dart';
 import 'package:angular_dart_todomvc/services/todos.dart';
 
 @Component(
-  selector: 'todo-item',
-  template: '''
+    selector: 'todo-item',
+    template: '''
 <li [ngClass]="{'completed': item.completed, 'editing': editing}">
     <div class="view">
         <input type="checkbox" class="toggle" [(ngModel)]="item.completed" (ngModelChange)="save()">
@@ -13,8 +13,7 @@ import 'package:angular_dart_todomvc/services/todos.dart';
     </div>
     <input type="text" class="edit" [(ngModel)]="item.title" (keyup.escape)="revertEditing()" (keydown.enter)="doneEditing()"  (blur)="doneEditing()">
  </li>
-    '''
-)
+    ''')
 class TodoItem {
   @Input()
   Item item;

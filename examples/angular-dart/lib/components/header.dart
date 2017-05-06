@@ -9,8 +9,7 @@ import 'package:angular_dart_todomvc/services/todos.dart';
     <h1>todos</h1>
     <input type="text" class="new-todo" placeholder="What needs to be done?" (keydown.enter)="add()" [(ngModel)]="newItem.title" autofocus>
 </header>
-    '''
-)
+    ''')
 class TodoMvcHeader {
   final TodosStore _todos;
 
