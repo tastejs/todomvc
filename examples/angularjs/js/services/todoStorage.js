@@ -38,7 +38,7 @@ angular.module('todomvc')
 					return todo.completed;
 				});
 				completeTodos.forEach(function (completeTodo) {
-				  store.delete(completeTodo);
+					store.delete(completeTodo);
 				})
 			},
 
