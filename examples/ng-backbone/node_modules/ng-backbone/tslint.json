@@ -1,0 +1,62 @@
+{
+  "rules": {
+    "class-name": true,
+    "curly": true,
+    "eofline": true,
+    "forin": true,
+    "indent": [
+      false
+    ],
+
+    "typedef-whitespace": {
+      "call-signature": "space",
+      "index-signature": "space",
+      "parameter": "space",
+      "property-declaration": "space",
+      "variable-declaration": "space"
+    },
+    "label-position": true,
+    "label-undefined": true,
+    "max-line-length": [
+      true,
+      120
+    ],
+    "no-arg": true,
+    "no-bitwise": true,
+    
+    "no-debugger": true,
+    "no-duplicate-key": true,
+    "no-duplicate-variable": true,
+    "no-switch-case-fall-through": true,
+
+
+    "no-unused-variable": false,
+    "no-unreachable": true,
+    "no-use-before-declare": true,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else"
+    ],
+    "quotemark": [
+      true,
+      "double"
+    ],
+    "radix": true,
+    "semicolon": true,
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "variable-name": false,
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ]
+  }
+}

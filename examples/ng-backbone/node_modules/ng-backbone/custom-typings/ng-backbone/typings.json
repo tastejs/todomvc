@@ -1,0 +1,8 @@
+{
+  "name": "ng-backbone",
+  "main": "ng-backbone.d.ts",
+  "homepage": "https://github.com/dsheiko/ng-backbone",
+  "dependencies": {
+  },
+  "version": "0.0.1"
+}

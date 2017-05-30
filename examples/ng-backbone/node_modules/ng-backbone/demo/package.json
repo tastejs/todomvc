@@ -1,0 +1,21 @@
+{
+  "name": "backbone-abstract-demo-ts",
+  "title": "TypeScript: Demo App",
+  "description": "A demo app built on top of Backbone.Abstract and written in TypeScript",
+  "author": "Dmitry Sheiko",
+  "main": "./index.html",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "build:demo": "tsc",
+    "browserfy:demo": "npm run build:demo && cjsc build/js/demo/src/app.js -o build/js/app.bundled.js -M",
+    "dev": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dsheiko/backbone-abstract.git"
+  },
+  "devDependencies": {
+    "typescript": "1.7.5"
+  }
+}
