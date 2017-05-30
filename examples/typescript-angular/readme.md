@@ -87,4 +87,52 @@ To compile the TypeScript in this project:
 	# from examples/typescript-angular
 	$ npm run compile
 
-Or use Visual Studio with the TypeScript plugin.
+<br />
+## Visual Studio 2015 RC
+
+There is no VS template for client-side only apps but the following should get this example running.
+
+>Create a new ASP.NET Web Application solution and choose **empty "ASP.NET 5 Preview Template"**.
+
+>**Uncheck** "Create directory for solution" .   
+
+This will create some server side code but will also add support for client side packages **npm, bower** etc.   Select the solution and **"save as..."** in the same folder as the project.      
+
+Close the Visual Studio solution.
+
+<br />
+Use notepad to delete the following 2 lines from the **.xproj** otherwise VS will keep creating an unused folder called "artifacts" above this folder.
+
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">artifacts\bin\$(MSBuildProjectName)\</OutputPath>
+
+
+[Download the whole todomvc repo to a temporary folder](https://github.com/tastejs/todomvc/archive/master.zip)
+
+Copy the entire contents of todomvc-master.zip/todomvc-master/examples/typescript-angular into your project folder.
+
+ In Windows Explorer:
+
+>Move the **js** folder into **wwwroot**.
+
+>Move **index.html** into **wwwroot**
+
+>**Copy** the **node_modules** folder into **wwwroot**
+
+<br />
+Reopen the Visual Studio solution.   You'll get a dialog saying "Your project has been configured to support TypeScript" and offering you info on Grunt and Gulp.   You can reply Yes or No.
+
+>Delete the following lines from **startup.cs**
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+            });
+
+Press F5 to start the app in your browser.   You can set breakpoints in your TypeScript files.   Before you try to compile the typescript files you will need to set up Gulp or Grunt.
+
+>**TODO Set up Gulp for TypeScript**
+
+>**TODO Upgrade to TypeScript 1.5.0**
+  
+ 
