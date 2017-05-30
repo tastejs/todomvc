@@ -108,7 +108,7 @@ zuix.controller(function (cp) {
 	}
 
 	function removeItem(item) {
-		itemsData.splice(itemsData.indexOf(item));
+		itemsData.splice(itemsData.indexOf(item), 1);
 		// unload the associated component as well
 		zuix.unload(getComponent(item));
 	}
