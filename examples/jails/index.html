@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-framework="jails">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css" />
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css" />
+		<link rel="stylesheet" href="css/app.css" />
+	</head>
+	<body>
+
+		<section class="todoapp" data-app="todoapp">
+
+			<header class="header">
+				<h1>todos</h1>
+				<input class="new-todo" data-component="field" placeholder="What needs to be done?" autofocus />
+			</header>
+
+			<section class="main hide" data-controller="list">
+
+				<input class="toggle-all" type="checkbox" />
+				<label for="toggle-all">Mark all as complete</label>
+
+				<section data-component="view">
+					<ul class="todo-list" data-each="todos">
+						<li class="{{state}}">
+							<div class="view">
+								<input class="toggle" type="checkbox" {{checked}} data-id="{{id}}" />
+								<label data-value="message"></label>
+								<button class="destroy" data-id="{{id}}"></button>
+							</div>
+							<!--@field({ edit :true })-->
+							<input class="edit" data-component="field" data-val="{{message}}" value="{{message}}" data-id="{{id}}" />
+						</li>
+					</ul>
+				</section>
+
+			</section>
+
+			<footer class="footer hide" data-controller="status">
+				<section data-component="view">
+					<span class="todo-count">
+						<strong data-value="count">0</strong>
+						<span class="items" data-value="items" data-plural="items" data-singular="item">items</span> left
+					</span>
+					<!-- data-filters is not related to data-each="filters"-->
+					<!-- data-each iterates through models/status.filters -->
+					<ul class="filters" data-filters="All, Active, Completed" data-each="filters" >
+						<li><a class="{{selected}}" href="#/{{slug}}" data-value="label"></a></li>
+					</ul>
+					<button class="clear-completed {{clear}}">Clear completed</button>
+				</section>
+			</footer>
+
+		</section>
+
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="http://github.com/javiani">Javiani</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script type="text/javascript">var global = { page :'apps/todoapp' }; </script>
+		<script type="text/javascript" data-main="js/config" src="node_modules/requirejs/require.js"></script>
+	</body>
+</html>
