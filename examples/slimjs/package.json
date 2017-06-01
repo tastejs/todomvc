@@ -1,0 +1,16 @@
+{
+  "name": "slimjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Avichay Eyal",
+  "license": "ISC",
+  "dependencies": {
+    "slim-js": "^2.1.1",
+    "todomvc-app-css": "^2.0.6",
+    "todomvc-common": "^1.0.3"
+  }
+}

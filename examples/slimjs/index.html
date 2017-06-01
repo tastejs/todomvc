@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slim.JS + Todo MVC</title>
+    <script>
+        if (!(function() {return ('registerElement' in document
+                && 'import' in document.createElement('link')
+                && 'content' in document.createElement('template'))})()) {
+            let s = "<script type=\"text\/javascript\" " +
+                    "src=\"https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents.min.js\"" +
+                    " > <\/script> "
+            document.write(s)
+        }
+    </script>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css"/>
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css"/>
+
+	<script src="node_modules/slim-js/Slim.js"></script>
+    <script src="node_modules/todomvc-common/base.js"></script>
+    <script src="js/todo-item.js"></script>
+</head>
+<body>
+    <section class="todoapp">
+        <header class="header">
+            <h1>todos</h1>
+            <add-todo></add-todo>
+            <todo-list></todo-list>
+        </header>
+    </section>
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="https://github.com/eavichay">Avichay Eyal</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+</body>
+</html>
