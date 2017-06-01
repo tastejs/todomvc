@@ -1,0 +1,20 @@
+.completed .x-inner-el
+{
+    text-decoration: line-through;
+    transition: color 0.4s ease 0s;
+    color: #d9d9d9;
+}
+
+.x-gridcell.delete
+{
+    position: relative;
+}
+
+.x-gridcell.delete::after
+{
+    content: '\f00d';
+    position: absolute;
+    top: 30%;
+    right: 50%;
+    font-family: FontAwesome;
+}
