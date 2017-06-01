@@ -1,0 +1,33 @@
+<div>
+
+    <header class="header">
+        <h1>todos</h1>
+        <input class="new-todo" placeholder="What needs to be done?" data-bind="todos.new" data-events="keypress:todos.addOnEnter(e)" autofocus>
+    </header>
+
+    <section class="main" data-show="todos.all.length > 0">
+        <input class="toggle-all" type="checkbox" data-bind="todos.toggle" data-events="click:todos.toggleAllTodos()">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+            <li class="{{ todo.class }}" data-show="todo.state == todos.filter || todos.filter == ''" data-loop="todo in todos.all">
+                <div class="view">
+                    <input class="toggle" type="checkbox" data-bind="todo.checked" data-events="change:todos.toggleTodo(todo)">
+                    <label data-events="dblclick:todos.edit(todo)">{{ todo.title }}</label>
+                    <button class="destroy" data-events="click:todos.remove(todo)"></button>
+                </div>
+                <input class="edit" data-bind="todo.title" data-events="keypress:todos.saveOnEnter(e,todo); keypress:todos.cancelOnEscape(e,todo); blur:todos.save(todo);">
+            </li>
+        </ul>
+    </section>
+
+    <footer class="footer" data-show="todos.all.length > 0">
+        <span class="todo-count"><strong>{{ todos.active }}</strong> {{ todos.pluralize("item", todos.active) }} left</span>
+        <ul class="filters">
+            <li><a href="./">All</a></li>
+            <li><a href="#/active">Active</a></li>
+            <li><a href="#/completed">Completed</a></li>
+        </ul>
+        <button class="clear-completed" data-show="todos.completed > 0" data-events="click:todos.removeCompleted()">Clear completed</button>
+    </footer>
+
+</div>

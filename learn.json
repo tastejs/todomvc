@@ -1480,6 +1480,18 @@
 			}]
 		}]
 	},
+	"nucleon": {
+		"name": "Nucleon",
+		"description": "Nucleon is a lightweight and easy-to-use javascript framework, using an MVC approach, and needing no dependencies.",
+		"homepage": "https://github.com/moduleon/nucleon",
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "https://moduleon.com/nucleon/getting-started"
+			}]
+		}]
+	},
 	"olives": {
 		"name": "Olives.js",
 		"description": "A JS Framework for creating realtime and scalable applications. Based on Emily.js and socket.io.",
