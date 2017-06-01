@@ -1,0 +1,44 @@
+{
+  "name": "todomvc",
+  "version": "1.0.0-beta",
+  "description": "MaidSAFE • TodoMVC",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "test": "NODE_ENV=test electron-mocha --renderer --recursive --compilers js:babel-register --reporter dot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zatvobor/todomvc.git"
+  },
+  "author": "Aleksey Zatvobor <a.zatvornitskiy@gmail.com> (http://github.com/zatvobor)",
+  "license": "CC-BY-4.0",
+  "bugs": {
+    "url": "https://github.com/Zatvobor/todomvc/issues"
+  },
+  "homepage": "https://github.com/Zatvobor/todomvc#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "electron-compilers": "^3.0.0",
+    "electron-mocha": "^1.2.2",
+    "electron-prebuilt": "^0.37.0",
+    "expect": "^1.18.0",
+    "fetch-mock": "^4.4.0",
+    "react-addons-test-utils": "^0.14.7"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.3.14",
+    "classnames": "^2.1.2",
+    "electron-compile": "^3.1.0",
+    "libsodium-wrappers": "^0.3.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.2.1",
+    "redux": "^3.2.1",
+    "redux-thunk": "^2.0.1",
+    "todomvc-app-css": "^2.0.1"
+  }
+}
