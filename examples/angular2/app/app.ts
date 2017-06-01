@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import {TodoStore, Todo} from './services/store';
+import { Component } from '@angular/core';
+import { TodoStore, Todo } from './services/store';
 
 @Component({
 	selector: 'todo-app',

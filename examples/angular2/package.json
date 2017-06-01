@@ -1,16 +1,33 @@
 {
   "private": true,
   "scripts": {
-    "dev": "tsc --watch"
-  },
-  "devDependencies": {
-    "typescript": "1.7.5"
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "postinstall": "typings install",
+    "typings": "typings"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.0",
-    "systemjs": "0.19.6",
-    "rxjs": "5.0.0-beta.0",
+    "@angular/common": "~2.1.0",
+    "@angular/compiler": "~2.1.0",
+    "@angular/core": "~2.1.0",
+    "@angular/forms": "~2.1.0",
+    "@angular/http": "~2.1.0",
+    "@angular/platform-browser": "~2.1.0",
+    "@angular/platform-browser-dynamic": "~2.1.0",
+    "@angular/router": "~3.0.2",
+
+    "systemjs": "0.19.39",
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.25",
+
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.0.0",
+    "lite-server": "^2.2.2",
+    "typescript": "^2.0.3",
+    "typings": "^1.4.0"
   }
 }

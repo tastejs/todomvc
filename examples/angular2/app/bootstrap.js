@@ -1,5 +1,5 @@
-var browser_1 = require('angular2/platform/browser');
-var app_1 = require('./app');
-var store_1 = require('./services/store');
-browser_1.bootstrap(app_1.default, [store_1.TodoStore]);
+"use strict";
+var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
+var app_module_1 = require('./app.module');
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 //# sourceMappingURL=bootstrap.js.map
