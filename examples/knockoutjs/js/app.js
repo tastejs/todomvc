@@ -56,25 +56,42 @@
 	};
 
 	// represent a single todo item
-	var Todo = function (title, completed) {
+	var Todo = function (title, completed, assignee) {
 		this.title = ko.observable(title);
 		this.completed = ko.observable(completed);
 		this.editing = ko.observable(false);
+		this.assignee = ko.observable(assignee);
 	};
 
 	// our main view model
 	var ViewModel = function (todos) {
 		// map array of passed in todos to an observableArray of Todo objects
 		this.todos = ko.observableArray(todos.map(function (todo) {
-			return new Todo(todo.title, todo.completed);
+			return new Todo(todo.title, todo.completed, todo.assignee);
 		}));
 
 		// store the new todo value being entered
 		this.current = ko.observable();
 
+		this.assignees = ko.observableArray ([
+			"All","Tom","Dick","Harry"
+		]);
+		
+		this.selectedAssignee = ko.observable();
+		this.selectedAssigneeFilter = ko.observable();
+		
+		this.showEditForm = ko.observable(false);
+		this.isNewTask = function(){
+			this.showEditForm(true);
+		};
+		
 		this.showMode = ko.observable('all');
 
 		this.filteredTodos = ko.computed(function () {
+			if (this.selectedAssigneeFilter()!='All')
+			{
+				this.showMode('assignee');
+			}
 			switch (this.showMode()) {
 			case 'active':
 				return this.todos().filter(function (todo) {
@@ -84,54 +101,112 @@
 				return this.todos().filter(function (todo) {
 					return todo.completed();
 				});
+			case 'assignee':
+				{	
+					var assignee = this.selectedAssigneeFilter();
+					this.selectedAssigneeFilter('');
+					this.showMode('');
+					if (assignee!='All')
+					{
+						return this.todos().filter(
+							function(todo)
+								{
+									if (todo.assignee() === this[0])
+									{
+										return todo;
+									}
+								}
+							,[assignee]);
+					}
+					return this.todos();
+				}
 			default:
 				return this.todos();
 			}
 		}.bind(this));
-
+		
+		
 		// add a new todo, when enter key is pressed
 		this.add = function () {
-			var current = this.current().trim();
-			if (current) {
-				this.todos.push(new Todo(current));
-				this.current('');
+			if (this.validate(this.current()))
+			{
+				var current = this.current().trim();
+				if (current) {
+					this.todos.push(new Todo(current, false, this.selectedAssignee()));
+					this.current('');
+					this.showEditForm(false);
+				}
 			}
+			
+			
 		}.bind(this);
+
+		this.validate = function(title)
+		{
+			var validate = false;
+			if (this.selectedAssignee() === 'All') {
+				alert ('Please Select an Assignee');
+				return validate;
+			}
+			
+			if (title === undefined || title == '') {
+				alert ('Please enter a task');
+				return validate;
+			}
+			validate = true;
+			return validate;
+		}
 
 		// remove a single todo
 		this.remove = function (todo) {
-			this.todos.remove(todo);
+			this.current('');
+			if (confirm("Are you sure you want to delete this item \r\rTitle: " + todo.title() + "\rAssigned To: " + todo.assignee()))
+			{
+				this.todos.remove(todo);
+			}
 		}.bind(this);
 
 		// remove all completed todos
 		this.removeCompleted = function () {
-			this.todos.remove(function (todo) {
-				return todo.completed();
-			});
+			this.current('');
+			if (confirm("Are you sure you want to delete these " + this.completedCount() + " completed items?")	 )
+			{
+				this.todos.remove(function (todo) {
+					return todo.completed();
+				});
+			}
 		}.bind(this);
 
 		// edit an item
 		this.editItem = function (item) {
+			this.current('');
+			this.todos().map(function(item){ return item.editing(false)})
+			this.showEditForm(false);
 			item.editing(true);
 			item.previousTitle = item.title();
+			item.previousAssignee = item.assignee();
+			this.selectedAssignee(item.assignee());
 		}.bind(this);
 
 		// stop editing an item.  Remove the item, if it is now empty
 		this.saveEditing = function (item) {
-			item.editing(false);
+			if (this.validate(item.title()))
+			{
+				item.editing(false);
+				item.assignee(this.selectedAssignee());
+				var title = item.title();
+				var trimmedTitle = title.trim();
 
-			var title = item.title();
-			var trimmedTitle = title.trim();
+				// Observable value changes are not triggered if they're consisting of whitespaces only
+				// Therefore we've to compare untrimmed version with a trimmed one to chech whether anything changed
+				// And if yes, we've to set the new value manually
+				if (title !== trimmedTitle) {
+					item.title(trimmedTitle);
+				}
 
-			// Observable value changes are not triggered if they're consisting of whitespaces only
-			// Therefore we've to compare untrimmed version with a trimmed one to chech whether anything changed
-			// And if yes, we've to set the new value manually
-			if (title !== trimmedTitle) {
-				item.title(trimmedTitle);
-			}
-
-			if (!trimmedTitle) {
-				this.remove(item);
+				if (!trimmedTitle) {
+					this.remove(item);
+				}
 			}
 		}.bind(this);
 
@@ -139,6 +214,12 @@
 		this.cancelEditing = function (item) {
 			item.editing(false);
 			item.title(item.previousTitle);
+			item.assignee(item.previousAssignee);
+		}.bind(this);
+
+		this.cancel = function(){
+			this.current('');
+			this.showEditForm(false);
 		}.bind(this);
 
 		// count of all completed todos
@@ -154,8 +235,8 @@
 		}.bind(this));
 
 		// writeable computed observable to handle marking all complete/incomplete
-		this.allCompleted = ko.computed({
 			//always return true/false based on the done flag of all todos
+		this.allCompleted = ko.computed({
 			read: function () {
 				return !this.remainingCount();
 			}.bind(this),
