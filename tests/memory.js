@@ -1,18 +1,22 @@
 'use strict';
 
+var chrome = require('selenium-webdriver/chrome');
 var drool = require('drool');
 var exceptions = require('./memory-exceptions.json');
 var frameworkPathLookup = require('./framework-path-lookup');
 var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
-var driverConfig = {
-	chromeOptions: 'no-sandbox'
-};
 
-if (typeof process.env.CHROME_PATH !== 'undefined') {
-	driverConfig.chromeBinaryPath = process.env.CHROME_PATH;
+var chromeOptions = new chrome.Options();
+
+chromeOptions.addArguments('no-sandbox');
+chromeOptions.addArguments('headless');
+chromeOptions.addArguments('disable-gpu');
+
+if (process.env.CHROME_PATH !== undefined) {
+	chromeOptions.setChromeBinaryPath(process.env.CHROME_PATH);
 }
 
-var driver = drool.start(driverConfig);
+var driver = drool.start(chromeOptions);
 var list = frameworkPathLookup(argv.framework);
 
 function idApp() {

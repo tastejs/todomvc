@@ -30,7 +30,10 @@ module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMod
 
 		function launchBrowser(done) {
 			var chromeOptions = new chrome.Options();
+
 			chromeOptions.addArguments('no-sandbox');
+			chromeOptions.addArguments('headless');
+			chromeOptions.addArguments('disable-gpu');
 
 			if (process.env.CHROME_PATH !== undefined) {
 				chromeOptions.setChromeBinaryPath(process.env.CHROME_PATH);

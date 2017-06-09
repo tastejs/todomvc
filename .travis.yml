@@ -3,9 +3,10 @@
 # on a github oauth key that you can generate using curl.
 
 sudo: false
+dist: xenial
 language: node_js
 node_js:
-  - 'stable'
+  - '6.8.0'
 notifications:
   irc: 'irc.freenode.org#tastejs'
 cache:
@@ -31,8 +32,6 @@ env:
     - GH_PROJECT_NAME: todomvc
     - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
 before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
   - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
 script:
 # We want to gate on passing tests and a successful build
