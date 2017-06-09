@@ -19,8 +19,6 @@ export default class TodoApp extends Component {
 
 		return html`
 			<section class="todoapp"
-				onattached=${this.animateAttached}
-				ondetached=${this.animateDetached}
 				onsubmit=${this.onSubmitHandler}
 				onclick=${this.onClickHandler}
 				onkeydown=${this.handleKeyDown}
@@ -98,47 +96,6 @@ export default class TodoApp extends Component {
 		super(props);
 
 		this.unsubscribeStore = store.subscribe(() => this.forceUpdate());
-	}
-
-	animateAttached(parent, element) {
-		if (!element.animate) { return; }
-
-		if (element.matches('footer.info')) {
-			return new Promise(resolve => element.animate([
-				{ opacity: 0, transform: 'scale(.5)' },
-				{ opacity: 1, transform: 'scale(1)' }
-			], { duration: 250 }).onfinish = resolve).then(() => {
-				element.style.opacity = 1;
-			});
-		}
-
-		// Animate Todo item being added.
-		if (element.matches('.todo-list li, footer.info')) {
-			return new Promise(resolve => element.animate([
-				{ opacity: 0, transform: 'scale(.5)' },
-				{ opacity: 1, transform: 'scale(1)' }
-			], { duration: 250 }).onfinish = resolve);
-		}
-
-		// Animate the entire app loading.
-		if (element.matches('.todoapp')) {
-			return new Promise(resolve => element.animate([
-				{ opacity: 0, transform: 'translateY(100%)', easing: 'ease-out' },
-				{ opacity: 1, transform: 'translateY(0)' }
-			], { duration: 375 }).onfinish = resolve);
-		}
-	}
-
-	animateDetached(parent, element) {
-		if (!element.animate) { return; }
-
-		// We are removing an item from the list.
-		if (element.matches('.todo-list li')) {
-			return new Promise(resolve => element.animate([
-				{ opacity: 1, transform: 'scale(1)' },
-				{ opacity: 0, transform: 'scale(.5)' }
-			], { duration: 250 }).onfinish = resolve);
-		}
 	}
 
 	addTodo = ev => {

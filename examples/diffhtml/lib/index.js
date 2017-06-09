@@ -1,10 +1,7 @@
-import { use, html, innerHTML } from 'diffhtml';
-import inlineTransitions from 'diffhtml-middleware-inline-transitions';
+import { html, innerHTML } from 'diffhtml';
 import TodoApp from './components/todo-app';
 import store from './redux/store';
 import * as urlActions from './redux/actions/url';
-
-use(inlineTransitions());
 
 const setHashState = hash => store.dispatch(urlActions.setHashState(hash));
 

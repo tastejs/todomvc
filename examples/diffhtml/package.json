@@ -42,10 +42,9 @@
   "dependencies": {
     "diffhtml": "^1.0.0-beta.4",
     "diffhtml-components": "^1.0.0-beta.4",
-    "diffhtml-middleware-inline-transitions": "^1.0.0-beta.4",
     "prop-types": "^15.5.10",
     "redux": "^3.5.2",
-    "todomvc-app-css": "^2.0.6",
-    "todomvc-common": "^1.0.2"
+    "todomvc-app-css": "2.0.0",
+    "todomvc-common": "1.0.1"
   }
 }

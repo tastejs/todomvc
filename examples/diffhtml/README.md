@@ -1,14 +1,15 @@
 TodoMVC
 -------
 
-This is an experimental project to make a TodoMVC with Custom Elements and
-diffHTML to handle Virtual DOM operations.
+This is an experimental project to make a TodoMVC with Components and diffHTML
+to handle Virtual DOM operations.
 
 # diffHTML TodoMVC Example
 
-> diffHTML is an experimental library for building components and structuring applications with a virtual DOM and declarative HTML interface.
+> diffHTML is a library for building components and structuring applications
+> with a Virtual DOM and declarative HTML interface.
 
-> _[diffHTML - www.diffhtml.org](http://www.diffhtml.org/)_
+> _[diffHTML - www.diffhtml.org](https://www.diffhtml.org/)_
 
 ## Learning diffHTML
 
@@ -26,12 +27,18 @@ implementations:
 
 * [Transitions](https://github.com/tbranyen/diffhtml/tree/master/packages/diffhtml-middleware-inline-transitions)
   are included as they are a base feature with diffHTML. They make the app look
-  a bit nicer.
+  a bit nicer. Unfortunately they break the unit tests, but you can see them
+	on [GitHub](https://tbranyen.github.io/todomvc/).
+
+* HTML Virtual DOM instead of JSX. This has the advantage of writing more
+  natural web applications that integrate more seamlessly.
+
+* Excellent performance using an internal memory and render transaction
+	scheduler that can be shipped with a very small filesize.
 
 ## Compatibility
 
-This example should run in all major browsers, although the Web Animations
-specification will only work in browsers that support it.
+This example should run in all major browsers.
 
 ## Running this sample
 

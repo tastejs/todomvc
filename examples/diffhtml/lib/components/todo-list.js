@@ -1,4 +1,4 @@
-import { html, innerHTML } from 'diffhtml';
+import { html } from 'diffhtml';
 
 const stopPropagation = ev => ev.stopPropagation();
 
