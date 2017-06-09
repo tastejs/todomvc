@@ -30,7 +30,7 @@ env:
     - secure: 'fHgfjMpYuliwMr2QLnjYZExIViNrxprf9dhXRBLZ6P9Hz7P6m1BMYrI/xEG8X+fFbCi0+n3AXh8SEMHi9ou/Pty/cx12z4w/z3B2BHMxh4XBwpZHs+AB4IXkLiwwWoP4QFy4vTipgYnMDMq9CRhlRbhZEpenQBmaTEc472By1uM='
     - GH_OWNER: tastejs
     - GH_PROJECT_NAME: todomvc
-    - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
+    - CHROME_PATH: $TRAVIS_BUILD_DIR/chrome-linux/chrome
 before_install:
   - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
 script:
