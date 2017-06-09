@@ -187,7 +187,7 @@ module.exports = function Page(browser) {
 	};
 
 	this.clickMarkAllCompletedCheckBox = function () {
-		return this.waitForMarkAllCompletedCheckBox().then(e => e.click());
+		return this.waitForMarkAllCompletedCheckBox().click();
 	};
 
 	this.clickClearCompleteButton = function () {

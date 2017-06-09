@@ -23,18 +23,17 @@ then
 	# Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
 	git push https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} HEAD:gh-pages > /dev/null 2>&1
 else
-	#changes=$(get_changes)
+	changes=$(get_changes)
 
 	if [ "${#changes}" = 0 ]
 	then
 		changes="--framework=backbone"
 	fi
 
-	changes="--framework=diffhtml"
-
-	gulp test-server&
-
-	cd tests && \
+	npm run test-server && \
+	cd tooling && \
+	echo $changes | xargs ./run.sh && \
+	cd ../tests && \
 	sleep 2 && \
 	echo $changes | xargs ./run.sh
 
