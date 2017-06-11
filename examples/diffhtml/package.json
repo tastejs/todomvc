@@ -23,9 +23,9 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-class-properties": "^6.22.0",
-    "babel-plugin-transform-diffhtml": "^1.0.0-beta.4",
+    "babel-plugin-transform-diffhtml": "^1.0.0-beta.5",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.5",
-    "babel-preset-diffhtml-imports": "^1.0.0-beta.4",
+    "babel-preset-diffhtml-imports": "^1.0.0-beta.5",
     "babel-preset-es2015-rollup": "^3.0.0",
     "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.7.1",
@@ -40,8 +40,8 @@
     "uglify-js": "^3.0.15"
   },
   "dependencies": {
-    "diffhtml": "^1.0.0-beta.4",
-    "diffhtml-components": "^1.0.0-beta.4",
+    "diffhtml": "^1.0.0-beta.5",
+    "diffhtml-components": "^1.0.0-beta.5",
     "prop-types": "^15.5.10",
     "redux": "^3.5.2",
     "todomvc-app-css": "2.0.0",
