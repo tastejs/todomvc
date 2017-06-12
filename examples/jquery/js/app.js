@@ -178,7 +178,7 @@ jQuery(function ($) {
 			} else {
 				if (!val) {
 					this.destroy(e);
-				} else{
+				} else {
 					this.todos[this.getIndexFromEl(el)].title = val;
 				}
 			}
