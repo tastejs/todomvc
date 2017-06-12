@@ -182,7 +182,7 @@ jQuery(function ($) {
 					this.todos[this.getIndexFromEl(el)].title = val;
 				}
 			}
-			
+
 			this.render();
 		},
 		destroy: function (e) {
