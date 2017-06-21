@@ -4,13 +4,14 @@ port module Todo exposing (..)
 
 This application is broken up into four distinct parts:
 
-  1. Model  - a full description of the application as data
-  2. Update - a way to update the model based on user actions
-  3. View   - a way to visualize our model with HTML
+1.  Model - a full description of the application as data
+2.  Update - a way to update the model based on user actions
+3.  View - a way to visualize our model with HTML
 
 This program is not particularly large, so definitely see the following
 document for notes on structuring more complex GUIs with Elm:
-http://guide.elm-lang.org/architecture/
+<http://guide.elm-lang.org/architecture/>
+
 -}
 
 import Dom
@@ -19,8 +20,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Lazy exposing (lazy, lazy2)
-import Html.App
-import Navigation exposing (Parser)
+import Navigation
 import String
 import String.Extra
 import Todo.Task
@@ -66,6 +66,7 @@ type Msg
     | DeleteComplete
     | CheckAll Bool
     | ChangeVisibility String
+    | UrlChange Navigation.Location
 
 
 
@@ -146,10 +147,13 @@ update msg model =
             in
                 ( newModel, save model )
 
+        UrlChange loc ->
+            urlUpdate loc model
+
 
 focusTask : String -> Cmd Msg
 focusTask elementId =
-    Task.perform (\_ -> NoOp) (\_ -> NoOp) (Dom.focus elementId)
+    Task.attempt (\_ -> NoOp) (Dom.focus elementId)
 
 
 
@@ -220,7 +224,7 @@ taskList visibility tasks =
             ]
             [ input
                 [ class "toggle-all"
-                , type' "checkbox"
+                , type_ "checkbox"
                 , name "toggle"
                 , checked allCompleted
                 , onClick (CheckAll (not allCompleted))
@@ -240,7 +244,7 @@ taskList visibility tasks =
                             taskView =
                                 Todo.Task.view task
                         in
-                            Html.App.map (\msg -> UpdateTask ( id, msg )) taskView
+                            Html.map (\msg -> UpdateTask ( id, msg )) taskView
                     )
                     (List.filter isVisible tasks)
                 )
@@ -322,11 +326,10 @@ infoFooter =
 -- wire the entire application together
 
 
-main : Program Flags
+main : Program Flags Model Msg
 main =
-    Navigation.programWithFlags urlParser
-        { urlUpdate = urlUpdate
-        , view = view
+    Navigation.programWithFlags UrlChange
+        { view = view
         , init = init
         , update = update
         , subscriptions = subscriptions
@@ -354,18 +357,13 @@ fromUrl hash =
             Nothing
 
 
-urlParser : Parser (Maybe String)
-urlParser =
-    Navigation.makeParser (fromUrl << .hash)
-
-
-{-| The URL is turned into a Maybe value. If the URL is valid, we just update
-our model with the new visibility settings. If it is not a valid URL,
-we set the visibility filter to show all tasks.
+{-| The Location hash is turned into a Maybe value. If the hash is valid, we
+just update our model with the new visibility settings. If it is not a valid
+URL, we set the visibility filter to show all tasks.
 -}
-urlUpdate : Maybe String -> Model -> ( Model, Cmd Msg )
-urlUpdate result model =
-    case result of
+urlUpdate : Navigation.Location -> Model -> ( Model, Cmd Msg )
+urlUpdate loc model =
+    case (fromUrl loc.hash) of
         Just visibility ->
             update (ChangeVisibility (String.Extra.toSentenceCase visibility)) model
 
@@ -373,9 +371,9 @@ urlUpdate result model =
             update (ChangeVisibility "All") model
 
 
-init : Flags -> Maybe String -> ( Model, Cmd Msg )
-init flags url =
-    urlUpdate url (Maybe.withDefault emptyModel flags)
+init : Flags -> Navigation.Location -> ( Model, Cmd Msg )
+init flags loc =
+    urlUpdate loc (Maybe.withDefault emptyModel flags)
 
 
 

@@ -110,7 +110,7 @@ view model =
                 [ class "view" ]
                 [ input
                     [ class "toggle"
-                    , type' "checkbox"
+                    , type_ "checkbox"
                     , checked model.completed
                     , onClick (Completed (not model.completed))
                     ]
