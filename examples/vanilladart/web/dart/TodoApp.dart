@@ -30,7 +30,7 @@ class TodoApp {
         List<Map> todos = JSON.decode(jsonList);
         todos.forEach((todo) => addTodo(new Todo.fromJson(todo)));
       } catch (e) {
-        print('Could not load todos form local storage.');
+        print('Could not load todos from local storage.');
       }
     }
   }
