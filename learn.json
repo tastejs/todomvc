@@ -1464,8 +1464,8 @@
 	},
 	"mithril": {
 		"name": "Mithril",
-		"description": "Mithril is a client-side MVC framework - a tool to organize code in a way that is easy to think about and to maintain.",
-		"homepage": "lhorie.github.io/mithril/",
+		"description": "Mithril is a modern client-side Javascript framework for building Single Page Applications. It's small (< 8kb gzip), fast and provides routing and XHR utilities out of the box.",
+		"homepage": "mithril.js.org",
 		"examples": [{
 			"name": "Architecture Example",
 			"url": "examples/mithril"
@@ -1474,16 +1474,16 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://lhorie.github.io/mithril/getting-started.html"
+				"url": "https://mithril.js.org/#introduction"
 			}, {
 				"name": "API Reference",
-				"url": "http://lhorie.github.io/mithril/mithril.html"
+				"url": "https://mithril.js.org/api.html"
 			}, {
 				"name": "Tutorials",
-				"url": "http://lhorie.github.io/mithril-blog/"
+				"url": "https://mithril.js.org/simple-application.html"
 			}, {
 				"name": "Mithril on Github",
-				"url": "https://github.com/lhorie/mithril.js"
+				"url": "https://github.com/MithrilJS/mithril.js"
 			}]
 		}, {
 			"heading": "Community",
@@ -1494,8 +1494,11 @@
 				"name": "StackOverflow",
 				"url": "http://stackoverflow.com/questions/tagged/mithril.js"
 			}, {
-				"name": "Projects and Snippets",
-				"url": "https://github.com/lhorie/mithril.js/wiki/Community-Projects-and-Snippets"
+				"name": "Community Projects",
+				"url": "https://github.com/MithrilJS/mithril.js/wiki/Community-Projects"
+			}, {
+				"name": "Recipies and Snippets",
+				"url": "https://github.com/MithrilJS/mithril.js/wiki/Recipes-and-Snippets"
 			}]
 		}]
 	},
