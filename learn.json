@@ -23,6 +23,9 @@
 		}, {
 			"name": "Angular2 es2015",
 			"url": "examples/angular2_es2015"
+		}, {
+			"name": "Angular4",
+			"url": "examples/angular4/dist"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
