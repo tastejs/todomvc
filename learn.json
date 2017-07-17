@@ -20,6 +20,9 @@
 		}, {
 			"name": "Angular2",
 			"url": "examples/angular2"
+		}, {
+			"name": "Angular2 es2015",
+			"url": "examples/angular2_es2015"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
