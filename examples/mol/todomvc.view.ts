@@ -67,13 +67,16 @@ namespace $.$mol {
 			return ( count === 1 ) ? '1 item left' : `${count} items left`
 		}
 		
-		_id_seed = 0
-
+		@ $mol_mem()
+		new_id() {
+			return Math.max( 1 , 1 + Math.max( ... this.task_ids() ) )
+		}
+		
 		event_add( next : Event ) {
 			var title = this.task_title_new() 
 			if( !title ) return
 			
-			var id = ++ this._id_seed
+			var id = this.new_id()
 			var task = { completed : false , title }
 			this.task( id , task )
 			

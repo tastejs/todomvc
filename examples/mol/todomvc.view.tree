@@ -1,11 +1,12 @@
 $mol_app_todomvc $mol_scroll
+	title @ \Todos
 	sub /
 		<= Page $mol_list
 			rows /
 				<= Title $mol_view
 					minimal_height 142
 					sub /
-						<= title @ \todos
+						<= title -
 				<= Panel $mol_list
 					rows <= panels /
 						<= Head $mol_view
@@ -14,8 +15,7 @@ $mol_app_todomvc $mol_scroll
 								<= Head_complete $mol_check
 									enabled <= head_complete_enabled false
 									checked?val <=> completed_all?val false
-									sub /
-										\❯
+									title \❯
 								<= Add $mol_app_todomvc_add
 									value?val <=> task_title_new?val \
 									event_done?event <=> event_add?event null
@@ -37,12 +37,12 @@ $mol_app_todomvc $mol_scroll
 											sub /
 												<= filter_active_label @ \Active
 											arg *
-												completed false
+												completed \false
 										<= Filter_completed $mol_link
 											sub /
 												<= filter_completed_label @ \Completed
 											arg *
-												completed true
+												completed \true
 								<= Sweep $mol_button_minor
 									enabled <= sweep_enabled true
 									event_click?event <=> event_sweep?event null
@@ -55,6 +55,7 @@ $mol_app_todomvc $mol_scroll
 $mol_app_todomvc_add $mol_string
 	hint @ \What needs to be done?
 	event *
+		^
 		keyup?event <=> event_press?event null
 	event_done?event null
 
@@ -63,7 +64,6 @@ $mol_app_todomvc_task_row $mol_view
 	sub /
 		<= Complete $mol_check
 			checked?val <=> completed?val false
-			sub /
 		<= Title $mol_string
 			hint <= title_hint @ \Task title
 			value?val <=> title?val \
@@ -71,4 +71,5 @@ $mol_app_todomvc_task_row $mol_view
 			sub / \✖
 			event_click?event <=> event_drop?event null
 	attr *
+		^
 		mol_app_todomvc_task_row_completed <= completed?val false

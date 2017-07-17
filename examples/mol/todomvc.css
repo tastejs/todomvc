@@ -50,6 +50,10 @@
 	font-size: 1.5rem;
 }
 
+[mol_app_todomvc_page] {
+	flex: 1 1 auto;
+}
+
 [mol_app_todomvc_panel] {
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 	max-width: 38rem;
@@ -75,6 +79,7 @@
 	text-align: center;
 	color: rgba(175, 47, 47, 0.15);
 	text-rendering: optimizeLegibility;
+	text-transform: lowercase;
 }
 
 [mol_app_todomvc_task_row] {
@@ -87,10 +92,10 @@
 [mol_app_todomvc_task_row_complete] {
 	flex: 0 0 4rem;
 	padding: 1rem;
-	background: no-repeat center center url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="%23ededed" stroke-width="3"/></svg>');
+	background: no-repeat center center url('mol/app/todomvc/todomvc_active.svg');
 }
 [mol_app_todomvc_task_row_complete][mol_check_checked] {
-	background: no-repeat center center url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="%23bddad5" stroke-width="3"/><path fill="%235dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>')
+	background: no-repeat center center url('mol/app/todomvc/todomvc_completed.svg');
 }
 
 [mol_app_todomvc_task_row_title] {
