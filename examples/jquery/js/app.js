@@ -155,37 +155,24 @@ jQuery(function ($) {
 			this.todos[i].completed = !this.todos[i].completed;
 			this.render();
 		},
+		// Find the todo to be edited and add the 'editing' class. 
+		// Focus on input
 		editingMode: function (e) {
-			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
-			$input.val($input.val()).focus();
+
 		},
+		// Define keys for .blur().
+		// Let ESCAPE_KEY set 'abort' data to true
 		editKeyup: function (e) {
-			if (e.which === ENTER_KEY) {
-				e.target.blur();
-			}
 
-			if (e.which === ESCAPE_KEY) {
-				$(e.target).data('abort', true).blur();
-			}
 		},
+		// Define variables for event target, $(el) and val
+		// If there is no val, destroy the event
+		// Reset the data 'abort' value if it is true
+		// Otherwise, replace the todos.title with val
 		update: function (e) {
-			var el = e.target;
-			var $el = $(el);
-			var val = $el.val().trim();
-
-			if (!val) {
-				this.destroy(e);
-				return;
-			}
-
-			if ($el.data('abort')) {
-				$el.data('abort', false);
-			} else {
-				this.todos[this.getIndexFromEl(el)].title = val;
-			}
-
-			this.render();
+			
 		},
+		
 		destroy: function (e) {
 			this.todos.splice(this.getIndexFromEl(e.target), 1);
 			this.render();
