@@ -81,7 +81,7 @@
 			if( !/^examples\/[-a-zA-Z0-9_\/]+$/.test( example.url ) ) return
 
 			metaData.samples[ example.url.replace( /(^examples\/|\/$)/g , '' ) ] = {
-				title : { 'en' : learn[ lib ].name + ' ' + example.name }
+				title : { 'en' : learn[ lib ].name + ' ' + example.name.replace( 'Example' , '' ) }
 			}
 		} )
 	}
