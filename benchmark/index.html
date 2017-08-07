@@ -109,6 +109,7 @@
 
 	function start( sample ) {
 		var sandbox = document.getElementById( 'sandbox' )
+		localStorage.clear()
 		sandbox.src = 'about:blank'
 		setTimeout( function() {
 			var start = Date.now()
