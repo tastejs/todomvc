@@ -4,7 +4,7 @@ $mol_app_todomvc $mol_scroll
 		<= Page $mol_list
 			rows /
 				<= Title $mol_view
-					minimal_height 142
+					minimal_height 176
 					sub /
 						<= title -
 				<= Panel $mol_list

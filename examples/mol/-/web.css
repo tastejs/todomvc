@@ -12,6 +12,7 @@
     padding: 0;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
     font: 1rem/1.5 "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: #fcfcfc;
     touch-action: manipulation
@@ -97,14 +98,6 @@
     border: none;
     font: inherit;
     background-color: none;
-    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
-    border-radius: 2px;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    vertical-align: middle;
-    text-align: center;
-    padding: .5rem 1rem;
     display: inline-flex;
     flex-shrink: 0;
     text-decoration: inherit;
@@ -112,15 +105,29 @@
     cursor: inherit;
     position: relative;
     box-sizing: border-box;
-    word-break: normal
+    word-break: normal;
+    cursor: default
 }
-[mol_button][disabled] {
+[mol_button]:focus {
+    outline: none
+}
+[mol_button_typed] {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+    padding: .5rem 1rem;
+    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
+    border-radius: 2px
+}
+[mol_button_typed][disabled] {
     color: rgba(0, 0, 0, .5);
     background: none;
     pointer-events: none
 }
 [mol_button_minor] {
-    background-color: rgba(245, 245, 245, .9);
+    background-color: white;
     color: rgba(0, 0, 0, .9)
 }
 [mol_button_major] {
@@ -132,24 +139,23 @@
     background-color: rgba(255, 50, 50, .75);
     color: white
 }
-[mol_button]:hover {
+[mol_button_typed]:hover ,
+[mol_button_typed]:focus {
     z-index: 1;
     cursor: pointer;
     background-color: rgba(0, 0, 0, .05)
 }
-[mol_button_minor]:hover {
-    background-color: rgb(255, 255, 255);
+[mol_button_minor]:hover ,
+[mol_button_minor]:focus {
+    background-color: rgb(240, 240, 240);
     color: rgba(0, 0, 0, .9)
 }
-[mol_button]:focus {
-    z-index: 1;
-    outline: none;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .2)
-}
-[mol_button_major]:hover {
+[mol_button_major]:hover ,
+[mol_button_major]:focus {
     background-color: rgb(197, 13, 55)
 }
-[mol_button_danger]:hover {
+[mol_button_danger]:hover ,
+[mol_button_danger]:focus {
     background-color: rgba(255, 26, 26, 0.75)
 }
 [mol_link] {
@@ -237,7 +243,8 @@
         align-self: stretch;
     width: 100%;
     background-color: #f5f5f5;
-    margin: 0
+    margin: 0;
+    transition: none
 }
 [mol_app_todomvc] [mol_string] ,
 [mol_app_todomvc] [mol_string]:focus ,
@@ -276,10 +283,12 @@
     flex: 1 1 auto
 }
 [mol_app_todomvc_list] {
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    transition: none
 }
 [mol_app_todomvc_page] {
-    flex: 1 1 auto
+    flex: 1 1 auto;
+    transition: none
 }
 [mol_app_todomvc_panel] {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2), 0 25px 50px 0 rgba(0, 0, 0, .1);

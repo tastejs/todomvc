@@ -6,14 +6,15 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// Title $mol_view 
-	/// 	minimal_height 142 
+	/// 	minimal_height 176 
 	/// 	sub / <= title
 	@ $mol_mem()
 	Title() {
-		return $mol_view.make({
-			minimal_height : () => 142 ,
-			sub : () => [].concat( this.title() ) ,
-		})
+		return (( obj )=>{
+			obj.minimal_height = () => 176
+			obj.sub = () => [].concat( this.title() )
+			return obj
+		})( new $mol_view )
 	}
 
 	/// head_complete_enabled false
@@ -33,11 +34,12 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	title \❯
 	@ $mol_mem()
 	Head_complete() {
-		return $mol_check.make({
-			enabled : () => this.head_complete_enabled() ,
-			checked : ( val? : any ) => this.completed_all( val ) ,
-			title : () => "❯" ,
-		})
+		return (( obj )=>{
+			obj.enabled = () => this.head_complete_enabled()
+			obj.checked = ( val? : any ) => this.completed_all( val )
+			obj.title = () => "❯"
+			return obj
+		})( new $mol_check )
 	}
 
 	/// task_title_new?val \
@@ -57,10 +59,11 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	event_done?event <=> event_add?event
 	@ $mol_mem()
 	Add() {
-		return $mol_app_todomvc_add.make({
-			value : ( val? : any ) => this.task_title_new( val ) ,
-			event_done : ( event? : any ) => this.event_add( event ) ,
-		})
+		return (( obj )=>{
+			obj.value = ( val? : any ) => this.task_title_new( val )
+			obj.event_done = ( event? : any ) => this.event_add( event )
+			return obj
+		})( new $mol_app_todomvc_add )
 	}
 
 	/// Head_content / 
@@ -75,10 +78,11 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	sub <= Head_content
 	@ $mol_mem()
 	Head() {
-		return $mol_view.make({
-			minimal_height : () => 64 ,
-			sub : () => this.Head_content() ,
-		})
+		return (( obj )=>{
+			obj.minimal_height = () => 64
+			obj.sub = () => this.Head_content()
+			return obj
+		})( new $mol_view )
 	}
 
 	/// task_rows /
@@ -89,9 +93,10 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// List $mol_list rows <= task_rows
 	@ $mol_mem()
 	List() {
-		return $mol_list.make({
-			rows : () => this.task_rows() ,
-		})
+		return (( obj )=>{
+			obj.rows = () => this.task_rows()
+			return obj
+		})( new $mol_list )
 	}
 
 	/// pending_message @ \0 items left
@@ -102,9 +107,10 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Pending $mol_view sub / <= pending_message
 	@ $mol_mem()
 	Pending() {
-		return $mol_view.make({
-			sub : () => [].concat( this.pending_message() ) ,
-		})
+		return (( obj )=>{
+			obj.sub = () => [].concat( this.pending_message() )
+			return obj
+		})( new $mol_view )
 	}
 
 	/// filter_all_label @ \All
@@ -117,12 +123,13 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	arg * completed null
 	@ $mol_mem()
 	Filter_all() {
-		return $mol_link.make({
-			sub : () => [].concat( this.filter_all_label() ) ,
-			arg : () => ({
+		return (( obj )=>{
+			obj.sub = () => [].concat( this.filter_all_label() )
+			obj.arg = () => ({
 			"completed" :  <any> null ,
-		}) ,
 		})
+			return obj
+		})( new $mol_link )
 	}
 
 	/// filter_active_label @ \Active
@@ -135,12 +142,13 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	arg * completed \false
 	@ $mol_mem()
 	Filter_active() {
-		return $mol_link.make({
-			sub : () => [].concat( this.filter_active_label() ) ,
-			arg : () => ({
+		return (( obj )=>{
+			obj.sub = () => [].concat( this.filter_active_label() )
+			obj.arg = () => ({
 			"completed" :  "false" ,
-		}) ,
 		})
+			return obj
+		})( new $mol_link )
 	}
 
 	/// filter_completed_label @ \Completed
@@ -153,12 +161,13 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	arg * completed \true
 	@ $mol_mem()
 	Filter_completed() {
-		return $mol_link.make({
-			sub : () => [].concat( this.filter_completed_label() ) ,
-			arg : () => ({
+		return (( obj )=>{
+			obj.sub = () => [].concat( this.filter_completed_label() )
+			obj.arg = () => ({
 			"completed" :  "true" ,
-		}) ,
 		})
+			return obj
+		})( new $mol_link )
 	}
 
 	/// filterOptions / 
@@ -172,9 +181,10 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Filter $mol_bar sub <= filterOptions
 	@ $mol_mem()
 	Filter() {
-		return $mol_bar.make({
-			sub : () => this.filterOptions() ,
-		})
+		return (( obj )=>{
+			obj.sub = () => this.filterOptions()
+			return obj
+		})( new $mol_bar )
 	}
 
 	/// sweep_enabled true
@@ -199,11 +209,12 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	sub / <= sweep_label
 	@ $mol_mem()
 	Sweep() {
-		return $mol_button_minor.make({
-			enabled : () => this.sweep_enabled() ,
-			event_click : ( event? : any ) => this.event_sweep( event ) ,
-			sub : () => [].concat( this.sweep_label() ) ,
-		})
+		return (( obj )=>{
+			obj.enabled = () => this.sweep_enabled()
+			obj.event_click = ( event? : any ) => this.event_sweep( event )
+			obj.sub = () => [].concat( this.sweep_label() )
+			return obj
+		})( new $mol_button_minor )
 	}
 
 	/// foot_content / 
@@ -217,9 +228,10 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Foot $mol_view sub <= foot_content
 	@ $mol_mem()
 	Foot() {
-		return $mol_view.make({
-			sub : () => this.foot_content() ,
-		})
+		return (( obj )=>{
+			obj.sub = () => this.foot_content()
+			return obj
+		})( new $mol_view )
 	}
 
 	/// panels / 
@@ -233,9 +245,10 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Panel $mol_list rows <= panels
 	@ $mol_mem()
 	Panel() {
-		return $mol_list.make({
-			rows : () => this.panels() ,
-		})
+		return (( obj )=>{
+			obj.rows = () => this.panels()
+			return obj
+		})( new $mol_list )
 	}
 
 	/// Page $mol_list rows / 
@@ -243,9 +256,10 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	<= Panel
 	@ $mol_mem()
 	Page() {
-		return $mol_list.make({
-			rows : () => [].concat( this.Title() , this.Panel() ) ,
-		})
+		return (( obj )=>{
+			obj.rows = () => [].concat( this.Title() , this.Panel() )
+			return obj
+		})( new $mol_list )
 	}
 
 	/// sub / <= Page
@@ -277,11 +291,12 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	event_drop?event <=> event_task_drop!id?event
 	@ $mol_mem_key()
 	Task_row( id : any ) {
-		return $mol_app_todomvc_task_row.make({
-			completed : ( val? : any ) => this.task_completed(id , val ) ,
-			title : ( val? : any ) => this.task_title(id , val ) ,
-			event_drop : ( event? : any ) => this.event_task_drop(id , event ) ,
-		})
+		return (( obj )=>{
+			obj.completed = ( val? : any ) => this.task_completed(id , val )
+			obj.title = ( val? : any ) => this.task_title(id , val )
+			obj.event_drop = ( event? : any ) => this.event_task_drop(id , event )
+			return obj
+		})( new $mol_app_todomvc_task_row )
 	}
 
 } }
@@ -333,9 +348,10 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	/// Complete $mol_check checked?val <=> completed?val
 	@ $mol_mem()
 	Complete() {
-		return $mol_check.make({
-			checked : ( val? : any ) => this.completed( val ) ,
-		})
+		return (( obj )=>{
+			obj.checked = ( val? : any ) => this.completed( val )
+			return obj
+		})( new $mol_check )
 	}
 
 	/// title_hint @ \Task title
@@ -354,10 +370,11 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	/// 	value?val <=> title?val
 	@ $mol_mem()
 	Title() {
-		return $mol_string.make({
-			hint : () => this.title_hint() ,
-			value : ( val? : any ) => this.title( val ) ,
-		})
+		return (( obj )=>{
+			obj.hint = () => this.title_hint()
+			obj.value = ( val? : any ) => this.title( val )
+			return obj
+		})( new $mol_string )
 	}
 
 	/// event_drop?event null
@@ -371,10 +388,11 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	/// 	event_click?event <=> event_drop?event
 	@ $mol_mem()
 	Drop() {
-		return $mol_button.make({
-			sub : () => [].concat( "✖" ) ,
-			event_click : ( event? : any ) => this.event_drop( event ) ,
-		})
+		return (( obj )=>{
+			obj.sub = () => [].concat( "✖" )
+			obj.event_click = ( event? : any ) => this.event_drop( event )
+			return obj
+		})( new $mol_button )
 	}
 
 	/// sub / 

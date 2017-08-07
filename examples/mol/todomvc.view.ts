@@ -121,11 +121,9 @@ namespace $.$mol {
 		}
 		
 		event_task_drop( index : number , next? : Event ) {
-			var tasks = this.tasks_filtered()
-			var id = tasks[index]
-			tasks = tasks.slice( 0 , index ).concat( tasks.slice( index + 1 , tasks.length ) )
+			const id = this.tasks_filtered()[index]
 			this.task( id , null )
-			this.task_ids( tasks )
+			this.task_ids( this.task_ids().filter( id2 => id !== id2 ) )
 		}
 
 		event_sweep() {

@@ -3,6 +3,7 @@
 	width: 100%;
 	background-color: #f5f5f5;
 	margin: 0;
+	transition: none;
 }
 
 [mol_app_todomvc] [mol_string] ,
@@ -48,10 +49,12 @@
 
 [mol_app_todomvc_list] {
 	font-size: 1.5rem;
+	transition: none;
 }
 
 [mol_app_todomvc_page] {
 	flex: 1 1 auto;
+	transition: none;
 }
 
 [mol_app_todomvc_panel] {
