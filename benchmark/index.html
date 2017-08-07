@@ -35,18 +35,27 @@
 
 	if( window.parent === window ) document.location = 'http://eigenmethod.github.io/mol/app/bench/#bench=' + encodeURIComponent( location.href )
 
-	var count = 100
-
 	var metaData = {
 		title : {
 			'en' : 'ToDoMVC workflow benchmark' ,
 			'ru' : 'ToDoMVC - производительность работы' ,
 		} ,
 		descr : {
-			'en' : 'Sample applications is [ToDoMVC](http://todomvc.com) implementations. Benchmark creates **' + count + ' tasks** in sequence and then removes them.' ,
-			'ru' : 'Варианты приложений являются реализациями [ToDoMVC](http://todomvc.com) приложения для управления списком дел. В тесте замеряется время последовательного создания **' + count + ' задач** с последующим их удалением.' ,
+			'en' : 'Sample applications is [ToDoMVC](http://todomvc.com) implementations. Benchmark creates tasks in sequence and then removes them.' ,
+			'ru' : 'Варианты приложений являются реализациями [ToDoMVC](http://todomvc.com) приложения для управления списком дел. В тесте замеряется время последовательного создания задач с последующим их удалением.' ,
 		} ,
 		samples : {
+		} ,
+		params : {
+			'count' : {
+				title : {
+					'en' : 'Count of tasks' ,
+					'ru' : 'Число задач' ,
+				},
+				default : 200 ,
+				type : 'number' ,
+				precision : 50 ,
+			}
 		} ,
 		steps : {
 			'start' : {
@@ -115,7 +124,7 @@
 		} )
 	}
 
-	function fill( sample ) {
+	function fill( sample , params ) {
 		var adder = sandbox.contentDocument.querySelector( selector.adder )
 		var adderForm = sandbox.contentDocument.querySelector( selector.adderForm )
 		var i = 1
@@ -162,7 +171,7 @@
 				adderForm.dispatchEvent( event )
 			}
 
-			if( ++i <= count ) setImmediate( step )
+			if( ++i <= params.count ) setImmediate( step )
 			else {
 				sandbox.addEventListener( 'animationend' , end )
 				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
