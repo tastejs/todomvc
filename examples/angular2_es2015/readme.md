@@ -25,7 +25,7 @@
 This app was built using Babel, Webpack and Angular 2 beta. To make changes simply
 
 * `npm i`
-* `npm run dev`
+* `npm run start`
 
 ## Credit
 
