@@ -6,7 +6,7 @@
   "dependencies": {
     "angular": "^1.4.3",
     "todomvc-common": "^1.0.0",
-    "todomvc-app-css": "^1.0.1",
+    "todomvc-app-css": "^2.1.0",
     "angular-route": "^ 1.4.3",
     "angular-resource": "^1.4.3"
   },
