@@ -16,7 +16,7 @@ Aria.tplScriptDefinition({
 		},
 
 		$viewReady: function () {
-			document.getElementById('new-todo').focus();
+			document.querySelector('.new-todo').focus();
 		},
 
 		getRoute: function () {
