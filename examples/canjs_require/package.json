@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "todomvc-common": "^1.0.0",
     "jquery": "^2.1.3",
-    "todomvc-app-css": "^1.0.1",
-    "requirejs": "^2.1.6"
+    "requirejs": "^2.1.6",
+    "todomvc-app-css": "^2.1.0",
+    "todomvc-common": "^1.0.0"
   },
   "devDependencies": {
     "napa": "^1.2.0"
