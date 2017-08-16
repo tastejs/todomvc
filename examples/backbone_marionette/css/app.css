@@ -1,4 +1,5 @@
-#todoapp.filter-active #todo-list .completed,
-#todoapp.filter-completed #todo-list .active {
+.todoapp.filter-active .todo-list .completed,
+.todoapp .edit,
+.todoapp.filter-completed .todo-list .active {
 	display: none;
 }
