@@ -25,23 +25,23 @@ var stats = new Store({
 tasks.sync('todos-olives');
 
 // Initialize Input UI by giving it a view and a model.
-input(document.querySelector('#header input'), tasks);
+input(document.querySelector('.header input'), tasks);
 
 // Init the List UI the same way, pass it the stats store too
-list(document.querySelector('#main'), tasks, stats);
+list(document.querySelector('.main'), tasks, stats);
 
 // Same goes for the control UI
-controls(document.querySelector('#footer'), tasks, stats);
+controls(document.querySelector('.footer'), tasks, stats);
 
-},{"./uis/controls":6,"./uis/input":7,"./uis/list":8,"emily":13,"olives":35}],2:[function(require,module,exports){
+},{"./uis/controls":6,"./uis/input":7,"./uis/list":8,"emily":13,"olives":34}],2:[function(require,module,exports){
 'use strict';
 
 var tools = require('./tools');
 
 var routes = {
-    '#/': 'show-all',
-    '#/completed': 'show-completed',
-    '#/active': 'show-active'
+	'#/': 'show-all',
+	'#/completed': 'show-completed',
+	'#/active': 'show-active'
 };
 
 /**
@@ -50,32 +50,32 @@ var routes = {
  * @constructor
  */
 module.exports = function RouterPlugin(router) {
-    var currentRoute = router.getLastRoute();
+	var currentRoute = router.getLastRoute();
 
-    /**
-     * Set a given className to a dom element if its hash matches with the url's hash
-     * @param link
-     * @param className
-     */
-    this.isLinkActive = function isLinkActive(link, className) {
-        if (router.getLastRoute() === link.hash) {
-            link.classList.add(className);
-        }
+	/**
+	 * Set a given className to a dom element if its hash matches with the url's hash
+	 * @param link
+	 * @param className
+	 */
+	this.isLinkActive = function isLinkActive(link, className) {
+		if (router.getLastRoute() === link.hash) {
+			link.classList.add(className);
+		}
 
-        router.watch(function (route) {
-            tools.toggleClass.call(link, link.hash === route, className);
-        });
-    };
+		router.watch(function (route) {
+			tools.toggleClass.call(link, link.hash === route, className);
+		});
+	};
 
-    this.toggleClassOnRouteChange = function toggleClassOnRouteChange(list) {
-        router.watch(function (route) {
-            list.classList.remove(routes[currentRoute]);
-            list.classList.add(routes[route]);
-            currentRoute = route;
-        });
-    };
+	this.toggleClassOnRouteChange = function toggleClassOnRouteChange(list) {
+		router.watch(function (route) {
+			list.classList.remove(routes[currentRoute]);
+			list.classList.add(routes[route]);
+			currentRoute = route;
+		});
+	};
 
-    router.start('#/');
+	router.start('#/');
 };
 
 },{"./tools":5}],3:[function(require,module,exports){
@@ -86,12 +86,12 @@ var UrlHighway = require('url-highway');
 var urlHighway = new UrlHighway();
 
 urlHighway.parse = function (hash) {
-    return [ hash ];
+	return [hash];
 };
 
 module.exports = urlHighway;
 
-},{"url-highway":54}],4:[function(require,module,exports){
+},{"url-highway":53}],4:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
 },{"./tools":5,"dup":2}],5:[function(require,module,exports){
 'use strict';
@@ -173,7 +173,7 @@ module.exports = function controlsInit(view, model, stats) {
 	updateStats();
 };
 
-},{"../lib/RouterPlugin":2,"../lib/router":3,"../lib/tools":5,"olives":35}],7:[function(require,module,exports){
+},{"../lib/RouterPlugin":2,"../lib/router":3,"../lib/tools":5,"olives":34}],7:[function(require,module,exports){
 'use strict';
 var OObject = require('olives').OObject;
 var EventPlugin = require('olives')['Event.plugin'];
@@ -204,7 +204,7 @@ module.exports = function inputInit(view, model) {
 	input.alive(view);
 };
 
-},{"olives":35}],8:[function(require,module,exports){
+},{"olives":34}],8:[function(require,module,exports){
 'use strict';
 var OObject = require('olives').OObject;
 var EventPlugin = require('olives')['Event.plugin'];
@@ -272,7 +272,8 @@ module.exports = function listInit(view, model, stats) {
 				model.del(taskId);
 			}
 
-			// When task #n is removed, #n+1 becomes #n, the dom node is updated to the new value, so editing mode should exit anyway
+			// When task #n is removed, #n+1 becomes #n, the dom node is updated to the new value,
+			// so editing mode should exit anyway
 			if (model.has(taskId)) {
 				toggleEditing(taskId, false);
 			}
@@ -296,7 +297,7 @@ module.exports = function listInit(view, model, stats) {
 	}
 };
 
-},{"../lib/router":3,"../lib/routerPlugin":4,"../lib/tools":5,"olives":35}],9:[function(require,module,exports){
+},{"../lib/router":3,"../lib/routerPlugin":4,"../lib/tools":5,"olives":34}],9:[function(require,module,exports){
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
 //
 // THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
@@ -1371,7 +1372,7 @@ module.exports = function BindPluginConstructor($model, $bindings) {
     }
 };
 
-},{"compare-numbers":10,"get-closest":16,"get-dataset":17,"get-nodes":19,"nested-property":25,"simple-loop":44,"to-array":52,"watch-notify":58}],12:[function(require,module,exports){
+},{"compare-numbers":10,"get-closest":16,"get-dataset":17,"get-nodes":19,"nested-property":24,"simple-loop":43,"to-array":51,"watch-notify":58}],12:[function(require,module,exports){
 /**
 * @license dom-stack https://github.com/cosmosio/dom-stack
 *
@@ -1677,7 +1678,7 @@ module.exports = function StackConstructor($parent) {
 
 };
 
-},{"to-array":52}],13:[function(require,module,exports){
+},{"to-array":51}],13:[function(require,module,exports){
 /**
  * Emily.js - http://flams.github.com/emily/
  * Copyright(c) 2012-2015 Olivier Scherrer <pode.fr@gmail.com>
@@ -1711,7 +1712,7 @@ module.exports = {
     Transport: require("transport")
 };
 
-},{"./Promise":14,"compare-numbers":10,"get-closest":16,"get-global":18,"highway":20,"nested-property":25,"object-count":26,"observable-store":27,"shallow-copy":42,"shallow-diff":43,"simple-loop":44,"simple-object-mixin":45,"synchronous-fsm":50,"to-array":52,"transport":53,"watch-notify":58}],14:[function(require,module,exports){
+},{"./Promise":14,"compare-numbers":10,"get-closest":16,"get-global":18,"highway":20,"nested-property":24,"object-count":25,"observable-store":26,"shallow-copy":41,"shallow-diff":42,"simple-loop":43,"simple-object-mixin":44,"synchronous-fsm":49,"to-array":51,"transport":52,"watch-notify":58}],14:[function(require,module,exports){
 /**
 * Emily.js - http://flams.github.com/emily/
 * Copyright(c) 2012-2015 Olivier Scherrer <pode.fr@gmail.com>
@@ -1966,7 +1967,7 @@ module.exports = function PromiseConstructor() {
     };
 };
 
-},{"synchronous-fsm":50,"watch-notify":58}],15:[function(require,module,exports){
+},{"synchronous-fsm":49,"watch-notify":58}],15:[function(require,module,exports){
 /**
 * @license event-plugin https://github.com/flams/event-plugin
 *
@@ -2103,7 +2104,7 @@ module.exports = function EventPluginConstructor($parent, $isMobile) {
     this.setParent($parent);
 };
 
-},{"matches-selector":24}],16:[function(require,module,exports){
+},{"matches-selector":23}],16:[function(require,module,exports){
 /**
 * @license get-closest https://github.com/cosmosio/get-closest
 *
@@ -2278,7 +2279,7 @@ module.exports = function getNodes(dom) {
     return arrayDomElements;
 };
 
-},{"to-array":52}],20:[function(require,module,exports){
+},{"to-array":51}],20:[function(require,module,exports){
 /**
 * @license highway https://github.com/cosmosio/highway
 *
@@ -2516,32 +2517,7 @@ module.exports = function RouterConstructor() {
 
 };
 
-},{"to-array":52,"watch-notify":58}],21:[function(require,module,exports){
-if (typeof Object.create === 'function') {
-  // implementation from standard node.js 'util' module
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-  };
-} else {
-  // old school shim for old browsers
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    var TempCtor = function () {}
-    TempCtor.prototype = superCtor.prototype
-    ctor.prototype = new TempCtor()
-    ctor.prototype.constructor = ctor
-  }
-}
-
-},{}],22:[function(require,module,exports){
+},{"to-array":51,"watch-notify":58}],21:[function(require,module,exports){
 /**
 * @license local-observable-store https://github.com/cosmosio/local-observable-store
 *
@@ -2643,7 +2619,7 @@ module.exports = function LocalStoreFactory(init) {
     return new LocalStoreConstructor();
 };
 
-},{"observable-store":27,"simple-loop":23}],23:[function(require,module,exports){
+},{"observable-store":26,"simple-loop":22}],22:[function(require,module,exports){
 /**
 * @license simple-loop https://github.com/flams/simple-loop
 *
@@ -2678,7 +2654,7 @@ module.exports = function loop(iterated, callback, scope) {
   }
 };
 
-},{"assert":9}],24:[function(require,module,exports){
+},{"assert":9}],23:[function(require,module,exports){
 'use strict';
 
 var proto = Element.prototype;
@@ -2708,7 +2684,7 @@ function match(el, selector) {
   }
   return false;
 }
-},{}],25:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
 * @license nested-property https://github.com/cosmosio/nested-property
 *
@@ -2857,7 +2833,7 @@ function isInNestedProperty(object, property, objectInPath, options) {
     }
 }
 
-},{"assert":9}],26:[function(require,module,exports){
+},{"assert":9}],25:[function(require,module,exports){
 /**
 * @license object-count https://github.com/cosmosio/object-count
 *
@@ -2886,7 +2862,7 @@ module.exports = function count(object) {
   }
 };
 
-},{"assert":9}],27:[function(require,module,exports){
+},{"assert":9}],26:[function(require,module,exports){
 /**
 * @license observable-store https://github.com/flams/observable-store
 *
@@ -3268,7 +3244,7 @@ module.exports = function StoreConstructor($data) {
     };
 };
 
-},{"compare-numbers":10,"nested-property":25,"object-count":26,"shallow-copy":42,"shallow-diff":28,"simple-loop":30,"watch-notify":58}],28:[function(require,module,exports){
+},{"compare-numbers":10,"nested-property":24,"object-count":25,"shallow-copy":41,"shallow-diff":27,"simple-loop":29,"watch-notify":58}],27:[function(require,module,exports){
 /**
 * @license shallow-diff https://github.com/cosmosio/shallow-diff
 *
@@ -3356,9 +3332,9 @@ module.exports = function shallowDiff(base, compared) {
   };
 };
 
-},{"assert":9,"simple-loop":29}],29:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}],30:[function(require,module,exports){
+},{"assert":9,"simple-loop":28}],28:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}],29:[function(require,module,exports){
 /**
 * @license simple-loop https://github.com/flams/simple-loop
 *
@@ -3395,7 +3371,7 @@ module.exports = function loop(iterated, callback, scope) {
   }
 };
 
-},{"assert":9}],31:[function(require,module,exports){
+},{"assert":9}],30:[function(require,module,exports){
 /**
 * @license highway https://github.com/cosmosio/highway
 *
@@ -3633,9 +3609,9 @@ module.exports = function RouterConstructor() {
 
 };
 
-},{"to-array":52,"watch-notify":34}],32:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}],33:[function(require,module,exports){
+},{"to-array":51,"watch-notify":33}],31:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}],32:[function(require,module,exports){
 /**
 * @license url-highway https://github.com/cosmosio/url-highway
 *
@@ -3822,7 +3798,7 @@ module.exports = function UrlHighwayFactory() {
     return new UrlHighway();
 };
 
-},{"highway":31,"to-array":52}],34:[function(require,module,exports){
+},{"highway":30,"to-array":51}],33:[function(require,module,exports){
 /**
 * @license watch-notify https://github.com/flams/watch-notify
 *
@@ -3968,7 +3944,7 @@ module.exports = function WatchNotifyConstructor() {
     };
 };
 
-},{"assert":9,"simple-loop":32,"to-array":52}],35:[function(require,module,exports){
+},{"assert":9,"simple-loop":31,"to-array":51}],34:[function(require,module,exports){
 /**
  * Olives http://flams.github.com/olives
  * The MIT License (MIT)
@@ -3988,7 +3964,7 @@ module.exports = {
     "Stack": require("dom-stack")
 };
 
-},{"data-binding-plugin":11,"dom-stack":12,"event-plugin":15,"local-observable-store":22,"place-plugin":36,"seam":40,"seam-view":39,"socketio-transport":48,"url-highway":33}],36:[function(require,module,exports){
+},{"data-binding-plugin":11,"dom-stack":12,"event-plugin":15,"local-observable-store":21,"place-plugin":35,"seam":39,"seam-view":38,"socketio-transport":47,"url-highway":32}],35:[function(require,module,exports){
 /**
 * @license place-plugin https://github.com/flams/place-plugin
 *
@@ -4084,9 +4060,9 @@ module.exports = function PlacePluginConstructor($uis) {
 
 };
 
-},{"simple-loop":37}],37:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}],38:[function(require,module,exports){
+},{"simple-loop":36}],36:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}],37:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -4146,7 +4122,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /**
 * @license seam-view https://github.com/flams/seam-view
 *
@@ -4342,7 +4318,7 @@ module.exports = function SeamViewConstructor() {
 
 };
 
-},{"seam":40,"synchronous-fsm":50,"to-array":52}],40:[function(require,module,exports){
+},{"seam":39,"synchronous-fsm":49,"to-array":51}],39:[function(require,module,exports){
 /**
 * @license seam https://github.com/flams/seam
 *
@@ -4492,9 +4468,9 @@ module.exports = function Seam($plugins) {
 
 };
 
-},{"get-dataset":17,"get-nodes":19,"simple-loop":41,"to-array":52}],41:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}],42:[function(require,module,exports){
+},{"get-dataset":17,"get-nodes":19,"simple-loop":40,"to-array":51}],40:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}],41:[function(require,module,exports){
 module.exports = function (obj) {
     if (!obj || typeof obj !== 'object') return obj;
     
@@ -4531,7 +4507,7 @@ var isArray = Array.isArray || function (xs) {
     return {}.toString.call(xs) === '[object Array]';
 };
 
-},{}],43:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 /**
  * @license shallow-diff https://github.com/cosmosio/shallow-diff
  *
@@ -4621,7 +4597,7 @@ module.exports = function shallowDiff(base, compared) {
     };
 };
 
-},{"simple-loop":44}],44:[function(require,module,exports){
+},{"simple-loop":43}],43:[function(require,module,exports){
 /**
  * @license simple-loop https://github.com/flams/simple-loop
  *
@@ -4664,7 +4640,7 @@ module.exports = function loop(iterated, callback, scope) {
     }
 };
 
-},{}],45:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 /**
 * @license simple-mixin https://github.com/flams/simple-object-mixin
 *
@@ -4692,9 +4668,9 @@ module.exports = function mixin(source, destination, dontOverride) {
     return destination;
 };
 
-},{"simple-loop":46}],46:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}],47:[function(require,module,exports){
+},{"simple-loop":45}],45:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}],46:[function(require,module,exports){
 /**
 * @license socketio-transport https://github.com/cosmosio/socketio-transport
 *
@@ -4854,7 +4830,7 @@ module.exports = function SocketIOTransportConstructor($socket) {
 	this.setSocket($socket);
 };
 
-},{}],48:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /**
 * @license socketio-transport https://github.com/cosmosio/socketio-transport
 *
@@ -4869,7 +4845,7 @@ module.exports = {
     Server: require("./server/index")
 };
 
-},{"./client/index":47,"./server/index":49}],49:[function(require,module,exports){
+},{"./client/index":46,"./server/index":48}],48:[function(require,module,exports){
 /**
 * @license socketio-transport https://github.com/cosmosio/socketio-transport
 *
@@ -4927,7 +4903,7 @@ module.exports = function registerSocketIO(io, handlers) {
     }
 };
 
-},{}],50:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 /**
 * @license synchronous-fsm https://github.com/flams/synchronous-fsm
 *
@@ -5181,9 +5157,9 @@ function Transition() {
     };
 }
 
-},{"simple-loop":51,"to-array":52}],51:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}],52:[function(require,module,exports){
+},{"simple-loop":50,"to-array":51}],50:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}],51:[function(require,module,exports){
 module.exports = toArray
 
 function toArray(list, index) {
@@ -5198,7 +5174,7 @@ function toArray(list, index) {
     return array
 }
 
-},{}],53:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 /**
 * @license transport https://github.com/cosmosio/transport
 *
@@ -5305,7 +5281,7 @@ module.exports = function TransportConstructor($reqHandlers) {
 
 };
 
-},{}],54:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 /**
 * @license url-highway https://github.com/cosmosio/url-highway
 *
@@ -5494,7 +5470,7 @@ module.exports = function UrlHighwayFactory() {
     return new UrlHighway();
 };
 
-},{"highway":55,"to-array":52}],55:[function(require,module,exports){
+},{"highway":54,"to-array":51}],54:[function(require,module,exports){
 /**
  * @license highway https://github.com/cosmosio/highway
  *
@@ -5707,7 +5683,32 @@ module.exports = function HighwayConstructor() {
     }
 };
 
-},{"to-array":52,"watch-notify":58}],56:[function(require,module,exports){
+},{"to-array":51,"watch-notify":58}],55:[function(require,module,exports){
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
+}
+
+},{}],56:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
@@ -6304,7 +6305,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":56,"_process":38,"inherits":21}],58:[function(require,module,exports){
+},{"./support/isBuffer":56,"_process":37,"inherits":55}],58:[function(require,module,exports){
 /**
 * @license watch-notify https://github.com/flams/watch-notify
 *
@@ -6451,6 +6452,6 @@ module.exports = function WatchNotifyConstructor() {
     };
 };
 
-},{"assert":9,"simple-loop":59,"to-array":52}],59:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"assert":9,"dup":23}]},{},[1]);
+},{"assert":9,"simple-loop":59,"to-array":51}],59:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"assert":9,"dup":22}]},{},[1]);

@@ -8,15 +8,15 @@
 		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
-		<section id="todoapp">
-			<header id="header">
+		<section class="todoapp">
+			<header class="header">
 				<h1>todos</h1>
-				<input id="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown,addTask">
+				<input class="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown,addTask">
 			</header>
-			<section id="main" data-stats="bind:toggleClass,nbItems,show">
-				<input id="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
+			<section class="main" data-stats="bind:toggleClass,nbItems,show">
+				<input class="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list" data-model="foreach" data-router="toggleClassOnRouteChange">
+				<ul class="todo-list" data-model="foreach" data-router="toggleClassOnRouteChange">
 					<li data-model="bind:toggleClass,completed,completed;">
 						<div class="view">
 							<input class="toggle" type="checkbox" data-model="bind:checked,completed">
@@ -27,9 +27,9 @@
 					</li>
 				</ul>
 			</section>
-			<footer id="footer" data-stats="bind:toggleClass,nbItems,show">
-				<span id="todo-count"><strong data-stats="bind:innerHTML,nbLeft">0</strong> <span data-stats="bind:innerHTML,plural"></span> left</span>
-				<ul id="filters">
+			<footer class="footer" data-stats="bind:toggleClass,nbItems,show">
+				<span class="todo-count"><strong data-stats="bind:innerHTML,nbLeft">0</strong> <span data-stats="bind:innerHTML,plural"></span> left</span>
+				<ul class="filters">
 				    <li>
 			        	<a data-router="isLinkActive:selected" href="#/">All</a>
 				    </li>
@@ -40,12 +40,12 @@
 			        	<a data-router="isLinkActive:selected" href="#/completed">Completed</a>
 				    </li>
 				</ul>
-				<button id="clear-completed" data-event="listen:click,delAll" data-stats="bind:toggleClass,nbCompleted,show">
+				<button class="clear-completed" data-event="listen:click,delAll" data-stats="bind:toggleClass,nbCompleted,show">
 					Clear completed
 				</button>
 			</footer>
 		</section>
-		<footer id="info">
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://github.com/podefr">Olivier Scherrer</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
