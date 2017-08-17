@@ -13,11 +13,11 @@ define([
 	var initialize = function () {
 		StatsData.attachTo(document);
 		TodosData.attachTo(document);
-		NewItemUI.attachTo('#new-todo');
-		MainSelectorUI.attachTo('#main');
-		StatsUI.attachTo('#footer');
-		ToggleAllUI.attachTo('#toggle-all');
-		TodoListUI.attachTo('#todo-list');
+		NewItemUI.attachTo('.new-todo');
+		MainSelectorUI.attachTo('.main');
+		StatsUI.attachTo('.footer');
+		ToggleAllUI.attachTo('.toggle-all');
+		TodoListUI.attachTo('.todo-list');
 	};
 
 	return {
