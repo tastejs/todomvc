@@ -8,19 +8,19 @@
 		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
-		<section id="todoapp">
+		<section class="todoapp">
 
 			<!-- HEADER VIEW, template: /views/header.js (todo.HeaderView) -->
-			<header id="header">
+			<header class="header">
 				<h1>todos</h1>
-				<input id="new-todo" placeholder="What needs to be done?" autofocus data-keypress="add()" data-blur="clear()">
+				<input class="new-todo" placeholder="What needs to be done?" autofocus data-keypress="add()" data-blur="clear()">
 			</header>
 
 			<!-- MAIN VIEW, template: /views/main.js (todo.MainView) -->
-			<section id="main" data-show="{{isVisible}}">
-				<input id="toggle-all" type="checkbox" data-click="toggleAll()" data-checked="{{allCompleted}}">
+			<section class="main" data-show="{{isVisible}}">
+				<input class="toggle-all" type="checkbox" data-click="toggleAll()" data-checked="{{allCompleted}}">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list" class="data-cloak">
+				<ul class="todo-list" class="data-cloak">
 					<li data-repeat="todo in items" class="{{completedClass(todo.completed)}} {{todo.editing}}">
 						<div class="view">
 							<input class="toggle" type="checkbox" data-checked="{{todo.completed}}" data-click="toggle(todo)">
@@ -33,9 +33,9 @@
 			</section>
 
 			<!-- FOOTER VIEW, template: /views/footer.js (todo.FooterView) -->
-			<footer id="footer" class="data-cloak" data-show="{{footerVisible}}">
-				<span id="todo-count"><strong>{{active}}</strong> {{itemLabel}} left</span>
-				<ul id="filters">
+			<footer class="footer" class="data-cloak" data-show="{{footerVisible}}">
+				<span class="todo-count"><strong>{{active}}</strong> {{itemLabel}} left</span>
+				<ul class="filters">
 					<li>
 						<a class="{{highlightFilter('')}}" href="#/">All</a>
 					</li>
@@ -46,12 +46,12 @@
 						<a class="{{highlightFilter('completed')}}" href="#/completed">Completed</a>
 					</li>
 				</ul>
-				<button id="clear-completed" data-show="{{clearCompletedVisible()}}" data-click="clearCompleted()">Clear completed</button>
+				<button class="clear-completed" data-show="{{clearCompletedVisible()}}" data-click="clearCompleted()">Clear completed</button>
 			</footer>
 
 		</section>
 
-		<footer id="info">
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://soundstep.com">Romuald Quantin</a> (<a href="http://somajs.github.io/somajs/">soma.js</a>)</p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
