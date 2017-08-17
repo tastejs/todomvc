@@ -12,8 +12,8 @@ enyo.kind({
 		// create the checkbox, and have it bubble markAllComplete events, not clicks.
 		// We don't have to listen for all clicks and sort through them, this click gives a specific event
 		tag: 'input',
-		id: 'toggle-all',
 		attributes: {
+			class: 'toggle-all',
 			type: 'checkbox'
 		},
 		handlers: {
@@ -26,9 +26,9 @@ enyo.kind({
 		}
 	}, {
 		tag: 'label',
-		id: 'toggle-all-label',
 		content: 'Mark all as complete',
 		attributes: {
+			class: 'toggle-all-label',
 			'for': 'toggle-all'
 		}
 	}, {
@@ -40,6 +40,9 @@ enyo.kind({
 		tag: 'ul',
 		name: 'todo-list',
 		id: 'todo-list',
+		attributes: {
+			class: 'todo-list'
+		},
 		// what the table is made of
 		components: [{
 			tag: 'li',
