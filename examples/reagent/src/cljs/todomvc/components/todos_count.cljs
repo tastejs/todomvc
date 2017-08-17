@@ -8,6 +8,6 @@
          "left")))
 
 (defn component []
-  [:span#todo-count
-   [:strong (count (helpers/todos-active @session/todos))] 
+  [:span.todo-count
+   [:strong (count (helpers/todos-active @session/todos))]
    (items-left @session/todos)])
