@@ -16,27 +16,27 @@
 	</js:Router>
 
 	<!-- HERE WE START TO DEFINE THE UI WITH HTML AND CUSTOM UI COMPONENTS -->
-	<section id="todoapp">
-		<header id="header">
+	<section class="todoapp">
+		<header class="header">
 			<h1>todos</h1>
-			<input id="new-todo" placeholder="What needs to be done?" onkeyup="addNewTodo" autofocus="autofocus"/>
+			<input class="new-todo" placeholder="What needs to be done?" onkeyup="addNewTodo" autofocus="autofocus"/>
 		</header>
-		<section id="main" visible="{todoList.hasItems()}">
-			<input id="toggle-all" type="checkbox" onclick="markAllComplete"
+		<section class="main" visible="{todoList.hasItems()}">
+			<input class="toggle-all" type="checkbox" onclick="markAllComplete"
 				   checked="{todoList.areAllComplete()}"/>
 			<label for="toggle-all">Mark all as complete</label>
 			<!-- CUSTOM UI COMPONENT FOR RENDERING A LIST OF ITEMS -> TODOs -->
-			<ui:ItemsView items="{filterList.list}" tagName="ul" id="todo-list" itemKey="todo">
+			<ui:ItemsView items="{filterList.list}" tagName="ul" class="todo-list" itemKey="todo">
 				<js:Template name="item">
 					<view:TodoView todo="{$todo}" tagName="li" onremove="removeTodo"/>
 				</js:Template>
 			</ui:ItemsView>
 		</section>
-		<footer id="footer" data-num="{todoList.numOpenTodos()}" visible="{todoList.hasItems()}">
-			<span id="todo-count">
+		<footer class="footer" data-num="{todoList.numOpenTodos()}" visible="{todoList.hasItems()}">
+			<span class="todo-count">
 				<strong>{data-num}</strong> {translateItems({data-num})} left
 			</span>
-			<ul id="filters">
+			<ul class="filters">
 				<li>
 					<a href="#/" class="{selectedClass('all',{filterList.filter})}">All</a>
 				</li>
@@ -47,12 +47,12 @@
 					<a href="#/completed" class="{selectedClass('completed',{filterList.filter})}">Completed</a>
 				</li>
 			</ul>
-			<button id="clear-completed" onclick="clearCompleted" visible="{todoList.hasCompletedTodos()}">
+			<button class="clear-completed" onclick="clearCompleted" visible="{todoList.hasCompletedTodos()}">
 				Clear completed
 			</button>
 		</footer>
 	</section>
-	<footer id="info">
+	<footer class="info">
 		<p>Double-click to edit a todo</p>
 		<p>
 			Created by <a href="http://github.com/krebbl">Marcus Krejpowicz</a> with<a href="http://rappidjs.com">&lt; rAppid:js/&gt;</a>
