@@ -35,17 +35,17 @@ itemStore.listen(todomvc.model.ToDoItemStore.ChangeEventType, redraw);
  * @type {todomvc.view.ToDoListContainer}
  */
 var container = new todomvc.view.ToDoListContainer();
-container.decorate(document.getElementById('todo-list'));
+container.decorate(document.querySelector('.todo-list'));
 
 /**
  * @type {Element}
  */
-var main = document.getElementById('main');
+var main = document.querySelector('.main');
 
 /**
  * @type {Element}
  */
-var footer = document.getElementById('footer');
+var footer = document.querySelector('.footer');
 
 /**
  * @type {goog.ui.Control}
@@ -74,7 +74,7 @@ goog.events.listen(clearCompletedControl,
 /**
  * @type {Element}
  */
-var toggleAll = document.getElementById('toggle-all');
+var toggleAll = document.querySelector('.toggle-all');
 goog.events.listen(toggleAll, goog.events.EventType.CLICK, function(e) {
     /**
      * @type {boolean}
@@ -167,7 +167,7 @@ function redraw() {
     /**
      * @type {NodeList}
      */
-    var routeLinks = document.querySelectorAll('#filters a');
+    var routeLinks = document.querySelectorAll('.filters a');
     goog.array.forEach(routeLinks, function(link, i) {
         if ((currentRoute === todomvc.Route.ALL && i === 0) ||
                 (currentRoute === todomvc.Route.ACTIVE && i === 1) ||
@@ -222,7 +222,7 @@ goog.events.listen(container,
 /**
  * @type {Element}
  */
-var newToDo = document.getElementById('new-todo');
+var newToDo = document.querySelector('.new-todo');
 goog.events.listen(newToDo, goog.events.EventType.KEYUP, function(e) {
     if (e.keyCode !== goog.events.KeyCodes.ENTER) {
         return;
