@@ -13,18 +13,18 @@ puremvc.define({
 			this.filter = '';
 
 			// Fixed DOM elements managed by this view component
-			this.todoApp           = document.querySelector( '#todoapp' );
-			this.main               = this.todoApp.querySelector( '#main' );
-			this.toggleAllCheckbox  = this.todoApp.querySelector( '#toggle-all' );
-			this.newTodoField       = this.todoApp.querySelector( '#new-todo' );
-			this.todoList           = this.todoApp.querySelector( '#todo-list' );
-			this.footer             = this.todoApp.querySelector( '#footer' );
-			this.todoCount          = this.todoApp.querySelector( '#todo-count' );
-			this.clearButton        = this.todoApp.querySelector( '#clear-completed' );
-			this.filters            = this.todoApp.querySelector( '#filters' );
-			this.filterAll          = this.filters.querySelector( '#filterAll' );
-			this.filterActive       = this.filters.querySelector( '#filterActive' );
-			this.filterCompleted    = this.filters.querySelector( '#filterCompleted' );
+			this.todoApp           = document.querySelector( '.todoapp' );
+			this.main               = this.todoApp.querySelector( '.main' );
+			this.toggleAllCheckbox  = this.todoApp.querySelector( '.toggle-all' );
+			this.newTodoField       = this.todoApp.querySelector( '.new-todo' );
+			this.todoList           = this.todoApp.querySelector( '.todo-list' );
+			this.footer             = this.todoApp.querySelector( '.footer' );
+			this.todoCount          = this.todoApp.querySelector( '.todo-count' );
+			this.clearButton        = this.todoApp.querySelector( '.clear-completed' );
+			this.filters            = this.todoApp.querySelector( '.filters' );
+			this.filterAll          = this.filters.querySelector( '.filterAll' );
+			this.filterActive       = this.filters.querySelector( '.filterActive' );
+			this.filterCompleted    = this.filters.querySelector( '.filterCompleted' );
 
 			// Event listeners for fixed UI elements
 			this.newTodoField.component = this;
