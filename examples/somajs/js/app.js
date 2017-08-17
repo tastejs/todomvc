@@ -9,9 +9,9 @@
 			this.injector.mapClass('model', todo.Model, true);
 			this.injector.mapClass('router', todo.Router, true);
 			// create templates for DOM Elements (optional soma-template plugin)
-			this.createTemplate(todo.HeaderView, document.getElementById('header'));
-			this.createTemplate(todo.MainView, document.getElementById('main'));
-			this.createTemplate(todo.FooterView, document.getElementById('footer'));
+			this.createTemplate(todo.HeaderView, document.querySelector('.header'));
+			this.createTemplate(todo.MainView, document.querySelector('.main'));
+			this.createTemplate(todo.FooterView, document.querySelector('.footer'));
 		},
 		start: function () {
 			// dispatch a custom event to render the templates
