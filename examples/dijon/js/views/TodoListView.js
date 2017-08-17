@@ -9,10 +9,10 @@
 
 	ns.views.TodoListView = function() {
 		var _template = Handlebars.compile( $('#todo-template').html() ),
-			$toggleAll = $('#toggle-all'),
-			$todoList = $('#todo-list'),
-			$main = $('#main'),
-			$count = $('#todo-count');
+			$toggleAll = $('.toggle-all'),
+			$todoList = $('.todo-list'),
+			$main = $('.main'),
+			$count = $('.todo-count');
 		return {
 			system: undefined, //inject
 			enterKey: undefined,
