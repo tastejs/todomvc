@@ -7,7 +7,7 @@
 
     <tpl if="values.length">
         <section class="main">
-            <input class="toggle-all" class="toggleall" type="checkbox" {[ this.controller.areAllComplete() ? "checked" : ""]}>
+            <input id="toggle-all" class="toggle-all" type="checkbox" {[ this.controller.areAllComplete() ? "checked" : ""]}>
             <label for="toggle-all">Mark all as complete</label>
             <ul class="todo-list">
 
@@ -30,7 +30,7 @@
         <footer class="footer">
             <span class="todo-count"><strong>{[ this.controller.incompleteCount() ]}</strong> {[ ( this.controller.incompleteCount() == 1 ) ? "item" : "items" ]} left</span>
             <tpl if="this.controller.completedCount()">
-                <button class="clear-completed" class="clearcompleted">Clear completed</button>
+                <button class="clear-completed">Clear completed</button>
             </tpl>
         </footer>
     </tpl>

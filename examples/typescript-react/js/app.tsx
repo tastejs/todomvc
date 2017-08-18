@@ -137,11 +137,17 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
       main = (
         <section className="main">
           <input
+            id="toggle-all"
             className="toggle-all"
             type="checkbox"
             onChange={ e => this.toggleAll(e) }
             checked={activeTodoCount === 0}
           />
+          <label
+            htmlFor="toggle-all"
+          >
+            Mark all as complete
+          </label>
           <ul className="todo-list">
             {todoItems}
           </ul>

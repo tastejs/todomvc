@@ -138,9 +138,9 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 	},
 
 	onTodoToolsClick: function (view, event) {
-		if (Ext.fly(event.target).hasCls('toggleall')) {
+		if (Ext.fly(event.target).hasCls('toggle-all')) {
 			this.getTodoStore().toggleAllCompleted(event.target.checked);
-		} else if (Ext.fly(event.target).hasCls('clearcompleted')) {
+		} else if (Ext.fly(event.target).hasCls('clear-completed')) {
 			this.getTodoStore().deleteCompleted();
 		}
 		return true;

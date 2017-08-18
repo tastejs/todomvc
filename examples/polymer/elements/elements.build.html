@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			<template is="dom-if" if="{{items.length}}">
 				<section class="main">
-					<input class="toggle-all" type="checkbox" checked="[[allCompleted]]" on-change="toggleAllCompletedAction">
+					<input id="toggle-all" class="toggle-all" type="checkbox" checked="[[allCompleted]]" on-change="toggleAllCompletedAction">
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list" on-td-destroy-item="destroyItemAction">
 						<template id="todo-list-repeater" is="dom-repeat" items="{{items}}" filter="{{matchesFilter(route)}}" observe="completed" initial-count="10" strip-whitespace="">

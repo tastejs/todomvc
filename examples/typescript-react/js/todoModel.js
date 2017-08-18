@@ -1,9 +1,5 @@
-/*jshint quotmark:false */
-/*jshint white:false */
-/*jshint trailing:false */
-/*jshint newcap:false */
-/// <reference path="../typings/tsd.d.ts" />
-/// <reference path="./interfaces.d.ts"/>
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("./utils");
 var TodoModel = (function () {
     function TodoModel(key) {
@@ -59,5 +55,5 @@ var TodoModel = (function () {
         this.inform();
     };
     return TodoModel;
-})();
+}());
 exports.TodoModel = TodoModel;

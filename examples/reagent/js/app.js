@@ -58991,8 +58991,8 @@ goog.require("todomvc.helpers");
 goog.require("todomvc.actions");
 goog.require("todomvc.session");
 todomvc.components.todos_toggle.component = function todomvc$components$todos_toggle$component() {
-  return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1394872991), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "input.toggle-all", "input.toggle-all", 2102292209), new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "type", "type", 1174270348), "checkbox", new cljs.core.Keyword(null, "checked", "checked", -50955819), todomvc.helpers.todos_all_completed_QMARK_.call(null, 
-  cljs.core.deref.call(null, todomvc.session.todos)), new cljs.core.Keyword(null, "on-change", "on-change", -732046149), function() {
+  return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1394872991), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "input#toggle-all.toggle-all", "input#toggle-all.toggle-all", 759407834), new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "type", "type", 1174270348), "checkbox", new cljs.core.Keyword(null, "checked", "checked", -50955819), 
+  todomvc.helpers.todos_all_completed_QMARK_.call(null, cljs.core.deref.call(null, todomvc.session.todos)), new cljs.core.Keyword(null, "on-change", "on-change", -732046149), function() {
     return todomvc.actions.toggle_all_todos.call(null, todomvc.helpers.todos_all_completed_QMARK_.call(null, cljs.core.deref.call(null, todomvc.session.todos)));
   }], null)], null), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "label", "label", 1718410804), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "for", "for", -1323786319), "toggle-all"], null), "Mark all as complete"], null)], null);
 };

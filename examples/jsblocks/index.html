@@ -14,7 +14,7 @@
 				<input data-query="val(newTodo.title).keydown(addTodo)" class="new-todo" placeholder="What needs to be done?" autofocus>
 			</header>
 			<section data-query="visible(todos().length > 0)" style="display: none;" class="main">
-				<input data-query="checked(todos.remaining() == 0).click(todos.toggleAll)" class="toggle-all" type="checkbox">
+				<input data-query="checked(todos.remaining() == 0).click(todos.toggleAll)" id="toggle-all" class="toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul data-query="each(todos.view)" class="todo-list">
 					<li data-query="setClass('completed', completed).setClass('editing', editing).dblclick(edit)">

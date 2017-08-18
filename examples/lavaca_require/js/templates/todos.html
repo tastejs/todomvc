@@ -4,7 +4,7 @@
 </header>
 {?items}
 	<section class="main">
-		<input class="toggle-all" type="checkbox" {?allComplete}checked{/allComplete}>
+		<input id="toggle-all" class="toggle-all" type="checkbox" {?allComplete}checked{/allComplete}>
 		<label for="toggle-all">Mark all as complete</label>
 		<ul class="todo-list" {@eq key=filter value="active"}class="active"{/eq}{@eq key=filter value="completed"}class="completed"{/eq}></ul>
 	</section>

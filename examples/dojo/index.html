@@ -37,7 +37,7 @@
 						</form>
 					</header>
 					<section class="main" data-dojo-type="dijit/_WidgetBase" data-dojo-props="_setHiddenAttr: '', hidden: at(this.get('todos'), 'length').transform(this.emptyConverter)">
-						<input class="toggle-all" type="checkbox" data-dojo-type="dojox/mvc/Element" data-dojo-props="checked: at(this, 'areAllChecked')" data-dojo-attach-event="change: markAll">
+						<input id="toggle-all" class="toggle-all" type="checkbox" data-dojo-type="dojox/mvc/Element" data-dojo-props="checked: at(this, 'areAllChecked')" data-dojo-attach-event="change: markAll">
 						<label for="toggle-all">Mark all as complete</label>
 						<ul class="todo-list"
 						 data-dojo-type="dojox/mvc/WidgetList"

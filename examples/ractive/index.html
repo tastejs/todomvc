@@ -30,7 +30,7 @@
 			{{#items.length}}
 				<section class="main">
 					<!-- Here, we compare the total number of tasks (`items.length`) with the number of completed tasks (`completedTasks().length`). This calculation happens reactively, so we never need to manually trigger an update. When the `change` event fires on the input, the `toggleAll` event fires on the Ractive instance. -->
-					<input class="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
+					<input id="toggle-all" class="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
 					<label for="toggle-all">Mark all as complete</label>
 
 					<ul class="todo-list">

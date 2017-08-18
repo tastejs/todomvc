@@ -13,7 +13,7 @@
 				<input class="new-todo" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?" autofocus>
 			</header>
 			<section class="main" data-bind="visible: todos().length">
-				<input class="toggle-all" data-bind="checked: allCompleted" type="checkbox">
+				<input id="toggle-all" class="toggle-all" data-bind="checked: allCompleted" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list" data-bind="foreach: filteredTodos">
 					<li data-bind="css: { completed: completed, editing: editing }">

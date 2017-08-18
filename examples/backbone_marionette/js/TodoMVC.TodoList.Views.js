@@ -115,7 +115,7 @@ var TodoMVC = TodoMVC || {};
 		},
 
 		ui: {
-			toggle: '#toggle-all'
+			toggle: '.toggle-all'
 		},
 
 		events: {

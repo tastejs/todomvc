@@ -5,6 +5,9 @@ enyo.kind({
 	name: 'ToDo.NotepadMainView',
 	tag: 'section', // give it a specific html tagS
 	id: 'main', // force an id value, otherwise enyo makes its own
+	attributes: {
+		class: 'main'
+	},
 	focus: false,
 	showing: false, // hide initially
 	controller: 'ToDo.notepadcontroller', // connect it to the global controller
@@ -12,6 +15,7 @@ enyo.kind({
 		// create the checkbox, and have it bubble markAllComplete events, not clicks.
 		// We don't have to listen for all clicks and sort through them, this click gives a specific event
 		tag: 'input',
+		id: 'toggle-all',
 		attributes: {
 			class: 'toggle-all',
 			type: 'checkbox'

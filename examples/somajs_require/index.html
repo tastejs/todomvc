@@ -18,7 +18,7 @@
 
 			<!-- MAIN VIEW, template: /views/main.js (todo.MainView) -->
 			<section class="main" data-show="{{isVisible}}">
-				<input class="toggle-all" type="checkbox" data-click="toggleAll()" data-checked="{{allCompleted}}">
+				<input id="toggle-all" class="toggle-all" type="checkbox" data-click="toggleAll()" data-checked="{{allCompleted}}">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list" class="data-cloak">
 					<li data-repeat="todo in items" class="{{completedClass(todo.completed)}} {{todo.editing}}">

@@ -20,7 +20,7 @@
 					<input class="new-todo" placeholder="What needs to be done?" autofocus="" can-enter="createTodo">
 				</header>
 				<section class="main {{^if todos.length}}hidden{{/if}}">
-					<input class="toggle-all" type="checkbox" {{#if todos.allComplete}}checked="checked"{{/if}} can-click="toggleAll">
+					<input id="toggle-all" class="toggle-all" type="checkbox" {{#if todos.allComplete}}checked="checked"{{/if}} can-click="toggleAll">
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
 						{{#each displayList}}

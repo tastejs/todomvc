@@ -3301,6 +3301,158 @@ var _elm_lang$core$Regex$AtMost = function (a) {
 };
 var _elm_lang$core$Regex$All = {ctor: 'All'};
 
+var _elm_lang$core$Native_Bitwise = function() {
+
+return {
+	and: F2(function and(a, b) { return a & b; }),
+	or: F2(function or(a, b) { return a | b; }),
+	xor: F2(function xor(a, b) { return a ^ b; }),
+	complement: function complement(a) { return ~a; },
+	shiftLeft: F2(function sll(a, offset) { return a << offset; }),
+	shiftRightArithmatic: F2(function sra(a, offset) { return a >> offset; }),
+	shiftRightLogical: F2(function srl(a, offset) { return a >>> offset; })
+};
+
+}();
+
+var _elm_lang$core$Bitwise$shiftRightLogical = _elm_lang$core$Native_Bitwise.shiftRightLogical;
+var _elm_lang$core$Bitwise$shiftRight = _elm_lang$core$Native_Bitwise.shiftRightArithmatic;
+var _elm_lang$core$Bitwise$shiftLeft = _elm_lang$core$Native_Bitwise.shiftLeft;
+var _elm_lang$core$Bitwise$complement = _elm_lang$core$Native_Bitwise.complement;
+var _elm_lang$core$Bitwise$xor = _elm_lang$core$Native_Bitwise.xor;
+var _elm_lang$core$Bitwise$or = _elm_lang$core$Native_Bitwise.or;
+var _elm_lang$core$Bitwise$and = _elm_lang$core$Native_Bitwise.and;
+
+var _elm_community$string_extra$String_Extra$replacementCodePoint = 65533;
+var _elm_community$string_extra$String_Extra$toCodePoints = function (string) {
+	var allCodeUnits = A2(
+		_elm_lang$core$List$map,
+		_elm_lang$core$Char$toCode,
+		_elm_lang$core$String$toList(string));
+	var combineAndReverse = F2(
+		function (codeUnits, accumulated) {
+			combineAndReverse:
+			while (true) {
+				var _p0 = codeUnits;
+				if (_p0.ctor === '[]') {
+					return accumulated;
+				} else {
+					var _p4 = _p0._0;
+					var _p3 = _p0._1;
+					if ((_elm_lang$core$Native_Utils.cmp(_p4, 0) > -1) && (_elm_lang$core$Native_Utils.cmp(_p4, 55295) < 1)) {
+						var _v1 = _p3,
+							_v2 = A2(_elm_lang$core$List_ops['::'], _p4, accumulated);
+						codeUnits = _v1;
+						accumulated = _v2;
+						continue combineAndReverse;
+					} else {
+						if ((_elm_lang$core$Native_Utils.cmp(_p4, 55296) > -1) && (_elm_lang$core$Native_Utils.cmp(_p4, 56319) < 1)) {
+							var _p1 = _p3;
+							if (_p1.ctor === '[]') {
+								return A2(_elm_lang$core$List_ops['::'], _elm_community$string_extra$String_Extra$replacementCodePoint, accumulated);
+							} else {
+								var _p2 = _p1._0;
+								if ((_elm_lang$core$Native_Utils.cmp(_p2, 56320) > -1) && (_elm_lang$core$Native_Utils.cmp(_p2, 57343) < 1)) {
+									var codePoint = (65536 + ((_p4 - 55296) * 1024)) + (_p2 - 56320);
+									var _v4 = _p1._1,
+										_v5 = A2(_elm_lang$core$List_ops['::'], codePoint, accumulated);
+									codeUnits = _v4;
+									accumulated = _v5;
+									continue combineAndReverse;
+								} else {
+									var _v6 = _p3,
+										_v7 = A2(_elm_lang$core$List_ops['::'], _elm_community$string_extra$String_Extra$replacementCodePoint, accumulated);
+									codeUnits = _v6;
+									accumulated = _v7;
+									continue combineAndReverse;
+								}
+							}
+						} else {
+							if ((_elm_lang$core$Native_Utils.cmp(_p4, 57344) > -1) && (_elm_lang$core$Native_Utils.cmp(_p4, 65535) < 1)) {
+								var _v8 = _p3,
+									_v9 = A2(_elm_lang$core$List_ops['::'], _p4, accumulated);
+								codeUnits = _v8;
+								accumulated = _v9;
+								continue combineAndReverse;
+							} else {
+								var _v10 = _p3,
+									_v11 = A2(_elm_lang$core$List_ops['::'], _elm_community$string_extra$String_Extra$replacementCodePoint, accumulated);
+								codeUnits = _v10;
+								accumulated = _v11;
+								continue combineAndReverse;
+							}
+						}
+					}
+				}
+			}
+		});
+	return _elm_lang$core$List$reverse(
+		A2(
+			combineAndReverse,
+			allCodeUnits,
+			_elm_lang$core$Native_List.fromArray(
+				[])));
+};
+var _elm_community$string_extra$String_Extra$fromCodePoints = function (allCodePoints) {
+	var splitAndReverse = F2(
+		function (codePoints, accumulated) {
+			splitAndReverse:
+			while (true) {
+				var _p5 = codePoints;
+				if (_p5.ctor === '[]') {
+					return accumulated;
+				} else {
+					var _p7 = _p5._1;
+					var _p6 = _p5._0;
+					if ((_elm_lang$core$Native_Utils.cmp(_p6, 0) > -1) && (_elm_lang$core$Native_Utils.cmp(_p6, 55295) < 1)) {
+						var _v13 = _p7,
+							_v14 = A2(_elm_lang$core$List_ops['::'], _p6, accumulated);
+						codePoints = _v13;
+						accumulated = _v14;
+						continue splitAndReverse;
+					} else {
+						if ((_elm_lang$core$Native_Utils.cmp(_p6, 65536) > -1) && (_elm_lang$core$Native_Utils.cmp(_p6, 1114111) < 1)) {
+							var subtracted = _p6 - 65536;
+							var leading = A2(_elm_lang$core$Bitwise$shiftRight, subtracted, 10) + 55296;
+							var trailing = A2(_elm_lang$core$Bitwise$and, subtracted, 1023) + 56320;
+							var _v15 = _p7,
+								_v16 = A2(
+								_elm_lang$core$List_ops['::'],
+								trailing,
+								A2(_elm_lang$core$List_ops['::'], leading, accumulated));
+							codePoints = _v15;
+							accumulated = _v16;
+							continue splitAndReverse;
+						} else {
+							if ((_elm_lang$core$Native_Utils.cmp(_p6, 57344) > -1) && (_elm_lang$core$Native_Utils.cmp(_p6, 65535) < 1)) {
+								var _v17 = _p7,
+									_v18 = A2(_elm_lang$core$List_ops['::'], _p6, accumulated);
+								codePoints = _v17;
+								accumulated = _v18;
+								continue splitAndReverse;
+							} else {
+								var _v19 = _p7,
+									_v20 = A2(_elm_lang$core$List_ops['::'], _elm_community$string_extra$String_Extra$replacementCodePoint, accumulated);
+								codePoints = _v19;
+								accumulated = _v20;
+								continue splitAndReverse;
+							}
+						}
+					}
+				}
+			}
+		});
+	var allCodeUnits = _elm_lang$core$List$reverse(
+		A2(
+			splitAndReverse,
+			allCodePoints,
+			_elm_lang$core$Native_List.fromArray(
+				[])));
+	return _elm_lang$core$String$fromList(
+		A2(_elm_lang$core$List$map, _elm_lang$core$Char$fromCode, allCodeUnits));
+};
+var _elm_community$string_extra$String_Extra$fromFloat = _elm_lang$core$Basics$toString;
+var _elm_community$string_extra$String_Extra$fromInt = _elm_lang$core$Basics$toString;
 var _elm_community$string_extra$String_Extra$leftOfBack = F2(
 	function (pattern, string) {
 		return A2(
@@ -3320,7 +3472,7 @@ var _elm_community$string_extra$String_Extra$rightOfBack = F2(
 			'',
 			A2(
 				_elm_lang$core$Maybe$map,
-				function (_p0) {
+				function (_p8) {
 					return A3(
 						_elm_lang$core$Basics$flip,
 						_elm_lang$core$String$dropLeft,
@@ -3331,7 +3483,7 @@ var _elm_community$string_extra$String_Extra$rightOfBack = F2(
 									return x + y;
 								}),
 							_elm_lang$core$String$length(pattern),
-							_p0));
+							_p8));
 				},
 				_elm_lang$core$List$head(
 					_elm_lang$core$List$reverse(
@@ -3344,14 +3496,14 @@ var _elm_community$string_extra$String_Extra$leftOf = F2(
 			'',
 			A2(
 				_elm_lang$core$List$map,
-				function (_p1) {
+				function (_p9) {
 					return A2(
 						_elm_lang$core$Maybe$withDefault,
 						'',
 						_elm_lang$core$Maybe$oneOf(
 							function (_) {
 								return _.submatches;
-							}(_p1)));
+							}(_p9)));
 				},
 				A3(
 					_elm_lang$core$Regex$find,
@@ -3370,14 +3522,14 @@ var _elm_community$string_extra$String_Extra$rightOf = F2(
 			'',
 			A2(
 				_elm_lang$core$List$map,
-				function (_p2) {
+				function (_p10) {
 					return A2(
 						_elm_lang$core$Maybe$withDefault,
 						'',
 						_elm_lang$core$Maybe$oneOf(
 							function (_) {
 								return _.submatches;
-							}(_p2)));
+							}(_p10)));
 				},
 				A3(
 					_elm_lang$core$Regex$find,
@@ -3401,79 +3553,79 @@ var _elm_community$string_extra$String_Extra$toSentenceHelper = F3(
 	function (lastPart, sentence, list) {
 		toSentenceHelper:
 		while (true) {
-			var _p3 = list;
-			if (_p3.ctor === '[]') {
+			var _p11 = list;
+			if (_p11.ctor === '[]') {
 				return sentence;
 			} else {
-				if (_p3._1.ctor === '[]') {
+				if (_p11._1.ctor === '[]') {
 					return A2(
 						_elm_lang$core$Basics_ops['++'],
 						sentence,
-						A2(_elm_lang$core$Basics_ops['++'], lastPart, _p3._0));
+						A2(_elm_lang$core$Basics_ops['++'], lastPart, _p11._0));
 				} else {
-					var _v1 = lastPart,
-						_v2 = A2(
+					var _v22 = lastPart,
+						_v23 = A2(
 						_elm_lang$core$Basics_ops['++'],
 						sentence,
-						A2(_elm_lang$core$Basics_ops['++'], ', ', _p3._0)),
-						_v3 = _p3._1;
-					lastPart = _v1;
-					sentence = _v2;
-					list = _v3;
+						A2(_elm_lang$core$Basics_ops['++'], ', ', _p11._0)),
+						_v24 = _p11._1;
+					lastPart = _v22;
+					sentence = _v23;
+					list = _v24;
 					continue toSentenceHelper;
 				}
 			}
 		}
 	});
 var _elm_community$string_extra$String_Extra$toSentenceBaseCase = function (list) {
-	var _p4 = list;
-	_v4_2:
+	var _p12 = list;
+	_v25_2:
 	do {
-		if (_p4.ctor === '::') {
-			if (_p4._1.ctor === '[]') {
-				return _p4._0;
+		if (_p12.ctor === '::') {
+			if (_p12._1.ctor === '[]') {
+				return _p12._0;
 			} else {
-				if (_p4._1._1.ctor === '[]') {
+				if (_p12._1._1.ctor === '[]') {
 					return A2(
 						_elm_lang$core$Basics_ops['++'],
-						_p4._0,
-						A2(_elm_lang$core$Basics_ops['++'], ' and ', _p4._1._0));
+						_p12._0,
+						A2(_elm_lang$core$Basics_ops['++'], ' and ', _p12._1._0));
 				} else {
-					break _v4_2;
+					break _v25_2;
 				}
 			}
 		} else {
-			break _v4_2;
+			break _v25_2;
 		}
 	} while(false);
 	return '';
 };
 var _elm_community$string_extra$String_Extra$toSentenceOxford = function (list) {
-	var _p5 = list;
-	if (((_p5.ctor === '::') && (_p5._1.ctor === '::')) && (_p5._1._1.ctor === '::')) {
+	var _p13 = list;
+	if (((_p13.ctor === '::') && (_p13._1.ctor === '::')) && (_p13._1._1.ctor === '::')) {
 		return A3(
 			_elm_community$string_extra$String_Extra$toSentenceHelper,
 			', and ',
 			A2(
 				_elm_lang$core$Basics_ops['++'],
-				_p5._0,
-				A2(_elm_lang$core$Basics_ops['++'], ', ', _p5._1._0)),
-			A2(_elm_lang$core$List_ops['::'], _p5._1._1._0, _p5._1._1._1));
+				_p13._0,
+				A2(_elm_lang$core$Basics_ops['++'], ', ', _p13._1._0)),
+			A2(_elm_lang$core$List_ops['::'], _p13._1._1._0, _p13._1._1._1));
 	} else {
 		return _elm_community$string_extra$String_Extra$toSentenceBaseCase(list);
 	}
 };
 var _elm_community$string_extra$String_Extra$toSentence = function (list) {
-	var _p6 = list;
-	if (((_p6.ctor === '::') && (_p6._1.ctor === '::')) && (_p6._1._1.ctor === '::')) {
+	var _p14 = list;
+	if (((_p14.ctor === '::') && (_p14._1.ctor === '::')) && (_p14._1._1.ctor === '::')) {
 		return A3(
 			_elm_community$string_extra$String_Extra$toSentenceHelper,
 			' and ',
 			A2(
 				_elm_lang$core$Basics_ops['++'],
-				_p6._0,
-				A2(_elm_lang$core$Basics_ops['++'], ', ', _p6._1._0)),
-			A2(_elm_lang$core$List_ops['::'], _p6._1._1._0, _p6._1._1._1));
+				_p14._0,
+				A2(_elm_lang$core$Basics_ops['++'], ', ', _p14._1._0)),
+			A2(_elm_lang$core$List_ops['::'], _p14._1._1._0, _p14._1._1._1));
 	} else {
 		return _elm_community$string_extra$String_Extra$toSentenceBaseCase(list);
 	}
@@ -3515,24 +3667,24 @@ var _elm_community$string_extra$String_Extra$unindent = function (multilineSting
 		function (count, line) {
 			countLeadingWhitespace:
 			while (true) {
-				var _p7 = _elm_lang$core$String$uncons(line);
-				if (_p7.ctor === 'Nothing') {
+				var _p15 = _elm_lang$core$String$uncons(line);
+				if (_p15.ctor === 'Nothing') {
 					return count;
 				} else {
-					var _p9 = _p7._0._1;
-					var _p8 = _p7._0._0;
-					switch (_p8.valueOf()) {
+					var _p17 = _p15._0._1;
+					var _p16 = _p15._0._0;
+					switch (_p16.valueOf()) {
 						case ' ':
-							var _v9 = count + 1,
-								_v10 = _p9;
-							count = _v9;
-							line = _v10;
+							var _v30 = count + 1,
+								_v31 = _p17;
+							count = _v30;
+							line = _v31;
 							continue countLeadingWhitespace;
 						case '\t':
-							var _v11 = count + 1,
-								_v12 = _p9;
-							count = _v11;
-							line = _v12;
+							var _v32 = count + 1,
+								_v33 = _p17;
+							count = _v32;
+							line = _v33;
 							continue countLeadingWhitespace;
 						default:
 							return count;
@@ -3571,13 +3723,13 @@ var _elm_community$string_extra$String_Extra$dasherize = function (string) {
 				_elm_lang$core$Regex$replace,
 				_elm_lang$core$Regex$All,
 				_elm_lang$core$Regex$regex('([A-Z])'),
-				function (_p10) {
+				function (_p18) {
 					return A2(
 						_elm_lang$core$String$append,
 						'-',
 						function (_) {
 							return _.match;
-						}(_p10));
+						}(_p18));
 				},
 				_elm_lang$core$String$trim(string))));
 };
@@ -3592,7 +3744,7 @@ var _elm_community$string_extra$String_Extra$underscored = function (string) {
 				_elm_lang$core$Regex$replace,
 				_elm_lang$core$Regex$All,
 				_elm_lang$core$Regex$regex('([a-z\\d])([A-Z]+)'),
-				function (_p11) {
+				function (_p19) {
 					return A2(
 						_elm_lang$core$String$join,
 						'_',
@@ -3601,7 +3753,7 @@ var _elm_community$string_extra$String_Extra$underscored = function (string) {
 							_elm_lang$core$Basics$identity,
 							function (_) {
 								return _.submatches;
-							}(_p11)));
+							}(_p19)));
 				},
 				_elm_lang$core$String$trim(string))));
 };
@@ -3635,11 +3787,11 @@ var _elm_community$string_extra$String_Extra$camelize = function (string) {
 		_elm_lang$core$Regex$replace,
 		_elm_lang$core$Regex$All,
 		_elm_lang$core$Regex$regex('[-_\\s]+(.)?'),
-		function (_p12) {
-			var _p13 = _p12;
-			var _p14 = _p13.submatches;
-			if ((_p14.ctor === '::') && (_p14._0.ctor === 'Just')) {
-				return _elm_lang$core$String$toUpper(_p14._0._0);
+		function (_p20) {
+			var _p21 = _p20;
+			var _p22 = _p21.submatches;
+			if ((_p22.ctor === '::') && (_p22._0.ctor === 'Just')) {
+				return _elm_lang$core$String$toUpper(_p22._0._0);
 			} else {
 				return '';
 			}
@@ -3669,7 +3821,7 @@ var _elm_community$string_extra$String_Extra$softBreakRegexp = function (width) 
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				_elm_lang$core$Basics$toString(width),
-				'}(\\s|$)|\\S+?(\\s|$)')));
+				'}(\\s+|$)|\\S+?(\\s+|$)')));
 };
 var _elm_community$string_extra$String_Extra$softEllipsis = F2(
 	function (howLong, string) {
@@ -3727,19 +3879,19 @@ var _elm_community$string_extra$String_Extra$breaker = F3(
 	function (width, string, acc) {
 		breaker:
 		while (true) {
-			var _p15 = string;
-			if (_p15 === '') {
+			var _p23 = string;
+			if (_p23 === '') {
 				return _elm_lang$core$List$reverse(acc);
 			} else {
-				var _v16 = width,
-					_v17 = A2(_elm_lang$core$String$dropLeft, width, string),
-					_v18 = A2(
+				var _v37 = width,
+					_v38 = A2(_elm_lang$core$String$dropLeft, width, string),
+					_v39 = A2(
 					_elm_lang$core$List_ops['::'],
 					A3(_elm_lang$core$String$slice, 0, width, string),
 					acc);
-				width = _v16;
-				string = _v17;
-				acc = _v18;
+				width = _v37;
+				string = _v38;
+				acc = _v39;
 				continue breaker;
 			}
 		}
@@ -3790,7 +3942,7 @@ var _elm_community$string_extra$String_Extra$replace = F3(
 			_elm_lang$core$Regex$All,
 			_elm_lang$core$Regex$regex(
 				_elm_lang$core$Regex$escape(search)),
-			function (_p16) {
+			function (_p24) {
 				return substitution;
 			},
 			string);
@@ -3802,12 +3954,12 @@ var _elm_community$string_extra$String_Extra$changeCase = F2(
 			'',
 			A2(
 				_elm_lang$core$Maybe$map,
-				function (_p17) {
-					var _p18 = _p17;
+				function (_p25) {
+					var _p26 = _p25;
 					return A2(
 						_elm_lang$core$String$cons,
-						mutator(_p18._0),
-						_p18._1);
+						mutator(_p26._0),
+						_p26._1);
 				},
 				_elm_lang$core$String$uncons(word)));
 	});
@@ -3819,21 +3971,21 @@ var _elm_community$string_extra$String_Extra$toTitleCase = function (ws) {
 		_elm_lang$core$Regex$replace,
 		_elm_lang$core$Regex$All,
 		_elm_lang$core$Regex$regex('\\w+'),
-		function (_p19) {
+		function (_p27) {
 			return _elm_community$string_extra$String_Extra$toSentenceCase(
 				function (_) {
 					return _.match;
-				}(_p19));
+				}(_p27));
 		});
 	return A4(
 		_elm_lang$core$Regex$replace,
 		_elm_lang$core$Regex$All,
 		_elm_lang$core$Regex$regex('^([a-z])|\\s+([a-z])'),
-		function (_p20) {
+		function (_p28) {
 			return uppercaseMatch(
 				function (_) {
 					return _.match;
-				}(_p20));
+				}(_p28));
 		},
 		ws);
 };
@@ -3864,13 +4016,13 @@ var _elm_community$string_extra$String_Extra$humanize = function (string) {
 						_elm_lang$core$Regex$replace,
 						_elm_lang$core$Regex$All,
 						_elm_lang$core$Regex$regex('[A-Z]'),
-						function (_p21) {
+						function (_p29) {
 							return A2(
 								_elm_lang$core$String$append,
 								'-',
 								function (_) {
 									return _.match;
-								}(_p21));
+								}(_p29));
 						},
 						string)))));
 };
@@ -10017,6 +10169,7 @@ var _evancz$elm_todomvc$Todo$taskList = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[
 							_elm_lang$html$Html_Attributes$class('toggle-all'),
+							_elm_lang$html$Html_Attributes$id('toggle-all'),
 							_elm_lang$html$Html_Attributes$type$('checkbox'),
 							_elm_lang$html$Html_Attributes$name('toggle'),
 							_elm_lang$html$Html_Attributes$checked(allCompleted),

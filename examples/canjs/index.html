@@ -20,8 +20,8 @@
 					<h1>todos</h1>
 					<input class="new-todo" placeholder="What needs to be done?" autofocus="" can-enter="createTodo">
 				</header>
-				<section class="main" class="{{^if todos.length}}hidden{{/if}}">
-					<input class="toggle-all" type="checkbox" {{#if todos.allComplete}}checked="checked"{{/if}} can-click="toggleAll">
+				<section class="main {{^if todos.length}}hidden{{/if}}">
+					<input id="toggle-all" class="toggle-all" type="checkbox" {{#if todos.allComplete}}checked="checked"{{/if}} can-click="toggleAll">
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
 						{{#each displayList}}
@@ -38,7 +38,7 @@
 					</ul>
 				</section>
 
-				<footer class="footer" class="{{^if todos.length}}hidden{{/if}}">
+				<footer class="footer {{^if todos.length}}hidden{{/if}}">
 					<span class="todo-count">
 						<strong>{{todos.remaining}}</strong> {{plural "item" todos.remaining}} left
 					</span>
@@ -47,7 +47,7 @@
 						<li>{{{link "Active" "active"}}}</li>
 						<li>{{{link "Completed" "completed"}}}</li>
 					</ul>
-					<button class="clear-completed" class="{{^if todos.completed.length}}hidden{{/if}}" can-click="clearCompleted">
+					<button class="clear-completed {{^if todos.completed.length}}hidden{{/if}}" can-click="clearCompleted">
 						Clear completed
 					</button>
 				</footer>

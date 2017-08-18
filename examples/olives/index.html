@@ -14,7 +14,7 @@
 				<input class="new-todo" placeholder="What needs to be done?" autofocus data-event="listen:keydown,addTask">
 			</header>
 			<section class="main" data-stats="bind:toggleClass,nbItems,show">
-				<input class="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
+				<input id="toggle-all" class="toggle-all" type="checkbox" data-event="listen:click,toggleAll" data-stats="bind:toggleCheck,nbCompleted">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list" data-model="foreach" data-router="toggleClassOnRouteChange">
 					<li data-model="bind:toggleClass,completed,completed;">

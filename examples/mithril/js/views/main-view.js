@@ -40,9 +40,12 @@ app.view = (function () {
 					display: ctrl.list.length ? '' : 'none'
 				}
 			}, [
-				m('input.toggle-all[type=checkbox]', {
+				m('input#toggle-all.toggle-all[type=checkbox]', {
 					onclick: ctrl.completeAll.bind(ctrl),
 					checked: ctrl.allCompleted()
+				}),
+				m('label', {
+					for: 'toggle-all'
 				}),
 				m('ul.todo-list', [
 					ctrl.list.filter(ctrl.isVisible.bind(ctrl)).map(function (task, index) {
