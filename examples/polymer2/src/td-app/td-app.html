@@ -1,0 +1,33 @@
+<link rel="import" href="../td-app/no-shadow-element.html">
+<link rel="import" href="../td-model/td-model.html">
+<link rel="import" href="../td-todos/td-todos.html">
+
+<dom-module id="td-app">
+	<template>
+    <td-model id="model" items="{{todos}}"></td-model>
+    <td-todos model="[[_getModel('model')]]" items="{{todos}}"></td-todos>
+    <footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="https://github.com/vlukashov">Viktor Lukashov</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+	</template>
+	<script>
+		class TdApp extends window.NoShadowPolymerElement {
+			static get is() { return 'td-app'; }
+			static get properties() {
+				return {
+					todos: {
+						type: Array
+					}
+				};
+			}
+
+			_getModel(id) {
+				return this.$[id];
+			}
+		}
+
+		window.customElements.define(TdApp.is, TdApp);
+	</script>
+</dom-module>

@@ -1,0 +1,22 @@
+<link rel="import" href="../../bower_components/polymer/lib/utils/mixin.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<script>
+(function() {
+
+  'use strict';
+
+  window.NoShadowPolymerElement = Polymer.dedupingMixin(superClass => {
+
+    class NoShadow extends superClass {
+      _attachDom(dom) {
+        return this.appendChild(dom);
+      }
+    }
+
+    return NoShadow;
+
+  })(Polymer.Element);
+
+})();
+</script>
