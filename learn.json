@@ -1681,6 +1681,9 @@
 		}, {
 			"name": "React + Alt",
 			"url": "examples/react-alt"
+		}, {
+			"name": "React + Webpack + ES6",
+			"url": "examples/react-webpack-es6"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
