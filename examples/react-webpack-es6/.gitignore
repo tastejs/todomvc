@@ -12,3 +12,5 @@ node_modules/todomvc-common
 !node_modules/todomvc-common/base.js
 /.idea
 .idea
+node_modules
+build
