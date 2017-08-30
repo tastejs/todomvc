@@ -74,7 +74,8 @@
     flex: 0 1 auto;
     width: 100%;
     background: #eee;
-    color: rgba(0, 0, 0, .9)
+    color: rgba(0, 0, 0, .9);
+    margin: 0
 }
 [mol_string]:enabled {
     background: white
@@ -117,8 +118,7 @@
     align-items: center;
     vertical-align: middle;
     text-align: center;
-    padding: .5rem 1rem;
-    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
+    padding: .5rem;
     border-radius: 2px
 }
 [mol_button_typed][disabled] {
@@ -127,7 +127,8 @@
     pointer-events: none
 }
 [mol_button_minor] {
-    background-color: white;
+    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
+    background-color: #fcfcfc;
     color: rgba(0, 0, 0, .9)
 }
 [mol_button_major] {
@@ -141,13 +142,12 @@
 }
 [mol_button_typed]:hover ,
 [mol_button_typed]:focus {
-    z-index: 1;
     cursor: pointer;
     background-color: rgba(0, 0, 0, .05)
 }
 [mol_button_minor]:hover ,
 [mol_button_minor]:focus {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(247, 247, 247);
     color: rgba(0, 0, 0, .9)
 }
 [mol_button_major]:hover ,
@@ -164,7 +164,8 @@
     cursor: pointer;
     border-radius: 2px;
     padding: .5rem;
-    box-sizing: border-box
+    box-sizing: border-box;
+    position: relative
 }
 [mol_link]:not([mol_link_current]):hover {
     background-color: rgba(0, 0, 0, .05)
@@ -183,25 +184,24 @@
 [mol_check] {
     flex: 0 0 auto;
     justify-content: flex-start;
-    align-items: center;
     align-content: center;
     border: none;
     font-weight: normal;
     box-shadow: none;
     text-align: left;
-    padding: .5rem
+    padding: .5rem;
+    display: inline-flex;
+    flex-wrap: wrap
 }
 [mol_check]:not([mol_check_checked]) {
     color: inherit
-}
-[mol_check_label] {
-    display: inline-flex;
-    margin: 0 .5rem
 }
 [mol_scroll] {
     display: block;
     overflow: auto;
     flex: 1 1 auto;
+    -ms-grid-row-align: stretch;
+        align-self: stretch;
     box-sizing: border-box;
     will-change: scroll-position;
     transform: translateZ(0);
@@ -268,6 +268,7 @@
 [mol_app_todomvc_head_complete] {
     flex: 0 0 4rem;
     transform: rotate( 90deg );
+    align-items: center;
     opacity: .5;
     padding: 0;
     justify-content: center
@@ -376,6 +377,39 @@
 [mol_app_todomvc_sweep]:hover ,
 [mol_app_todomvc_sweep]:focus {
     text-decoration: underline
+}
+[mol_demo] {
+    max-height: 75vh;
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
+    background: white;
+    color: rgba(0, 0, 0, .9);
+    position: relative;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box
+}
+[mol_demo_large] {
+    height: 75vh;
+    max-height: 75vh;
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
+    background: white;
+    color: rgba(0, 0, 0, .9);
+    position: relative;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    align-self: stretch
+}
+[mol_demo_large]:first-child:last-child {
+    height: auto;
+    max-height: none;
+    flex: 1 1 100%
 }
 
 /*# sourceMappingURL=web.css.map */

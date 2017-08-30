@@ -31,6 +31,7 @@
 [mol_app_todomvc_head_complete] {
 	flex: 0 0 4rem;
 	transform: rotate( 90deg );
+	align-items: center;
 	opacity: .5;
 	padding: 0;
 	justify-content: center;

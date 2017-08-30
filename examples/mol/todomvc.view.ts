@@ -138,7 +138,7 @@ namespace $.$mol {
 			return [
 				this.Head() , 
 				this.List() ,
-				this.foot_visible() ? this.Foot() : null ,
+				... this.foot_visible() ? [ this.Foot() ] : [] ,
 			]
 		}
 		

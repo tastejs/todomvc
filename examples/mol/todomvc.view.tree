@@ -67,7 +67,7 @@ $mol_app_todomvc_task_row $mol_view
 		<= Title $mol_string
 			hint <= title_hint @ \Task title
 			value?val <=> title?val \
-		<= Drop $mol_button
+		<= Drop $mol_button_typed
 			sub / \✖
 			event_click?event <=> event_drop?event null
 	attr *
