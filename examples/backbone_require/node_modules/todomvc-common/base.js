@@ -21,7 +21,7 @@
 				}
 			}
 			return object;
-		}
+		};
 
 		// By default, Underscore uses ERB-style template delimiters, change the
 		// following template settings to use alternative delimiters.
