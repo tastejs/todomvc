@@ -8,8 +8,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TodoApp from './todoApp.es6';
+import TodoModel from './todoModel.es6';
 
-var model = new app.TodoModel('react-todos');
+var model = new TodoModel('react-todos');
 
 function render() {
     'use strict';

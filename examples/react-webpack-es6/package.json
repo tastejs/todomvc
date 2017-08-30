@@ -17,7 +17,7 @@
     "director": "^1.2.0",
     "react": "^0.14",
     "react-dom": "^0.14.0",
-    "todomvc-app-css": "^2.0.0",
+    "todomvc-app-css": "2.0.6",
     "todomvc-common": "^1.0.1"
   }
 }
