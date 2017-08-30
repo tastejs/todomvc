@@ -13,13 +13,13 @@ import TodoModel from './todoModel.es6';
 var model = new TodoModel('react-todos');
 
 function render() {
-    'use strict';
-    ReactDOM.render(
-        /* jshint ignore:start */
-        <TodoApp model={model}/>,
-        /* jshint ignore:end */
-        document.getElementsByClassName('todoapp')[0]
-    );
+	'use strict';
+	ReactDOM.render(
+		/* jshint ignore:start */
+		<TodoApp model={model}/>,
+		/* jshint ignore:end */
+		document.getElementsByClassName('todoapp')[0]
+	);
 }
 
 model.subscribe(render);
