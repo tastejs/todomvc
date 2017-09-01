@@ -1,7 +1,8 @@
-<link rel="import" href="../td-app/no-shadow-element.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../bower_components/iron-location/iron-location.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../td-app/no-shadow.html">
 <link rel="import" href="../td-input/td-input.html">
 <link rel="import" href="../td-item/td-item.html">
 
@@ -65,7 +66,7 @@
 		</section>
 	</template>
 	<script>
-		class TdTodos extends Polymer.GestureEventListeners(window.NoShadowPolymerElement) {
+		class TdTodos extends window.NoShadow(Polymer.GestureEventListeners(Polymer.Element)) {
 			static get is() { return 'td-todos'; }
 			static get properties() {
 				return {

@@ -1,6 +1,7 @@
-<link rel="import" href="../td-app/no-shadow-element.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../bower_components/polymer/lib/utils/render-status.html">
+<link rel="import" href="../td-app/no-shadow.html">
 <link rel="import" href="../td-input/td-input.html">
 
 <dom-module id="td-item">
@@ -23,7 +24,7 @@
 		</li>
 	</template>
 	<script>
-		class TdItem extends Polymer.GestureEventListeners(window.NoShadowPolymerElement) {
+		class TdItem extends window.NoShadow(Polymer.GestureEventListeners(Polymer.Element)) {
 			static get is() { return 'td-item'; }
 			static get properties() {
 				return {

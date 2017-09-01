@@ -1,4 +1,5 @@
-<link rel="import" href="../td-app/no-shadow-element.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../td-app/no-shadow.html">
 <link rel="import" href="../td-model/td-model.html">
 <link rel="import" href="../td-todos/td-todos.html">
 
@@ -13,7 +14,7 @@
 		</footer>
 	</template>
 	<script>
-		class TdApp extends window.NoShadowPolymerElement {
+		class TdApp extends window.NoShadow(Polymer.Element) {
 			static get is() { return 'td-app'; }
 			static get properties() {
 				return {
