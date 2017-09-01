@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../../bower_components/iron-location/iron-location.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../td-app/no-shadow.html">
+<link rel="import" href="../no-shadow.html">
 <link rel="import" href="../td-input/td-input.html">
 <link rel="import" href="../td-item/td-item.html">
 
@@ -15,13 +15,10 @@
 		</style>
 		<iron-location hash="{{route}}"></iron-location>
 		<section class="todoapp">
-			<header class="header">
-				<h1>todos</h1>
-				<td-input on-td-input-commit="addTodoAction"
-							    on-td-input-cancel="cancelAddTodoAction">
-					<input id="new-todo" class="new-todo" placeholder="What needs to be done?" autofocus>
-				</td-input>
-			</header>
+			<td-input on-td-input-commit="addTodoAction"
+								on-td-input-cancel="cancelAddTodoAction">
+				<input id="new-todo" class="new-todo" placeholder="What needs to be done?" autofocus>
+			</td-input>
 
 			<template is="dom-if" if="{{items.length}}">
 				<section class="main">
@@ -76,6 +73,9 @@
 					model: {
 						type: Object
 					},
+					modelId: {
+						type: String
+					},
 					route: {
 						type: String
 					},
@@ -92,6 +92,11 @@
 						computed: '_computeAnyCompleted(items, items.*)'
 					}
 				};
+			}
+
+			connectedCallback() {
+				this.model = document.getElementById(this.modelId);
+				super.connectedCallback();
 			}
 
 			_computeLinkClass(currRoute, ...routes) {
