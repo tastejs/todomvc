@@ -44,7 +44,7 @@
 
 					<iron-selector class="filters" selected="{{route}}" attr-for-selected="route">
 						<li route="/">
-							<a href="#/" class$="{{_computeLinkClass(route, '/')}}">All</a>
+							<a href="#/" class$="{{_computeLinkClass(route, '/', '')}}">All</a>
 						</li>
 						<li route="/active">
 							<a href="#/active" class$="{{_computeLinkClass(route, '/active')}}">Active</a>
@@ -93,8 +93,8 @@
 				};
 			}
 
-			_computeLinkClass(currRoute, route) {
-				return currRoute === route ? 'selected' : '';
+			_computeLinkClass(currRoute, ...routes) {
+				return routes.some(route => currRoute === route) ? 'selected' : '';
 			}
 
 			_computeAnyCompleted(items) {
