@@ -34,6 +34,6 @@ Polymer and the web component polyfills are intended to work in the latest versi
 1. Install [node.js](nodejs.org) (required for the `polymer` CLI tool)
 
 1. From the `todomvc\polymer2` folder, run `npm install`
-1. Start a web server in the `todomvc\polymer2` folder: `npm run`
+1. Start a web server in the `todomvc\polymer2` folder: `python -m SimpleHTTPServer`
 
-1. Browse to the server root: http://localhost:8081
+1. Browse to the server root: http://localhost:8000/index.html
