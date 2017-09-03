@@ -1,4 +1,5 @@
 {
+  "entrypoint": "bundle.src.html",
   "extraDependencies": [
     "bower_components/webcomponentsjs/*.js",
     "bower_components/webcomponentsjs/*.js.map"

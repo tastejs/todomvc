@@ -2,5 +2,9 @@
   "private": true,
   "devDependencies": {
     "polymer-cli": "^1.4.0"
+  },
+  "scripts": {
+    "install": "bower install",
+    "build": "polymer build && cp build/es5/bundle.src.html bundle.html"
   }
 }

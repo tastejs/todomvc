@@ -10,12 +10,24 @@
     <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="manifest.json">
 
+    <script>
+      if (!window.customElements) { document.write('<!--'); }
+    </script>
+    <script type="text/javascript" src="bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+    <!--! do not remove -->
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
     <link rel="stylesheet" href="bower_components/todomvc-app-css/index.css">
+
+    <!-- use individual HTML imports for development -->
+    <!--
     <link rel="import" href="bower_components/polymer/lib/elements/dom-bind.html">
     <link rel="import" href="src/td-model/td-model.html">
     <link rel="import" href="src/td-todos/td-todos.html">
+    -->
+
+    <!-- use one combined and bundled HTML import for production -->
+    <link rel="import" href="bundle.html">
   </head>
   <body>
     <div class="todoapp">
