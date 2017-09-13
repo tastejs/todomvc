@@ -4,6 +4,11 @@ var drool = require('drool');
 var exceptions = require('./memory-exceptions.json');
 var frameworkPathLookup = require('./framework-path-lookup');
 var argv = require('optimist').default('laxMode', false).default('browser', 'chrome').argv;
+var chrome = require('selenium-webdriver/chrome');
+var chromedriver = require('chromedriver');
+
+chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
+
 var driverConfig = {
 	chromeOptions: 'no-sandbox'
 };
