@@ -88,7 +88,7 @@
       }
     }
   }, {
-    todos: [],
+    todos: todoStorage.fetch(),
     remaining: 0,
     activeFilter: location.hash.substr(2) || 'all',
     filteredTodos: function(todos, filter){
