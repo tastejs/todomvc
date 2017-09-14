@@ -1,6 +1,6 @@
 # tplite TodoMVC Example
 
-> tplite is a micro-library to build component on client-side based on micro template engine.
+> tplite is a component based on micro javascript template engine..
 
 
 > _[tplite](https://github.com/lloydzhou/tplite)_
@@ -16,3 +16,4 @@
 ## Credit
 
 Created by [Lloyd Zhou](https://github.com/lloydzhou)
+

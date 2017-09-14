@@ -10,24 +10,25 @@
 	<body>
 		<div id="root"></div>
 		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/tplite/dist/tplite-all.min.js"></script>
     <script type="text/tpl" id="todo">
 	    <section class="todoapp">
 	    	<header class="header">
 	    		<h1>todos</h1>
-          <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" onkeyup="{{ bind('addTodo') }}">
+          <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" onkeyup="{{ addTodo() }}">
 	    	</header>
         {% if (todos.length) { %}
 	    	<section class="main">
-          <input class="toggle-all" type="checkbox" {{allDone?'checked="checked"':''}} onclick="{{bind('toggleAll')}}">
+          <input class="toggle-all" type="checkbox" {{allDone?'checked="checked"':''}} onclick="{{ toggleAll() }}">
 	    		<ul class="todo-list">
             {% for (var todo of filteredTodos(todos, activeFilter)) { %}
             <li class="todo {{todo.completed?'completed':''}} {{todo.editing?'editing':''}}">
 	             <div class="view">
-                <input class="toggle" type="checkbox" {{todo.completed ? 'checked="checked"':''}} onclick="{{bind('toggleTodo', todo)}}">
-                <label ondblclick="{{bind('editTodo', todo)}}">{{ todo.title }}</label>
-                <button class="destroy" onclick="{{ bind('removeTodo', todo) }}"></button>
+                <input class="toggle" type="checkbox" {{todo.completed ? 'checked="checked"':''}} onclick="{{ toggleTodo(todo) }}">
+                <label ondblclick="{{ editTodo(todo) }}">{{ todo.title }}</label>
+                <button class="destroy" onclick="{{ removeTodo(todo) }}"></button>
 	             </div>
-               <input name="todoeditbox" class="edit" type="text" onblur="{{ bind('doneEdit', todo) }}" onkeyup="{{ bind('editKeyUp', todo) }}">
+               <input name="todoeditbox" class="edit" type="text" onblur="{{ doneEdit(todo) }}" onkeyup="{{ editKeyUp(todo) }}">
             </li>
             {% } %}
 	    		</ul>
@@ -42,7 +43,7 @@
             <li><a class="{{ activeFilter=='completed' ? 'selected' : '' }}" href="#/completed">Completed</a></li>
 	    		</ul>
           {% if (todos.length > remaining) { %}
-          <button class="clear-completed" onclick="{{ bind('removeCompleted') }}">
+          <button class="clear-completed" onclick="{{ removeCompleted() }}">
 	    			Clear completed</button>
           {% } %}
 	    	</footer>
@@ -54,7 +55,6 @@
 	    	<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	    </footer>
     </script>
-		<script src="js/tplite-all.js"></script>
 		<script src="js/store.js"></script>
 		<script src="js/app.js"></script>
 	</body>
