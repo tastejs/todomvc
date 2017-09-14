@@ -7,4 +7,4 @@ node_modules/todomvc-common/*
 
 node_modules/.bin
 node_modules/tplite/*
-!node_modules/tplite/tplite-all.min.js
+!node_modules/tplite/dist/tplite-all.min.js
