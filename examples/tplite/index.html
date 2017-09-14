@@ -19,7 +19,7 @@
         </header>
         {% if (todos.length) { %}
         <section class="main">
-          <input class="toggle-all" type="checkbox" {{allDone?'checked="checked"':''}} onclick="{{ toggleAll() }}">
+          <input class="toggle-all" type="checkbox" {{allDone ? 'checked="checked"' : ''}} onclick="{{ toggleAll() }}">
           <ul class="todo-list">
             {% for (var todo of filteredTodos(todos, activeFilter)) { %}
             <li class="todo {{todo.completed?'completed':''}} {{todo.editing?'editing':''}}">

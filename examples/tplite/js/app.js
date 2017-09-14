@@ -60,11 +60,11 @@
 		// todoitem
 		toggleTodo(todo) {
 			todo.completed = !todo.completed
-			this.render()
+			this.setState()
 		},
 		editTodo(todo) {
 			todo.editing = true
-			this.render()
+			this.setState()
 		},
 		doneEdit(todo, e) {
 			if (!todo.editing) {
