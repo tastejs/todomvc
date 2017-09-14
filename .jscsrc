@@ -91,5 +91,6 @@
 	"disallowKeywords": ["with"],
 	"disallowSpacesInsideObjectBrackets": null,
 	"disallowImplicitTypeConversion": ["string"],
-	"safeContextKeyword": "self"
+	"safeContextKeyword": "self",
+	"esnext": false
 }
