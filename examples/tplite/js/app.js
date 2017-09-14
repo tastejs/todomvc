@@ -1,7 +1,7 @@
 /*global riot, todoStorage */
 
 (function () {
-	'use strict';
+  'use strict';
 
   var ENTER_KEY = 13;
   var ESC_KEY = 27;

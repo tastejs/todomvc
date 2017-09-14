@@ -1,61 +1,61 @@
 <!doctype html>
 <html lang="en" data-framework="tplite">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>tplite • TodoMVC</title>
-		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-	</head>
-	<body>
-		<div id="root"></div>
-		<script src="node_modules/todomvc-common/base.js"></script>
-		<script src="node_modules/tplite/dist/tplite-all.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>tplite • TodoMVC</title>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="node_modules/todomvc-common/base.js"></script>
+    <script src="node_modules/tplite/dist/tplite-all.min.js"></script>
     <script type="text/tpl" id="todo">
-	    <section class="todoapp">
-	    	<header class="header">
-	    		<h1>todos</h1>
+      <section class="todoapp">
+        <header class="header">
+          <h1>todos</h1>
           <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" onkeyup="{{ addTodo() }}">
-	    	</header>
+        </header>
         {% if (todos.length) { %}
-	    	<section class="main">
+        <section class="main">
           <input class="toggle-all" type="checkbox" {{allDone?'checked="checked"':''}} onclick="{{ toggleAll() }}">
-	    		<ul class="todo-list">
+          <ul class="todo-list">
             {% for (var todo of filteredTodos(todos, activeFilter)) { %}
             <li class="todo {{todo.completed?'completed':''}} {{todo.editing?'editing':''}}">
-	             <div class="view">
+               <div class="view">
                 <input class="toggle" type="checkbox" {{todo.completed ? 'checked="checked"':''}} onclick="{{ toggleTodo(todo) }}">
                 <label ondblclick="{{ editTodo(todo) }}">{{ todo.title }}</label>
                 <button class="destroy" onclick="{{ removeTodo(todo) }}"></button>
-	             </div>
+               </div>
                <input name="todoeditbox" class="edit" type="text" onblur="{{ doneEdit(todo) }}" onkeyup="{{ editKeyUp(todo) }}">
             </li>
             {% } %}
-	    		</ul>
-	    	</section>
-	    	<footer class="footer">
-	    		<span class="todo-count">
+          </ul>
+        </section>
+        <footer class="footer">
+          <span class="todo-count">
             <strong>{{ remaining }}</strong> {{ remaining === 1 ? 'item' : 'items' }} left
-	    		</span>
-	    		<ul class="filters">
+          </span>
+          <ul class="filters">
             <li><a class="{{ activeFilter=='all' ? 'selected' : '' }}" href="#/all">All</a></li>
             <li><a class="{{ activeFilter=='active' ? 'selected' : '' }}" href="#/active">Active</a></li>
             <li><a class="{{ activeFilter=='completed' ? 'selected' : '' }}" href="#/completed">Completed</a></li>
-	    		</ul>
+          </ul>
           {% if (todos.length > remaining) { %}
           <button class="clear-completed" onclick="{{ removeCompleted() }}">
-	    			Clear completed</button>
+            Clear completed</button>
           {% } %}
-	    	</footer>
+        </footer>
         {% } %}
-	    </section>
-	    <footer class="info">
-	    	<p>Double-click to edit a todo</p>
-	    	<p>Written by <a href="http://github.com/lloydzhou">Lloyd Zhou</a></p>
-	    	<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-	    </footer>
+      </section>
+      <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="http://github.com/lloydzhou">Lloyd Zhou</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+      </footer>
     </script>
-		<script src="js/store.js"></script>
-		<script src="js/app.js"></script>
-	</body>
+    <script src="js/store.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
