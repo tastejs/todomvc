@@ -185,15 +185,14 @@
     flex: 0 0 auto;
     justify-content: flex-start;
     align-content: center;
+    align-items: flex-start;
     border: none;
-    font-weight: normal;
+    font-weight: inherit;
     box-shadow: none;
     text-align: left;
     padding: .5rem;
     display: inline-flex;
-    flex-wrap: wrap
-}
-[mol_check]:not([mol_check_checked]) {
+    flex-wrap: nowrap;
     color: inherit
 }
 [mol_scroll] {
@@ -210,10 +209,21 @@
     max-width: 100%;
     -webkit-overflow-scrolling: touch
 }
+[mol_scroll] > * {
+    transform: translateZ(0)
+}
 @media print {
     [mol_scroll] {
         overflow: visible
     }
+}
+[mol_scroll_strut] {
+    position: absolute;
+    display: block;
+    padding: 1px;
+    margin: -1px;
+    z-index: 0;
+    transition: none
 }
 [mol_list] {
     will-change: contents;
@@ -405,11 +415,6 @@
     align-items: stretch;
     box-sizing: border-box;
     align-self: stretch
-}
-[mol_demo_large]:first-child:last-child {
-    height: auto;
-    max-height: none;
-    flex: 1 1 100%
 }
 
 /*# sourceMappingURL=web.css.map */

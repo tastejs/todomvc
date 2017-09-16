@@ -13,7 +13,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Page $mol_list rows / 
 	/// 	<= Title - 
 	/// 	<= Panel -
-	@ $mol_mem()
+	@ $mol_mem
 	Page() {
 		return (( obj )=>{
 			obj.rows = () => [].concat( this.Title() , this.Panel() )
@@ -24,7 +24,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Title $mol_view 
 	/// 	minimal_height 176 
 	/// 	sub / <= title -
-	@ $mol_mem()
+	@ $mol_mem
 	Title() {
 		return (( obj )=>{
 			obj.minimal_height = () => 176
@@ -34,7 +34,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// Panel $mol_list rows <= panels -
-	@ $mol_mem()
+	@ $mol_mem
 	Panel() {
 		return (( obj )=>{
 			obj.rows = () => this.panels()
@@ -53,7 +53,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Head $mol_view 
 	/// 	minimal_height 64 
 	/// 	sub <= Head_content -
-	@ $mol_mem()
+	@ $mol_mem
 	Head() {
 		return (( obj )=>{
 			obj.minimal_height = () => 64
@@ -73,7 +73,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	enabled <= head_complete_enabled - 
 	/// 	checked?val <=> completed_all?val - 
 	/// 	title \❯
-	@ $mol_mem()
+	@ $mol_mem
 	Head_complete() {
 		return (( obj )=>{
 			obj.enabled = () => this.head_complete_enabled()
@@ -89,7 +89,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// completed_all?val false
-	@ $mol_mem()
+	@ $mol_mem
 	completed_all( val? : any , force? : $mol_atom_force ) {
 		return ( val !== void 0 ) ? val : false
 	}
@@ -97,7 +97,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Add $mol_app_todomvc_add 
 	/// 	value?val <=> task_title_new?val - 
 	/// 	event_done?event <=> event_add?event -
-	@ $mol_mem()
+	@ $mol_mem
 	Add() {
 		return (( obj )=>{
 			obj.value = ( val? : any ) => this.task_title_new( val )
@@ -107,19 +107,19 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// task_title_new?val \
-	@ $mol_mem()
+	@ $mol_mem
 	task_title_new( val? : any , force? : $mol_atom_force ) {
 		return ( val !== void 0 ) ? val : ""
 	}
 
 	/// event_add?event null
-	@ $mol_mem()
+	@ $mol_mem
 	event_add( event? : any , force? : $mol_atom_force ) {
-		return ( event !== void 0 ) ? event : <any> null
+		return ( event !== void 0 ) ? event : null as any
 	}
 
 	/// List $mol_list rows <= task_rows -
-	@ $mol_mem()
+	@ $mol_mem
 	List() {
 		return (( obj )=>{
 			obj.rows = () => this.task_rows()
@@ -133,7 +133,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// Foot $mol_view sub <= foot_content -
-	@ $mol_mem()
+	@ $mol_mem
 	Foot() {
 		return (( obj )=>{
 			obj.sub = () => this.foot_content()
@@ -150,7 +150,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// Pending $mol_view sub / <= pending_message -
-	@ $mol_mem()
+	@ $mol_mem
 	Pending() {
 		return (( obj )=>{
 			obj.sub = () => [].concat( this.pending_message() )
@@ -164,7 +164,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// Filter $mol_bar sub <= filterOptions -
-	@ $mol_mem()
+	@ $mol_mem
 	Filter() {
 		return (( obj )=>{
 			obj.sub = () => this.filterOptions()
@@ -183,12 +183,12 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Filter_all $mol_link 
 	/// 	sub / <= filter_all_label - 
 	/// 	arg * completed null
-	@ $mol_mem()
+	@ $mol_mem
 	Filter_all() {
 		return (( obj )=>{
 			obj.sub = () => [].concat( this.filter_all_label() )
 			obj.arg = () => ({
-			"completed" :  <any> null ,
+			"completed" :  null as any ,
 		})
 			return obj
 		})( new this.$.$mol_link )
@@ -202,7 +202,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Filter_active $mol_link 
 	/// 	sub / <= filter_active_label - 
 	/// 	arg * completed \false
-	@ $mol_mem()
+	@ $mol_mem
 	Filter_active() {
 		return (( obj )=>{
 			obj.sub = () => [].concat( this.filter_active_label() )
@@ -221,7 +221,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// Filter_completed $mol_link 
 	/// 	sub / <= filter_completed_label - 
 	/// 	arg * completed \true
-	@ $mol_mem()
+	@ $mol_mem
 	Filter_completed() {
 		return (( obj )=>{
 			obj.sub = () => [].concat( this.filter_completed_label() )
@@ -241,7 +241,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	enabled <= sweep_enabled - 
 	/// 	event_click?event <=> event_sweep?event - 
 	/// 	sub / <= sweep_label -
-	@ $mol_mem()
+	@ $mol_mem
 	Sweep() {
 		return (( obj )=>{
 			obj.enabled = () => this.sweep_enabled()
@@ -257,9 +257,9 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// event_sweep?event null
-	@ $mol_mem()
+	@ $mol_mem
 	event_sweep( event? : any , force? : $mol_atom_force ) {
-		return ( event !== void 0 ) ? event : <any> null
+		return ( event !== void 0 ) ? event : null as any
 	}
 
 	/// sweep_label @ \Clear completed
@@ -271,7 +271,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	/// 	completed?val <=> task_completed!id?val - 
 	/// 	title?val <=> task_title!id?val - 
 	/// 	event_drop?event <=> event_task_drop!id?event -
-	@ $mol_mem_key()
+	@ $mol_mem_key
 	Task_row( id : any ) {
 		return (( obj )=>{
 			obj.completed = ( val? : any ) => this.task_completed(id , val )
@@ -282,21 +282,21 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 	}
 
 	/// task_completed!id?val false
-	@ $mol_mem_key()
+	@ $mol_mem_key
 	task_completed( id : any , val? : any , force? : $mol_atom_force ) {
 		return ( val !== void 0 ) ? val : false
 	}
 
 	/// task_title!id?val \
-	@ $mol_mem_key()
+	@ $mol_mem_key
 	task_title( id : any , val? : any , force? : $mol_atom_force ) {
 		return ( val !== void 0 ) ? val : ""
 	}
 
 	/// event_task_drop!id?event null
-	@ $mol_mem_key()
+	@ $mol_mem_key
 	event_task_drop( id : any , event? : any , force? : $mol_atom_force ) {
-		return ( event !== void 0 ) ? event : <any> null
+		return ( event !== void 0 ) ? event : null as any
 	}
 
 } }
@@ -319,15 +319,15 @@ namespace $ { export class $mol_app_todomvc_add extends $mol_string {
 	}
 
 	/// event_press?event null
-	@ $mol_mem()
+	@ $mol_mem
 	event_press( event? : any , force? : $mol_atom_force ) {
-		return ( event !== void 0 ) ? event : <any> null
+		return ( event !== void 0 ) ? event : null as any
 	}
 
 	/// event_done?event null
-	@ $mol_mem()
+	@ $mol_mem
 	event_done( event? : any , force? : $mol_atom_force ) {
-		return ( event !== void 0 ) ? event : <any> null
+		return ( event !== void 0 ) ? event : null as any
 	}
 
 } }
@@ -348,7 +348,7 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	}
 
 	/// Complete $mol_check checked?val <=> completed?val -
-	@ $mol_mem()
+	@ $mol_mem
 	Complete() {
 		return (( obj )=>{
 			obj.checked = ( val? : any ) => this.completed( val )
@@ -357,7 +357,7 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	}
 
 	/// completed?val false
-	@ $mol_mem()
+	@ $mol_mem
 	completed( val? : any , force? : $mol_atom_force ) {
 		return ( val !== void 0 ) ? val : false
 	}
@@ -365,7 +365,7 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	/// Title $mol_string 
 	/// 	hint <= title_hint - 
 	/// 	value?val <=> title?val -
-	@ $mol_mem()
+	@ $mol_mem
 	Title() {
 		return (( obj )=>{
 			obj.hint = () => this.title_hint()
@@ -380,7 +380,7 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	}
 
 	/// title?val \
-	@ $mol_mem()
+	@ $mol_mem
 	title( val? : any , force? : $mol_atom_force ) {
 		return ( val !== void 0 ) ? val : ""
 	}
@@ -388,7 +388,7 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	/// Drop $mol_button_typed 
 	/// 	sub / \✖
 	/// 	event_click?event <=> event_drop?event -
-	@ $mol_mem()
+	@ $mol_mem
 	Drop() {
 		return (( obj )=>{
 			obj.sub = () => [].concat( "✖" )
@@ -398,9 +398,9 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 	}
 
 	/// event_drop?event null
-	@ $mol_mem()
+	@ $mol_mem
 	event_drop( event? : any , force? : $mol_atom_force ) {
-		return ( event !== void 0 ) ? event : <any> null
+		return ( event !== void 0 ) ? event : null as any
 	}
 
 	/// attr * 

@@ -3,7 +3,7 @@ interface $mol_app_todomvc_task {
 	title? : string
 }
 
-namespace $.$mol {
+namespace $.$$ {
 	
 	export class $mol_app_todomvc_add extends $.$mol_app_todomvc_add {
 		
@@ -25,7 +25,7 @@ namespace $.$mol {
 			return $mol_state_arg.value( this.state_key( 'completed' ) )
 		}
 
-		@ $mol_mem()
+		@ $mol_mem
 		groups_completed() {
 			var groups : { [ index : string ] : number[] } = { 'true' : [] , 'false' : [] }
 			for( let id of this.task_ids() ) {
@@ -35,7 +35,7 @@ namespace $.$mol {
 			return groups
 		}
 
-		@ $mol_mem()
+		@ $mol_mem
 		tasks_filtered() {
 			var completed = this.arg_completed()
 			if( completed ) {
@@ -45,7 +45,7 @@ namespace $.$mol {
 			}
 		}
 
-		@ $mol_mem()
+		@ $mol_mem
 		completed_all( next? : boolean ) {
 			if( next === void 0 ) return this.groups_completed()[ 'false' ].length === 0
 			
@@ -61,13 +61,13 @@ namespace $.$mol {
 			return this.task_ids().length > 0 
 		}
 
-		@ $mol_mem()
+		@ $mol_mem
 		pending_message() {
 			let count = this.groups_completed()[ 'false' ].length
 			return ( count === 1 ) ? '1 item left' : `${count} items left`
 		}
 		
-		@ $mol_mem()
+		@ $mol_mem
 		new_id() {
 			return Math.max( 1 , 1 + Math.max( ... this.task_ids() ) )
 		}
@@ -84,7 +84,7 @@ namespace $.$mol {
 			this.task_title_new( '' )
 		}
 
-		@ $mol_mem()
+		@ $mol_mem
 		task_rows() {
 			return this.tasks_filtered().map( ( id , index )=> this.Task_row( index ) )
 		}
@@ -100,7 +100,7 @@ namespace $.$mol {
 			return next || void 0
 		}
 		
-		@ $mol_mem_key()
+		@ $mol_mem_key
 		task_completed( index : number , next? : boolean ) {
 			var id = this.tasks_filtered()[ index ]
 			if( next === void 0 ) return this.task( id ).completed
@@ -110,7 +110,7 @@ namespace $.$mol {
 			return next
 		}
 		
-		@ $mol_mem_key()
+		@ $mol_mem_key
 		task_title( index : number , next? : string ) {
 			var id = this.tasks_filtered()[ index ]
 			if( next === void 0 ) return this.task( id ).title
