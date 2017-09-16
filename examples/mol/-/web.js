@@ -1527,14 +1527,14 @@ var $;
             }
             $mol_string.prototype.event_change = function (next) {
                 var _this = this;
-                if (!event)
+                if (!next)
                     return;
                 var val = next.target.value.trim();
                 clearTimeout(this._timer);
                 this._timer = setTimeout(function () { return _this.value(val); }, this.debounce());
             };
             $mol_string.prototype.event_key_press = function (next) {
-                if (!event)
+                if (!next)
                     return;
                 if (next.keyCode === $.$mol_keyboard_code.enter) {
                     this.value(next.target.value.trim());
