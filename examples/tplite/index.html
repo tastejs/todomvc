@@ -11,6 +11,16 @@
     <div id="root"></div>
     <script src="node_modules/todomvc-common/base.js"></script>
     <script src="node_modules/tplite/dist/tplite-all.min.js"></script>
+    <script type="text/tpl" id="todoitem">
+      <li class="todo {{todo.completed?'completed':''}} {{todo.editing?'editing':''}}">
+         <div class="view">
+          <input class="toggle" type="checkbox" {{todo.completed ? 'checked="checked"':''}} onclick="{{ toggleTodo(todo) }}">
+          <label ondblclick="{{ editTodo(todo) }}">{{ todo.title }}</label>
+          <button class="destroy" onclick="{{ removeTodo(todo) }}"></button>
+         </div>
+         <input name="todoeditbox" class="edit" type="text" onblur="{{ doneEdit(todo) }}" onkeyup="{{ editKeyUp(todo) }}">
+      </li>
+    </script>
     <script type="text/tpl" id="todo">
       <section class="todoapp">
         <header class="header">
@@ -22,14 +32,7 @@
           <input class="toggle-all" type="checkbox" {{allDone ? 'checked="checked"' : ''}} onclick="{{ toggleAll() }}">
           <ul class="todo-list">
             {% for (var todo of filteredTodos(todos, activeFilter)) { %}
-            <li class="todo {{todo.completed?'completed':''}} {{todo.editing?'editing':''}}">
-               <div class="view">
-                <input class="toggle" type="checkbox" {{todo.completed ? 'checked="checked"':''}} onclick="{{ toggleTodo(todo) }}">
-                <label ondblclick="{{ editTodo(todo) }}">{{ todo.title }}</label>
-                <button class="destroy" onclick="{{ removeTodo(todo) }}"></button>
-               </div>
-               <input name="todoeditbox" class="edit" type="text" onblur="{{ doneEdit(todo) }}" onkeyup="{{ editKeyUp(todo) }}">
-            </li>
+              {{sub(itemTmpl, itemCallbacks, { todo: todo })}}
             {% } %}
           </ul>
         </section>
