@@ -2,7 +2,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 
 	/// title @ \Todos
 	title() {
-		return $mol_locale.text( this.locale_contexts() , "title" )
+		return $mol_locale.text( "$mol_app_todomvc_title" )
 	}
 
 	/// sub / <= Page -
@@ -160,7 +160,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 
 	/// pending_message @ \0 items left
 	pending_message() {
-		return $mol_locale.text( this.locale_contexts() , "pending_message" )
+		return $mol_locale.text( "$mol_app_todomvc_pending_message" )
 	}
 
 	/// Filter $mol_bar sub <= filterOptions -
@@ -196,7 +196,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 
 	/// filter_all_label @ \All
 	filter_all_label() {
-		return $mol_locale.text( this.locale_contexts() , "filter_all_label" )
+		return $mol_locale.text( "$mol_app_todomvc_filter_all_label" )
 	}
 
 	/// Filter_active $mol_link 
@@ -215,7 +215,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 
 	/// filter_active_label @ \Active
 	filter_active_label() {
-		return $mol_locale.text( this.locale_contexts() , "filter_active_label" )
+		return $mol_locale.text( "$mol_app_todomvc_filter_active_label" )
 	}
 
 	/// Filter_completed $mol_link 
@@ -234,7 +234,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 
 	/// filter_completed_label @ \Completed
 	filter_completed_label() {
-		return $mol_locale.text( this.locale_contexts() , "filter_completed_label" )
+		return $mol_locale.text( "$mol_app_todomvc_filter_completed_label" )
 	}
 
 	/// Sweep $mol_button_minor 
@@ -264,7 +264,7 @@ namespace $ { export class $mol_app_todomvc extends $mol_scroll {
 
 	/// sweep_label @ \Clear completed
 	sweep_label() {
-		return $mol_locale.text( this.locale_contexts() , "sweep_label" )
+		return $mol_locale.text( "$mol_app_todomvc_sweep_label" )
 	}
 
 	/// Task_row!id $mol_app_todomvc_task_row 
@@ -305,7 +305,7 @@ namespace $ { export class $mol_app_todomvc_add extends $mol_string {
 
 	/// hint @ \What needs to be done?
 	hint() {
-		return $mol_locale.text( this.locale_contexts() , "hint" )
+		return $mol_locale.text( "$mol_app_todomvc_add_hint" )
 	}
 
 	/// event * 
@@ -376,7 +376,7 @@ namespace $ { export class $mol_app_todomvc_task_row extends $mol_view {
 
 	/// title_hint @ \Task title
 	title_hint() {
-		return $mol_locale.text( this.locale_contexts() , "title_hint" )
+		return $mol_locale.text( "$mol_app_todomvc_task_row_title_hint" )
 	}
 
 	/// title?val \
