@@ -951,6 +951,25 @@
 			}]
 		}]
 	},
+	"flavour": {
+		"name": "TeaVM/Flavour",
+		"description": "TeaVM is an ahead-of-time compiler of Java bytecode to JavaScript.",
+		"homepage": "teavm.org",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/teavm"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Flavour on GitHub",
+				"url": "https://github.com/konsoletyper/teavm-flavour"
+			}, {
+				"name": "TeaVM on GitHub",
+				"url": "https://github.com/konsoletyper/teavm"
+			}]
+		}]
+	},
 	"flight": {
 		"name": "Flight",
 		"description": "Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.",
