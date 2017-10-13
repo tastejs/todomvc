@@ -957,7 +957,7 @@
 		"homepage": "teavm.org",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/teavm"
+			"url": "examples/flavour"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
