@@ -159,8 +159,8 @@ jQuery(function ($) {
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
 			// puts caret at end of input
 			var tmpStr = $input.val();
-      			$input.val('');
-      			$input.val(tmpStr);
+			$input.val('');
+			$input.val(tmpStr);
 		},
 		editKeyup: function (e) {
 			if (e.which === ENTER_KEY) {
