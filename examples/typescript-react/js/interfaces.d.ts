@@ -1,11 +1,11 @@
 interface ITodo {
-  id: string,
-  title: string,
-  completed: boolean
+  id: string;
+  title: string;
+  completed: boolea;
 }
 
 interface ITodoItemProps {
-  key : string,
+  key : string;
   todo : ITodo;
   editing? : boolean;
   onSave: (val: any) => void;
@@ -16,7 +16,7 @@ interface ITodoItemProps {
 }
 
 interface ITodoItemState {
-  editText : string
+  editText : string;
 }
 
 interface ITodoFooterProps {
