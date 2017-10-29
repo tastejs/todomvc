@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/common": "^4.4.6",
+    "@angular/compiler": "^4.4.6",
+    "@angular/compiler-cli": "^4.4.6",
+    "@angular/core": "^4.4.6",
+    "@angular/forms": "^4.4.6",
+    "@angular/http": "^4.4.6",
+    "@angular/platform-browser": "^4.4.6",
+    "@angular/platform-browser-dynamic": "^4.4.6",
+    "@angular/router": "^4.4.6",
+    "rxjs": "5.5.2",
+    "zone.js": "^0.8.4",
+    "uuid": "^3.1.0",
+    "classlist.js": "^1.1.20150312",
+    "web-animations-js": "^2.3.1"
+  },
+  "devDependencies": {
+    "todomvc-app-css": "2.0.6",
+    "todomvc-common": "1.0.2",
+    "@angular/cli": "^1.4.9",
+    "@types/jasmine": "^2.6.2",
+    "@types/node": "^8.0.47",
+    "@types/selenium-webdriver": "^3.0.8",
+    "protractor": "^5.2.0",
+    "typescript": "2.4.0"
+  }
+}

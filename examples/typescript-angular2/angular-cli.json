@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "version": "1.0.0",
+    "name": "todomvc"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        { "glob": "**/*.css", "input": "../node_modules/todomvc-common", "output": "./assets/todomvc-common" },
+        { "glob": "**/*.css", "input": "../node_modules/todomvc-app-css", "output": "./assets/todomvc-app-css" }
+      ],
+      "index": "index.html",
+      "main": "app/main.ts",
+      "tsconfig": "tsconfig.json",
+      "polyfills": "polyfills.ts",
+      "styles": [],
+      "scripts": [
+
+      ]
+    }
+  ],
+  "defaults": {
+    "styleExt": "css",
+    "prefixInterfaces": false,
+    "inline": {
+      "style": false,
+      "template": false
+    },
+    "spec": {
+      "class": false,
+      "component": true,
+      "directive": true,
+      "module": false,
+      "pipe": true,
+      "service": true
+    }
+  }
+}
