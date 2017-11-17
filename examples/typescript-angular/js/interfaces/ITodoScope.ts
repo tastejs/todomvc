@@ -1,6 +1,7 @@
 /// <reference path='../_all.ts' />
 
-module todos {
+namespace todos {
+
 	export interface ITodoScope extends ng.IScope {
 		todos: TodoItem[];
 		newTodo: string;
@@ -12,6 +13,7 @@ module todos {
 		reverted: boolean;
 		statusFilter: { completed?: boolean };
 		location: ng.ILocationService;
-		vm: TodoCtrl;
+		vm: TodosAppController;
 	}
+
 }

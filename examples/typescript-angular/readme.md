@@ -88,3 +88,7 @@ To compile the TypeScript in this project:
 	$ npm run compile
 
 Or use Visual Studio with the TypeScript plugin.
+
+## Dependencies
+* Angular 1.6.0
+* TypeScript 2.1.4

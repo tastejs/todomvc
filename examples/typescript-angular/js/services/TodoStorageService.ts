@@ -1,12 +1,12 @@
 /// <reference path='../_all.ts' />
 
-module todos {
-    'use strict';
+namespace todos {
 
-    /**
-     * Services that persists and retrieves TODOs from localStorage.
-     */
-    export class TodoStorage implements ITodoStorage {
+    angular
+        .module('todomvc')
+        .service('todoStorage', [() => new TodoStorageService()]);
+
+    export class TodoStorageService implements ITodoStorageService {
 
         STORAGE_ID = 'todos-angularjs-typescript';
 
@@ -17,5 +17,6 @@ module todos {
         put(todos: TodoItem[]) {
             localStorage.setItem(this.STORAGE_ID, JSON.stringify(todos));
         }
+
     }
 }
