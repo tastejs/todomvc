@@ -55,25 +55,40 @@
 				default : 200 ,
 				type : 'number' ,
 				precision : 50 ,
+			} ,
+			'blinks' : {
+				title : {
+					'en' : 'Complete all count' ,
+					'ru' : 'Число переключений всех' ,
+				},
+				default : 50 ,
+				type : 'number' ,
+				precision : 10 ,
 			}
 		} ,
 		steps : {
 			'start' : {
 				title : {
-					'en' : 'Load and init' ,
-					'ru' : 'Загрузка и запуск' ,
+					'en' : 'Load' ,
+					'ru' : 'Загрузка' ,
 				} ,
 			} ,
 			'fill' : {
 				title : {
-					'en' : 'Tasks creating' ,
-					'ru' : 'Создание задач' ,
+					'en' : 'Creating' ,
+					'ru' : 'Создание' ,
+				} ,
+			} ,
+			'complete' : {
+				title : {
+					'en' : 'Compliting' ,
+					'ru' : 'Завершение' ,
 				} ,
 			} ,
 			'clear' : {
 				title : {
-					'en' : 'Tasks removing' ,
-					'ru' : 'Завершение задач' ,
+					'en' : 'Removing' ,
+					'ru' : 'Удаление' ,
 				} ,
 			} ,
 		} ,
@@ -100,6 +115,7 @@
 	var selector = {
 		adder : '#new-todo,.new-todo,.todo__new,[mol_app_todomvc_add]' ,
 		adderForm : '#todo-form,.todo-form,#header form' ,
+		completer : '.toggle-all,#toggle-all,[mol_app_todomvc_head_complete]' ,
 		dropper : '.destroy,[mol_app_todomvc_task_row_drop]' ,
 	}
 
@@ -187,13 +203,38 @@
 		}
 	}
 
-	function clear( sample ) {
+	function complete( sample , params ) {
+		var completer = sandbox.contentDocument.querySelector( selector.completer )
+		var i = 1
 		var start = Date.now()
 
 		step()
 		function step() {
-			var dropper = sandbox.contentDocument.querySelector( selector.dropper )
-			if( !dropper ) {
+			completer.click()
+
+			if( ++i <= params.blinks ) setImmediate( step )
+			else {
+				sandbox.addEventListener( 'animationend' , end )
+				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
+					sandbox.style.animation = 'measure .001s'
+				} ) } )
+				function end() { // wait for painting ends
+					done( Date.now() - start + ' ms' )
+					sandbox.style.animation = ''
+					sandbox.removeEventListener( 'animationend' , end )
+				}
+			}
+		}
+	}
+
+	function clear( sample ) {
+		var start = Date.now()
+		var index = 0
+
+		step()
+		function step() {
+			var droppers = sandbox.contentDocument.querySelectorAll( selector.dropper )
+			if( !droppers.length ) {
 				sandbox.addEventListener( 'animationend' , end )
 				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
 					sandbox.style.animation = 'measure .001s'
@@ -205,6 +246,8 @@
 				}
 				return
 			}
+
+			var dropper = droppers[ index++ % droppers.length ]
 
 			dropper.dispatchEvent( new Event( 'mousedown' , { bubbles : true } ) )
 			dropper.dispatchEvent( new Event( 'mouseup' , { bubbles : true } ) )
