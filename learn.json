@@ -2106,6 +2106,16 @@
 			}]
 		}]
 	},
+	"svelte": {
+		"name": "SvelteJS",
+		"description": "The magical disappearing UI framework",
+		"homepage": "https://svelte.technology/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/svelte/public"
+		}],
+		"link_groups": []
+	},
 	"troopjs": {
 		"name": "TroopJS",
 		"description": "The simple js framework that does as little as possible, then stays out of the way.",
