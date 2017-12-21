@@ -14,8 +14,7 @@
     height: 100%;
     box-sizing: border-box;
     font: 1rem/1.5 "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #fcfcfc;
-    touch-action: manipulation
+    background: #fcfcfc
 }
 [mol_view][mol_view_error]:not([mol_view_error="$mol_atom_wait"]) {
     background-image: repeating-linear-gradient(
@@ -41,14 +40,14 @@
         background-position: 0 0
     }
     to {
-        background-position: 28px 0
+        background-position: -28px 0
     }
 }
 [mol_view][mol_view_error="$mol_atom_wait"] {
     background-image: repeating-linear-gradient(
 		45deg,
-		rgba(58, 140, 203, 0.025),
-		rgba(58, 140, 203, 0.025) 9px,
+		rgba(58, 140, 203, 0.05),
+		rgba(58, 140, 203, 0.05) 9px,
 		rgba(255, 255, 255, .015) 10px,
 		rgba(255, 255, 255, .015) 20px
 	);
@@ -92,10 +91,6 @@
     display: none
 }
 [mol_button] {
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
     border: none;
     font: inherit;
     background-color: none;
@@ -118,7 +113,7 @@
     align-items: center;
     vertical-align: middle;
     text-align: center;
-    padding: .5rem;
+    padding: .5rem 1rem;
     border-radius: 2px
 }
 [mol_button_typed][disabled] {
@@ -204,10 +199,15 @@
     box-sizing: border-box;
     will-change: scroll-position;
     transform: translateZ(0);
+    /* enforce gpu scroll in all agents */
     box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
     max-height: 100%;
     max-width: 100%;
     -webkit-overflow-scrolling: touch
+}
+/* prevent large gpu layer */
+[mol_scroll][mol_scroll] {
+    background: none
 }
 [mol_scroll] > * {
     transform: translateZ(0)
@@ -317,6 +317,7 @@
     height: 4rem
 }
 [mol_app_todomvc_title] {
+    word-break: normal;
     display: block;
     padding: .25rem;
     font-size: 7rem;
@@ -387,34 +388,6 @@
 [mol_app_todomvc_sweep]:hover ,
 [mol_app_todomvc_sweep]:focus {
     text-decoration: underline
-}
-[mol_demo] {
-    max-height: 75vh;
-    max-width: 100%;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
-    background: white;
-    color: rgba(0, 0, 0, .9);
-    position: relative;
-    flex: 1 0 auto;
-    display: flex;
-    align-items: stretch;
-    box-sizing: border-box
-}
-[mol_demo_large] {
-    height: 75vh;
-    max-height: 75vh;
-    max-width: 100%;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(230, 230, 230, .75);
-    background: white;
-    color: rgba(0, 0, 0, .9);
-    position: relative;
-    flex: 1 0 auto;
-    display: flex;
-    align-items: stretch;
-    box-sizing: border-box;
-    align-self: stretch
 }
 
 /*# sourceMappingURL=web.css.map */
