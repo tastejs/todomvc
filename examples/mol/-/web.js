@@ -363,7 +363,8 @@ var $;
         }
         unlink() {
             this.disobey_all();
-            this.check_slaves();
+            if (this.slaves)
+                this.check_slaves();
         }
         get(force) {
             const slave = $mol_atom.stack[0];
@@ -373,7 +374,7 @@ var $;
             }
             this.actualize(force);
             const value = this['value()'];
-            if (value instanceof Error) {
+            if (typeof Proxy !== 'function' && value instanceof Error) {
                 throw value;
             }
             return value;
@@ -450,6 +451,16 @@ var $;
             }
             if (next instanceof $.$mol_object) {
                 next.object_owner(this);
+            }
+            if ((typeof Proxy === 'function') && (next instanceof Error)) {
+                next = new Proxy(next, {
+                    get(target) {
+                        throw target.valueOf();
+                    },
+                    ownKeys(target) {
+                        throw target.valueOf();
+                    },
+                });
             }
             this['value()'] = next;
             $.$mol_log(this, prev, '➔', next);
