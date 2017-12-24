@@ -35,8 +35,8 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  remove(uid) {
-    this.todoStore.remove(uid);
+  remove(todo) {
+    this.todoStore.remove(todo.uid);
   }
 
   update(todo) {
@@ -45,6 +45,11 @@ export class TodoListComponent implements OnInit {
 
 	setAllTo(toggleAll) {
 		this.todoStore.setAllTo(toggleAll.checked);
-	}
+  }
+  
+  toggleCompletion(todo) {
+    todo.completed = !todo.completed;
+    this.update(todo);
+  }
 
 }
