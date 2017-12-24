@@ -1,0 +1,11 @@
+<section class="todoapp" >
+  <todo-header></todo-header>
+  <section class="main">
+    <input class="toggle-all" id="toggle-all" type="checkbox" #toggleall [checked]="allCompleted" (click)="setAllTo(toggleall)">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list" *ngIf="todos">
+      <todo-item *ngFor="let todo of todos" [todo]="todo" (itemRemoved)="remove($event)" (itemModified)="update($event)"></todo-item>
+    </ul>
+  </section>
+  <todo-footer></todo-footer>
+</section>
