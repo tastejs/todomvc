@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoHeaderComponent } from './components/todo-header/todo-header.component';
-import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoFooterComponent } from './components/todo-footer/todo-footer.component';
 
 import { TodoStoreService } from './services/todo-store.service';
@@ -24,7 +23,6 @@ import { TrimPipe } from './pipes/trim.pipe';
     AppComponent,
     TodoListComponent,
     TodoHeaderComponent,
-    TodoItemComponent,
     TodoFooterComponent,
     TrimPipe,
   ],
