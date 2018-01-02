@@ -16,8 +16,10 @@
   "scripts": {
     "cy:open": "bin-up cypress open --project ../.. --env framework=react-backbone",
     "cy:run": "bin-up cypress run --project ../.. --env framework=react-backbone",
+    "cy:run:record": "npm run cy:run -- --record",
     "start": "bin-up gulp test-server",
     "test:gui": "bin-up run-p --race start cy:open",
-    "test": "bin-up run-p --race start cy:run"
+    "test": "bin-up run-p --race start cy:run",
+    "test:record": "bin-up run-p --race start cy:run:record"
   }
 }
