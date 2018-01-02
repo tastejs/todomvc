@@ -34,6 +34,14 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
+
+# common build steps for each test job
+defaults: &defaults
+  script:
+    - cd examples/$DIR
+    - echo current dir $PWD
+    - npm start -- --silent &
+    - npm run cypress:run -- --record
+
 script:
-# We want to gate on passing tests and a successful build
-  - ./test-runner.sh
+
