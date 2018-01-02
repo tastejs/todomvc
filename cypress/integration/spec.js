@@ -47,7 +47,7 @@ describe(`TodoMVC - ${framework}`, function () {
     cy.visit('/' + framework)
   })
 
-  context.only('When page is initially opened', function () {
+  context('When page is initially opened', function () {
     it('should focus on the todo input field', function () {
       // get the currently focused element and assert
       // that it has class='new-todo'
