@@ -38,11 +38,7 @@ before_install:
 # common build steps for each test job
 defaults: &defaults
   script:
-    - cd examples/$DIR
-    - echo current dir $PWD
-    # install little utility for running bin aliases
-    # installed in the root folder
-    - npm i bin-up
+    - echo Testing $CYPRESS_framework
     - npm run test:record
 
 jobs:
@@ -52,13 +48,13 @@ jobs:
     # all these jobs belong to same stage "test" thus will run in parallel
     - stage: test
       env:
-        - DIR=react
+        - CYPRESS_framework=react
       <<: *defaults
     - stage: test
       env:
-        - DIR=react-alt
+        - CYPRESS_framework=react-alt
       <<: *defaults
     - stage: test
       env:
-        - DIR=react-backbone
+        - CYPRESS_framework=react-backbone
       <<: *defaults

@@ -13,7 +13,12 @@
   ],
   "scripts": {
     "test-server": "gulp test-server &",
-    "gulp": "gulp"
+    "server": "gulp test-server",
+    "gulp": "gulp",
+    "cy:run": "cypress run",
+    "cy:run:record": "npm run cy:run -- --record",
+    "test": "run-p --race server cy:run",
+    "test:record": "run-p --race server cy:run:record"
   },
   "dependencies": {
     "express": "^4.10.0"

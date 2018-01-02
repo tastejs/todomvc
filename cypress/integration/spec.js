@@ -20,6 +20,10 @@ if (!framework) {
     See folder names in the /examples.
 
       cypress open --env framework=react
+
+    Or pass framework name through environment variable
+
+      CYPRESS_framework=angular-dart/web cypress open
   `
   )
 }
