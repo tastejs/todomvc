@@ -40,6 +40,9 @@ defaults: &defaults
   script:
     - cd examples/$DIR
     - echo current dir $PWD
+    # install little utility for running bin aliases
+    # installed in the root folder
+    - npm i bin-up
     - npm test -- --record
 
 jobs:
