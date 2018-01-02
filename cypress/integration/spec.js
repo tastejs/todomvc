@@ -49,6 +49,10 @@ describe(`TodoMVC - ${framework}`, function () {
     //
     // https://on.cypress.io/api/visit
     cy.visit('/' + framework)
+
+    // how to determine if we need to use ids or classes?
+    // it is painful to have both types of elements in the
+    // same tests - because our assertions often use `.should('have.class', ...)`
   })
 
   context('When page is initially opened', function () {

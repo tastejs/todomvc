@@ -58,3 +58,7 @@ jobs:
       env:
         - CYPRESS_framework=react-backbone
       <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vue
+      <<: *defaults
