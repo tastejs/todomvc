@@ -40,8 +40,22 @@ defaults: &defaults
   script:
     - cd examples/$DIR
     - echo current dir $PWD
-    - npm start -- --silent &
-    - npm run cypress:run -- --record
+    - npm test -- --record
 
-script:
-
+jobs:
+  include:
+    # define a separate script for each "examples/*" folder
+    # this will run it in a separate job on TravisCI
+    # all these jobs belong to same stage "test" thus will run in parallel
+    - stage: test
+      env:
+        - DIR=react
+      <<: *defaults
+    - stage: test
+      env:
+        - DIR=react-alt
+      <<: *defaults
+    - stage: test
+      env:
+        - DIR=react-backbone
+      <<: *defaults
