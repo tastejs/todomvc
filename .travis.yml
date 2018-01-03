@@ -5,7 +5,7 @@
 sudo: false
 language: node_js
 node_js:
-  - 'stable'
+  - '9.3.0'
 notifications:
   irc: 'irc.freenode.org#tastejs'
 cache:
@@ -30,12 +30,6 @@ env:
     - GH_OWNER: tastejs
     - GH_PROJECT_NAME: todomvc
     - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
-
-# do not install anything else, Cypress should work by itself
-# before_install:
-#   - export DISPLAY=:99.0
-#   - sh -e /etc/init.d/xvfb start
-#   - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
 
 # common build steps for each test job
 defaults: &defaults
