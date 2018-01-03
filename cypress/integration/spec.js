@@ -452,6 +452,10 @@ describe(`TodoMVC - ${framework}`, function () {
   })
 
   context('Routing', function () {
+    // some frameworks hide list elements by adding "hidden" class
+    // but not actually removing elements from the DOM
+    const visibleTodos = () => cy.get('@todos').not('.hidden')
+
     beforeEach(function () {
       cy.createDefaultTodos().as('todos')
     })
@@ -459,25 +463,25 @@ describe(`TodoMVC - ${framework}`, function () {
     it('should allow me to display active items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
-      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
-      cy.get('@todos').eq(1).should('contain', TODO_ITEM_THREE)
+      visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
+      visibleTodos().eq(1).should('contain', TODO_ITEM_THREE)
     })
 
     it('should respect the back button', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
       cy.get(selectors.filters).contains('Completed').click()
-      cy.get('@todos').should('have.length', 1)
+      visibleTodos().should('have.length', 1)
       cy.go('back')
-      cy.get('@todos').should('have.length', 2)
+      visibleTodos().should('have.length', 2)
       cy.go('back')
-      cy.get('@todos').should('have.length', 3)
+      visibleTodos().should('have.length', 3)
     })
 
     it('should allow me to display completed items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Completed').click()
-      cy.get('@todos').should('have.length', 1)
+      visibleTodos().should('have.length', 1)
     })
 
     it('should allow me to display all items', function () {
@@ -489,13 +493,19 @@ describe(`TodoMVC - ${framework}`, function () {
     })
 
     it('should highlight the currently applied filter', function () {
-      // using a within here which will automatically scope
-      // nested 'cy' queries to our parent element <ul.filters>
-      cy.get(selectors.filters).within(function () {
-        cy.contains('All').should('have.class', 'selected')
-        cy.contains('Active').click().should('have.class', 'selected')
-        cy.contains('Completed').click().should('have.class', 'selected')
-      })
+      cy.get(selectors.filters).contains('All').should('have.class', 'selected')
+      cy.get(selectors.filters).contains('Active').click()
+      // page change - active items
+      cy
+        .get(selectors.filters)
+        .contains('Active')
+        .should('have.class', 'selected')
+      cy.get(selectors.filters).contains('Completed').click()
+      // page change - completed items
+      cy
+        .get(selectors.filters)
+        .contains('Completed')
+        .should('have.class', 'selected')
     })
   })
 })
