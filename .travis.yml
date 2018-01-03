@@ -280,7 +280,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=vanilladart
+        - CYPRESS_framework=vanilladart/build/web
       <<: *defaults
     - stage: test
       env:
