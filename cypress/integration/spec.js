@@ -11,6 +11,8 @@
 // https://github.com/tastejs/todomvc/blob/master/tests/test.js
 // ***********************************************
 
+import createTodoCommands from '../support'
+
 /* global cy, Cypress */
 const framework = Cypress.env('framework')
 if (!framework) {
@@ -34,6 +36,35 @@ describe(`TodoMVC - ${framework}`, function () {
   let TODO_ITEM_TWO = 'feed the cat'
   let TODO_ITEM_THREE = 'book a doctors appointment'
 
+  // different selectors depending on the app - some use ids, some use classes
+  let useIds
+  let selectors
+
+  const idSelectors = {
+    newTodo: '#new-todo',
+    todoList: '#todo-list',
+    todoItems: '#todo-list li',
+    count: '#todo-count',
+    main: '#main',
+    footer: '#footer',
+    toggleAll: '#toggle-all',
+    clearCompleted: '#clear-completed'
+  }
+  const classSelectors = {
+    newTodo: '.new-todo',
+    todoList: '.todo-list',
+    todoItems: '.todo-list li',
+    count: '.todo-count',
+    main: '.main',
+    footer: '.footer',
+    toggleAll: '.toggle-all',
+    clearCompleted: '.clear-completed'
+  }
+  const setSelectors = ids => {
+    useIds = ids
+    selectors = useIds ? idSelectors : classSelectors
+  }
+
   beforeEach(function () {
     // By default Cypress will automatically
     // clear the Local Storage prior to each
@@ -53,6 +84,22 @@ describe(`TodoMVC - ${framework}`, function () {
     // how to determine if we need to use ids or classes?
     // it is painful to have both types of elements in the
     // same tests - because our assertions often use `.should('have.class', ...)`
+    cy.contains('h1', 'todos').should('be.visible')
+    cy.document().then(doc => {
+      if (doc.querySelector('input#new-todo')) {
+        cy.log('app uses ID selectors')
+        setSelectors(true)
+        createTodoCommands(true)
+      } else if (doc.querySelector('input.new-todo')) {
+        cy.log('app uses class selectors')
+        setSelectors(false)
+        createTodoCommands(false)
+      } else {
+        throw new Error(
+          'Cannot determine what kind of selectors this app uses.'
+        )
+      }
+    })
   })
 
   context('When page is initially opened', function () {
@@ -61,7 +108,11 @@ describe(`TodoMVC - ${framework}`, function () {
       // that it has class='new-todo'
       //
       // http://on.cypress.io/focused
-      cy.focused().should('have.class', 'new-todo')
+      if (useIds) {
+        cy.focused().should('have.id', 'new-todo')
+      } else {
+        cy.focused().should('have.class', 'new-todo')
+      }
     })
   })
 
@@ -73,46 +124,38 @@ describe(`TodoMVC - ${framework}`, function () {
       // so as to make our testing intentions as clear as possible.
       //
       // http://on.cypress.io/get
-      cy.get('.todo-list li').should('not.exist')
-      cy.get('.main').should('not.exist')
-      cy.get('.footer').should('not.exist')
+      cy.get(selectors.todoItems).should('not.exist')
+      cy.get(selectors.main).should('not.exist')
+      cy.get(selectors.footer).should('not.exist')
     })
   })
 
   context('New Todo', function () {
-    // New commands used here:
-    // https://on.cypress.io/type
-    // https://on.cypress.io/eq
-    // https://on.cypress.io/find
-    // https://on.cypress.io/contains
-    // https://on.cypress.io/should
-    // https://on.cypress.io/as
-
     it('should allow me to add todo items', function () {
       // create 1st todo
-      cy.get('.new-todo').type(TODO_ITEM_ONE).type('{enter}')
+      cy.get(selectors.newTodo).type(TODO_ITEM_ONE).type('{enter}')
 
       // make sure the 1st label contains the 1st todo text
       cy
-        .get('.todo-list li')
+        .get(selectors.todoItems)
         .eq(0)
         .find('label')
         .should('contain', TODO_ITEM_ONE)
 
       // create 2nd todo
-      cy.get('.new-todo').type(TODO_ITEM_TWO).type('{enter}')
+      cy.get(selectors.newTodo).type(TODO_ITEM_TWO).type('{enter}')
 
       // make sure the 2nd label contains the 2nd todo text
       cy
-        .get('.todo-list li')
+        .get(selectors.todoItems)
         .eq(1)
         .find('label')
         .should('contain', TODO_ITEM_TWO)
     })
 
     it('should clear text input field when an item is added', function () {
-      cy.get('.new-todo').type(TODO_ITEM_ONE).type('{enter}')
-      cy.get('.new-todo').should('have.text', '')
+      cy.get(selectors.newTodo).type(TODO_ITEM_ONE).type('{enter}')
+      cy.get(selectors.newTodo).should('have.text', '')
     })
 
     it('should append new items to the bottom of the list', function () {
@@ -125,7 +168,7 @@ describe(`TodoMVC - ${framework}`, function () {
       // even though the text content is split across
       // multiple <span> and <strong> elements
       // `cy.contains` can verify this correctly
-      cy.get('.todo-count').contains('3 items left')
+      cy.get(selectors.count).contains('3 items left')
 
       cy.get('@todos').eq(0).find('label').should('contain', TODO_ITEM_ONE)
       cy.get('@todos').eq(1).find('label').should('contain', TODO_ITEM_TWO)
@@ -143,13 +186,13 @@ describe(`TodoMVC - ${framework}`, function () {
       // we use as explicit assertion here about the text instead of
       // using 'contain' so we can specify the exact text of the element
       // does not have any whitespace around it
-      cy.get('.todo-list li').eq(0).should('have.text', TODO_ITEM_ONE)
+      cy.get(selectors.todoItems).eq(0).should('have.text', TODO_ITEM_ONE)
     })
 
     it('should show #main and #footer when items added', function () {
       cy.createTodo(TODO_ITEM_ONE)
-      cy.get('.main').should('be.visible')
-      cy.get('.footer').should('be.visible')
+      cy.get(selectors.main).should('be.visible')
+      cy.get(selectors.footer).should('be.visible')
     })
   })
 
@@ -171,7 +214,7 @@ describe(`TodoMVC - ${framework}`, function () {
       // complete all todos
       // we use 'check' instead of 'click'
       // because that indicates our intention much clearer
-      cy.get('.toggle-all').check()
+      cy.get(selectors.toggleAll).check()
 
       // get each todo li and ensure its class is 'completed'
       cy.get('@todos').eq(0).should('have.class', 'completed')
@@ -181,7 +224,7 @@ describe(`TodoMVC - ${framework}`, function () {
 
     it('should allow me to clear the complete state of all items', function () {
       // check and then immediately uncheck
-      cy.get('.toggle-all').check().uncheck()
+      cy.get(selectors.toggleAll).check().uncheck()
 
       cy.get('@todos').eq(0).should('not.have.class', 'completed')
       cy.get('@todos').eq(1).should('not.have.class', 'completed')
@@ -191,7 +234,7 @@ describe(`TodoMVC - ${framework}`, function () {
     it('complete all checkbox should update state when items are completed / cleared', function () {
       // alias the .toggle-all for reuse later
       cy
-        .get('.toggle-all')
+        .get(selectors.toggleAll)
         .as('toggleAll')
         .check()
         // this assertion is silly here IMO but
@@ -199,7 +242,12 @@ describe(`TodoMVC - ${framework}`, function () {
         .should('be.checked')
 
       // alias the first todo and then click it
-      cy.get('.todo-list li').eq(0).as('firstTodo').find('.toggle').uncheck()
+      cy
+        .get(selectors.todoItems)
+        .eq(0)
+        .as('firstTodo')
+        .find('.toggle')
+        .uncheck()
 
       // reference the .toggle-all element again
       // and make sure its not checked
@@ -347,25 +395,25 @@ describe(`TodoMVC - ${framework}`, function () {
   context('Counter', function () {
     it('should display the current number of todo items', function () {
       cy.createTodo(TODO_ITEM_ONE)
-      cy.get('.todo-count').contains('1 item left')
+      cy.get(selectors.count).contains('1 item left')
       cy.createTodo(TODO_ITEM_TWO)
-      cy.get('.todo-count').contains('2 items left')
+      cy.get(selectors.count).contains('2 items left')
     })
   })
 
-  context('Clear completed button', function () {
+  context.only('Clear completed button', function () {
     beforeEach(function () {
       cy.createDefaultTodos().as('todos')
     })
 
     it('should display the correct text', function () {
       cy.get('@todos').eq(0).find('.toggle').check()
-      cy.get('.clear-completed').contains('Clear completed')
+      cy.get(selectors.clearCompleted).contains('Clear completed')
     })
 
     it('should remove completed items when clicked', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
-      cy.get('.clear-completed').click()
+      cy.get(selectors.clearCompleted).click()
       cy.get('@todos').should('have.length', 2)
       cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
       cy.get('@todos').eq(1).should('contain', TODO_ITEM_THREE)
@@ -373,8 +421,8 @@ describe(`TodoMVC - ${framework}`, function () {
 
     it('should be hidden when there are no items that are completed', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
-      cy.get('.clear-completed').should('be.visible').click()
-      cy.get('.clear-completed').should('not.exist')
+      cy.get(selectors.clearCompleted).should('be.visible').click()
+      cy.get(selectors.clearCompleted).should('not.exist')
     })
   })
 
