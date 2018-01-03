@@ -138,4 +138,160 @@ jobs:
       env:
         - CYPRESS_framework=flight
       <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=foam
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=humble
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=jquery
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=js_of_ocaml
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=jsblocks
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=kendo
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=knockback
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=knockoutjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=knockoutjs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=lavaca_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=meteor
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=mithril
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=olives
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=polymer
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=puremvc
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=ractive
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=rappidjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=react-alt
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=react-backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=reagent
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=riotjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=sammyjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=sapui5
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=scalajs-react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=serenadejs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=socketstream
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=somajs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=somajs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=spine
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=troopjs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=typescript-angular
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=typescript-backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=typescript-react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vanilla-es6
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vanilladart
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vanillajs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vue
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=webrx
+      <<: *defaults
 
