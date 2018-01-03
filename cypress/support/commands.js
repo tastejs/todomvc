@@ -31,8 +31,15 @@ export function createTodoCommands (idSelectors) {
     cy
       .get(newTodoSelector, { log: false })
       .type(`${TODO_ITEM_ONE}{enter}`, { log: false })
+    cy.get(todoItemsSelector, { log: false }).should('have.length', 1)
+    cy
+      .get(newTodoSelector, { log: false })
       .type(`${TODO_ITEM_TWO}{enter}`, { log: false })
+    cy.get(todoItemsSelector, { log: false }).should('have.length', 2)
+    cy
+      .get(newTodoSelector, { log: false })
       .type(`${TODO_ITEM_THREE}{enter}`, { log: false })
+    cy.get(todoItemsSelector, { log: false }).should('have.length', 3)
 
     cy
       .get(todoItemsSelector + ':visible', { log: false })

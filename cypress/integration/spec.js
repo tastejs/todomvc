@@ -81,7 +81,36 @@ describe(`TodoMVC - ${framework}`, function () {
     // which is automatically prepended to cy.visit
     //
     // https://on.cypress.io/api/visit
-    cy.visit('/' + framework)
+    let attachedSomethingToInputBox = false
+    cy
+      .visit('/' + framework, {
+        onBeforeLoad: win => {
+          const addListener = win.EventTarget.prototype.addEventListener
+          win.EventTarget.prototype.addEventListener = function (name) {
+            if (
+              ['change', 'keydown', 'keypress', 'keyup', 'input'].includes(name)
+            ) {
+              console.log('arguments', arguments)
+              console.log('this', this)
+              attachedSomethingToInputBox = true
+              win.EventTarget.prototype.addEventListener = addListener
+            }
+            return addListener.apply(this, arguments)
+          }
+        }
+      })
+      .then({ timeout: 10000 }, () => {
+        return new Cypress.Promise((resolve, reject) => {
+          const isReady = () => {
+            if (attachedSomethingToInputBox) {
+              return resolve()
+            }
+            // setTimeout(isReady, 0)
+            requestAnimationFrame(isReady)
+          }
+          isReady()
+        })
+      })
 
     // how to determine if we need to use ids or classes?
     // it is painful to have both types of elements in the
@@ -456,13 +485,6 @@ describe(`TodoMVC - ${framework}`, function () {
   })
 
   context('Routing', function () {
-    // some frameworks hide list elements by adding "hidden" class
-    // but not actually removing elements from the DOM
-    //  example backbone
-    // other frameworks set "style=display:none"
-    //  examples atmajs
-    const visibleTodos = () => cy.get('@todos')
-
     beforeEach(function () {
       cy.createDefaultTodos().as('todos')
     })
@@ -470,25 +492,25 @@ describe(`TodoMVC - ${framework}`, function () {
     it('should allow me to display active items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
-      visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
-      visibleTodos().eq(1).should('contain', TODO_ITEM_THREE)
+      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
+      cy.get('@todos').eq(1).should('contain', TODO_ITEM_THREE)
     })
 
     it('should respect the back button', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
       cy.get(selectors.filters).contains('Completed').click()
-      visibleTodos().should('have.length', 1)
+      cy.get('@todos').should('have.length', 1)
       cy.go('back')
-      visibleTodos().should('have.length', 2)
+      cy.get('@todos').should('have.length', 2)
       cy.go('back')
-      visibleTodos().should('have.length', 3)
+      cy.get('@todos').should('have.length', 3)
     })
 
     it('should allow me to display completed items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Completed').click()
-      visibleTodos().should('have.length', 1)
+      cy.get('@todos').should('have.length', 1)
     })
 
     it('should allow me to display all items', function () {
