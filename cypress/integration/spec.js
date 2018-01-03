@@ -44,7 +44,7 @@ describe(`TodoMVC - ${framework}`, function () {
     newTodo: '#new-todo',
     todoList: '#todo-list',
     todoItems: '#todo-list li',
-    count: '#todo-count',
+    count: 'span#todo-count',
     main: '#main',
     footer: '#footer',
     toggleAll: '#toggle-all',
@@ -55,7 +55,7 @@ describe(`TodoMVC - ${framework}`, function () {
     newTodo: '.new-todo',
     todoList: '.todo-list',
     todoItems: '.todo-list li',
-    count: '.todo-count',
+    count: 'span.todo-count',
     main: '.main',
     footer: '.footer',
     toggleAll: '.toggle-all',
@@ -166,7 +166,7 @@ describe(`TodoMVC - ${framework}`, function () {
       // even though the text content is split across
       // multiple <span> and <strong> elements
       // `cy.contains` can verify this correctly
-      cy.get(selectors.count).contains('3 items left')
+      cy.get(selectors.count).contains('3')
 
       cy.get('@todos').eq(0).find('label').should('contain', TODO_ITEM_ONE)
       cy.get('@todos').eq(1).find('label').should('contain', TODO_ITEM_TWO)
@@ -393,9 +393,9 @@ describe(`TodoMVC - ${framework}`, function () {
   context('Counter', function () {
     it('should display the current number of todo items', function () {
       cy.createTodo(TODO_ITEM_ONE)
-      cy.get(selectors.count).contains('1 item left')
+      cy.get(selectors.count).contains('1')
       cy.createTodo(TODO_ITEM_TWO)
-      cy.get(selectors.count).contains('2 items left')
+      cy.get(selectors.count).contains('2')
     })
   })
 
