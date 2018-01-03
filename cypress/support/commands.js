@@ -34,15 +34,17 @@ export function createTodoCommands (idSelectors) {
       .type(`${TODO_ITEM_TWO}{enter}`, { log: false })
       .type(`${TODO_ITEM_THREE}{enter}`, { log: false })
 
-    cy.get(todoItemsSelector, { log: false }).then(function ($listItems) {
-      // once we're done inserting each of the todos
-      // above we want to return the .todo-list li's
-      // to allow for further chaining and then
-      // we want to snapshot the state of the DOM
-      // and end the command so it goes from that
-      // 'spinning blue state' to the 'finished state'
-      cmd.set({ $el: $listItems }).snapshot().end()
-    })
+    cy
+      .get(todoItemsSelector + ':visible', { log: false })
+      .then(function ($listItems) {
+        // once we're done inserting each of the todos
+        // above we want to return the .todo-list li's
+        // to allow for further chaining and then
+        // we want to snapshot the state of the DOM
+        // and end the command so it goes from that
+        // 'spinning blue state' to the 'finished state'
+        cmd.set({ $el: $listItems }).snapshot().end()
+      })
   })
 
   Cypress.Commands.add('createTodo', function (todo) {

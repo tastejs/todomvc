@@ -461,7 +461,7 @@ describe(`TodoMVC - ${framework}`, function () {
     //  example backbone
     // other frameworks set "style=display:none"
     //  examples atmajs
-    const visibleTodos = () => cy.get('@todos').not(':hidden')
+    const visibleTodos = () => cy.get('@todos')
 
     beforeEach(function () {
       cy.createDefaultTodos().as('todos')
