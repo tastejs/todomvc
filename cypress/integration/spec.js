@@ -454,7 +454,10 @@ describe(`TodoMVC - ${framework}`, function () {
   context('Routing', function () {
     // some frameworks hide list elements by adding "hidden" class
     // but not actually removing elements from the DOM
-    const visibleTodos = () => cy.get('@todos').not('.hidden')
+    //  example backbone
+    // other frameworks set "style=display:none"
+    //  examples atmajs
+    const visibleTodos = () => cy.get('@todos').not(':hidden')
 
     beforeEach(function () {
       cy.createDefaultTodos().as('todos')
