@@ -120,15 +120,11 @@ describe(`TodoMVC - ${framework}`, function () {
 
   context('No Todos', function () {
     it('should hide #main and #footer', function () {
-      // Unlike the TodoMVC tests, we don't need to create
-      // a gazillion helper functions which are difficult to
-      // parse through. Instead we'll opt to use real selectors
-      // so as to make our testing intentions as clear as possible.
-      //
-      // http://on.cypress.io/get
       cy.get(selectors.todoItems).should('not.exist')
-      cy.get(selectors.main).should('not.exist')
-      cy.get(selectors.footer).should('not.exist')
+      // some apps remove elements from the DOM
+      // but some just hide them
+      cy.get(selectors.main).should('not.be.visible')
+      cy.get(selectors.footer).should('not.be.visible')
     })
   })
 
@@ -424,7 +420,7 @@ describe(`TodoMVC - ${framework}`, function () {
     it('should be hidden when there are no items that are completed', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.clearCompleted).should('be.visible').click()
-      cy.get(selectors.clearCompleted).should('not.exist')
+      cy.get(selectors.clearCompleted).should('not.be.visible')
     })
   })
 
