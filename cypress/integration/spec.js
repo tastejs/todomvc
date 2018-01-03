@@ -184,7 +184,11 @@ describe(`TodoMVC - ${framework}`, function () {
       // we use as explicit assertion here about the text instead of
       // using 'contain' so we can specify the exact text of the element
       // does not have any whitespace around it
-      cy.get(selectors.todoItems).eq(0).should('have.text', TODO_ITEM_ONE)
+      cy
+        .get(selectors.todoItems)
+        .eq(0)
+        .find('label')
+        .should('have.text', TODO_ITEM_ONE)
     })
 
     it('should show #main and #footer when items added', function () {
