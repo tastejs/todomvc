@@ -50,17 +50,98 @@ jobs:
     # all these jobs belong to same stage "test" thus will run in parallel
     - stage: test
       env:
-        - CYPRESS_framework=react
+        - CYPRESS_framework=ampersand
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=react-alt
+        - CYPRESS_framework=angular-dart/web
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=react-backbone
+        - CYPRESS_framework=angular2
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=vue
+        - CYPRESS_framework=angularjs
       <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=ariatemplates
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=atmajs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=aurelia
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=backbone_marionette
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=backbone_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=binding-scala
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=canjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=canjs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=chaplin-brunch/public
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=closure
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=dijon
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=dojo
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=duel/www
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=durandal
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=emberjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=enyo_backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=exoskeleton
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=extjs_deftjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=flight
+      <<: *defaults
+
