@@ -1,0 +1,21 @@
+machine:
+  node:
+    version: 8
+
+dependencies:
+  cache_directories:
+    - node_modules
+  pre:
+    - npm install
+
+test:
+    ## boots our local app server on port 8000
+    ## which cypress expects to be running
+    - npm run server:
+        background: true
+
+  override:
+    - npm run test:all
+
+## status badge at
+## [![CircleCI](https://circleci.com/gh/cypress-io/todomvc.svg?style=svg)](https://circleci.com/gh/cypress-io/todomvc)
