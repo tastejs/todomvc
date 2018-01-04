@@ -19,14 +19,18 @@
     "cy:run": "cypress run",
     "cy:run:record": "npm run cy:run -- --record",
     "test": "run-p --race server cy:run",
-    "test:record": "start-server-and-test server http://localhost:8000 cy:run:record"
+    "test:record": "start-server-and-test server http://localhost:8000 cy:run:record",
+    "test:all": "node tests/cya.js"
   },
   "dependencies": {
     "express": "^4.10.0"
   },
   "devDependencies": {
+    "bluebird": "^3.5.1",
+    "console.table": "^0.9.1",
     "cypress": "^1.4.1",
     "del": "^0.1.1",
+    "figlet": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-cache": "^0.2.0",
