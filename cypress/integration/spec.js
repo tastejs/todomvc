@@ -38,14 +38,14 @@ const frameworkFolders = {
   extjs: 'extjs_deftjs',
   vanilladart: 'vanilladart/build/web'
 }
-const getExampleFolder = (framework) => 
+const getExampleFolder = (framework) =>
   frameworkFolders[framework] || framework
 
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
   // TODO find how to REALLY skip tests - currently does not
-  // take suite chain into account, thus just hides the 
+  // take suite chain into account, thus just hides the
   // tests with known issues
   const removeCommas = s => s.replace(/,/g, '')
   const issueNames = knownIssues.map(Cypress._.toLower)
@@ -92,6 +92,7 @@ describe(title, function () {
     newTodo: '#new-todo',
     todoList: '#todo-list',
     todoItems: '#todo-list li',
+    todoItemsVisible: '#todo-list li:visible',
     count: 'span#todo-count',
     main: '#main',
     footer: '#footer',
@@ -103,6 +104,7 @@ describe(title, function () {
     newTodo: '.new-todo',
     todoList: '.todo-list',
     todoItems: '.todo-list li',
+    todoItemsVisible: '.todo-list li:visible',
     count: 'span.todo-count',
     main: '.main',
     footer: '.footer',
@@ -212,7 +214,7 @@ describe(title, function () {
   context('New Todo', function () {
     it('should allow me to add todo items', function () {
       // create 1st todo
-      cy.get(selectors.newTodo).type(TODO_ITEM_ONE).type('{enter}')
+      cy.get(selectors.newTodo).type(`${TODO_ITEM_ONE}{enter}`)
 
       // make sure the 1st label contains the 1st todo text
       cy
@@ -222,7 +224,7 @@ describe(title, function () {
         .should('contain', TODO_ITEM_ONE)
 
       // create 2nd todo
-      cy.get(selectors.newTodo).type(TODO_ITEM_TWO).type('{enter}')
+      cy.get(selectors.newTodo).type(`${TODO_ITEM_TWO}{enter}`)
 
       // make sure the 2nd label contains the 2nd todo text
       cy
@@ -233,7 +235,7 @@ describe(title, function () {
     })
 
     it('should clear text input field when an item is added', function () {
-      cy.get(selectors.newTodo).type(TODO_ITEM_ONE).type('{enter}')
+      cy.get(selectors.newTodo).type(`${TODO_ITEM_ONE}{enter}`)
       cy.get(selectors.newTodo).should('have.text', '')
     })
 
@@ -397,8 +399,7 @@ describe(title, function () {
         .get('@secondTodo')
         .find('.edit')
         .clear()
-        .type('buy some sausages')
-        .type('{enter}')
+        .type('buy some sausages{enter}')
 
       // explicitly assert about the text value
       cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
@@ -448,8 +449,7 @@ describe(title, function () {
         .get('@secondTodo')
         .find('.edit')
         .clear()
-        .type('    buy some sausages    ')
-        .type('{enter}')
+        .type('    buy some sausages    {enter}')
 
       cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
       cy.get('@secondTodo').should('contain', 'buy some sausages')
@@ -565,7 +565,7 @@ describe(title, function () {
     })
 
     // reliably works in backbone app
-    const visibleTodos = () => cy.get('#todo-list li:visible')
+    const visibleTodos = () => cy.get(selectors.todoItemsVisible)
 
     it('should allow me to display active items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
