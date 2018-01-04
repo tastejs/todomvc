@@ -531,6 +531,29 @@ describe(title, function () {
         .find('.toggle')
         .check()
         .then(testState)
+      // at this point, the app might still not save
+      // the items in the local storage, for example KnockoutJS
+      // first recomputes the items and still have "[]"
+      cy.window().its('localStorage')
+        .then(storage => {
+          return new Cypress.Promise((resolve, reject) => {
+            const checkItems = () => {
+              if (storage.length < 1) {
+                return setTimeout(checkItems, 0)
+              }
+              if (Object.keys(storage).some((key) => {
+                return storage.getItem(key).includes(TODO_ITEM_ONE)
+              })) {
+                console.log('found item in the local storage')
+                return resolve()
+              }
+              setTimeout(checkItems, 0)
+            }
+            checkItems()
+          })
+        })
+      // now can reload
+      cy
         .reload()
         .then(testState)
     })

@@ -48,7 +48,7 @@ module.exports = [
 	// 'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
 	'TodoMVC - dijon, Editing, should cancel edits on escape',
-	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
+	// 'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
 	// all the following are covered by this issue:
 	// https://github.com/tastejs/todomvc/issues/856
@@ -80,10 +80,10 @@ module.exports = [
 	'TodoMVC - duel, Routing, should allow me to display all items',
 	'TodoMVC - duel, Routing, should highlight the currently applied filter',
 	'TodoMVC - duel, Routing, should respect the back button',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display active items',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display completed items',
-	'TodoMVC - knockoutjs_require, Routing, should allow me to display all items',
-	'TodoMVC - knockoutjs_require, Routing, should highlight the currently applied filter',
+	// 'TodoMVC - knockoutjs_require, Routing, should allow me to display active items',
+	// 'TodoMVC - knockoutjs_require, Routing, should allow me to display completed items',
+	// 'TodoMVC - knockoutjs_require, Routing, should allow me to display all items',
+	// 'TodoMVC - knockoutjs_require, Routing, should highlight the currently applied filter',
 	'TodoMVC - knockoutjs_require, Routing, should respect the back button',
 	'TodoMVC - angular-dart, Routing, should allow me to display active items',
 	'TodoMVC - angular-dart, Routing, should allow me to display completed items',
@@ -121,7 +121,8 @@ module.exports = [
 	// for some reason the persistence test fails for knockout, even though persistence is working
 	// just fine. Perhaps there is something asynchronous going on that is causing the assert
 	// to be executed early?
-	'TodoMVC - knockoutjs, Persistence, should persist its data',
+	// fixed this - it was reloading before KO put items into storage
+	// 'TodoMVC - knockoutjs, Persistence, should persist its data',
 
 	// chaplin edit tests fail with the following:
 	// StaleElementReferenceError: stale element reference: element is not attached to the page document
