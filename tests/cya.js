@@ -8,7 +8,11 @@ const Promise = require('bluebird')
 const names = ['angular-dart', 'angular2', 'angular2_es2015']
 
 const testFramework = framework => {
-  console.log(figlet.textSync(framework))
+  console.log(
+    figlet.textSync(framework, {
+      font: 'Varsity'
+    })
+  )
 
   const addInfo = testResults => {
     delete testResults.screenshots
