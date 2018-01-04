@@ -32,6 +32,7 @@ if (!framework) {
 }
 
 const frameworkFolders = {
+  ampersand: 'ampersand/',
   'angular-dart': 'angular-dart/web',
   'chaplin-brunch': 'chaplin-brunch/public',
   duel: 'duel/www',
@@ -101,6 +102,60 @@ const checkTodosInLocalStorage = presentText => {
   })
 }
 
+const checkNumberOfTodosInLocalStorage = n => {
+  return cy.window().its('localStorage').then(storage => {
+    return new Cypress.Promise((resolve, reject) => {
+      const checkItems = () => {
+        if (storage.length < 1) {
+          return setTimeout(checkItems, 0)
+        }
+        if (
+          Object.keys(storage).some(key => {
+            const text = storage.getItem(key)
+            // assuming it is an array
+            const items = JSON.parse(text)
+            return items.length === n
+          })
+        ) {
+          console.log('found %d item(s) in the local storage', n)
+          return resolve()
+        }
+        setTimeout(checkItems, 0)
+      }
+      checkItems()
+    })
+  })
+}
+
+const checkNumberOfCompletedTodosInLocalStorage = n => {
+  return cy.window().its('localStorage').then(storage => {
+    return new Cypress.Promise((resolve, reject) => {
+      const checkItems = () => {
+        if (storage.length < 1) {
+          return setTimeout(checkItems, 0)
+        }
+        if (
+          Object.keys(storage).some(key => {
+            const text = storage.getItem(key)
+            // assuming it is an array
+            const items = JSON.parse(text)
+            if (items.length < n) {
+              return
+            }
+            const completed = Cypress._.filter(items, { completed: true })
+            return completed.length === n
+          })
+        ) {
+          console.log('found %d item(s) in the local storage', n)
+          return resolve()
+        }
+        setTimeout(checkItems, 0)
+      }
+      checkItems()
+    })
+  })
+}
+
 // to find flaky tests we are running the entire suite N times
 const N = parseFloat(Cypress.env('times') || '1')
 console.log('Running tests %d time(s)', N)
@@ -149,6 +204,11 @@ Cypress._.times(N, () => {
     // reliably works in backbone app and other apps by using single selector
     const visibleTodos = () => cy.get(selectors.todoItemsVisible)
 
+    const hasNoItems = () =>
+      cy.get(selectors.todoItems).should('have.length', 0)
+
+    let currentTestId
+
     beforeEach(function () {
       // By default Cypress will automatically
       // clear the Local Storage prior to each
@@ -163,11 +223,25 @@ Cypress._.times(N, () => {
       // which is automatically prepended to cy.visit
       //
       // https://on.cypress.io/api/visit
+      currentTestId = Math.random()
       let attachedSomethingToInputBox = false
       const folder = getExampleFolder(framework)
       cy
         .visit('/' + folder, {
           onBeforeLoad: win => {
+            // prevent stray scheduled writes into localStorage
+            // from writing old data into new test
+            const setItem = win.localStorage.__proto__.setItem
+            win.localStorage.__proto__.setItem = function (testId, name, value) {
+              if (testId !== currentTestId) {
+                console.error('old localStorage.setItem call!', name)
+                return
+              }
+              return setItem.call(win.localStorage, name, value)
+            }.bind(null, currentTestId)
+
+            // detect when a web application starts by noticing
+            // the first "addEventListener" to text input events
             const addListener = win.EventTarget.prototype.addEventListener
             win.EventTarget.prototype.addEventListener = function (name) {
               if (
@@ -221,6 +295,18 @@ Cypress._.times(N, () => {
       })
     })
 
+    beforeEach(() => {
+      // catch any framework that debounces its localStorage writes
+      // and causes items to "appear" in a new test all of the sudden
+      hasNoItems()
+    })
+
+    afterEach(() => {
+      // to detect when a test queued up some operation
+      // and it happens AFTER test finishes
+      currentTestId = 0
+    })
+
     context('When page is initially opened', function () {
       it('should focus on the todo input field', function () {
         // get the currently focused element and assert
@@ -236,6 +322,10 @@ Cypress._.times(N, () => {
     })
 
     context('No Todos', function () {
+      it('starts with nothing', () => {
+        hasNoItems()
+      })
+
       it('should hide #main and #footer', function () {
         cy.get(selectors.todoItems).should('not.exist')
         // some apps remove elements from the DOM
@@ -266,11 +356,16 @@ Cypress._.times(N, () => {
           .eq(1)
           .find('label')
           .should('contain', TODO_ITEM_TWO)
+
+        // make sure a framework that debounces its writes into localStorage
+        // had a chance to write them
+        checkNumberOfTodosInLocalStorage(2)
       })
 
       it('should clear text input field when an item is added', function () {
         cy.get(selectors.newTodo).type(`${TODO_ITEM_ONE}{enter}`)
         cy.get(selectors.newTodo).should('have.text', '')
+        checkNumberOfTodosInLocalStorage(1)
       })
 
       it('should append new items to the bottom of the list', function () {
@@ -288,6 +383,7 @@ Cypress._.times(N, () => {
         cy.get('@todos').eq(0).find('label').should('contain', TODO_ITEM_ONE)
         cy.get('@todos').eq(1).find('label').should('contain', TODO_ITEM_TWO)
         cy.get('@todos').eq(2).find('label').should('contain', TODO_ITEM_THREE)
+        checkNumberOfTodosInLocalStorage(3)
       })
 
       it('should trim text input', function () {
@@ -306,12 +402,14 @@ Cypress._.times(N, () => {
           .eq(0)
           .find('label')
           .should('have.text', TODO_ITEM_ONE)
+        checkNumberOfTodosInLocalStorage(1)
       })
 
       it('should show #main and #footer when items added', function () {
         cy.createTodo(TODO_ITEM_ONE)
         cy.get(selectors.main).should('be.visible')
         cy.get(selectors.footer).should('be.visible')
+        checkNumberOfTodosInLocalStorage(1)
       })
     })
 
@@ -327,6 +425,14 @@ Cypress._.times(N, () => {
         // between hooks and are available
         // in your tests below
         cy.createDefaultTodos().as('todos')
+        checkNumberOfTodosInLocalStorage(3)
+      })
+
+      afterEach(() => {
+        // each test in this block creates 3 todo itesm
+        // make sure they are written into the storage
+        // before starting a new test
+        checkNumberOfTodosInLocalStorage(3)
       })
 
       it('should allow me to mark all items as completed', function () {
@@ -339,6 +445,7 @@ Cypress._.times(N, () => {
         cy.get('@todos').eq(0).should('have.class', 'completed')
         cy.get('@todos').eq(1).should('have.class', 'completed')
         cy.get('@todos').eq(2).should('have.class', 'completed')
+        checkNumberOfCompletedTodosInLocalStorage(3)
       })
 
       it('should allow me to clear the complete state of all items', function () {
@@ -348,6 +455,7 @@ Cypress._.times(N, () => {
         cy.get('@todos').eq(0).should('not.have.class', 'completed')
         cy.get('@todos').eq(1).should('not.have.class', 'completed')
         cy.get('@todos').eq(2).should('not.have.class', 'completed')
+        checkNumberOfCompletedTodosInLocalStorage(0)
       })
 
       it('complete all checkbox should update state when items are completed / cleared', function () {
@@ -377,6 +485,7 @@ Cypress._.times(N, () => {
 
         // assert the toggle all is checked again
         cy.get('@toggleAll').should('be.checked')
+        checkNumberOfCompletedTodosInLocalStorage(3)
       })
     })
 
@@ -400,6 +509,7 @@ Cypress._.times(N, () => {
 
         cy.get('@firstTodo').should('have.class', 'completed')
         cy.get('@secondTodo').should('have.class', 'completed')
+        checkNumberOfCompletedTodosInLocalStorage(2)
       })
 
       it('should allow me to un-mark items as complete', function () {
@@ -409,14 +519,18 @@ Cypress._.times(N, () => {
         cy.get('@firstTodo').find('.toggle').check()
         cy.get('@firstTodo').should('have.class', 'completed')
         cy.get('@secondTodo').should('not.have.class', 'completed')
+        checkNumberOfCompletedTodosInLocalStorage(1)
 
         cy.get('@firstTodo').find('.toggle').uncheck()
         cy.get('@firstTodo').should('not.have.class', 'completed')
         cy.get('@secondTodo').should('not.have.class', 'completed')
+
+        checkNumberOfCompletedTodosInLocalStorage(0)
       })
 
       it('should allow me to edit an item', function () {
         cy.createDefaultTodos()
+        checkTodosInLocalStorage(TODO_ITEM_TWO)
 
         visibleTodos()
           .eq(1)
@@ -427,13 +541,16 @@ Cypress._.times(N, () => {
 
         // clear out the inputs current value
         // and type a new value
-        visibleTodos().eq(1).find('.edit')// clear + type text + enter key
-        .type('{selectall}{backspace}buy some sausages{enter}')
+        visibleTodos()
+          .eq(1)
+          .find('.edit') // clear + type text + enter key
+          .type('{selectall}{backspace}buy some sausages{enter}')
 
         // explicitly assert about the text value
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
         visibleTodos().eq(1).should('contain', 'buy some sausages')
         visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
+        checkTodosInLocalStorage('buy some sausages')
       })
     })
 
@@ -443,6 +560,7 @@ Cypress._.times(N, () => {
 
       beforeEach(function () {
         cy.createDefaultTodos().as('todos')
+        checkNumberOfTodosInLocalStorage(3)
       })
 
       it('should hide other controls when editing', function () {
@@ -450,6 +568,7 @@ Cypress._.times(N, () => {
 
         cy.get('@secondTodo').find('.toggle').should('not.be.visible')
         cy.get('@secondTodo').find('label').should('not.be.visible')
+        checkNumberOfTodosInLocalStorage(3)
       })
 
       it('should save edits on blur', function () {
@@ -469,20 +588,22 @@ Cypress._.times(N, () => {
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
         visibleTodos().eq(1).should('contain', 'buy some sausages')
         visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
+        checkTodosInLocalStorage('buy some sausages')
       })
 
       it('should trim entered text', function () {
         cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
+        checkTodosInLocalStorage(TODO_ITEM_TWO)
 
         cy
           .get('@secondTodo')
           .find('.edit')
-          .clear()
-          .type('    buy some sausages    {enter}')
+          .type('{selectall}{backspace}    buy some sausages    {enter}')
 
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
         visibleTodos().eq(1).should('contain', 'buy some sausages')
         visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
+        checkTodosInLocalStorage('buy some sausages')
       })
 
       it('should remove the item if an empty text string was entered', function () {
@@ -495,16 +616,18 @@ Cypress._.times(N, () => {
           .type('{selectall}{backspace}{enter}')
 
         visibleTodos().should('have.length', 2)
+        checkNumberOfTodosInLocalStorage(2)
       })
 
       it('should cancel edits on escape', function () {
         visibleTodos().eq(1).as('secondTodo').find('label').dblclick()
 
-        cy.get('@secondTodo').find('.edit').clear().type('foo{esc}')
+        cy.get('@secondTodo').find('.edit').type('{selectall}{backspace}foo{esc}')
 
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
         visibleTodos().eq(1).should('contain', TODO_ITEM_TWO)
         visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
+        checkNumberOfTodosInLocalStorage(3)
       })
     })
 
@@ -514,6 +637,7 @@ Cypress._.times(N, () => {
         cy.get(selectors.count).contains('1')
         cy.createTodo(TODO_ITEM_TWO)
         cy.get(selectors.count).contains('2')
+        checkNumberOfTodosInLocalStorage(2)
       })
     })
 
