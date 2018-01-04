@@ -47,6 +47,10 @@ const noLocalStorageCheck = {
   backbone_require: true
 }
 
+const noLocalStorageSpyCheck = {
+  ampersand: true
+}
+
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
@@ -232,6 +236,9 @@ Cypress._.times(N, () => {
       cy.get(selectors.todoItems).should('have.length', 0)
 
     const checkItemSaved = () => {
+      if (noLocalStorageSpyCheck[framework]) {
+        return
+      }
       cy.get('@localStorageSetItem', {log: false}).should('have.been.called')
       cy.get('@localStorageSetItem', {log: false}).invoke('reset')
     }
@@ -368,7 +375,7 @@ Cypress._.times(N, () => {
       })
     })
 
-    context.only('New Todo', function () {
+    context('New Todo', function () {
       it('should allow me to add todo items', function () {
         // create 1st todo
         cy.get(selectors.newTodo).type(`${TODO_ITEM_ONE}{enter}`)
