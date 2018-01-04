@@ -38,8 +38,7 @@ const frameworkFolders = {
   extjs: 'extjs_deftjs',
   vanilladart: 'vanilladart/build/web'
 }
-const getExampleFolder = (framework) =>
-  frameworkFolders[framework] || framework
+const getExampleFolder = framework => frameworkFolders[framework] || framework
 
 const title = `TodoMVC - ${framework}`
 
@@ -48,7 +47,8 @@ function skipTestsWithKnownIssues () {
   // take suite chain into account, thus just hides the
   // tests with known issues
   const removeCommas = s => s.replace(/,/g, '')
-  const issueNames = knownIssues.map(Cypress._.toLower)
+  const issueNames = knownIssues
+    .map(Cypress._.toLower)
     .filter(name => name.includes(framework))
     .map(removeCommas)
   console.log('framework %s has %d issue(s)', framework, issueNames.length)
@@ -459,7 +459,11 @@ describe(title, function () {
     it('should remove the item if an empty text string was entered', function () {
       cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
 
-      cy.get('@secondTodo').find('.edit').clear().type('{enter}')
+      cy
+        .get('@secondTodo')
+        .find('.edit')
+        // this is more robust and reliable than using .clear().type('{enter}')
+        .type('{selectall}{backspace}{enter}')
 
       cy.get('@todos').should('have.length', 2)
     })
@@ -526,36 +530,31 @@ describe(title, function () {
 
       cy.createTodo(TODO_ITEM_ONE).as('firstTodo')
       cy.createTodo(TODO_ITEM_TWO).as('secondTodo')
-      cy
-        .get('@firstTodo')
-        .find('.toggle')
-        .check()
-        .then(testState)
+      cy.get('@firstTodo').find('.toggle').check().then(testState)
       // at this point, the app might still not save
       // the items in the local storage, for example KnockoutJS
       // first recomputes the items and still have "[]"
-      cy.window().its('localStorage')
-        .then(storage => {
-          return new Cypress.Promise((resolve, reject) => {
-            const checkItems = () => {
-              if (storage.length < 1) {
-                return setTimeout(checkItems, 0)
-              }
-              if (Object.keys(storage).some((key) => {
-                return storage.getItem(key).includes(TODO_ITEM_ONE)
-              })) {
-                console.log('found item in the local storage')
-                return resolve()
-              }
-              setTimeout(checkItems, 0)
+      cy.window().its('localStorage').then(storage => {
+        return new Cypress.Promise((resolve, reject) => {
+          const checkItems = () => {
+            if (storage.length < 1) {
+              return setTimeout(checkItems, 0)
             }
-            checkItems()
-          })
+            if (
+              Object.keys(storage).some(key => {
+                return storage.getItem(key).includes(TODO_ITEM_ONE)
+              })
+            ) {
+              console.log('found item in the local storage')
+              return resolve()
+            }
+            setTimeout(checkItems, 0)
+          }
+          checkItems()
         })
+      })
       // now can reload
-      cy
-        .reload()
-        .then(testState)
+      cy.reload().then(testState)
     })
   })
 
@@ -572,7 +571,8 @@ describe(title, function () {
       cy.get(selectors.filters).contains('Active').click()
       visibleTodos()
         .should('have.length', 2)
-        .eq(0).should('contain', TODO_ITEM_ONE)
+        .eq(0)
+        .should('contain', TODO_ITEM_ONE)
       visibleTodos().eq(1).should('contain', TODO_ITEM_THREE)
     })
 
