@@ -8,6 +8,10 @@ dependencies:
   pre:
     - npm install
 
+general:
+  artifacts:
+    - "cypress/screenshots"
+
 test:
   pre:
     ## boots our local app server on port 8000

@@ -1,11 +1,36 @@
 require('console.table')
 
+const path = require('path')
+const fs = require('fs')
 const figlet = require('figlet')
 const chalk = require('chalk')
 const cypress = require('cypress')
 const Promise = require('bluebird')
-// const names = ['ampersand', 'angularjs', 'backbone', 'react', 'vue']
-const names = ['angular-dart', 'angular2', 'angular2_es2015']
+const pluralize = require('pluralize')
+const R = require('ramda')
+const excludedFrameworks = require('./excluded')
+
+const args = require('minimist')(process.argv.slice(2), {
+  string: 'framework',
+  alias: {
+    framework: 'f'
+  }
+})
+
+if (typeof args.framework === 'string') {
+  args.framework = [args.framework]
+}
+
+const examplesFolder = path.join(__dirname, '..', 'examples')
+const names = fs.readdirSync(examplesFolder)
+const filteredNames = R.difference(names, excludedFrameworks)
+
+const frameworksToTest = args.framework ? args.framework : filteredNames
+if (R.isEmpty(frameworksToTest)) {
+  console.log('nothing to test ⚠️')
+  process.exit(1)
+}
+console.log('testing %s', pluralize('framework', frameworksToTest.length, true))
 
 const testFramework = framework => {
   console.log(
@@ -40,7 +65,7 @@ const testFramework = framework => {
     .then(addColors)
 }
 
-Promise.mapSeries(names, testFramework)
+Promise.mapSeries(frameworksToTest, testFramework)
   .then(results => {
     console.table('TodoMVC results', results)
   })
