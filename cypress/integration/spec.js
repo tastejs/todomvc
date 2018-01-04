@@ -405,9 +405,9 @@ describe(title, function () {
         .type('buy some sausages{enter}')
 
       // explicitly assert about the text value
-      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
-      cy.get('@secondTodo').should('contain', 'buy some sausages')
-      cy.get('@todos').eq(2).should('contain', TODO_ITEM_THREE)
+      visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
+      visibleTodos().eq(1).should('contain', 'buy some sausages')
+      visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
     })
   })
 
@@ -440,9 +440,9 @@ describe(title, function () {
         // could do that its just more mental work
         .blur()
 
-      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
-      cy.get('@secondTodo').should('contain', 'buy some sausages')
-      cy.get('@todos').eq(2).should('contain', TODO_ITEM_THREE)
+      visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
+      visibleTodos().eq(1).should('contain', 'buy some sausages')
+      visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
     })
 
     it('should trim entered text', function () {
@@ -454,9 +454,9 @@ describe(title, function () {
         .clear()
         .type('    buy some sausages    {enter}')
 
-      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
-      cy.get('@secondTodo').should('contain', 'buy some sausages')
-      cy.get('@todos').eq(2).should('contain', TODO_ITEM_THREE)
+      visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
+      visibleTodos().eq(1).should('contain', 'buy some sausages')
+      visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
     })
 
     it('should remove the item if an empty text string was entered', function () {
@@ -468,7 +468,7 @@ describe(title, function () {
         // this is more robust and reliable than using .clear().type('{enter}')
         .type('{selectall}{backspace}{enter}')
 
-      cy.get('@todos').should('have.length', 2)
+      visibleTodos().should('have.length', 2)
     })
 
     it('should cancel edits on escape', function () {
