@@ -102,7 +102,9 @@ const checkTodosInLocalStorage = presentText => {
 }
 
 // to find flaky tests we are running the entire suite N times
-Cypress._.times(5, () => {
+const N = 20
+console.log('Running tests %d time(s)', N)
+Cypress._.times(20, () => {
   describe(title, function () {
     // setup these constants to match what TodoMVC does
     let TODO_ITEM_ONE = 'buy some cheese'
@@ -414,12 +416,10 @@ Cypress._.times(5, () => {
       })
 
       it('should allow me to edit an item', function () {
-        cy.createDefaultTodos().as('todos')
+        cy.createDefaultTodos()
 
-        cy
-          .get('@todos')
+        visibleTodos()
           .eq(1)
-          .as('secondTodo')
           // TODO: fix this, dblclick should
           // have been issued to label
           .find('label')
@@ -427,8 +427,8 @@ Cypress._.times(5, () => {
 
         // clear out the inputs current value
         // and type a new value
-        cy
-          .get('@secondTodo')
+        visibleTodos()
+          .eq(1)
           .find('.edit')
           .clear()
           .type('buy some sausages{enter}')

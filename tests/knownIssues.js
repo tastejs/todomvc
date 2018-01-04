@@ -122,7 +122,7 @@ module.exports = [
   'TodoMVC - extjs, Routing, should allow me to display completed items',
   'TodoMVC - extjs, Routing, should allow me to display all items',
   'TodoMVC - extjs, Routing, should highlight the currently applied filter',
-  'TodoMVC - extjs, Routing, should respect the back button',
+  'TodoMVC - extjs, Routing, should respect the back button'
 
   // ----------------- Test framework issues -----------
 
@@ -134,9 +134,9 @@ module.exports = [
 
   // chaplin edit tests fail with the following:
   // StaleElementReferenceError: stale element reference: element is not attached to the page document
-  'TodoMVC - chaplin-brunch, Editing, should save edits on enter',
-  'TodoMVC - chaplin-brunch, Editing, should save edits on blur',
-  'TodoMVC - chaplin-brunch, Editing, should trim entered text',
-  'TodoMVC - chaplin-brunch, Editing, should remove the item if an empty text string was entered',
-  'TodoMVC - chaplin-brunch, Editing, should cancel edits on escape'
+  // 'TodoMVC - chaplin-brunch, Editing, should save edits on enter',
+  // 'TodoMVC - chaplin-brunch, Editing, should save edits on blur',
+  // 'TodoMVC - chaplin-brunch, Editing, should trim entered text',
+  // 'TodoMVC - chaplin-brunch, Editing, should remove the item if an empty text string was entered',
+  // 'TodoMVC - chaplin-brunch, Editing, should cancel edits on escape'
 ]
