@@ -13,8 +13,6 @@ test:
     ## which cypress expects to be running
     - npm run server:
         background: true
-
-  override:
     - npm run test:all
 
 ## status badge at

@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const cypress = require('cypress')
 const Promise = require('bluebird')
 // const names = ['ampersand', 'angularjs', 'backbone', 'react', 'vue']
-const names = ['ampersand', 'vue']
+const names = ['angular-dart', 'angular2', 'angular2_es2015']
 
 const testFramework = framework => {
   console.log(figlet.textSync(framework))
