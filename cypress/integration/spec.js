@@ -102,9 +102,9 @@ const checkTodosInLocalStorage = presentText => {
 }
 
 // to find flaky tests we are running the entire suite N times
-const N = 5
+const N = parseFloat(Cypress.env('times') || '1')
 console.log('Running tests %d time(s)', N)
-Cypress._.times(20, () => {
+Cypress._.times(N, () => {
   describe(title, function () {
     // setup these constants to match what TodoMVC does
     let TODO_ITEM_ONE = 'buy some cheese'
