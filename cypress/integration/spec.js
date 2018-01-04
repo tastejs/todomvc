@@ -32,7 +32,11 @@ if (!framework) {
 }
 
 const frameworkFolders = {
-  extjs: 'extjs_deftjs'
+  'angular-dart': 'angular-dart/web',
+  'chaplin-brunch': 'chaplin-brunch/public',
+  duel: 'duel/www',
+  extjs: 'extjs_deftjs',
+  vanilladart: 'vanilladart/build/web'
 }
 const getExampleFolder = (framework) => 
   frameworkFolders[framework] || framework
@@ -70,6 +74,7 @@ function skipTestsWithKnownIssues () {
     }
   }
   window.it.skip = realIt.skip
+  window.it.only = realIt.only
 }
 skipTestsWithKnownIssues()
 
@@ -147,10 +152,13 @@ describe(title, function () {
         return new Cypress.Promise((resolve, reject) => {
           const isReady = () => {
             if (attachedSomethingToInputBox) {
+              // console.log('listener has attached')
               return resolve()
             }
-            // setTimeout(isReady, 0)
-            requestAnimationFrame(isReady)
+            setTimeout(isReady, 0)
+            // found raf to be unreliable - does not work at
+            // all for troopjs_require for some reason
+            // requestAnimationFrame(isReady)
           }
           isReady()
         })

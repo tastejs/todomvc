@@ -51,7 +51,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=angular-dart/web
+        - CYPRESS_framework=angular-dart
       <<: *defaults
     - stage: test
       env:
@@ -99,7 +99,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=chaplin-brunch/public
+        - CYPRESS_framework=chaplin-brunch
       <<: *defaults
     - stage: test
       env:
@@ -115,7 +115,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=duel/www
+        - CYPRESS_framework=duel
       <<: *defaults
     - stage: test
       env:
@@ -283,7 +283,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=vanilladart/build/web
+        - CYPRESS_framework=vanilladart
       <<: *defaults
     - stage: test
       env:
