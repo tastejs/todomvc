@@ -90,6 +90,13 @@ module.exports = [
 	'TodoMVC - angular-dart, Routing, should allow me to display all items',
 	'TodoMVC - angular-dart, Routing, should highlight the currently applied filter',
 	'TodoMVC - angular-dart, Routing, should respect the back button',
+
+	'TodoMVC - angular2, Routing, should allow me to display active items',
+	'TodoMVC - angular2, Routing, should allow me to display completed items',
+	'TodoMVC - angular2, Routing, should allow me to display all items',
+	'TodoMVC - angular2, Routing, should highlight the currently applied filter',
+	'TodoMVC - angular2, Routing, should respect the back button',
+
 	'TodoMVC - typescript-backbone, Routing, should allow me to display active items',
 	'TodoMVC - typescript-backbone, Routing, should allow me to display completed items',
 	'TodoMVC - typescript-backbone, Routing, should allow me to display all items',

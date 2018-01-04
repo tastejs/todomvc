@@ -117,6 +117,9 @@ describe(title, function () {
     selectors = useIds ? idSelectors : classSelectors
   }
 
+  // reliably works in backbone app and other apps by using single selector
+  const visibleTodos = () => cy.get(selectors.todoItemsVisible)
+
   beforeEach(function () {
     // By default Cypress will automatically
     // clear the Local Storage prior to each
@@ -469,13 +472,13 @@ describe(title, function () {
     })
 
     it('should cancel edits on escape', function () {
-      cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
+      visibleTodos().eq(1).as('secondTodo').find('label').dblclick()
 
       cy.get('@secondTodo').find('.edit').clear().type('foo{esc}')
 
-      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
-      cy.get('@todos').eq(1).should('contain', TODO_ITEM_TWO)
-      cy.get('@todos').eq(2).should('contain', TODO_ITEM_THREE)
+      visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
+      visibleTodos().eq(1).should('contain', TODO_ITEM_TWO)
+      visibleTodos().eq(2).should('contain', TODO_ITEM_THREE)
     })
   })
 
@@ -562,9 +565,6 @@ describe(title, function () {
     beforeEach(function () {
       cy.createDefaultTodos().as('todos')
     })
-
-    // reliably works in backbone app
-    const visibleTodos = () => cy.get(selectors.todoItemsVisible)
 
     it('should allow me to display active items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
