@@ -14,19 +14,19 @@ module.exports = [
 
   // https://github.com/tastejs/todomvc/issues/824
   // this implementation has numerous edit experience issues
-  'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
-  'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
+  // 'TodoMVC - angularjs_require, Mark all as completed, should allow me to mark all items as completed',
+  // 'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
   // jscs:disable
-  'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
+  // 'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
 
   // jscs:enable
   // https://github.com/tastejs/todomvc/issues/815
   // does not hide other controls while editing
-  'TodoMVC - dojo, Editing, should hide other controls when editing',
+  // 'TodoMVC - dojo, Editing, should hide other controls when editing',
 
   // https://github.com/tastejs/todomvc/issues/816
   // atma does not hide the main section, instead it hides the toggle-all checkbox
-  'TodoMVC - atmajs, No Todos, should hide #main and #footer',
+  // 'TodoMVC - atmajs, No Todos, should hide #main and #footer',
 
   // https://github.com/tastejs/todomvc/issues/819
   // the edit experience with soma is quite broken. You can
@@ -54,11 +54,11 @@ module.exports = [
   // all the following are covered by this issue:
   // https://github.com/tastejs/todomvc/issues/856
   // 'TodoMVC - knockoutjs, Routing, should respect the back button',
-  'TodoMVC - spine, Routing, should respect the back button',
-  'TodoMVC - serenadejs, Routing, should respect the back button',
+  // 'TodoMVC - spine, Routing, should respect the back button',
+  // 'TodoMVC - serenadejs, Routing, should respect the back button',
   'TodoMVC - flight, Routing, should respect the back button',
   'TodoMVC - lavaca_require, Routing, should respect the back button',
-  'TodoMVC - somajs_require, Routing, should respect the back button',
+  // 'TodoMVC - somajs_require, Routing, should respect the back button',
 
   // the following implementations do not support routing
   'TodoMVC - extjs_deftjs, Routing, should allow me to display active items',
