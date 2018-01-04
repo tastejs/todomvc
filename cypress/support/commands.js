@@ -41,8 +41,10 @@ export function createTodoCommands (idSelectors) {
       .type(`${TODO_ITEM_THREE}{enter}`, { log: false })
     cy.get(todoItemsSelector, { log: false }).should('have.length', 3)
 
+    const combinedSelector = todoItemsSelector + ':visible'
+    console.log('visible todo items', combinedSelector)
     cy
-      .get(todoItemsSelector + ':visible', { log: false })
+      .get(combinedSelector, { log: false })
       .then(function ($listItems) {
         // once we're done inserting each of the todos
         // above we want to return the .todo-list li's

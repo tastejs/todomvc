@@ -564,36 +564,41 @@ describe(title, function () {
       cy.createDefaultTodos().as('todos')
     })
 
+    // reliably works in backbone app
+    const visibleTodos = () => cy.get('#todo-list li:visible')
+
     it('should allow me to display active items', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
-      cy.get('@todos').eq(0).should('contain', TODO_ITEM_ONE)
-      cy.get('@todos').eq(1).should('contain', TODO_ITEM_THREE)
+      visibleTodos()
+        .should('have.length', 2)
+        .eq(0).should('contain', TODO_ITEM_ONE)
+      visibleTodos().eq(1).should('contain', TODO_ITEM_THREE)
     })
 
     it('should respect the back button', function () {
       cy.get('@todos').eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
       cy.get(selectors.filters).contains('Completed').click()
-      cy.get('@todos').should('have.length', 1)
+      visibleTodos().should('have.length', 1)
       cy.go('back')
-      cy.get('@todos').should('have.length', 2)
+      visibleTodos().should('have.length', 2)
       cy.go('back')
-      cy.get('@todos').should('have.length', 3)
+      visibleTodos().should('have.length', 3)
     })
 
     it('should allow me to display completed items', function () {
-      cy.get('@todos').eq(1).find('.toggle').check()
+      visibleTodos().eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Completed').click()
-      cy.get('@todos').should('have.length', 1)
+      visibleTodos().should('have.length', 1)
     })
 
     it('should allow me to display all items', function () {
-      cy.get('@todos').eq(1).find('.toggle').check()
+      visibleTodos().eq(1).find('.toggle').check()
       cy.get(selectors.filters).contains('Active').click()
       cy.get(selectors.filters).contains('Completed').click()
       cy.get(selectors.filters).contains('All').click()
-      cy.get('@todos').should('have.length', 3)
+      visibleTodos().should('have.length', 3)
     })
 
     it('should highlight the currently applied filter', function () {
