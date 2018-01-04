@@ -1,6 +1,7 @@
 require('console.table')
 
 const figlet = require('figlet')
+const chalk = require('chalk')
 const cypress = require('cypress')
 const Promise = require('bluebird')
 // const names = ['ampersand', 'angularjs', 'backbone', 'react', 'vue']
@@ -18,6 +19,13 @@ const testFramework = framework => {
     return testResults
   }
 
+  const addColors = testResults => {
+    testResults.failures = testResults.failures
+      ? chalk.red(testResults.failures)
+      : chalk.green(testResults.failures)
+    return testResults
+  }
+
   return cypress
     .run({
       env: {
@@ -25,6 +33,7 @@ const testFramework = framework => {
       }
     })
     .then(addInfo)
+    .then(addColors)
 }
 
 Promise.mapSeries(names, testFramework)

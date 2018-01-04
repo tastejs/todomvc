@@ -15,7 +15,7 @@
     "test-server": "gulp test-server &",
     "server": "gulp test-server",
     "gulp": "gulp",
-    "cy:open": "cypress open --env framework=binding-scala",
+    "cy:open": "cypress open --env framework=ampersand",
     "cy:run": "cypress run",
     "cy:run:record": "npm run cy:run -- --record",
     "test": "run-p --race server cy:run",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.5.1",
+    "chalk": "^2.3.0",
     "console.table": "^0.9.1",
     "cypress": "^1.4.1",
     "del": "^0.1.1",

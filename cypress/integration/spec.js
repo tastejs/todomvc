@@ -368,7 +368,7 @@ Cypress._.times(N, () => {
       })
     })
 
-    context('New Todo', function () {
+    context.only('New Todo', function () {
       it('should allow me to add todo items', function () {
         // create 1st todo
         cy.get(selectors.newTodo).type(`${TODO_ITEM_ONE}{enter}`)
