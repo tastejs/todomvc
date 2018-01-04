@@ -12,8 +12,10 @@ const excludedFrameworks = require('./excluded')
 
 const args = require('minimist')(process.argv.slice(2), {
   string: 'framework',
+  number: 'times',
   alias: {
-    framework: 'f'
+    framework: 'f',
+    times: 't'
   }
 })
 
@@ -31,6 +33,9 @@ if (R.isEmpty(frameworksToTest)) {
   process.exit(1)
 }
 console.log('testing %s', pluralize('framework', frameworksToTest.length, true))
+if (args.times) {
+  console.log('running all tests %s', pluralize('time', args.times, true))
+}
 
 const testFramework = framework => {
   console.log(
@@ -58,7 +63,8 @@ const testFramework = framework => {
   return cypress
     .run({
       env: {
-        framework
+        framework,
+        times: args.times
       }
     })
     .then(addInfo)

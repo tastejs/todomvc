@@ -19,6 +19,9 @@ test:
     - npm run server:
         background: true
   override:
+    # test some frameworks by running tests multiple times
+    - npm run test:all -- --f backbone -f vue --times 2
+    # test all frameworks
     - npm run test:all
 
 ## status badge at

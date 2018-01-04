@@ -187,8 +187,12 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
 // to find flaky tests we are running the entire suite N times
 const N = parseFloat(Cypress.env('times') || '1')
 console.log('Running tests %d time(s)', N)
+let counter = 0
+
 Cypress._.times(N, () => {
-  describe(title, function () {
+  counter += 1
+  const countedTitle = N > 1 ? `${counter} / ${N} ${title}` : title
+  describe(countedTitle, function () {
     // setup these constants to match what TodoMVC does
     let TODO_ITEM_ONE = 'buy some cheese'
     let TODO_ITEM_TWO = 'feed the cat'
