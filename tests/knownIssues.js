@@ -44,7 +44,8 @@ module.exports = [
 	'TodoMVC - rappidjs, Editing, should cancel edits on escape',
 	'TodoMVC - serenadejs, Editing, should cancel edits on escape',
 	'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
-	'TodoMVC - flight, Editing, should cancel edits on escape',
+	// working for us
+	// 'TodoMVC - flight, Editing, should cancel edits on escape',
 	'TodoMVC - backbone_require, Editing, should cancel edits on escape',
 	'TodoMVC - dijon, Editing, should cancel edits on escape',
 	'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
@@ -96,6 +97,7 @@ module.exports = [
 	'TodoMVC - typescript-backbone, Routing, should respect the back button',
 
 	// EXTJS is not spec compliant (by a long way!)
+	'TodoMVC - extjs, should focus on the todo input field',
 	'TodoMVC - extjs, New Todo, should show #main and #footer when items added',
 	'TodoMVC - extjs, Mark all as completed, should allow me to mark all items as completed',
 	'TodoMVC - extjs, Mark all as completed, complete all checkbox should update state when items are completed / cleared',

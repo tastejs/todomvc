@@ -1,5 +1,6 @@
 {
   "videoRecording": false,
   "baseUrl": "http://localhost:8000/examples/",
-  "projectId": "569hk8"
+  "projectId": "569hk8",
+  "viewportWidth": 890
 }
