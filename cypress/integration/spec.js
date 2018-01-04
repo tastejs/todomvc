@@ -41,6 +41,12 @@ const frameworkFolders = {
 }
 const getExampleFolder = framework => frameworkFolders[framework] || framework
 
+const noLocalStorageCheck = {
+  backbone: true,
+  backbone_marionette: true,
+  backbone_require: true
+}
+
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
@@ -81,6 +87,10 @@ skipTestsWithKnownIssues()
 
 // checks that local storage has an item with given text
 const checkTodosInLocalStorage = presentText => {
+  if (noLocalStorageCheck[framework]) {
+    return
+  }
+
   return cy.window().its('localStorage').then(storage => {
     return new Cypress.Promise((resolve, reject) => {
       const checkItems = () => {
@@ -92,7 +102,6 @@ const checkTodosInLocalStorage = presentText => {
             return storage.getItem(key).includes(presentText)
           })
         ) {
-          console.log('found item in the local storage')
           return resolve()
         }
         setTimeout(checkItems, 0)
@@ -103,6 +112,10 @@ const checkTodosInLocalStorage = presentText => {
 }
 
 const checkNumberOfTodosInLocalStorage = n => {
+  if (noLocalStorageCheck[framework]) {
+    return
+  }
+
   return cy.window().its('localStorage').then(storage => {
     return new Cypress.Promise((resolve, reject) => {
       const checkItems = () => {
@@ -113,11 +126,15 @@ const checkNumberOfTodosInLocalStorage = n => {
           Object.keys(storage).some(key => {
             const text = storage.getItem(key)
             // assuming it is an array
-            const items = JSON.parse(text)
-            return items.length === n
+            try {
+              const items = JSON.parse(text)
+              return items.length === n
+            } catch (e) {
+              // ignore
+              return
+            }
           })
         ) {
-          console.log('found %d item(s) in the local storage', n)
           return resolve()
         }
         setTimeout(checkItems, 0)
@@ -128,6 +145,10 @@ const checkNumberOfTodosInLocalStorage = n => {
 }
 
 const checkNumberOfCompletedTodosInLocalStorage = n => {
+  if (noLocalStorageCheck[framework]) {
+    return
+  }
+
   return cy.window().its('localStorage').then(storage => {
     return new Cypress.Promise((resolve, reject) => {
       const checkItems = () => {
@@ -138,15 +159,18 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
           Object.keys(storage).some(key => {
             const text = storage.getItem(key)
             // assuming it is an array
-            const items = JSON.parse(text)
-            if (items.length < n) {
+            try {
+              const items = JSON.parse(text)
+              if (items.length < n) {
+                return
+              }
+              const completed = Cypress._.filter(items, { completed: true })
+              return completed.length === n
+            } catch (e) {
               return
             }
-            const completed = Cypress._.filter(items, { completed: true })
-            return completed.length === n
           })
         ) {
-          console.log('found %d item(s) in the local storage', n)
           return resolve()
         }
         setTimeout(checkItems, 0)
@@ -207,6 +231,11 @@ Cypress._.times(N, () => {
     const hasNoItems = () =>
       cy.get(selectors.todoItems).should('have.length', 0)
 
+    const checkItemSaved = () => {
+      cy.get('@localStorageSetItem', {log: false}).should('have.been.called')
+      cy.get('@localStorageSetItem', {log: false}).invoke('reset')
+    }
+
     let currentTestId
 
     beforeEach(function () {
@@ -224,7 +253,7 @@ Cypress._.times(N, () => {
       //
       // https://on.cypress.io/api/visit
       currentTestId = Math.random()
-      let attachedSomethingToInputBox = false
+      let appHasStarted = false
       const folder = getExampleFolder(framework)
       cy
         .visit('/' + folder, {
@@ -237,8 +266,13 @@ Cypress._.times(N, () => {
                 console.error('old localStorage.setItem call!', name)
                 return
               }
+              // if something has made localStorage.setItem call -
+              // that means app has started
+              appHasStarted = true
               return setItem.call(win.localStorage, name, value)
             }.bind(null, currentTestId)
+            // now we can check from a test when the item has been stored
+            cy.spy(win.localStorage.__proto__, 'setItem').as('localStorageSetItem')
 
             // detect when a web application starts by noticing
             // the first "addEventListener" to text input events
@@ -249,9 +283,9 @@ Cypress._.times(N, () => {
                   name
                 )
               ) {
-                console.log('arguments', arguments)
-                console.log('this', this)
-                attachedSomethingToInputBox = true
+                // web app added an event listener to the input box -
+                // that means it is ready
+                appHasStarted = true
                 win.EventTarget.prototype.addEventListener = addListener
               }
               return addListener.apply(this, arguments)
@@ -261,8 +295,7 @@ Cypress._.times(N, () => {
         .then({ timeout: 10000 }, () => {
           return new Cypress.Promise((resolve, reject) => {
             const isReady = () => {
-              if (attachedSomethingToInputBox) {
-                // console.log('listener has attached')
+              if (appHasStarted) {
                 return resolve()
               }
               setTimeout(isReady, 0)
@@ -339,6 +372,7 @@ Cypress._.times(N, () => {
       it('should allow me to add todo items', function () {
         // create 1st todo
         cy.get(selectors.newTodo).type(`${TODO_ITEM_ONE}{enter}`)
+        checkItemSaved()
 
         // make sure the 1st label contains the 1st todo text
         cy
@@ -349,6 +383,7 @@ Cypress._.times(N, () => {
 
         // create 2nd todo
         cy.get(selectors.newTodo).type(`${TODO_ITEM_TWO}{enter}`)
+        checkItemSaved()
 
         // make sure the 2nd label contains the 2nd todo text
         cy
@@ -426,6 +461,7 @@ Cypress._.times(N, () => {
         // in your tests below
         cy.createDefaultTodos().as('todos')
         checkNumberOfTodosInLocalStorage(3)
+        checkItemSaved()
       })
 
       afterEach(() => {
@@ -440,6 +476,7 @@ Cypress._.times(N, () => {
         // we use 'check' instead of 'click'
         // because that indicates our intention much clearer
         cy.get(selectors.toggleAll).check()
+        checkItemSaved()
 
         // get each todo li and ensure its class is 'completed'
         cy.get('@todos').eq(0).should('have.class', 'completed')
@@ -450,7 +487,10 @@ Cypress._.times(N, () => {
 
       it('should allow me to clear the complete state of all items', function () {
         // check and then immediately uncheck
-        cy.get(selectors.toggleAll).check().uncheck()
+        cy.get(selectors.toggleAll).check()
+        checkItemSaved()
+        cy.get(selectors.toggleAll).uncheck()
+        checkItemSaved()
 
         cy.get('@todos').eq(0).should('not.have.class', 'completed')
         cy.get('@todos').eq(1).should('not.have.class', 'completed')
@@ -459,13 +499,14 @@ Cypress._.times(N, () => {
       })
 
       it('complete all checkbox should update state when items are completed / cleared', function () {
-        // alias the .toggle-all for reuse later
         cy
           .get(selectors.toggleAll)
-          .as('toggleAll')
           .check()
           // this assertion is silly here IMO but
           // it is what TodoMVC does
+        checkItemSaved()
+        cy
+          .get(selectors.toggleAll)
           .should('be.checked')
 
         // alias the first todo and then click it
@@ -475,17 +516,19 @@ Cypress._.times(N, () => {
           .as('firstTodo')
           .find('.toggle')
           .uncheck()
+        checkItemSaved()
 
         // reference the .toggle-all element again
         // and make sure its not checked
-        cy.get('@toggleAll').should('not.be.checked')
+        cy.get(selectors.toggleAll).should('not.be.checked')
 
         // reference the first todo again and now toggle it
         cy.get('@firstTodo').find('.toggle').check()
+        checkItemSaved()
+        checkNumberOfCompletedTodosInLocalStorage(3)
 
         // assert the toggle all is checked again
-        cy.get('@toggleAll').should('be.checked')
-        checkNumberOfCompletedTodosInLocalStorage(3)
+        cy.get(selectors.toggleAll).should('be.checked')
       })
     })
 
