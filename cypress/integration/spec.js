@@ -47,7 +47,8 @@ const noLocalStorageCheck = {
   backbone_require: true,
   knockback: true,
   flight: true,
-  serenadejs: true
+  serenadejs: true,
+  js_of_ocaml: true
 }
 
 const noLocalStorageSpyCheck = {
