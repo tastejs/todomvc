@@ -181,8 +181,10 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
               }
               // MOST apps use "completed" property to mark task
               // canjs uses "complete" property, 😡
+              // scalajs-react uses "isCompleted"
               const completed = Cypress._.filter(items, { completed: true }).
-                concat(Cypress._.filter(items, { complete: true }))
+                concat(Cypress._.filter(items, { complete: true })).
+                concat(Cypress._.filter(items, { isCompleted: true }))
               return completed.length === n
             } catch (e) {
               return

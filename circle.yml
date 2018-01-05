@@ -77,6 +77,8 @@ jobs:
     <<: *defaults
   js_of_ocaml:
     <<: *defaults
+  typescript-backbone:
+    <<: *defaults
   reagent:
     <<: *defaults
   humble:
