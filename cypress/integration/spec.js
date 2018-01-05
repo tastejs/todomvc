@@ -81,7 +81,14 @@ const noAppStartCheck = {
 // is well behind the data model. For these apps, do not consider
 // intercepted localStorage.setItem a signal
 const storageSetDoesNotMeanAppStarted = {
-  flight: true
+  flight: true,
+  olives: true
+}
+
+// some apps serialize data in such a bad way that we cannot
+// check localStorage for keywords like "complete" or "isComplete"
+const badLocalStorageFormat = {
+  js_of_ocaml: true
 }
 
 const title = `TodoMVC - ${framework}`
@@ -141,6 +148,38 @@ const checkTodosInLocalStorage = (presentText, force) => {
         if (
           Object.keys(storage).some(key => {
             return storage.getItem(key).includes(presentText)
+          })
+        ) {
+          return resolve()
+        }
+        setTimeout(checkItems, 0)
+      }
+      checkItems()
+    })
+  })
+}
+
+const checkCompletedKeywordInLocalStorage = () => {
+  if (badLocalStorageFormat[framework]) {
+    return
+  }
+
+  cy.log(`Looking for any completed items in localStorage`)
+
+  const variants = ['complete', 'isComplete']
+
+  return cy.window().its('localStorage').then(storage => {
+    return new Cypress.Promise((resolve, reject) => {
+      const checkItems = () => {
+        if (storage.length < 1) {
+          return setTimeout(checkItems, 0)
+        }
+        if (
+          Object.keys(storage).some(key => {
+            const text = storage.getItem(key)
+            return variants.some(variant =>
+              text.includes(variant)
+            )
           })
         ) {
           return resolve()
@@ -817,7 +856,7 @@ Cypress._.times(N, () => {
         // the items in the local storage, for example KnockoutJS
         // first recomputes the items and still have "[]"
         checkTodosInLocalStorage(TODO_ITEM_ONE, true)
-        checkTodosInLocalStorage('complete', true)
+        checkCompletedKeywordInLocalStorage()
 
         // but there should be 1 completed item
         checkNumberOfCompletedTodosInLocalStorage(1)

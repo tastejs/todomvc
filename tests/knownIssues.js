@@ -44,6 +44,7 @@ module.exports = [
   'kendo, should allow me to mark all items as completed',
   'kendo, should allow me to clear the complete state of all items',
   'kendo, complete all checkbox should update state when items are completed / cleared',
+  'kendo, should remove the item if an empty text string was entered',
 
   // the following are covered by the following issue:
   // https://github.com/tastejs/todomvc/issues/789
@@ -57,6 +58,10 @@ module.exports = [
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
   'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
   'serenadejs, should remove the item if an empty text string was entered',
+
+  'olives, should focus on the todo input field',
+
+  'rappidjs, should remove the item if an empty text string was entered',
 
   // this seems like an error in Cypress itself
   // ReferenceError: command is not defined
