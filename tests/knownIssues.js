@@ -50,6 +50,11 @@ module.exports = [
   'emberjs, should save edits on blur',
   'emberjs, should trim entered text',
 
+  // NoSuchMethodError : method not found: 'Symbol("keyCode")'
+  // Receiver: Instance of 'rg'
+  // Arguments: []
+  'angular-dart, should cancel edits on escape',
+
   // working for us
   // 'TodoMVC - flight, Editing, should cancel edits on escape',
   // 'TodoMVC - backbone_require, Editing, should cancel edits on escape',
