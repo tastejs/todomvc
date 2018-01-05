@@ -120,6 +120,8 @@ module.exports = [
   // 'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
   // 'TodoMVC - typescript-backbone, Routing, should respect the back button',
 
+  'extjs_deftjs, should focus on the todo input field',
+
   // EXTJS is not spec compliant (by a long way!)
   'TodoMVC - extjs, should focus on the todo input field',
   'TodoMVC - extjs, New Todo, should show #main and #footer when items added',

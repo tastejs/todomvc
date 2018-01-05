@@ -17,6 +17,9 @@ const args = require('minimist')(process.argv.slice(2), {
   alias: {
     framework: 'f',
     times: 't'
+  },
+  default: {
+    times: 1
   }
 })
 
@@ -46,8 +49,9 @@ const mainFrameworks = [
   'flight'
 ]
 
-const frameworksToTest = args.framework ? args.framework : 
-  args.main ? mainFrameworks : allFrameworks
+const frameworksToTest = args.framework
+  ? args.framework
+  : args.main ? mainFrameworks : allFrameworks
 if (R.isEmpty(frameworksToTest)) {
   console.log('nothing to test ⚠️')
   process.exit(1)

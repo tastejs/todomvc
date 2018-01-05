@@ -212,6 +212,9 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
 const N = parseFloat(Cypress.env('times') || '1')
 console.log('Running tests %d time(s)', N)
 let counter = 0
+if (!Cypress._.isFinite(N)) {
+  throw new Error(`Invalid number of tests ${N} from env "${Cypress.env('times')}"`)
+}
 
 Cypress._.times(N, () => {
   counter += 1
