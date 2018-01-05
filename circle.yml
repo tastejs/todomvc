@@ -39,6 +39,12 @@ jobs:
     <<: *defaults
   vue:
     <<: *defaults
+  spine:
+    <<: *defaults
+  typescript-react:
+    <<: *defaults
+  binding-scala:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -49,3 +55,10 @@ workflows:
       - dojo
       - react
       - vue
+  # second tab - compiled-to-js frameworks
+  compiled-to-js:
+    jobs:
+      - spine
+      # elm is not working very well
+      - typescript-react
+      - binding-scala
