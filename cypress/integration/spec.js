@@ -53,7 +53,8 @@ const noLocalStorageCheck = {
   rappidjs: true,
   kendo: true,
   exoskeleton: true,
-  'react-backbone': true
+  'react-backbone': true,
+  puremvc: true
 }
 
 const noLocalStorageSpyCheck = {
