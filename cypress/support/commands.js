@@ -42,7 +42,6 @@ export function createTodoCommands (idSelectors) {
     cy.get(todoItemsSelector, { log: false }).should('have.length', 3)
 
     const combinedSelector = todoItemsSelector + ':visible'
-    console.log('visible todo items', combinedSelector)
     cy
       .get(combinedSelector, { log: false })
       .then(function ($listItems) {

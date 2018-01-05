@@ -44,11 +44,14 @@ const getExampleFolder = framework => frameworkFolders[framework] || framework
 const noLocalStorageCheck = {
   backbone: true,
   backbone_marionette: true,
-  backbone_require: true
+  backbone_require: true,
+  knockback: true,
+  flight: true
 }
 
 const noLocalStorageSpyCheck = {
-  ampersand: true
+  ampersand: true,
+  spine: true
 }
 
 const title = `TodoMVC - ${framework}`

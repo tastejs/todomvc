@@ -13,6 +13,7 @@ const excludedFrameworks = require('./excluded')
 const args = require('minimist')(process.argv.slice(2), {
   string: 'framework',
   number: 'times',
+  boolean: 'main',
   alias: {
     framework: 'f',
     times: 't'
@@ -25,9 +26,28 @@ if (typeof args.framework === 'string') {
 
 const examplesFolder = path.join(__dirname, '..', 'examples')
 const names = fs.readdirSync(examplesFolder)
-const filteredNames = R.difference(names, excludedFrameworks)
+const allFrameworks = R.difference(names, excludedFrameworks)
 
-const frameworksToTest = args.framework ? args.framework : filteredNames
+const mainFrameworks = [
+  'backbone',
+  'dojo',
+  'react',
+  'vue',
+  'angularjs',
+  'knockback',
+  'mithril',
+  'backbone_marionette',
+  'emberjs',
+  'canjs',
+  'ampersand',
+  'troopjs_require',
+  'knockoutjs',
+  'polymer',
+  'flight'
+]
+
+const frameworksToTest = args.framework ? args.framework : 
+  args.main ? mainFrameworks : allFrameworks
 if (R.isEmpty(frameworksToTest)) {
   console.log('nothing to test ⚠️')
   process.exit(1)
