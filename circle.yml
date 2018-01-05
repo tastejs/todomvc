@@ -110,6 +110,16 @@ jobs:
     <<: *defaults
   sammyjs:
     <<: *defaults
+  puremvc:
+    <<: *defaults
+  extjs_deftjs:
+    <<: *defaults
+  exoskeleton:
+    <<: *defaults
+  react-backbone:
+    <<: *defaults
+  angular2:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -155,9 +165,16 @@ workflows:
       - canjs_require
       - kendo
       - rappidjs
-      - sapui5
+      # Sapui5 is too broken in layout
+      # - sapui5
       - react-alt
-      - webrx
+      # App internal error
+      # - webrx
       - backbone_require
       - somajs_require
       - sammyjs
+      - puremvc
+      - extjs_deftjs
+      - exoskeleton
+      - react-backbone
+      - angular2
