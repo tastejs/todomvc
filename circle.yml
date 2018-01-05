@@ -69,6 +69,14 @@ jobs:
     <<: *defaults
   binding-scala:
     <<: *defaults
+  vanilladart:
+    <<: *defaults
+  angular-dart:
+    <<: *defaults
+  serenadejs:
+    <<: *defaults
+  js_of_ocaml:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -97,3 +105,7 @@ workflows:
       # elm is not working very well
       - typescript-react
       - binding-scala
+      - vanilladart
+      - angular-dart
+      - serenadejs
+      - js_of_ocaml
