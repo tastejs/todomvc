@@ -31,6 +31,7 @@ defaults: &defaults
         name: Test framework
 
 jobs:
+  # main JS frameworks
   backbone:
     <<: *defaults
   dojo:
@@ -39,6 +40,29 @@ jobs:
     <<: *defaults
   vue:
     <<: *defaults
+  angularjs:
+    <<: *defaults
+  knockback:
+    <<: *defaults
+  mithril:
+    <<: *defaults
+  backbone_marionette:
+    <<: *defaults
+  emberjs:
+    <<: *defaults
+  canjs:
+    <<: *defaults
+  ampersand:
+    <<: *defaults
+  troopjs_require:
+    <<: *defaults
+  knockoutjs:
+    <<: *defaults
+  polymer:
+    <<: *defaults
+  flight:
+    <<: *defaults
+  # compiled-to-js frameworks
   spine:
     <<: *defaults
   typescript-react:
@@ -55,6 +79,17 @@ workflows:
       - dojo
       - react
       - vue
+      - angularjs
+      - knockback
+      - mithril
+      - backbone_marionette
+      - emberjs
+      - canjs
+      - ampersand
+      - troopjs_require
+      - knockoutjs
+      - polymer
+      - flight
   # second tab - compiled-to-js frameworks
   compiled-to-js:
     jobs:
