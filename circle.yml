@@ -98,6 +98,18 @@ jobs:
     <<: *defaults
   rappidjs:
     <<: *defaults
+  sapui5:
+    <<: *defaults
+  react-alt:
+    <<: *defaults
+  webrx:
+    <<: *defaults
+  backbone_require:
+    <<: *defaults
+  somajs_require:
+    <<: *defaults
+  sammyjs:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -143,3 +155,9 @@ workflows:
       - canjs_require
       - kendo
       - rappidjs
+      - sapui5
+      - react-alt
+      - webrx
+      - backbone_require
+      - somajs_require
+      - sammyjs
