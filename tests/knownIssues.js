@@ -79,6 +79,9 @@ module.exports = [
   // 'TodoMVC - flight, Editing, should cancel edits on escape',
   // 'TodoMVC - backbone_require, Editing, should cancel edits on escape',
   'TodoMVC - dijon, Editing, should cancel edits on escape',
+  'dijon, should allow me to edit an item',
+  'dijon, should trim entered text',
+  'dijon, should remove the item if an empty text string was entered',
   // 'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
   // all the following are covered by this issue:
