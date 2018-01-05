@@ -55,7 +55,8 @@ const noLocalStorageCheck = {
   exoskeleton: true,
   'react-backbone': true,
   puremvc: true,
-  extjs_deftjs: true
+  extjs_deftjs: true,
+  'typescript-backbone': true
 }
 
 const noLocalStorageSpyCheck = {
@@ -148,6 +149,8 @@ const checkNumberOfTodosInLocalStorage = n => {
   if (noLocalStorageCheck[framework]) {
     return
   }
+
+  cy.log(`localStorage should have ${n} todo items`)
 
   return cy.window().its('localStorage').then(storage => {
     return new Cypress.Promise((resolve, reject) => {
