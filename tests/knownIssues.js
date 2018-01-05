@@ -52,6 +52,10 @@ module.exports = [
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
   'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
 
+  // this seems like an error in Cypress itself
+  // ReferenceError: command is not defined
+  'react-backbone, should save edits on blur',
+
   'emberjs, should allow me to edit an item',
   'emberjs, should save edits on blur',
   'emberjs, should trim entered text',
@@ -109,6 +113,10 @@ module.exports = [
   'TodoMVC - angular-dart, Routing, should highlight the currently applied filter',
   'TodoMVC - angular-dart, Routing, should respect the back button',
 
+  // Angular2 does not get triggered when editing an item and sending {enter}
+  'angular2, should save edits on blur',
+  'angular2, should allow me to edit an item',
+  'angular2, should trim entered text',
   'TodoMVC - angular2, Routing, should allow me to display active items',
   'TodoMVC - angular2, Routing, should allow me to display completed items',
   'TodoMVC - angular2, Routing, should allow me to display all items',

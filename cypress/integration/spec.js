@@ -122,6 +122,8 @@ const checkTodosInLocalStorage = presentText => {
     return
   }
 
+  cy.log(`Looking for "${presentText}" in localStorage`)
+
   return cy.window().its('localStorage').then(storage => {
     return new Cypress.Promise((resolve, reject) => {
       const checkItems = () => {
