@@ -56,7 +56,9 @@ const noLocalStorageCheck = {
   'react-backbone': true,
   puremvc: true,
   extjs_deftjs: true,
-  'typescript-backbone': true
+  'typescript-backbone': true,
+  enyo_backbone: true,
+  foam: true
 }
 
 const noLocalStorageSpyCheck = {
@@ -66,7 +68,8 @@ const noLocalStorageSpyCheck = {
   knockoutjs: true,
   canjs_require: true,
   knockoutjs_require: true,
-  durandal: true
+  durandal: true,
+  foam: true
 }
 
 const noAppStartCheck = {
@@ -120,9 +123,11 @@ function skipTestsWithKnownIssues () {
 skipTestsWithKnownIssues()
 
 // checks that local storage has an item with given text
-const checkTodosInLocalStorage = presentText => {
+const checkTodosInLocalStorage = (presentText, force) => {
   if (noLocalStorageCheck[framework]) {
-    return
+    if (!force) {
+      return
+    }
   }
 
   cy.log(`Looking for "${presentText}" in localStorage`)
@@ -186,6 +191,8 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
   if (noLocalStorageCheck[framework]) {
     return
   }
+
+  cy.log(`Looking for "${n}" completed items in localStorage`)
 
   return cy.window().its('localStorage').then(storage => {
     return new Cypress.Promise((resolve, reject) => {
@@ -809,7 +816,9 @@ Cypress._.times(N, () => {
         // at this point, the app might still not save
         // the items in the local storage, for example KnockoutJS
         // first recomputes the items and still have "[]"
-        checkTodosInLocalStorage(TODO_ITEM_ONE)
+        checkTodosInLocalStorage(TODO_ITEM_ONE, true)
+        checkTodosInLocalStorage('complete', true)
+
         // but there should be 1 completed item
         checkNumberOfCompletedTodosInLocalStorage(1)
 

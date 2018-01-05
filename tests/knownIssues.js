@@ -163,6 +163,11 @@ module.exports = [
   'TodoMVC - extjs, Routing, should highlight the currently applied filter',
   'TodoMVC - extjs, Routing, should respect the back button',
 
+  'ractive, should allow me to edit an item',
+  'ractive, should remove the item if an empty text string was entered',
+
+  'foam, should remove the item if an empty text string was entered',
+
   // ----------------- Test framework issues -----------
 
   // for some reason the persistence test fails for knockout, even though persistence is working
