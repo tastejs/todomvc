@@ -48,7 +48,7 @@ const testFramework = framework => {
     delete testResults.screenshots
     delete testResults.video
     delete testResults.version
-    delete testResults.duration
+    // delete testResults.duration
     testResults.framework = framework
     return testResults
   }
