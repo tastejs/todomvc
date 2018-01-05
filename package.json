@@ -15,7 +15,7 @@
     "test-server": "gulp test-server &",
     "server": "gulp test-server",
     "gulp": "gulp",
-    "cy:open": "cypress open --env framework=somajs_require",
+    "cy:open": "cypress open --env framework=exoskeleton",
     "cy:run": "cypress run",
     "cy:run:record": "npm run cy:run -- --record",
     "test": "run-p --race server cy:run",

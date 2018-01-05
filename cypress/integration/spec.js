@@ -51,7 +51,8 @@ const noLocalStorageCheck = {
   js_of_ocaml: true,
   reagent: true,
   rappidjs: true,
-  kendo: true
+  kendo: true,
+  exoskeleton: true
 }
 
 const noLocalStorageSpyCheck = {
