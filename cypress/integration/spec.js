@@ -46,7 +46,8 @@ const noLocalStorageCheck = {
   backbone_marionette: true,
   backbone_require: true,
   knockback: true,
-  flight: true
+  flight: true,
+  serenadejs: true
 }
 
 const noLocalStorageSpyCheck = {
