@@ -711,8 +711,7 @@ Cypress._.times(N, () => {
           .get(selectors.todoItems)
           .eq(1)
           .find('.edit')
-          // this is more robust and reliable than using .clear().type('{enter}')
-          .type('{selectall}{backspace}{enter}')
+          .clear().type('{enter}')
 
         visibleTodos().should('have.length', 2)
         checkNumberOfTodosInLocalStorage(2)

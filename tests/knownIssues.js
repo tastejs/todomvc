@@ -55,6 +55,7 @@ module.exports = [
   'emberjs, should allow me to edit an item',
   'emberjs, should save edits on blur',
   'emberjs, should trim entered text',
+  'emberjs, should remove the item if an empty text string was entered',
 
   // NoSuchMethodError : method not found: 'Symbol("keyCode")'
   // Receiver: Instance of 'rg'
