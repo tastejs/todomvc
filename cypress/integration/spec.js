@@ -86,6 +86,22 @@ const badLocalStorageFormat = {
   js_of_ocaml: true
 }
 
+// some frameworks really rely on "blur" event
+// to know when typing has finished
+const blurAfterType = {
+  ampersand: true,
+  dijon: true
+}
+
+// add after typing if `...{enter}` is not enough for some frameworks
+// cy.type('{enter}').then(safeBlur)
+const safeBlur = $el => {
+  if (blurAfterType[framework]) {
+    const event = new Event('blur', {force: true})
+    $el.get(0).dispatchEvent(event)
+  }
+}
+
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
@@ -707,7 +723,7 @@ Cypress._.times(N, () => {
           // clear + type text + enter key
           .clear()
           .type('buy some sausages{enter}')
-          .trigger('blur', {force: true, log: false})
+          .then(safeBlur)
 
         // explicitly assert about the text value
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
@@ -764,7 +780,7 @@ Cypress._.times(N, () => {
           .eq(1)
           .find('.edit')
           .type('{selectall}{backspace}    buy some sausages    {enter}')
-          .trigger('blur', {force: true, log: false})
+          .then(safeBlur)
 
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
         visibleTodos().eq(1).should('contain', 'buy some sausages')
@@ -780,7 +796,8 @@ Cypress._.times(N, () => {
           .eq(1)
           .find('.edit')
           .clear().type('{enter}')
-          .trigger('blur', {force: true, log: false})
+          .then(safeBlur)
+
 
         visibleTodos().should('have.length', 2)
         checkNumberOfTodosInLocalStorage(2)

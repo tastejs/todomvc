@@ -36,10 +36,6 @@ module.exports = [
   'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
   'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
-  // 'ampersand, should allow me to edit an item',
-  // 'ampersand, should trim entered text',
-  // 'ampersand, should remove the item if an empty text string was entered',
-
   // Kendo does NOT save todos when marked as completed
   'kendo, should allow me to mark all items as completed',
   'kendo, should allow me to clear the complete state of all items',
@@ -54,19 +50,21 @@ module.exports = [
   'TodoMVC - duel, Editing, should cancel edits on escape',
   'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
   'TodoMVC - olives, Editing, should cancel edits on escape',
-  'TodoMVC - rappidjs, Editing, should cancel edits on escape',
+  // 'TodoMVC - rappidjs, Editing, should cancel edits on escape',
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
   'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
   'serenadejs, should remove the item if an empty text string was entered',
 
   'olives, should focus on the todo input field',
 
-  'rappidjs, should remove the item if an empty text string was entered',
+  // 'rappidjs, should remove the item if an empty text string was entered',
 
   // this seems like an error in Cypress itself
   // ReferenceError: command is not defined
   'react-backbone, should save edits on blur',
 
+  // need to debug ember events - but need to rebuild the app,
+  // since it is minified code
   'emberjs, should allow me to edit an item',
   'emberjs, should save edits on blur',
   'emberjs, should trim entered text',
@@ -83,10 +81,10 @@ module.exports = [
   // working for us
   // 'TodoMVC - flight, Editing, should cancel edits on escape',
   // 'TodoMVC - backbone_require, Editing, should cancel edits on escape',
-  'TodoMVC - dijon, Editing, should cancel edits on escape',
-  'dijon, should allow me to edit an item',
-  'dijon, should trim entered text',
-  'dijon, should remove the item if an empty text string was entered',
+  // 'TodoMVC - dijon, Editing, should cancel edits on escape',
+  // 'dijon, should allow me to edit an item',
+  // 'dijon, should trim entered text',
+  // 'dijon, should remove the item if an empty text string was entered',
   // 'TodoMVC - knockoutjs_require, Editing, should cancel edits on escape',
 
   // all the following are covered by this issue:
