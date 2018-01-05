@@ -70,6 +70,14 @@ const noAppStartCheck = {
   mithril: true
 }
 
+// usually when an app makes localStorage.setItem call we think
+// it is ready to work. But some apps are so slow, that the DOM
+// is well behind the data model. For these apps, do not consider
+// intercepted localStorage.setItem a signal
+const storageSetDoesNotMeanAppStarted = {
+  flight: true
+}
+
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
@@ -218,8 +226,12 @@ if (!Cypress._.isFinite(N)) {
 
 Cypress._.times(N, () => {
   counter += 1
-  const countedTitle = N > 1 ? `run ${counter} / ${N} - ${title}` : title
-  describe(countedTitle, function () {
+  const countedTitle = N > 1 ? `${counter} / ${N} ${title}` : title
+  // TODO fix our runner
+  // when using same "title" for describe, N suites are added
+  // when using "countedTitle" - only the  LAST suite is added to the runner
+
+  describe(title, function () {
     // setup these constants to match what TodoMVC does
     let TODO_ITEM_ONE = 'buy some cheese'
     let TODO_ITEM_TWO = 'feed the cat'
@@ -306,7 +318,10 @@ Cypress._.times(N, () => {
               }
               // if something has made localStorage.setItem call -
               // that means app has started
-              appHasStarted = true
+              if (!storageSetDoesNotMeanAppStarted[framework]) {
+                appHasStarted = true
+              }
+
               return setItem.call(win.localStorage, name, value)
             }.bind(null, currentTestId)
             // now we can check from a test when the item has been stored
