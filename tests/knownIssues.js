@@ -166,6 +166,8 @@ module.exports = [
   'ractive, should allow me to edit an item',
   'ractive, should remove the item if an empty text string was entered',
 
+  'rapidjs, should remove the item if an empty text string was entered',
+
   'foam, should remove the item if an empty text string was entered',
 
   // ----------------- Test framework issues -----------

@@ -13,10 +13,12 @@ const excludedFrameworks = require('./excluded')
 const args = require('minimist')(process.argv.slice(2), {
   string: ['framework', 'browser'],
   number: 'times',
-  boolean: 'main',
+  boolean: 'main', // run list of main apps
+  boolean: 'problems', // run list of problematic apps
   alias: {
     framework: 'f',
-    times: 't'
+    times: 't',
+    problems: 'p'
   },
   default: {
     times: 1
@@ -49,9 +51,13 @@ const mainFrameworks = [
   'flight'
 ]
 
+const problematicFrameworks = ['dojo', 'mithril', 'flight']
+
 const frameworksToTest = args.framework
   ? args.framework
-  : args.main ? mainFrameworks : allFrameworks
+  : args.main
+      ? mainFrameworks
+      : args.problems ? problematicFrameworks : allFrameworks
 if (R.isEmpty(frameworksToTest)) {
   console.log('nothing to test ⚠️')
   process.exit(1)
