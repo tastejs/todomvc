@@ -805,6 +805,9 @@ Cypress._.times(N, () => {
         // the items in the local storage, for example KnockoutJS
         // first recomputes the items and still have "[]"
         checkTodosInLocalStorage(TODO_ITEM_ONE)
+        // but there should be 1 completed item
+        checkNumberOfCompletedTodosInLocalStorage(1)
+
         // now can reload
         cy.reload().then(testState)
       })

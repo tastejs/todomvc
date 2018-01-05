@@ -24,6 +24,7 @@ module.exports = [
   // does not hide other controls while editing
   // 'TodoMVC - dojo, Editing, should hide other controls when editing',
   'dojo, should save edits on blur',
+  'dojo, should remove the item if an empty text string was entered',
 
   // https://github.com/tastejs/todomvc/issues/816
   // atma does not hide the main section, instead it hides the toggle-all checkbox
@@ -34,6 +35,10 @@ module.exports = [
   // get multiple elements into an edit state
   'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
   'TodoMVC - somajs_require, Editing, should cancel edits on escape',
+
+  'ampersand, should allow me to edit an item',
+  'ampersand, should trim entered text',
+  'ampersand, should remove the item if an empty text string was entered',
 
   // Kendo does NOT save todos when marked as completed
   'kendo, should allow me to mark all items as completed',
@@ -51,6 +56,7 @@ module.exports = [
   'TodoMVC - rappidjs, Editing, should cancel edits on escape',
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
   'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
+  'serenadejs, should remove the item if an empty text string was entered',
 
   // this seems like an error in Cypress itself
   // ReferenceError: command is not defined
@@ -65,6 +71,9 @@ module.exports = [
   // Receiver: Instance of 'rg'
   // Arguments: []
   'angular-dart, should cancel edits on escape',
+
+  'knockback, should remove the item if an empty text string was entered',
+  'troopjs_require, should remove the item if an empty text string was entered',
 
   // working for us
   // 'TodoMVC - flight, Editing, should cancel edits on escape',
