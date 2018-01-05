@@ -628,13 +628,13 @@ Cypress._.times(N, () => {
           .find('label')
           .dblclick()
 
-        
+
         // clear out the inputs current value
         // and type a new value
         visibleTodos()
           .eq(1)
           .find('.edit')
-          .should('have.value', TODO_ITEM_TWO) 
+          .should('have.value', TODO_ITEM_TWO)
           // clear + type text + enter key
           .clear()
           .type('buy some sausages{enter}')
@@ -657,18 +657,19 @@ Cypress._.times(N, () => {
       })
 
       it('should hide other controls when editing', function () {
-        cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
+        cy.get('@todos').eq(1).find('label').dblclick()
 
-        cy.get('@secondTodo').find('.toggle').should('not.be.visible')
-        cy.get('@secondTodo').find('label').should('not.be.visible')
+        cy.get(selectors.todoItems).eq(1).find('.toggle').should('not.be.visible')
+        cy.get(selectors.todoItems).eq(1).find('label').should('not.be.visible')
         checkNumberOfTodosInLocalStorage(3)
       })
 
       it('should save edits on blur', function () {
-        cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
+        cy.get('@todos').eq(1).find('label').dblclick()
 
         cy
-          .get('@secondTodo')
+          .get(selectors.todoItems)
+          .eq(1)
           .find('.edit')
           .clear()
           .type('buy some sausages')
@@ -685,11 +686,12 @@ Cypress._.times(N, () => {
       })
 
       it('should trim entered text', function () {
-        cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
+        cy.get('@todos').eq(1).find('label').dblclick()
         checkTodosInLocalStorage(TODO_ITEM_TWO)
 
         cy
-          .get('@secondTodo')
+          .get(selectors.todoItems)
+          .eq(1)
           .find('.edit')
           .type('{selectall}{backspace}    buy some sausages    {enter}')
 
@@ -700,10 +702,11 @@ Cypress._.times(N, () => {
       })
 
       it('should remove the item if an empty text string was entered', function () {
-        cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick()
+        cy.get('@todos').eq(1).find('label').dblclick()
 
         cy
-          .get('@secondTodo')
+          .get(selectors.todoItems)
+          .eq(1)
           .find('.edit')
           // this is more robust and reliable than using .clear().type('{enter}')
           .type('{selectall}{backspace}{enter}')
@@ -713,9 +716,11 @@ Cypress._.times(N, () => {
       })
 
       it('should cancel edits on escape', function () {
-        visibleTodos().eq(1).as('secondTodo').find('label').dblclick()
+        visibleTodos().eq(1).find('label').dblclick()
 
-        cy.get('@secondTodo').find('.edit').type('{selectall}{backspace}foo{esc}')
+        cy
+        .get(selectors.todoItems)
+        .eq(1).find('.edit').type('{selectall}{backspace}foo{esc}')
 
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
         visibleTodos().eq(1).should('contain', TODO_ITEM_TWO)
