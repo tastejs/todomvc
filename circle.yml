@@ -89,6 +89,15 @@ jobs:
     <<: *defaults
   scalajs-react:
     <<: *defaults
+  # labs
+  chaplin-brunch:
+    <<: *defaults
+  canjs_require:
+    <<: *defaults
+  kendo:
+    <<: *defaults
+  rappidjs:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -127,3 +136,10 @@ workflows:
       - closure
       - typescript-angular
       - scalajs-react
+  # third tab - labs
+  labs:
+    jobs:
+      - chaplin-brunch
+      - canjs_require
+      - kendo
+      - rappidjs
