@@ -122,6 +122,36 @@ jobs:
     <<: *defaults
   angular2:
     <<: *defaults
+  knockoutjs_require:
+    <<: *defaults
+  durandal:
+    <<: *defaults
+  somajs:
+    <<: *defaults
+  olives:
+    <<: *defaults
+  atmajs:
+    <<: *defaults
+  aurelia:
+    <<: *defaults
+  riotjs:
+    <<: *defaults
+  angularjs_require:
+    <<: *defaults
+  lavaca_require:
+    <<: *defaults
+  duel:
+    <<: *defaults
+  dijon:
+    <<: *defaults
+  enyo_backbone:
+    <<: *defaults
+  ractive:
+    <<: *defaults
+  foam:
+    <<: *defaults
+  jsblocks:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -180,3 +210,18 @@ workflows:
       - exoskeleton
       - react-backbone
       - angular2
+      - knockoutjs_require
+      - durandal
+      - somajs
+      - olives
+      - atmajs
+      - aurelia
+      - riotjs
+      - angularjs_require
+      - lavaca_require
+      - duel
+      - dijon
+      - enyo_backbone
+      - ractive
+      - foam
+      - jsblocks
