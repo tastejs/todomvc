@@ -29,6 +29,8 @@ defaults: &defaults
     - run:
         command: npm run cy:run -- --record --env framework=$CIRCLE_JOB
         name: Test framework
+    - store_artifacts:
+        path: cypress/screenshots
 
 jobs:
   # main JS frameworks
