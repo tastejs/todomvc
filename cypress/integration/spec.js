@@ -49,7 +49,8 @@ const noLocalStorageCheck = {
   flight: true,
   serenadejs: true,
   js_of_ocaml: true,
-  reagent: true
+  reagent: true,
+  rappidjs: true
 }
 
 const noLocalStorageSpyCheck = {
