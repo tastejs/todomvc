@@ -11,7 +11,7 @@ const R = require('ramda')
 const excludedFrameworks = require('./excluded')
 
 const args = require('minimist')(process.argv.slice(2), {
-  string: 'framework',
+  string: ['framework', 'browser'],
   number: 'times',
   boolean: 'main',
   alias: {
@@ -60,6 +60,9 @@ console.log('testing %s', pluralize('framework', frameworksToTest.length, true))
 if (args.times) {
   console.log('running all tests %s', pluralize('time', args.times, true))
 }
+if (args.browser) {
+  console.log('in browser %s', args.browser)
+}
 
 const testFramework = framework => {
   console.log(
@@ -86,6 +89,7 @@ const testFramework = framework => {
 
   return cypress
     .run({
+      browser: args.browser,
       env: {
         framework,
         times: args.times
