@@ -36,9 +36,9 @@ module.exports = [
   'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
   'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
-  'ampersand, should allow me to edit an item',
-  'ampersand, should trim entered text',
-  'ampersand, should remove the item if an empty text string was entered',
+  // 'ampersand, should allow me to edit an item',
+  // 'ampersand, should trim entered text',
+  // 'ampersand, should remove the item if an empty text string was entered',
 
   // Kendo does NOT save todos when marked as completed
   'kendo, should allow me to mark all items as completed',
