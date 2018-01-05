@@ -77,6 +77,16 @@ jobs:
     <<: *defaults
   js_of_ocaml:
     <<: *defaults
+  reagent:
+    <<: *defaults
+  humble:
+    <<: *defaults
+  closure:
+    <<: *defaults
+  typescript-angular:
+    <<: *defaults
+  scalajs-react:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -109,3 +119,9 @@ workflows:
       - angular-dart
       - serenadejs
       - js_of_ocaml
+      - typescript-backbone
+      - reagent
+      - humble
+      - closure
+      - typescript-angular
+      - scalajs-react
