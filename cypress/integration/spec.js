@@ -48,7 +48,8 @@ const noLocalStorageCheck = {
   knockback: true,
   flight: true,
   serenadejs: true,
-  js_of_ocaml: true
+  js_of_ocaml: true,
+  reagent: true
 }
 
 const noLocalStorageSpyCheck = {
