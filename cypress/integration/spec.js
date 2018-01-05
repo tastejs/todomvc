@@ -191,7 +191,7 @@ let counter = 0
 
 Cypress._.times(N, () => {
   counter += 1
-  const countedTitle = N > 1 ? `${counter} / ${N} ${title}` : title
+  const countedTitle = N > 1 ? `run ${counter} / ${N} - ${title}` : title
   describe(countedTitle, function () {
     // setup these constants to match what TodoMVC does
     let TODO_ITEM_ONE = 'buy some cheese'

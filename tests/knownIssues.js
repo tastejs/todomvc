@@ -98,11 +98,11 @@ module.exports = [
   'TodoMVC - angular2, Routing, should highlight the currently applied filter',
   'TodoMVC - angular2, Routing, should respect the back button',
 
-  'TodoMVC - typescript-backbone, Routing, should allow me to display active items',
-  'TodoMVC - typescript-backbone, Routing, should allow me to display completed items',
-  'TodoMVC - typescript-backbone, Routing, should allow me to display all items',
-  'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
-  'TodoMVC - typescript-backbone, Routing, should respect the back button',
+  // 'TodoMVC - typescript-backbone, Routing, should allow me to display active items',
+  // 'TodoMVC - typescript-backbone, Routing, should allow me to display completed items',
+  // 'TodoMVC - typescript-backbone, Routing, should allow me to display all items',
+  // 'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
+  // 'TodoMVC - typescript-backbone, Routing, should respect the back button',
 
   // EXTJS is not spec compliant (by a long way!)
   'TodoMVC - extjs, should focus on the todo input field',
