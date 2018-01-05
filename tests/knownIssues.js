@@ -45,6 +45,11 @@ module.exports = [
   'TodoMVC - rappidjs, Editing, should cancel edits on escape',
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
   'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
+
+  'emberjs, should allow me to edit an item',
+  'emberjs, should save edits on blur',
+  'emberjs, should trim entered text',
+
   // working for us
   // 'TodoMVC - flight, Editing, should cancel edits on escape',
   // 'TodoMVC - backbone_require, Editing, should cancel edits on escape',

@@ -596,12 +596,16 @@ Cypress._.times(N, () => {
           .find('label')
           .dblclick()
 
+        
         // clear out the inputs current value
         // and type a new value
         visibleTodos()
           .eq(1)
-          .find('.edit') // clear + type text + enter key
-          .type('{selectall}{backspace}buy some sausages{enter}')
+          .find('.edit')
+          .should('have.value', TODO_ITEM_TWO) 
+          // clear + type text + enter key
+          .clear()
+          .type('buy some sausages{enter}')
 
         // explicitly assert about the text value
         visibleTodos().eq(0).should('contain', TODO_ITEM_ONE)
