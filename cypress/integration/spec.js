@@ -56,6 +56,10 @@ const noLocalStorageSpyCheck = {
   spine: true
 }
 
+const noAppStartCheck = {
+  mithril: true
+}
+
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
@@ -292,6 +296,17 @@ Cypress._.times(N, () => {
 
             // detect when a web application starts by noticing
             // the first "addEventListener" to text input events
+
+            // exceptions:
+            // mithril attaches handlers directly to the elements
+            // like this
+            //   node[attrName] = autoredraw(dataAttr, node)
+            // so for now assume framework has started
+            if (noAppStartCheck[framework]) {
+              appHasStarted = true
+              return
+            }
+
             const addListener = win.EventTarget.prototype.addEventListener
             win.EventTarget.prototype.addEventListener = function (name) {
               if (
