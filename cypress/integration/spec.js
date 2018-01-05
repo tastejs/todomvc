@@ -54,7 +54,8 @@ const noLocalStorageCheck = {
   kendo: true,
   exoskeleton: true,
   'react-backbone': true,
-  puremvc: true
+  puremvc: true,
+  extjs_deftjs: true
 }
 
 const noLocalStorageSpyCheck = {
