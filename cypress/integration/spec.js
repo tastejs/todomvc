@@ -52,7 +52,8 @@ const noLocalStorageCheck = {
   reagent: true,
   rappidjs: true,
   kendo: true,
-  exoskeleton: true
+  exoskeleton: true,
+  'react-backbone': true
 }
 
 const noLocalStorageSpyCheck = {
