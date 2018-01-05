@@ -54,7 +54,8 @@ const noLocalStorageCheck = {
 const noLocalStorageSpyCheck = {
   ampersand: true,
   spine: true,
-  canjs: true
+  canjs: true,
+  knockoutjs: true
 }
 
 const noAppStartCheck = {
