@@ -68,8 +68,7 @@ const noLocalStorageSpyCheck = {
   knockoutjs: true,
   canjs_require: true,
   knockoutjs_require: true,
-  durandal: true,
-  foam: true
+  durandal: true
 }
 
 const noAppStartCheck = {
@@ -335,11 +334,13 @@ Cypress._.times(N, () => {
       if (noLocalStorageSpyCheck[framework]) {
         return
       }
-      cy.get('@localStorageSetItem', {log: false}).should('have.been.called')
-      cy.get('@localStorageSetItem', {log: false}).invoke('reset')
+      cy.wrap(localStorageSetItem, {log: false})
+        .should('have.been.called')
+      cy.wrap(localStorageSetItem, {log: false}).invoke('reset')
     }
 
     let currentTestId
+    let localStorageSetItem
 
     beforeEach(function () {
       // By default Cypress will automatically
@@ -378,7 +379,8 @@ Cypress._.times(N, () => {
               return setItem.call(win.localStorage, name, value)
             }.bind(null, currentTestId)
             // now we can check from a test when the item has been stored
-            cy.spy(win.localStorage.__proto__, 'setItem').as('localStorageSetItem')
+            // cannot use spy alias - retry seems to be broken right now
+            localStorageSetItem = cy.spy(win.localStorage.__proto__, 'setItem')
 
             // detect when a web application starts by noticing
             // the first "addEventListener" to text input events
