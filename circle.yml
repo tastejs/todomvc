@@ -1,28 +1,51 @@
-machine:
-  node:
-    version: 8
+version: 2
 
-dependencies:
-  cache_directories:
-    - node_modules
-  pre:
-    - npm install
-
-general:
-  artifacts:
-    - "cypress/screenshots"
-
-test:
-  pre:
-    ## boots our local app server on port 8000
-    ## which cypress expects to be running
-    - npm run server:
+defaults: &defaults
+  parallelism: 1
+  working_directory: ~/app
+  docker:
+    - image: cypress/browsers:chrome63
+      environment:
+        ## this enables colors + fixes failing unit tests
+        TERM: xterm
+        # avoid million NPM install messages
+        npm_config_loglevel: warn
+        # allow installing when the main user is root
+        npm_config_unsafe_perm: true
+  steps:
+    - checkout
+    - restore_cache:
+        key: root-deps
+    - run: npm install
+    - run: npm prune
+    - save_cache:
+        key: root-deps-{{ checksum "package.json" }}
+        paths:
+          - node_modules
+    - run:
+        command: npm run server
+        name: start the server
         background: true
-  override:
-    # test some frameworks by running tests multiple times
-    - npm run test:all -- --f backbone -f vue --times 2
-    # test all frameworks
-    - npm run test:all
+    - run:
+        command: npm run cy:run -- --record --env framework=$CIRCLE_JOB
+        name: Test framework
 
-## status badge at
-## [![CircleCI](https://circleci.com/gh/cypress-io/todomvc.svg?style=svg)](https://circleci.com/gh/cypress-io/todomvc)
+jobs:
+  backbone:
+    <<: *defaults
+  dojo:
+    <<: *defaults
+  react:
+    <<: *defaults
+  vue:
+    <<: *defaults
+
+workflows:
+  version: 2
+  # main JavaScript frameworks from the first tab
+  main-frameworks:
+    jobs:
+      - backbone
+      - dojo
+      - react
+      - vue
