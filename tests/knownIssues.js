@@ -23,6 +23,7 @@ module.exports = [
   // https://github.com/tastejs/todomvc/issues/815
   // does not hide other controls while editing
   // 'TodoMVC - dojo, Editing, should hide other controls when editing',
+  'dojo, should save edits on blur',
 
   // https://github.com/tastejs/todomvc/issues/816
   // atma does not hide the main section, instead it hides the toggle-all checkbox
