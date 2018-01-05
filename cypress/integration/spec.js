@@ -53,7 +53,8 @@ const noLocalStorageCheck = {
 
 const noLocalStorageSpyCheck = {
   ampersand: true,
-  spine: true
+  spine: true,
+  canjs: true
 }
 
 const noAppStartCheck = {
@@ -177,7 +178,10 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
               if (items.length < n) {
                 return
               }
-              const completed = Cypress._.filter(items, { completed: true })
+              // MOST apps use "completed" property to mark task
+              // canjs uses "complete" property, 😡
+              const completed = Cypress._.filter(items, { completed: true }).
+                concat(Cypress._.filter(items, { complete: true }))
               return completed.length === n
             } catch (e) {
               return
@@ -782,7 +786,7 @@ Cypress._.times(N, () => {
 
       it('should allow me to display active items', function () {
         cy.get('@todos').eq(1).find('.toggle').check()
-        checkTodosInLocalStorage('"completed":true')
+        checkNumberOfCompletedTodosInLocalStorage(1)
         cy.contains(selectors.filterItems, 'Active').click()
         visibleTodos()
           .should('have.length', 2)
@@ -793,7 +797,7 @@ Cypress._.times(N, () => {
 
       it('should respect the back button', function () {
         cy.get('@todos').eq(1).find('.toggle').check()
-        checkTodosInLocalStorage('"completed":true')
+        checkNumberOfCompletedTodosInLocalStorage(1)
 
         cy.log('Showing all items')
         cy.contains(selectors.filterItems, 'All').click()
@@ -816,14 +820,14 @@ Cypress._.times(N, () => {
 
       it('should allow me to display completed items', function () {
         visibleTodos().eq(1).find('.toggle').check()
-        checkTodosInLocalStorage('"completed":true')
+        checkNumberOfCompletedTodosInLocalStorage(1)
         cy.get(selectors.filters).contains('Completed').click()
         visibleTodos().should('have.length', 1)
       })
 
       it('should allow me to display all items', function () {
         visibleTodos().eq(1).find('.toggle').check()
-        checkTodosInLocalStorage('"completed":true')
+        checkNumberOfCompletedTodosInLocalStorage(1)
         cy.get(selectors.filters).contains('Active').click()
         cy.get(selectors.filters).contains('Completed').click()
         cy.get(selectors.filters).contains('All').click()
