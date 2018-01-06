@@ -90,7 +90,8 @@ const badLocalStorageFormat = {
 // to know when typing has finished
 const blurAfterType = {
   ampersand: true,
-  dijon: true
+  dijon: true,
+  duel: true
 }
 
 // add after typing if `...{enter}` is not enough for some frameworks
