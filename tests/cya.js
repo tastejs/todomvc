@@ -70,42 +70,30 @@ if (args.browser) {
   console.log('in browser %s', args.browser)
 }
 
-const testFramework = framework => {
+const testApp = app => {
   console.log(
-    figlet.textSync(framework, {
+    figlet.textSync(app, {
       font: 'Varsity'
     })
   )
 
-  const addInfo = testResults => {
-    delete testResults.screenshots
-    delete testResults.video
-    delete testResults.version
-    // delete testResults.duration
-    testResults.framework = framework
-    return testResults
-  }
-
-  const addColors = testResults => {
-    testResults.failures = testResults.failures
-      ? chalk.red(testResults.failures)
-      : chalk.green(testResults.failures)
-    return testResults
-  }
+  const colorFailures = n => (n ? chalk.red(n) : chalk.green(n))
+  const addColors = R.over(R.lensProp('failures'), colorFailures)
 
   return cypress
     .run({
       browser: args.browser,
       env: {
-        framework,
+        framework: app,
         times: args.times
       }
     })
-    .then(addInfo)
+    .then(R.omit(['screenshots', 'video', 'version']))
+    .then(R.set(R.lensProp('app'), app))
     .then(addColors)
 }
 
-Promise.mapSeries(frameworksToTest, testFramework)
+Promise.mapSeries(frameworksToTest, testApp)
   .then(results => {
     console.table('TodoMVC results', results)
   })
