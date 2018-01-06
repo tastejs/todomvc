@@ -44,15 +44,15 @@ module.exports = [
 
   // the following are covered by the following issue:
   // https://github.com/tastejs/todomvc/issues/789
-  'TodoMVC - closure, Editing, should cancel edits on escape',
+  // 'TodoMVC - closure, Editing, should cancel edits on escape',
   'TodoMVC - ariatemplates, Editing, should cancel edits on escape',
   'TodoMVC - dermis, Editing, should cancel edits on escape',
   // 'TodoMVC - duel, Editing, should cancel edits on escape',
-  'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
-  'TodoMVC - olives, Editing, should cancel edits on escape',
+  // 'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
+  // 'TodoMVC - olives, Editing, should cancel edits on escape',
   // 'TodoMVC - rappidjs, Editing, should cancel edits on escape',
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
-  'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
+  // 'TodoMVC - typescript-angular, Editing, should cancel edits on escape',
   'serenadejs, should remove the item if an empty text string was entered',
 
   'olives, should focus on the todo input field',
