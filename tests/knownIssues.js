@@ -33,8 +33,8 @@ module.exports = [
   // https://github.com/tastejs/todomvc/issues/819
   // the edit experience with soma is quite broken. You can
   // get multiple elements into an edit state
-  'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
-  'TodoMVC - somajs_require, Editing, should cancel edits on escape',
+  // 'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
+  // 'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
   // Kendo does NOT save todos when marked as completed
   'kendo, should allow me to mark all items as completed',
