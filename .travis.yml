@@ -35,13 +35,16 @@ env:
 defaults: &defaults
   script:
     - echo Testing $CYPRESS_framework
+    - $(npm bin)/print-env TRAVIS
     - npm run test:record
 
 jobs:
   include:
     # install NPM dependencies before each test job
     - stage: npm install
-      script: npm install
+      script:
+        - npm install
+        - $(npm bin)/print-env TRAVIS
     # define a separate script for each "examples/*" folder
     # this will run it in a separate job on TravisCI
     # all these jobs belong to same stage "test" thus will run in parallel

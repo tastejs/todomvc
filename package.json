@@ -26,6 +26,7 @@
     "express": "^4.10.0"
   },
   "devDependencies": {
+    "@bahmutov/print-env": "^1.0.1",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "console.table": "^0.9.1",
