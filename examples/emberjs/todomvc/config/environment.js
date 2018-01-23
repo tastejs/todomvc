@@ -1,10 +1,10 @@
-/* jshint node: true */
+/* eslint-env node */
 
 module.exports = function (environment) {
 	var ENV = {
 		modulePrefix: 'todomvc',
 		environment: environment,
-		baseURL: null,
+		rootURL: null,
 		locationType: 'hash',
 		EmberENV: {
 			FEATURES: {
@@ -33,8 +33,8 @@ module.exports = function (environment) {
 
 	if (environment === 'test') {
 		// Testem prefers this...
-		ENV.rootURL = '/';
 		ENV.locationType = 'none';
+		ENV.rootURL = '/';
 
 		// keep test console output quieter
 		ENV.APP.LOG_ACTIVE_GENERATION = false;
