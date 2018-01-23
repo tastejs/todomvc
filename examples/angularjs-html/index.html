@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en" ng-app="todomvc" data-framework="angularjs">
+	<head>
+		<meta charset="utf-8">
+		<title>AngularJS • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+
+		<!-- This hides parts of HTML until Angular's compilation.
+			============================================================  -->
+		<style>[ng-cloak] { display: none; }</style>
+	</head>
+
+
+	<!-- Initialize `state` object to hold properties shared by different scopes,
+		 and constants to become available on the scope.
+		======================================================================== -->
+	<body ng-init="state={}; ESCAPE_KEY = 27">
+
+		<!-- Make services available on the scope.
+			====================================== -->
+		<todo-import service="$location" hidden></todo-import>
+		<todo-import service="todoStorage" hidden></todo-import>
+
+		<!-- Load todos from our storage service.
+			===================================== -->
+		<div ng-init="state.todos = todoStorage.get()" hidden></div>
+
+		<!-- Save changes upon each digest cycle.
+			===================================== -->
+		<div ng-hide="todoStorage.put(state.todos); true"></div>
+
+		<section id="todoapp">
+
+			<!-- Initialize `header` object to hold properties specific to this component.
+				========================================================================== -->
+			<header id="header" ng-init="header = {}">
+				<h1>todos</h1>
+
+				<!-- On submit create new todo and push to the list,
+					 but only when the title is not empty.
+					 Note that Angular's ng-model trims its bound variable,
+					 so no need to `todoTitle.trim()`.
+					======================================================= -->
+				<form 
+					id="todo-form"
+					ng-submit="header.todoTitle.length && state.todos.push({title: header.todoTitle, completed: false}); header.todoTitle = ''"
+				>
+
+					<!-- Use `ng-model` for two-way data binding, 
+					     so we only need to read from the scope.
+					    =========================================  -->
+					<input id="new-todo" placeholder="What needs to be done?" ng-model="header.todoTitle" autofocus>
+				</form>
+			</header>
+
+			<section id="main" ng-show="state.todos.length" ng-cloak>
+
+				<!-- When checkbox is clicked, indicate it is taking over the controll
+					 by setting the toggleAll flag true.
+					 Here we need both update the checkbox and listen to the user interaction,
+					 so we carefully split the two-way binding into
+					 the `ng-checked` and `ng-click` properties.
+					 The `ng-checked` expression is evaluated on every Angular's digest cycle
+					 and updates the checkbox state,
+					 whereas the `ng-click` expression is evaluated on every click,
+					 and lauches a digest cycle.
+					========================================================================= -->
+				<input 
+					id="toggle-all" 
+					type="checkbox"
+					ng-checked="state.remainingCount === 0"
+					ng-click="state.allChecked = !state.allChecked; state.toggleAll = true;"
+				>
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list">
+
+					<!-- Angular's (in)famous filter "filter". :)
+						 Filter `state.todos` via the custom object depending on the location path.
+						 Dynamically adjust the class depending what todo is currently being edited.
+						============================================================================ -->
+					<li ng-repeat="todo in state.todos | filter:{'/active': {completed: false}, '/completed': {completed: true}}[$location.path()] track by $index" 
+						ng-class="{completed: todo.completed, editing: todo === state.editedTodo}"
+					>
+						<div class="view">
+
+							<!-- If toggleAll = false, click toggles todo.completed  
+								 If toggleAll = true, click sets todo.completed = !allChecked 
+								 When clicked, we set toggleAll to false
+								 ng-checked expression is evaluated on any digest cycle, 
+								 so we update todo.completed
+								============================================================== -->
+							<input
+								class="toggle" 
+								type="checkbox"
+								ng-checked="todo.completed = (state.toggleAll ? state.allChecked : todo.completed)"
+								ng-click="todo.completed = !todo.completed; state.toggleAll = false"
+							>
+
+							<!-- On double click save a copy of the current title.
+								================================================= -->
+							<label 
+								ng-dblclick="state.originalTitle = todo.title; state.editedTodo = todo"
+							>{{todo.title}}</label>
+							<button class="destroy" ng-click="state.todos.splice($index, 1)"></button>
+
+						</div>
+
+						<!-- Angular automatically trims the `ng-model`'s variable. 
+							 If the title is empty after trimming, we remove the todo from the list.
+							 Special care is needed since the "blur" event is also fired 
+							 when the input element is closed programmatically.
+							======================================================================== -->
+						<form ng-submit="todo.title.length || state.todos.splice($index, 1); state.editedTodo = {}">
+							<input class="edit" 
+								ng-model="todo.title"
+								ng-blur="todo.title.length || state.todos.splice($index, 1); state.editedTodo = {}" 
+								ng-keydown="($event.keyCode === ESCAPE_KEY) && (todo.title = state.originalTitle) && (state.editedTodo = {})" 
+								todo-focus="todo === state.editedTodo">
+						</form>
+					</li>
+				</ul>
+			</section>
+
+			<footer id="footer" ng-show="state.todos.length" ng-cloak>
+				<span id="todo-count">
+					<strong>
+						{{ 
+							state.remainingCount = (state.todos | filter:{completed:false}).length
+						}}
+					</strong>
+					<ng-pluralize 
+						count="state.remainingCount" 
+						when="{ one: 'item left', other: 'items left' }"
+					></ng-pluralize>
+				</span>
+				<ul id="filters">
+					<li>
+						<a ng-class="{selected: $location.path() == ''} " href="#">All</a>
+					</li>
+					<li>
+						<a ng-class="{selected: $location.path() == '/active'}" href="#/active">Active</a>
+					</li>
+					<li>
+						<a ng-class="{selected: $location.path() == '/completed'}" href="#/completed">Completed</a>
+					</li>
+				</ul>
+
+				<!-- On click, we set the flag `clearCompletedTodos` to true.
+					 This kicks `ng-bind` listeners below removing all completed Todos.
+					 The expression of `ng-show` keeps evaluating until no more completed Todos remain,
+					 after which `clearCompletedTodos` is set back to false to stop the process.
+					===============================================================================  -->
+				<button 
+					id="clear-completed" 
+					ng-click="state.clearCompletedTodos = true"
+					ng-show="(state.todos | filter:{completed:true}).length || (state.clearCompletedTodos = false)"
+				>Clear completed</button>
+
+				<!-- This is how we can iterate over arrays without using loops or `forEach`
+					 as both loops and defining new functions are illegal in Angular's expressions.
+					 Instead we use hidden DOM elements to perform the removal one-by-one.
+					 That is still performant as the browser never needs to show these elements.
+					=============================================================================== -->
+				<div hidden>
+					<div 
+						ng-repeat="todo in state.todos"
+						ng-bind="state.clearCompletedTodos && todo.completed && state.todos.splice($index, 1)"
+					></div>
+				</div>
+			</footer>
+		</section>
+
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by:
+				<a href="http://twitter.com/dmitri145">Dmitri Zaitsev</a>,
+
+			   Inspired by the official implementations by
+				<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
+				<a href="http://ericbidelman.com">Eric Bidelman</a>,
+				<a href="http://jacobmumm.com">Jacob Mumm</a> and
+				<a href="http://blog.igorminar.com">Igor Minar</a>
+			</p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/services/todoStorage.js"></script>
+		<script src="js/directives/todoImportDirective.js"></script>
+		<script src="js/directives/todoFocusDirective.js"></script>
+	</body>
+</html>

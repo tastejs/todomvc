@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "angular": "^1.4.8",
+    "todomvc-app-css": "^1.0.1",
+    "todomvc-common": "^1.0.1"
+  }
+}
