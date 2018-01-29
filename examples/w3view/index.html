@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>W3View • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<!--here the app should be placed-->
+		<div style="display:none;" id="components">
+			here component library is inlined, 
+			but you can load it by moduleLoader
+			or link as prebuilded script
+/////////////////
+			<li as="listItem" class="completed"><!--class=""-->
+				<div class="view">
+					<input ref="toggle" class="toggle" type="checkbox" checked>
+					<label ref="title">Taste JavaScript</label>
+					<button ref="destroy" class="destroy"></button>
+				</div>
+				<input ref="edit" class="edit" value="Create a TodoMVC template">
+				<script type="javascript">
+					var item = {};
+
+					this.onSetData = function(input){
+						item = input;
+						this.className = input.completed ? 'completed' : '';
+						this.ref.title.innerHTML = input.title;
+						this.ref.edit.value = input.title;
+						this.ref.toggle.checked = input.completed;
+					};
+
+					this.ref.title.ondblclick = function (e){
+						this.className='editing';
+						this.ref.edit.focus();
+					}.bind(this);
+
+					this.ref.edit.onblur = function (e){
+						appContext.editTodo(item, this.value);
+					};
+
+					this.ref.edit.onkeydown = function (e){
+						var ENTER_KEY = 13, ESC_KEY = 27;
+						if(e.which === ENTER_KEY) {
+							appContext.editTodo(item, this.value);
+						}
+						if(e.which === ESC_KEY){
+							this.value = item.title;
+						}
+					};
+
+					this.ref.toggle.onchange = function(e){
+						appContext.toggleItemCompleted(item);
+					};
+
+					this.ref.destroy.onclick = function(e){
+						appContext.remItem(item);
+					}
+				</script>
+			</li>
+/////////////////
+			<section class="main" as="main">
+				<input ref="switch" id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<array-iterator ref="list" usetag="ul" class="todo-list">
+					<listItem></listItem>
+				</array-iterator>
+				<script type="javascript">
+
+					this.onSetData = function (input){
+						this.ref.list.setData(input.list);
+						if(!input.total || !input.total.count) this.style.display='none';
+						else this.style.display='';
+						this.ref.switch.checked = !input.total.active;
+					};
+
+					this.ref.switch.onchange = function (e){
+						appContext.toggleAll(this.checked);
+					};
+
+				</script>
+			</section>
+/////////////////
+			<footer as="totals" class="footer">
+				<!-- This should be `0 items left` by default -->
+				<span class="todo-count"><strong ref="count">0</strong>
+				<span ref="countWord"> items left</span></span>
+				<!-- Remove this if you don't implement routing -->
+				<ul class="filters">
+					<li>
+						<a ref="showAll" class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a ref="showActive" href="#/active">Active</a>
+					</li>
+					<li>
+						<a ref="showCompleted" href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<!-- Hidden if no completed items are left ↓ -->
+				<button ref="clear" class="clear-completed">Clear completed</button>
+				<script type="javascript">
+					var link = ['showAll','showActive','showCompleted'];
+
+					function selectLink(item){
+						var current = this.ref[item];
+						if(current.getAttribute('href') === document.location.hash){
+							current.className='selected';
+						} else {
+							current.className='';
+						}
+					}
+
+					this.onSetData = function(data){
+						if(!data.count) {
+							this.style.display = 'none';
+							return;
+						}
+						this.style.display = '';
+						this.ref.countWord.innerText = (data.active) === 1 ?
+								' item left' :  ' items left';
+						this.ref.count.innerText=data.active;
+						link.forEach(selectLink.bind(this));
+						this.ref.clear.style.display = data.active === data.count ? 'none' : '';
+					};
+
+					this.ref.clear.onclick = function (e){
+						appContext.clearCompleted();
+					};
+
+				</script>
+			</footer>
+/////////////////
+			<section class="todoapp" as="application">
+				<header ref="header" class="header">
+					<h1>todos</h1>
+					<input ref="newTodo" class="new-todo" 
+						placeholder="What needs to be done?" autofocus>
+				</header>
+				<!-- This section should be hidden by default and shown when there are todos -->
+				<main ref="main"></main>
+				<!-- This footer should hidden by default and shown when there are todos -->
+				<totals ref="totals"></totals>
+				<script type="javascript">
+
+					this.ref.newTodo.onkeypress = function (e){
+						var ENTER_KEY = 13;
+						if(e.charCode !== ENTER_KEY) return;
+						appContext.addNewTodo(this.value);
+						this.value='';
+					};
+
+					this.onSetData = function(input){
+						this.ref.main.setData(input);
+						this.ref.totals.setData(input.total);
+					};
+					
+					console.log("application section created");
+
+				</script>
+			</section>
+//////////////////
+		</div>
+
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://todomvc.com">Vitaly Dmitriev</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<!-- Scripts here. Don't remove ↓ -->
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="js/director.js"></script>
+
+		<script src="node_modules/w3view/w3view.js"></script>
+		<script src="js/models/todo.js"></script>		
+		<script src="js/controllers/todo.js"></script>		
+		<script src="js/app.js"></script>
+	</body>
+</html>
