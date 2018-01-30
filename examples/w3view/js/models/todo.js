@@ -10,10 +10,10 @@
 	//
 
 	var store = exports.localStorage;
-	function filterComplete(item, i){
+	function filterComplete(item, i) {
 		return item.completed;
 	}
-	function filterActive(item, i){
+	function filterActive(item, i) {
 		return !filterComplete(item, i);
 	}
 
@@ -50,7 +50,7 @@
 		if (i < 0) {
 			return;
 		}
-		if(!value){
+		if (!value) {
 			this.list.splice(i, 1);
 		} else {
 			item.title = value;
@@ -61,7 +61,7 @@
 		var i =  this.list.indexOf(item);
 		if (i < 0) {
 			return;
-		}		
+		}
 		this.list.splice(i, 1);
 		this.save();
 	};
@@ -75,7 +75,7 @@
 	model.toggleAll = function (onoff) {
 		this.list.forEach(function (item) {
 			item.completed = onoff;
-		} );
+		});
 		this.save();
 	};
 	model.clearCompleted = function () {
@@ -87,4 +87,4 @@
 		STORE = store;
 		return model;
 	};
-})(window)
+})(window);
