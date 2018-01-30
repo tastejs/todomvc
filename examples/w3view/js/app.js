@@ -3,7 +3,7 @@
 
 	var app = new window.todoController(todoModel('todos-W3View'));
 
-	var w3view = window.w3view || function(app){
+	var w3view = window.w3view || function (app) {
 		var res = new window.W3View(app);
 		var sources = window.document.getElementById('components');
 		res.register(sources.children);
@@ -15,21 +15,23 @@
 	view.mount(document.body, 0);
 	app.setView(view);
 
-	window.Router({
-		'/': function (){
+	window.Router( {
+		'/': function () {
 			app.showAll();
 		},
-		'/active': function (){
+		'/active': function () {
 			app.showActive();
 		},
-		'/completed': function (){
+		'/completed': function () {
 			app.showCompleted();
 		},
-		'*': function (){
+		'*': function () {
 			app.showAll();
 		}
 	}).init();
 
-	if(!window.document.location.hash.substr(1)) document.location.hash='/';
+	if (!window.document.location.hash.substr(1)) {
+		document.location.hash = '/';
+	}
 
-})(window);
+} )(window);
