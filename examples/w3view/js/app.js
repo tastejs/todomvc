@@ -15,7 +15,7 @@
 	view.mount(document.body, 0);
 	app.setView(view);
 
-	window.Router( {
+	window.Router({
 		'/': function () {
 			app.showAll();
 		},
@@ -34,4 +34,4 @@
 		document.location.hash = '/';
 	}
 
-} )(window);
+})(window);

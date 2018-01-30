@@ -45,7 +45,7 @@
 		if (!item) {
 			return;
 		}
-		value=value.trim();
+		value = value.trim();
 		var i =  this.list.indexOf(item);
 		if (i < 0) {
 			return;
@@ -84,7 +84,7 @@
 	};
 
 	exports.todoModel = function (store) {
-		STORE=store;
+		STORE = store;
 		return model;
 	};
-} )(window)
+})(window)
