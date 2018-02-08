@@ -2,7 +2,7 @@
 /*jshint white:false */
 /*jshint trailing:false */
 /*jshint newcap:false */
-/*global React, Router*/
+/*global React, Router, ReactDOM*/
 var app = app || {};
 
 (function () {
@@ -170,7 +170,7 @@ var app = app || {};
 	var model = new app.TodoModel('react-todos');
 
 	function render() {
-		React.render(
+		ReactDOM.render(
 			<TodoApp model={model}/>,
 			document.getElementsByClassName('todoapp')[0]
 		);
