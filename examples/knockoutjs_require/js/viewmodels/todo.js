@@ -19,6 +19,9 @@ define([
 		// store the new todo value being entered
 		self.current = ko.observable();
 
+		// store the current mode, default is all
+		self.showMode = ko.observable('all');
+		
 		// add a new todo, when enter key is pressed
 		self.add = function () {
 			var current = self.current().trim();
@@ -71,7 +74,23 @@ define([
 			item.editing(false);
 			item.title(item.previousTitle);
 		};
-
+		
+		// filter todos based on the mode selected
+		self.filteredTodos = ko.computed(function () {
+			switch (self.showMode()) {
+			case 'active':
+				return self.todos().filter(function (todo) {
+					return !todo.completed();
+				});
+			case 'completed':
+				return self.todos().filter(function (todo) {
+					return todo.completed();
+				});
+			default:
+				return self.todos();
+			}
+		});
+		
 		// count of all completed todos
 		self.completedCount = ko.computed(function () {
 			return ko.utils.arrayFilter(self.todos(), function (todo) {
