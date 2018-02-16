@@ -1,19 +1,18 @@
 (function (window) {
 	'use strict';
-
+	var doc = window.document;
 	var app = new window.todoController(todoModel('todos-W3View'));
 
 	var w3view = window.w3view || function (app) {
 		var res = new window.W3View(app);
-		var sources = window.document.getElementById('components');
+		var sources = doc.getElementById('components');
 		res.register(sources.children);
-		window.document.body.removeChild(sources);
+		doc.body.removeChild(sources);
 		return res;
 	};
 
-	var view = w3view(app).create('application');
-	view.mount(document.body, 0);
-	app.setView(view);
+	w3view(app).create('application').mount(doc.body, 0);
+
 
 	window.Router({
 		'/': function () {
@@ -26,12 +25,12 @@
 			app.showCompleted();
 		},
 		'*': function () {
-			app.showAll();
+			doc.location.hash = '/';
 		}
 	}).init();
 
-	if (!window.document.location.hash.substr(1)) {
-		document.location.hash = '/';
+	if (!doc.location.hash.substr(1)) {
+		doc.location.hash = '/';
 	}
 
 })(window);
