@@ -58,7 +58,7 @@ const webpackDevConfig = {
   ],
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    port: 5000,
+    port: 7000,
     historyApiFallback: true,
     hot: true,
     quiet: true,
