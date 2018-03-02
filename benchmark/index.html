@@ -239,7 +239,7 @@
 				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
 					sandbox.style.animation = 'measure .001s'
 				} ) } )
-				function end() { // wait for painting ends
+				function end() {  // wait for painting ends
 					done( Date.now() - start + ' ms' )
 					sandbox.style.animation = ''
 					sandbox.removeEventListener( 'animationend' , end )
