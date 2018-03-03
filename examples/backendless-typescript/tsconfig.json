@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "./js"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
