@@ -1,0 +1,16 @@
+node_modules/director/*
+!node_modules/director/build
+node_modules/director/build/*
+!node_modules/director/build/director.min.js
+
+node_modules/backendless/*
+!node_modules/backendless/libs
+node_modules/backendless/libs/*
+!node_modules/backendless/libs/backendless.min.js
+
+node_modules/todomvc-app-css/*
+!node_modules/todomvc-app-css/index.css
+
+node_modules/todomvc-common/*
+!node_modules/todomvc-common/base.css
+!node_modules/todomvc-common/base.js
