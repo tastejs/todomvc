@@ -15,7 +15,7 @@
 			<section id="main" data-bind="visible: todos().length">
 				<input id="toggle-all" data-bind="checked: allCompleted" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list" data-bind="foreach: todos">
+				<ul id="todo-list" data-bind="foreach: filteredTodos">
 					<li data-bind="css: { completed: completed, editing: editing }">
 						<div class="view">
 							<input class="toggle" data-bind="checked: completed" type="checkbox">
@@ -31,6 +31,17 @@
 					<strong data-bind="text: remainingCount">0</strong>
 					<span data-bind="text: getLabel(remainingCount)"></span> left
 				</span>
+				<ul id="filters">
+					<li>
+						<a data-bind="css: { selected: showMode() == 'all' }" href="#/all">All</a>
+					</li>
+					<li>
+						<a data-bind="css: { selected: showMode() == 'active' }" href="#/active">Active</a>
+					</li>
+					<li>
+						<a data-bind="css: { selected: showMode() == 'completed' }" href="#/completed">Completed</a>
+					</li>
+				</ul>
 				<button id="clear-completed" data-bind="visible: completedCount, click: removeCompleted">Clear completed</button>
 			</footer>
 		</section>
