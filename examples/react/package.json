@@ -1,10 +1,22 @@
 {
+  "name": "todomvc-fauna",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "classnames": "^2.1.5",
-    "director": "^1.2.0",
-    "react": "^0.13.3",
+    "classnames": "^2.2.5",
+    "director": "^1.2.8",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
