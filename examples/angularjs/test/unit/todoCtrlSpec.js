@@ -91,23 +91,26 @@
 			}));
 
 			it('should not add empty Todos', function () {
+				//now the addTodo function is linked to the controller instead of the scope
 				scope.newTodo = '';
-				scope.addTodo();
+				ctrl.addTodo();
 				scope.$digest();
 				expect(scope.todos.length).toBe(0);
 			});
 
 			it('should not add items consisting only of whitespaces', function () {
-				scope.newTodo = '   ';
-				scope.addTodo();
+				//same thing as in previous test
+				ctrl.newTodo = '   ';
+				ctrl.addTodo();
 				scope.$digest();
 				expect(scope.todos.length).toBe(0);
 			});
 
 
 			it('should trim whitespace from new Todos', function () {
-				scope.newTodo = '  buy some unicorns  ';
-				scope.addTodo();
+				//and here too
+				ctrl.newTodo = '  buy some unicorns  ';
+				ctrl.addTodo();
 				scope.$digest();
 				expect(scope.todos.length).toBe(1);
 				expect(scope.todos[0].title).toBe('buy some unicorns');
@@ -150,12 +153,36 @@
 				expect(scope.todos.length).toBe(4);
 			});
 
+			it('should not trigger saving on blur', function () {
+				var todo = store.todos[2];
+				var length = store.todos.length;
+				scope.editTodo(todo);
+				todo.title = 'buy moar unicorns';
+				scope.saveEvent = 'submit';
+				scope.saveEdits(todo, 'blur');
+				expect(scope.todos.length).toBe(length);
+			});
+
 			it('should trim Todos on saving', function () {
 				var todo = store.todos[0];
 				scope.editTodo(todo);
 				todo.title = ' buy moar unicorns  ';
 				scope.saveEdits(todo);
 				expect(scope.todos[0].title).toBe('buy moar unicorns');
+			});
+
+			it('saveEdits should clear reverted if necessary', function () {
+				var todo = store.todos[0];
+				scope.reverted = true;
+				scope.saveEdits(todo);
+				expect(scope.reverted).toBe(null);
+			});
+
+			it('saveEdits should clear editedTodo if not modified', function () {
+				var todo = store.todos[0];
+				scope.editTodo(todo);
+				scope.saveEdits(todo);
+				expect(scope.editedTodo).toBe(null);
 			});
 
 			it('clearCompletedTodos() should clear completed Todos', function () {
@@ -177,6 +204,20 @@
 				scope.$digest();
 				expect(scope.todos[0].title).toBe('Uncompleted Item 0');
 			});
+
+			it('removeTodo() should remove a todo', function() {
+				var todo = store.todos[0];
+				var length = store.todos.length;
+				scope.removeTodo(todo);
+				expect(scope.todos.length).toBe(length - 1);
+			});
+
+			it('saveTodo() should save a todo', function() {
+				var todo = store.todos[0];
+				todo.title = 'all good !';
+				scope.saveTodo(todo);
+				expect(scope.todos[0].title).toBe(todo.title);
+			})
 		});
 	});
 }());
