@@ -1,0 +1,52 @@
+<todo-footer>
+	<span class='todo-count'>
+		<strong>{ remaining }</strong> { remaining === 1 ? 'item' : 'items' } left
+	</span>
+	<ul class='filters'>
+		<li each={ filter in filters }>
+			<a class={ selected: activeFilter == filter.value } href='#/{ filter.value }'>{filter.name}</a>
+		</li>
+	</ul>
+	<button class='clear-completed' onclick={ clearTodos } if={ store.todos.length > remaining }>
+		Clear completed
+	</button>
+
+	<script>
+	/* global opts */
+	'use strict';
+	this.store = opts.store;
+	this.filters = [
+		{ name: 'All', value: 'all' },
+		{ name: 'Active', value: 'active' },
+		{ name: 'Completed', value: 'completed' }
+	];
+
+	/**
+	 * Get the remaining todo items not completed
+	 * @returns {number} todos not completed
+	 */
+	getRemaining() {
+		return this.store.todos.filter(t => !t.isCompleted).length;
+	}
+
+	/**
+	 * Remove all the completed todos
+	 */
+	clearTodos() {
+		this.store.removeCompleted();
+	}
+
+	// cache the todos not completed
+	this.remaining = this.getRemaining();
+
+	this.store.on('todos:filtered', (filterId) => {
+		this.activeFilter = filterId;
+	});
+
+	this.store.on('todos:updated', (filterId) => {
+		this.remaining = this.getRemaining();
+		this.update();
+	});
+
+	</script>
+</todo-footer>

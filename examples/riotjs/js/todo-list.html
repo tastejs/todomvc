@@ -1,0 +1,30 @@
+<todo-list>
+  <input class='toggle-all' ref='checkAll' type='checkbox' checked={ areAllDone() }>
+  <label for='toggle-all' onclick={ toggleAll }>Mark all as complete</label>
+  <ul class='todo-list'>
+    <li data-is='todo-item' each={ todo in store.todos } if={ todo.isVisible } store={ store }></li>
+  </ul>
+
+  <script>
+  /* global opts */
+  'use strict';
+  this.store = opts.store;
+
+  /**
+   * Get whether all the todos are completed
+   * @returns {boolean} true if all the tasks are complete
+   */
+  areAllDone() {
+    return this.store.todos.every(t => !t.isCompleted);
+  }
+
+  /**
+   * Toggle the todos
+   */
+  toggleAll() {
+    this.store.updateAll({ isCompleted: this.refs.checkAll.checked });
+  }
+
+  this.store.on('todos:updated', () => this.update());
+  </script>
+</todo-list>
