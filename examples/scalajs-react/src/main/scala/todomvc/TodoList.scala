@@ -109,10 +109,15 @@ object TodoList {
       <.section(
         ^.className := "main",
         <.input(
+          ^.id         := "toggle-all",
           ^.className  := "toggle-all",
           ^.`type`     := "checkbox",
           ^.checked    := activeCount == 0,
           ^.onChange  ==> callbacks.toggleAll
+        ),
+        <.label(
+          s"Mark all as complete",
+          ^.htmlFor         := "toggle-all"
         ),
         <.ul(
           ^.className := "todo-list",

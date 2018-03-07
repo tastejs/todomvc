@@ -8,38 +8,38 @@
 	</head>
 	<body>
 		<script id="app" type="text/serenade">
-			section#todoapp
-				header#header
+			section.todoapp
+				header.header
 					form[event:submit=newTodo!]
 						h1 "todos"
 
-						input#new-todo[binding:change=@newTitle placeholder="What needs to be done?" autofocus="autofocus"]
+						input.new-todo[binding:change=@newTitle placeholder="What needs to be done?" autofocus="autofocus"]
 
 				- if @allCount
-					section#main
-						input#toggle-all[type="checkbox" binding:change=@allCompleted]
+					section.main
+						input#toggle-all.toggle-all[type="checkbox" binding:change=@allCompleted]
 
 						label[for="toggle-all"] "Mark all as complete"
 
-						ul#todo-list
+						ul.todo-list
 							- collection @filtered
 								- view "todo"
 
-					footer#footer
-						span#todo-count
+					footer.footer
+						span.todo-count
 							strong @activeCount
 							" "
 							@label
 
-						ul#filters
+						ul.filters
 							li
-								a.all[class:selected=@filterAll href="#/"] "All"
+								a.all[class:selected=@filterAll href="./"] "All"
 							li
-								a.active[class:selected=@filterActive href="#/active"] "Active"
+								a.active[class:selected=@filterActive href="./active"] "Active"
 							li
-								a.completed[class:selected=@filterCompleted href="#/completed"] "Completed"
+								a.completed[class:selected=@filterCompleted href="./completed"] "Completed"
 						- if @completedCount
-							button#clear-completed[event:click=clearCompleted]
+							button.clear-completed[event:click=clearCompleted]
 								"Clear completed"
 		</script>
 
@@ -54,7 +54,7 @@
 					button.destroy[event:click=removeTodo]
 		</script>
 
-		<footer id="info">
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://elabs.se">Elabs</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>

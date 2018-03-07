@@ -6,11 +6,11 @@ app.footer = function (ctrl) {
 	var amountCompleted = ctrl.amountCompleted();
 	var amountActive = ctrl.list.length - amountCompleted;
 
-	return m('footer#footer', [
-		m('span#todo-count', [
+	return m('footer.footer', [
+		m('span.todo-count', [
 			m('strong', amountActive), ' item' + (amountActive !== 1 ? 's' : '') + ' left'
 		]),
-		m('ul#filters', [
+		m('ul.filters', [
 			m('li', [
 				m('a[href=/]', {
 					config: m.route,
@@ -29,7 +29,7 @@ app.footer = function (ctrl) {
 					class: ctrl.filter() === 'completed' ? 'selected' : ''
 				}, 'Completed')
 			])
-		]), ctrl.amountCompleted() === 0 ? '' : m('button#clear-completed', {
+		]), ctrl.amountCompleted() === 0 ? '' : m('button.clear-completed', {
 			onclick: ctrl.clearCompleted.bind(ctrl)
 		}, 'Clear completed')
 	]);

@@ -11,7 +11,7 @@ define([
 		var template = utils.tmpl(statsTmpl);
 
 		this.attributes({
-			clearCompletedSelector: '#clear-completed'
+			clearCompletedSelector: '.clear-completed'
 		});
 
 		this.render = function (e, data) {

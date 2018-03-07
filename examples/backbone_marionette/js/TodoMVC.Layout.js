@@ -9,12 +9,12 @@ var TodoMVC = TodoMVC || {};
 
 	TodoMVC.RootLayout = Mn.View.extend({
 
-		el: '#todoapp',
+		el: '.todoapp',
 
 		regions: {
-			header: '#header',
-			main: '#main',
-			footer: '#footer'
+			header: '.header',
+			main: '.main',
+			footer: '.footer'
 		}
 	});
 
@@ -27,7 +27,7 @@ var TodoMVC = TodoMVC || {};
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			input: '#new-todo'
+			input: '.new-todo'
 		},
 
 		events: {
@@ -66,12 +66,12 @@ var TodoMVC = TodoMVC || {};
 		// UI bindings create cached attributes that
 		// point to jQuery selected objects
 		ui: {
-			filters: '#filters a',
+			filters: '.filters a',
 			completed: '.completed a',
 			active: '.active a',
 			all: '.all a',
-			summary: '#todo-count',
-			clear: '#clear-completed'
+			summary: '.todo-count',
+			clear: '.clear-completed'
 		},
 
 		events: {

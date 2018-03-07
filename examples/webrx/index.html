@@ -16,7 +16,7 @@
 			</header>
 
 			<section data-bind="visible: todos.length" class="main">
-				<input data-bind="checked: remainingCount === 0, command: completeAllCmd" class="toggle-all" type="checkbox">
+				<input data-bind="checked: remainingCount === 0, command: completeAllCmd" id="toggle-all" class="toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 
 				<ul data-bind="foreach: filteredTodos" class="todo-list">

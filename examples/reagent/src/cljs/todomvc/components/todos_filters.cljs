@@ -7,7 +7,7 @@
     "selected" ""))
 
 (defn component []
-  [:ul#filters
+  [:ul.filters
    [:li [:a {:class (selected-class :all @session/todos-display-type)  :href "#/"} "All"]]
    [:li [:a {:class (selected-class :active @session/todos-display-type) :href "#/active"} "Active"]]
    [:li [:a {:class (selected-class :completed @session/todos-display-type) :href "#/completed"} "Completed"]]])

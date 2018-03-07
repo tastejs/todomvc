@@ -8,9 +8,9 @@
 	'use strict';
 
 	ns.views.FooterView = function() {
-		var $count = $('#todo-count'),
-			$clearBtn = $('#clear-completed'),
-			$footer = $('#todoapp').find('footer');
+		var $count = $('.todo-count'),
+			$clearBtn = $('.clear-completed'),
+			$footer = $('.todoapp').find('footer');
 
 		return {
 			system: undefined, //inject

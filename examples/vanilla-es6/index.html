@@ -12,16 +12,22 @@
 				<input class="new-todo" placeholder="What needs to be done?" autofocus>
 			</header>
 			<section style="display:none" class="main">
-				<input class="toggle-all" type="checkbox">
+				<input id="toggle-all" class="toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list"></ul>
 				<footer class="footer">
 					<span class="todo-count"></span>
-					<div class="filters">
-						<a href="#/" class="selected">All</a>
+					<ul class="filters">
+						<li>
+							<a href="#/" class="selected">All</a>
+						</li>
+						<li>
 						<a href="#/active">Active</a>
+						</li>
+						<li>
 						<a href="#/completed">Completed</a>
-					</div>
+						</li>
+					</ul>
 					<button class="clear-completed">Clear completed</button>
 				</footer>
 			</section>

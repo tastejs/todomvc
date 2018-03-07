@@ -12,17 +12,17 @@
 		</style>
 	</head>
 	<body>
-		<section todo-controller id="todoapp">
-			<header id="header">
+		<section todo-controller class="todoapp">
+			<header class="header">
 				<h1>todos</h1>
-				<form id="todo-form" ng-submit="todo.add()">
-					<input type="text" id="new-todo" placeholder="What needs to be done?" ng-model="todo.newItem.title" autofocus>
+				<form class="todo-form" ng-submit="todo.add()">
+					<input type="text" class="new-todo" placeholder="What needs to be done?" ng-model="todo.newItem.title" autofocus>
 				</form>
 			</header>
-			<section id="main" ng-if="todo.total()" ng-cloak>
-				<input id="toggle-all" type="checkbox" ng-model="todo.allChecked">
+			<section class="main" ng-if="todo.total()" ng-cloak>
+				<input id="toggle-all" class="toggle-all" type="checkbox" ng-model="todo.allChecked">
 				<label for="toggle-all">Mark all as complete</label>
-				<ul id="todo-list">
+				<ul class="todo-list">
 					<li ng-repeat="item in todo.items | filter:statusFilter" ng-class="{completed: item.completed, editing: item == todo.editedItem}">
 						<div class="view">
 							<input type="checkbox" class="toggle" ng-model="item.completed">
@@ -35,14 +35,14 @@
 					</li>
 				</ul>
 			</section>
-			<footer id="footer" ng-hide="!todo.total()" ng-cloak>
-				<span id="todo-count"><strong>{{todo.remaining()}}</strong>
+			<footer class="footer" ng-hide="!todo.total()" ng-cloak>
+				<span class="todo-count"><strong>{{todo.remaining()}}</strong>
 					<ng-pluralize count="todo.remaining()" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
 				</span>
-				<button id="clear-completed" ng-click="todo.clearCompleted()" ng-if="todo.completed() > 0">Clear completed</button>
+				<button class="clear-completed" ng-click="todo.clearCompleted()" ng-if="todo.completed() > 0">Clear completed</button>
 			</footer>
 		</section>
-		<footer id="info">
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Written by <a href="http://passy.me/">Pascal Hartig</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>

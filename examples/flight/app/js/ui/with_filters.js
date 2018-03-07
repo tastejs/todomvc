@@ -4,7 +4,7 @@
 define(function () {
 	return function withFilters() {
 		this.attributes({
-			filterSelector: '#filters a'
+			filterSelector: '.filters a'
 		});
 
 		this.chooseFilter = function (e, data) {

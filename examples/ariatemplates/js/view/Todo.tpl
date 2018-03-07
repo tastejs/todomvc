@@ -1,15 +1,14 @@
 {Template {
 	$classpath: 'js.view.Todo',
 	$hasScript: true,
-	$css: ['js.view.TodoStyle'],
 	$wlibs: {
 		html: 'aria.html.HtmlLibrary'
 	}
 }}
 	{macro main()}
-		<header id="header">
+		<header class="header">
 			<h1>todos</h1>
-			<input id="new-todo" placeholder="What needs to be done?" {on keydown {fn: "newTaskOnEnter", scope: this}/}>
+			<input class="new-todo" placeholder="What needs to be done?" {on keydown {fn: "newTaskOnEnter", scope: this}/}>
 		</header>
 		{section {
 			macro: "mainDisplay",
@@ -20,7 +19,7 @@
 
 	{macro mainDisplay()}
 		{if !data.emptylist}
-			<section id="main">
+			<section class="main">
 				{@html:CheckBox {
 					attributes: {
 						classList: ["toggle-all"]
@@ -35,7 +34,7 @@
 						}
 					}
 				}/}
-				<label id="label-toggle-all">Mark all as complete</label>
+				<label class="label-toggle-all">Mark all as complete</label>
 				{repeater {
 					id: "tasklist",
 					content: data.todolist,
@@ -54,7 +53,7 @@
 					}
 				}/}
 			</section>
-			<footer id="footer">
+			<footer class="footer">
 				{section {
 					type: "span",
 					attributes: {
@@ -98,7 +97,7 @@
 
 	{macro itemsclear()}
 		{if data.itemscompleted > 0}
-			<button id="clear-completed" {on click "clearCompleted"/}>Clear completed</button>
+			<button class="clear-completed" {on click "clearCompleted"/}>Clear completed</button>
 		{/if}
 	{/macro}
 

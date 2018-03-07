@@ -13,7 +13,7 @@
   (let [default ""
         title (reagent/atom default)]
     (fn []
-      [:input#new-todo {:type "text"
+      [:input.new-todo {:type "text"
                         :value @title
                         :placeholder "What needs to be done?"
                         :on-change #(reset! title (-> % .-target .-value))

@@ -20,7 +20,7 @@ require([
 		route(':filter');
 
 		// Render #app-template
-		$('#todoapp').html(can.view('app-template', {}));
+		$('.todoapp').html(can.view('app-template', {}));
 
 		// Start the router
 		route.ready();

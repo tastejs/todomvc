@@ -38,7 +38,7 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 			this.getTodoStore().add(newTodo);
 		}
 
-		Ext.dom.Query.selectNode('#new-todo').focus();
+		Ext.dom.Query.selectNode('.new-todo').focus();
 	},
 
 	toggleCompleted: function (todo) {
@@ -65,7 +65,7 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 			this.deleteTodo(todo);
 		}
 
-		Ext.dom.Query.selectNode('#new-todo').focus();
+		Ext.dom.Query.selectNode('.new-todo').focus();
 	},
 
 	completedCount: function () {
@@ -82,7 +82,7 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 
 	onNewTodoKeyDown: function (view, event) {
 		var title;
-		if (event.target.id === 'new-todo' && event.keyCode === Ext.EventObject.ENTER) {
+		if (event.target.className === 'new-todo' && event.keyCode === Ext.EventObject.ENTER) {
 			title = event.target.value.trim();
 			this.addTodo(title);
 			event.target.value = null;
@@ -95,7 +95,7 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 		var editField;
 		this.setCurrentTodo(todo);
 		todo.set('editing', true);
-		editField = Ext.dom.Query.selectNode('#todo-list li.editing .edit');
+		editField = Ext.dom.Query.selectNode('.todo-list li.editing .edit');
 		editField.focus();
 		// Ensure that focus() doesn't select all the text as well by resetting the value.
 		editField.value = editField.value;
@@ -114,7 +114,7 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 		var title;
 
 		if (event.keyCode === Ext.EventObject.ENTER) {
-			if (event.target.id === 'new-todo') {
+			if (event.target.className === 'new-todo') {
 				this.onNewTodoKeyDown(view, event);
 				return false;
 			}
@@ -138,9 +138,9 @@ Ext.define('TodoDeftJS.controller.TodoController', {
 	},
 
 	onTodoToolsClick: function (view, event) {
-		if (Ext.fly(event.target).hasCls('toggleall')) {
+		if (Ext.fly(event.target).hasCls('toggle-all')) {
 			this.getTodoStore().toggleAllCompleted(event.target.checked);
-		} else if (Ext.fly(event.target).hasCls('clearcompleted')) {
+		} else if (Ext.fly(event.target).hasCls('clear-completed')) {
 			this.getTodoStore().deleteCompleted();
 		}
 		return true;

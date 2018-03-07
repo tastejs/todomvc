@@ -7,22 +7,22 @@
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 	</head>
 	<body>
-		<section id="todoapp"></section>
-		<footer id="info">
+		<section class="todoapp"></section>
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Written by <a href="http://bitovi.com">Bitovi</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
 		<script type="text/mustache" id="app-template">
 			<todo-app>
-				<header id="header">
+				<header class="header">
 					<h1>todos</h1>
-					<input id="new-todo" placeholder="What needs to be done?" autofocus="" can-enter="createTodo">
+					<input class="new-todo" placeholder="What needs to be done?" autofocus="" can-enter="createTodo">
 				</header>
-				<section id="main" class="{{^if todos.length}}hidden{{/if}}">
-					<input id="toggle-all" type="checkbox" {{#if todos.allComplete}}checked="checked"{{/if}} can-click="toggleAll">
+				<section class="main {{^if todos.length}}hidden{{/if}}">
+					<input id="toggle-all" class="toggle-all" type="checkbox" {{#if todos.allComplete}}checked="checked"{{/if}} can-click="toggleAll">
 					<label for="toggle-all">Mark all as complete</label>
-					<ul id="todo-list">
+					<ul class="todo-list">
 						{{#each displayList}}
 						<li class="todo{{#if complete}} completed{{/if}}{{#if editing}} editing{{/if}}">
 							<div class="view">
@@ -36,16 +36,16 @@
 						{{/each}}
 					</ul>
 				</section>
-				<footer id="footer" class="{{^if todos.length}}hidden{{/if}}">
-					<span id="todo-count">
+				<footer class="footer {{^if todos.length}} hidden{{/if}}">
+					<span class="todo-count">
 						<strong>{{todos.remaining}}</strong> {{plural "item" todos.remaining}} left
 					</span>
-					<ul id="filters">
+					<ul class="filters">
 						<li>{{{link "All" undefined}}}</li>
 						<li>{{{link "Active" "active"}}}</li>
 						<li>{{{link "Completed" "completed"}}}</li>
 					</ul>
-					<button id="clear-completed" class="{{^if todos.completed.length}}hidden{{/if}}" can-click="clearCompleted">
+					<button class="clear-completed  {{^if todos.completed.length}} hidden{{/if}}" can-click="clearCompleted">
 						Clear completed
 					</button>
 				</footer>

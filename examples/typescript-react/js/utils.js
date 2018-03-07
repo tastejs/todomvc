@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Utils = (function () {
     function Utils() {
     }
@@ -27,7 +29,7 @@ var Utils = (function () {
     Utils.extend = function () {
         var objs = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            objs[_i - 0] = arguments[_i];
+            objs[_i] = arguments[_i];
         }
         var newObj = {};
         for (var i = 0; i < objs.length; i++) {
@@ -41,5 +43,5 @@ var Utils = (function () {
         return newObj;
     };
     return Utils;
-})();
+}());
 exports.Utils = Utils;

@@ -9,7 +9,7 @@
   </header>
 
   <section class="main" show.bind="items.length">
-    <input class="toggle-all" type="checkbox" checked.bind="areAllChecked" change.delegate="onToggleAllChanged()">
+    <input id="toggle-all" class="toggle-all" type="checkbox" checked.bind="areAllChecked" change.delegate="onToggleAllChanged()">
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <li repeat.for="todoItem of filteredItems" class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">

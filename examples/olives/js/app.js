@@ -24,10 +24,10 @@ var stats = new Store({
 tasks.sync('todos-olives');
 
 // Initialize Input UI by giving it a view and a model.
-input(document.querySelector('#header input'), tasks);
+input(document.querySelector('.header input'), tasks);
 
 // Init the List UI the same way, pass it the stats store too
-list(document.querySelector('#main'), tasks, stats);
+list(document.querySelector('.main'), tasks, stats);
 
 // Same goes for the control UI
-controls(document.querySelector('#footer'), tasks, stats);
+controls(document.querySelector('.footer'), tasks, stats);
