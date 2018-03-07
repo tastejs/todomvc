@@ -23,6 +23,8 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-cache": "^0.2.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-csso": "^0.2.9",
     "gulp-if": "^1.2.1",
     "gulp-imagemin": "3.0.0",
     "gulp-jshint": "^1.6.3",
@@ -35,6 +37,7 @@
     "gulp-vulcanize": "^1.0.0",
     "jshint-stylish": "^1.0.0",
     "psi": "^0.1.1",
+    "rename": "^1.0.3",
     "run-sequence": "^1.0.1",
     "serve-favicon": "^2.3.0",
     "vinyl-fs": "github:gulpjs/vinyl-fs#59386ca"
