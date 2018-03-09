@@ -36,7 +36,7 @@ define([
 		this.edit = function (e, data) {
 			var $todoEl = $(data.el).parents('li');
 			var $inputEl = $todoEl.find('input');
-			var value = $todoEl.find('label').html();
+			var value = $todoEl.find('label').text();
 
 			$todoEl.addClass('editing');
 			$inputEl.val(value);
@@ -76,7 +76,7 @@ define([
 		this.requestUpdateOrCancelEvent = function (e, data) {
 			if (e.which === ENTER_KEY) {
 				this.requestUpdate(e, data);
-			} else if (e.which === ESCAPE_KEY) {
+			} else if (e.key === ESCAPE_KEY) {
 				this.requestCancel(e, data);
 			}
 		};
