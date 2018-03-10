@@ -7,8 +7,8 @@ define([
 	'app/utils'
 ], function (defineComponent, todoTmpl, utils) {
 	function todoList() {
-		var ENTER_KEY = 13;
-		var ESCAPE_KEY = 27;
+		var ENTER_KEY = "Enter";
+		var ESCAPE_KEY = "Escape";
 		var template = utils.tmpl(todoTmpl);
 
 		this.attributes({
