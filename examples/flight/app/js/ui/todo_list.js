@@ -7,8 +7,8 @@ define([
 	'app/utils'
 ], function (defineComponent, todoTmpl, utils) {
 	function todoList() {
-		var ENTER_KEY = "Enter";
-		var ESCAPE_KEY = "Escape";
+		var ENTER_KEY = 'Enter';
+		var ESCAPE_KEY = 'Escape';
 		var template = utils.tmpl(todoTmpl);
 
 		this.attributes({
@@ -74,7 +74,7 @@ define([
 		};
 
 		this.requestUpdateOrCancelEvent = function (e, data) {
-			if (e.which === ENTER_KEY) {
+			if (e.key === ENTER_KEY) {
 				this.requestUpdate(e, data);
 			} else if (e.key === ESCAPE_KEY) {
 				this.requestCancel(e, data);
