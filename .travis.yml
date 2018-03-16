@@ -36,7 +36,7 @@ defaults: &defaults
   script:
     - echo Testing $CYPRESS_framework
     - $(npm bin)/print-env TRAVIS
-    - npm run test:record
+    - npm run test
 
 jobs:
   include:
