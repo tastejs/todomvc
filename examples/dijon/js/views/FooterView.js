@@ -30,6 +30,8 @@
 				var numTodosCompleted = numTodosTotal - numTodosActive,
 					countTitle = '<strong>' + numTodosActive + '</strong> ' + this.pluralizeUtil.pluralize( numTodosActive, 'item' ) + ' left';
 
+				$count.html(countTitle)
+				
 				// Only show the footer when there are at least one todo.
 				$footer.toggle( !!numTodosTotal );
 
