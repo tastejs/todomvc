@@ -607,7 +607,7 @@ Cypress._.times(N, () => {
         // complete all todos
         // we use 'check' instead of 'click'
         // because that indicates our intention much clearer
-        cy.get(selectors.toggleAll).check()
+        cy.get(selectors.toggleAll).check({force: true})
         checkItemSaved()
 
         // get each todo li and ensure its class is 'completed'
@@ -619,9 +619,9 @@ Cypress._.times(N, () => {
 
       it('should allow me to clear the complete state of all items', function () {
         // check and then immediately uncheck
-        cy.get(selectors.toggleAll).check()
+        cy.get(selectors.toggleAll).check({force: true})
         checkItemSaved()
-        cy.get(selectors.toggleAll).uncheck()
+        cy.get(selectors.toggleAll).uncheck({force: true})
         checkItemSaved()
 
         cy.get('@todos').eq(0).should('not.have.class', 'completed')
@@ -633,7 +633,7 @@ Cypress._.times(N, () => {
       it('complete all checkbox should update state when items are completed / cleared', function () {
         cy
           .get(selectors.toggleAll)
-          .check()
+          .check({force: true})
           // this assertion is silly here IMO but
           // it is what TodoMVC does
         checkItemSaved()
@@ -647,7 +647,7 @@ Cypress._.times(N, () => {
           .eq(0)
           .as('firstTodo')
           .find('.toggle')
-          .uncheck()
+          .uncheck({force: true})
         checkItemSaved()
 
         // reference the .toggle-all element again
@@ -655,7 +655,7 @@ Cypress._.times(N, () => {
         cy.get(selectors.toggleAll).should('not.be.checked')
 
         // reference the first todo again and now toggle it
-        cy.get('@firstTodo').find('.toggle').check()
+        cy.get('@firstTodo').find('.toggle').check({force: true})
         checkItemSaved()
         checkNumberOfCompletedTodosInLocalStorage(3)
 
