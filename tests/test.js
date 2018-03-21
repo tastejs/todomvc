@@ -2,10 +2,13 @@
 
 var webdriver = require('selenium-webdriver');
 var chrome = require('selenium-webdriver/chrome');
+var chromedriver = require('chromedriver');
 var test = require('selenium-webdriver/testing');
 var Page = require('./page');
 var PageLaxMode = require('./pageLaxMode');
 var TestOperations = require('./testOperations');
+
+chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
 
 module.exports.todoMVCTest = function (frameworkName, baseUrl, speedMode, laxMode, browserName) {
 
