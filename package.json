@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "del": "^0.1.1",
-    "drool": "^0.6.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-cache": "^0.2.0",
