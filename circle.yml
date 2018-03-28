@@ -14,10 +14,7 @@ defaults: &defaults
         npm_config_unsafe_perm: true
   steps:
     - checkout
-	  - run:
-         name: "Update npm"
-         command: |
-           npm i -g npm
+	  - run: npm i -g npm
     - restore_cache:
         key: root-deps
     - run: npm ci
