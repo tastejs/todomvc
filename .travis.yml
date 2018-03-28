@@ -31,6 +31,10 @@ env:
     - GH_PROJECT_NAME: todomvc
     - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
 
+#update npm to latest stable version
+before_install:
+  - npm i -g npm
+
 # common build steps for each test job
 defaults: &defaults
   script:
@@ -41,9 +45,9 @@ defaults: &defaults
 jobs:
   include:
     # install NPM dependencies before each test job
-    - stage: npm install
+    - stage: npm ci
       script:
-        - npm install
+        - npm ci
         - $(npm bin)/print-env TRAVIS
     # define a separate script for each "examples/*" folder
     # this will run it in a separate job on TravisCI
