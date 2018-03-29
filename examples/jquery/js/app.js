@@ -116,7 +116,6 @@ jQuery(function ($) {
 		},
 		destroyCompleted: function () {
 			this.todos = this.getActiveTodos();
-			this.filter = 'all';
 			this.render();
 		},
 		// accepts an element from inside the `.item` div and
