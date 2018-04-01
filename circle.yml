@@ -14,9 +14,10 @@ defaults: &defaults
         npm_config_unsafe_perm: true
   steps:
     - checkout
+    -run: npm install --global npm@5.8.0
     - restore_cache:
         key: root-deps
-    - run: npm install
+    - run: npm ci
     - run: npm prune
     - save_cache:
         key: root-deps-{{ checksum "package.json" }}
