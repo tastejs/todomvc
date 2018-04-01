@@ -33,7 +33,7 @@ env:
 
 #update npm to latest stable version
 before_install:
-  - npm i -g npm
+  - npm install --global npm@5.8.0
 
 # common build steps for each test job
 defaults: &defaults
