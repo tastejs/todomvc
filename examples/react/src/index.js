@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import TodoModel from './todoModel'
-import 'todomvc-common/base.css';
 import 'todomvc-app-css/index.css';
 
-var model = new TodoModel('react-todos');
+const model = new TodoModel('react-todos');
 
 function render() {
   ReactDOM.render(

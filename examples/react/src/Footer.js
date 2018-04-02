@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Component } from 'react';
 import Utils, { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from "./utils";
 import classNames from "classnames";
 
-const TodoFooter = React.createClass({
-	render: function() {
-		var activeTodoWord = Utils.pluralize(this.props.count, "item");
-		var clearButton = null;
+class TodoFooter extends Component {
+	render () {
+		const activeTodoWord = Utils.pluralize(this.props.count, "item");
+		let clearButton = null;
 
 		if (this.props.completedCount > 0) {
 			clearButton = (
@@ -56,6 +56,6 @@ const TodoFooter = React.createClass({
 			</footer>
 		);
 	}
-});
+};
 
 export default TodoFooter;
