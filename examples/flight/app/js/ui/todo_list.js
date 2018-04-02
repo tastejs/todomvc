@@ -7,7 +7,8 @@ define([
 	'app/utils'
 ], function (defineComponent, todoTmpl, utils) {
 	function todoList() {
-		var ENTER_KEY = 13;
+		var ENTER_KEY = 'Enter';
+		var ESCAPE_KEY = 'Escape';
 		var template = utils.tmpl(todoTmpl);
 
 		this.attributes({
@@ -34,8 +35,11 @@ define([
 
 		this.edit = function (e, data) {
 			var $todoEl = $(data.el).parents('li');
+			var $inputEl = $todoEl.find('input');
+			var value = $todoEl.find('label').text();
 
 			$todoEl.addClass('editing');
+			$inputEl.val(value);
 			this.select('editSelector').focus();
 		};
 
@@ -59,9 +63,21 @@ define([
 			}
 		};
 
-		this.requestUpdateOnEnter = function (e, data) {
-			if (e.which === ENTER_KEY) {
+		this.requestCancel = function (e) {
+			var $inputEl = $(e.currentTarget);
+			var $todoEl = $inputEl.parents('li');
+
+			$todoEl.removeClass('editing');
+			$inputEl.val('');
+
+			this.trigger('uiUpdateRequested');
+		};
+
+		this.requestUpdateOrCancelEvent = function (e, data) {
+			if (e.key === ENTER_KEY) {
 				this.requestUpdate(e, data);
+			} else if (e.key === ESCAPE_KEY) {
+				this.requestCancel(e, data);
 			}
 		};
 
@@ -94,7 +110,7 @@ define([
 			this.on('dblclick', { 'labelSelector': this.edit });
 
 			this.$node.on('blur', '.edit', this.requestUpdate.bind(this));
-			this.$node.on('keydown', '.edit', this.requestUpdateOnEnter.bind(this));
+			this.$node.on('keydown', '.edit', this.requestUpdateOrCancelEvent.bind(this));
 
 			// these don't work
 			// this.on(this.attr.editSelector, 'blur', this.requestUpdate);

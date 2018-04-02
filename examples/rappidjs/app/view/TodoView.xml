@@ -22,6 +22,7 @@
 					this.set('editing', true);
 
 					this.$.inputElement.$el.focus();
+					console.log('focused, started editing')
 					return false;
 				},
 
@@ -39,13 +40,20 @@
 				updateTodo: function (e) {
 					var todo;
 
+					console.log('updateTodo', e.domEvent.keyCode, 'type', e.domEvent.type)
+					if (e.domEvent.keyCode === 46) {
+						debugger
+					}
 					if (e.domEvent.keyCode === ENTER_KEY || e.domEvent.type === 'blur') {
 						todo = this.get('todo');
+						console.log('todo =', todo)
 
 						if (todo.hasTitle()) {
+							console.log('todo has title')
 							this.set('editing', false);
 							todo.save();
 						} else {
+							console.log('NO title, removing')
 							this.trigger('remove', todo);
 						}
 					}
@@ -65,6 +73,7 @@
 				},
 
 				trim: function (title) {
+					console.log('trimming title "%s"', title)
 					if (title) {
 						return title.trim();
 					}
