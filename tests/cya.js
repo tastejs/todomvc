@@ -83,6 +83,8 @@ const testApp = app => {
   return cypress
     .run({
       browser: args.browser,
+      record: true,
+      key: '6f32e649-6348-4d6e-8ec0-4b57774965d1',
       env: {
         framework: app,
         times: args.times

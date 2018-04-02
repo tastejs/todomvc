@@ -30,7 +30,7 @@
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "console.table": "^0.9.1",
-    "cypress": "^1.4.1",
+    "cypress": "2.1",
     "del": "^0.1.1",
     "figlet": "^1.2.0",
     "gulp": "^3.9.0",
