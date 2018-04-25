@@ -1,13 +1,14 @@
 package todomvc
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.TagOf
+import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.html
 
 object Footer {
 
   case class Props(
-    filterLink:       TodoFilter => ReactTag,
+    filterLink:       TodoFilter => TagMod,
     onClearCompleted: Callback,
     currentFilter:    TodoFilter,
     activeCount:      Int,
@@ -15,23 +16,23 @@ object Footer {
   )
 
   class Backend($: BackendScope[Props, Unit]) {
-    def clearButton(P: Props): ReactTagOf[html.Button] =
+    def clearButton(P: Props): TagOf[html.Button] =
       <.button(
         ^.className := "clear-completed",
         ^.onClick --> P.onClearCompleted,
         "Clear completed",
-        (P.completedCount == 0) ?= ^.visibility.hidden
+        ^.visibility.hidden when (P.completedCount == 0)
       )
 
-    def filterLink(P: Props)(s: TodoFilter): ReactTagOf[html.LI] =
+    def filterLink(P: Props)(s: TodoFilter): TagOf[html.LI] =
       <.li(
         P.filterLink(s)(
           s.title,
-          (P.currentFilter == s) ?= (^.className := "selected")
+          (^.className := "selected") when (P.currentFilter == s)
         )
       )
 
-    def render(P: Props): ReactTagOf[html.Element] =
+    def render(P: Props): TagOf[html.Element] =
       <.footer(
         ^.className := "footer",
         <.span(
@@ -41,18 +42,18 @@ object Footer {
         ),
         <.ul(
           ^.className := "filters",
-          TodoFilter.values map filterLink(P)
+          TodoFilter.values toTagMod filterLink(P)
         ),
         clearButton(P)
       )
   }
 
   private val component =
-    ReactComponentB[Props]("Footer")
+    ScalaComponent.builder[Props]("Footer")
       .stateless
       .renderBackend[Backend]
       .build
 
-  def apply(P: Props): ReactElement =
+  def apply(P: Props): VdomElement =
     component(P)
 }

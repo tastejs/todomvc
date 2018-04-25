@@ -3,9 +3,11 @@ package todomvc
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra._
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.TagOf
+import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.ext.KeyCode
 import org.scalajs.dom.html
+import org.scalajs.dom.html.Element
 
 object TodoList {
 
@@ -24,9 +26,9 @@ object TodoList {
    * These specify when it makes sense to skip updating this component (see comment on `Listenable` below)
    */
   implicit val r1: Reusability[Props] =
-    Reusability.fn[Props]((p1, p2) => p1.currentFilter == p2.currentFilter)
+    Reusability[Props]((p1, p2) => p1.currentFilter == p2.currentFilter)
   implicit val r2: Reusability[State] =
-    Reusability.fn[State]((s1, s2) => s1.editing == s2.editing && (s1.todos eq s2.todos))
+    Reusability[State]((s1, s2) => s1.editing == s2.editing && (s1.todos eq s2.todos))
 
   /**
    * One difference between normal react and scalajs-react is the use of backends.
@@ -45,7 +47,7 @@ object TodoList {
      *   by the implicit `Reusability` defined above )
      */
     case class Callbacks(P: Props) {
-      val handleNewTodoKeyDown: ReactKeyboardEventI => Option[Callback] =
+      val handleNewTodoKeyDown: ReactKeyboardEventFromInput => Option[Callback] =
         e => Some((e.nativeEvent.keyCode, UnfinishedTitle(e.target.value).validated)) collect {
           case (KeyCode.Enter, Some(title)) =>
             Callback(e.target.value = "") >> P.model.addTodo(title)
@@ -54,12 +56,12 @@ object TodoList {
       val updateTitle: TodoId => Title => Callback =
         id => title => editingDone(cb = P.model.update(id, title))
 
-      val toggleAll: ReactEventI => Callback =
+      val toggleAll: ReactEventFromInput => Callback =
         e => P.model.toggleAll(e.target.checked)
     }
 
     val cbs: Px[Callbacks] =
-      Px.cbA($.props).map(Callbacks)
+      Px.callback($.props).map(Callbacks).withoutReuse.autoRefresh
 
     val startEditing: TodoId => Callback =
       id => $.modState(_.copy(editing = Some(id)))
@@ -72,7 +74,7 @@ object TodoList {
     def editingDone(cb: Callback = Callback.empty): Callback =
       $.modState(_.copy(editing = None), cb)
 
-    def render(P: Props, S: State): ReactTagOf[html.Div] = {
+    def render(P: Props, S: State): TagOf[html.Div] = {
       val todos           = S.todos
       val filteredTodos   = todos filter P.currentFilter.accepts
 
@@ -96,8 +98,8 @@ object TodoList {
             ^.autoFocus     := true
           )
         ),
-        todos.nonEmpty ?= todoList(P, callbacks, S.editing, filteredTodos, activeCount),
-        todos.nonEmpty ?= footer(P, activeCount, completedCount)
+        todoList(P, callbacks, S.editing, filteredTodos, activeCount) when todos.nonEmpty,
+        footer(P, activeCount, completedCount)                        when todos.nonEmpty
       )
     }
 
@@ -105,7 +107,7 @@ object TodoList {
                  callbacks:     Callbacks,
                  editing:       Option[TodoId],
                  filteredTodos: Seq[Todo],
-                 activeCount:   Int): ReactTagOf[html.Element] =
+                 activeCount:   Int): TagOf[Element] =
       <.section(
         ^.className := "main",
         <.input(
@@ -121,7 +123,7 @@ object TodoList {
         ),
         <.ul(
           ^.className := "todo-list",
-          filteredTodos.map(todo =>
+          filteredTodos.toTagMod(todo =>
             TodoItem(TodoItem.Props(
               onToggle         = P.model.toggleCompleted(todo.id),
               onDelete         = P.model.delete(todo.id),
@@ -135,7 +137,7 @@ object TodoList {
         )
       )
 
-    def footer(P: Props, activeCount: Int, completedCount: Int): ReactElement =
+    def footer(P: Props, activeCount: Int, completedCount: Int): VdomElement =
       Footer(Footer.Props(
         filterLink       = P.ctl.link,
         onClearCompleted = P.model.clearCompleted,
@@ -146,9 +148,9 @@ object TodoList {
   }
 
   private val component =
-    ReactComponentB[Props]("TodoList")
+    ScalaComponent.builder[Props]("TodoList")
       /* state derived from the props */
-      .initialState_P(p => State(p.model.todos, None))
+      .initialStateFromProps(p => State(p.model.todos, None))
       .renderBackend[Backend]
       /**
        * Makes the component subscribe to events coming from the model.
@@ -156,7 +158,7 @@ object TodoList {
        * The last function is the actual event handling, in this case
        *  we just overwrite the whole list in `state`.
        */
-      .configure(Listenable.install((p: Props) => p.model, $ => (todos: Seq[Todo]) => $.modState(_.copy(todos = todos))))
+      .configure(Listenable.listen((p: Props) => p.model, $ => (todos: Seq[Todo]) => $.modState(_.copy(todos = todos))))
       /**
        * Optimization where we specify whether the component can have changed.
        * In this case we avoid comparing model and routerConfig, and only do
@@ -174,6 +176,7 @@ object TodoList {
        */
       .build
 
-  def apply(model: TodoModel, currentFilter: TodoFilter)(ctl: RouterCtl[TodoFilter]): ReactElement =
-    component(Props(ctl, model, currentFilter))
+  def apply(model: TodoModel, currentFilter: TodoFilter)(ctl: RouterCtl[TodoFilter]): VdomElement =
+    TodoList.component(Props(ctl, model, currentFilter))
+
 }

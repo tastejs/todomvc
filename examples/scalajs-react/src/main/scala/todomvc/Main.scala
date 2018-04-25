@@ -1,13 +1,14 @@
 package todomvc
 
-import japgolly.scalajs.react._
+import japgolly.scalajs.react.component.Scala.Unmounted
+import japgolly.scalajs.react.extra.OnUnmount
 import japgolly.scalajs.react.extra.router._
+import japgolly.scalajs.react.raw.ReactDOM
 import org.scalajs.dom
 
-import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
 
-object Main extends JSApp {
+object Main {
   val baseUrl: BaseUrl =
     BaseUrl(dom.window.location.href.takeWhile(_ != '#'))
 
@@ -32,8 +33,8 @@ object Main extends JSApp {
 
   model.restorePersisted.foreach(_.runNow())
 
-  /** The router is itself a React component, which at this point is not mounted (U-suffix) */
-  val router: ReactComponentU[Unit, Resolution[TodoFilter], Any, TopNode] =
+  /** The router is itself a React component, which at this point is not mounted  */
+  val router: Unmounted[Unit, Resolution[TodoFilter], OnUnmount.Backend] =
     Router(baseUrl, routerConfig.logToConsole)()
 
   /**
@@ -43,7 +44,8 @@ object Main extends JSApp {
    *  will render into the first element with `todoapp` class
    */
   @JSExport
-  override def main(): Unit = {
-    val mounted = ReactDOM.render(router, dom.document.getElementsByClassName("todoapp")(0))
+  def main(args: Array[String]): Unit = {
+    router.renderIntoDOM(dom.document.getElementsByClassName("todoapp")(0).asInstanceOf[ReactDOM.Container])
+    ()
   }
 }
