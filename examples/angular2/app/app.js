@@ -13,6 +13,7 @@ var TodoApp = (function () {
     function TodoApp(todoStore) {
         this.newTodoText = '';
         this.todoStore = todoStore;
+        this.newTodoPriority = 1;
     }
     TodoApp.prototype.stopEditing = function (todo, editedTitle) {
         todo.title = editedTitle;
@@ -43,8 +44,10 @@ var TodoApp = (function () {
     };
     TodoApp.prototype.addTodo = function () {
         if (this.newTodoText.trim().length) {
-            this.todoStore.add(this.newTodoText);
+            this.todoStore.add(this.newTodoText, this.newTodoDate, this.newTodoPriority);
             this.newTodoText = '';
+            this.newTodoDate = '';
+            this.newTodoPriority = 1;
         }
     };
     TodoApp = __decorate([

@@ -1,8 +1,11 @@
 var Todo = (function () {
-    function Todo(title) {
+    function Todo(title, tododate, colorCode, priority) {
         this.completed = false;
         this.editing = false;
         this.title = title.trim();
+        this.tododate = tododate;
+        this.colorCode = colorCode;
+        this.priority = priority;
     }
     Object.defineProperty(Todo.prototype, "title", {
         get: function () {
@@ -14,15 +17,56 @@ var Todo = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Todo.prototype, "tododate", {
+        get: function () {
+            return this._tododate;
+        },
+        set: function (value) {
+            this._tododate = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Todo.prototype, "colorCode", {
+        get: function () {
+            return this._colorCode;
+        },
+        set: function (value) {
+            this._colorCode = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Todo.prototype, "priority", {
+        get: function () {
+            return this._priority;
+        },
+        set: function (value) {
+            this._priority = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Todo;
 })();
 exports.Todo = Todo;
 var TodoStore = (function () {
     function TodoStore() {
+        var _this = this;
+        this.priorityMap = {
+            "1": "Low",
+            "2": "Medium",
+            "3": "High"
+        };
+        this.colorCodeMap = {
+            "duesoon": "#E8E8E8",
+            "overdue": "#6A6A6A"
+        };
         var persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
         // Normalize back into classes
         this.todos = persistedTodos.map(function (todo) {
-            var ret = new Todo(todo._title);
+            var colorCode = _this.colorCodeMap[_this.checkDue(todo._tododate)];
+            var ret = new Todo(todo._title, todo._tododate, colorCode, todo._priority);
             ret.completed = todo.completed;
             return ret;
         });
@@ -58,9 +102,20 @@ var TodoStore = (function () {
         this.todos.splice(this.todos.indexOf(todo), 1);
         this.updateStore();
     };
-    TodoStore.prototype.add = function (title) {
-        this.todos.push(new Todo(title));
+    TodoStore.prototype.add = function (title, tododate, priority) {
+        var colorCode = this.colorCodeMap[this.checkDue(tododate)];
+        this.todos.push(new Todo(title, tododate, colorCode, priority));
         this.updateStore();
+    };
+    TodoStore.prototype.checkDue = function (tododate) {
+        var today = new Date().getTime(), datediff = Math.round(new Date(tododate).getTime() - today) / (1000 * 3600 * 24);
+        if (datediff < 0) {
+            return "overdue";
+        }
+        else if (datediff > 0 && datediff <= 2) {
+            return "duesoon";
+        }
+        return true;
     };
     return TodoStore;
 })();
