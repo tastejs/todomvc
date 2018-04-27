@@ -11,6 +11,7 @@ export default class TodoApp {
 
 	constructor(todoStore: TodoStore) {
 		this.todoStore = todoStore;
+		this.newTodoPriority = 1;
 	}
 
 	stopEditing(todo: Todo, editedTitle: string) {
@@ -51,9 +52,10 @@ export default class TodoApp {
 
 	addTodo() {
 		if (this.newTodoText.trim().length) {
-			this.todoStore.add(this.newTodoText, this.newTodoDate);
+			this.todoStore.add(this.newTodoText, this.newTodoDate, this.newTodoPriority);
 			this.newTodoText = '';
 			this.newTodoDate = '';
+			this.newTodoPriority = 1;
 		}
 	}
 }

@@ -9,7 +9,15 @@
 		<div class="new-todo">
 			<label>Due date</label>
 			<input class="marginLft-15" placeholder="By when needs to be done?" autofocus="" [(ngModel)]="newTodoDate" type="date" required>
-		</div>			
+		</div>
+		<div class="new-todo">
+			<label>Priority</label>	
+			<select class="marginLft-30" [(ngModel)]="newTodoPriority" required>
+				<option [value]="1">{{todoStore.priorityMap[1]}}</option>
+			   <option [value]="2">{{todoStore.priorityMap[2]}}</option>
+			   <option [value]="3">{{todoStore.priorityMap[3]}}</option>
+			</select>
+		</div>		
 		<button type="submit" class="submitbtn">Add Item</button>
 		</form>
 	</header>
@@ -23,6 +31,7 @@
 					<span class="marginLft-40 paddingLft-40" *ngIf="todo.tododate">Due by {{todo.tododate}}</span>
 					<span *ngIf="todoStore.checkDue(todo.tododate) == 'overdue'" class="redTxt">(Over due)</span>
 					<span *ngIf="todoStore.checkDue(todo.tododate) == 'duesoon'" class="orgTxt">(Due soon)</span>
+					<span class="paddingLft-40" *ngIf="todo.priority">Priority {{todoStore.priorityMap[todo.priority]}}</span>
 					<button class="destroy" (click)="remove(todo)"></button>
 				</div>
 				<input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)" (keyup.escape)="cancelEditingTodo(todo)">
