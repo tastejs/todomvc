@@ -51,8 +51,9 @@ export default class TodoApp {
 
 	addTodo() {
 		if (this.newTodoText.trim().length) {
-			this.todoStore.add(this.newTodoText);
+			this.todoStore.add(this.newTodoText, this.newTodoDate);
 			this.newTodoText = '';
+			this.newTodoDate = '';
 		}
 	}
 }

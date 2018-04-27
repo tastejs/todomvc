@@ -43,8 +43,9 @@ var TodoApp = (function () {
     };
     TodoApp.prototype.addTodo = function () {
         if (this.newTodoText.trim().length) {
-            this.todoStore.add(this.newTodoText);
+            this.todoStore.add(this.newTodoText, this.newTodoDate);
             this.newTodoText = '';
+            this.newTodoDate = '';
         }
     };
     TodoApp = __decorate([

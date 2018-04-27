@@ -1,15 +1,28 @@
 <section class="todoapp">
 	<header class="header">
-		<h1>todos</h1>
-		<input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodoText" (keyup.enter)="addTodo()">
+		<h1 class="pageHeading">Todos</h1>
+		<form #form="ngForm" (ngSubmit)="addTodo(form.value)">
+		<div class="new-todo">
+			<label>Title</label>
+			<input class="marginLft-50" id="todoText" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodoText" required >
+		</div>
+		<div class="new-todo">
+			<label>Due date</label>
+			<input class="marginLft-15" placeholder="By when needs to be done?" autofocus="" [(ngModel)]="newTodoDate" type="date" required>
+		</div>			
+		<button type="submit" class="submitbtn">Add Item</button>
+		</form>
 	</header>
 	<section class="main" *ngIf="todoStore.todos.length > 0">
 		<input id="toggle-all" class="toggle-all" type="checkbox" *ngIf="todoStore.todos.length" #toggleall [checked]="todoStore.allCompleted()" (click)="todoStore.setAllTo(toggleall.checked)">
 		<ul class="todo-list">
 			<li *ngFor="#todo of todoStore.todos" [class.completed]="todo.completed" [class.editing]="todo.editing">
-				<div class="view">
+				<div class="view paddingBtm-20" [ngStyle]="{ 'background-color': todo.colorCode}">
 					<input class="toggle" type="checkbox" (click)="toggleCompletion(todo)" [checked]="todo.completed">
-					<label (dblclick)="editTodo(todo)">{{todo.title}}</label>
+					<label (dblclick)="editTodo(todo)">{{todo.title}}</label> 
+					<span class="marginLft-40 paddingLft-40" *ngIf="todo.tododate">Due by {{todo.tododate}}</span>
+					<span *ngIf="todoStore.checkDue(todo.tododate) == 'overdue'" class="redTxt">(Over due)</span>
+					<span *ngIf="todoStore.checkDue(todo.tododate) == 'duesoon'" class="orgTxt">(Due soon)</span>
 					<button class="destroy" (click)="remove(todo)"></button>
 				</div>
 				<input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)" (keyup.escape)="cancelEditingTodo(todo)">
