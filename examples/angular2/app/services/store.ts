@@ -3,17 +3,37 @@ export class Todo {
 	editing: Boolean;
 
 	private _title: String;
+	private _tododate: String;
+	private _colorCode: String;
+	
 	get title() {
 		return this._title;
 	}
 	set title(value: String) {
 		this._title = value.trim();
 	}
+	
+	get tododate() {
+		return this._tododate;
+	}
+	set tododate(value: String) {
+		this._tododate = value;
+	}
+	
+	get colorCode() {
+		return this._colorCode;
+	}
+	set colorCode(value: String) {
+		this._colorCode = value;
+	}
+	
 
-	constructor(title: String) {
+	constructor(title: String, tododate: String, colorCode: String) {
 		this.completed = false;
 		this.editing = false;
 		this.title = title.trim();
+		this.tododate = tododate;
+		this.colorCode = colorCode;
 	}
 }
 
@@ -21,10 +41,15 @@ export class TodoStore {
 	todos: Array<Todo>;
 
 	constructor() {
+		this.colorCodeMap = {
+			"duesoon": "#E8E8E8",
+			"overdue": "#6A6A6A"
+		};
 		let persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
 		// Normalize back into classes
-		this.todos = persistedTodos.map( (todo: {_title: String, completed: Boolean}) => {
-			let ret = new Todo(todo._title);
+		this.todos = persistedTodos.map( (todo: {_title: String, _tododate: String, _colorCode: String, completed: Boolean}) => {
+			var colorCode = this.colorCodeMap[this.checkDue(todo._tododate)];	
+			let ret = new Todo(todo._title, todo._tododate, colorCode);
 			ret.completed = todo.completed;
 			return ret;
 		});
@@ -70,8 +95,20 @@ export class TodoStore {
 		this.updateStore();
 	}
 
-	add(title: String) {
-		this.todos.push(new Todo(title));
+	add(title: String, tododate: String) {
+		var colorCode = this.colorCodeMap[this.checkDue(tododate)];		
+		this.todos.push(new Todo(title, tododate, colorCode));
 		this.updateStore();
+	}
+	
+	checkDue(tododate: String) {
+		var today = new Date().getTime(),
+			datediff = Math.round(new Date(tododate).getTime() - today)/(1000 * 3600 * 24);
+		if(datediff <0){
+			return "overdue";
+		} else if(datediff >0 && datediff<=2) {
+			return "duesoon";
+		}
+		return true;
 	}
 }
