@@ -160,6 +160,7 @@ jQuery(function ($) {
 			var tmpStr = $input.val();
 			$input.val('');
 			$input.val(tmpStr);
+			$input.focus();
 		},
 		editKeyup: function (e) {
 			if (e.which === ENTER_KEY) {
