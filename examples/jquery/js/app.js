@@ -175,14 +175,12 @@ jQuery(function ($) {
 			var el = e.target;
 			var $el = $(el);
 			var val = $el.val().trim();
-
-			if (!val) {
-				this.destroy(e);
-				return;
-			}
-
+			
 			if ($el.data('abort')) {
 				$el.data('abort', false);
+			} else if (!val) {
+				this.destroy(e);
+				return;
 			} else {
 				this.todos[this.getIndexFromEl(el)].title = val;
 			}
