@@ -3,7 +3,7 @@ app.Content = class Content extends Tb{
     constructor(){
         super();
 
-        var that = this;
+        let that = this;
 
         that.handlers = {
             init: that.init
@@ -11,36 +11,37 @@ app.Content = class Content extends Tb{
 
         // content template
         that.template = $(`
-<input id="toggle-all" class="toggle-all" type="checkbox">
-<label for="toggle-all">Mark all as complete</label>
-<ul class="todo-list"></ul>
-<footer class="footer">
-    <span class="todo-count" style="position:relative;z-index:1"></span>
-    <button class="clear-completed" style="position:relative;z-index:1">Clear completed</button>
-    <ul class="filters" style="position:relative">
-        <li>
-            <a href="#" class="selected">All</a>
-        </li>
-        <li>
-            <a href="#">Active</a>
-        </li>
-        <li>
-            <a href="#">Completed</a>
-        </li>
-    </ul>
-</footer>`).clean();
+            <input id="toggle-all" class="toggle-all" type="checkbox">
+            <label for="toggle-all">Mark all as complete</label>
+            <ul class="todo-list"></ul>
+            <footer class="footer">
+                <span class="todo-count" style="position:relative;z-index:1"></span>
+                <button class="clear-completed" style="position:relative;z-index:1">Clear completed</button>
+                <ul class="filters" style="position:relative">
+                    <li>
+                        <a href="#" class="selected">All</a>
+                    </li>
+                    <li>
+                        <a href="#">Active</a>
+                    </li>
+                    <li>
+                        <a href="#">Completed</a>
+                    </li>
+                </ul>
+            </footer>
+        `).clean();
 
         // list item template
         that.itemTemplate = `
-<li data-id="{id}">
-    <input class="toggle" type="checkbox" {checked}>
-    <label>{text}</label>
-    <button class="destroy"></button>
-</li>`;
+            <li data-id="{id}">
+                <input class="toggle" type="checkbox" {checked}>
+                <label>{text}</label>
+                <button class="destroy"></button>
+            </li>`;
 
         //store
         that.store = {
-            display: 'all',
+            display: 'All',
             data: []
         };
 
@@ -149,6 +150,7 @@ app.Content = class Content extends Tb{
 
         let that = this,
             type = pTarget.innerText,
+            store = that.store,
             ul = $('ul', that.target )[0];
 
         switch ( type ){
@@ -164,6 +166,8 @@ app.Content = class Content extends Tb{
                         }
                     });
 
+                store.display = 'Active';
+
                 break;
 
             case 'Completed':
@@ -177,6 +181,8 @@ app.Content = class Content extends Tb{
                         }
                     });
 
+                store.display = 'Completed';
+
                 break;
 
             default: // ='All'
@@ -185,9 +191,12 @@ app.Content = class Content extends Tb{
                     .children()
                     .show();
 
+                store.display = 'All';
+
                 break;
 
         }
+
 
     }
 

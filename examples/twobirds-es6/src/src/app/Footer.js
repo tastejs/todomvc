@@ -10,9 +10,10 @@ app.Footer = class Footer extends Tb{
         };
 
         that.template = $(`
-<p>Double-click to edit a todo</p>
-<p>Written by <a href="http://twitter.com/FrankieThu">Frank Thuerigen</a></p>
-<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>`);
+            <p>Double-click to edit a todo</p>
+            <p>Written by <a href="http://twitter.com/FrankieThu">Frank Thuerigen</a></p>
+            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+        `);
 
     }
 

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'src',
-                        src: 'bundle.js',
+                        src: 'bundle-min.js',
                         dest: 'dist'
                     }
                 ]

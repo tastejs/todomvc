@@ -10,13 +10,14 @@ app.Body = class Body extends Tb{
 		};
 
 		that.template = $(`
-<section class="todoapp">
-	<app-header class="header"></app-header>
-	<app-content class="main"></app-content>
-</section>
-<app-footer class="info"></app-footer>
-<script src="node_modules/todomvc-common/base.js"></script>
-<link rel="stylesheet" href="node_modules/todomvc-common/base.css">`);
+			<section class="todoapp">
+				<app-header class="header"></app-header>
+				<app-content class="main"></app-content>
+			</section>
+			<app-footer class="info"></app-footer>
+			<script src="node_modules/todomvc-common/base.js"></script>
+			<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		`);
 
 	}
 

@@ -3,15 +3,16 @@ app.Header = class Header extends Tb{
     constructor(){
         super();
 
-        var that = this;
+        let that = this;
 
         that.handlers = {
             init: that.init
         };
 
         that.template = $(`
-<h1>todos</h1>
-<input class="new-todo" placeholder="What needs to be done?" autofocus>`);
+            <h1>todos</h1>
+            <input class="new-todo" placeholder="What needs to be done?" autofocus>`
+        );
 
     }
 
