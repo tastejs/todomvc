@@ -9,15 +9,15 @@ app.Header = class Header extends Tb{
             init: that.init
         };
 
-        that.template = $(`
-            <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus>`
-        );
+    }
 
+    get template(){ return `
+        <h1>todos</h1>
+        <input class="new-todo" placeholder="What needs to be done?" autofocus>`;
     }
 
     // omitted if autonomous custom element 
-    static get namespace(){
+    get namespace(){
         return 'app.Header';
     }
 
@@ -27,7 +27,7 @@ app.Header = class Header extends Tb{
         let that = this;
 
         $(that.target)
-            .append(that.template)
+            .append( $(that.template.trim()) )
             .clean();
 
         $('input', that.target)

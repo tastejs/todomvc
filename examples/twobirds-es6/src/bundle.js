@@ -6220,16 +6220,27 @@ app.Body = class Body extends Tb{
 			init: that.init
 		};
 
-		that.template = $(`
-			<section class="todoapp">
-				<app-header class="header"></app-header>
-				<app-content class="main"></app-content>
-			</section>
-			<app-footer class="info"></app-footer>
-			<script src="node_modules/todomvc-common/base.js"></script>
-			<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-		`);
+		// simple routing
+		window.onhashchange = function(){
+			let hash = window.location.hash,
+				filter = hash.split('/')[1] || hash;
 
+			console.log(filter);
+
+			$('a.a-'+filter).trigger('click');
+
+		};
+
+	}
+
+	get template(){ return `
+		<section class="todoapp">
+			<app-header class="header"></app-header>
+			<app-content class="main"></app-content>
+		</section>
+		<app-footer class="info"></app-footer>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">`;
 	}
 
 	init(){
@@ -6237,7 +6248,7 @@ app.Body = class Body extends Tb{
 		let that = this; // ...minification
 
 		$(that.target)
-			.append(that.template)
+			.append( $(that.template.trim()) )
 			.clean();
 	}
 
@@ -6256,7 +6267,7 @@ app.Content = class Content extends Tb{
 
         //store
         that.store = {
-            display: 'All',
+            filter: 'all',
             data: []
         };
 
@@ -6277,13 +6288,13 @@ app.Content = class Content extends Tb{
             <button class="clear-completed" style="position:relative;z-index:1">Clear completed</button>
             <ul class="filters" style="position:relative">
                 <li>
-                    <a href="#" class="selected">All</a>
+                    <a href="#" class="a-all selected">All</a>
                 </li>
                 <li>
-                    <a href="#">Active</a>
+                    <a href="#" class="a-active">Active</a>
                 </li>
                 <li>
-                    <a href="#">Completed</a>
+                    <a href="#" class="a-completed">Completed</a>
                 </li>
             </ul>
         </footer>`;
@@ -6292,8 +6303,8 @@ app.Content = class Content extends Tb{
     // list item template
     get itemTemplate(){ return `
         <li data-id="{id}">
-            <input class="toggle" type="checkbox" {checked}>
-            <label>{text}</label>
+            <input class="toggle" type="checkbox" {completed}>
+            <label>{title}</label>
             <button class="destroy"></button>
         </li>`;
     }
@@ -6309,7 +6320,7 @@ app.Content = class Content extends Tb{
             .clean()
             .hide();
 
-        // clear completed items
+        // toggle all items
         $( '#toggle-all', that.target )
             .on(
                 'click',
@@ -6357,13 +6368,13 @@ app.Content = class Content extends Tb{
         //render when store changes
         that.store.observe( function(pVal){
             try {
-                localStorage.setItem( 'store', JSON.stringify( pVal ) );
+                localStorage.setItem( 'todos-twobirds-es6', JSON.stringify( pVal ) );
             } catch (e){}
         });
 
         // get data from localStorage
         try {
-            let data = JSON.parse( localStorage.getItem( 'store' ) );
+            let data = JSON.parse( localStorage.getItem( 'todos-twobirds-es6' ) );
             if ( data ){
                 that.store = data;
             }
@@ -6383,6 +6394,13 @@ app.Content = class Content extends Tb{
         that.store.data.forEach(function(pItem){
             
             let li = $( tb.parse( that.itemTemplate.trim(), pItem ) );
+
+            // set completed style
+            if ( pItem.completed ){
+                $( li[0] )
+                    .addClass('completed');
+
+            }
 
             // destroy button
             $( 'button', li[0] )
@@ -6423,13 +6441,16 @@ app.Content = class Content extends Tb{
 
         $(ul).clean();
 
+        that.count();
+
+        $('a.a-'+that.store.filter).trigger('click');
     }
 
     filterList( pTarget ){
 
         let that = this,
             type = pTarget.innerText,
-            store = that.store,
+            store = tb.extend( {}, that.store ),
             ul = $('ul', that.target )[0];
 
         switch ( type ){
@@ -6445,7 +6466,9 @@ app.Content = class Content extends Tb{
                         }
                     });
 
-                store.display = 'Active';
+                store.filter = 'active';
+
+                that.store = store;
 
                 break;
 
@@ -6460,7 +6483,9 @@ app.Content = class Content extends Tb{
                         }
                     });
 
-                store.display = 'Completed';
+                store.filter = 'completed';
+
+                that.store = store;
 
                 break;
 
@@ -6470,7 +6495,9 @@ app.Content = class Content extends Tb{
                     .children()
                     .show();
 
-                store.display = 'All';
+                store.filter = 'all';
+
+                that.store = store;
 
                 break;
 
@@ -6487,8 +6514,8 @@ app.Content = class Content extends Tb{
 
         data.push({
             id: tb.getId(),
-            checked: '',
-            text: pItemText
+            completed: '',
+            title: pItemText
         });
 
         store.data = data;
@@ -6519,7 +6546,9 @@ app.Content = class Content extends Tb{
                 function( e ){
                     switch (e.key) {
                         case 'Enter':
-                            that.saveEdit( this.value, pLi );
+                            if ( this.value.trim() !== '' ){
+                                that.saveEdit( this.value.trim(), pLi );
+                            }
                             break;
                         case 'Escape':
                             that.cancelEdit( pLi );
@@ -6530,7 +6559,7 @@ app.Content = class Content extends Tb{
             .on(
                 'blur',
                 function( e ){
-                    that.cancelEdit( pLi );
+                    that.saveEdit( this.value, pLi );
                 }
             )
             .on(
@@ -6601,7 +6630,17 @@ app.Content = class Content extends Tb{
 
         const todos = data.map(item => {
             if ( pItemId === item.id ){
-                item.checked = pTarget.checked ? 'checked' : '';
+                item.completed = pTarget.checked ? 'checked' : '';
+                if ( item.completed ){
+                    $( pTarget )
+                        .parent()
+                        .addClass('completed');
+                } else {
+                    $( pTarget )
+                        .parent()
+                        .removeClass('completed');
+
+                }
             }
             return item;
         });
@@ -6622,7 +6661,7 @@ app.Content = class Content extends Tb{
             checked = !!that.count() ? 'checked' : '';
 
         const todos = data.map( pItem => {
-            pItem.checked = checked;
+            pItem.completed = checked;
             return pItem;
         });
 
@@ -6643,7 +6682,7 @@ app.Content = class Content extends Tb{
             store = tb.extend({}, that.store),
             data = store.data;
 
-        store.data = data.filter( item => !item.checked ? true : false );
+        store.data = data.filter( item => !item.completed ? true : false );
 
         that.store = store;
 
@@ -6661,10 +6700,22 @@ app.Content = class Content extends Tb{
             data = store.data,
             count = 0;
 
-        data.forEach( pData => !!pData.checked ? count : count++ );
+        data.forEach( pData => !!pData.completed ? count : count++ );
 
         $('.todo-count')
             .html( count + ' item' + (count !== 1 ? 's ' : ' ') + 'left' );
+
+        if ( count === 0 ){
+            $('#toggle-all').removeAttr('checked');
+        } else {
+            $('#toggle-all').attr('checked','checked');
+        }
+
+        if ( count === data.length ){
+            $('button.clear-completed').hide();
+        } else {
+            $('button.clear-completed').show();
+        }
 
         return count;
     }
@@ -6707,16 +6758,16 @@ app.Footer = class Footer extends Tb{
             init: that.init
         };
 
-        that.template = $(`
-            <p>Double-click to edit a todo</p>
-            <p>Written by <a href="http://twitter.com/FrankieThu">Frank Thuerigen</a></p>
-            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-        `);
+    }
 
+    get template(){ return `
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="http://twitter.com/FrankieThu">Frank Thuerigen</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>`;
     }
 
     // omitted if autonomous custom element 
-    static get namespace(){
+    get namespace(){
         return 'app.Footer';
     }
 
@@ -6726,7 +6777,7 @@ app.Footer = class Footer extends Tb{
         let that = this;
 
         $(that.target)
-            .append(that.template)
+            .append( $(that.template.trim()) )
             .clean();
 
     }
@@ -6769,15 +6820,15 @@ app.Header = class Header extends Tb{
             init: that.init
         };
 
-        that.template = $(`
-            <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus>`
-        );
+    }
 
+    get template(){ return `
+        <h1>todos</h1>
+        <input class="new-todo" placeholder="What needs to be done?" autofocus>`;
     }
 
     // omitted if autonomous custom element 
-    static get namespace(){
+    get namespace(){
         return 'app.Header';
     }
 
@@ -6787,7 +6838,7 @@ app.Header = class Header extends Tb{
         let that = this;
 
         $(that.target)
-            .append(that.template)
+            .append( $(that.template.trim()) )
             .clean();
 
         $('input', that.target)

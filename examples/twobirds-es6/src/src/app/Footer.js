@@ -9,16 +9,16 @@ app.Footer = class Footer extends Tb{
             init: that.init
         };
 
-        that.template = $(`
-            <p>Double-click to edit a todo</p>
-            <p>Written by <a href="http://twitter.com/FrankieThu">Frank Thuerigen</a></p>
-            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-        `);
+    }
 
+    get template(){ return `
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="http://twitter.com/FrankieThu">Frank Thuerigen</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>`;
     }
 
     // omitted if autonomous custom element 
-    static get namespace(){
+    get namespace(){
         return 'app.Footer';
     }
 
@@ -28,7 +28,7 @@ app.Footer = class Footer extends Tb{
         let that = this;
 
         $(that.target)
-            .append(that.template)
+            .append( $(that.template.trim()) )
             .clean();
 
     }
