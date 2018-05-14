@@ -286,6 +286,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=twobirds-es6
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=vanilla-es6
       <<: *defaults
     - stage: test

@@ -1,0 +1,8 @@
+Remember that you can report errors and get help in https://github.com/NicoSantangelo/sublime-gulp
+
+05-14-2018 00:41:
+(node:11740) [DEP0013] DeprecationWarning: Calling an asynchronous function without callback is deprecated.
+
+
+05-14-2018 00:43:
+(node:11810) [DEP0013] DeprecationWarning: Calling an asynchronous function without callback is deprecated.

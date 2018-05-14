@@ -106,13 +106,13 @@ app.Content = class Content extends Tb{
                 }
             );
 
-        //render when store changes
+        // render when store changes
         that.store.observe( that.renderList.bind(that) );
 
-        //render when store changes
-        that.store.observe( function(pVal){
+        // save to localStorage when store changes
+        that.store.observe( function(pValue){
             try {
-                localStorage.setItem( 'todos-twobirds-es6', JSON.stringify( pVal ) );
+                localStorage.setItem( 'todos-twobirds-es6', JSON.stringify( pValue ) );
             } catch (e){}
         });
 
@@ -135,59 +135,75 @@ app.Content = class Content extends Tb{
 
         $(that.target).hide();
 
-        that.store.data.forEach(function(pItem){
+        that.store
+            .data
+            .filter(function(pItem){
+                if ( 
+                    that.store.filter === 'all' 
+                    || that.store.filter === 'active' && !pItem.completed
+                    || that.store.filter === 'completed' && pItem.completed
+                ){
+                    return pItem;
+                }
+            })
+            .forEach(function(pItem){
             
-            let li = $( tb.parse( that.itemTemplate.trim(), pItem ) );
+                let li = $( tb.parse( that.itemTemplate.trim(), pItem ) );
 
-            // set completed style
-            if ( pItem.completed ){
+                // set completed style
+                if ( pItem.completed ){
+                    $( li[0] )
+                        .addClass('completed');
+
+                }
+
+                // destroy button
+                $( 'button', li[0] )
+                    .on(
+                        'click',
+                        function( e ){
+                            that.removeItem( pItem.id );
+                        }
+                    );
+
+                // doubleclick -> inline edit
                 $( li[0] )
-                    .addClass('completed');
+                    .on(
+                        'dblclick',
+                        function( e ){
+                            that.editItem( pItem.id, li[0] );
+                            e.stopPropagation();
+                        }
+                    );
 
-            }
+                // completed checkbox
+                $( 'input', li[0] )
+                    .on(
+                        'click',
+                        function( e ){
+                            that.changeCompleted( pItem.id, e.target );
+                        }
+                    );
+                
+                if ( pItem.completed ){
+                    li.addClass('completed');  
+                }
 
-            // destroy button
-            $( 'button', li[0] )
-                .on(
-                    'click',
-                    function( e ){
-                        that.removeItem( pItem.id );
-                    }
-                );
+                $(ul).append(li);
 
-            // doubleclick -> inline edit
-            $( li[0] )
-                .on(
-                    'dblclick',
-                    function( e ){
-                        that.editItem( pItem.id, li[0] );
-                        e.stopPropagation();
-                    }
-                );
-
-            // completed checkbox
-            $( 'input', li[0] )
-                .on(
-                    'click',
-                    function( e ){
-                        that.changeCompleted( pItem.id, e.target );
-                    }
-                );
-            
-            if ( pItem.completed ){
-                li.addClass('completed');  
-            }
-
-            $(ul).append(li);
-
-            $(that.target).show();
-        });
+                $(that.target).show();
+            });
 
         $(ul).clean();
 
         that.count();
 
         $('a.a-'+that.store.filter).trigger('click');
+
+        // we have records, but none are shown
+        if ( that.store.data.length > 0 && $(ul).children().length === 0 ){
+            $('a.a-all').trigger('click');
+        }
     }
 
     filterList( pTarget ){
@@ -197,54 +213,24 @@ app.Content = class Content extends Tb{
             store = tb.extend( {}, that.store ),
             ul = $('ul', that.target )[0];
 
+        if ( that.store.filter === type.toLowerCase() ){
+            return;
+        }
+
         switch ( type ){
 
-            case 'Active':
-            
-                $(ul)
-                    .children()
-                    .hide()
-                    .forEach(function(pLi){
-                        if ( !$('input', pLi)[0].hasAttribute('checked') ){
-                            $(pLi).show();
-                        }
-                    });
-
+            case 'Active':       
                 store.filter = 'active';
-
                 that.store = store;
-
                 break;
-
-            case 'Completed':
-            
-                $(ul)
-                    .children()
-                    .hide()
-                    .forEach(function(pLi){
-                        if ( $('input', pLi)[0].hasAttribute('checked') ){
-                            $(pLi).show();
-                        }
-                    });
-
+            case 'Completed':            
                 store.filter = 'completed';
-
                 that.store = store;
-
                 break;
-
             default: // ='All'
-
-                $(ul)
-                    .children()
-                    .show();
-
                 store.filter = 'all';
-
                 that.store = store;
-
                 break;
-
         }
 
 
