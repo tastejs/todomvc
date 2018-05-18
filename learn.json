@@ -2084,6 +2084,31 @@
 			}]
 		}]
 	},
+	"twobirds-es6": {
+		"name": "twoBirds",
+		"description": "A small web component library. Feels like jQuery, but adds class instances to the DOM plus selectors and event handling on them.",
+		"homepage": "https://gitlab.com/twoBirds/twobirds-core",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/twobirds-es6"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "TODOs Application (latest)",
+				"url": "https://github.com/twoBirds/todomvc"
+			}, {
+				"name": "twoBirds on GitLab",
+				"url": "https://gitlab.com/twoBirds/twobirds-core"
+			}, {
+				"name": "API",
+				"url": "http://twobirds.gitlab.io/twobirds-core/"
+			}, {
+				"name": "Tutorial",
+				"url": "https://gitlab.com/twoBirds/twobirds-core/wikis/twoBirds-Tutorials"
+			}]
+		}]
+	},
 	"typescript": {
 		"name": "TypeScript",
 		"description": "TypeScript is a language for application-scale JavaScript development. TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. Any browser. Any host. Any OS. Open Source.",

@@ -113,10 +113,13 @@ body {
 }
 
 .toggle-all {
-	text-align: center;
+	width: 1px;
+	height: 1px;
 	border: none; /* Mobile Safari */
 	opacity: 0;
 	position: absolute;
+	right: 100%;
+	bottom: 100%;
 }
 
 .toggle-all + label {
