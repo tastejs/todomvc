@@ -53,6 +53,11 @@ Sam is a Software Engineer at Google who is driven by an endless desire to creat
 <img align="left" width="40" height="40" src="https://en.gravatar.com/avatar/e34daab0d2e344219adb5234198269c5?size=40">
 Arthur is an open-source fanboy from Belgium. He is passionate about developer tooling and all things JavaScript.
 
+#### [Fady Samir Sadek](https://github.com/FadySamirSadek) - Developer
+
+<img align="left" width="40" height="40" src="https://avatars2.githubusercontent.com/u/7483806?s=40&u=99b3958687789735c12cf736332361a06b951355&v=4">
+Fady is a front-end developer who loves all things JavaScript and enjoys solving real world problems using the web platform and helping other developers do the same. He currently leads maintenance of the project and ensures that the project is friendly for new contributors and upcoming developers.
+
 #### [Gianni Chiappetta](https://github.com/gf3) - Logo designer
 
 <img align="left" width="40" height="40" src="https://www.gravatar.com/avatar/4b0209ae3652cc5a7d53545e759fbe39.png?s=40">
