@@ -33,11 +33,11 @@
     "url": "https://github.com/peter-rybar/prest-lib-todomvc.git"
   },
   "scripts": {
-    "clean": "rm -rf js lib",
+    "clean": "rm -rf lib",
     "clean:all": "npm run clean; rm -rf node_modules",
     "tslint": "tslint --project tsconfig.json",
     "libs": ". ./libs.sh",
-    "prebuild": "run-s tslint clean libs",
+    "prebuild": "run-s clean tslint libs",
     "build": "rollup -c",
     "build:watch": "npm run build -- -w",
     "server": "http-server ./",
