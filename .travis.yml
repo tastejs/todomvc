@@ -134,10 +134,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=foam
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=jquery
       <<: *defaults
     - stage: test
