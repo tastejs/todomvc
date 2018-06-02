@@ -206,10 +206,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=serenadejs
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=socketstream
       <<: *defaults
     - stage: test
