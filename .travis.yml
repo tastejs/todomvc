@@ -54,10 +54,6 @@ jobs:
     # all these jobs belong to same stage "test" thus will run in parallel
     - stage: test
       env:
-        - CYPRESS_framework=ampersand
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=angular-dart
       <<: *defaults
     - stage: test
@@ -146,10 +142,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=flight
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=foam
       <<: *defaults
     - stage: test
@@ -187,10 +179,6 @@ jobs:
     - stage: test
       env:
         - CYPRESS_framework=lavaca_require
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=meteor
       <<: *defaults
     - stage: test
       env:
@@ -270,10 +258,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=troopjs_require
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=typescript-angular
       <<: *defaults
     - stage: test
@@ -301,7 +285,3 @@ jobs:
         - CYPRESS_framework=vue
       <<: *defaults
     - stage: test
-      env:
-        - CYPRESS_framework=webrx
-      <<: *defaults
-
