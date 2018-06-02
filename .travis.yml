@@ -174,10 +174,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=rappidjs
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=react
       <<: *defaults
     - stage: test
