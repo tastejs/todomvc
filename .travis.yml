@@ -102,10 +102,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=chaplin-brunch
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=closure
       <<: *defaults
     - stage: test
@@ -146,10 +142,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=humble
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=jquery
       <<: *defaults
     - stage: test
@@ -186,15 +178,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=olives
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=polymer
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=puremvc
       <<: *defaults
     - stage: test
       env:
@@ -246,14 +230,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=somajs
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=somajs_require
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=spine
       <<: *defaults
     - stage: test
@@ -284,4 +260,3 @@ jobs:
       env:
         - CYPRESS_framework=vue
       <<: *defaults
-    - stage: test
