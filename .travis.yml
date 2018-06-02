@@ -66,10 +66,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=ariatemplates
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=aurelia
       <<: *defaults
     - stage: test
