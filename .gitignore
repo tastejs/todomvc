@@ -3,3 +3,8 @@ node_modules
 /dist
 /tooling/node_modules
 cypress/screenshots
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
