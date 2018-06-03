@@ -49,7 +49,7 @@ If the app breaks for a decent amount of time, we will (temporarily) remove it f
 
 ## Browser Compatibility
 
-Modern browser (latest: Chrome, Firefox, Opera, Safari, IE11)
+Modern browser (latest: Chrome, Firefox, Opera, Safari, IE11/Edge)
 
 
 ## Unit Tests
