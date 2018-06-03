@@ -53,10 +53,10 @@ jQuery(function ($) {
 			}).init('/all');
 		},
 		bindEvents: function () {
-			$('#new-todo').on('keyup', this.create.bind(this));
-			$('#toggle-all').on('change', this.toggleAll.bind(this));
-			$('#footer').on('click', '#clear-completed', this.destroyCompleted.bind(this));
-			$('#todo-list')
+			$('.new-todo').on('keyup', this.create.bind(this));
+			$('.toggle-all').on('change', this.toggleAll.bind(this));
+			$('.footer').on('click', '.clear-completed', this.destroyCompleted.bind(this));
+			$('.todo-list')
 				.on('change', '.toggle', this.toggle.bind(this))
 				.on('dblclick', 'label', this.editingMode.bind(this))
 				.on('keyup', '.edit', this.editKeyup.bind(this))
@@ -65,11 +65,11 @@ jQuery(function ($) {
 		},
 		render: function () {
 			var todos = this.getFilteredTodos();
-			$('#todo-list').html(this.todoTemplate(todos));
-			$('#main').toggle(todos.length > 0);
-			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
+			$('.todo-list').html(this.todoTemplate(todos));
+			$('.main').toggle(todos.length > 0);
+			$('.toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
-			$('#new-todo').focus();
+			$('.new-todo').focus();
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
@@ -82,7 +82,7 @@ jQuery(function ($) {
 				filter: this.filter
 			});
 
-			$('#footer').toggle(todoCount > 0).html(template);
+			$('.footer').toggle(todoCount > 0).html(template);
 		},
 		toggleAll: function (e) {
 			var isChecked = $(e.target).prop('checked');
@@ -116,7 +116,6 @@ jQuery(function ($) {
 		},
 		destroyCompleted: function () {
 			this.todos = this.getActiveTodos();
-			this.filter = 'all';
 			this.render();
 		},
 		// accepts an element from inside the `.item` div and
@@ -157,7 +156,11 @@ jQuery(function ($) {
 		},
 		editingMode: function (e) {
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
-			$input.val($input.val()).focus();
+			// puts caret at end of input
+			var tmpStr = $input.val();
+			$input.val('');
+			$input.val(tmpStr);
+			$input.focus();
 		},
 		editKeyup: function (e) {
 			if (e.which === ENTER_KEY) {
@@ -172,14 +175,12 @@ jQuery(function ($) {
 			var el = e.target;
 			var $el = $(el);
 			var val = $el.val().trim();
-
-			if (!val) {
-				this.destroy(e);
-				return;
-			}
-
+			
 			if ($el.data('abort')) {
 				$el.data('abort', false);
+			} else if (!val) {
+				this.destroy(e);
+				return;
 			} else {
 				this.todos[this.getIndexFromEl(el)].title = val;
 			}

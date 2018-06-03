@@ -75,7 +75,7 @@
 				if (!value) {
 					return;
 				}
-				this.todos.push({ title: value, completed: false });
+				this.todos.push({ id: this.todos.length + 1, title: value, completed: false });
 				this.newTodo = '';
 			},
 

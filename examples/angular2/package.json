@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
-    "systemjs": "0.19.6",
     "rxjs": "5.0.0-beta.0",
-    "todomvc-app-css": "^2.0.0",
+    "systemjs": "0.19.6",
+    "todomvc-app-css": "^2.1.0",
     "todomvc-common": "^1.0.1"
   }
 }

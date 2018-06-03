@@ -154,9 +154,13 @@ var app = app || {};
 					<section className="main">
 						<input
 							className="toggle-all"
+							id="toggle-all"
 							type="checkbox"
 							onChange={this.toggleAll}
 							checked={activeTodoCount === 0}
+						/>
+						<label
+							htmlFor="toggle-all"
 						/>
 						<ul className="todo-list">
 							{todoItems}

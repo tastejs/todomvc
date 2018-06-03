@@ -106,8 +106,8 @@ export default class View {
 	 * @param {string} route The current route
 	 */
 	updateFilterButtons(route) {
-		qs('.filters>.selected').className = '';
-		qs(`.filters>[href="#/${route}"]`).className = 'selected';
+		qs('.filters .selected').className = '';
+		qs(`.filters [href="#/${route}"]`).className = 'selected';
 	}
 
 	/**

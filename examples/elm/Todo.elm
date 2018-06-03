@@ -220,6 +220,7 @@ taskList visibility tasks =
             ]
             [ input
                 [ class "toggle-all"
+                , id "toggle-all"
                 , type' "checkbox"
                 , name "toggle"
                 , checked allCompleted

@@ -16,7 +16,7 @@ define(function (require) {
 
 	// Override Lavaca's default view-root selector to match the TodoMVC template
 	// file better
-	Application.prototype.viewRootSelector = '#todoapp';
+	Application.prototype.viewRootSelector = '.todoapp';
 
 	/**
 	 * @class app

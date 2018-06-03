@@ -1,15 +1,15 @@
-<section id="todoapp">
+<section class="todoapp">
 
-    <header id="header">
+    <header class="header">
         <h1>todos</h1>
-        <input id="new-todo" class="newtodo" placeholder="What needs to be done?" autofocus>
+        <input class="new-todo" class="newtodo" placeholder="What needs to be done?" autofocus>
     </header>
 
     <tpl if="values.length">
-        <section id="main">
-            <input id="toggle-all" class="toggleall" type="checkbox" {[ this.controller.areAllComplete() ? "checked" : ""]}>
+        <section class="main">
+            <input id="toggle-all" class="toggle-all" type="checkbox" {[ this.controller.areAllComplete() ? "checked" : ""]}>
             <label for="toggle-all">Mark all as complete</label>
-            <ul id="todo-list">
+            <ul class="todo-list">
 
                 <tpl for=".">
                     <li class="todo {[ values.completed ? "completed" : "" ]} {[ values.editing ? "editing" : "" ]}">
@@ -27,17 +27,17 @@
     </tpl>
 
     <tpl if="values.length">
-        <footer id="footer">
-            <span id="todo-count"><strong>{[ this.controller.incompleteCount() ]}</strong> {[ ( this.controller.incompleteCount() == 1 ) ? "item" : "items" ]} left</span>
+        <footer class="footer">
+            <span class="todo-count"><strong>{[ this.controller.incompleteCount() ]}</strong> {[ ( this.controller.incompleteCount() == 1 ) ? "item" : "items" ]} left</span>
             <tpl if="this.controller.completedCount()">
-                <button id="clear-completed" class="clearcompleted">Clear completed</button>
+                <button class="clear-completed">Clear completed</button>
             </tpl>
         </footer>
     </tpl>
 
 </section>
 
-<footer id="info">
+<footer class="info">
     <p>Double-click to edit a todo</p>
     <p><a href="http://www.sencha.com" muse_scanned="true">ExtJS</a> with <a href="http://www.deftjs.com" muse_scanned="true">DeftJS</a> version created by <a href="http://www.briankotek.com" muse_scanned="true">Brian Kotek</a></p>
     <p>Part of <a href="http://todomvc.com" muse_scanned="true">TodoMVC</a></p>

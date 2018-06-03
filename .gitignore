@@ -1,4 +1,10 @@
-/node_modules
+node_modules
 /bower_components
 /dist
 /tooling/node_modules
+cypress/screenshots
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

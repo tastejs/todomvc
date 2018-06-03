@@ -9,7 +9,7 @@ Ext.define('TodoDeftJS.view.Viewport', {
 		Ext.applyIf(this, {
 			items: [
 				{
-					id: 'todoView'
+					className: 'todoView'
 				}, {
 					xtype: 'todoDeftJS-view-todoView'
 				}

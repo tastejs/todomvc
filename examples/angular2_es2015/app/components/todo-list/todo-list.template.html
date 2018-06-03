@@ -1,7 +1,7 @@
 <section class="todoapp">
     <todo-header></todo-header>
     <section class="main" *ngIf="getTodos().length">
-        <input class="toggle-all" type="checkbox" #toggleall [checked]="allCompleted()" (click)="setAllTo(toggleall)">
+        <input id="toggle-all" class="toggle-all" type="checkbox" #toggleall [checked]="allCompleted()" (click)="setAllTo(toggleall)">
         <ul class="todo-list">
             <todo-item *ngFor="let todo of getTodos()" [todo]="todo" (itemRemoved)="remove($event)" (itemModified)="update($event)"></todo-item>
         </ul>

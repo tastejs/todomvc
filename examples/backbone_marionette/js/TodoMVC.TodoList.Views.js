@@ -89,7 +89,7 @@ var TodoMVC = TodoMVC || {};
 	TodoMVC.ListViewBody = Mn.CollectionView.extend({
 		tagName: 'ul',
 
-		id: 'todo-list',
+		className: 'todo-list',
 
 		childView: TodoMVC.TodoView,
 
@@ -115,7 +115,7 @@ var TodoMVC = TodoMVC || {};
 		},
 
 		ui: {
-			toggle: '#toggle-all'
+			toggle: '.toggle-all'
 		},
 
 		events: {

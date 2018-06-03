@@ -14,17 +14,17 @@
 
 (defn todo-app []
   [:div
-   [:section#todoapp
-    [:header#header
+   [:section.todoapp
+    [:header.header
      [title/component]
      [todo-input/component]]
-    [:div {:style 
+    [:div {:style
            {:display (helpers/display-elem (helpers/todos-any?
                                             @session/todos))}}
-     [:section#main
+     [:section.main
       [todos-toggle/component]
       [todos-list/component (helpers/todos-all @session/todos)]]
-     [:footer#footer
+     [:footer.footer
       [todos-count/component]
       [todos-filters/component]
       [todos-clear/component]

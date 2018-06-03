@@ -10,16 +10,14 @@
        (when @editing "editing")))
 
 (defn todo-checkbox [id completed]
-  [:input.toggle {:type "checkbox" 
+  [:input.toggle {:type "checkbox"
                   :checked completed
                   :on-change #(actions/toggle-todo id)}])
 
 (defn component [todo]
   (let [editing (reagent/atom false)]
     (fn [{:keys [id title completed] :as todo}]
-      [:li {:class (todo-item-class completed editing)
-            :style {:display (helpers/display-elem
-                              (helpers/todo-display-filter completed @session/todos-display-type))}}
+      [:li {:class (todo-item-class completed editing)}
        [:div.view
         [todo-checkbox id completed]
         [:label {:on-double-click #(reset! editing true)} title]
