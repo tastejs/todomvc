@@ -1,0 +1,10 @@
+<!-- ko if: visible -->
+<div class="view">
+	<input data-bind="checked: model.completed" class="toggle" type="checkbox">
+	<label data-bind="text: model.title, event: { dblclick: function () { model.editing = true; } }"></label>
+	<button data-bind="click: todoList.destroyItem.bind(todoList)" class="destroy"></button>
+</div>
+<!-- ko if: model.editing -->
+<todo-item-edit params="todoItem: $data"></todo-item-edit>
+<!-- /ko -->
+<!-- /ko -->

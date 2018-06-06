@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "dependencies": {
+    "director": "^1.2.8",
+    "jquery": "^3.1.1",
+    "jsface": "^2.4.9",
+    "knockout": "^3.4.0",
+    "knockout-amd-helpers": "^0.7.4",
+    "knockout-es5-option4": "^0.7.0",
+    "require-css": "^0.1.8",
+    "requirejs": "^2.3.2",
+    "requirejs-text": "^2.0.12",
+    "sugar": "^1.5.0",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/r.js -o ./build.js"
+  }
+}
