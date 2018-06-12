@@ -1,7 +1,7 @@
 interface ITodo {
   id: string;
   title: string;
-  completed: boolea;
+  completed: boolean;
 }
 
 interface ITodoItemProps {
