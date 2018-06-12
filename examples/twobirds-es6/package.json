@@ -15,11 +15,11 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify-es": "git://github.com/gruntjs/grunt-contrib-uglify.git#harmony",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "todomvc-app-css": "^2.1.2",
+    "todomvc-common": "^1.0.5"
   },
   "dependencies": {
-    "todomvc-app-css": "^2.0.1",
-    "todomvc-common": "^1.0.2",
     "twobirds-core": "^8.1.14"
   }
 }
