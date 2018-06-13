@@ -53,6 +53,13 @@ var app = app || {};
 									Completed
 							</a>
 						</li>
+						{' '}
+						<li>
+							<a href="#/highPriority"
+							className={classNames({selected: nowShowing === app.HIGH_PRIORITY_TODOS})}>
+								High Priority
+								</a>
+						</li>
 					</ul>
 					{clearButton}
 				</footer>

@@ -11,6 +11,7 @@ var app = app || {};
 	app.ALL_TODOS = 'all';
 	app.ACTIVE_TODOS = 'active';
 	app.COMPLETED_TODOS = 'completed';
+	app.HIGH_PRIORITY_TODOS = 'highPriority';
 	var TodoFooter = app.TodoFooter;
 	var TodoItem = app.TodoItem;
 
@@ -21,7 +22,8 @@ var app = app || {};
 			return {
 				nowShowing: app.ALL_TODOS,
 				editing: null,
-				newTodo: ''
+				newTodo: '',
+				newTodoPriority: 1,
 			};
 		},
 
@@ -30,7 +32,8 @@ var app = app || {};
 			var router = Router({
 				'/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
 				'/active': setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
-				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
+				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS}),
+				'/highPriority': setState.bind(this, {nowShowing: app.HIGH_PRIORITY_TODOS})
 			});
 			router.init('/');
 		},
@@ -47,11 +50,17 @@ var app = app || {};
 			event.preventDefault();
 
 			var val = this.state.newTodo.trim();
+			var priority = this.state.newTodoPriority;
 
 			if (val) {
-				this.props.model.addTodo(val);
-				this.setState({newTodo: ''});
+				this.props.model.addTodo(val, priority);
+				this.setState({newTodo: '', newTodoPriority: '1'});
 			}
+		},
+
+		handleSelect: function (event) {
+			var priority = event.target.value
+			this.setState({newTodoPriority: priority})
 		},
 
 		toggleAll: function (event) {
@@ -95,23 +104,41 @@ var app = app || {};
 					return !todo.completed;
 				case app.COMPLETED_TODOS:
 					return todo.completed;
+				case app.HIGH_PRIORITY_TODOS:
+					return todo.priority == 1 || todo.priority == 2
 				default:
 					return true;
 				}
 			}, this);
 
-			var todoItems = shownTodos.map(function (todo) {
+			function compareDecreasingPriority(a, b) {
+				if (a.priority < b.priority) {
+					return -1
+				}
+				if (a.priority > b.priority) {
+					return 1
+				}
+				return 0
+			}
+
+			var sortedTodos = todos.slice(0).sort(compareDecreasingPriority)
+
+			var todoItems = sortedTodos.map(function (todo) {
 				return (
-					<TodoItem
-						key={todo.id}
-						todo={todo}
-						onToggle={this.toggle.bind(this, todo)}
-						onDestroy={this.destroy.bind(this, todo)}
-						onEdit={this.edit.bind(this, todo)}
-						editing={this.state.editing === todo.id}
-						onSave={this.save.bind(this, todo)}
-						onCancel={this.cancel}
-					/>
+					<div>
+						<div style={{ fontSize: '10px'}}>Priority: {todo.priority}</div>
+						<TodoItem
+							key={todo.id}
+							todo={todo}
+							onToggle={this.toggle.bind(this, todo)}
+							onDestroy={this.destroy.bind(this, todo)}
+							onEdit={this.edit.bind(this, todo)}
+							editing={this.state.editing === todo.id}
+							onSave={this.save.bind(this, todo)}
+							onCancel={this.cancel}
+							priority={todo.priority}
+						/>
+					</div>
 				);
 			}, this);
 
@@ -151,14 +178,21 @@ var app = app || {};
 				<div>
 					<header className="header">
 						<h1>todos</h1>
-						<input
-							className="new-todo"
-							placeholder="What needs to be done?"
-							value={this.state.newTodo}
-							onKeyDown={this.handleNewTodoKeyDown}
-							onChange={this.handleChange}
-							autoFocus={true}
-						/>
+						<div style={{ display: 'flex', flexDirection: 'row' }}>
+							<input
+								className="new-todo"
+								placeholder="What needs to be done?"
+								value={this.state.newTodo}
+								onKeyDown={this.handleNewTodoKeyDown}
+								onChange={this.handleChange}
+								autoFocus={true}
+							/>
+							<select class="new-todo-priority" onChange={this.handleSelect}>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
 					</header>
 					{main}
 					{footer}
