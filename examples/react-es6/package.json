@@ -18,8 +18,8 @@
     "bin-up": "^1.1.0"
   },
   "scripts": {
-    "cy:open": "bin-up cypress open --project ../.. --env framework=react",
-    "cy:run": "bin-up cypress run --project ../.. --env framework=react",
+    "cy:open": "bin-up cypress open --project ../.. --env framework=react-es6",
+    "cy:run": "bin-up cypress run --project ../.. --env framework=react-es6",
     "cy:run:record": "npm run cy:run -- --record",
     "start": "bin-up gulp test-server",
     "test:gui": "bin-up run-p --race start cy:open",
