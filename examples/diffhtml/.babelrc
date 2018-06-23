@@ -1,0 +1,14 @@
+{
+  "presets": ["es2015-rollup"],
+  "env": {
+    "production": {
+      "plugins": [
+        ["transform-react-remove-prop-types", { "removeImport": true }]
+      ]
+    }
+  },
+  "plugins": [
+    ["transform-diffhtml", { "createTree": "html" }],
+    "transform-class-properties"
+  ]
+}

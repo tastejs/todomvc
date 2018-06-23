@@ -1,0 +1,50 @@
+{
+  "name": "todomvc",
+  "version": "1.0.0",
+  "description": "TodoMVC",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npm run min",
+    "clean": "rm -rf dist/* && mkdir -p dist",
+    "min": "NODE_ENV=production npm run build",
+    "build": "rollup -c rollup.config.js && uglifyjs dist/todomvc.js -o dist/todomvc.min.js -m -c",
+    "watch": "rollup -c rollup.config.js -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbranyen/todomvc.git"
+  },
+  "author": "Tim Branyen (@tbranyen)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tbranyen/todomvc/issues"
+  },
+  "homepage": "https://github.com/tbranyen/todomvc#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.22.0",
+    "babel-plugin-transform-diffhtml": "^1.0.0-beta.5",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.5",
+    "babel-preset-diffhtml-imports": "^1.0.0-beta.5",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-ignore": "^1.0.3",
+    "rollup-plugin-import-alias": "^1.0.3",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-visualizer": "^0.2.0",
+    "rollup-watch": "^3.2.2",
+    "uglify-js": "^3.0.15"
+  },
+  "dependencies": {
+    "diffhtml": "^1.0.0-beta.5",
+    "diffhtml-components": "^1.0.0-beta.5",
+    "prop-types": "^15.5.10",
+    "redux": "^3.5.2",
+    "todomvc-app-css": "2.0.0",
+    "todomvc-common": "1.0.1"
+  }
+}
