@@ -115,8 +115,6 @@ jobs:
     <<: *defaults
   puremvc:
     <<: *defaults
-  extjs_deftjs:
-    <<: *defaults
   exoskeleton:
     <<: *defaults
   react-backbone:
@@ -207,7 +205,6 @@ workflows:
       - somajs_require
       - sammyjs
       - puremvc
-      - extjs_deftjs
       - exoskeleton
       - react-backbone
       - angular2

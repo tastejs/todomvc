@@ -48,7 +48,6 @@ module.exports = [
   'TodoMVC - ariatemplates, Editing, should cancel edits on escape',
   'TodoMVC - dermis, Editing, should cancel edits on escape',
   // 'TodoMVC - duel, Editing, should cancel edits on escape',
-  // 'TodoMVC - extjs_deftjs, Editing, should cancel edits on escape',
   // 'TodoMVC - olives, Editing, should cancel edits on escape',
   // 'TodoMVC - rappidjs, Editing, should cancel edits on escape',
   'TodoMVC - serenadejs, Editing, should cancel edits on escape',
@@ -97,11 +96,6 @@ module.exports = [
   // 'TodoMVC - somajs_require, Routing, should respect the back button',
 
   // the following implementations do not support routing
-  'TodoMVC - extjs_deftjs, Routing, should allow me to display active items',
-  'TodoMVC - extjs_deftjs, Routing, should allow me to display completed items',
-  'TodoMVC - extjs_deftjs, Routing, should allow me to display all items',
-  'TodoMVC - extjs_deftjs, Routing, should highlight the currently applied filter',
-  'TodoMVC - extjs_deftjs, Routing, should respect the back button',
   'TodoMVC - olives, Routing, should allow me to display active items',
   'TodoMVC - olives, Routing, should allow me to display completed items',
   'TodoMVC - olives, Routing, should allow me to display all items',
@@ -144,27 +138,6 @@ module.exports = [
   // 'TodoMVC - typescript-backbone, Routing, should highlight the currently applied filter',
   // 'TodoMVC - typescript-backbone, Routing, should respect the back button',
 
-  'extjs_deftjs, should focus on the todo input field',
-
-  // EXTJS is not spec compliant (by a long way!)
-  'TodoMVC - extjs, should focus on the todo input field',
-  'TodoMVC - extjs, New Todo, should show #main and #footer when items added',
-  'TodoMVC - extjs, Mark all as completed, should allow me to mark all items as completed',
-  'TodoMVC - extjs, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-  'TodoMVC - extjs, Item, should allow me to mark items as complete',
-  'TodoMVC - extjs, Item, should allow me to un-mark items as complete',
-  'TodoMVC - extjs, Editing, should save edits on blur',
-  'TodoMVC - extjs, Editing, should cancel edits on escape',
-  'TodoMVC - extjs, Counter, should display the current number of todo items',
-  'TodoMVC - extjs, Clear completed button, should display the number of completed items',
-  'TodoMVC - extjs, Clear completed button, should remove completed items when clicked',
-  'TodoMVC - extjs, Clear completed button, should be hidden when there are no items that are completed',
-  'TodoMVC - extjs, Persistence, should persist its data',
-  'TodoMVC - extjs, Routing, should allow me to display active items',
-  'TodoMVC - extjs, Routing, should allow me to display completed items',
-  'TodoMVC - extjs, Routing, should allow me to display all items',
-  'TodoMVC - extjs, Routing, should highlight the currently applied filter',
-  'TodoMVC - extjs, Routing, should respect the back button',
 
   'ractive, should allow me to edit an item',
   'ractive, should remove the item if an empty text string was entered',
