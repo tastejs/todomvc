@@ -1,0 +1,75 @@
+{
+  "name": "prest-lib-todomvc",
+  "version": "0.1.0",
+  "description": "pREST Lib Widgets - TodoMVC demo",
+  "keywords": [
+    "pREST",
+    "lib",
+    "typescript",
+    "jsonml",
+    "dom",
+    "encode",
+    "events",
+    "form",
+    "hash",
+    "history",
+    "http",
+    "load",
+    "router",
+    "signal",
+    "template",
+    "widgets",
+    "todomvc"
+  ],
+  "author": {
+    "name": "Peter Rybar",
+    "email": "pr.rybar@gmail.com",
+    "url": "https://github.com/peter-rybar"
+  },
+  "license": "GPL-3.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peter-rybar/prest-lib-todomvc.git"
+  },
+  "scripts": {
+    "clean": "rm -rf lib",
+    "clean:all": "npm run clean; rm -rf node_modules",
+    "tslint": "tslint --project tsconfig.json",
+    "libs": ". ./libs.sh",
+    "prebuild": "run-s clean tslint libs",
+    "build": "rollup -c",
+    "build:watch": "npm run build -- -w",
+    "server": "http-server ./",
+    "start": "run-p build:watch server"
+  },
+  "dependencies": {
+    "incremental-dom": "^0.5.1",
+    "prest-lib": "git+https://github.com/peter-rybar/prest-lib.git#6e28f49653323437c6a22f6509c93e17f9851cab",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "http-server": "^0.11.1",
+    "npm-run-all": "^4.1.3",
+    "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.1",
+    "rollup": "^0.36.3",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-watch": "^2.5.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1"
+  },
+  "pre-commit": [
+    "build"
+  ],
+  "pre-push": [
+    "build"
+  ],
+  "prettier": {
+    "tabWidth": 4
+  }
+}
