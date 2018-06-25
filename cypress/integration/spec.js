@@ -36,7 +36,6 @@ const frameworkFolders = {
   'angular-dart': 'angular-dart/web',
   'chaplin-brunch': 'chaplin-brunch/public',
   duel: 'duel/www',
-  extjs: 'extjs_deftjs',
   vanilladart: 'vanilladart/build/web'
 }
 const getExampleFolder = framework => frameworkFolders[framework] || framework
@@ -55,7 +54,6 @@ const noLocalStorageCheck = {
   exoskeleton: true,
   'react-backbone': true,
   puremvc: true,
-  extjs_deftjs: true,
   'typescript-backbone': true,
   enyo_backbone: true,
   foam: true
