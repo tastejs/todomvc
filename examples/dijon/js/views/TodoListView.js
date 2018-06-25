@@ -16,6 +16,7 @@
 		return {
 			system: undefined, //inject
 			enterKey: undefined,
+			escapeKey: undefined,
 			todosModel: undefined, //inject
 			setup: function() {
 				var self = this;
@@ -26,9 +27,15 @@
 				$todoList.on( 'dblclick', 'label', function() {
 					$( this ).closest('li').addClass('editing').find('.edit').focus();
 				} );
-				$todoList.on( 'keypress', '.edit', function( e ) {
+				$todoList.on( 'keydown', '.edit', function( e ) {
 					if ( e.which === self.enterKey ) {
 						e.target.blur();
+					} else if ( e.which === self.escapeKey ) {
+						var todoEl = $( this ).closest('li'),
+							id = todoEl.data('id'),
+							val = $.trim( todoEl.find('label').html());
+						todoEl.removeClass('editing');
+						self.system.notify( 'TodoListView:setTitleOfTodo', id, val);
 					}
 				});
 				$todoList.on( 'blur', '.edit', function() {
