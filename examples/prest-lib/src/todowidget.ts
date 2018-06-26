@@ -21,7 +21,7 @@ export class TodoWidget extends WidgetE<TodoState> {
         this.setState({
             todo: "",
             todos: [],
-            filter: "",
+            filter: "/",
             edit: null
         });
     }
@@ -184,9 +184,7 @@ export class TodoWidget extends WidgetE<TodoState> {
 
     private onEdited = (e: Event) => {
         const title = (e.target as HTMLInputElement).value.trim();
-        if (title) {
-            this.events.emit("edited", title);
-        }
+        this.events.emit("edited", title);
     }
 
 }

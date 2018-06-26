@@ -33,11 +33,11 @@ export class TodoApp {
 
     private _initRouting(): void {
         this.hash = new Hash<string>()
-        .coders(
-            data => encodeURIComponent(data),
-            str => decodeURIComponent(str)
-        )
-        .onChange(data => {
+            .coders(
+                data => encodeURI(data),
+                str => decodeURI(str)
+            );
+        this.hash.onChange(data => {
             switch (data) {
                 case "/":
                 case "/active":
@@ -53,8 +53,8 @@ export class TodoApp {
                     this.hash.write("/");
                     break;
             }
-        })
-        .start();
+        });
+        this.hash.start();
     }
 
 }

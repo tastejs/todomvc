@@ -42,6 +42,7 @@ export function todotHandlers(events: Events<TodoWidget>,
                 t => (t.id === w.getState().edit ? (t.title = title) : null)
             );
             w.getState().edit = null;
+            w.getState().todos = w.getState().todos.filter(t => t.title !== "");
             w.update();
         })
         .any((data: any, w: TodoWidget, e: string) => {
