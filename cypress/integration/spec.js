@@ -89,7 +89,8 @@ const badLocalStorageFormat = {
 const blurAfterType = {
   ampersand: true,
   dijon: true,
-  duel: true
+  duel: true,
+  vanillajs: true
 }
 
 // add after typing if `...{enter}` is not enough for some frameworks
