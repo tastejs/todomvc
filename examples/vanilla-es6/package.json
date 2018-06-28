@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "compile": "java -jar node_modules/google-closure-compiler/compiler.jar -O ADVANCED --language_in=ES6_STRICT --new_type_inf --js_output_file='dist/bundle.js' 'src/**.js' -W VERBOSE",
+    "compile": "webpack",
     "prepublish": "npm run compile"
   },
   "dependencies": {
@@ -9,6 +9,10 @@
     "todomvc-common": "^1.0.2"
   },
   "devDependencies": {
-    "google-closure-compiler": "^20160315.2.0"
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.13.0",
+    "webpack-cli": "^3.0.8"
   }
 }
