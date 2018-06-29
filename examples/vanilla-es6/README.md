@@ -19,10 +19,8 @@ npm install
 
 ## Compiling ES6 to ES5
 
-After NPM modules have been installed, use the pre-defined Babel script to convert the `src` files. Browserify is also used so that `module.exports` and `require()` can be run in your browser.
-
 ```bash
-npm run compile
+webpack
 ```
 
 ## Support
@@ -30,12 +28,6 @@ npm run compile
 - [Twitter](http://twitter.com/lukeed05)
 
 *Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
-
-
-## Implementation
-
-Uses [Google Closure Compiler](https://developers.google.com/closure/compiler/) to compile ES6 code to ES5, which is then readable by all browsers.
-
 
 ## Credit
 
