@@ -90,7 +90,7 @@ enyo.kind({
 					},
 					throwEdit: function () {
 						this.inherited(arguments);
-						this.bubble('onStartEdit', parent.$.inputField);
+						this.bubble('onStartEdit');
 						return true;
 					}
 				}, {
