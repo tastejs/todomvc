@@ -90,6 +90,7 @@ const blurAfterType = {
   ampersand: true,
   dijon: true,
   duel: true,
+  vanillajs: true,
   'vanilla-es6': true
 }
 
