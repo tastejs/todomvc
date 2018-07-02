@@ -68,6 +68,7 @@ enyo.kind({
 		kind: 'enyo.Button',
 		id: 'clear-completed',
 		name: 'clear-completed',
+		content: 'Clear completed',
 		attributes: {
 			class: 'clear-completed'
 		},

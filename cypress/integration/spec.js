@@ -90,7 +90,8 @@ const blurAfterType = {
   ampersand: true,
   dijon: true,
   duel: true,
-  vanillajs: true
+  vanillajs: true,
+  'vanilla-es6': true
 }
 
 // add after typing if `...{enter}` is not enough for some frameworks
