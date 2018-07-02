@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "dependencies": {
+    "todomvc-common": "^1.0.1",
+    "todomvc-app-css": "^1.0.1",
+    "mithril": "~1.0.1"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.35",
+    "@types/mithril-global": "github:spacejack/mithril-global.d.ts"
+  }
+}

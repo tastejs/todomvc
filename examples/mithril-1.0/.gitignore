@@ -1,0 +1,11 @@
+node_modules/mithril/*
+node_modules/.bin
+!node_modules/todomvc-app-css/index.css
+!node_modules/todomvc-common/base.js
+!node_modules/todomvc-common/base.css
+!node_modules/mithril/mithril.js
+!node_modules/mithril/stream
+node_modules/mithril/stream/test*
+node_modules/mithril/stream/scan*
+
+
