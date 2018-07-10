@@ -2,86 +2,15 @@
 {
   const root = document.querySelector('.todoapp');
   const todos = load();
-  let AllRouteLink;
   let keyCounter = 0;
 
   openApp();
 
   function openApp() {
     render(App(), root);
+    updateList();
     addEventListener('hashchange', routeHash);
     routeHash();
-  }
-
-  function App() {
-    return R`
-      <header class="header">
-        <h1>todos</h1>
-        <input class="new-todo" placeholder="What needs to be done?" autofocus
-          keydown=${newTodoIfEnter} 
-        >
-      </header>
-      <section style="display:none" class="main">
-        <input id="toggle-all" class="toggle-all" type="checkbox" click=${toggleAll}>
-        <label for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list"></ul>
-        <footer class="footer">
-          <span class="todo-count"></span>
-          <ul class="filters">
-            <li>
-              <a href="#/" class="selected">All</a>
-            </li>
-            <li>
-              <a href="#/active">Active</a>
-            </li>
-            <li>
-              <a href="#/completed">Completed</a>
-            </li>
-          </ul>
-          <button class="clear-completed" click=${deleteCompleted}>Clear completed</button>
-        </footer>
-      </section>
-    `;
-  }
-
-  function TodoList(list) {
-    return R`${list.map(todo => Todo(todo))}`
-  }
-
-  function Todo({key,text,completed,editing}) {
-    return R`
-      <li data-key=${key} class=${editing ? 'editing' : completed ? 'completed' : 'active'}>
-        <div class="view">
-          <input class="toggle" type="checkbox" 
-            ${completed ? 'checked':''} click=${() => toggleCompleted(key)}>
-          <label dblclick=${() => editTodo(key)}>${text}</label>
-          <button class="destroy" click=${() => deleteTodo(key)}></button>
-        </div>
-        ${editing ? R`<input class=edit value=${text}
-              keydown=${keyEvent => saveTodoIfEnter(keyEvent,key)}
-              blur=${() => saveTodo(key)}>`
-          : ''
-        }
-      </li>
-    `;
-  }
-
-  function TodoCount({activeCount}) {
-    return R`
-      <span class="todo-count">
-        <strong>${activeCount}</strong>
-        items left
-      </span>
-    `;
-  }
-
-  function routeHash() {
-    switch(location.hash) {
-      case "#/active":                listActive(); break;
-      case "#/completed":             listCompleted(); break;
-      case "#/":          default:    listAll(); break;
-    }
-    selectRoute(location.hash);
   }
 
   function newKey(prefix) {
@@ -128,7 +57,7 @@
 
   function addTodo(todo) {
     todos.push(todo);
-    routeHash();
+    updateList();
   }
 
   function toggleCompleted(todoKey) {
@@ -149,7 +78,7 @@
   function deleteTodo(todoKey) {
     const index = todos.findIndex(({key}) => key == todoKey);
     todos.splice(index,1); 
-    routeHash();
+    updateList();
   }
 
   function saveTodo(todoKey) {
@@ -170,12 +99,12 @@
   function deleteCompleted() {
     const completed = todos.filter(({completed}) => completed);
     completed.forEach(({key}) => deleteTodo(key));
-    routeHash();
+    updateList();
   }
 
   function toggleAll({target:{checked}}) {
     todos.forEach(t => t.completed = !!checked);
-    routeHash();
+    updateList();
   }
 
   function listAll() {
@@ -224,11 +153,82 @@
     source.value = '';
   }
 
-  function selectRoute(hash) {
-    const selectedRoute = root.querySelector(`a[href="${hash}"]`) || AllRouteLink;
-      (AllRouteLink = root.querySelector(`a[href="#/"]`));
-    const lastSelectedRoute = root.querySelector(`.filters a.selected`);
-    lastSelectedRoute.classList.remove('selected');
-    selectedRoute.classList.add('selected');
+  function routeHash() {
+    const hash = location.hash;
+    switch(location.hash) {
+      case "#/active":
+        listActive();
+        break;
+      case "#/completed":
+        listCompleted();
+        break;
+      case "#/":
+      default:
+        listAll();
+        break;
+        break;
+    }
+  }
+
+  function TodoList(list) {
+    return R`${list.map(todo => Todo(todo))}`
+  }
+
+  function TodoCount({activeCount}) {
+    return R`
+      <span class="todo-count">
+        <strong>${activeCount}</strong>
+        items left
+      </span>
+    `;
+  }
+
+  function Todo({key,text,completed,editing}) {
+    return R`
+      <li data-key=${key} class=${editing ? 'editing' : completed ? 'completed' : 'active'}>
+        <div class="view">
+          <input class="toggle" type="checkbox" 
+            ${completed ? 'checked':''} click=${() => toggleCompleted(key)}>
+          <label dblclick=${() => editTodo(key)}>${text}</label>
+          <button class="destroy" click=${() => deleteTodo(key)}></button>
+        </div>
+        ${editing ? R`<input class=edit value=${text}
+              keydown=${keyEvent => saveTodoIfEnter(keyEvent,key)}
+              blur=${() => saveTodo(key)}>`
+          : ''
+        }
+      </li>
+    `;
+  }
+
+  function App() {
+    return R`
+      <header class="header">
+        <h1>todos</h1>
+        <input class="new-todo" placeholder="What needs to be done?" autofocus
+          keydown=${newTodoIfEnter} 
+        >
+      </header>
+      <section style="display:none" class="main">
+        <input id="toggle-all" class="toggle-all" type="checkbox" click=${toggleAll}>
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list"></ul>
+        <footer class="footer">
+          <span class="todo-count"></span>
+          <ul class="filters">
+            <li>
+              <a href="#/" class="selected">All</a>
+            </li>
+            <li>
+              <a href="#/active">Active</a>
+            </li>
+            <li>
+              <a href="#/completed">Completed</a>
+            </li>
+          </ul>
+          <button class="clear-completed" click=${deleteCompleted}>Clear completed</button>
+        </footer>
+      </section>
+    `;
   }
 }
