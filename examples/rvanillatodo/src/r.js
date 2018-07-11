@@ -15,11 +15,10 @@
       if (Array.isArray(v) && v.every(item => !!item.handlers && !!item.str)) {
         return join(v) || '';
       } else if (typeof v === 'object' && !!v) {
-        if (v.str && v.handlers) {
+        if (!!v.str && !!v.handlers) {
           return verify(v,currentKey) && v;
-        } else {
-          throw {'error': OBJ, 'value': v};
         }
+        throw {'error': OBJ, 'value': v};
       } else return v === null || v === undefined ? '' : v;
     });
     let hid,
