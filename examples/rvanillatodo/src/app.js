@@ -1,9 +1,9 @@
 "use strict";
 {
   const root = document.querySelector('.todoapp');
-  const todos = load();
+  const todos = load('todos', []);
   let AllRouteLink;
-  let keyCounter = 0;
+  let keyCounter = load('keyCounter', 0);
 
   openApp();
 
@@ -85,26 +85,28 @@
   }
 
   function newKey(prefix) {
-    return `key-${prefix ? prefix + '-' : ''}${keyCounter++}`;
+    keyCounter++;
+    save('keyCounter',keyCounter);
+    return `key-${prefix ? prefix + '-' : ''}${keyCounter}`;
   }
 
-  function load() {
-    return JSON.parse(localStorage.getItem('todos')) || [];
+  function load(key, defaultValue) {
+    return JSON.parse(localStorage.getItem(key)) || defaultValue;
   }
 
-  function save() {
-    localStorage.setItem('todos', JSON.stringify(todos));
+  function save(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   function updateList(list = todos) {
-    save();
+    save('todos',todos);
     render(TodoList(list), root.querySelector('.todo-list')); 
     updateTodoCount();
     hideControlsIfEmpty();
   }
   
   function updateTodo(todo) {
-    save();
+    save('todos',todos);
     const node = root.querySelector(`[data-key="${todo.key}"]`);
     const newTodo = Todo(todo);
     render(newTodo, node, {replace:true});
@@ -134,6 +136,7 @@
   function toggleCompleted(todoKey) {
     const todo = todos.find(({key}) => key == todoKey);
     todo.completed = !!(todo.completed ^ true);
+    updateTodo(todo);
     routeHash();
   }
 
