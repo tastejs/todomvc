@@ -66,6 +66,8 @@ jobs:
   flight:
     <<: *defaults
   # compiled-to-js frameworks
+  kotlin-react:
+    <<: *defaults
   spine:
     <<: *defaults
   typescript-react:
@@ -189,6 +191,7 @@ workflows:
       - closure
       - typescript-angular
       - scalajs-react
+      - kotlin-react
   # third tab - labs
   labs:
     jobs:
