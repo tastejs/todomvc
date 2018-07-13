@@ -150,6 +150,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=kotlin-react
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=lavaca_require
       <<: *defaults
     - stage: test
