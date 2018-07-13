@@ -21,6 +21,7 @@ export default Ember.Component.extend({
 				this.set('todo.title', todoTitle.trim());
 				this.set('editing', false);
 				this.get('onEndEdit')();
+				this.get('repo').persist();
 			}
 		},
 
