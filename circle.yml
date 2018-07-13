@@ -123,8 +123,6 @@ jobs:
     <<: *defaults
   knockoutjs_require:
     <<: *defaults
-  durandal:
-    <<: *defaults
   somajs:
     <<: *defaults
   olives:
