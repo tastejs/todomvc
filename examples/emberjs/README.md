@@ -27,9 +27,24 @@ $ npx ember-cli-update --run-codemods
 $ git commit -m 'Update TodoMVC with codemods' -a
 ```
 
-To build Ember for production run:
+Build Ember TodoMVC for production:
 
 ```bash
 $ ember build --prod
 ```
+
+Run Cypress Test:
+
+```bash
+# Run this command from the root folder of this repository
+$ npm install
+$ npm run server
+
+# Run in a separated terminal
+$ CYPRESS_framework=emberjs npm run cy:open
+```
+
+### Ember Notes
+
+* The `rootURL` param in `config/environment.js` should keep as empty string.
 
