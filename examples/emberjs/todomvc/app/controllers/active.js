@@ -1,5 +1,6 @@
-import Ember from 'ember';
+import { filterBy } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-	todos: Ember.computed.filterBy('model', 'completed', false)
+export default Controller.extend({
+	todos: filterBy('model', 'completed', false)
 });
