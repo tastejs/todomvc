@@ -4,7 +4,6 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues a
 
 Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms.
 
-
 ## Considerations before submitting a new app
 
 TodoMVC is a curation, not a collection. We want to make it easier for people to
@@ -22,18 +21,23 @@ Please bear in mind that your project should have reached a certain level of
 maturity before we can include it. If you haven't settled on a relatively stable
 API, you should probably wait a bit longer before submitting your example.
 
+### A good app that we are looking for should check most if not all of the items below :
+
+- [x] The framework/stack you are using must have a version that is free and open source
+- [x] The framework/stack you are using is at least 1 year old.
+- [x] The framework you are using should have at least 5k stars if it is hosted on Github or equivalent on other platforms.
+- [x] Your app should be able to work on recent versions of all major browsers.
+- [x] Your app should bring something truly new to the table, but minor variations of existing frameworks , languages or existing TodoMVC apps.
 
 ## Code Style
 
 We think it's best for the project if the code you write looks like the code the last developer wrote, so we've put together [some guidelines we ask that you follow](https://github.com/tastejs/todomvc/blob/master/codestyle.md). We greatly appreciate your cooperation and contribution.
-
 
 ## Pull Request Guidelines
 
 - Develop in a topic branch (not `master`) and submit against the `examples` folder in the default `master` branch.
 - Squash your commits.
 - Write a convincing description of your PR and why we should land it and what the framework or library you are proposing does differently.
-
 
 ## Submitting a New App
 
@@ -51,7 +55,6 @@ If the app breaks for a decent amount of time, we will (temporarily) remove it f
 
 Modern browser (latest: Chrome, Firefox, Opera, Safari, IE11/Edge)
 
-
 ## Unit Tests
 
 At present, due to a large number of apps in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted.
@@ -60,9 +63,8 @@ We do, however, plan on addressing this in a future release as we feel it would 
 
 If you are a library author or contributor wishing to start work on writing tests for an implementation, we'll happily consider including them in the future. This may change based on how we specify unit tests must be structured and so on post 1.0.
 
-
 ## A Final Note
 
-Note that due to the current number of MVC/MVVM/MV* frameworks in circulation, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. :)
+Note that due to the current number of MVC/MVVM/MV\* frameworks in circulation, it's not always possible to include each one in TodoMVC, but we'll definitely discuss the merits of any framework prior to making a decision. :)
 
 For applications that we feel don't quite match the goals of the project, but which we feel still offer value, we're happy to include references to them in our official [wiki](https://github.com/tastejs/todomvc/wiki/Other-implementations).
