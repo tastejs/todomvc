@@ -110,10 +110,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=durandal
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=emberjs
       <<: *defaults
     - stage: test
