@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 export function gt([n1, n2]/*, hash*/) {
 	return n1 > n2;
 }
 
-export default Ember.Helper.helper(gt);
+export default buildHelper(gt);

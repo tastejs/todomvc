@@ -1,13 +1,4 @@
 module.exports = [
-  // durandal routing is very very slow.
-  // see: https://github.com/tastejs/todomvc/issues/831
-  // fixed - just needed to wait for local storage to have the items before
-  // going to another view
-  // 'TodoMVC - durandal, Routing, should allow me to display active items',
-  // 'TodoMVC - durandal, Routing, should allow me to display completed items',
-  // 'TodoMVC - durandal, Routing, should allow me to display all items',
-  // 'TodoMVC - durandal, Routing, should highlight the currently applied filter',
-
   // https://github.com/tastejs/todomvc/issues/828
   // routing should default to all
   // 'TodoMVC - sammyjs, Routing, should highlight the currently applied filter',
