@@ -28,7 +28,7 @@ API, you should probably wait a bit longer before submitting your example.
 - [x] The framework/stack you are using is at least 1 year old.
 - [x] The framework you are using should have at least 5k stars if it is hosted on Github or equivalent on other platforms.
 - [x] Your app should be able to work on recent versions of all major browsers.
-- [x] Your app should bring something truly new to the table, but minor variations of existing frameworks , languages or existing TodoMVC apps.
+- [x] Your app should bring something truly new to the table, minor variations of existing frameworks , languages or existing TodoMVC apps will not be accepted.
 
 ## Code Style
 
