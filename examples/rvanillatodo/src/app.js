@@ -1,9 +1,10 @@
 "use strict";
 {
   const root = document.querySelector('.todoapp');
-  const todos = load('todos', []);
+  const todos = load();
+  const session = Math.random()+'';
   let AllRouteLink;
-  let keyCounter = load('keyCounter', 0);
+  let keyCounter = 0;
 
   openApp();
 
@@ -11,6 +12,12 @@
     render(App(), root);
     addEventListener('hashchange', routeHash);
     routeHash();
+  }
+
+  function changeHash(e) {
+    e.preventDefault();
+    history.replaceState(null,null,e.target.href);
+    routeHash(location.hash);
   }
 
   function App() {
@@ -29,13 +36,13 @@
           <span class="todo-count"></span>
           <ul class="filters">
             <li>
-              <a href="#/" class="selected">All</a>
+              <a href="#/" click=${changeHash} class="selected">All</a>
             </li>
             <li>
-              <a href="#/active">Active</a>
+              <a href="#/active" click=${changeHash}>Active</a>
             </li>
             <li>
-              <a href="#/completed">Completed</a>
+              <a href="#/completed" click=${changeHash}>Completed</a>
             </li>
           </ul>
           <button class="clear-completed" click=${deleteCompleted}>Clear completed</button>
@@ -54,7 +61,7 @@
         <div class="view">
           <input class="toggle" type="checkbox" 
             ${completed ? 'checked':''} click=${() => toggleCompleted(key)}>
-          <label dblclick=${() => editTodo(key)}>${text}</label>
+          <label touchstart=${() => editTodo(key)} dblclick=${() => editTodo(key)}>${text}</label>
           <button class="destroy" click=${() => deleteTodo(key)}></button>
         </div>
         ${editing ? R`<input class=edit value=${text}
@@ -85,28 +92,26 @@
   }
 
   function newKey(prefix) {
-    keyCounter++;
-    save('keyCounter',keyCounter);
-    return `key-${prefix ? prefix + '-' : ''}${keyCounter}`;
+    return `key-${prefix ? prefix + '-' : ''}${session}-${keyCounter++}`;
   }
 
-  function load(key, defaultValue) {
-    return JSON.parse(localStorage.getItem(key)) || defaultValue;
+  function load() {
+    return JSON.parse(localStorage.getItem('todos')) || [];
   }
 
-  function save(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
   }
 
   function updateList(list = todos) {
-    save('todos',todos);
+    save();
     render(TodoList(list), root.querySelector('.todo-list')); 
     updateTodoCount();
     hideControlsIfEmpty();
   }
   
   function updateTodo(todo) {
-    save('todos',todos);
+    save();
     const node = root.querySelector(`[data-key="${todo.key}"]`);
     const newTodo = Todo(todo);
     render(newTodo, node, {replace:true});
@@ -136,12 +141,12 @@
   function toggleCompleted(todoKey) {
     const todo = todos.find(({key}) => key == todoKey);
     todo.completed = !!(todo.completed ^ true);
-    updateTodo(todo);
     routeHash();
   }
 
   function editTodo(todoKey) {
     const todo = todos.find(({key}) => key == todoKey);
+    if ( todo.editing ) return;
     todo.editing = true;
     updateTodo(todo);
     const editor = root.querySelector('.edit');
@@ -212,7 +217,7 @@
     if ( keyEvent.key !== 'Enter' ) {
       return;
     }
-    const {srcElement:source} = keyEvent;
+    const {target:source} = keyEvent;
     const text = source.value.trim();
     if ( ! text ) {
       return; 
@@ -228,7 +233,7 @@
   }
 
   function selectRoute(hash) {
-    const selectedRoute = root.querySelector(`a[href="${hash}"]`) || AllRouteLink;
+    const selectedRoute = root.querySelector(`a[href="${hash}"]`) || AllRouteLink ||
       (AllRouteLink = root.querySelector(`a[href="#/"]`));
     const lastSelectedRoute = root.querySelector(`.filters a.selected`);
     lastSelectedRoute.classList.remove('selected');
