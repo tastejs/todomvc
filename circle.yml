@@ -66,6 +66,8 @@ jobs:
   flight:
     <<: *defaults
   # compiled-to-js frameworks
+  kotlin-react:
+    <<: *defaults
   spine:
     <<: *defaults
   typescript-react:
@@ -122,8 +124,6 @@ jobs:
   angular2:
     <<: *defaults
   knockoutjs_require:
-    <<: *defaults
-  durandal:
     <<: *defaults
   somajs:
     <<: *defaults
@@ -189,6 +189,7 @@ workflows:
       - closure
       - typescript-angular
       - scalajs-react
+      - kotlin-react
   # third tab - labs
   labs:
     jobs:

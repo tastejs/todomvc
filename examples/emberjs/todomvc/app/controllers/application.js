@@ -1,20 +1,23 @@
-import Ember from 'ember';
+import { isBlank } from '@ember/utils';
+import { filterBy } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-	repo: Ember.inject.service(),
-	remaining: Ember.computed.filterBy('model', 'completed', false),
-	completed: Ember.computed.filterBy('model', 'completed'),
+export default Controller.extend({
+	repo: service(),
+	remaining: filterBy('model', 'completed', false),
+	completed: filterBy('model', 'completed'),
 	actions: {
 		createTodo(e) {
-			if (e.keyCode === 13 && !Ember.isBlank(e.target.value)) {
-				this.get('repo').add({ title: e.target.value.trim(), completed: false });
+			if (e.keyCode === 13 && !isBlank(e.target.value)) {
+				this.repo.add({ title: e.target.value.trim(), completed: false });
 				e.target.value = '';
 			}
 		},
 
 		clearCompleted() {
-			this.get('model').removeObjects(this.get('completed'));
-			this.get('repo').persist();
+			this.model.removeObjects(this.completed);
+			this.repo.persist();
 		}
 	}
 });
