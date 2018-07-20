@@ -110,10 +110,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=durandal
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=emberjs
       <<: *defaults
     - stage: test
@@ -151,6 +147,10 @@ jobs:
     - stage: test
       env:
         - CYPRESS_framework=knockoutjs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=kotlin-react
       <<: *defaults
     - stage: test
       env:
