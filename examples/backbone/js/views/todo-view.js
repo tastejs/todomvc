@@ -74,6 +74,8 @@ var app = app || {};
 		edit: function () {
 			this.$el.addClass('editing');
 			this.$input.focus();
+			let textLength = this.$input.val().length;
+			this.$input[0].setSelectionRange(textLength, textLength);
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
