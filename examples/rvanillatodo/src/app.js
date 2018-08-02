@@ -170,7 +170,6 @@ import {R} from './r.js';
       const todo = todos.splice(index,1); 
       save();
       if ( !noRoute ) {
-        console.log("Routing");
         routeHash();
       }
     } else {
