@@ -1,15 +1,16 @@
 "use strict";
+import {R} from './r.js';
 {
   const root = document.querySelector('.todoapp');
   const todos = load();
   const session = Math.random()+'';
-  let AllRouteLink;
   let keyCounter = 0;
+  let AllRouteLink;
 
   openApp();
 
   function openApp() {
-    render(App(), root);
+    App({list:todos}).to(root,'innerHTML');
     addEventListener('hashchange', routeHash);
     routeHash();
   }
@@ -17,10 +18,10 @@
   function changeHash(e) {
     e.preventDefault();
     history.replaceState(null,null,e.target.href);
-    routeHash(location.hash);
+    routeHash();
   }
 
-  function App() {
+  function App({list}) {
     return R`
       <header class="header">
         <h1>todos</h1>
@@ -28,52 +29,80 @@
           keydown=${newTodoIfEnter} 
         >
       </header>
-      <section style="display:none" class="main">
+      <section class="main">
         <input id="toggle-all" class="toggle-all" type="checkbox" click=${toggleAll}>
         <label for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list"></ul>
-        <footer class="footer">
-          <span class="todo-count"></span>
-          <ul class="filters">
-            <li>
-              <a href="#/" click=${changeHash} class="selected">All</a>
-            </li>
-            <li>
-              <a href="#/active" click=${changeHash}>Active</a>
-            </li>
-            <li>
-              <a href="#/completed" click=${changeHash}>Completed</a>
-            </li>
-          </ul>
-          <button class="clear-completed" click=${deleteCompleted}>Clear completed</button>
-        </footer>
+        <ul class=todo-list>
+          ${TodoList(list)}
+        </ul>
+        ${Footer()}
       </section>
     `;
   }
 
   function TodoList(list) {
-    return R`${list.map(todo => Todo(todo))}`
+    const retVal = R`
+      ${list.map(Todo)}
+    `;
+    return retVal;
   }
 
-  function Todo({key,text,completed,editing}) {
+  function Footer() {
     return R`
-      <li data-key=${key} class=${editing ? 'editing' : completed ? 'completed' : 'active'}>
+      <footer class="${todos.length ? '' : 'hidden' } footer">
+        <span class="todo-count">
+          ${TodoCount()}
+        </span>
+        <ul class="filters">
+          <li>
+            <a href="#/" click=${changeHash}
+              class="${location.hash == "#/" ? 'selected' : ''}">All</a>
+          </li>
+          <li>
+            <a href="#/active" click=${changeHash}
+              class="${location.hash == "#/active" ? 'selected' : ''}">Active</a>
+          </li>
+          <li>
+            <a href="#/completed" click=${changeHash}
+              class="${location.hash == "#/completed" ? 'selected' : ''}">Completed</a>
+          </li>
+        </ul>
+        <button click="${clearCompleted}" class=clear-completed>Clear completed</button>
+      </footer>
+    `;
+  }
+
+  function takeFocus(el) {
+    el.focus();
+    el.selectionStart = el.selectionEnd = el.value.length;
+  }
+
+  function Todo({key,text,completed,active,editing}) {
+    return R`${{key}}
+      <li data-key=${key} class="${
+          completed ? 'completed' : ''} ${
+          active ? 'active' : ''} ${
+          editing ? 'editing' : ''}">
         <div class="view">
           <input class="toggle" type="checkbox" 
-            ${completed ? 'checked':''} click=${() => toggleCompleted(key)}>
+            ${completed ? 'checked':''} 
+            change=${e => toggleCompleted(e,key)}>
           <label touchstart=${() => editTodo(key)} dblclick=${() => editTodo(key)}>${text}</label>
           <button class="destroy" click=${() => deleteTodo(key)}></button>
         </div>
         ${editing ? R`<input class=edit value=${text}
-              keydown=${keyEvent => saveTodoIfEnter(keyEvent,key)}
-              blur=${() => saveTodo(key)}>`
+            ${{key:Math.random()+''}}
+            bond=${takeFocus}
+            keydown=${keyEvent => saveTodoIfEnter(keyEvent,key)}
+            blur=${e => saveTodo(e,key)}>`
           : ''
         }
       </li>
     `;
   }
 
-  function TodoCount({activeCount}) {
+  function TodoCount() {
+    const activeCount = todos.filter(t => !t.completed).length;
     return R`
       <span class="todo-count">
         <strong>${activeCount}</strong>
@@ -88,7 +117,6 @@
       case "#/completed":             listCompleted(); break;
       case "#/":          default:    listAll(); break;
     }
-    selectRoute(location.hash);
   }
 
   function newKey(prefix) {
@@ -104,69 +132,59 @@
   }
 
   function updateList(list = todos) {
-    save();
-    render(TodoList(list), root.querySelector('.todo-list')); 
-    updateTodoCount();
-    hideControlsIfEmpty();
+    TodoList(list);
+    Footer();
   }
   
   function updateTodo(todo) {
     save();
-    const node = root.querySelector(`[data-key="${todo.key}"]`);
-    const newTodo = Todo(todo);
-    render(newTodo, node, {replace:true});
-    updateTodoCount();
-  }
-
-  function updateTodoCount() {
-    const activeCount = todos.filter(t => !t.completed).length
-    const node = root.querySelector('.todo-count');
-    render(TodoCount({activeCount}), node, {replace:true});
-    hideClearIfNoCompleted(activeCount);
-  }
-
-  function hideClearIfNoCompleted(activeCount) {
-    if ( todos.length - activeCount ) {
-      root.querySelector('.clear-completed').style.display = 'inline';
-    } else {
-      root.querySelector('.clear-completed').style.display = 'none';
-    }
+    Todo(todo);
+    TodoCount();
   }
 
   function addTodo(todo) {
     todos.push(todo);
+    save();
+    //updateList();
     routeHash();
   }
 
-  function toggleCompleted(todoKey) {
+  function toggleCompleted({target},todoKey,{noRoute:noRoute = false} = {}) {
+    const checked = target.checked;
     const todo = todos.find(({key}) => key == todoKey);
-    todo.completed = !!(todo.completed ^ true);
-    routeHash();
-  }
-
-  function editTodo(todoKey) {
-    const todo = todos.find(({key}) => key == todoKey);
-    if ( todo.editing ) return;
-    todo.editing = true;
+    todo.completed = target.checked;
+    if ( ! todo.completed ) {
+      todo.active = true;
+    } else {
+      todo.active = false;
+    }
     updateTodo(todo);
-    const editor = root.querySelector('.edit');
-    editor.focus();
-    editor.selectionStart = editor.selectionEnd = editor.value.length;
+    if ( !noRoute ) {
+      setTimeout(routeHash,500);
+    }
   }
 
-  function deleteTodo(todoKey) {
+  function deleteTodo(todoKey, {noRoute:noRoute = false} = {}) {
     const index = todos.findIndex(({key}) => key == todoKey);
-    todos.splice(index,1); 
-    routeHash();
+    if ( index >= 0 ) {
+      const todo = todos.splice(index,1); 
+      save();
+      if ( !noRoute ) {
+        console.log("Routing");
+        routeHash();
+      }
+    } else {
+      throw {error: {msg:`Cannot find todo with key ${todoKey}`}};
+    }
   }
 
-  function saveTodo(todoKey) {
+  function saveTodo({target},todoKey) {
+    if ( ! todoKey ) return;
     const todo = todos.find(({key}) => key == todoKey);
-    if ( ! todo || ! todo.editing ) {
+    if ( ! todo ) {
       return;
     }
-    const node = root.querySelector('input.edit');
-    const text = node.value.trim();
+    const text = target.value.trim();
     if ( text.length == 0 ) {
       return deleteTodo(todoKey);
     }
@@ -175,15 +193,23 @@
     updateTodo(todo);
   }
 
-  function deleteCompleted() {
+  function editTodo(todoKey) {
+    const todo = todos.find(({key}) => key == todoKey);
+    if ( todo.editing ) return;
+    todo.editing = true;
+    updateTodo(todo);
+  }
+
+
+  function clearCompleted() {
     const completed = todos.filter(({completed}) => completed);
-    completed.forEach(({key}) => deleteTodo(key));
+    completed.forEach(({key}) => deleteTodo(key,{noRoute:true}));
     routeHash();
   }
 
-  function toggleAll({target:{checked}}) {
-    todos.forEach(t => t.completed = !!checked);
-    routeHash();
+  function toggleAll({target}) {
+    todos.forEach(t => toggleCompleted({target}, t.key, {noRoute:true}));
+    setTimeout(routeHash,500);
   }
 
   function listAll() {
@@ -198,19 +224,11 @@
     updateList(todos.filter( t => !t.completed ));
   }
 
-  function hideControlsIfEmpty() {
-    if (todos.length) {
-      root.querySelector('.main').style.display = 'block';
-    } else {
-      root.querySelector('.main').style.display = 'none';
-    }
-  }
-
   function saveTodoIfEnter(keyEvent,key) {
     if ( keyEvent.key !== 'Enter' ) {
       return;
     }
-    saveTodo(key);
+    saveTodo(keyEvent,key);
   }
 
   function newTodoIfEnter(keyEvent) {
@@ -225,18 +243,11 @@
     const todo = {
       key: newKey('todo'),
       text,
+      active: true,
       completed: false,
       editing: false
     };
     addTodo(todo);
     source.value = '';
-  }
-
-  function selectRoute(hash) {
-    const selectedRoute = root.querySelector(`a[href="${hash}"]`) || AllRouteLink ||
-      (AllRouteLink = root.querySelector(`a[href="#/"]`));
-    const lastSelectedRoute = root.querySelector(`.filters a.selected`);
-    lastSelectedRoute.classList.remove('selected');
-    selectedRoute.classList.add('selected');
   }
 }
