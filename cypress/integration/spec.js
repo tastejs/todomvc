@@ -103,6 +103,11 @@ const safeBlur = $el => {
   }
 }
 
+// Some frameworks need to avoid runtime determination of selector type.
+const usesIDSelectors = {
+  polymer: false
+}
+
 const title = `TodoMVC - ${framework}`
 
 function skipTestsWithKnownIssues () {
@@ -444,7 +449,14 @@ Cypress._.times(N, () => {
       // same tests - because our assertions often use `.should('have.class', ...)`
       cy.contains('h1', 'todos').should('be.visible')
       cy.document().then(doc => {
-        if (doc.querySelector('input#new-todo')) {
+        if (framework in usesIDSelectors) {
+          setSelectors(usesIDSelectors[framework])
+          createTodoCommands(usesIDSelectors[framework])
+        } else if (doc.querySelector('input#new-todo') && doc.querySelector('input.new-todo')) {
+          throw new Error(
+            'Cannot determine what kind of selectors this app uses. Add it to usesIDSelectors.'
+          )
+        } else if (doc.querySelector('input#new-todo')) {
           cy.log('app uses ID selectors')
           setSelectors(true)
           createTodoCommands(true)
