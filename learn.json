@@ -1002,7 +1002,7 @@
 			"url": "examples/vanillajs"
 		}]
 	},
-  	"es6": {
+	"es6": {
 		"name": "ECMAScript 6",
 		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
@@ -1692,6 +1692,31 @@
 			}]
 		}]
 	},
+	"io": {
+		"name": "Io.js",
+		"description": "UI library for data-driven web applications. Io.js consists of few lightweight classes that let you build encapsulated and reusable custom elements.",
+		"homepage": "https://github.com/arodic/io",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/io"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Official Website",
+				"url": "https://github.com/arodic/io"
+			}, {
+				"name": "TODO Example",
+				"url": "https://arodic.github.io/io/demo/todoapp"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Io.js author on Twitter",
+				"url": "http://twitter.com/akirodic"
+			}]
+		}]
+	},
 	"sammyjs": {
 		"name": "Sammy.js",
 		"description": "A small web framework with class.",
@@ -1763,7 +1788,7 @@
 			}]
 		}]
 	},
-  	"scalajs-react": {
+	"scalajs-react": {
 		"name": "scalajs-react",
 		"description": "Facebook's React on Scala.js.",
 		"homepage": "github.com/japgolly/scalajs-react/",
