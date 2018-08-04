@@ -1692,49 +1692,6 @@
 			}]
 		}]
 	},
-	"sammyjs": {
-		"name": "Sammy.js",
-		"description": "A small web framework with class.",
-		"homepage": "sammyjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/sammyjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://sammyjs.org/intro"
-			}, {
-				"name": "Documentation",
-				"url": "http://sammyjs.org/docs"
-			}, {
-				"name": "Wiki",
-				"url": "http://sammyjs.org/wiki"
-			}, {
-				"name": "FAQ",
-				"url": "http://sammyjs.org/faq"
-			}, {
-				"name": "Sammy.js on GitHub",
-				"url": "http://github.com/quirkey/sammy"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Sammy.js For RESTful Evented JavaScript",
-				"url": "http://churchm.ag/sammy-js-for-restful-evented-javascript"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Mailing list on Google Groups",
-				"url": "http://groups.google.com/group/sammyjs"
-			}, {
-				"name": "Sammy.js on Twitter",
-				"url": "http://twitter.com/sammy_js"
-			}]
-		}]
-	},
 	"sapui5": {
 		"name": "SAPUI5",
 		"description": "SAP's HTML5-based UI technology that allows you to build rich, interactive Web applications.",

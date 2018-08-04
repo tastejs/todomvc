@@ -113,8 +113,6 @@ jobs:
     <<: *defaults
   somajs_require:
     <<: *defaults
-  sammyjs:
-    <<: *defaults
   puremvc:
     <<: *defaults
   exoskeleton:
