@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "io": "git+https://github.com/arodic/io.git#v2.1.1",
+    "todomvc-app-css": "^2.0.1",
+    "todomvc-common": "^1.0.2"
+  }
+}
