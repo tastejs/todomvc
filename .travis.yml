@@ -122,6 +122,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=io
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=jquery
       <<: *defaults
     - stage: test
