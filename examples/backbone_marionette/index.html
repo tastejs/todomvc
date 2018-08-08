@@ -37,7 +37,7 @@
 					<a href="#/completed">Completed</a>
 				</li>
 			</ul>
-			<button class="clear-completed" <% if (!completedCount) { %>class="hidden"<% } %>>Clear completed</button>
+			<button class="<% if (!completedCount) { %>hidden<% } else { %>clear-completed<% } %>">Clear completed</button>
 		</script>
 		<script type="text/html" id="template-header">
 			<h1>todos</h1>
