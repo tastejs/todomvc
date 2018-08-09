@@ -1,0 +1,404 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../polymer-element.html">
+<link rel="import" href="../utils/mixin.html">
+<link rel="import" href="../utils/array-splice.html">
+
+<script>
+(function() {
+  'use strict';
+
+  /**
+   * Element mixin for recording  dynamic associations between item paths in a
+   * master `items` array and a `selected` array such that path changes to the
+   * master array (at the host) element or elsewhere via data-binding) are
+   * correctly propagated to items in the selected array and vice-versa.
+   *
+   * The `items` property accepts an array of user data, and via the
+   * `select(item)` and `deselect(item)` API, updates the `selected` property
+   * which may be bound to other parts of the application, and any changes to
+   * sub-fields of `selected` item(s) will be kept in sync with items in the
+   * `items` array.  When `multi` is false, `selected` is a property
+   * representing the last selected item.  When `multi` is true, `selected`
+   * is an array of multiply selected items.
+   *
+   * @polymerMixin
+   * @memberof Polymer
+   */
+  let ArraySelectorMixin = Polymer.dedupingMixin(superClass => {
+
+    return class extends superClass {
+
+      static get properties() {
+
+        return {
+
+          /**
+           * An array containing items from which selection will be made.
+           */
+          items: {
+            type: Array,
+          },
+
+          /**
+           * When `true`, multiple items may be selected at once (in this case,
+           * `selected` is an array of currently selected items).  When `false`,
+           * only one item may be selected at a time.
+           */
+          multi: {
+            type: Boolean,
+            value: false,
+          },
+
+          /**
+           * When `multi` is true, this is an array that contains any selected.
+           * When `multi` is false, this is the currently selected item, or `null`
+           * if no item is selected.
+           */
+          selected: {
+            type: Object,
+            notify: true
+          },
+
+          /**
+           * When `multi` is false, this is the currently selected item, or `null`
+           * if no item is selected.
+           */
+          selectedItem: {
+            type: Object,
+            notify: true
+          },
+
+          /**
+           * When `true`, calling `select` on an item that is already selected
+           * will deselect the item.
+           */
+          toggle: {
+            type: Boolean,
+            value: false
+          }
+
+        }
+      }
+
+      static get observers() {
+        return ['__updateSelection(multi, items.*)']
+      }
+
+      constructor() {
+        super();
+        this.__lastItems = null;
+        this.__lastMulti = null;
+        this.__selectedMap = null;
+      }
+
+      __updateSelection(multi, itemsInfo) {
+        let path = itemsInfo.path;
+        if (path == 'items') {
+          // Case 1 - items array changed, so diff against previous array and
+          // deselect any removed items and adjust selected indices
+          let newItems = itemsInfo.base || [];
+          let lastItems = this.__lastItems;
+          let lastMulti = this.__lastMulti;
+          if (multi !== lastMulti) {
+            this.clearSelection();
+          }
+          if (lastItems) {
+            let splices = Polymer.ArraySplice.calculateSplices(newItems, lastItems);
+            this.__applySplices(splices);
+          }
+          this.__lastItems = newItems;
+          this.__lastMulti = multi;
+        } else if (itemsInfo.path == 'items.splices') {
+          // Case 2 - got specific splice information describing the array mutation:
+          // deselect any removed items and adjust selected indices
+          this.__applySplices(itemsInfo.value.indexSplices);
+        } else {
+          // Case 3 - an array element was changed, so deselect the previous
+          // item for that index if it was previously selected
+          let part = path.slice('items.'.length);
+          let idx = parseInt(part, 10);
+          if ((part.indexOf('.') < 0) && part == idx) {
+            this.__deselectChangedIdx(idx);
+          }
+        }
+      }
+
+      __applySplices(splices) {
+        let selected = this.__selectedMap;
+        // Adjust selected indices and mark removals
+        for (let i=0; i<splices.length; i++) {
+          let s = splices[i];
+          selected.forEach((idx, item) => {
+            if (idx < s.index) {
+              // no change
+            } else if (idx >= s.index + s.removed.length) {
+              // adjust index
+              selected.set(item, idx + s.addedCount - s.removed.length);
+            } else {
+              // remove index
+              selected.set(item, -1);
+            }
+          });
+          for (let j=0; j<s.addedCount; j++) {
+            let idx = s.index + j;
+            if (selected.has(this.items[idx])) {
+              selected.set(this.items[idx], idx);
+            }
+          }
+        }
+        // Update linked paths
+        this.__updateLinks();
+        // Remove selected items that were removed from the items array
+        let sidx = 0;
+        selected.forEach((idx, item) => {
+          if (idx < 0) {
+            if (this.multi) {
+              this.splice('selected', sidx, 1);
+            } else {
+              this.selected = this.selectedItem = null;
+            }
+            selected.delete(item);
+          } else {
+            sidx++;
+          }
+        });
+      }
+
+      __updateLinks() {
+        this.__dataLinkedPaths = {};
+        if (this.multi) {
+          let sidx = 0;
+          this.__selectedMap.forEach(idx => {
+            if (idx >= 0) {
+              this.linkPaths('items.' + idx, 'selected.' + sidx++);
+            }
+          });
+        } else {
+          this.__selectedMap.forEach(idx => {
+            this.linkPaths('selected', 'items.' + idx);
+            this.linkPaths('selectedItem', 'items.' + idx);
+          });
+        }
+      }
+
+      /**
+       * Clears the selection state.
+       *
+       * @method clearSelection
+       */
+      clearSelection() {
+        // Unbind previous selection
+        this.__dataLinkedPaths = {};
+        // The selected map stores 3 pieces of information:
+        // key: items array object
+        // value: items array index
+        // order: selected array index
+        this.__selectedMap = new Map();
+        // Initialize selection
+        this.selected = this.multi ? [] : null
+        this.selectedItem = null;
+      }
+
+      /**
+       * Returns whether the item is currently selected.
+       *
+       * @method isSelected
+       * @param {*} item Item from `items` array to test
+       * @return {boolean} Whether the item is selected
+       */
+      isSelected(item) {
+        return this.__selectedMap.has(item);
+      }
+
+      /**
+       * Returns whether the item is currently selected.
+       *
+       * @method isSelected
+       * @param {*} idx Index from `items` array to test
+       * @return {boolean} Whether the item is selected
+       */
+      isIndexSelected(idx) {
+        return this.isSelected(this.items[idx]);
+      }
+
+      __deselectChangedIdx(idx) {
+        let sidx = this.__selectedIndexForItemIndex(idx);
+        if (sidx >= 0) {
+          let i = 0;
+          this.__selectedMap.forEach((idx, item) => {
+            if (sidx == i++) {
+              this.deselect(item);
+            }
+          });
+        }
+      }
+
+      __selectedIndexForItemIndex(idx) {
+        let selected = this.__dataLinkedPaths['items.' + idx];
+        if (selected) {
+          return parseInt(selected.slice('selected.'.length), 10);
+        }
+      }
+
+      /**
+       * Deselects the given item if it is already selected.
+       *
+       * @method deselect
+       * @param {*} item Item from `items` array to deselect
+       */
+      deselect(item) {
+        let idx = this.__selectedMap.get(item);
+        if (idx >= 0) {
+          this.__selectedMap.delete(item);
+          let sidx;
+          if (this.multi) {
+            sidx = this.__selectedIndexForItemIndex(idx);
+          }
+          this.__updateLinks();
+          if (this.multi) {
+            this.splice('selected', sidx, 1);
+          } else {
+            this.selected = this.selectedItem = null;
+          }
+        }
+      }
+
+      /**
+       * Deselects the given index if it is already selected.
+       *
+       * @method deselect
+       * @param {number} idx Index from `items` array to deselect
+       */
+      deselectIndex(idx) {
+        this.deselect(this.items[idx]);
+      }
+
+      /**
+       * Selects the given item.  When `toggle` is true, this will automatically
+       * deselect the item if already selected.
+       *
+       * @method select
+       * @param {*} item Item from `items` array to select
+       */
+      select(item) {
+        this.selectIndex(this.items.indexOf(item));
+      }
+
+      /**
+       * Selects the given index.  When `toggle` is true, this will automatically
+       * deselect the item if already selected.
+       *
+       * @method select
+       * @param {number} idx Index from `items` array to select
+       */
+      selectIndex(idx) {
+        let item = this.items[idx];
+        if (!this.isSelected(item)) {
+          if (!this.multi) {
+            this.__selectedMap.clear();
+          }
+          this.__selectedMap.set(item, idx);
+          this.__updateLinks();
+          if (this.multi) {
+            this.push('selected', item);
+          } else {
+            this.selected = this.selectedItem = item;
+          }
+        } else if (this.toggle) {
+          this.deselectIndex(idx);
+        }
+      }
+
+    }
+
+  });
+
+  // export mixin
+  Polymer.ArraySelectorMixin = ArraySelectorMixin;
+
+  /**
+   * Element implementing the `Polymer.ArraySelector` mixin, which records
+   * dynamic associations between item paths in a master `items` array and a
+   * `selected` array such that path changes to the master array (at the host)
+   * element or elsewhere via data-binding) are correctly propagated to items
+   * in the selected array and vice-versa.
+   *
+   * The `items` property accepts an array of user data, and via the
+   * `select(item)` and `deselect(item)` API, updates the `selected` property
+   * which may be bound to other parts of the application, and any changes to
+   * sub-fields of `selected` item(s) will be kept in sync with items in the
+   * `items` array.  When `multi` is false, `selected` is a property
+   * representing the last selected item.  When `multi` is true, `selected`
+   * is an array of multiply selected items.
+   *
+   * Example:
+   *
+   * ```html
+   * <dom-module id="employee-list">
+   *
+   *   <template>
+   *
+   *     <div> Employee list: </div>
+   *     <template is="dom-repeat" id="employeeList" items="{{employees}}">
+   *         <div>First name: <span>{{item.first}}</span></div>
+   *         <div>Last name: <span>{{item.last}}</span></div>
+   *         <button on-click="toggleSelection">Select</button>
+   *     </template>
+   *
+   *     <array-selector id="selector" items="{{employees}}" selected="{{selected}}" multi toggle></array-selector>
+   *
+   *     <div> Selected employees: </div>
+   *     <template is="dom-repeat" items="{{selected}}">
+   *         <div>First name: <span>{{item.first}}</span></div>
+   *         <div>Last name: <span>{{item.last}}</span></div>
+   *     </template>
+   *
+   *   </template>
+   *
+   * </dom-module>
+   * ```
+   *
+   * ```js
+   * Polymer({
+   *   is: 'employee-list',
+   *   ready() {
+   *     this.employees = [
+   *         {first: 'Bob', last: 'Smith'},
+   *         {first: 'Sally', last: 'Johnson'},
+   *         ...
+   *     ];
+   *   },
+   *   toggleSelection(e) {
+   *     let item = this.$.employeeList.itemForElement(e.target);
+   *     this.$.selector.select(item);
+   *   }
+   * });
+   * ```
+   *
+   * @polymerElement
+   * @extends Polymer.Element
+   * @mixes Polymer.ArraySelectorMixin
+   * @memberof Polymer
+   * @summary Custom element that links paths between an input `items` array and
+   *   an output `selected` item or array based on calls to its selection API.
+   */
+  class ArraySelector extends ArraySelectorMixin(Polymer.Element) {
+    // Not needed to find template; can be removed once the analyzer
+    // can find the tag name from customElements.define call
+    static get is() { return 'array-selector' }
+  }
+  customElements.define(ArraySelector.is, ArraySelector);
+  Polymer.ArraySelector = ArraySelector;
+
+})();
+
+</script>

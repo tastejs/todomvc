@@ -1,0 +1,85 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="td-model">
+	<template strip-whitespace>
+		<iron-localstorage name="todos-polymer" value="{{items}}"
+				on-iron-localstorage-load-empty="_initializeDefaultTodos"></iron-localstorage>
+	</template>
+	<script>
+		(function () {
+			'use strict';
+
+			Polymer({
+				is: 'td-model',
+
+				hostAttributes: {
+					hidden: true
+				},
+
+				properties: {
+					items: {
+						type: Array,
+						notify: true
+					},
+					filter: {
+						type: String
+					}
+				},
+
+				_initializeDefaultTodos: function () {
+					this.items = [];
+				},
+
+				newItem: function(title) {
+					title = String(title).trim();
+
+					if (!title) {
+						return;
+					}
+
+					this.push('items', {title: title, completed: false});
+				},
+
+				getCompletedCount: function () {
+					return this.items ? this.items.filter(this.filters.completed).length : 0;
+				},
+
+				getActiveCount: function () {
+					return this.items ? (this.items.length - this.getCompletedCount(this.items)) : 0;
+				},
+
+				matchesFilter: function(item, filter) {
+					var fn = this.filters[filter];
+					return fn ? fn(item) : true;
+				},
+
+				destroyItem: function(item) {
+					var i = this.items.indexOf(item);
+					if (i > -1) {
+						this.splice('items', i, 1)
+					}
+				},
+
+				clearCompletedItems: function () {
+					this.items = this.items.filter(this.filters.active);
+				},
+
+				setItemsCompleted: function(completed) {
+					for (var i = 0; i < this.items.length; ++i) {
+						this.set(['items', i, 'completed'], completed);
+					}
+				},
+
+				filters: {
+					active: function(item) {
+						return !item.completed;
+					},
+					completed: function(item) {
+						return item.completed;
+					}
+				}
+			});
+		})();
+	</script>
+</dom-module>

@@ -1,0 +1,106 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../utils/boot.html">
+<link rel="import" href="../mixins/property-effects.html">
+
+<script>
+
+  (function() {
+    'use strict';
+
+    const domBindBase = Polymer.OptionalMutableData(Polymer.PropertyEffects(HTMLElement));
+
+    /**
+     * Custom element to allow using Polymer's template features (data binding,
+     * declarative event listeners, etc.) in the main document without defining
+     * a new custom element.
+     *
+     * `<template>` tags utilizing bindings may be wrapped with the `<dom-bind>`
+     * element, which will immediately stamp the wrapped template into the main
+     * document and bind elements to the `dom-bind` element itself as the
+     * binding scope.
+     *
+     * @extends HTMLElement
+     * @mixes Polymer.PropertyEffects
+     * @memberof Polymer
+     * @summary Custom element to allow using Polymer's template features (data
+     *   binding, declarative event listeners, etc.) in the main document.
+     */
+    class DomBind extends domBindBase {
+
+      static get observedAttributes() { return ['mutable-data'] }
+
+      // assumes only one observed attribute
+      attributeChangedCallback() {
+        this.mutableData = true;
+      }
+
+      connectedCallback() {
+        this.render();
+      }
+
+      disconnectedCallback() {
+        this.__removeChildren();
+      }
+
+      __insertChildren() {
+        this.parentNode.insertBefore(this.root, this);
+      }
+
+      __removeChildren() {
+        if (this.__children) {
+          for (let i=0; i<this.__children.length; i++) {
+            this.root.appendChild(this.__children[i]);
+          }
+        }
+      }
+
+      /**
+       * Forces the element to render its content. This is typically only
+       * necessary to call if HTMLImports with the async attribute are used.
+       */
+      render() {
+        let template;
+        if (!this.__children) {
+          template = template || this.querySelector('template');
+          if (!template) {
+            // Wait until childList changes and template should be there by then
+            let observer = new MutationObserver(() => {
+              template = this.querySelector('template');
+              if (template) {
+                observer.disconnect();
+                this.render(template);
+              } else {
+                throw new Error('dom-bind requires a <template> child');
+              }
+            })
+            observer.observe(this, {childList: true});
+            return;
+          }
+          this._bindTemplate(template);
+          this.root = this._stampTemplate(template);
+          this.__children = [];
+          for (let n=this.root.firstChild; n; n=n.nextSibling) {
+            this.__children[this.__children.length] = n;
+          }
+          this._flushProperties();
+        }
+        this.__insertChildren();
+        this.dispatchEvent(new CustomEvent('dom-change', {bubbles: true}));
+      }
+
+    }
+
+    customElements.define('dom-bind', DomBind);
+
+  })();
+
+</script>

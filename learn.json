@@ -1425,21 +1425,29 @@
 		"examples": [{
 			"name": "Example",
 			"url": "examples/polymer"
-		}],
+			},
+			{
+			"name": "Polymer 2.0",
+			"url": "examples/polymer2"
+			}
+		],
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Documentation",
-				"url": "http://www.polymer-project.org/docs/start/usingelements.html"
+				"name": "Getting Started",
+				"url": "https://www.polymer-project.org/1.0/start/index"
 			}, {
-				"name": "API Reference",
-				"url": "http://www.polymer-project.org/docs/polymer/polymer.html"
+				"name": "Getting Started (Polymer 2.0)",
+				"url": "https://www.polymer-project.org/2.0/start/index"
 			}, {
-				"name": "Polymer on GitHub",
-				"url": "https://github.com/polymer"
+				"name": "Library ",
+				"url": "https://www.polymer-project.org/1.0/docs/devguide/feature-overview"
 			}, {
-				"name": "Polymer on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/polymer"
+				"name": "Library (Polymer 2.0)",
+				"url": "https://www.polymer-project.org/2.0/docs/devguide/feature-overview"
+			}, {
+				"name": "Upgrade Guide",
+				"url": "https://www.polymer-project.org/2.0/docs/upgrade"
 			}]
 		}, {
 			"heading": "Videos",
@@ -1453,6 +1461,9 @@
 		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Polymer on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/polymer"
+			}, {
 				"name": "Mailing list on Google Groups",
 				"url": "https://groups.google.com/forum/#!msg/polymer-dev/"
 			}, {

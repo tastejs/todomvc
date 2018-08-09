@@ -1,0 +1,543 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../utils/boot.html">
+<link rel="import" href="../utils/mixin.html">
+
+<script>
+(function() {
+
+  'use strict';
+
+  // null-array (shared empty array to avoid null-checks)
+  const emptyArray = [];
+
+  let bindingRegex = (function() {
+    let IDENT  = '(?:' + '[a-zA-Z_$][\\w.:$\\-*]*' + ')';
+    let NUMBER = '(?:' + '[-+]?[0-9]*\\.?[0-9]+(?:[eE][-+]?[0-9]+)?' + ')';
+    let SQUOTE_STRING = '(?:' + '\'(?:[^\'\\\\]|\\\\.)*\'' + ')';
+    let DQUOTE_STRING = '(?:' + '"(?:[^"\\\\]|\\\\.)*"' + ')';
+    let STRING = '(?:' + SQUOTE_STRING + '|' + DQUOTE_STRING + ')';
+    let ARGUMENT = '(?:' + IDENT + '|' + NUMBER + '|' +  STRING + '\\s*' + ')';
+    let ARGUMENTS = '(?:' + ARGUMENT + '(?:,\\s*' + ARGUMENT + ')*' + ')';
+    let ARGUMENT_LIST = '(?:' + '\\(\\s*' +
+                                  '(?:' + ARGUMENTS + '?' + ')' +
+                                '\\)\\s*' + ')';
+    let BINDING = '(' + IDENT + '\\s*' + ARGUMENT_LIST + '?' + ')'; // Group 3
+    let OPEN_BRACKET = '(\\[\\[|{{)' + '\\s*';
+    let CLOSE_BRACKET = '(?:]]|}})';
+    let NEGATE = '(?:(!)\\s*)?'; // Group 2
+    let EXPRESSION = OPEN_BRACKET + NEGATE + BINDING + CLOSE_BRACKET;
+    return new RegExp(EXPRESSION, "g");
+  })();
+
+  let insertionPointTag = 'slot';
+
+  /**
+   * Scans a template to produce an annotation map that stores expression metadata
+   * and information that associates the metadata to nodes in a template instance.
+   *
+   * Supported annotations are:
+   *   * id attributes
+   *   * binding annotations in text nodes
+   *     * double-mustache expressions: {{expression}}
+   *     * double-bracket expressions: [[expression]]
+   *   * binding annotations in attributes
+   *     * attribute-bind expressions: name="{{expression}} || [[expression]]"
+   *     * property-bind expressions: name*="{{expression}} || [[expression]]"
+   *     * property-bind expressions: name:="expression"
+   *   * event annotations
+   *     * event delegation directives: on-<eventName>="expression"
+   *
+   * Generated data-structure:
+   *   [
+   *     {
+   *       id: '<id>',
+   *       events: [
+   *         {
+   *           mode: ['auto'|''],
+   *           name: '<name>'
+   *           value: '<expression>'
+   *         }, ...
+   *       ],
+   *       bindings: [
+   *         {
+   *           kind: ['text'|'attribute'|'property'],
+   *           mode: ['auto'|''],
+   *           name: '<name>'
+   *           value: '<expression>'
+   *         }, ...
+   *       ],
+   *       parent: <reference to parent annotation>,
+   *       index: <integer index in parent's childNodes collection>
+   *     },
+   *     ...
+   *   ]
+   *
+   * @param {HTMLTemplateElement} template
+   * @param {boolean=} stripWhiteSpace
+   * @return {Array<Object>}
+   */
+  function parseTemplateAnnotations(template, stripWhiteSpace, ownerDocument) {
+    // TODO(kschaaf): File issue and/or remove when fixed
+    // hold a reference to content as _content to prevent odd Chrome gc issue
+    // nested templates also may receive their content as _content
+    let content = (template._content = template._content || template.content);
+    // since a template may be re-used, memo-ize notes.
+    if (!content._notes) {
+      content._notes = [];
+      // TODO(sorvell): whitespace and processAnnotations need to be factored
+      // into plugins
+      ownerDocument = ownerDocument || template.ownerDocument;
+      parseNodeAnnotations(content, content._notes,
+        stripWhiteSpace || template.hasAttribute('strip-whitespace'), ownerDocument);
+    }
+    return content._notes;
+  }
+
+  // add annotations gleaned from subtree at `node` to `list`
+  function parseNodeAnnotations(node, list, stripWhiteSpace, ownerDocument) {
+    return node.nodeType === Node.TEXT_NODE ?
+      parseTextNodeAnnotation(node, list) :
+        parseElementAnnotations(node, list, stripWhiteSpace, ownerDocument);
+  }
+
+  function parseBindings(text) {
+    let parts = [];
+    let lastIndex = 0;
+    let m;
+    // Example: "literal1{{prop}}literal2[[!compute(foo,bar)]]final"
+    // Regex matches:
+    //        Iteration 1:  Iteration 2:
+    // m[1]: '{{'          '[['
+    // m[2]: ''            '!'
+    // m[3]: 'prop'        'compute(foo,bar)'
+    while ((m = bindingRegex.exec(text)) !== null) {
+      // Add literal part
+      if (m.index > lastIndex) {
+        parts.push({literal: text.slice(lastIndex, m.index)});
+      }
+      // Add binding part
+      // Mode (one-way or two)
+      let mode = m[1][0];
+      let negate = Boolean(m[2]);
+      let value = m[3].trim();
+      let customEvent, notifyEvent, colon;
+      if (mode == '{' && (colon = value.indexOf('::')) > 0) {
+        notifyEvent = value.substring(colon + 2);
+        value = value.substring(0, colon);
+        customEvent = true;
+      }
+      parts.push({
+        compoundIndex: parts.length,
+        value: value,
+        mode: mode,
+        negate: negate,
+        event: notifyEvent,
+        customEvent: customEvent
+      });
+      lastIndex = bindingRegex.lastIndex;
+    }
+    // Add a final literal part
+    if (lastIndex && lastIndex < text.length) {
+      let literal = text.substring(lastIndex);
+      if (literal) {
+        parts.push({
+          literal: literal
+        });
+      }
+    }
+    if (parts.length) {
+      return parts;
+    }
+  }
+
+  function literalFromParts(parts) {
+    let s = '';
+    for (let i=0; i<parts.length; i++) {
+      let literal = parts[i].literal;
+      s += literal || '';
+    }
+    return s;
+  }
+
+  // add annotations gleaned from TextNode `node` to `list`
+  function parseTextNodeAnnotation(node, list) {
+    let parts = parseBindings(node.textContent);
+    if (parts) {
+      // Initialize the textContent with any literal parts
+      // NOTE: default to a space here so the textNode remains; some browsers
+      // (IE) evacipate an empty textNode following cloneNode/importNode.
+      node.textContent = literalFromParts(parts) || ' ';
+      let note = {
+        bindings: [{
+          kind: 'text',
+          name: 'textContent',
+          parts: parts,
+          isCompound: parts.length !== 1
+        }]
+      };
+      list.push(note);
+      return note;
+    }
+  }
+
+  // add annotations gleaned from Element `node` to `list`
+  function parseElementAnnotations(element, list, stripWhiteSpace, ownerDocument) {
+    let note = {
+      bindings: [],
+      events: []
+    };
+    if (element.localName === insertionPointTag) {
+      list._hasInsertionPoint = true;
+    }
+    parseChildNodesAnnotations(element, note, list, stripWhiteSpace, ownerDocument);
+    if (element.attributes) {
+      parseNodeAttributeAnnotations(element, note);
+    }
+    if (note.bindings.length || note.events.length || note.id) {
+      list.push(note);
+    }
+    return note;
+  }
+
+  // 1.x backwards-compatible auto-wrapper for template type extensions
+  // This is a clear layering violation and gives favored-nation status to
+  // dom-if and dom-repeat templates.  This is a conceit we're choosing to keep
+  // a.) to ease 1.x backwards-compatibility due to loss of `is`, and
+  // b.) to maintain if/repeat capability in parser-constrained elements
+  //     (e.g. table, select) in lieu of native CE type extensions without
+  //     massive new invention in this space (e.g. directive system)
+  const templateExtensions = {
+    'dom-if': true,
+    'dom-repeat': true
+  };
+  function wrapTemplateExtension(node) {
+    let is = node.getAttribute('is');
+    if (is && templateExtensions[is]) {
+      let t = node;
+      t.removeAttribute('is');
+      node = t.ownerDocument.createElement(is);
+      t.parentNode.replaceChild(node, t);
+      node.appendChild(t);
+      while(t.attributes.length) {
+        node.setAttribute(t.attributes[0].name, t.attributes[0].value);
+        t.removeAttribute(t.attributes[0].name);
+      }
+    }
+    return node;
+  }
+
+  // add annotations gleaned from children of `root` to `list`, `root`'s
+  // `note` is supplied as it is the note.parent of added annotations
+  function parseChildNodesAnnotations(root, note, list, stripWhiteSpace, ownerDocument) {
+    if (root.firstChild) {
+      let node = root.firstChild;
+      let i = 0;
+      while (node) {
+        // Wrap templates
+        if (node.localName == 'template') {
+          node = wrapTemplateExtension(node);
+        }
+        // Recurse
+        if (node.localName == 'template' &&
+          !node.hasAttribute('preserve-content')) {
+          parseTemplate(node, i, list, note, stripWhiteSpace, ownerDocument);
+        }
+        // collapse adjacent textNodes: fixes an IE issue that can cause
+        // text nodes to be inexplicably split =(
+        // note that root.normalize() should work but does not so we do this
+        // manually.
+        let next = node.nextSibling;
+        if (node.nodeType === Node.TEXT_NODE) {
+          let n = next;
+          while (n && (n.nodeType === Node.TEXT_NODE)) {
+            node.textContent += n.textContent;
+            next = n.nextSibling;
+            root.removeChild(n);
+            n = next;
+          }
+          // optionally strip whitespace
+          if (stripWhiteSpace && !node.textContent.trim()) {
+            root.removeChild(node);
+            // decrement index since node is removed
+            i--;
+          }
+        }
+        // if this node didn't get evacipated, parse it.
+        if (node.parentNode) {
+          let childAnnotation = parseNodeAnnotations(node, list,
+            stripWhiteSpace, ownerDocument);
+          if (childAnnotation) {
+            childAnnotation.parent = note;
+            childAnnotation.index = i;
+          }
+        }
+        node = next;
+        i++;
+      }
+    }
+  }
+
+  // 1. Parse annotations from the template and memoize them on
+  //    content._notes (recurses into nested templates)
+  // 2. Remove template.content and store it in annotation list, where it
+  //    will be the responsibility of the host to set it back to the template
+  //    (this is both an optimization to avoid re-stamping nested template
+  //    children and avoids a bug in Chrome where nested template children
+  //    upgrade)
+  function parseTemplate(node, index, list, parent, stripWhiteSpace, ownerDocument) {
+    let content = node.content.ownerDocument.createDocumentFragment();
+    content._notes = parseTemplateAnnotations(node, stripWhiteSpace, ownerDocument);
+    content.appendChild(node.content);
+    list.push({
+      bindings: emptyArray,
+      events: emptyArray,
+      templateContent: content,
+      parent: parent,
+      index: index
+    });
+  }
+
+  // add annotation data from attributes to the `annotation` for node `node`
+  function parseNodeAttributeAnnotations(node, annotation) {
+    // Make copy of original attribute list, since the order may change
+    // as attributes are added and removed
+    let attrs = Array.prototype.slice.call(node.attributes);
+    for (let i=attrs.length-1, a; (a=attrs[i]); i--) {
+      let n = a.name;
+      let v = a.value;
+      let b;
+      // events (on-*)
+      if (n.slice(0, 3) === 'on-') {
+        node.removeAttribute(n);
+        annotation.events.push({
+          name: n.slice(3),
+          value: v
+        });
+      }
+      // bindings (other attributes)
+      else if ((b = parseNodeAttributeAnnotation(node, n, v))) {
+        annotation.bindings.push(b);
+      }
+      // static id
+      else if (n === 'id') {
+        annotation.id = v;
+      }
+    }
+  }
+
+  // construct annotation data from a generic attribute, or undefined
+  function parseNodeAttributeAnnotation(node, name, value) {
+    let parts = parseBindings(value);
+    if (parts) {
+      // Attribute or property
+      let origName = name;
+      let kind = 'property';
+      if (name[name.length-1] == '$') {
+        name = name.slice(0, -1);
+        kind = 'attribute';
+      }
+      // Initialize attribute bindings with any literal parts
+      let literal = literalFromParts(parts);
+      if (literal && kind == 'attribute') {
+        node.setAttribute(name, literal);
+      }
+      // Clear attribute before removing, since IE won't allow removing
+      // `value` attribute if it previously had a value (can't
+      // unconditionally set '' before removing since attributes with `$`
+      // can't be set using setAttribute)
+      if (node.localName === 'input' && origName === 'value') {
+        node.setAttribute(origName, '');
+      }
+      // Remove annotation
+      node.removeAttribute(origName);
+      // Case hackery: attributes are lower-case, but bind targets
+      // (properties) are case sensitive. Gambit is to map dash-case to
+      // camel-case: `foo-bar` becomes `fooBar`.
+      // Attribute bindings are excepted.
+      let propertyName = Polymer.CaseMap.dashToCamelCase(name);
+      if (kind === 'property') {
+        name = propertyName;
+      }
+      return {
+        kind: kind,
+        name: name,
+        propertyName: propertyName,
+        parts: parts,
+        literal: literal,
+        isCompound: parts.length !== 1
+      };
+    }
+  }
+
+  function findTemplateAnnotatedNode(root, note) {
+    // recursively ascend tree until we hit root
+    let parent = note.parent && findTemplateAnnotatedNode(root,
+      note.parent);
+    // unwind the stack, returning the indexed node at each level
+    if (parent) {
+      // note: marginally faster than indexing via childNodes
+      // (http://jsperf.com/childnodes-lookup)
+      for (let n=parent.firstChild, i=0; n; n=n.nextSibling) {
+        if (note.index === i++) {
+          return n;
+        }
+      }
+    } else {
+      return root;
+    }
+  }
+
+  // construct `$` map (from id annotations)
+  function applyIdToMap(inst, map, node, note) {
+    if (note.id) {
+      map[note.id] = node;
+    }
+  }
+
+  // install event listeners (from event annotations)
+  function applyEventListener(inst, node, note, host) {
+    if (note.events && note.events.length) {
+      for (let j=0, e$=note.events, e; (j<e$.length) && (e=e$[j]); j++) {
+        inst._addMethodEventListenerToNode(node, e.name, e.value, host);
+      }
+    }
+  }
+
+  // push configuration references at configure time
+  function applyTemplateContent(inst, node, note) {
+    if (note.templateContent) {
+      node._content = note.templateContent;
+    }
+  }
+
+  function createNodeEventHandler(context, eventName, methodName) {
+    // Instances can optionally have a _methodHost which allows redirecting where
+    // to find methods. Currently used by `templatize`.
+    context = context._methodHost || context;
+    let handler = function(e) {
+      if (context[methodName]) {
+        context[methodName](e, e.detail);
+      } else {
+        console.warn('listener method `' + methodName + '` not defined');
+      }
+    };
+    return handler;
+  }
+
+  /**
+   * Element mixin that provides basic template parsing and stamping, including
+   * the following template-related features for stamped templates:
+   *
+   * - Declarative event listeners (`on-eventname="listener"`)
+   * - Map of node id's to stamped node instances (`this.$.id`)
+   * - Nested template content caching/removal and re-installation (performance
+   *   optimization)
+   * - Relative URL's relative to original template location
+   * - Template binding annotation parsing (note that this library only parses
+   *   template bindings and provides annotation metadata; see
+   *   `Polymer.PropertyEffects` for a full implementation of data-binding)
+   *
+   * @polymerMixin
+   * @memberof Polymer
+   * @summary Element class mixin that provides basic template parsing and stamping
+   */
+  Polymer.TemplateStamp = Polymer.dedupingMixin(function(superClass) {
+
+    return class TemplateStamp extends superClass {
+
+      constructor() {
+        super();
+        this.$ = null;
+        this.__templateNodes = null;
+        this.__templateNotes = null;
+      }
+
+      /**
+       * Clones the provided template content and returns a document fragment
+       * containing the cloned dom.
+       *
+       * The template is parsed (once and memoized) using this library's
+       * template parsing features, which identify nodes with declarative
+       * event listeners (`on-...``), `id`'s, `<template>`s, and bindings
+       * (`{{...}}` and `[[...]]`).  This template metadata ("notes")
+       * are stored as `this.__templateNotes`, and any nodes identified in
+       * notes are collected for this instance into `__templateNodes` in
+       * the same order as the notes array.
+       *
+       * Finally, this method generates an "id map" for all nodes with id's
+       * under `this.$`, passes template content back to templates as `_content`
+       * (a performance optimization to avoid deep template cloning), and
+       * installs declarative event listeners.
+       *
+       * Note that the memoized template parsing process is destructive to the
+       * template: attributes for bindings and declarative event listeners are
+       * removed after being noted in notes, and any nested <template>.content
+       * is removed and stored in notes as well.
+       *
+       * Note that this method may only be called once per instance (it does
+       * not support stamping multiple templates per element instance).
+       *
+       * @param {HTMLTemplateElement} template Template to stamp
+       */
+      _stampTemplate(template) {
+        // Polyfill support: bootstrap the template if it has not already been
+        if (template && !template.content &&
+            window.HTMLTemplateElement && HTMLTemplateElement.decorate) {
+          HTMLTemplateElement.decorate(template);
+        }
+        let notes = this.__templateNotes = this._parseTemplateAnnotations(template);
+        let dom = document.importNode(template._content || template.content, true);
+        // NOTE: ShadyDom optimization indicating there is an insertion point
+        dom.__noInsertionPoint = !notes._hasInsertionPoint;
+        this.$ = {};
+        this.__templateNodes = new Array(notes.length);
+        for (let i=0, l=notes.length, note, node; (i<l) && (note=notes[i]); i++) {
+          node = this.__templateNodes[i] = findTemplateAnnotatedNode(dom, note);
+          applyIdToMap(this, this.$, node, note);
+          applyTemplateContent(this, node, note);
+          applyEventListener(this, node, note, this);
+        }
+        return dom;
+      }
+
+      // preprocess-time
+
+      // construct and return a list of annotation records
+      // by scanning `template`'s content
+      //
+      // TODO(sorvell): This should just crawl over a template and call
+      // a supplied list of callbacks.
+      _parseTemplateAnnotations(template) {
+        return parseTemplateAnnotations(template);
+      }
+
+      _addMethodEventListenerToNode(node, eventName, methodName, context) {
+        context = context || node;
+        let handler = createNodeEventHandler(context, eventName, methodName);
+        this._addEventListenerToNode(node, eventName, handler);
+        return handler;
+      }
+
+      _addEventListenerToNode(node, eventName, handler) {
+        node.addEventListener(eventName, handler);
+      }
+
+      _removeEventListenerFromNode(node, eventName, handler) {
+        node.removeEventListener(eventName, handler);
+      }
+
+    }
+
+  });
+
+})();
+</script>

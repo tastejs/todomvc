@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "npm run build",
+    "build": "polybuild --maximum-crush elements/elements.html"
+  },
+  "devDependencies": {
+    "polybuild": "^1.0.5"
+  }
+}

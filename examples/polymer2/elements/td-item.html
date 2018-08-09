@@ -1,0 +1,85 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="td-input.html">
+
+<dom-module id="td-item">
+	<template strip-whitespace>
+		<template is="dom-if" if="{{!editing}}" strip-whitespace>
+			<div on-dblclick="_editAction">
+				<input type="checkbox" class="toggle"
+							 checked="{{item.completed::change}}">
+				<label>{{item.title}}</label>
+				<button class="destroy" on-tap="_destroyAction"></button>
+			</div>
+		</template>
+		<template is="dom-if" if="{{editing}}" strip-whitespace>
+			<input is="td-input" id="edit" class="edit"
+						 value="{{_editingValue::input}}"
+						 on-td-input-commit="_commitAction"
+						 on-td-input-cancel="_cancelAction"
+						 on-blur="_onBlur">
+		</template>
+	</template>
+	<script>
+		(function () {
+			'use strict';
+
+			Polymer({
+				is: 'td-item',
+
+				extends: 'li',
+
+				properties: {
+					editing: {
+						type: Boolean,
+						value: false
+					},
+					item: {
+						type: Object,
+						value: function () { return {}; }
+					}
+				},
+
+				observers: ['setHostClass(item.completed, editing)'],
+
+				setHostClass: function(completed, editing) {
+					// Note: TodoMVC has styling for classes. Too bad we can't use the
+					// editing property and reflectToAttribute.
+					this.toggleClass('completed', completed);
+					this.toggleClass('editing', editing);
+				},
+
+				_onBlur: function () {
+					this._commitAction();
+					this.editing = false;
+				},
+
+				_editAction: function () {
+					this.editing = true;
+					this._editingValue = this.item.title;
+					// Wait one tick template to stamp.
+					this.async(function () {
+						this.querySelector('#edit').focus();
+					});
+				},
+
+				_commitAction: function () {
+					if (this.editing) {
+						this.editing = false;
+						this.set('item.title', this._editingValue.trim());
+						if (this.item.title === '') {
+							this._destroyAction();
+						}
+					}
+				},
+
+				_cancelAction: function () {
+					this.editing = false;
+				},
+
+				_destroyAction: function () {
+					this.fire('td-destroy-item', this.item);
+				}
+			});
+		})();
+	</script>
+</dom-module>
