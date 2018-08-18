@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-framework="circularJS">
+  <head>
+    <meta charset="utf-8">
+    <title>Circular.js • TodoMVC</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="todo.css">
+
+    <script type="text/javascript" src="circular.min.js"></script>
+  </head>
+  <body cr-component="app" cr-container="prepend">
+    <section class="todoapp" cr-template-for="app">
+      <header class="header">
+        <h1>todos</h1>
+        <input class="new-todo" cr-event="keypress: addItem" placeholder="What needs to be done?" autofocus>
+      </header>
+      <section class="main {{%filter}}" cr-view="main">
+        <input cr-event="click: toggleAll" class="toggle-all" id="toggle-all" type="checkbox" checked="{{%all}}" disabled="{{%hide}}">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list" cr-component="list" cr-container>
+          <li cr-template-for="list" class="todo-list-item{{#%done}} completed{{/%done}}">
+            <input cr-event="change: toggle" class="toggle" type="checkbox" checked="{{%done}}">
+            <label cr-event="dblclick: focus">{{%text}}</label>
+            <button class="destroy" cr-event="click: delete"></button>
+            <input class="edit" cr-event="change: save; blur: blur; keyup: keyup" value="{{%%text}}" disabled="{{%editable}}">
+          </li>
+        </ul>
+      </section>
+      <footer class="footer{{#if %hide}} hidden{{/if}}">
+        <span class="todo-count">
+          <strong>{{%left}}</strong> item{{#if %plural}}s{{/if}} left
+        </span>
+        <ul class="filters list-{{%filter}}">
+          <li><a href="#" class="filter-all">All</a></li>
+          <li><a href="#/active" class="filter-active">Active</a></li>
+          <li><a href="#/completed" class="filter-completed">Completed</a></li>
+        </ul>
+        <button class="clear-completed" cr-event="click: deleteDone" disabled="{{%none}}">Clear completed</button>
+      </footer>
+    </section>
+    <footer class="info">
+      <p>Double-click to edit a todo</p>
+      <p>Created by <a href="https://github.com/PitPik">Peter Dematté</a></p>
+      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
