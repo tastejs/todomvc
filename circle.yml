@@ -99,8 +99,6 @@ jobs:
     <<: *defaults
   canjs_require:
     <<: *defaults
-  kendo:
-    <<: *defaults
   rappidjs:
     <<: *defaults
   sapui5:
@@ -193,7 +191,6 @@ workflows:
     jobs:
       - chaplin-brunch
       - canjs_require
-      - kendo
       - rappidjs
       # Sapui5 is too broken in layout
       # - sapui5

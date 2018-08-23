@@ -50,7 +50,6 @@ const noLocalStorageCheck = {
   js_of_ocaml: true,
   reagent: true,
   rappidjs: true,
-  kendo: true,
   exoskeleton: true,
   'react-backbone': true,
   puremvc: true,

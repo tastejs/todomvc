@@ -1094,49 +1094,6 @@
 			}]
 		}]
 	},
-	"kendo": {
-		"name": "Kendo UI",
-		"description": "Comprehensive HTML5/JavaScript framework for modern web and mobile app development.",
-		"homepage": "kendoui.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/kendo"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://docs.kendoui.com"
-			}, {
-				"name": "API Reference",
-				"url": "http://docs.kendoui.com/api/dataviz/chart"
-			}, {
-				"name": "What is Kendo UI",
-				"url": "http://docs.kendoui.com/getting-started/introduction"
-			}, {
-				"name": "Applications built with Kendo UI",
-				"url": "http://demos.kendoui.com"
-			}, {
-				"name": "Blog",
-				"url": "http://www.kendoui.com/blogs.aspx"
-			}, {
-				"name": "FAQ",
-				"url": "http://www.kendoui.com/faq/faq.aspx"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Kendo UI on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/kendo-ui"
-			}, {
-				"name": "Kendo UI on Twitter",
-				"url": "http://twitter.com/kendoui"
-			}, {
-				"name": "Kendo UI on Google+",
-				"url": "https://plus.google.com/117798269023828336983/posts"
-			}]
-		}]
-	},
 	"knockback": {
 		"name": "Knockback.js",
 		"description": "Both Knockout.js and Backbone.js have their strengths and weaknesses, but together they are amazing! With Knockback.js, you can use the strong ORM provided by Backbone and create dynamic views using Knockout bindings.",

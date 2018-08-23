@@ -27,11 +27,6 @@ module.exports = [
   // 'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
   // 'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
-  // Kendo does NOT save todos when marked as completed
-  'kendo, should allow me to mark all items as completed',
-  'kendo, should allow me to clear the complete state of all items',
-  'kendo, complete all checkbox should update state when items are completed / cleared',
-  'kendo, should remove the item if an empty text string was entered',
 
   // the following are covered by the following issue:
   // https://github.com/tastejs/todomvc/issues/789
