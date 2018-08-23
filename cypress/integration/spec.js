@@ -59,7 +59,6 @@ const noLocalStorageCheck = {
 }
 
 const noLocalStorageSpyCheck = {
-  spine: true,
   canjs: true,
   canjs_require: true
 }

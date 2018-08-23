@@ -190,10 +190,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=spine
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=typescript-angular
       <<: *defaults
     - stage: test

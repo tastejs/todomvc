@@ -1789,46 +1789,6 @@
 			}]
 		}]
 	},
-	"spine": {
-		"name": "Spine.js",
-		"description": "Build Awesome JavaScript MVC Applications.",
-		"homepage": "spinejs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/spine"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://spinejs.com/docs/"
-			}, {
-				"name": "Step by Step Tutorials",
-				"url": "http://spinejs.com/docs/example"
-			}, {
-				"name": "API Reference",
-				"url": "http://spinejs.com/api/index"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Building JavaScript Web Apps With MVC & Spine.js",
-				"url": "http://addyosmani.com/blog/building-apps-spinejs"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Spine on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/spine.js"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/spinejs"
-			}, {
-				"name": "Spine's author, Alex MacCaw, on Twitter",
-				"url": "http://twitter.com/maccman"
-			}]
-		}]
-	},
 	"troopjs": {
 		"name": "TroopJS",
 		"description": "The simple js framework that does as little as possible, then stays out of the way.",

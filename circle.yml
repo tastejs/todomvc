@@ -68,8 +68,6 @@ jobs:
   # compiled-to-js frameworks
   kotlin-react:
     <<: *defaults
-  spine:
-    <<: *defaults
   typescript-react:
     <<: *defaults
   binding-scala:
@@ -169,7 +167,6 @@ workflows:
   # second tab - compiled-to-js frameworks
   compiled-to-js:
     jobs:
-      - spine
       # elm is not working very well
       - typescript-react
       - binding-scala
