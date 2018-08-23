@@ -206,10 +206,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=vanilladart
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=vanillajs
       <<: *defaults
     - stage: test

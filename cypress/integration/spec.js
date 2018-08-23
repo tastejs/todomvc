@@ -36,7 +36,6 @@ const frameworkFolders = {
   'angular-dart': 'angular-dart/web',
   'chaplin-brunch': 'chaplin-brunch/public',
   duel: 'duel/www',
-  vanilladart: 'vanilladart/build/web'
 }
 const getExampleFolder = framework => frameworkFolders[framework] || framework
 

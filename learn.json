@@ -538,55 +538,6 @@
 			}]
 		}]
 	},
-	"dart": {
-		"name": "Dart",
-		"description": "Dart is a class-based, object-oriented language with lexical scoping, closures, and optional static typing. Dart helps you build structured modern web apps and is easy to learn for a wide range of developers.",
-		"homepage": "dartlang.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/vanilladart/web"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "https://www.dartlang.org/docs/dart-up-and-running/contents/ch01.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://api.dartlang.org/docs/releases/latest"
-			}, {
-				"name": "A Tour of the Dart Language",
-				"url": "http://www.dartlang.org/docs/dart-up-and-running/contents/ch02.html"
-			}, {
-				"name": "Articles",
-				"url": "http://www.dartlang.org/articles"
-			}, {
-				"name": "Tutorials",
-				"url": "http://www.dartlang.org/docs/tutorials"
-			}, {
-				"name": "FAQ",
-				"url": "http://www.dartlang.org/support/faq.html"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Getting started with Google Dart",
-				"url": "http://www.techrepublic.com/blog/webmaster/getting-started-with-google-dart/931"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Dart on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/dart"
-			}, {
-				"name": "Dart on Twitter",
-				"url": "http://twitter.com/dart_lang"
-			}, {
-				"name": "Dart on Google+",
-				"url": "https://plus.google.com/+dartlang/posts"
-			}]
-		}]
-	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",

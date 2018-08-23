@@ -72,8 +72,6 @@ jobs:
     <<: *defaults
   binding-scala:
     <<: *defaults
-  vanilladart:
-    <<: *defaults
   angular-dart:
     <<: *defaults
   serenadejs:
