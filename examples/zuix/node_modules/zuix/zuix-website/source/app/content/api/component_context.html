@@ -1,0 +1,65 @@
+### `ComponentContext` class
+
+The context of a component (or a content) is that object that manages and holds a reference to all the resources
+related to the component instance itself. So, when a component is loaded, the container/view element,
+the CSS style and the JavaScript controller will be accessible though its `ComponentContext` object.
+
+A reference to a component context can be obtained in either one of the following ways:
+
+<i class="material-icons mdl-typography--font-bold">arrow_right</i>
+as the return value of the `zuix.load(...)` method, when loading a component from JavaScript.
+
+```javascript
+// get component context as return value of the `zuix.load(...)` command
+const ctx = zuix.load( ... );
+```
+
+<i class="material-icons mdl-typography--font-bold">arrow_right</i>
+by using the `zuix.context(...)` method, when loading a component from HTML.
+
+```html
+<div data-ui-load="path/to/component_name"
+     data-ui-field="my-field-id"
+     data-ui-context="my-context-id">
+    <!-- ... -->
+</div>
+&lt;script&gt;
+// Get the component context by using the assigned id
+const ctx = zuix.context('my-context-id');
+// OR by referencing its HTML element container
+const componentDiv = zuix.field('my-field-id');
+const ctx = zuix.context(componentDiv);
+&lt;/script&gt;
+```
+
+<i class="material-icons mdl-typography--font-bold">arrow_right</i>
+as the result of the `{ContextReadyCallback}` specified in the `{ContextOptions}`.
+
+```html
+<div data-ui-load="path/to/component_name"
+     data-ui-options="component_options">
+    <!-- ... -->
+</div>
+<script>
+var component_options = {
+    ready: function(ctx) {
+        console.log('Component loaded', ctx);
+        // ...
+    }
+};
+</script>
+```
+
+<div data-ui-load="content/api/api_loader"
+     data-ui-options="api_loader_options"
+     data-ui-api="ComponentContext"
+     class="api-dox">
+
+<div class="content-loader">
+    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+    <p><small>Building <em>ComponentContext</em> jsDoc...</small></p>
+</div>
+
+</div>
+
+<p>&nbsp;</p>

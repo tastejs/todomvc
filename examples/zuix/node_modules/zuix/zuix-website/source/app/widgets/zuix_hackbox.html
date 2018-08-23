@@ -1,0 +1,103 @@
+<div data-ui-field="toolbox" layout="column top-stretch" class="toolbox mdl-shadow--24dp">
+
+    <div class="header mdl-shadow--6dp"
+         layout="row center-justify">
+        <div class="logo">
+            <span>z</span><strong>UI</strong><span>x</span>
+            hack box
+        </div>
+        <div self="right">
+            <a data-ui-field="button-fullscreen" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">fullscreen</i>
+            </a>
+        </div>
+    </div>
+
+    <div self="size-x1"
+         data-ui-load="controllers/paged_view"
+         data-ui-field="paged-view"
+         data-ui-context="pagedView"
+         data-ui-relative="true"
+         layout="column stretch-stretch">
+
+        <div data-ui-field="fragmemnt-components"
+             data-ui-load="widgets/zuix_editor"
+             data-ui-context="zuix-editor"
+             data-ui-lazyload="scroll"
+             class="bundle-box mdl-color--white mdl-color-text--black scrollable content-padding"
+             layout="row stretch-stretch">
+        </div>
+        <div data-ui-field="fragment-log"
+             data-ui-lazyload="scroll"
+             class="log-box scrollable mdl-shadow--16dp"
+             layout="column top-stretch">
+
+            <div data-ui-field="log-list"
+                 data-ui-lazyload="false"
+                 data-ui-load="@lib/controllers/list_view"
+                 self="size-x1">
+
+                loading...
+
+            </div>
+        </div>
+        <div data-ui-field="fragment-bundle"
+             data-ui-lazyload="scroll"
+             class="bundle-box  mdl-color--white mdl-color-text--black scrollable content-padding">
+
+            <div class="content-padding" layout="columns spread">
+                <p>
+                    When a zuix-based web site or app is ready for production, it can be bundled into
+                    a single file containing all components and assets.
+                </p>
+                <div data-ui-field="bundle-progress" class="content-padding" align="center">
+                    <div self="size-1of3" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                </div>
+                <div align="center" layout="row top-spread">
+                    <div class="content-padding">
+                        <a data-ui-field="button-load" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-color-text--accent">Load all components</a>
+                    </div>
+                    <div class="content-padding">
+                        <a data-ui-field="button-save" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-color-text--accent">Download Bundle</a>
+                    </div>
+                </div>
+                <br />
+                <small>
+                    The generated bundle can be partial, containing only components created until
+                    the bundle request, or it can be complete when the app does not use
+                    lazy-loading or by forcing loading of all components before downloading
+                    the bundle.
+                    <br/>
+                    Include the generated file right after the <u>zuix.min.js</u> script.
+                    Using a single app bundle will speed up loading when ready for production.
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="footer mdl-shadow--24dp"
+         layout="row center-spread">
+        <a data-ui-field="button-components" class="material-icons mdl-color-text--blue-900 mdl-badge mdl-badge--overlap margin-left" data-badge="!">
+            extension
+        </a>
+        <a data-ui-field="button-log" class="mdl-button mdl-js-button margin-left alert">Log</a>
+        <a data-ui-field="button-bundle" class="mdl-button mdl-js-button margin-left">Bundle</a>
+        <div self="size-x1" layout="row center-center">
+            <small data-ui-field="editor-info" class="mdl-color-text--accent"></small>
+        </div>
+        <a data-ui-field="button-hide" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+</div>
+
+<div data-ui-field="log-overlay" class="log-overlay">
+
+</div>
+
+<div data-ui-field="fab-menu" class="fab-menu alert">
+    <a data-ui-field="components" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-color--yellow-A400 mdl-js-ripple-effect mdl-shadow--24dp mdl-badge mdl-badge--overlap" data-badge="!">
+        <i class="material-icons mdl-color-text--blue-900">extension</i>
+    </a>
+</div>

@@ -1,0 +1,241 @@
+[
+  {
+    "tags": [],
+    "description": {
+      "full": "Copyright 2015-2017 G-Labs. All Rights Reserved.\n        https://genielabs.github.io/zuix\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n     http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "summary": "Copyright 2015-2017 G-Labs. All Rights Reserved.\n        https://genielabs.github.io/zuix",
+      "body": "Licensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n     http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License."
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 1,
+    "codeStart": 17
+  },
+  {
+    "tags": [
+      {
+        "type": "author",
+        "string": "Generoso Martello <generoso@martello.com>"
+      }
+    ],
+    "description": {
+      "full": "zUIx, Javascript library for component-based development.\n       https://genielabs.github.io/zuix",
+      "summary": "zUIx, Javascript library for component-based development.\n       https://genielabs.github.io/zuix",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 18,
+    "codeStart": 25
+  },
+  {
+    "tags": [
+      {
+        "type": "typedef",
+        "string": "{object} ComponentCache",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{string} componentId The id of the cached component.",
+        "name": "componentId",
+        "description": "The id of the cached component.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{Element} view The view element.",
+        "name": "view",
+        "description": "The view element.",
+        "types": [
+          "Element"
+        ],
+        "typesDescription": "<code>Element</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{string} css The CSS style text.",
+        "name": "css",
+        "description": "The CSS style text.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{boolean} css_applied Whether the CSS style has been applied to the view or not.",
+        "name": "css_applied",
+        "description": "Whether the CSS style has been applied to the view or not.",
+        "types": [
+          "boolean"
+        ],
+        "typesDescription": "<code>boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{ContextControllerHandler} controller The controller handler function.",
+        "name": "controller",
+        "description": "The controller handler function.",
+        "types": [
+          "ContextControllerHandler"
+        ],
+        "typesDescription": "<a href=\"ContextControllerHandler.html\">ContextControllerHandler</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{string} using The url/path if this is a resource loaded with `zuix.using(..)` method.",
+        "name": "using",
+        "description": "The url/path if this is a resource loaded with `zuix.using(..)` method.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "Component cache object interface.",
+      "summary": "Component cache object interface.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 26,
+    "codeStart": 37
+  },
+  {
+    "tags": [
+      {
+        "type": "typedef",
+        "string": "{object} BundleItem",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{Element} view",
+        "name": "view",
+        "description": "",
+        "types": [
+          "Element"
+        ],
+        "typesDescription": "<code>Element</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{string} css",
+        "name": "css",
+        "description": "",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{ContextControllerHandler} controller",
+        "name": "controller",
+        "description": "",
+        "types": [
+          "ContextControllerHandler"
+        ],
+        "typesDescription": "<a href=\"ContextControllerHandler.html\">ContextControllerHandler</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "Bundle item object.",
+      "summary": "Bundle item object.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 38,
+    "codeStart": 46
+  },
+  {
+    "tags": [],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 47,
+    "codeStart": 48,
+    "code": "module.exports = function(root) {\n    // dummy module for JsDocs/Closure Compiler\n    return null;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "module",
+      "name": "exports",
+      "string": "module.exports()"
+    }
+  }
+]

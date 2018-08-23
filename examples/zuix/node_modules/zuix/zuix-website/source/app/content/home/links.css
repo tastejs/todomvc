@@ -1,0 +1,21 @@
+.opaqueBlocK {
+    background: yellow;
+    color: gray;
+    font-size: 160%;
+    margin-top: 12px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.opaqueBlocK .animated {
+    -webkit-animation-delay: 0.28s;
+    -moz-animation-delay: 0.28s;
+    -o-animation-delay: 0.28s;
+    -ms-animation-delay: 0.28s;
+}
+.opaqueBlocK a {
+    text-decoration: none;
+    font-size: 60%;
+}
+.material-icons {
+    margin-left: 0;
+}

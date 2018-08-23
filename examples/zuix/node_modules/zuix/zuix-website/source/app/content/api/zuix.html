@@ -1,0 +1,31 @@
+### `Zuix` class
+
+This is the main framework class which is accessible though the global object `zuix`.
+The `zuix` object takes care of parsing all `data-ui-load` and `data-ui-include`
+attributes found in the HTML document and it loads components and contents accordingly.
+
+Beside that, `zuix` offers a few methods that can be used in the JavaScript code to
+accomplish various tasks such as:
+<ul>
+    <li>Getting a reference to any loaded component for using its methods and/or listening to its events</li>
+    <li>Dynamically loading or create components</li>
+    <li>Selecting and managing DOM elements and events, also providing caching and automatic resource disposal</li>
+    <li>Adding global hooks to handle or extend every single aspect of the life-cycle of components and contents</li>
+</ul>
+
+
+
+<div data-ui-load="content/api/api_loader"
+     data-ui-lazyload="false"
+     data-ui-options="api_loader_options"
+     data-ui-api="Zuix"
+     class="api-dox">
+
+<div class="content-loader">
+<div class="mdl-spinner mdl-js-spinner is-active"></div>
+<p><small>Building <em>Zuix</em> jsDoc...</small></p>
+</div>
+
+</div>
+
+<p>&nbsp;</p>

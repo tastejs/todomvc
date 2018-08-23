@@ -1,0 +1,32 @@
+h3 {
+    margin-top: 56px;
+    margin-bottom: 32px;
+}
+h4 {
+    margin-top: 56px;
+    margin-bottom: 32px;
+}
+h5 {
+    margin-top: 56px;
+    margin-bottom: 32px;
+}
+h6 {
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+.indent-1 {
+    margin-left: 56px;
+    margin-bottom: 24px;
+}
+ul {
+    padding-left: 8px;
+}
+.list ul li {
+    list-style: disc;
+    margin-left: 24px;
+}
+h4 i {
+    font-size: 100%;
+    vertical-align: top;
+}

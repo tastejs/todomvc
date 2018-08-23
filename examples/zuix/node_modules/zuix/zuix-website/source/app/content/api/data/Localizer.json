@@ -1,0 +1,278 @@
+[
+  {
+    "tags": [],
+    "description": {
+      "full": "Copyright 2015-2017 G-Labs. All Rights Reserved.\n        https://genielabs.github.io/zuix\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n     http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "summary": "Copyright 2015-2017 G-Labs. All Rights Reserved.\n        https://genielabs.github.io/zuix",
+      "body": "Licensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n     http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License."
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 1,
+    "codeStart": 17
+  },
+  {
+    "tags": [
+      {
+        "type": "author",
+        "string": "Generoso Martello <generoso@martello.com>"
+      }
+    ],
+    "description": {
+      "full": "This file is part of\n zUIx, Javascript library for component-based development.\n       https://genielabs.github.io/zuix",
+      "summary": "This file is part of\n zUIx, Javascript library for component-based development.\n       https://genielabs.github.io/zuix",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 18,
+    "codeStart": 27,
+    "code": "'use strict';\n\nconst _log =\n    require('../helpers/Logger')('Localizer.js');\n\nfunction Localizer() {\n\n}",
+    "ctx": false
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "string": "{Element} container",
+        "name": "container",
+        "description": "",
+        "types": [
+          "Element"
+        ],
+        "typesDescription": "<code>Element</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "constructor",
+        "string": ""
+      }
+    ],
+    "description": {
+      "full": "Localize the specified element by replacing all `data-locale-id` fields\nwith the translated text.",
+      "summary": "Localize the specified element by replacing all `data-locale-id` fields\nwith the translated text.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": true,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 36,
+    "codeStart": 43,
+    "code": "Localizer.prototype.Localize = function(container) {\n    const localizables = container.querySelectorAll('[data-locale-id]');\n    for (let l = 0; l < localizables.length; l++) {\n        const localeId = localizables[l].getAttribute('data-locale-id');\n        const text = this.getLocaleString(localeId);\n        if (text != null) {\n            const target = localizables[l].getAttribute('data-locale-target');\n            localizables[l][target] = text;\n        } else {\n            // map value to innerHTML property by default\n            localizables[l].innerHTML = text;\n        }\n    }\n};",
+    "ctx": {
+      "type": "constructor",
+      "constructor": "Localizer",
+      "cons": "Localizer",
+      "name": "Localize",
+      "string": "Localizer.prototype.Localize()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "string": "{string} localeId The `data-locale-id` identifier.",
+        "name": "localeId",
+        "description": "The `data-locale-id` identifier.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{string|undefined} [defaultText] Use this value as default if no translated text if found.",
+        "name": "[defaultText]",
+        "description": "Use this value as default if no translated text if found.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>|<code>undefined</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{object|undefined} [localeDictionary] Use the provided locale dictionary.",
+        "name": "[localeDictionary]",
+        "description": "Use the provided locale dictionary.",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>|<code>undefined</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{string} The translated text.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "The translated text."
+      }
+    ],
+    "description": {
+      "full": "Get translated text for element with the specified `data-locale-id` attribute.",
+      "summary": "Get translated text for element with the specified `data-locale-id` attribute.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 58,
+    "codeStart": 66,
+    "code": "Localizer.prototype.getLocaleString = function(localeId, defaultText, localeDictionary) {\n    let retval = null;\n    // try user provided locale if passed\n    if (localeDictionary) {\n        retval = getDictionaryItem(localeId, localeDictionary);\n    }\n    // try current locale\n    if (retval == null) {\n        retval = getDictionaryItem(localeId, localesDictionary.global[currentLanguage]);\n    }\n    // fallback to default locale\n    if (retval == null && localesDictionary.global[currentLanguage] !== localesDictionary.global['default'] && localesDictionary.global['default'] != null) {\n        retval = getDictionaryItem(localeId, localesDictionary.global['default']);\n    }\n    if (retval == null) {\n        _log.w('WARNING (Locales.GetLocaleString): \"' + localeId + '\" is undefined.');\n    }\n    return (retval == null && defaultText ? defaultText : retval);\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "Localizer",
+      "cons": "Localizer",
+      "name": "getLocaleString",
+      "string": "Localizer.prototype.getLocaleString()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "return",
+        "string": "{string} Locale identifier string (eg. 'en' ,'fr', 'it', ...)",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "Locale identifier string (eg. 'en' ,'fr', 'it', ...)"
+      }
+    ],
+    "description": {
+      "full": "Get client language settings.",
+      "summary": "Get client language settings.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 86,
+    "codeStart": 91,
+    "code": "Localizer.prototype.getUserLanguage = function() {\n    let userLang = (navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage));\n    if (userLang.length > 2) userLang = userLang.substring(0, 2);\n    return userLang;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "Localizer",
+      "cons": "Localizer",
+      "name": "getUserLanguage",
+      "string": "Localizer.prototype.getUserLanguage()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "return",
+        "string": "{string} 'L' if date format is 'Little Endian -> DMY' or 'M' for 'Middle Endian -> MDY'",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "'L' if date format is 'Little Endian -> DMY' or 'M' for 'Middle Endian -> MDY'"
+      }
+    ],
+    "description": {
+      "full": "Get client date format endian type. This value can be used as a rough-guess of other locale settings such as measuring units.",
+      "summary": "Get client date format endian type. This value can be used as a rough-guess of other locale settings such as measuring units.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 97,
+    "codeStart": 101,
+    "code": "Localizer.prototype.getDateEndianType = function() {\n    const testDate = new Date(98326800000);\n    const localeDateParts = testDate.toLocaleDateString().replace(/[\\u200E]/g, '').split('/');\n    let endianType = 'L';\n    if (localeDateParts[0] == '2') endianType = 'M';\n    // L = Little Endian -> DMY\n    // M = Middle Endian -> MDY\n    return endianType;\n};\n\n// TODO: Add the following missing methods...\n// Localizer.prototype.loadDictionary = function(langurl, callback) { ... }\n// Localizer.prototype.loadDefault = function(callback) { ... }",
+    "ctx": {
+      "type": "method",
+      "constructor": "Localizer",
+      "cons": "Localizer",
+      "name": "getDateEndianType",
+      "string": "Localizer.prototype.getDateEndianType()"
+    }
+  },
+  {
+    "tags": [],
+    "description": {
+      "full": "TODO: getMeasuringUnits ...\n $$.getTemperatureUnit = function()\n {\n const temperatureUnit = HG.WebApp.Store.get('UI.TemperatureUnit');\n if (temperatureUnit != 'C' && (temperatureUnit == 'F' || $$.GetDateEndianType() == 'M'))\n return 'Fahrenheit';\n else\n return 'Celsius';\n };",
+      "summary": "TODO: getMeasuringUnits ...\n $$.getTemperatureUnit = function()\n {\n const temperatureUnit = HG.WebApp.Store.get('UI.TemperatureUnit');\n if (temperatureUnit != 'C' && (temperatureUnit == 'F' || $$.GetDateEndianType() == 'M'))\n return 'Fahrenheit';\n else\n return 'Celsius';\n };",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 114,
+    "codeStart": 126,
+    "code": "module.exports = Localizer;\n\n\n// ---------------------------------------------\n\n\nlet currentLanguage = 'default';\nconst localesDictionary = {};",
+    "ctx": {
+      "type": "property",
+      "receiver": "module",
+      "name": "exports",
+      "value": "Localizer",
+      "string": "module.exports"
+    }
+  },
+  {
+    "tags": [],
+    "description": {
+      "full": "// example locale dictionary instance\nlocalesDictionary['global'] = {\n    default: this.en,\n    en: {\n        'abc': 'def',\n        'ghi': 'jkl'\n    },\n    it: {\n        'abc': 'pippo',\n        'ghi': 'pluto',\n        'example': function (el, localeID) {\n\n        }\n    }\n};\nlocalesDictionary['other-scope'] = {\n    // ...\n};",
+      "summary": "// example locale dictionary instance\nlocalesDictionary['global'] = {\n    default: this.en,\n    en: {\n        'abc': 'def',\n        'ghi': 'jkl'\n    },\n    it: {\n        'abc': 'pippo',\n        'ghi': 'pluto',\n        'example': function (el, localeID) {",
+      "body": "        }\n    }\n};\nlocalesDictionary['other-scope'] = {\n    // ...\n};"
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 135,
+    "codeStart": 156,
+    "code": "function getDictionaryItem(localeId, localeDictionary) {\n    for (let id in localeDictionary) {\n        if (id == localeId) {\n            return localeDictionary[id];\n        }\n    }\n}",
+    "ctx": {
+      "type": "function",
+      "name": "getDictionaryItem",
+      "string": "getDictionaryItem()"
+    }
+  }
+]

@@ -1,0 +1,29 @@
+div {
+    font-size: 102%;
+}
+p {
+    margin-bottom: 12px;
+    line-height: 140%;
+    font-weight: 200;
+}
+
+.material-icons {
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 110%;
+    vertical-align: middle;
+}
+
+cite {
+    font-size: 60%;
+    text-wrap: avoid;
+    white-space: nowrap;
+}
+.mdl-mini-footer, .mdl-logo {
+    background-color: rgb(255,235,59);
+    color: dimgrey;
+}
+.mdl-mini-footer a {
+    color: #545454;
+    text-decoration: none;
+}

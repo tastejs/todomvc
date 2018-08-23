@@ -1,0 +1,98 @@
+<p>(Photo © Racorn | Dreamstime)</p>
+<h2 id="whatiswebpageappbundling">What is web page/app bundling?</h2>
+<p>Bundling is the process of collecting all resources used in a page and then compiling them into a single and optimized file.</p>
+<p>This will drastically reduce the number of network requests the browser will have to do to complete the page loading that will so load the page faster.</p>
+<p>There are actually two way of doing this:</p>
+<ul>
+<li><p><strong>In-Browser</strong> bundler:
+this method does not require any build tool nor plugins, it just works in the browser as-is.</p></li>
+<li><p><strong>Web-Starter</strong> bundler:
+is the <a href="https://github.com/genemars/zuix-web-starter">zuix-web-starter</a> bare template, with a bunch of extra features and enhancements. It requires <em>Node.js</em> to be installed.</p></li>
+</ul>
+<h2 id="inbrowserbundling">In-Browser bundling</h2>
+<p>Usually when a website or application is ready for production you can decide to bundle it in order to gain better performances. All of its components and resources will be crunched into a single file and loaded from memory rather than from network/localhost.</p>
+<h3 id="stepbystepguide">Step by step guide</h3>
+<p>Include the <strong>zuix-bundler</strong> extension script in your app right after the main <em>zuix</em> script inclusion:</p>
+<pre><code class="html language-html">&lt;script src="js/zuix.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://genielabs.github.io/zuix/js/zuix-bundler.min.js"&gt;&lt;/script&gt;
+</code></pre>
+<p>After adding this script you can reload the page and generate the application bundle by typing in the <strong>developer console</strong> of the browser the command</p>
+<pre><code class="javascript language-javascript">zuix.saveBundle()
+</code></pre>
+<p>This will create and save the <strong>app.bundle.js</strong> file to the <em>Downloads</em> folder.</p>
+<p>Copy the generated file to your website/app root and include it right after the main <em>zuix</em> script inclusion.</p>
+<pre><code class="html language-html">&lt;script src="js/zuix.min.js"&gt;&lt;/script&gt;
+&lt;script src="app.bundle.js"&gt;&lt;/script&gt;
+</code></pre>
+<p>Remove the <code>zuix-bundler</code> script inclusion from your app after the bundle is created.</p>
+<h3 id="remarks">Remarks</h3>
+<p>When using <em>lazy-loading</em> only components loaded so far will be included in the bundle (incremental bundling).</p>
+<p>To force inclusion of all components/resources used in the app, issue the following commands in the console:</p>
+<pre><code class="javascript language-javascript">// disable lazy-loading
+zuix.lazyLoad(false)
+// force loading of all components
+zuix.componentize()
+// create the bundle
+zuix.saveBundle()
+</code></pre>
+<p>Also external JavaScript libraries and CSS files can be included in the app bundle. In order to achieve this, remove the <code>&lt;script src="..."&gt;&lt;/script&gt;</code> or <code>&lt;link rel="stylesheet"&gt;</code> and use the method <code>zuix.using(...)</code> instead to load the script/css.</p>
+<pre><code class="javascript language-javascript">// Loading a .css style
+const flaCss = 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css';
+zuix.using('style', flaCss, function(res, styleObject) {
+    console.log("Added Flex Layout Attributes CSS.", res, styleObject);
+});
+// Loading a .js script
+const momentJs = 'https://momentjs.com/downloads/moment.js';
+zuix.using('script', momentJs, function(res, scriptObject){
+    console.log("Added Moment.js.", res, scriptObject);
+});
+// Loading a zuix component
+zuix.using('component', '@lib/extensions/animate_css', function(res, componentContext){
+   console.log("Added AnimateCSS extension for zUIx.", res, componentContext);
+});
+</code></pre>
+<p>If the <code>zuix.using</code> method is called on a resource that was already loaded, it will just ignore the request.</p>
+<p>This method is also used to create <strong>self-contained components</strong> that can be loaded without having to worry about external dependencies to include.</p>
+<h2 id="example">Example</h2>
+<p>As an example I remixed the <em>zuix-app-4</em> of my previous post into <a href="https://zuix-app-5.glitch.me">zuix-app-5</a>.</p>
+<p>In case you missed my previous post:</p>
+<p>[[ DEV.TO POST https://dev.to/genejams/adding-a-viewpager-to-the-mobile-web-app-n67 ]]</p>
+<p>This is the new <a href="https://glitch.com/edit/#!/zuix-app-5">source code</a> and this is what I did:</p>
+<ul>
+<li>replaced the 'fake list' with a real list (<code>components/news_list</code>) that can load data from an RSS feed</li>
+<li>replaced the <code>components/random_item</code> with a <code>components/news_list/item</code> and <code>components/news_list/item_mini</code></li>
+<li>removed all <em>scripts</em> and <em>css</em> inclusions from the <code>head</code> section of <code>index.html</code> and added them with <code>zuix.using(..)</code> to the <code>index.js</code></li>
+</ul>
+<p>I wanted the RSS feed to be the one from <em>Google News</em>, but unfortunately Google no longer give this service (so sad), so I ended up using the <em>CNN</em> feed as it was the only feed with nice images and up-to-date titles.</p>
+<p><img src="https://media.giphy.com/media/5WmyaeDDlmb1m/giphy.gif" alt="even more sad" /></p>
+<p>Most feeds of this kind do not allow downloading from a different domain so I used the <code>cors-anywhere.herokuapp.com</code> proxy to hack <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a> behavior. This proxy gets very slow sometimes, but that's ok for an example.</p>
+<p>So, to sum up, the <a href="https://zuix-app-5.glitch.me">zuix-app-5</a> is the version without the <code>app.bundle.js</code> (not bundled) and I used it to create the bundled version that is available on <a href="https://zuix-app-6.glitch.me">zuix-app-6</a>.</p>
+<p>Here is a comparison between the two versions.</p>
+<h4 id="zuixapp5totalfiles18">zuix-app-5 total files <strong>18</strong></h4>
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/g02hdgw86q2nfivsfhzu.png" alt="zuix-app-5 files" /></p>
+<h4 id="zuixapp5networkperformance">zuix-app-5 network performance</h4>
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/2gk48dshoa4zok3rh1z4.png" alt="zuix-app-5 perf" /></p>
+<h4 id="zuixapp6totalfiles4">zuix-app-6 total files <strong>4</strong></h4>
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/e6g0ex68dmf08msb41rf.png" alt="zuix-app-6 files" /></p>
+<h4 id="zuixapp6networkperformance">zuix-app-6 network performance</h4>
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/ysapo252grk4t7g2xa4p.png" alt="zuix-app-6 perf" /></p>
+<p><img src="https://media.giphy.com/media/5VKbvrjxpVJCM/giphy.gif" alt="cool" /></p>
+<p>This is the <a href="https://glitch.com/edit/#!/zuix-app-6">source code</a> for <code>zuix-app-6</code>.</p>
+<h2 id="webstarterbundling">Web Starter bundling</h2>
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/wkumb20jphd5k5a8mt22.gif" alt="zUIx Web Starter" /></p>
+<p>The image above shows the bundling process of <code>zuix-web-starter</code> used for the zuix website itself.</p>
+<p>But… since it's already kind of a long post, I'll just briefly put the main features here:</p>
+<ul>
+<li>zUIx web components and app bundler</li>
+<li>Static Site</li>
+<li>Front-Matter</li>
+<li>Data Files</li>
+<li>Helpers</li>
+<li>Collections</li>
+<li>Templates</li>
+<li>LESS to CSS compiling</li>
+<li>ESLint .js code linting</li>
+<li>Minifier</li>
+<li>Progressive Web App generator</li>
+</ul>
+<p><img src="https://media.giphy.com/media/3o7btYYfqOuQAz7SYE/giphy.gif" alt="gotta go" /></p>

@@ -1,0 +1,45 @@
+<h1 id="thebeginning">The beginning</h1>
+<p>When I started to write <a href="https://genielabs.github.io/zuix">zUIx.js</a>, in December 2016, my intention was to re-arrange and create a library out of some code I had written back in 2012 for HomeGenie web UI.</p>
+<p><em>In the picture below you can see the old, but still good, HomeGenie web UI.</em></p>
+<p><img src="https://genielabs.github.io/HomeGenie/images/docs/dashboard_page_01.jpg" alt="HomeGenie Web UI" /></p>
+<p>The cool thing about this smart home software is that one can customize and write new widgets by using the integrated web editor (you can read more about this in the <a href="https://genielabs.github.io/HomeGenie/#/develop/widgets">documentation page</a>).</p>
+<p>So, in the process of writing this new UI library, I ended up creating <em>zUIx.js</em>, which got way beyond HomeGenie widgets by introducing the concept of loadable content, components, lazy-loading, templates, theming and much more.</p>
+<h1 id="creatingacomponent">Creating a component</h1>
+<p>As an example we're going to create a 'clock' component that displays the current date and time.
+First we include the <code>zuix.min.js</code> library in the <code>head</code> section of the document:</p>
+<pre><code class="html language-html">&lt;script src="https://genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;
+</code></pre>
+<p>then we create 3 files for the <code>mytime</code> component:</p>
+<ul>
+<li>components/mytime.css</li>
+<li>components/mytime.html</li>
+<li>components/mytime.js</li>
+</ul>
+<p>To actually load the component in the main <code>index.html</code> file we add the following line:</p>
+<pre><code class="html language-html">&lt;div data-ui-load="components/mytime"&gt;&lt;/div&gt;
+</code></pre>
+<p>That's it, super-duper easy <strong>=)</strong> See the live example below.</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/mytime?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<p>Also simple content and templates can be split and loaded in a similar way, but there's no <code>.js</code> file and <code>data-ui-include</code> attribute is used in place of <code>data-ui-load</code>.</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/mdlcard?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<h1 id="reusabilityatitsfinest">Reusability at its finest</h1>
+<p>The reusability concept is intrinsic for components. So, nothing new here. But what if we could use and reuse components, content and templates from across websites with no need of creating duplicates?</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/reuse?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<p>A closer look at the above example will show that we're loading two components that are physically stored on two different hosts (<em>mytime.glitch.me</em> and <em>mdlcard.glitch.me</em>).</p>
+<h1 id="boostingperformance">Boosting performance</h1>
+<p><em>Lazy-loading</em> is a built-in feature of this library and it can boost website speed by loading content and components only when they are visible in the screen.
+This can make a huge difference when dealing with big data-sets.</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/lazyload?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<h1 id="moreexamples">More Examples</h1>
+<p>Well, that is already much information for an introduction, so for now I'll leave a few links for those who want to explore further or perhaps contribute.</p>
+<ul>
+<li><p><a href="https://genielabs.github.io/zuix">zUIx</a>
+Library website with documentation and examples.</p></li>
+<li><p><a href="https://genielabs.github.io/zkit">zKit</a>
+A collection of ready to use components for modern web.</p></li>
+<li><p><a href="https://github.com/genemars/zuix-web-starter">Web Starter Project</a>
+If you are familiar with <em>Node.js</em> you might appreciate the <em>zuix-web-starter</em> which is a "blank" web project featuring LESS, Markdown, Minify, ESlint checks, automatic resource packing, PWA optimizations and much more.</p></li>
+<li><p><a href="https://github.com/genielabs/zuix-web-book">WebBook</a>
+A web-book app template that can work offline (based on <em>zuix-web-starter</em>).</p></li>
+</ul>
+<p>In the meantime if you have any question or just want to say 'Hi' feel free to leave a comment down below.</p>

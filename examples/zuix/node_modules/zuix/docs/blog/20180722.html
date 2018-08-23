@@ -1,0 +1,60 @@
+<p>First we add the header bar, with the logo and a menu button.</p>
+<pre><code class="html language-html">&lt;div class="logo"&gt;
+    &lt;a href="/"&gt;app-logo&lt;/a&gt;
+&lt;/div&gt;
+&lt;div data-ui-load="@lib/components/hamburger_icon"
+     data-ui-options="options.menuButton"
+     class="menu-button"&gt;&lt;/div&gt;
+</code></pre>
+<p>See the actual code in the <code>layout</code> folder of the example below</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/zuix-app-1?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<p>To take some action when the menu button is clicked we "pass" to the <code>data-ui-options</code> attribute the <code>options.menuButton</code> object which is defined in the <code>index.js</code> like this</p>
+<pre><code class="js language-js">  menuButton: {
+    on: {
+      'menu:open': function() {
+        // TODO: handle event
+      },
+      'menu:close': function() {
+        // TODO: handle event
+      }
+    }
+  }
+</code></pre>
+<p>Next we add a so called <code>DrawerLayout</code> which is basically a panel that contains the app menu and it will show in when the menu button is clicked or with a swipe gesture from left edge to the right.</p>
+<pre><code class="html language-html">&lt;div data-ui-load="@lib/controllers/drawer_layout"
+  data-ui-options="options.drawerLayout"&gt;
+
+  &lt;!-- Add Navigation Drawer menu and content here --&gt;
+
+&lt;/div&gt;
+</code></pre>
+<p>Also for the drawer layout component we pass the <code>options.drawerLayout</code> object, so we can open/close the menu button as well, when the drawer is open/closed.</p>
+<pre><code class="js language-js">  drawerOptions: {
+    on: {
+      'drawer:open': function(e) {
+        if (menuButton) menuButton.open();
+      },
+      'drawer:close': function(e) {
+        if (menuButton) menuButton.close();
+      }
+    }
+  }
+</code></pre>
+<p>And the following is the live example (swipe from left edge or click the menu button)</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/zuix-app-2?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<p>Now if we put a very long content in the page we might want the header to fade out/in as the user scrolls up/down.
+For the purpose we load the <code>header_auto_hide</code> component on the <code>body</code> element.</p>
+<pre><code class="html language-html">&lt;body data-ui-load="@lib/controllers/header_auto_hide"
+      data-o-target="header-bar"&gt;
+</code></pre>
+<p>And this was the last piece of this mobile app layout</p>
+<p><div class="glitch-embed-wrap" style="height: 420px; width: 100%;"><iframe src="https://glitch.com/embed/#!/embed/zuix-app-3?path=README.md&previewSize=100&previewFirst=true" style="height: 100%; width: 100%; border: 0;"></iframe></div></p>
+<p>That's it. Things we've been using so far:</p>
+<ul>
+<li><a href="https://genielabs.github.io/zkit/docs/components/hamburger_icon">hamburger_icon</a></li>
+<li><a href="https://genielabs.github.io/zkit/docs/controllers/drawer_layout">drawer_layout</a></li>
+<li>header<em>auto</em>hide</li>
+<li><a href="https://genielabs.github.io/zuix">zuix</a></li>
+</ul>
+<p>Read next:</p>
+<p>[[ DEV.TO POST https://dev.to/genejams/unique-lovely-web-bits--dfk ]]</p>

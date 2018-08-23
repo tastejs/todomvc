@@ -1,0 +1,33 @@
+. {
+    margin: 16px;
+    text-align: center;
+}
+.header {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    padding-top: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.time {
+    font-size: 300%;
+    line-height: 100%;
+}
+.date,.day {
+    font-size: 80%;
+    font-weight: 700;
+    line-height: 100%;
+}
+.frame {
+    display: inline-block;
+    width: auto;
+    padding: 16px;
+    border-radius: 12px;
+    border: solid 2px rgba(128,128,128,0.5);
+    -webkit-box-shadow: 0 8px 10px 1px rgba(50,0,0,0.14), 0 3px 14px 2px rgba(50,0,0,0.12), 0 5px 5px -3px rgba(50,0,0,0.3);
+    box-shadow: 0 8px 10px 1px rgba(50,0,0,0.14), 0 3px 14px 2px rgba(50,0,0,0.12), 0 5px 5px -3px rgba(50,0,0,0.3);
+}

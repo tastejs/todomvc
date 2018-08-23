@@ -1,0 +1,1054 @@
+[
+  {
+    "tags": [],
+    "description": {
+      "full": "Copyright 2015-2017 G-Labs. All Rights Reserved.\n        https://genielabs.github.io/zuix\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n     http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "summary": "Copyright 2015-2017 G-Labs. All Rights Reserved.\n        https://genielabs.github.io/zuix",
+      "body": "Licensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n     http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License."
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 1,
+    "codeStart": 17
+  },
+  {
+    "tags": [
+      {
+        "type": "author",
+        "string": "Generoso Martello <generoso@martello.com>"
+      }
+    ],
+    "description": {
+      "full": "This file is part of\n zUIx, Javascript library for component-based development.\n       https://genielabs.github.io/zuix",
+      "summary": "This file is part of\n zUIx, Javascript library for component-based development.\n       https://genielabs.github.io/zuix",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 18,
+    "codeStart": 27,
+    "code": "'use strict';\n\nconst z$ =\n    require('../helpers/ZxQuery');",
+    "ctx": false
+  },
+  {
+    "tags": [
+      {
+        "type": "typedef",
+        "string": "{Object} ContextController",
+        "types": [
+          "Object"
+        ],
+        "typesDescription": "<code>Object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{function} init Function that gets called after loading and before the component is created.",
+        "name": "init",
+        "description": "Function that gets called after loading and before the component is created.",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{function} create Function that gets called after loading, when the component is actually created and ready.",
+        "name": "create",
+        "description": "Function that gets called after loading, when the component is actually created and ready.",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{function} update Function called when the data model of the component is updated.",
+        "name": "update",
+        "description": "Function called when the data model of the component is updated.",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "property",
+        "string": "{function} destroy Function called when the component is destroyed.",
+        "name": "destroy",
+        "description": "Function called when the component is destroyed.",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "ContextController user-defined handlers definition",
+      "summary": "ContextController user-defined handlers definition",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 32,
+    "codeStart": 41
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "string": "{ComponentContext} context",
+        "name": "context",
+        "description": "",
+        "types": [
+          "ComponentContext"
+        ],
+        "typesDescription": "<a href=\"ComponentContext.html\">ComponentContext</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController}",
+        "types": [
+          "ContextController"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": ""
+      },
+      {
+        "type": "constructor",
+        "string": ""
+      }
+    ],
+    "description": {
+      "full": "ContextController constructor.",
+      "summary": "ContextController constructor.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": true,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 42,
+    "codeStart": 49,
+    "code": "function ContextController(context) {\n    const _t = this;\n\n    this._view = null;\n\n    this.context = context;",
+    "ctx": {
+      "type": "constructor",
+      "name": "ContextController",
+      "string": "ContextController()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "package",
+        "string": ""
+      },
+      {
+        "type": "type",
+        "string": "{!Array.<ZxQuery>}",
+        "types": [
+          "Array.<ZxQuery>"
+        ],
+        "typesDescription": "!<code>Array</code>.&lt;<a href=\"ZxQuery.html\">ZxQuery</a>&gt;",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": true,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 56,
+    "codeStart": 60,
+    "code": "this._fieldCache = [];\n\n// Interface methods",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_fieldCache",
+      "value": "[]",
+      "string": "this._fieldCache"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "type",
+        "string": "{function}",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 64,
+    "codeStart": 65,
+    "code": "this.init = null;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "init",
+      "value": "null",
+      "string": "this.init"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "type",
+        "string": "{function}",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 66,
+    "codeStart": 67,
+    "code": "this.create = null;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "create",
+      "value": "null",
+      "string": "this.create"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "type",
+        "string": "{function}",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 68,
+    "codeStart": 69,
+    "code": "this.update = null;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "update",
+      "value": "null",
+      "string": "this.update"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "type",
+        "string": "{function}",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 70,
+    "codeStart": 71,
+    "code": "this.destroy = null;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "destroy",
+      "value": "null",
+      "string": "this.destroy"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected"
+      },
+      {
+        "type": "type",
+        "string": "{!Array.<Element>}",
+        "types": [
+          "Array.<Element>"
+        ],
+        "typesDescription": "!<code>Array</code>.&lt;<code>Element</code>&gt;",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": true,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 73,
+    "codeStart": 77,
+    "code": "this._childNodes = [];",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_childNodes",
+      "value": "[]",
+      "string": "this._childNodes"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "type",
+        "string": "{function}",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 78,
+    "codeStart": 79,
+    "code": "this.saveView = function() {\n    this.restoreView();\n    this.view().children().each(function(i, el) {\n        _t._childNodes.push(el);\n    });\n};\nthis.restoreView = function() {\n    if (this._childNodes.length > 0) {\n        _t.view().html('');\n        z$.each(_t._childNodes, function(i, el) {\n            _t.view().append(el);\n        });\n        this._childNodes.length = 0;\n    }\n};\n\nthis.on = function(eventPath, handler) {\n    this.addEvent(eventPath, handler);\n    return this;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "this",
+      "name": "saveView",
+      "string": "this.saveView()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected"
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 99,
+    "codeStart": 100,
+    "code": "this.mapEvent = function(eventMap, target, eventPath, handler) {\n    if (target != null) {\n        target.off(eventPath, this.eventRouter);\n        eventMap[eventPath] = handler;\n        target.on(eventPath, this.eventRouter);\n    } else {\n        // TODO: should report missing target\n    }\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "this",
+      "name": "mapEvent",
+      "string": "this.mapEvent()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected"
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 109,
+    "codeStart": 110,
+    "code": "this.eventRouter = function(e) {\n    if (typeof context._behaviorMap[e.type] === 'function') {\n        context._behaviorMap[e.type].call(_t.view(), e, e.detail);\n    }\n    if (typeof context._eventMap[e.type] === 'function') {\n        context._eventMap[e.type].call(_t.view(), e, e.detail);\n    }\n    // TODO: else-> should report anomaly\n};\n\n// create event map from context options\nconst options = context.options();\nlet handler = null;\nif (options.on != null) {\n    for (let ep in options.on) {\n        if (options.on.hasOwnProperty(ep)) {\n            handler = options.on[ep];\n            _t.addEvent(ep, handler);\n        }\n    }\n}\n// create behavior map from context options\nif (options.behavior != null) {\n    for (let bp in options.behavior) {\n        if (options.behavior.hasOwnProperty(bp)) {\n            handler = options.behavior[bp];\n            _t.addBehavior(bp, handler);\n        }\n    }\n}\n\ncontext.controller().call(this, this);\n\nreturn this;\n}\n\n// TODO: add jsDoc\nContextController.prototype.addEvent = function(eventPath, handler) {\nthis.mapEvent(this.context._eventMap, this.view(), eventPath, handler);\nreturn this;\n};\n\n// TODO: add jsDoc\nContextController.prototype.addBehavior = function(eventPath, handler) {\nthis.mapEvent(this.context._behaviorMap, this.view(), eventPath, handler);\nreturn this;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "this",
+      "name": "eventRouter",
+      "string": "this.eventRouter()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>**Example - HTML code of the view**</small>\n<pre><code class=\"language-html\">\n<h1 data-ui-field=\"title\">...</h1>\n<p data-ui-field=\"description\">...</p>\n</code></pre>\n\n<small>**Example - JavaScript**</small>\n<pre><code class=\"language-js\">\ncp.field('title')\n  .html('Hello World!');\nvar desc = cp.field('description');\ndesc.html('The spectacle before us was indeed sublime.');\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{!string} fieldName Value to match in the `data-ui-field` attribute.",
+        "name": "fieldName",
+        "description": "Value to match in the `data-ui-field` attribute.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "!<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": true,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ZxQuery} A `{ZxQuery}` object wrapping the matching element.",
+        "types": [
+          "ZxQuery"
+        ],
+        "typesDescription": "<a href=\"ZxQuery.html\">ZxQuery</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "A `{ZxQuery}` object wrapping the matching element."
+      }
+    ],
+    "description": {
+      "full": "Gets elements in the component view with `data-ui-field`\nmatching the given `fieldName`.\nThis method implements a caching mechanism and automatic\ndisposal of allocated objects and events.",
+      "summary": "Gets elements in the component view with `data-ui-field`\nmatching the given `fieldName`.\nThis method implements a caching mechanism and automatic\ndisposal of allocated objects and events.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 158,
+    "codeStart": 184,
+    "code": "ContextController.prototype.field = function(fieldName) {\n    // this method is \"attached\" from Zuix.js on controller initialization\n    return null;\n};\nContextController.prototype.clearCache = function() {\n    this._fieldCache.length = 0;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "field",
+      "string": "ContextController.prototype.field()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre><code class=\"language-js\">\n// get all `checkbox` elements with `.checked` class.\nvar choices = cp.view('input[type=\"checkbox\"].checked');\nchoices.removeClass('.checked');\n// hide the component's view\ncp.view().hide();\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{(string|undefined)} [filter]",
+        "name": "[filter]",
+        "description": "",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>|<code>undefined</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ZxQuery}",
+        "types": [
+          "ZxQuery"
+        ],
+        "typesDescription": "<a href=\"ZxQuery.html\">ZxQuery</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": ""
+      }
+    ],
+    "description": {
+      "full": "Gets the component view or if `filter` argument is passed,\ngets the view elements matching the given `filter`\n(shorthand for `cp.view().find(filter)`).",
+      "summary": "Gets the component view or if `filter` argument is passed,\ngets the view elements matching the given `filter`\n(shorthand for `cp.view().find(filter)`).",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 191,
+    "codeStart": 210,
+    "code": "ContextController.prototype.view = function(filter) {\n    // context view changed, dispose cached fields from previous attacched view\n    if (this.context.view() != null || this._view !== this.context.view()) {\n        this.clearCache();\n        // TODO: !!!!\n        // TODO: dispose also events on view change (!!!)\n        // TODO: !!!!\n        this._view = z$(this.context.view());\n    }\n    if (filter != null) {\n        return this._view.find(filter);\n    } else if (this._view !== null) {\n        return this._view;\n    } else {\n        throw new Error('Not attached to a view yet.');\n    }\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "view",
+      "string": "ContextController.prototype.view()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre><code class=\"language-js\">\nvar m = {\n     title: 'Thoughts',\n     message: 'She stared through the window at the stars.'\n };\ncp.model(m);\ncp.model().title = 'Changes';\nconsole.log(cp.model().title);\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{object|undefined} [model] The model object.",
+        "name": "[model]",
+        "description": "The model object.",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>|<code>undefined</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController|object}",
+        "types": [
+          "ContextController",
+          "object"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>|<code>object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": ""
+      }
+    ],
+    "description": {
+      "full": "Gets/Sets the data model of the component.",
+      "summary": "Gets/Sets the data model of the component.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 227,
+    "codeStart": 246,
+    "code": "ContextController.prototype.model = function(model) {\n    if (model == null) {\n        return this.context.model();\n    } else this.context.model(model);\n    return this;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "model",
+      "string": "ContextController.prototype.model()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "return",
+        "string": "{object} The component options.",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "The component options."
+      }
+    ],
+    "description": {
+      "full": "Gets the component options.",
+      "summary": "Gets the component options.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 252,
+    "codeStart": 257,
+    "code": "ContextController.prototype.options = function() {\n    return this.context.options();\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "options",
+      "string": "ContextController.prototype.options()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre><code class=\"language-js\">\n// somewhere inside the slide-show component controller\ncp.trigger('slide:change', slideIndex);\n\n// somewhere in a page hosting the slide-show component\n// set component event listeners\nzuix.context('my-slide-show')\n  .on('slide:change', function(slideIndex) { ... })\n  .on(...);\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{string} eventPath The event path.",
+        "name": "eventPath",
+        "description": "The event path.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{object} eventData The event data.",
+        "name": "eventData",
+        "description": "The event data.",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{boolean} [isHook] Trigger as global hook event.",
+        "name": "[isHook]",
+        "description": "Trigger as global hook event.",
+        "types": [
+          "boolean"
+        ],
+        "typesDescription": "<code>boolean</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController}",
+        "types": [
+          "ContextController"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": ""
+      }
+    ],
+    "description": {
+      "full": "Triggers the component event `eventPath` with the given\n`eventData` object. To listen to a component event use the\n`{ComponentContext}.on(eventPath, handler)` method or\nin case `isHook` is set to true, use the\n`zuix.hook(eventPath, handler)` method (global hook event).",
+      "summary": "Triggers the component event `eventPath` with the given\n`eventData` object. To listen to a component event use the\n`{ComponentContext}.on(eventPath, handler)` method or\nin case `isHook` is set to true, use the\n`zuix.hook(eventPath, handler)` method (global hook event).",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 260,
+    "codeStart": 286,
+    "code": "ContextController.prototype.trigger = function(eventPath, eventData, isHook) {\n    if (this.context._eventMap[eventPath] == null && isHook !== true) {\n        this.addEvent(eventPath, null);\n    }\n    // TODO: ...\n    if (isHook === true) {\n        let target = this.context.container();\n        if (target == null) target = this.context.view();\n        if (target != null) {\n            z$(target)\n                .trigger(eventPath, eventData);\n        }\n        this.context.trigger(this.context, eventPath, eventData);\n    } else {\n        this.view().trigger(eventPath, eventData);\n    }\n    return this;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "trigger",
+      "string": "ContextController.prototype.trigger()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre data-line=\"5\"><code class=\"language-js\">\n// somewhere in the `create` method of the {ContextController}\nzuix.controller(function(cp){\n  cp.create = function() {\n    // ....\n    cp.expose('setSlide', slide);\n  }\n  // ...\n  function slide(slideIndex) { ... }\n  // ...\n});\n// ...\n// calling the exposed method\n// from the component context\nvar ctx = zuix.context('my-slide-show');\nctx.setSlide(2);\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{string|JSON} methodName Name of the exposed function, or list of method-name/function pairs.",
+        "name": "methodName",
+        "description": "Name of the exposed function, or list of method-name/function pairs.",
+        "types": [
+          "string",
+          "JSON"
+        ],
+        "typesDescription": "<code>string</code>|<a href=\"JSON.html\">JSON</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{function} [handler] Reference to the controller member to expose.",
+        "name": "[handler]",
+        "description": "Reference to the controller member to expose.",
+        "types": [
+          "function"
+        ],
+        "typesDescription": "<code>function</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController} The `{ContextController}` itself.",
+        "types": [
+          "ContextController"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "The `{ContextController}` itself."
+      }
+    ],
+    "description": {
+      "full": "Exposes a method or property declared in the private\nscope of the controller as a public member of the\ncomponent context object.",
+      "summary": "Exposes a method or property declared in the private\nscope of the controller as a public member of the\ncomponent context object.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 304,
+    "codeStart": 334,
+    "code": "ContextController.prototype.expose = function(methodName, handler) {\n    if (typeof methodName === 'object') {\n        const _t = this;\n        z$.each(methodName, function(k, v) {\n            _t.context[k] = v;\n        });\n    } else this.context[methodName] = handler;\n    return this;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "expose",
+      "string": "ContextController.prototype.expose()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre><code class=\"language-js\">\n// loads 'path/to/component_name.css' by default\ncp.loadCss();\n// or loads the view css with provided options\ncp.loadCss({\n    path: 'url/of/style/file.css',\n    success: function() { ... },\n    error: function(err) { ... },\n    then: function() { ... }\n});\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{object} [options] The options object.",
+        "name": "[options]",
+        "description": "The options object.",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController} The ```{ContextController}``` object itself.",
+        "types": [
+          "ContextController"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "The ```{ContextController}``` object itself."
+      }
+    ],
+    "description": {
+      "full": "Loads the `.css` file and replace the current view style of the component.\nIf no `options.path` is specified, it will try to load\nthe file with the same base-name as the `componentId`.",
+      "summary": "Loads the `.css` file and replace the current view style of the component.\nIf no `options.path` is specified, it will try to load\nthe file with the same base-name as the `componentId`.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 343,
+    "codeStart": 366,
+    "code": "ContextController.prototype.loadCss = function(options) {\n    this.context.loadCss(options);\n    return this;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "loadCss",
+      "string": "ContextController.prototype.loadCss()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre><code class=\"language-js\">\n// loads 'path/to/component_name.html' by default\ncp.loadHtml();\n// or loads the view html with provided options\ncp.loadHtml({\n    path: 'url/of/view/file.html',\n    success: function() { ... },\n    error: function(err) { ... },\n    then: function() { ... }\n});\n</code></pre>"
+      },
+      {
+        "type": "param",
+        "string": "{object} [options] The options object.",
+        "name": "[options]",
+        "description": "The options object.",
+        "types": [
+          "object"
+        ],
+        "typesDescription": "<code>object</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController} The ```{ContextController}``` object itself.",
+        "types": [
+          "ContextController"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "The ```{ContextController}``` object itself."
+      }
+    ],
+    "description": {
+      "full": "Loads the `.html` file and replace the view markup of the component.\nIf no `options.path` is specified, it will try to load the\nfile with the same base-name as the `componentId`.",
+      "summary": "Loads the `.html` file and replace the view markup of the component.\nIf no `options.path` is specified, it will try to load the\nfile with the same base-name as the `componentId`.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 370,
+    "codeStart": 393,
+    "code": "ContextController.prototype.loadHtml = function(options) {\n    this.saveView();\n    this.context.loadHtml(options);\n    return this;\n};",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "loadHtml",
+      "string": "ContextController.prototype.loadHtml()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>Example - JavaScript</small>\n<pre><code class=\"language-js\">\n// same as log.info (...)\nlog.i('Component view', ctx.view());\n// same as log.error(...)\nlog.e('Error loading data', dataUrl);\n// other methods are:\n// log.w(...) / log.warn (...)\n// log.d(...) / log.debug(...)\n// log.t(...) / log.trace(...)\n</code></pre>"
+      },
+      {
+        "type": "type",
+        "string": "{Logger}",
+        "types": [
+          "Logger"
+        ],
+        "typesDescription": "<a href=\"Logger.html\">Logger</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "The logger object is \"attached\" upon controller initialization.",
+      "summary": "The logger object is \"attached\" upon controller initialization.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 398,
+    "codeStart": 417,
+    "code": "ContextController.prototype.log = {};",
+    "ctx": {
+      "type": "property",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "log",
+      "value": "{}",
+      "string": "ContextController.prototype.log"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "example",
+        "string": "\n<small>**Example - JavaScript**</small>\n<pre data-line=\"6\"><code class=\"language-js\">\n// Controller of component 'path/to/component_name'\nvar ctrl = zuix.controller(function(cp) {\n    // `cp` is the {ContextController}\n    cp.create = function() { ... };\n    cp.destroy = function() { ... }\n}).for('path/to/component_name');\n</pre></code>"
+      },
+      {
+        "type": "param",
+        "string": "{!string} componentId Component identifier.",
+        "name": "componentId",
+        "description": "Component identifier.",
+        "types": [
+          "string"
+        ],
+        "typesDescription": "!<code>string</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": true,
+        "variable": false
+      },
+      {
+        "type": "return",
+        "string": "{ContextController} The `{ContextController}` itself.",
+        "types": [
+          "ContextController"
+        ],
+        "typesDescription": "<a href=\"ContextController.html\">ContextController</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "The `{ContextController}` itself."
+      }
+    ],
+    "description": {
+      "full": "Register this one as the default controller\nfor the given component type.",
+      "summary": "Register this one as the default controller\nfor the given component type.",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 418,
+    "codeStart": 437,
+    "code": "ContextController.prototype.for = function(componentId) {\n    // this method is \"attached\" from Zuix.js on controller initialization\n    return this;\n};\n\nmodule.exports = ContextController;",
+    "ctx": {
+      "type": "method",
+      "constructor": "ContextController",
+      "cons": "ContextController",
+      "name": "for",
+      "string": "ContextController.prototype.for()"
+    }
+  }
+]

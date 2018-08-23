@@ -1,0 +1,50 @@
+
+<div data-ui-field="fragment-list" class="list-box">
+
+    <div class="heading" layout="row center-spread">
+        <div self="left">
+            <h6>Components</h6>
+        </div>
+        <div self="spread right" align="right"><small>loaded<br/>instances</small></div>
+    </div>
+
+    <div data-ui-field="component-list"
+         data-ui-lazyload="false"
+         data-ui-load="@lib/controllers/list_view">
+
+        loading...
+
+    </div>
+
+    <div layout="row center-justify" class="summary">
+        <div self="left">
+            <small>loaded <span data-ui-field="total-components">--</span> components</small>
+        </div>
+        <div layout="row center-right">
+            <small>total instances <span data-ui-field="total-instances">--</span></small>
+        </div>
+    </div>
+
+</div>
+
+<div data-ui-field="fragment-editor" class="editor-box mdl-color-text--lime-400"
+     layout="row stretch-stretch">
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-color--white" layout="column top-stretch">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#hackbox-editor-js" class="mdl-tabs__tab is-active">JavaScript</a>
+            <a href="#hackbox-editor-html" class="mdl-tabs__tab">HTML</a>
+            <a href="#hackbox-editor-css" class="mdl-tabs__tab">CSS</a>
+        </div>
+        <pre id="hackbox-editor-js"
+             self="size-x1"
+             class="mdl-tabs__panel scrollable-relative is-active"><code data-ui-field="js" class="language-javascript"></code></pre>
+        <pre id="hackbox-editor-html"
+             self="size-x1"
+             class="mdl-tabs__panel scrollable-relative"><code data-ui-field="html" class="language-html"></code></pre>
+        <pre id="hackbox-editor-css"
+             self="size-x1"
+             class="mdl-tabs__panel scrollable-relative"><code data-ui-field="css" class="language-css"></code></pre>
+    </div>
+
+</div>
