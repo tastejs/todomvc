@@ -36,7 +36,6 @@ const frameworkFolders = {
   'angular-dart': 'angular-dart/web',
   'chaplin-brunch': 'chaplin-brunch/public',
   duel: 'duel/www',
-  vanilladart: 'vanilladart/build/web'
 }
 const getExampleFolder = framework => frameworkFolders[framework] || framework
 
@@ -50,7 +49,6 @@ const noLocalStorageCheck = {
   js_of_ocaml: true,
   reagent: true,
   rappidjs: true,
-  kendo: true,
   exoskeleton: true,
   'react-backbone': true,
   puremvc: true,
@@ -60,7 +58,6 @@ const noLocalStorageCheck = {
 }
 
 const noLocalStorageSpyCheck = {
-  spine: true,
   canjs: true,
   canjs_require: true
 }
