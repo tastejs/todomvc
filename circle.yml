@@ -168,7 +168,6 @@ workflows:
       # elm is not working very well
       - typescript-react
       - binding-scala
-      - vanilladart
       - angular-dart
       - serenadejs
       - js_of_ocaml
