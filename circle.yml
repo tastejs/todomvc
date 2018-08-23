@@ -101,8 +101,6 @@ jobs:
     <<: *defaults
   rappidjs:
     <<: *defaults
-  sapui5:
-    <<: *defaults
   react-alt:
     <<: *defaults
   webrx:
@@ -192,8 +190,6 @@ workflows:
       - chaplin-brunch
       - canjs_require
       - rappidjs
-      # Sapui5 is too broken in layout
-      # - sapui5
       - react-alt
       # App internal error
       # - webrx

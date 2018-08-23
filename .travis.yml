@@ -186,10 +186,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=sapui5
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=scalajs-react
       <<: *defaults
     - stage: test
