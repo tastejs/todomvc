@@ -1749,41 +1749,6 @@
 			}]
 		}]
 	},
-	"socketstream": {
-		"name": "SocketStream",
-		"description": "SocketStream 0.3 is a fast, modular Node.js web framework dedicated to building realtime single-page apps.",
-		"homepage": "socketstream.org",
-		"examples": [{
-			"name": "Real-time Example",
-			"url": "examples/socketstream/README.md",
-			"source_url": "examples/socketstream"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Tour",
-				"url": "http://www.socketstream.org/tour"
-			}, {
-				"name": "SocketStream on GitHub",
-				"url": "https://github.com/socketstream"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Video - Owen Barnes introduces SocketStream",
-				"url": "http://www.infoq.com/presentations/SocketStream"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "SocketStream on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/socketstream"
-			}, {
-				"name": "SocketStream on Twitter",
-				"url": "http://twitter.com/socketstream"
-			}]
-		}]
-	},
 	"somajs": {
 		"name": "soma.js",
 		"description": "soma.js is a framework created to build scalable and maintainable javascript applications.",
