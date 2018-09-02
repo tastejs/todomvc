@@ -21,7 +21,7 @@ Here are some links you may find helpful:
 Articles and guides from the community:
 
 * [Thoughts on TypeScript](http://www.nczonline.net/blog/2012/10/04/thoughts-on-typescript)
-* [ScreenCast - Why I Like TypeScript](http://www.leebrimelow.com/why-i-like-typescripts)
+* [ScreenCast - Why I Like TypeScript](https://www.youtube.com/watch?v=Mh5VQVfWTbs)
 
 Get help from other TypeScript users:
 
@@ -40,10 +40,15 @@ It's attractive to people with a background in strongly typed languages, who are
 
 
 ### Editors
-A great editor for TypeScript is Visual Studio 2012 with [TypeScript](http://go.microsoft.com/fwlink/?LinkID=266563) and  [Web Essentials 2012](http://visualstudiogallery.msdn.microsoft.com/07d54d12-7133-4e15-becb-6f451ea3bea6) plugins.
+Several free and commercial editors work very well with TypeScript.
 
-Webstorm has [support for TypeScript](http://blog.jetbrains.com/webstorm/2013/11/enjoy-typescript-in-webstorm/) as well.
+* [Visual Studio Code](https://code.visualstudio.com/download) is a free, [open source](https://github.com/microsoft/vscode) editor from Microsoft that runs on Windows, Mac, and several Linux distros. It has native support for TypeScript.
+* [Visual Studio 2017](https://www.visualstudio.com/downloads/) is available in several editions, including the [Community Edition](https://www.visualstudio.com/vs/community/) that is free for students, open-source, and individual developers, as well as commercial editions for professional developers. All editions except Visual Studio for Mac have native support for TypeScript.
+* [WebStorm](https://www.jetbrains.com/webstorm/) from JetBrains s.r.o. is a commercial editor for JavaScript projects, with native support for TypeScript.
+* The [Sublime text editor](http://www.sublimetext.com/) can support TypeScript with an [open source plug-in](https://github.com/Microsoft/TypeScript-Sublime-Plugin) created by Microsoft.
+* Several other editors are supported, as found [on the GitHub wiki for the TypeScript project](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
 
+Many extensions for Visual Studio and Visual Studio Code are available to enhance your productivity with TypeScript.
 
 ### Ambient declarations
 

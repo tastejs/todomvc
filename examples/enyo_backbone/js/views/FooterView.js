@@ -3,7 +3,9 @@
 // The footer section
 enyo.kind({
 	name: 'ToDo.FooterView',
-	id: 'info',
+	attributes: {
+		class: 'info'
+	},
 	tag: 'footer',
 	components: [{
 		tag: 'p',

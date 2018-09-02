@@ -587,43 +587,6 @@
 			}]
 		}]
 	},
-	"deftjs": {
-		"name": "DeftJS",
-		"description": "DeftJS enhances Ext JS and Sencha Touch’s APIs with additional building blocks that enable large development teams to rapidly build enterprise scale applications, leveraging best practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.",
-		"homepage": "deftjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/extjs_deftjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "https://github.com/deftjs/DeftJS/wiki"
-			}, {
-				"name": "DeftJS on GitHub",
-				"url": "https://github.com/deftjs/DeftJS"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Exploring ExtJS with DeftJS",
-				"url": "http://www.briankotek.com/blog/index.cfm/2012/5/8/Exploring-ExtJS-with-DeftJS"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "DeftJS on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/deftjs"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/deftjs"
-			}, {
-				"name": "DeftJS on Twitter",
-				"url": "http://twitter.com/deftjs"
-			}]
-		}]
-	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",
@@ -711,56 +674,6 @@
 			}, {
 				"name": "DUEL on BitBucket",
 				"url": "https://bitbucket.org/mckamey/duel/src"
-			}]
-		}]
-	},
-	"durandal": {
-		"name": "Durandal",
-		"description": "Single Page Apps Done Right.",
-		"homepage": "durandaljs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/durandal/index.html"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Getting Started",
-				"url": "http://durandaljs.com/pages/get-started/"
-			}, {
-				"name": "Documentation",
-				"url": "http://durandaljs.com/pages/docs"
-			}, {
-				"name": "Videos",
-				"url": "http://durandaljs.com/pages/videos/"
-			}, {
-				"name": "Durandal on GitHub",
-				"url": "https://github.com/BlueSpire/Durandal"
-			}]
-		}
-		, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "HotTowel Template - Durandal with ASP.Net MVC",
-				"url": "http://www.johnpapa.net/hottowel/"
-			}, {
-				"name": "Using Durandal to Create Single Page Apps",
-				"url": "http://stephenwalther.com/archive/2013/02/08/using-durandal-to-create-single-page-apps"
-			},{
-				"name": "nuGet Download",
-				"url": "http://www.nuget.org/packages/Durandal/"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Durandal on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/durandal"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/durandaljs"
-			}, {
-				"name": "Durandal on Twitter",
-				"url": "http://twitter.com/durandaljs"
 			}]
 		}]
 	},
@@ -1445,8 +1358,8 @@
 	},
 	"mithril": {
 		"name": "Mithril",
-		"description": "Mithril is a client-side MVC framework - a tool to organize code in a way that is easy to think about and to maintain.",
-		"homepage": "lhorie.github.io/mithril/",
+		"description": "Mithril is a modern client-side Javascript framework for building Single Page Applications. It's small (< 8kb gzip), fast and provides routing and XHR utilities out of the box.",
+		"homepage": "mithril.js.org",
 		"examples": [{
 			"name": "Architecture Example",
 			"url": "examples/mithril"
@@ -1455,16 +1368,16 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://lhorie.github.io/mithril/getting-started.html"
+				"url": "https://mithril.js.org/#introduction"
 			}, {
 				"name": "API Reference",
-				"url": "http://lhorie.github.io/mithril/mithril.html"
+				"url": "https://mithril.js.org/api.html"
 			}, {
 				"name": "Tutorials",
-				"url": "http://lhorie.github.io/mithril-blog/"
+				"url": "https://mithril.js.org/simple-application.html"
 			}, {
 				"name": "Mithril on Github",
-				"url": "https://github.com/lhorie/mithril.js"
+				"url": "https://github.com/MithrilJS/mithril.js"
 			}]
 		}, {
 			"heading": "Community",
@@ -1475,8 +1388,11 @@
 				"name": "StackOverflow",
 				"url": "http://stackoverflow.com/questions/tagged/mithril.js"
 			}, {
-				"name": "Projects and Snippets",
-				"url": "https://github.com/lhorie/mithril.js/wiki/Community-Projects-and-Snippets"
+				"name": "Community Projects",
+				"url": "https://github.com/MithrilJS/mithril.js/wiki/Community-Projects"
+			}, {
+				"name": "Recipies and Snippets",
+				"url": "https://github.com/MithrilJS/mithril.js/wiki/Recipes-and-Snippets"
 			}]
 		}]
 	},
@@ -1874,7 +1790,7 @@
 				"url": "http://www.scala-js.org/"
 			}, {
 				"name": "React tutorial",
-				"url": "https://facebook.github.io/react/docs/tutorial.html"
+				"url": "https://reactjs.org/tutorial/tutorial.html"
 			}]
 		}, {
 			"heading": "Community",
@@ -2160,7 +2076,7 @@
 				"url": "http://vuejs.org/examples/"
 			}, {
 				"name": "Vue.js on GitHub",
-				"url": "https://github.com/yyx990803/vue"
+				"url": "https://github.com/vuejs/vue"
 			}]
 		}, {
 			"heading": "Community",
@@ -2264,6 +2180,7 @@
 		}]
 	},
 	"templates": {
-		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>"
+		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>",
+		"todomvc-home": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %>"
 	}
 }

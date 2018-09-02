@@ -3,7 +3,9 @@
 // This is the notepad area
 enyo.kind({
 	name: 'ToDo.NotepadView',
-	id: 'todoapp',
+	attributes: {
+		class: 'todoapp'
+	},
 	tag: 'section',
 	// Break the notepad into three easily handled components by purpose.
 	components: [{

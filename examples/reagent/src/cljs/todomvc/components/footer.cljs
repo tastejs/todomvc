@@ -1,7 +1,7 @@
 (ns todomvc.components.footer)
 
 (defn component []
-  [:footer#info
+  [:footer.info
    [:p "Double-click to edit a todo"]
    [:p "Credits: " 
     [:a {:href "https://twitter.com/gadfly361"} "Matthew Jaoudi"] ", "

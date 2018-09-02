@@ -11,6 +11,9 @@
 (defn display-elem [bool] 
   (if bool "inline" "none"))
 
+(defn display-item [bool]
+  (if bool "list-item" "none"))
+
 (defn todo-display-filter [completed display-type]
   (case display-type
     :completed completed

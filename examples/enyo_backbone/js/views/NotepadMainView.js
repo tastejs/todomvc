@@ -5,6 +5,9 @@ enyo.kind({
 	name: 'ToDo.NotepadMainView',
 	tag: 'section', // give it a specific html tagS
 	id: 'main', // force an id value, otherwise enyo makes its own
+	attributes: {
+		class: 'main'
+	},
 	focus: false,
 	showing: false, // hide initially
 	controller: 'ToDo.notepadcontroller', // connect it to the global controller
@@ -14,6 +17,7 @@ enyo.kind({
 		tag: 'input',
 		id: 'toggle-all',
 		attributes: {
+			class: 'toggle-all',
 			type: 'checkbox'
 		},
 		handlers: {
@@ -26,9 +30,9 @@ enyo.kind({
 		}
 	}, {
 		tag: 'label',
-		id: 'toggle-all-label',
 		content: 'Mark all as complete',
 		attributes: {
+			class: 'toggle-all-label',
 			'for': 'toggle-all'
 		}
 	}, {
@@ -40,6 +44,9 @@ enyo.kind({
 		tag: 'ul',
 		name: 'todo-list',
 		id: 'todo-list',
+		attributes: {
+			class: 'todo-list'
+		},
 		// what the table is made of
 		components: [{
 			tag: 'li',
@@ -83,7 +90,7 @@ enyo.kind({
 					},
 					throwEdit: function () {
 						this.inherited(arguments);
-						this.bubble('onStartEdit', parent.$.inputField);
+						this.bubble('onStartEdit');
 						return true;
 					}
 				}, {

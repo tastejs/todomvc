@@ -8,8 +8,8 @@
 		<link rel="stylesheet" href="css/app.css">
 	</head>
 	<body>
-		<section id="todoapp"></section>
-		<footer id="info">
+		<section class="todoapp"></section>
+		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://rich-harris.co.uk">Rich Harris</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
@@ -17,23 +17,23 @@
 
 		<!-- Templates -->
 		<script id="main" type="text/ractive">
-			<header id="header">
+			<header class="header">
 				<h1>todos</h1>
 
 				<!-- In app.js, we define a custom `enter` event, which fires when the user hits the enter key, submitting a new todo. -->
-				<input id="new-todo" on-enter="newTodo" placeholder="What needs to be done?" autofocus>
+				<input class="new-todo" on-enter="newTodo" placeholder="What needs to be done?" autofocus>
 			</header>
 
 			<!--
 			We only render the main section and the footer if we have one or more todos - in other words, `items.length` is not falsy.
 			-->
 			{{#items.length}}
-				<section id="main">
+				<section class="main">
 					<!-- Here, we compare the total number of tasks (`items.length`) with the number of completed tasks (`completedTasks().length`). This calculation happens reactively, so we never need to manually trigger an update. When the `change` event fires on the input, the `toggleAll` event fires on the Ractive instance. -->
-					<input id="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
+					<input id="toggle-all" class="toggle-all" type="checkbox" on-change="toggleAll" checked='{{ items.length === completedTasks().length }}'>
 					<label for="toggle-all">Mark all as complete</label>
 
-					<ul id="todo-list">
+					<ul class="todo-list">
 						{{#items:i}}
 							<!-- The {{>item}} partial is defined in the script tag below -->
 							{{>item}}
@@ -41,13 +41,13 @@
 					</ul>
 				</section>
 
-				<footer id="footer">
-					<span id="todo-count">
+				<footer class="footer">
+					<span class="todo-count">
 						<!-- The number of active tasks updates reactively -->
 						<strong>{{ activeTasks().length }}</strong> {{ activeTasks().length === 1 ? 'item' : 'items' }} left
 					</span>
 
-					<ul id="filters">
+					<ul class="filters">
 						<li>
 							<a class="{{ currentFilter === 'all' ? 'selected' : '' }}" href="#/">All</a>
 						</li>
@@ -62,7 +62,7 @@
 					<!-- This section is only rendered if there are one or more completed tasks -->
 					{{# completedTasks().length }}
 						<!-- When the user clicks this button, the `clearCompleted` event fires -->
-						<button id="clear-completed" on-click="clearCompleted">
+						<button class="clear-completed" on-click="clearCompleted">
 							Clear completed
 						</button>
 					{{/ end of filter }}

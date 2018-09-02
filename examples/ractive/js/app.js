@@ -15,7 +15,7 @@
 	// Create our Ractive instance
 	var todoList = new Ractive({
 		// Specify a target element - an ID, a CSS selector, or the element itself
-		el: 'todoapp',
+		el: '.todoapp',
 
 		// Specify a template, or the ID of a script tag containing the template
 		template: '#main',

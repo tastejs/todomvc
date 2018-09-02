@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><!--
+<html><head><script src="elements.build.js" defer=""></script><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -14,13 +14,13 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---></head><body><div hidden="" by-vulcanize=""><dom-module id="iron-localstorage" assetpath="../bower_components/iron-localstorage/"></dom-module>
-<dom-module id="td-model" assetpath="/">
+--><meta charset="UTF-8"></head><body><div hidden="" by-vulcanize=""><dom-module id="iron-localstorage" assetpath="../bower_components/iron-localstorage/"></dom-module>
+<dom-module id="td-model" assetpath="./">
 	<template strip-whitespace="">
 		<iron-localstorage name="todos-polymer" value="{{items}}" on-iron-localstorage-load-empty="_initializeDefaultTodos"></iron-localstorage>
 	</template>
 	</dom-module>
-<dom-module id="td-item" assetpath="/">
+<dom-module id="td-item" assetpath="">
 	<template strip-whitespace="">
 		<template is="dom-if" if="{{!editing}}" strip-whitespace="">
 			<div on-dblclick="_editAction">
@@ -34,33 +34,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</template>
 	</template>
 	</dom-module>
-<dom-module id="td-todos" assetpath="/">
+<dom-module id="td-todos" assetpath="./">
 	<template strip-whitespace="">
-		<style>			:host {				display: block;			}		</style>
+		<style>			:host{				display:block;			}		</style>
 		<flatiron-director route="{{route}}" hidden=""></flatiron-director>
-		<section id="todoapp">
-			<header id="header">
-				<input is="td-input" id="new-todo" placeholder="What needs to be done?" autofocus="" on-td-input-commit="addTodoAction" on-td-input-cancel="cancelAddTodoAction">
+		<section class="todoapp">
+			<header class="header">
+				<input is="td-input" id="new-todo" class="new-todo" placeholder="What needs to be done?" autofocus="" on-td-input-commit="addTodoAction" on-td-input-cancel="cancelAddTodoAction">
 			</header>
 
 			<template is="dom-if" if="{{items.length}}">
-				<section id="main">
-					<input id="toggle-all" type="checkbox" checked="[[allCompleted]]" on-change="toggleAllCompletedAction">
+				<section class="main">
+					<input id="toggle-all" class="toggle-all" type="checkbox" checked="[[allCompleted]]" on-change="toggleAllCompletedAction">
 					<label for="toggle-all">Mark all as complete</label>
-					<ul id="todo-list" on-td-destroy-item="destroyItemAction">
+					<ul class="todo-list" on-td-destroy-item="destroyItemAction">
 						<template id="todo-list-repeater" is="dom-repeat" items="{{items}}" filter="{{matchesFilter(route)}}" observe="completed" initial-count="10" strip-whitespace="">
 							<li is="td-item" item="{{item}}"></li>
 						</template>
 					</ul>
 				</section>
 
-				<footer id="footer">
-					<span id="todo-count">
+				<footer class="footer">
+					<span class="todo-count">
 						<strong>{{activeCount}}</strong>
 						<span>{{_computeItemsLeft(activeCount)}}</span><span> left</span>
 					</span>
 
-					<iron-selector id="filters" selected="{{route}}" attr-for-selected="route">
+					<iron-selector class="filters" selected="{{route}}" attr-for-selected="route">
 						<li route="">
 							<a href="#/" class$="{{_computeLinkClass(route, '')}}">All</a>
 						</li>
@@ -73,7 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					</iron-selector>
 
 					<template is="dom-if" if="{{anyCompleted}}" strip-whitespace="">
-						<button id="clear-completed" on-tap="clearCompletedAction" style="visibility:visible">Clear completed</button>
+						<button class="clear-completed" on-tap="clearCompletedAction" style="visibility:visible">Clear completed</button>
 					</template>
 
 				</footer>
@@ -82,4 +82,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</section>
 	</template>
 	</dom-module>
-</div><script src="elements.build.js"></script></body></html>
+</div></body></html>

@@ -72,8 +72,10 @@ var app = app || {};
 
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function () {
+			var textLength = this.$input.val().length;
 			this.$el.addClass('editing');
 			this.$input.focus();
+			this.$input[0].setSelectionRange(textLength, textLength);
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
