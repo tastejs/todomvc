@@ -75,12 +75,14 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 ### Unfamiliar Concepts
 
-* jquery (.closest and .data)
-* what is the role of base.js
-* what is the role of director.js
-* handlebars
-* local storage
-* uuid
-* pluralize
-* JSON
-* $
+- [x] jquery .closest() - an element type is passed to the method and it traverses the DOM to find the nearest matching parent element
+- [x] jquery .data() - data is passed a label. this method returns the value of that label
+
+- [ ] what is util?
+- [ ] what is local storage?
+- [ ] what is the role of base.js
+- [ ] what is the role of director.js
+- [ ] handlebars
+- [ ] uuid
+- [ ] pluralize
+- [ ] JSON

@@ -40,6 +40,7 @@ jQuery(function ($) {
 
 	var App = {
 		init: function () {
+			// creating a variable called todos and storing it on the App object
 			this.todos = util.store('todos-jquery');
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
@@ -160,8 +161,17 @@ jQuery(function ($) {
 			this.render();
 		},
 		toggle: function (e) {
+			// a toggle occurs on the App object
+			// an event is passed
+			// we're passing the event target to the getIndexFromEl function
+			// the event target in this case is the toggle button which was selected
+			// the getIndexFromEl method will return the position of the todo item that was selected
+			// this position is set to the variable i
 			var i = this.getIndexFromEl(e.target);
+			// the completed value on this todo item is flipped to its opposite.
+			// If it was marked complete it is not incomplete and vice versa
 			this.todos[i].completed = !this.todos[i].completed;
+			// this renders the current, updated todo list
 			this.render();
 		},
 		editingMode: function (e) {
