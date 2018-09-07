@@ -37,7 +37,11 @@ jQuery(function ($) {
 			// return the uuid
 			return uuid;
 		},
+		// this method accepts two arguments, a count, and a word
+		// the count will come from the activeTodoCount and the word is 'item'
 		pluralize: function (count, word) {
+			// if activeTodoCount is 1 it'll read '1 item'
+			 // otherwise it'll read '[the number] words' (plural)
 			return count === 1 ? word : word + 's';
 		},
 		store: function (namespace, data) {
