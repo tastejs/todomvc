@@ -121,12 +121,22 @@ jQuery(function ($) {
 		// accepts an element from inside the `.item` div and
 		// returns the corresponding index in the `todos` array
 		getIndexFromEl: function (el) {
+			// el is the element that was clicked, in this case the delete button
+			// this is taking that button,
+			// looks for the closest parent li element,
+			// and then it grabs and return the data labeled as id
+			// this data labeled as id is set to the variable id
 			var id = $(el).closest('li').data('id');
+			// this is grabbing the todos array on the object and setting it to the value todos
 			var todos = this.todos;
+			// setting i to the length of the todos array
 			var i = todos.length;
 
+			// this is a loop that will run as long as the decrementer of i is true
 			while (i--) {
+				// we return the value of i (the positionj/index) if the data id on the todo item is equal to the id we'd saved above
 				if (todos[i].id === id) {
+					// returning that position number of the matching todo
 					return i;
 				}
 			}
@@ -175,7 +185,7 @@ jQuery(function ($) {
 			var el = e.target;
 			var $el = $(el);
 			var val = $el.val().trim();
-			
+
 			if ($el.data('abort')) {
 				$el.data('abort', false);
 			} else if (!val) {
@@ -188,10 +198,18 @@ jQuery(function ($) {
 			this.render();
 		},
 		destroy: function (e) {
+			// gets the todos array
+			// splice is passed the position/index of the item to be delete, and the number of items to be deleted
+			// the 1st argument passed to splice is taken from getIndexFromEl
+			// getIndexFromEl is passed the target of the click event
+			// after running the getIndexFromEl we now have a position/index number to pass to the first argument of splice
+			// this tells us which todo to delete based on its position
 			this.todos.splice(this.getIndexFromEl(e.target), 1);
+			// this renders/displays the updated todo list to the screen
 			this.render();
 		}
 	};
 
+	// calling the intialize method on the App object to initialize the entire application
 	App.init();
 });
