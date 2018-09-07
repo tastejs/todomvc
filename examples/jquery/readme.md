@@ -85,6 +85,11 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] ENTER_KEY = a variable saved with all caps is commonly used for global variables
 - [x] blur? - if an element is blurred it loses focus
 - [x] abort? - the input field has a label called abort with a boolean value. I believe this tells the input to escape any new data changes if the boolean is set to true.
+- [ ] pipe |
+- [ ] ? in an evaluation
+- [ ] & in an evaluation
+- [ ] .toString(16) - what does the 16 mean?
+
 
 - [ ] what is util?
 - [ ] what is local storage?
@@ -98,3 +103,4 @@ _If you have other helpful links to share, or find any of the links above no lon
 #### Questions
 
 - [ ] confirm !val within the if statement of the create method - I believe it means to accept more input as long as the current key is still not being pressed
+- [ ] what does the | mean?

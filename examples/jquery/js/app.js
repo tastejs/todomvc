@@ -9,20 +9,32 @@ jQuery(function ($) {
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
+	// a utility object, i think
 	var util = {
+		// a method to generate a random unique id number for todos
 		uuid: function () {
 			/*jshint bitwise:false */
+			// setting variables for i and random
 			var i, random;
+			// setting uuid to an empty string
 			var uuid = '';
-
+			// for loop to run 32 time
 			for (i = 0; i < 32; i++) {
+				// Math.random generates a random floating number between 0 (inclusive) and 1 (not inclusive)
+				// that floating number is multipled by 16
+				// not sure what the | 0 means
 				random = Math.random() * 16 | 0;
+				// after the 8th, 12th, 16th, or 20th iteration
 				if (i === 8 || i === 12 || i === 16 || i === 20) {
+					// add a dash (-) to the uuid string
 					uuid += '-';
 				}
+				// if on the 12th iteration add a 4 to the uuid string
+				// or if it's 16 give a random number
 				uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
 			}
 
+			// return the uuid
 			return uuid;
 		},
 		pluralize: function (count, word) {
