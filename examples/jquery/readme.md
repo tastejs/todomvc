@@ -80,9 +80,11 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] $ - it's a global variable === jQuery
 - [x] .target - tells you which DOM element initiated the event
 - [x] .val - gets the value of the 1st element in a set of matched elements; often used to get input from a form ie. input, select, form area
-- [x] .trim - removes any whitespace at begin or end of string
+- [x] .trim - removes any whitespace at beginning or end of string
 - [x] .which - tells you which key was pressed
 - [x] ENTER_KEY = a variable saved with all caps is commonly used for global variables
+- [x] blur? - if an element is blurred it loses focus
+- [x] abort? - the input field has a label called abort with a boolean value. I believe this tells the input to escape any new data changes if the boolean is set to true.
 
 - [ ] what is util?
 - [ ] what is local storage?

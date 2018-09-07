@@ -198,11 +198,14 @@ jQuery(function ($) {
 			$input.focus();
 		},
 		editKeyup: function (e) {
+			// if enter is pressed the target is blurred
 			if (e.which === ENTER_KEY) {
+				// in this case the target is the input field and after enter key is pressed the input field loses focus
 				e.target.blur();
 			}
-
+			//  if the escape key is pressed
 			if (e.which === ESCAPE_KEY) {
+				// the target, the input field, has its data field of abort udated to true, and then the input field loses focus
 				$(e.target).data('abort', true).blur();
 			}
 		},
