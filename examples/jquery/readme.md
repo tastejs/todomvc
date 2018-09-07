@@ -77,6 +77,12 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 - [x] jquery .closest() - an element type is passed to the method and it traverses the DOM to find the nearest matching parent element
 - [x] jquery .data() - data is passed a label. this method returns the value of that label
+- [x] $ - it's a global variable === jQuery
+- [x] .target - tells you which DOM element initiated the event
+- [x] .val - gets the value of the 1st element in a set of matched elements; often used to get input from a form ie. input, select, form area
+- [x] .trim - removes any whitespace at begin or end of string
+- [x] .which - tells you which key was pressed
+- [x] ENTER_KEY = a variable saved with all caps is commonly used for global variables
 
 - [ ] what is util?
 - [ ] what is local storage?
@@ -86,3 +92,7 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [ ] uuid
 - [ ] pluralize
 - [ ] JSON
+
+#### Questions
+
+- [ ] confirm !val within the if statement of the create method - I believe it means to accept more input as long as the current key is still not being pressed

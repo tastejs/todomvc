@@ -143,21 +143,36 @@ jQuery(function ($) {
 			}
 		},
 		create: function (e) {
+			// target tells us which element initiated the event
+			// in this case it is a form input element with class of new-todo
+			// this new-todo is assigned to the jQuery variable $input
 			var $input = $(e.target);
+			// val take the value of what's saved in $input
+			// trim removes any whitespace from beginning and end of input
+			// this trimmed input value is saved to variable val
 			var val = $input.val().trim();
-
+			// which tell us which key was pressed
+			// enter key is saved as a global variable equivalent to the value 27 which is the character code of its keypress
+			// if the enter key was not pressed then return and accept more input
+			// if the current key is still not being pressed then accept more input
 			if (e.which !== ENTER_KEY || !val) {
 				return;
 			}
 
+			// add an item to the todo list array
 			this.todos.push({
+				// this is where the long random id number comes from
 				id: util.uuid(),
+				// this is the input text that was saved in the section above
 				title: val,
+				// by default a todo is saved as incomplete
 				completed: false
 			});
 
+			// this empty's the value of the input string after the todo has been saved to the list
 			$input.val('');
 
+			// this renders the new, updated todo list
 			this.render();
 		},
 		toggle: function (e) {
