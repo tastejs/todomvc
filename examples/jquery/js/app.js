@@ -116,27 +116,35 @@ jQuery(function ($) {
 			this.render();
 		},
 		getActiveTodos: function () {
+			// this selects only the todo items that have a completed property with a value of false and returns them
 			return this.todos.filter(function (todo) {
 				return !todo.completed;
 			});
 		},
 		getCompletedTodos: function () {
+			// this selects only the todo items that have a completed property with a value of true and returns them
 			return this.todos.filter(function (todo) {
 				return todo.completed;
 			});
 		},
 		getFilteredTodos: function () {
+			// if the filter is active it runs the getActiveTodos method
 			if (this.filter === 'active') {
 				return this.getActiveTodos();
 			}
 
+			// if the filter is completed it runs the getCoompletedTodos method
 			if (this.filter === 'completed') {
 				return this.getCompletedTodos();
 			}
 
+			// if neither active or completed filters are selected then it displays all todos
 			return this.todos;
 		},
 		destroyCompleted: function () {
+			// this runs the getActiveTodos method
+			// returns only todos with a completed property of false
+			// this array of active todos is set to the todos array and the the updated todo list is rendered again
 			this.todos = this.getActiveTodos();
 			this.render();
 		},

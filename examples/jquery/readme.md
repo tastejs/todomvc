@@ -86,6 +86,7 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] blur? - if an element is blurred it loses focus
 - [x] abort? - the input field has a label called abort with a boolean value. I believe this tells the input to escape any new data changes if the boolean is set to true.
 - [x] prop() - gets the value of the property passed to it by the element  ie. check-box.prop("clicked") will get the valued of the clicked property on the check-box element.
+- [x] filter - a method that runs on an array which then creates a new array with only the elements that match the selector passed to it.
 - [ ] what are bind events?
 - [ ] what's a keyup?
 - [ ] what is bind?
