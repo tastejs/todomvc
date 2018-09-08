@@ -85,6 +85,10 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] ENTER_KEY = a variable saved with all caps is commonly used for global variables
 - [x] blur? - if an element is blurred it loses focus
 - [x] abort? - the input field has a label called abort with a boolean value. I believe this tells the input to escape any new data changes if the boolean is set to true.
+- [x] prop() - gets the value of the property passed to it by the element  ie. check-box.prop("clicked") will get the valued of the clicked property on the check-box element.
+- [ ] what are bind events?
+- [ ] what's a keyup?
+- [ ] what is bind?
 - [ ] pipe |
 - [ ] ? in an evaluation
 - [ ] & in an evaluation

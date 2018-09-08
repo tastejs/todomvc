@@ -102,12 +102,17 @@ jQuery(function ($) {
 			$('.footer').toggle(todoCount > 0).html(template);
 		},
 		toggleAll: function (e) {
+			// prop is getting the value of the checked property on the target (#toggle-all)
+			// the value is either true or false depending on if you are toggling all on or off
+			// this true or false value is saved to isChecked
 			var isChecked = $(e.target).prop('checked');
 
+			// for each todo item the completed property is set to the value of isChecked which again is either true or false
 			this.todos.forEach(function (todo) {
 				todo.completed = isChecked;
 			});
 
+			// renders the updated list
 			this.render();
 		},
 		getActiveTodos: function () {
