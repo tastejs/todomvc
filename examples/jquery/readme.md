@@ -87,25 +87,19 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] abort? - the input field has a label called abort with a boolean value. I believe this tells the input to escape any new data changes if the boolean is set to true.
 - [x] prop() - gets the value of the property passed to it by the element  ie. check-box.prop("clicked") will get the valued of the clicked property on the check-box element.
 - [x] filter - a method that runs on an array which then creates a new array with only the elements that match the selector passed to it.
-- [ ] what are bind events?
-- [ ] what's a keyup?
-- [ ] what is bind?
-- [ ] pipe |
-- [ ] ? in an evaluation
-- [ ] & in an evaluation
-- [ ] .toString(16) - what does the 16 mean?
+- [x] method chaining - allows you to attach a series of methods to a single object
+- [x] what are bind events? - tells the browser to run a specific method when an event occurs
+- [x].addClass - a specified class is added to the element
+- [x] what's a keyup? - triggered when a key is released
+- [x] focusout? - the element loses focus, by clicking away or in this scenario the enter or exit key is pressed
+- [x] what is bind? - it's a method you run to set 'this'
+- [x] uuid - generates a random id number
 
-
-- [ ] what is util?
 - [ ] what is local storage?
 - [ ] what is the role of base.js
 - [ ] what is the role of director.js
 - [ ] handlebars
-- [ ] uuid
 - [ ] pluralize
 - [ ] JSON
 
 #### Questions
-
-- [ ] confirm !val within the if statement of the create method - I believe it means to accept more input as long as the current key is still not being pressed
-- [ ] what does the | mean?

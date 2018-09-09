@@ -70,13 +70,21 @@ jQuery(function ($) {
 			}).init('/all');
 		},
 		bindEvents: function () {
+			// when a keyup occurs on the .new-todo input the create method is called and bound to the App
 			$('.new-todo').on('keyup', this.create.bind(this));
 			$('.toggle-all').on('change', this.toggleAll.bind(this));
 			$('.footer').on('click', '.clear-completed', this.destroyCompleted.bind(this));
 			$('.todo-list')
 				.on('change', '.toggle', this.toggle.bind(this))
+				// an event listener is triggered when the label element inside the todo-list is double clicked
+				// it calls the editingMethod method which is bound to App
 				.on('dblclick', 'label', this.editingMode.bind(this))
+				// an event listener is triggered when the input with class of edit has a keyup event triggered
+				// this calls the editKeyUp method which is bound to the App
 				.on('keyup', '.edit', this.editKeyup.bind(this))
+				// when the .edit input within the todo list loses focus
+				// it could lose focus from the editKeyup if the user either clicks Enter, Escape, or clicks outside the input field
+				// the update method bound to the App is called
 				.on('focusout', '.edit', this.update.bind(this))
 				.on('click', '.destroy', this.destroy.bind(this));
 		},
@@ -184,6 +192,8 @@ jQuery(function ($) {
 			// enter key is saved as a global variable equivalent to the value 27 which is the character code of its keypress
 			// if the enter key was not pressed then return and accept more input
 			// if the current key is still not being pressed then accept more input
+			// if the value is empty then return and accept more input
+			// if Enter is pressed then this statement is not true and we move to the next step in the code below and add an item to the todo list with push
 			if (e.which !== ENTER_KEY || !val) {
 				return;
 			}
@@ -219,11 +229,18 @@ jQuery(function ($) {
 			this.render();
 		},
 		editingMode: function (e) {
+			// the double clicked item, which is the label, looks to the nearest li element
+			// an .editing class is added to this li element
+			// from the element with the editing class added it then finds the input with a class edit
+			// this .edit input is assigned to the jQuery variable called input
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
-			// puts caret at end of input
+			// gets the current value of the input and assigns it to tmpStr
 			var tmpStr = $input.val();
+			// sets value of input to empty string
 			$input.val('');
+			// sets the saved value of tmpStr into the input field
 			$input.val(tmpStr);
+			// the input field now triggers the focus event so the curser will now be in the input field
 			$input.focus();
 		},
 		editKeyup: function (e) {
@@ -239,15 +256,22 @@ jQuery(function ($) {
 			}
 		},
 		update: function (e) {
+			// the input is assigned to el
 			var el = e.target;
+			// and is set to a javascript variable
 			var $el = $(el);
+			// the value of the input is trimmed and saved to val
 			var val = $el.val().trim();
 
+			// if the data for abort is true
 			if ($el.data('abort')) {
+				// then data's value is flipped to false and nothing changes
 				$el.data('abort', false);
+				// otherwise if there's no value then destroy that todo element
 			} else if (!val) {
 				this.destroy(e);
 				return;
+				// otherwise set the updated value of the title to the new, edited value
 			} else {
 				this.todos[this.getIndexFromEl(el)].title = val;
 			}
