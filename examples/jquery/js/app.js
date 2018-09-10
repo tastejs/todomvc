@@ -58,7 +58,9 @@ jQuery(function ($) {
 		init: function () {
 			// creating a variable called todos and storing it on the App object
 			this.todos = util.store('todos-jquery');
+			// App.todoTemplate is HTML that's compiled as a handlebars template and injected into #todo-template
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
+			// App.footerTemplate is HTML that's compiled as a handlebars template and injected into #footer-template
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
 			this.bindEvents();
 
@@ -91,7 +93,7 @@ jQuery(function ($) {
 		render: function () {
 			// gets the filtered todos - either active, completed, or all depending on selection
 			var todos = this.getFilteredTodos();
-			// into the .todo-list ul element we are injecting html
+			// into the .todo-list ul element we are injecting html and passing the todos array into the handlebars template
 			$('.todo-list').html(this.todoTemplate(todos));
 			// shows/hides the .main element depending whether a todo(s) exists or not
 			// when you start the app it is toggled off because there are no todos
