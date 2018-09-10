@@ -94,15 +94,13 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] focusout? - the element loses focus, by clicking away or in this scenario the enter or exit key is pressed
 - [x] what is bind? - it's a method you run to set 'this'
 - [x] uuid - generates a random id number
-
-- [ ] .html
-- [ ] Handlebars.compile
+- [x] handlebars is a javascript templating tool
 
 
 - [ ] what is local storage?
 - [ ] what is the role of base.js
 - [ ] what is the role of director.js
-- [ ] handlebars
+
 - [ ] pluralize
 - [ ] JSON
 
