@@ -89,24 +89,42 @@ jQuery(function ($) {
 				.on('click', '.destroy', this.destroy.bind(this));
 		},
 		render: function () {
+			// gets the filtered todos - either active, completed, or all depending on selection
 			var todos = this.getFilteredTodos();
+			// into the .todo-list ul element we are injecting html
 			$('.todo-list').html(this.todoTemplate(todos));
+			// shows/hides the .main element depending whether a todo(s) exists or not
+			// when you start the app it is toggled off because there are no todos
 			$('.main').toggle(todos.length > 0);
+			// sets the value of the checked element inside the .toggle-all element.
+			// if the number of todos in the getActiveTodos method is 0 that means all todos have been completed
+			// therefore the checked property will be true and the toggle-all button will be in the toggled setting
 			$('.toggle-all').prop('checked', this.getActiveTodos().length === 0);
+			// here we call renderFooter to... render the footer
 			this.renderFooter();
+			// the focus is set to the .new-todo input field
 			$('.new-todo').focus();
+			// we store the list of todos into local storage
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
+			// gets the number of todos in the todo list
 			var todoCount = this.todos.length;
+			// gets the number of active todos
 			var activeTodoCount = this.getActiveTodos().length;
+			// sets the footer template
 			var template = this.footerTemplate({
+				// active todo count
 				activeTodoCount: activeTodoCount,
+				// determines if item(s) is singular or plural based on active todo count.
 				activeTodoWord: util.pluralize(activeTodoCount, 'item'),
+				// determines completed todos by subtracting active from total
 				completedTodos: todoCount - activeTodoCount,
+				// tells which filter to highlight
 				filter: this.filter
 			});
-
+			// if there are todos, it will show the footer.
+			// then it is injecting the template from above into the footer
 			$('.footer').toggle(todoCount > 0).html(template);
 		},
 		toggleAll: function (e) {

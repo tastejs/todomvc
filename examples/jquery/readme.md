@@ -95,6 +95,10 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] what is bind? - it's a method you run to set 'this'
 - [x] uuid - generates a random id number
 
+- [ ] .html
+- [ ] Handlebars.compile
+
+
 - [ ] what is local storage?
 - [ ] what is the role of base.js
 - [ ] what is the role of director.js
