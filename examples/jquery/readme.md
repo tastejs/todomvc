@@ -95,13 +95,10 @@ _If you have other helpful links to share, or find any of the links above no lon
 - [x] what is bind? - it's a method you run to set 'this'
 - [x] uuid - generates a random id number
 - [x] handlebars is a javascript templating tool
-
-
-- [ ] what is local storage?
+- [x] what is local storage? - is a browser object that allows you to save data across sessions. You can set data by passing it a key/value pair as arguments. ie. localStorage.setItem(key, value). You can retrieve data from it like this: localStorage.getItem(key) NOTE: localStorage can only save data as a string.
+- [x] json stringify - allows you to save an object as a string - used with localStorage to save objects
+- [x] what is the role of director.js - this is a library tool that lets you setup routing for your app. it lets you determine what code to run depending on the link that is clicked. for this app it is used to display appropriate code for the active, completed, and all todo list filters.
+- [x] pluralize - this is a function that will make a word singular or plural depending on the arguments passed to it ie. if the count is 0 it will be plural; if it's 1 it'll be singular, if it's >=2 it's be plural.
 - [ ] what is the role of base.js
-- [ ] what is the role of director.js
-
-- [ ] pluralize
-- [ ] JSON
 
 #### Questions

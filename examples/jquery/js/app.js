@@ -44,31 +44,51 @@ jQuery(function ($) {
 			 // otherwise it'll read '[the number] words' (plural)
 			return count === 1 ? word : word + 's';
 		},
+		// these arguments are key value pairs with namespace being the key and data being the value
 		store: function (namespace, data) {
+			// when passing two arguments, the namespace and the data
+			// you are saving the data to local storage
 			if (arguments.length > 1) {
+				// this sets the local storage to the namespace provided based on the data passed and then returns it
+				// JSON.stringify will convert the object saved in data into a string which can be converted back into an object later
 				return localStorage.setItem(namespace, JSON.stringify(data));
+				// if you're passing only the single argument, the namespace, to the function
+				// you are simply trying to read the saved data
 			} else {
+				// .getItem is retrieiving the data from the namespace in localStorage
 				var store = localStorage.getItem(namespace);
+				// if store exists and we can parse it back from an object to a string, do that and return it
+				// otherwise, if store doesn't exist and therefore we can't parse it, then return an empty array
 				return (store && JSON.parse(store)) || [];
 			}
 		}
 	};
 
 	var App = {
+		// sets up the App
 		init: function () {
-			// creating a variable called todos and storing it on the App object
+			// because store is only being passed 1 argument, the name space we know it's reading the local storage data
+			// that object data is saved to .todos
 			this.todos = util.store('todos-jquery');
 			// App.todoTemplate is HTML that's compiled as a handlebars template and injected into #todo-template
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			// App.footerTemplate is HTML that's compiled as a handlebars template and injected into #footer-template
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
+			// this is enabling our event listeners
 			this.bindEvents();
 
+			// tells you which code to run depending on the link
 			new Router({
+				// setting the link to a variable, filter, which is passed to the function
 				'/:filter': function (filter) {
+					// this.filter is set to the filter argument passed to the function.
+					// so if you visit /active then this.filter gets set to active
 					this.filter = filter;
+					// this renders the updated page
 					this.render();
+					// the 'this' called in the above callback function should be bound to App ie. this.filter and this.render
 				}.bind(this)
+			// when the app launches we start here:
 			}).init('/all');
 		},
 		bindEvents: function () {
@@ -106,7 +126,8 @@ jQuery(function ($) {
 			this.renderFooter();
 			// the focus is set to the .new-todo input field
 			$('.new-todo').focus();
-			// we store the list of todos into local storage
+			// here store is being passed 2 arguments, the namespace and the data
+			// so it's saving this todo list data into local storage
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
