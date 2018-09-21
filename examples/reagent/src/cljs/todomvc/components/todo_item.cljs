@@ -17,7 +17,9 @@
 (defn component [todo]
   (let [editing (reagent/atom false)]
     (fn [{:keys [id title completed] :as todo}]
-      [:li {:class (todo-item-class completed editing)}
+      [:li {:class (todo-item-class completed editing)
+            :style {:display (helpers/display-item
+                              (helpers/todo-display-filter completed @session/todos-display-type))}}
        [:div.view
         [todo-checkbox id completed]
         [:label {:on-double-click #(reset! editing true)} title]

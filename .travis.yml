@@ -134,10 +134,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=kendo
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=knockback
       <<: *defaults
     - stage: test
@@ -190,23 +186,7 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=sammyjs
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=sapui5
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=scalajs-react
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=socketstream
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=spine
       <<: *defaults
     - stage: test
       env:
@@ -223,10 +203,6 @@ jobs:
     - stage: test
       env:
         - CYPRESS_framework=vanilla-es6
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=vanilladart
       <<: *defaults
     - stage: test
       env:

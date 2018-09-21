@@ -36,7 +36,6 @@ const frameworkFolders = {
   'angular-dart': 'angular-dart/web',
   'chaplin-brunch': 'chaplin-brunch/public',
   duel: 'duel/www',
-  vanilladart: 'vanilladart/build/web'
 }
 const getExampleFolder = framework => frameworkFolders[framework] || framework
 
@@ -50,7 +49,6 @@ const noLocalStorageCheck = {
   js_of_ocaml: true,
   reagent: true,
   rappidjs: true,
-  kendo: true,
   exoskeleton: true,
   'react-backbone': true,
   puremvc: true,
@@ -60,7 +58,6 @@ const noLocalStorageCheck = {
 }
 
 const noLocalStorageSpyCheck = {
-  spine: true,
   canjs: true,
   canjs_require: true
 }
@@ -90,6 +87,7 @@ const blurAfterType = {
   ampersand: true,
   dijon: true,
   duel: true,
+  jquery: true,
   vanillajs: true,
   'vanilla-es6': true
 }
@@ -101,6 +99,11 @@ const safeBlur = $el => {
     const event = new Event('blur', {force: true})
     $el.get(0).dispatchEvent(event)
   }
+}
+
+// Some frameworks need to avoid runtime determination of selector type.
+const usesIDSelectors = {
+  polymer: false
 }
 
 const title = `TodoMVC - ${framework}`
@@ -444,7 +447,14 @@ Cypress._.times(N, () => {
       // same tests - because our assertions often use `.should('have.class', ...)`
       cy.contains('h1', 'todos').should('be.visible')
       cy.document().then(doc => {
-        if (doc.querySelector('input#new-todo')) {
+        if (framework in usesIDSelectors) {
+          setSelectors(usesIDSelectors[framework])
+          createTodoCommands(usesIDSelectors[framework])
+        } else if (doc.querySelector('input#new-todo') && doc.querySelector('input.new-todo')) {
+          throw new Error(
+            'Cannot determine what kind of selectors this app uses. Add it to usesIDSelectors.'
+          )
+        } else if (doc.querySelector('input#new-todo')) {
           cy.log('app uses ID selectors')
           setSelectors(true)
           createTodoCommands(true)

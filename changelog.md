@@ -1,5 +1,37 @@
 # Changelog
 
+New since 1.3:
+	- Kotlin-react
+
+Updates since 1.3:
+	- Ember 3.2
+	- Backbone_marionette
+	- Reagent
+	- jQuery
+	- Vanilla js
+	- Add Microsoft Edge to supported browsers
+	- New example guidlines
+	- Use npm ci
+
+Removed since 1.3:
+	- Ampersand
+	- Flight
+	- Meteor
+	- webrx
+	- troop
+	- atmajs
+	- foam
+	- rappid
+	- serenadejs
+	- somajs
+	- puremvc
+	- olives
+	- humble
+	- chaplin-brunch
+	- ExtJS
+	- DeftJS
+	- Durandal
+
 ## 1.3 - TBD
 
 - New since 1.2:

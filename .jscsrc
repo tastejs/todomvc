@@ -45,9 +45,7 @@
 		"examples/js_of_ocaml/js/*.js",
 		"examples/olives/olives-todo.js",
 		"examples/polymer/elements/elements.build.js",
-		"examples/spine/js/**",
 		"examples/typescript-*/js/**/*.js",
-		"examples/vanilladart/**/*.js",
 		"examples/vanilla-es6/dist/bundle.js"
 	],
 	"requireSpaceBeforeBlockStatements": true,

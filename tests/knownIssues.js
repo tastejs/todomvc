@@ -9,12 +9,13 @@ module.exports = [
   // 'TodoMVC - angularjs_require, Mark all as completed, should allow me to clear the completion state of all items',
   // jscs:disable
   // 'TodoMVC - angularjs_require, Mark all as completed, complete all checkbox should update state when items are completed / cleared',
-
   // jscs:enable
-  // https://github.com/tastejs/todomvc/issues/815
-  // does not hide other controls while editing
-  // 'TodoMVC - dojo, Editing, should hide other controls when editing',
+
+  // https://github.com/tastejs/todomvc/issues/1928
+  // does not reliably save edits
+  'dojo, should allow me to edit an item',
   'dojo, should save edits on blur',
+  'dojo, should trim entered text',
   'dojo, should remove the item if an empty text string was entered',
 
   // https://github.com/tastejs/todomvc/issues/816
@@ -27,11 +28,6 @@ module.exports = [
   // 'TodoMVC - somajs_require, Editing, should remove the item if an empty text string was entered',
   // 'TodoMVC - somajs_require, Editing, should cancel edits on escape',
 
-  // Kendo does NOT save todos when marked as completed
-  'kendo, should allow me to mark all items as completed',
-  'kendo, should allow me to clear the complete state of all items',
-  'kendo, complete all checkbox should update state when items are completed / cleared',
-  'kendo, should remove the item if an empty text string was entered',
 
   // the following are covered by the following issue:
   // https://github.com/tastejs/todomvc/issues/789
@@ -80,7 +76,6 @@ module.exports = [
   // all the following are covered by this issue:
   // https://github.com/tastejs/todomvc/issues/856
   // 'TodoMVC - knockoutjs, Routing, should respect the back button',
-  // 'TodoMVC - spine, Routing, should respect the back button',
   // 'TodoMVC - serenadejs, Routing, should respect the back button',
   'TodoMVC - flight, Routing, should respect the back button',
   'TodoMVC - lavaca_require, Routing, should respect the back button',

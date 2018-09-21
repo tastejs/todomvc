@@ -5,6 +5,8 @@
                  [secretary "1.2.2"]
                  [alandipert/storage-atom "1.2.4"]]
 
+  :jvm-opts ["--add-modules" "java.xml.bind"]
+
   :min-lein-version "2.5.0"
 
   :plugins [[lein-cljsbuild "1.0.4"]]

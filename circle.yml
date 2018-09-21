@@ -68,13 +68,9 @@ jobs:
   # compiled-to-js frameworks
   kotlin-react:
     <<: *defaults
-  spine:
-    <<: *defaults
   typescript-react:
     <<: *defaults
   binding-scala:
-    <<: *defaults
-  vanilladart:
     <<: *defaults
   angular-dart:
     <<: *defaults
@@ -99,11 +95,7 @@ jobs:
     <<: *defaults
   canjs_require:
     <<: *defaults
-  kendo:
-    <<: *defaults
   rappidjs:
-    <<: *defaults
-  sapui5:
     <<: *defaults
   react-alt:
     <<: *defaults
@@ -112,8 +104,6 @@ jobs:
   backbone_require:
     <<: *defaults
   somajs_require:
-    <<: *defaults
-  sammyjs:
     <<: *defaults
   puremvc:
     <<: *defaults
@@ -175,11 +165,9 @@ workflows:
   # second tab - compiled-to-js frameworks
   compiled-to-js:
     jobs:
-      - spine
       # elm is not working very well
       - typescript-react
       - binding-scala
-      - vanilladart
       - angular-dart
       - serenadejs
       - js_of_ocaml
@@ -195,10 +183,7 @@ workflows:
     jobs:
       - chaplin-brunch
       - canjs_require
-      - kendo
       - rappidjs
-      # Sapui5 is too broken in layout
-      # - sapui5
       - react-alt
       # App internal error
       # - webrx
