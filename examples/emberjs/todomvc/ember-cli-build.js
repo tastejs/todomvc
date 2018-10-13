@@ -7,8 +7,6 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  app.import('vendor/base.css');
-  app.import('vendor/index.css');
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
@@ -21,6 +19,10 @@ module.exports = function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
+
+  app.import('node_modules/todomvc-common/base.css');
+  app.import('node_modules/todomvc-app-css/index.css');
+  app.import('node_modules/todomvc-common/base.js'); // This includes the code that will display the "learn" sidebar
 
 	return app.toTree();
 };
