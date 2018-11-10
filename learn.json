@@ -212,10 +212,10 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Get started",
-				"url": "http://aurelia.io/get-started.html"
+				"url": "https://aurelia.io/docs/tutorials/creating-a-todo-app/"
 			}, {
 				"name": "Docs",
-				"url": "http://aurelia.io/docs.html"
+				"url": "https://aurelia.io/docs/"
 			}, {
 				"name": "Aurelia on GitHub",
 				"url": "https://github.com/aurelia"
@@ -224,12 +224,12 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Blog",
-				"url": "http://blog.durandal.io/"
+				"url": "https://aurelia.io/blog/"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Aurelia dicussions on Gitter",
+				"name": "Aurelia discussions on Gitter",
 				"url": "https://gitter.im/Aurelia/Discuss"
 			}]
 		}]
