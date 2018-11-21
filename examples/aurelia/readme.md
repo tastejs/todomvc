@@ -44,7 +44,7 @@ Run tests and HTTP-server:
 
 ## Implementation
 
-- Following the getting started tutorial: http://aurelia.io/get-started.html
+- Following the getting started tutorial: https://aurelia.io/docs/tutorials/creating-a-todo-app/
 - Attempt to go TDD where possible
 
 ### Changelog
