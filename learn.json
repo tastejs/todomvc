@@ -630,14 +630,11 @@
 	},
 	"emberjs": {
 		"name": "Ember.js",
-		"description": "A framework for creating ambitious web applications.",
+		"description": "A framework for ambitious web developers.",
 		"homepage": "emberjs.com",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/emberjs"
-		}, {
-			"name": "Require.js & Ember.js",
-			"url": "examples/emberjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -648,9 +645,6 @@
 				"name": "API Reference",
 				"url": "http://emberjs.com/api"
 			}, {
-				"name": "Screencast - Building an App with Ember.js",
-				"url": "https://www.youtube.com/watch?v=Ga99hMi7wfY"
-			}, {
 				"name": "Applications built with Ember.js",
 				"url": "http://emberjs.com/ember-users"
 			}, {
@@ -658,25 +652,16 @@
 				"url": "http://emberjs.com/blog"
 			}]
 		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Getting Into Ember.js",
-				"url": "http://net.tutsplus.com/tutorials/javascript-ajax/getting-into-ember-js"
-			}, {
-				"name": "EmberWatch",
-				"url": "http://emberwatch.com"
-			}]
-		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Ember.js Community",
+				"url": "https://emberjs.com/community/"
+			}, {
 				"name": "Ember.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ember.js"
 			}, {
 				"name": "Ember.js on Twitter",
 				"url": "http://twitter.com/emberjs"
-			}, {
-				"name": "Ember.js on Google+",
-				"url": "https://plus.google.com/communities/106387049790387471205"
 			}]
 		}]
 	},

@@ -5,7 +5,7 @@ import Component from '@ember/component';
 export default Component.extend({
 	repo: service(),
 	tagName: 'section',
-	elementId: 'main',
+	classNames: ['main'],
 	canToggle: true,
 	allCompleted: computed('todos.@each.completed', function () {
 		return this.todos.isEvery('completed');
