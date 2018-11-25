@@ -2,6 +2,6 @@ export class Model
     prop title
     prop completed
 
-    def initialize title
+    def initialize title, completed = no
         @title = title
-        @completed = no
+        @completed = completed

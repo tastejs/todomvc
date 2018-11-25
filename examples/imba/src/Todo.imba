@@ -1,18 +1,18 @@
 export tag Todo
     prop todo
-    prop remove
 
     def toggleTodo
         @todo.completed = !@todo.completed
+        trigger('changed')
 
     def editing
-        # hm...
         @newTitle = @todo.title
         @editing = yes
 
     def setTitle
         @todo.title = @newTitle
         @editing = no
+        trigger('changed')
 
     def render
         <self>

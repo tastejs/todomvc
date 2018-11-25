@@ -1,4 +1,5 @@
 module.exports = {
+  entry: './src/App.imba',
   resolve: {
     extensions: ['.imba']
   },
