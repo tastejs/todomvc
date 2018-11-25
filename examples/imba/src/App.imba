@@ -14,7 +14,6 @@ tag App
             return
         @todos.push Model.new(@newTodoTitle)
         @newTodoTitle = ''
-        console.log @todos
         persist
 
     # remove todo
@@ -49,7 +48,6 @@ tag App
     def load
         var items = JSON.parse(window:localStorage.getItem('todos-imba') or '[]')
         @todos = items.map do |todo| Model.new(todo:_title, todo:_completed)
-        console.log @todos
 
     # persist todos to localstorage
     def persist
@@ -75,7 +73,7 @@ tag App
                     <input[@newTodoTitle] .new-todo placeholder="What needs to be done?">
                     <button type='submit'> 'Add item'
 
-                <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len == 0)>
+                <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len is 0)>
                 <ul.todo-list> for todo in items
                     # todo with custum events remove and renamed
                     <Todo todo=todo :remove.removeTodo(todo) :changed.persist>
@@ -100,4 +98,4 @@ tag App
                         <button.clear-completed :tap.archive> 'Clear completed'
 
     
-Imba.mount <App .todoapp>
+Imba.mount <App.todoapp>

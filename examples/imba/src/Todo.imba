@@ -20,6 +20,7 @@ export tag Todo
             <li .done=(@todo.completed) .editing=(!@todo.completed)>
                 <div .view>
                     <input .toggle :tap.toggleTodo checked=(@todo.completed)>
-                    <label :dblclick.editing> @todo.title
+                    <label :dblclick.editing>
+                        @todo.title
                     <button.destroy :tap.trigger('remove')>
-                <input[newTitle] .edit :blur.setTitle :keydown.enter.setTitle>
+                <input[@newTitle] .edit :blur.setTitle :keydown.enter.setTitle>
