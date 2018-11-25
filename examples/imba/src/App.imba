@@ -22,6 +22,12 @@ tag App
         @todos = @todos.filter(|t| t != todo)
         persist
 
+    def toggleAll e
+        for todo in @todos
+            todo.completed = e.target.checked
+        persist
+
+
     # get completed todos
     def completed
         @todos.filter(|todo| todo.completed )
@@ -63,32 +69,35 @@ tag App
             items = active
 
         <self>
-            <form.header :submit.prevent.addTodo>
-                <input[@newTodoTitle] placeholder="Add...">
-                <button type='submit'> 'Add item'
+            <section.main>
+                <header.header :submit.prevent.addTodo>
+                    <h1> 'todos'
+                    <input[@newTodoTitle] .new-todo placeholder="What needs to be done?">
+                    <button type='submit'> 'Add item'
 
-            <div> for todo in items
-                # todo with custum events remove and renamed
-                <Todo todo=todo :remove.removeTodo(todo) :changed.persist>
-                ###
-                    you also can pass function like a property
-                    func=(self:parentFuncName.bind(this))
-                    and then call it in child
-                    <Todo todo=todo :remove.removeTodo(todo) :renamed.persist>
-                ###
+                <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len == 0)>
+                <ul.todo-list> for todo in items
+                    # todo with custum events remove and renamed
+                    <Todo todo=todo :remove.removeTodo(todo) :changed.persist>
+                    ###
+                        you also can pass function like a property
+                        func=(self:parentFuncName.bind(this))
+                        and then call it in child
+                        <Todo todo=todo :remove.removeTodo(todo) :renamed.persist>
+                    ###
 
-            <footer.footer>
-                <span.todo-count>
-                    <strong> "{active.len} "
-                    active.len == 1 ? 'item' : 'items'
-                    ' left'
-                <ul.filters>
-                    <li> <a .selected=(items is todos) href='#/'> 'All'
-                    <li> <a .selected=(items is active) href='#/active'> 'Active'
-                    <li> <a .selected=(items is done) href='#/completed'> 'Completed'
+                <footer.footer>
+                    <span.todo-count>
+                        <strong> "{active.len} "
+                        active.len == 1 ? 'item' : 'items'
+                        ' left'
+                    <ul.filters>
+                        <li> <a .selected=(items is todos) href='#/'> 'All'
+                        <li> <a .selected=(items is active) href='#/active'> 'Active'
+                        <li> <a .selected=(items is done) href='#/completed'> 'Completed'
 
-                if done.len > 0
-                    <button.clear-completed :tap.archive> 'Clear completed'
+                    if done.len > 0
+                        <button.clear-completed :tap.archive> 'Clear completed'
 
     
-Imba.mount <App>
+Imba.mount <App .todoapp>

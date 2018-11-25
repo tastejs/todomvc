@@ -16,12 +16,10 @@ export tag Todo
 
     def render
         <self>
-            if @editing
-                <input[@newTitle] :keydown.enter.setTitle>
-            <span .done=(@todo.completed)> @todo.title
-            <button :tap.toggleTodo> !@todo.completed ? 'Completed' : 'ToDo'
-            if !@editing
-                <button :tap.editing> 'Rename'
-            else
-                <button :tap.setTitle> 'Save'
-            <button :tap.trigger('remove')> 'Remove'
+            # TODO: @todo.completed ? '.done' : '.editing'
+            <li .done=(@todo.completed) .editing=(!@todo.completed)>
+                <div .view>
+                    <input .toggle :tap.toggleTodo checked=(@todo.completed)>
+                    <label :dblclick.editing> @todo.title
+                    <button.destroy :tap.trigger('remove')>
+                <input[newTitle] .edit :blur.setTitle :keydown.enter.setTitle>
