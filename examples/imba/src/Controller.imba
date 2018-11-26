@@ -51,9 +51,6 @@ class Controller
         @store:todos = remaining
         persist
 
-    def changeEditing id
-        @store:editing = id
-
     # load todos from localstorage
     def load
         var items = JSON.parse(window:localStorage.getItem('todos-imba') or '[]')

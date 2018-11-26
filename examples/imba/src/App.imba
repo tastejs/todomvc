@@ -23,7 +23,7 @@ tag App
 
                 <input.toggle-all type='checkbox' :change=(do Controller.toggleAll) checked=(active.len is 0)>
                 <ul.todo-list> for todo, id in items
-                    <Todo todo=todo id=id editing=(@store:editing is id)>
+                    <Todo todo=todo>
 
                 <footer.footer>
                     <span.todo-count>
