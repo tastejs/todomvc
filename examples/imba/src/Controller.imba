@@ -10,22 +10,21 @@ class Controller
             newTodoTitle: '',
             todos: []
         }
-        # @store:newTodoTitle = ''
         load
 
     # add todo
     def addTodo
         console.log @store:newTodoTitle
-        # if @store:newTodoTitle
-        #     @store:todos.push Model.new(@store:newTodoTitle)
-        #     @store:newTodoTitle = ''
-        #     persist
-        # console.log @store:todos
+        if @store:newTodoTitle
+            @store:todos.push Model.new(@store:newTodoTitle)
+            @store:newTodoTitle = ''
+            # persist
+        console.log @store:todos
 
-    # # remove todo
-    # def removeTodo todo
-    #     @todos = @todos.filter(|t| t != todo)
-    #     persist
+    # remove todo
+    def remove todo
+        @store:todos = @store:todos.filter(|t| t != todo)
+        # persist
 
     # def toggleAll e
     #     for todo in @todos

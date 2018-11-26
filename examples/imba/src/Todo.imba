@@ -1,3 +1,5 @@
+import Controller from './Controller'
+
 export tag Todo
     prop todo
     prop editing
@@ -29,5 +31,5 @@ export tag Todo
                 <div.view>
                     <input .toggle :tap.toggleTodo type='checkbox' checked=(@todo.completed)>
                     <label :dblclick.editing> @todo.title
-                    <button.destroy :tap.trigger('remove')>
+                    <button.destroy :tap=(do Controller.remove(@todo))>
                 <input[@newTitle] .edit :keydown.esc.exit :blur.setTitle :keydown.enter.setTitle>

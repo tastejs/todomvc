@@ -71,19 +71,18 @@ tag App
             <section.main>
                 <header.header>
                     <h1> 'todos'
-                    <div> @store:newTodoTitle
                     <input[@store:newTodoTitle] .new-todo :keydown.enter=(do Controller.addTodo) placeholder="What needs to be done?" autofocus=true>
 
                 # <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len is 0)>
-                # <ul.todo-list> for todo, id in items
-                #     # todo with custum events edit, remove and renamed
-                #     <Todo todo=todo id=id editing=(@editing is id) edit=(self:edit.bind(this)) :remove.removeTodo(todo) :changed.persist>
-                #     ###
-                #         you also can pass function like a property
-                #         func=(self:parentFuncName.bind(this))
-                #         and then call it in child
-                #         <Todo todo=todo :remove.removeTodo(todo) :renamed.persist>
-                #     ###
+                <ul.todo-list> for todo, id in @store:todos
+                    # todo with custum events edit, remove and renamed
+                    <Todo todo=todo>
+                    ###
+                        you also can pass function like a property
+                        func=(self:parentFuncName.bind(this))
+                        and then call it in child
+                        <Todo todo=todo :remove.removeTodo(todo) :renamed.persist>
+                    ###
 
                 # <footer.footer>
                 #     <span.todo-count>
