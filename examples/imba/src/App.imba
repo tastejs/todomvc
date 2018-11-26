@@ -3,6 +3,7 @@ import { Todo } from './Todo'
 
 tag App
     prop todos
+    prop editing
         
     def build
         load
@@ -42,6 +43,9 @@ tag App
         @todos = remaining
         persist
 
+    def edit id
+        @editing = id
+
     # load todos from localstorage
     def load
         var items = JSON.parse(window:localStorage.getItem('todos-imba') or '[]')
@@ -71,9 +75,9 @@ tag App
                     <input[@newTodoTitle] .new-todo :keydown.enter.addTodo placeholder="What needs to be done?">
 
                 <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len is 0)>
-                <ul.todo-list> for todo in items
-                    # todo with custum events remove and renamed
-                    <Todo todo=todo :remove.removeTodo(todo) :changed.persist>
+                <ul.todo-list> for todo, id in items
+                    # todo with custum events edit, remove and renamed
+                    <Todo todo=todo id=id editing=(editing is id) edit=(self:edit.bind(this)) :remove.removeTodo(todo) :changed.persist>
                     ###
                         you also can pass function like a property
                         func=(self:parentFuncName.bind(this))

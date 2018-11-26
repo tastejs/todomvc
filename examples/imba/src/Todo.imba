@@ -1,5 +1,8 @@
 export tag Todo
     prop todo
+    prop editing
+    prop id
+    prop edit
 
     def toggleTodo
         @todo.completed = !@todo.completed
@@ -7,8 +10,8 @@ export tag Todo
 
     def editing
         if !@editing
+            @edit(id)
             @newTitle = @todo.title
-            @editing = yes
 
     def exit
         @editing = no
@@ -17,12 +20,8 @@ export tag Todo
     def setTitle
         if @editing
             @todo.title = @newTitle
-            @newTitle = ''
             @editing = no
             trigger('changed')
-        else
-            @newTitle = ''
-            @editing = no   
 
     def render
         <self>
