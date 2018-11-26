@@ -62,4 +62,4 @@ class Controller
         if json != @json
             window:localStorage.setItem('todos-imba', @json = json)
 
-module:exports:Controller = Controller.new
+module:exports:controller = Controller.new
