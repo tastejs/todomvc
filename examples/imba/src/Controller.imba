@@ -12,12 +12,13 @@ class Controller
         load
 
     # add todo
-    def addTodo
+    def addTodo input
         if store:newTodoTitle
             store:todos.push Model.new(store:newTodoTitle)
             store:newTodoTitle = ''
+            input.value = ''
             persist
-
+            
     # remove todo
     def remove todo
         store:todos = store:todos.filter(|t| t != todo)

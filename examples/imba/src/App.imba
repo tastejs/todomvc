@@ -17,7 +17,7 @@ tag App
         <self>
             <header.header>
                 <h1> 'todos'
-                <input[controller.store:newTodoTitle] .new-todo :keydown.enter=(do controller.addTodo) placeholder="What needs to be done?" autofocus=true>
+                <input@input[controller.store:newTodoTitle] .new-todo :keydown.enter=(do controller.addTodo(@input)) placeholder="What needs to be done?" autofocus=true>
 
             <section.main>
                 <input.toggle-all#toggle-all type='checkbox' :change=(do |e| controller.toggleAll(e)) checked=(active.len is 0)>
