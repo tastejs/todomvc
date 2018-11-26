@@ -1,8 +1,6 @@
 import { Model } from './Store'
 
 class Controller
-    # prop todos
-    # prop newTodoTitle
     prop store
 
     def initialize
@@ -14,47 +12,43 @@ class Controller
 
     # add todo
     def addTodo
-        console.log @store:newTodoTitle
         if @store:newTodoTitle
             @store:todos.push Model.new(@store:newTodoTitle)
             @store:newTodoTitle = ''
-            # persist
-        console.log @store:todos
+            persist
 
     # remove todo
     def remove todo
         @store:todos = @store:todos.filter(|t| t != todo)
-        # persist
+        persist
 
     def toggle todo
         todo.completed = !todo.completed
-        # trigger('changed')
 
     def rename todo, title
         todo.title = title
-    # def toggleAll e
-    #     for todo in @todos
-    #         todo.completed = e.target.checked
-    #     persist
 
+    def toggleAll e
+        for todo in @todos
+            todo.completed = e.target.checked
+        persist
 
-    # # get completed todos
-    # def completed
-    #     @todos.filter(|todo| todo.completed )
+    # get completed todos
+    def completed
+        @store:todos.filter(|todo| todo.completed )
 
-    # # get not completed todos
-    # def remaining
-    #     @todos.filter(|todo| !todo.completed )
+    # get not completed todos
+    def remaining
+        @store:todos.filter(|todo| !todo.completed )
     
-    # # get location hash
-    # def hash
-    #     window:location:hash
+    # get location hash
+    def hash
+        window:location:hash
 
-    # # remove all completed todos from collection
-    # def archive
-    #     @todos = remaining
-    #     persist
-
+    # remove all completed todos from collection
+    def archive
+        @store:todos = remaining
+        persist
 
     # load todos from localstorage
     def load
@@ -62,10 +56,10 @@ class Controller
         console.log(items)
         @store:todos = items.map do |todo| Model.new(todo:_title, todo:_completed)
 
-    # # persist todos to localstorage
-    # def persist
-    #     var json = JSON.stringify(todos)
-    #     if json != @json
-    #         window:localStorage.setItem('todos-imba', @json = json)
+    # persist todos to localstorage
+    def persist
+        var json = JSON.stringify(@store:todos)
+        if json != @json
+            window:localStorage.setItem('todos-imba', @json = json)
 
 module:exports:Controller = Controller.new
