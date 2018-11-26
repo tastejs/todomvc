@@ -6,9 +6,7 @@ export tag Todo
     prop id
     prop edit
 
-    def toggleTodo
-        @todo.completed = !@todo.completed
-        trigger('changed')
+   
 
     def editing
         if !@editing
@@ -29,7 +27,7 @@ export tag Todo
         <self>
             <li .completed=(@todo.completed) .editing=(@editing)>
                 <div.view>
-                    <input .toggle :tap.toggleTodo type='checkbox' checked=(@todo.completed)>
+                    <input .toggle :tap=(do Controller.toggle(@todo)) type='checkbox' checked=(@todo.completed)>
                     <label :dblclick.editing> @todo.title
                     <button.destroy :tap=(do Controller.remove(@todo))>
                 <input[@newTitle] .edit :keydown.esc.exit :blur.setTitle :keydown.enter.setTitle>

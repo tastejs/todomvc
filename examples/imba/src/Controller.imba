@@ -26,6 +26,10 @@ class Controller
         @store:todos = @store:todos.filter(|t| t != todo)
         # persist
 
+    def toggle todo
+        todo.completed = !todo.completed
+        # trigger('changed')
+
     # def toggleAll e
     #     for todo in @todos
     #         todo.completed = e.target.checked
