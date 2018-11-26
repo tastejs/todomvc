@@ -16,11 +16,9 @@ export tag Todo
 
     def render
         <self>
-            # TODO: @todo.completed ? '.done' : '.editing'
-            <li .done=(@todo.completed) .editing=(!@todo.completed)>
-                <div .view>
-                    <input .toggle :tap.toggleTodo checked=(@todo.completed)>
-                    <label :dblclick.editing>
-                        @todo.title
+            <li .completed=(@todo.completed) .editing=(@editing)>
+                <div.view>
+                    <input .toggle :tap.toggleTodo type='checkbox' checked=(@todo.completed)>
+                    <label :dblclick.editing> @todo.title
                     <button.destroy :tap.trigger('remove')>
-                <input[@newTitle] .edit :blur.setTitle :keydown.enter.setTitle>
+                <input[@newTitle] .edit :blur.setTitle :keydown.enter.setTitle value=@todo.title>

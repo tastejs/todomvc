@@ -70,8 +70,7 @@ tag App
             <section.main>
                 <header.header :submit.prevent.addTodo>
                     <h1> 'todos'
-                    <input[@newTodoTitle] .new-todo placeholder="What needs to be done?">
-                    <button type='submit'> 'Add item'
+                    <input[@newTodoTitle] .new-todo :keydown.enter.addTodo placeholder="What needs to be done?">
 
                 <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len is 0)>
                 <ul.todo-list> for todo in items
