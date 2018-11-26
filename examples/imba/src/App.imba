@@ -3,18 +3,16 @@ import { Todo } from './Todo'
 
 tag App
     prop todos
-    prop newTodoTitle
         
     def build
         load
 
     # add todo
     def addTodo
-        if @newTodoTitle is undefined or @newTodoTitle is ''
-            return
-        @todos.push Model.new(@newTodoTitle)
-        @newTodoTitle = ''
-        persist
+        if @newTodoTitle
+            @todos.push Model.new(@newTodoTitle)
+            @newTodoTitle = ''
+            persist
 
     # remove todo
     def removeTodo todo
@@ -68,7 +66,7 @@ tag App
 
         <self>
             <section.main>
-                <header.header :submit.prevent.addTodo>
+                <header.header>
                     <h1> 'todos'
                     <input[@newTodoTitle] .new-todo :keydown.enter.addTodo placeholder="What needs to be done?">
 
