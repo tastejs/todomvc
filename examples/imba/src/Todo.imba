@@ -9,10 +9,15 @@ export tag Todo
         @newTitle = @todo.title
         @editing = yes
 
-    def setTitle
-        @todo.title = @newTitle
+    def exit
         @editing = no
-        trigger('changed')
+        @newTitle = ''
+
+    def setTitle
+        if @editing
+            @todo.title = @newTitle
+            @editing = no
+            trigger('changed')
 
     def render
         <self>
@@ -21,4 +26,4 @@ export tag Todo
                     <input .toggle :tap.toggleTodo type='checkbox' checked=(@todo.completed)>
                     <label :dblclick.editing> @todo.title
                     <button.destroy :tap.trigger('remove')>
-                <input[@newTitle] .edit :blur.setTitle :keydown.enter.setTitle value=@todo.title>
+                <input[@newTitle] .edit :keydown.esc.exit :blur.setTitle :keydown.enter.setTitle  value=@todo.title>
