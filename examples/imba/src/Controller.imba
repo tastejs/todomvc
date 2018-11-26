@@ -6,8 +6,7 @@ class Controller
     def initialize
         store = {
             newTodoTitle: '',
-            todos: [],
-            editing: null
+            todos: []
         }
         load
 
