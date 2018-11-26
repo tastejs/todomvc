@@ -26,9 +26,11 @@ class Controller
 
     def toggle todo
         todo.completed = !todo.completed
+        persist
 
     def rename todo, title
         todo.title = title
+        persist
 
     def toggleAll e
         for todo in store:todos
@@ -60,6 +62,7 @@ class Controller
     # persist todos to localstorage
     def persist
         var json = JSON.stringify(store:todos)
+        console.log(json)
         if json != @json
             window:localStorage.setItem('todos-imba', @json = json)
 
