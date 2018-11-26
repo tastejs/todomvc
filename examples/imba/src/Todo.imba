@@ -2,20 +2,20 @@ import Controller from './Controller'
 
 export tag Todo < li
     prop todo
+    prop id
+    prop editing
 
     def edit
-        flag('editing')
+        Controller.changeEditing(@id)
         @input.value = @todo.title
         setTimeout(&,10) do @input.focus
 
     def cancel
-        unflag('editing')
-        @input.blur
+        Controller.changeEditing(null)
 
     def setTitle
-        unflag('editing')
-        let title = @input.value.trim
-        if title != @todo.title
+        Controller.changeEditing(null)
+        if let title = @input.value.trim
             Controller.rename(@todo,title)
 
     def render

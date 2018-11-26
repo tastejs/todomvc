@@ -1,4 +1,4 @@
-import { Model } from './Store'
+import { Model } from './Model'
 
 class Controller
     prop store
@@ -6,7 +6,8 @@ class Controller
     def initialize
         @store = {
             newTodoTitle: '',
-            todos: []
+            todos: [],
+            editing: null
         }
         load
 
@@ -29,7 +30,7 @@ class Controller
         todo.title = title
 
     def toggleAll e
-        for todo in @todos
+        for todo in @store:todos
             todo.completed = e.target.checked
         persist
 
@@ -49,6 +50,9 @@ class Controller
     def archive
         @store:todos = remaining
         persist
+
+    def changeEditing id
+        @store:editing = id
 
     # load todos from localstorage
     def load
