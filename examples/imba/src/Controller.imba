@@ -15,8 +15,8 @@ class Controller
     def addTodo input
         if store:newTodoTitle
             store:todos.push Model.new(store:newTodoTitle)
-            store:newTodoTitle = ''
             input.value = ''
+            store:newTodoTitle = ''
             persist
             
     # remove todo

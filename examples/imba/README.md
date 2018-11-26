@@ -5,6 +5,12 @@
 
 [imba.io] (http://imba.io)
 
+## Learning Imba
+
+[Docs] (http://imba.io/guides/essentials/introduction)
+[Lessons] (https://scrimba.com)
+
+
 ## Running
 
 ```
@@ -13,3 +19,10 @@ webpack
 #or
 npx webpack 
 ```
+
+_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+
+## Credit
+
+This TodoMVC application was created by [Yury Shapkarin](http://shapkarin.me).
