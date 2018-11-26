@@ -2,8 +2,7 @@ import Controller from './Controller'
 import { Todo } from './Todo'
 
 tag App
-    prop todos
-    prop newTodo
+    prop store
         
     # def build
     #     load
@@ -72,7 +71,8 @@ tag App
             <section.main>
                 <header.header>
                     <h1> 'todos'
-                    <input[@newTodo] .new-todo :keydown.enter=(do Controller.addTodo(@newTodo)) placeholder="What needs to be done?" autofocus=true>
+                    <div> @store:newTodoTitle
+                    <input[@store:newTodoTitle] .new-todo :keydown.enter=(do Controller.addTodo) placeholder="What needs to be done?" autofocus=true>
 
                 # <input.toggle-all type='checkbox' :change.toggleAll checked=(active.len is 0)>
                 # <ul.todo-list> for todo, id in items
@@ -99,4 +99,4 @@ tag App
                 #         <button.clear-completed :tap.archive> 'Clear completed'
 
     
-Imba.mount <App.todoapp todos=Controller.todos newTodo=Controller.newTodoTitle>
+Imba.mount <App.todoapp store=Controller.store>
