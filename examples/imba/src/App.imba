@@ -21,7 +21,8 @@ tag App
                     <h1> 'todos'
                     <input[@store:newTodoTitle] .new-todo :keydown.enter=(do Controller.addTodo) placeholder="What needs to be done?" autofocus=true>
 
-                <input.toggle-all type='checkbox' :change=(do Controller.toggleAll) checked=(active.len is 0)>
+                <input.toggle-all#toggle-all type='checkbox' :change=(do |e| Controller.toggleAll(e)) checked=(active.len is 0)>
+                <label for="toggle-all"> 'Mark all as complete'
                 <ul.todo-list> for todo, id in items
                     <Todo todo=todo>
 
