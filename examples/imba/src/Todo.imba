@@ -24,7 +24,11 @@ export tag Todo < li
     def render
         <self .completed=(todo.completed) .editing=(@editing)>
             <div.view>
-                <input .toggle :tap=(do controller.toggle(todo)) type='checkbox' checked=todo.completed>
+                <input.toggle
+                    :tap=(do controller.toggle(todo))
+                    type='checkbox'
+                    checked=todo.completed
+                >
                 <label :dblclick.edit> todo.title
                 <button.destroy :tap=(do controller.remove(todo))>
             <input@input.edit :keydown.enter.setTitle :keydown.esc.cancel>

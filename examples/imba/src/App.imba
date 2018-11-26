@@ -17,10 +17,21 @@ tag App
         <self>
             <header.header>
                 <h1> 'todos'
-                <input@input[controller.store:newTodoTitle] .new-todo :keydown.enter=(do controller.addTodo(@input)) placeholder="What needs to be done?" autofocus=true>
+                <input.new-todo
+                    @input
+                    [controller.store:newTodoTitle]
+                    :keydown.enter=(do controller.addTodo(@input))
+                    placeholder="What needs to be done?"
+                    autofocus=true
+                >
 
             <section.main>
-                <input.toggle-all#toggle-all type='checkbox' :change=(do |e| controller.toggleAll(e)) checked=(active.len is 0)>
+                <input
+                    #toggle-all.toggle-all
+                    type='checkbox'
+                    :change=(do |e| controller.toggleAll(e))
+                    checked=(active.len is 0)
+                >
                 <label for="toggle-all"> 'Mark all as complete'
             
             <ul.todo-list> for todo, id in items
