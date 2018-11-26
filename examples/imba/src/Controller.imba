@@ -30,6 +30,8 @@ class Controller
         todo.completed = !todo.completed
         # trigger('changed')
 
+    def rename todo, title
+        todo.title = title
     # def toggleAll e
     #     for todo in @todos
     #         todo.completed = e.target.checked
@@ -53,8 +55,6 @@ class Controller
     #     @todos = remaining
     #     persist
 
-    # def edit id
-    #     @editing = id
 
     # load todos from localstorage
     def load

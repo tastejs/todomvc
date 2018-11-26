@@ -1,33 +1,27 @@
 import Controller from './Controller'
 
-export tag Todo
+export tag Todo < li
     prop todo
-    prop editing
-    prop id
-    prop edit
 
-   
+    def edit
+        flag('editing')
+        @input.value = @todo.title
+        @input.focus
 
-    def editing
-        if !@editing
-            @edit(id)
-            @newTitle = @todo.title
-
-    def exit
-        @editing = no
-        @newTitle = ''
+    def cancel
+        unflag('editing')
+        @input.blur
 
     def setTitle
-        if @editing
-            @todo.title = @newTitle
-            @editing = no
-            trigger('changed')
+        unflag('editing')
+        let title = @input.value.trim
+        if title != @todo.title
+            Controller.rename(@todo,title)
 
     def render
-        <self>
-            <li .completed=(@todo.completed) .editing=(@editing)>
-                <div.view>
-                    <input .toggle :tap=(do Controller.toggle(@todo)) type='checkbox' checked=(@todo.completed)>
-                    <label :dblclick.editing> @todo.title
-                    <button.destroy :tap=(do Controller.remove(@todo))>
-                <input[@newTitle] .edit :keydown.esc.exit :blur.setTitle :keydown.enter.setTitle>
+        <self .completed=(@todo.completed) .editing=(@editing)>
+            <div.view>
+                <input .toggle :tap=(do Controller.toggle(@todo)) type='checkbox' checked=@todo.completed>
+                <label :dblclick.edit> @todo.title
+                <button.destroy :tap=(do Controller.remove(@todo))>
+            <input@input.edit :keydown.enter.setTitle :keydown.esc.cancel :blur.setTitle>
