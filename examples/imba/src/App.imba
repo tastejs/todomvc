@@ -5,7 +5,7 @@ tag App
     prop store
         
     def render
-        var items = store:todos
+        var items = Controller.store:todos
         var active = Controller.remaining
         var done = Controller.completed
         var hash = Controller.hash
@@ -18,7 +18,7 @@ tag App
         <self>
             <header.header>
                 <h1> 'todos'
-                <input[store:newTodoTitle] .new-todo :keydown.enter=(do Controller.addTodo) placeholder="What needs to be done?" autofocus=true>
+                <input[Controller.store:newTodoTitle] .new-todo :keydown.enter=(do Controller.addTodo) placeholder="What needs to be done?" autofocus=true>
 
             <section.main>
                 <input.toggle-all#toggle-all type='checkbox' :change=(do |e| Controller.toggleAll(e)) checked=(active.len is 0)>
@@ -33,7 +33,7 @@ tag App
                     active.len == 1 ? 'item' : 'items'
                     ' left'
                 <ul.filters>
-                    <li> <a .selected=(items is store:todos) href='#/'> 'All'
+                    <li> <a .selected=(items is Controller.store:todos) href='#/'> 'All'
                     <li> <a .selected=(items is active) href='#/active'> 'Active'
                     <li> <a .selected=(items is done) href='#/completed'> 'Completed'
 
@@ -41,4 +41,4 @@ tag App
                     <button.clear-completed :tap=(do Controller.archive)> 'Clear completed'
 
     
-Imba.mount <App.todoapp store=Controller.store>
+Imba.mount <App.todoapp>

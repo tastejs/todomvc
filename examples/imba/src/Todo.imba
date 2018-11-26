@@ -17,6 +17,9 @@ export tag Todo < li
         let title = @input.value.trim
         if title != todo.title
             Controller.rename(todo,title)
+    
+    def onfocusout e
+        setTitle if hasFlag('editing')
 
     def render
         <self .completed=(todo.completed) .editing=(@editing)>
@@ -24,4 +27,4 @@ export tag Todo < li
                 <input .toggle :tap=(do Controller.toggle(todo)) type='checkbox' checked=todo.completed>
                 <label :dblclick.edit> todo.title
                 <button.destroy :tap=(do Controller.remove(todo))>
-            <input@input.edit :keydown.enter.setTitle :keydown.esc.cancel :blur.setTitle>
+            <input@input.edit :keydown.enter.setTitle :keydown.esc.cancel>
