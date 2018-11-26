@@ -54,7 +54,6 @@ class Controller
     # load todos from localstorage
     def load
         var items = JSON.parse(window:localStorage.getItem('todos-imba') or '[]')
-        console.log(items)
         @store:todos = items.map do |todo| Model.new(todo:_title, todo:_completed)
 
     # persist todos to localstorage
