@@ -13,7 +13,7 @@ class Controller
     # add todo
     def addTodo input
         if store:newTodoTitle
-            store:todos.push Model.new(store:newTodoTitle)
+            store:todos.push Model(store:newTodoTitle)
             input.value = ''
             store:newTodoTitle = ''
             persist
@@ -24,25 +24,25 @@ class Controller
         persist
 
     def toggle todo
-        todo.completed = !todo.completed
+        todo:completed = !todo:completed
         persist
 
     def rename todo, title
-        todo.title = title
+        todo:title = title
         persist
 
     def toggleAll e
         for todo in store:todos
-            todo.completed = e.target.checked
+            todo:completed = e.target.checked
         persist
 
     # get completed todos
     def completed
-        store:todos.filter(|todo| todo.completed )
+        store:todos.filter(|todo| todo:completed )
 
     # get not completed todos
     def remaining
-        store:todos.filter(|todo| !todo.completed )
+        store:todos.filter(|todo| !todo:completed )
     
     # get location hash
     def hash
@@ -56,12 +56,11 @@ class Controller
     # load todos from localstorage
     def load
         var items = JSON.parse(window:localStorage.getItem('todos-imba') or '[]')
-        store:todos = items.map do |todo| Model.new(todo:_title, todo:_completed)
+        store:todos = items.map do |todo| Model(todo:title, todo:completed)
 
     # persist todos to localstorage
     def persist
         var json = JSON.stringify(store:todos)
-        console.log(json)
         if json != @json
             window:localStorage.setItem('todos-imba', @json = json)
 

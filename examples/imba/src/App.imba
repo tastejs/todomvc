@@ -30,7 +30,7 @@ tag App
                     #toggle-all.toggle-all
                     type='checkbox'
                     :change=(do |e| controller.toggleAll(e))
-                    checked=(active.len is 0)
+                    checked=(active.len is 0 and items.len)
                 >
                 <label for="toggle-all"> 'Mark all as complete'
             
