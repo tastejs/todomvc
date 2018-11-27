@@ -11,6 +11,8 @@
 
 [Lessons](https://scrimba.com)
 
+[Github](https://github.com/imba/imba)
+
 
 ## Running
 
