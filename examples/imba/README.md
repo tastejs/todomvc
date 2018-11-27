@@ -8,6 +8,7 @@
 ## Learning Imba
 
 [Docs](http://imba.io/guides/essentials/introduction)
+
 [Lessons](https://scrimba.com)
 
 
