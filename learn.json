@@ -1928,7 +1928,7 @@
 	},
 	"imba": {
 		"name": "Imba",
-		"description": "if ruby and react had an indentation-based child, what would it look like? Imba is a programming language for the web that compiles to performant and readable JavaScript. It has language level support for defining, extending subclassing, instantiating and rendering dom nodes.",
+		"description": "if ruby and react had an indentation-based child, what would it look like? Imba is a programming language for the web that compiles to performant and readable JavaScript. It has language level support for defining, extending subclassing, instantiating and rendering dom nodes.<br>Declarative views are compiled to a <a href='http://imba.io/guides/advanced/performance#performance'>memoized dom</a>, which is an order of <a href='https://somebee.github.io/dom-reconciler-bench/index.html'>magnitude faster</a> than todays virtual dom implementations. ",
 		"homepage": "imba.io",
 		"examples": [{
 			"name": "Example",
