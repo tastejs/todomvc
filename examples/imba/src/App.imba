@@ -48,7 +48,7 @@ tag App
                     <li> <a .selected=(items is done) href='#/completed'> 'Completed'
 
                 if done.len > 0
-                    <button.clear-completed :tap=(do controller.archive)> 'Clear completed'
+                    <button.clear-completed :click=(do controller.archive)> 'Clear completed'
 
     
 Imba.mount <App.todoapp>
