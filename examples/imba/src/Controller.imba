@@ -12,8 +12,9 @@ class Controller
 
     # add todo
     def addTodo input
-        if store:newTodoTitle
-            store:todos.push Model(store:newTodoTitle.trim)
+        const newTodoTitle = store:newTodoTitle.trim
+        if newTodoTitle
+            store:todos.push Model(newTodoTitle)
             input.value = ''
             store:newTodoTitle = ''
             persist
