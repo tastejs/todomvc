@@ -13,7 +13,7 @@ class Controller
     # add todo
     def addTodo input
         if store:newTodoTitle
-            store:todos.push Model(store:newTodoTitle)
+            store:todos.push Model(store:newTodoTitle.trim)
             input.value = ''
             store:newTodoTitle = ''
             persist
