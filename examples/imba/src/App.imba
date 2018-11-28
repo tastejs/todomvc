@@ -4,10 +4,10 @@ import { Todo } from './Todo'
 tag App
         
     def render
-        var items = controller.store:todos
-        var active = controller.remaining
-        var done = controller.completed
-        var hash = controller.hash
+        let items = controller.store:todos
+        const active = controller.remaining
+        const done = controller.completed
+        const hash = controller.hash
 
         if hash is '#/completed'
             items = done
