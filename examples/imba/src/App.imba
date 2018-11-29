@@ -4,7 +4,8 @@ import { Todo } from './Todo'
 tag App
         
     def render
-        let items = controller.store:todos
+        const todos = controller.store:todos
+        let items = todos
         const active = controller.remaining
         const done = controller.completed
         const hash = controller.hash
@@ -26,7 +27,7 @@ tag App
                 >
 
             <section.main>
-                if items.len
+                if todos.len
                     <input
                         #toggle-all.toggle-all
                         type='checkbox'
@@ -38,7 +39,7 @@ tag App
             <ul.todo-list> for todo, id in items
                 <Todo todo=todo>
 
-            if items.len
+            if todos.len
                 <footer.footer>
                     <span.todo-count>
                         <strong> "{active.len} "
