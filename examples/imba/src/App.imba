@@ -27,19 +27,19 @@ tag App
                 >
 
             <section.main>
-                if todos.len
+                if todos.len > 0
                     <input
                         #toggle-all.toggle-all
                         type='checkbox'
                         :change=(do |e| controller.toggleAll(e))
-                        checked=(!active.len)
+                        checked=(active.len is 0)
                     >
                     <label for="toggle-all"> 'Mark all as complete'
             
             <ul.todo-list> for todo, id in items
                 <Todo todo=todo>
 
-            if todos.len
+            if todos.len > 0
                 <footer.footer>
                     <span.todo-count>
                         <strong> "{active.len} "
