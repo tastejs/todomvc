@@ -5,12 +5,13 @@
   "description": "imba todo app",
   "main": "index.js",
   "scripts": {
-    "build": "npx webpack"
+    "build": "webpack"
   },
   "author": "Yury Shapkarin",
   "license": "MIT",
   "engines": {
-    "npm": "^5.2.0"
+    "npm": "^5.2.0",
+    "node": "^10.12.0"
   },
   "dependencies": {
     "todomvc-app-css": "^2.0.0",

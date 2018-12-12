@@ -24,7 +24,7 @@ export tag Todo < li
 
     def render
         <self .completed=(todo:completed) .editing=(@editing)>
-            <div.view>
+            <.view>
                 <input.toggle
                     :click=(do controller.toggle(todo))
                     type='checkbox'

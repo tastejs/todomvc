@@ -26,15 +26,15 @@ tag App
                     autofocus=true
                 >
 
-            <section.main>
-                if todos.len > 0
-                    <input
-                        #toggle-all.toggle-all
-                        type='checkbox'
-                        :change=(do |e| controller.toggleAll(e))
-                        checked=(active.len is 0)
-                    >
-                    <label for="toggle-all"> 'Mark all as complete'
+            if todos.len > 0
+                <section.main>
+                        <input
+                            #toggle-all.toggle-all
+                            type='checkbox'
+                            :change=(do |e| controller.toggleAll(e))
+                            checked=(active.len is 0)
+                        >
+                        <label for="toggle-all"> 'Mark all as complete'
             
             <ul.todo-list> for todo, id in items
                 <Todo todo=todo>
