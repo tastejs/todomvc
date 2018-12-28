@@ -1,0 +1,79 @@
+{
+  "_from": "director@^1.2.0",
+  "_id": "director@1.2.8",
+  "_inBundle": false,
+  "_integrity": "sha1-xtm03YkOmv9TZRg/6cyOc5lM8tU=",
+  "_location": "/director",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "director@^1.2.0",
+    "name": "director",
+    "escapedName": "director",
+    "rawSpec": "^1.2.0",
+    "saveSpec": null,
+    "fetchSpec": "^1.2.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/director/-/director-1.2.8.tgz",
+  "_shasum": "c6d9b4dd890e9aff5365183fe9cc8e73994cf2d5",
+  "_spec": "director@^1.2.0",
+  "_where": "/var/www/todomvc/examples/typescript-react",
+  "author": {
+    "name": "Charlie Robbins",
+    "email": "charlie.robbins@gmail.com"
+  },
+  "browserify": "./build/director",
+  "bugs": {
+    "url": "https://github.com/flatiron/director/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A client Side/Server Side Router",
+  "devDependencies": {
+    "api-easy": "0.4.x",
+    "codesurgeon": "https://github.com/hij1nx/codesurgeon/tarball/master",
+    "colors": "1.0.x",
+    "qunitjs": "1.9.x",
+    "request": "2.49.x",
+    "uglify-js": "2.4.x",
+    "vows": "0.8.0"
+  },
+  "ender": "./build/ender.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "homepage": "https://github.com/flatiron/director#readme",
+  "keywords": [
+    "URL",
+    "router",
+    "http",
+    "cli",
+    "flatiron",
+    "client side",
+    "ender"
+  ],
+  "main": "./lib/director",
+  "maintainers": [
+    {
+      "name": "hij1nx",
+      "email": "paolo@nodejitsu.com"
+    },
+    {
+      "name": "beaugunderson",
+      "email": "beau@beaugunderson.com"
+    }
+  ],
+  "name": "director",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/flatiron/director.git"
+  },
+  "scripts": {
+    "test": "vows test/server/*/*-test.js --spec"
+  },
+  "version": "1.2.8"
+}

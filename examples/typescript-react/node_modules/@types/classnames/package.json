@@ -1,0 +1,71 @@
+{
+  "_from": "@types/classnames@^2.2.6",
+  "_id": "@types/classnames@2.2.6",
+  "_inBundle": false,
+  "_integrity": "sha512-XHcYvVdbtAxVstjKxuULYqYaWIzHR15yr1pZj4fnGChuBVJlIAp9StJna0ZJNSgxPh4Nac2FL4JM3M11Tm6fqQ==",
+  "_location": "/@types/classnames",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@types/classnames@^2.2.6",
+    "name": "@types/classnames",
+    "escapedName": "@types%2fclassnames",
+    "scope": "@types",
+    "rawSpec": "^2.2.6",
+    "saveSpec": null,
+    "fetchSpec": "^2.2.6"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/classnames/-/classnames-2.2.6.tgz",
+  "_shasum": "dbe8a666156d556ed018e15a4c65f08937c3f628",
+  "_spec": "@types/classnames@^2.2.6",
+  "_where": "/var/www/todomvc/examples/typescript-react",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Dave Keen",
+      "url": "http://www.keendevelopment.ch"
+    },
+    {
+      "name": "Adi Dahiya",
+      "url": "https://github.com/adidahiya"
+    },
+    {
+      "name": "Jason Killian",
+      "url": "https://github.com/JKillian"
+    },
+    {
+      "name": "Sean Kelley",
+      "url": "https://github.com/seansfkelley"
+    },
+    {
+      "name": "Michal Adamczyk",
+      "url": "https://github.com/mradamczyk"
+    },
+    {
+      "name": "Marvin Hagemeister",
+      "url": "https://github.com/marvinhagemeister"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for classnames",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/classnames",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.3",
+  "typesPublisherContentHash": "ba459a84a968ae9a5e57bd09be53fc42660354b44e0037f3a544be6409abb836",
+  "version": "2.2.6"
+}
