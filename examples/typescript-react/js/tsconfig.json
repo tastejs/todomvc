@@ -28,5 +28,7 @@
         "footer.tsx",
         "todoItem.tsx"
     ],
-    "exclude": []
+    "exclude": [],
+    "baseUrl": "types",
+    "typeRoots": ["types"]
 }
