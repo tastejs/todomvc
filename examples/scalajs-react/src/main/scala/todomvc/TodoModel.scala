@@ -3,7 +3,6 @@ package todomvc
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.extra.Broadcaster
 
-import scala.language.postfixOps
 
 class TodoModel(storage: Storage) extends Broadcaster[Seq[Todo]] {
   private object State {

@@ -11,7 +11,7 @@ case class Storage(storage: dom.ext.Storage, namespace: String) {
     Callback(storage(namespace) = write(data))
 
   def load[T: Reader]: Option[T] =
-    Try(storage(namespace) map read[T]) match {
+    Try(storage(namespace).map(str => read[T](str))) match {
       case Success(Some(t)) => Some(t)
       case Success(None)    => None
       case Failure(th)      =>
