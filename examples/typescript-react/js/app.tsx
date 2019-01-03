@@ -4,11 +4,11 @@
 /*jshint newcap:false */
 /*global React, Router*/
 
-/// <reference path="../typings/tsd.d.ts" />
 /// <reference path="./interfaces.d.ts"/>
 
 declare var Router;
-
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { TodoModel } from "./todoModel";
 import { TodoFooter } from "./footer";
 import { TodoItem } from "./todoItem";
@@ -36,22 +36,22 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
     router.init('/');
   }
 
-  public handleNewTodoKeyDown(event : __React.KeyboardEvent) {
+  public handleNewTodoKeyDown(event : React.KeyboardEvent) {
     if (event.keyCode !== ENTER_KEY) {
       return;
     }
 
     event.preventDefault();
 
-    var val = React.findDOMNode<HTMLInputElement>(this.refs["newField"]).value.trim();
+    var val = (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value.trim();
 
     if (val) {
       this.props.model.addTodo(val);
-      React.findDOMNode<HTMLInputElement>(this.refs["newField"]).value = '';
+      (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value = '';
     }
   }
 
-  public toggleAll(event : __React.FormEvent) {
+  public toggleAll(event : React.FormEvent) {
     var target : any = event.target;
     var checked = target.checked;
     this.props.model.toggleAll(checked);
@@ -177,7 +177,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 var model = new TodoModel('react-todos');
 
 function render() {
-  React.render(
+  ReactDOM.render(
     <TodoApp model={model}/>,
     document.getElementsByClassName('todoapp')[0]
   );
