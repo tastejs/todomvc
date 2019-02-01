@@ -1,22 +1,30 @@
 {
-  "private": true,
+  "name": "todos",
+  "version": "1.0.0",
+  "description": "Todo list web app",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html -p 2345",
+    "prebuild": "rimraf dist/build",
+    "build": "NODE_ENV=production parcel build index.html --public-url ./ -d dist/build --detailed-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "classnames": "^2.1.5",
-    "director": "^1.2.0",
-    "react": "^0.13.3",
-    "todomvc-app-css": "^2.0.0",
-    "todomvc-common": "^1.0.1"
+    "date-fns": "^1.30.1",
+    "lodash": "^4.17.11",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "reboot.css": "^1.0.1",
+    "styled-components": "^4.0.3"
   },
   "devDependencies": {
-    "bin-up": "^1.1.0"
-  },
-  "scripts": {
-    "cy:open": "bin-up cypress open --project ../.. --env framework=react",
-    "cy:run": "bin-up cypress run --project ../.. --env framework=react",
-    "cy:run:record": "npm run cy:run -- --record",
-    "start": "bin-up gulp test-server",
-    "test:gui": "bin-up run-p --race start cy:open",
-    "test": "bin-up run-p --race start cy:run",
-    "test:record": "bin-up run-p --race start cy:run:record"
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.3.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "7.0.0",
+    "parcel-bundler": "^1.10.3",
+    "rimraf": "^2.6.2"
   }
 }

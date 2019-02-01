@@ -1,12 +1,14 @@
-node_modules/director
-!node_modules/director/build/director.js
+# dependencies
+/node_modules
 
-node_modules/react
-!node_modules/react/dist/react-with-addons.js
-!node_modules/react/dist/JSXTransformer.js
-node_modules/todomvc-app-css
-!node_modules/todomvc-app-css/index.css
+# production
+/dist
 
-node_modules/todomvc-common
-!node_modules/todomvc-common/base.css
-!node_modules/todomvc-common/base.js
+# misc
+.DS_Store
+.cache
+.env
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
