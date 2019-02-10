@@ -44,6 +44,6 @@ object Main extends JSApp {
    */
   @JSExport
   override def main(): Unit = {
-    val mounted = ReactDOM.render(router, dom.document.getElementsByClassName("todoapp")(0))
+    ReactDOM.render(router, dom.document.getElementsByClassName("todoapp")(0))
   }
 }
