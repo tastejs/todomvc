@@ -4,26 +4,84 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aurelia • TodoMVC</title>
-  <link rel="stylesheet" type="text/css" href="jspm_packages/npm/todomvc-common@1.0.2/base.css">
-  <link rel="stylesheet" type="text/css" href="jspm_packages/npm/todomvc-app-css@2.0.4/index.css">
+  <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+  <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 </head>
 <body>
-  <section class="todoapp" aurelia-app="main">
-    <!-- this is where Aurelia will fill out the content -->
+  <section class="todoapp">
+    <let
+      filtered-todos.bind="todos | filterTodo :filter :todos.length :filterVersion"
+      active-todos.bind="todos | filterTodo :'active' :todos.length :filterVersion"></let>
+    <header class="header">
+      <h1>todos</h1>
+      <form submit.trigger="addNewTodo()">
+        <input class="new-todo" placeholder="What needs to be done?"
+          focus.one-time="true"
+          value.bind="newTodoTitle">
+      </form>
+    </header>
+
+    <section class="main" show.bind="filteredTodos.length">
+      <input id="toggle-all" class="toggle-all" type="checkbox" change.trigger="toggleAll()">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+        <li
+          repeat.for="todoItem of filteredTodos"
+          class="${todoItem.isCompleted ? 'completed' : ''} ${todoItem.isEditing ? 'editing' : ''}">
+          <div class="view">
+            <input class="toggle" type="checkbox" checked.to-view="todoItem.isCompleted" change.trigger="toggleTodo(todoItem)">
+            <label dblclick.delegate="beginEdit(todoItem)" textcontent.bind="todoItem.title"></label>
+            <button click.delegate="deleteTodo(todoItem)" class="destroy"></button>
+          </div>
+          <input class="edit"
+                 value.bind="todoItem.tempTitle"
+                 focus.to-view="todoItem.isEditing"
+                 blur.trigger="cancelEdit(todoItem)"
+                 keyup.trigger="onKeyUpTodo(todoItem, $event)">
+        </li>
+      </ul>
+    </section>
+
+    <footer class="footer" show.bind="todos.length">
+      <span class="todo-count">
+        <strong textcontent.bind="activeTodos.length"></strong>
+        <span textcontent="${activeTodos.length == 1 ? 'item' : 'items'} left"></span>
+      </span>
+      <ul class="filters">
+        <li><a href="#/" class="${!filter ? 'selected' : ''}">All</a></li>
+        <li><a href="#/active" class="${filter === 'active' ? 'selected' : ''}">Active</a></li>
+        <li><a href="#/completed" class="${filter === 'completed' ? 'selected' : ''}">Completed</a></li>
+      </ul>
+      <button class="clear-completed"
+        click.delegate="clearCompletedTodos()"
+        show.bind="todos.length > activeTodos.length">Clear completed</button>
+    </footer>
+
   </section>
 
   <footer class="info">
     <p>Double-click to edit a todo</p>
     <p>Created by <a href="http://marcelhoyer.de">Marcel Hoyer</a></p>
+    <p>Enhanced by <a href="https://github.com/bigopon">bigopon</a></p>
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
   </footer>
 
   <!-- Scripts here. Don't remove ↓ -->
-  <script src="jspm_packages/npm/todomvc-common@1.0.2/base.js"></script>
-  <script src="jspm_packages/system.js"></script>
-  <script src="config.js"></script>
-  <script>
-    System.import('aurelia-bootstrapper');
+  <script src="node_modules/todomvc-common/base.js"></script>
+  <script src="node_modules/aurelia-script/dist/aurelia.umd.min.js"></script>
+  <script type="module">
+    import { App, FilterTodoValueConverter } from './app.js';
+    try {
+      const aurelia = window.aurelia = new au.Aurelia();
+
+      aurelia.use.standardConfiguration().globalResources(FilterTodoValueConverter);
+      aurelia.start().then(
+        aurelia => aurelia.enhance(new App()),
+        ex => document.body.textContent = ex.toString()
+      );
+    } catch (ex) {
+      document.body.textContent = ex.toString();
+    }
   </script>
 </body>
 </html>
