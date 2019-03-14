@@ -71,17 +71,11 @@
   <script src="node_modules/aurelia-script/dist/aurelia.umd.min.js"></script>
   <script type="module">
     import { App, FilterTodoValueConverter } from './app.js';
-    try {
-      const aurelia = window.aurelia = new au.Aurelia();
-
-      aurelia.use.standardConfiguration().globalResources(FilterTodoValueConverter);
-      aurelia.start().then(
-        aurelia => aurelia.enhance(new App()),
-        ex => document.body.textContent = ex.toString()
-      );
-    } catch (ex) {
-      document.body.textContent = ex.toString();
-    }
+    au.enhance({
+      root: App,
+      // host: document.body,
+      resources: [FilterTodoValueConverter]
+    });
   </script>
 </body>
 </html>
