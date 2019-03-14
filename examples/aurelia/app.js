@@ -11,10 +11,19 @@ export class App {
 	constructor() {
 		this.load();
 		this.filter = '';
+		// will be used as an update signaler to notify one or all of the todos have been changed
+		// this is to avoid dirty checking / excessive observation on all todos
 		this.filterVersion = 0;
 		this.configureRouting();
 	}
 
+	/**
+	 * simplest form of routing, for the todomvc app
+	 * can also bedone with `History` class injection from 'aurelia-history'
+	 * ```js
+	 * history.activate({ routeHandler: segment => ... })
+	 * ```
+	 */
 	configureRouting() {
 		const handleHashChange = () => {
 			const fragment = location.hash;
@@ -92,7 +101,7 @@ export class App {
 			ev.target.blur();
 		}
 	}
-	
+
 	load() {
 		const storageContent = localStorage.getItem(STORAGE_NAME);
 		this.todos = storageContent === null ? [] : JSON.parse(storageContent);
@@ -103,6 +112,9 @@ export class App {
 	}
 }
 
+/**
+ * A value converter for filtering todos based on filter enum
+ */
 export class FilterTodoValueConverter {
 	toView(todos, filter) {
 		if (!Array.isArray(todos)) {

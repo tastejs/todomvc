@@ -70,10 +70,20 @@
   <script src="node_modules/todomvc-common/base.js"></script>
   <script src="node_modules/aurelia-script/dist/aurelia.umd.min.js"></script>
   <script type="module">
+    // using native import, without any bundler
     import { App, FilterTodoValueConverter } from './app.js';
     au.enhance({
+      // view model used for the enhancement
+      // can also be an object: new App()
+      // if a function is passed, it will be instantiated by aurelia DI
       root: App,
+
+      // by default document.body is the target of enhancement
       // host: document.body,
+
+      // global resources for the enhancement
+      // for refreshing the values of filtered todo list and active todo list from real todo list
+      // this is used by the let element at line 12,13,14
       resources: [FilterTodoValueConverter]
     });
   </script>
