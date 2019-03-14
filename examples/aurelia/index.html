@@ -9,6 +9,7 @@
 </head>
 <body>
   <section class="todoapp">
+    <!-- Aurelia <let/> element to declare the filteredTodos and activeTodos computed properties. See: https://aurelia.io/docs/templating/custom-elements#declarative-computed-values -->
     <let
       filtered-todos.bind="todos | filterTodo :filter :todos.length :filterVersion"
       active-todos.bind="todos | filterTodo :'active' :todos.length :filterVersion"></let>
@@ -45,7 +46,7 @@
     <footer class="footer" show.bind="todos.length">
       <span class="todo-count">
         <strong textcontent.bind="activeTodos.length"></strong>
-        <span textcontent="${activeTodos.length == 1 ? 'item' : 'items'} left"></span>
+        <span textcontent="${activeTodos.length === 1 ? 'item' : 'items'} left"></span>
       </span>
       <ul class="filters">
         <li><a href="#/" class="${!filter ? 'selected' : ''}">All</a></li>
@@ -70,21 +71,11 @@
   <script src="node_modules/todomvc-common/base.js"></script>
   <script src="node_modules/aurelia-script/dist/aurelia.umd.min.js"></script>
   <script type="module">
-    // using native import, without any bundler
-    import { App, FilterTodoValueConverter } from './app.js';
+    import { App, FilterTodoValueConverter } from './app.js'; // native modules, no bundler used
     au.enhance({
-      // view model used for the enhancement
-      // can also be an object: new App()
-      // if a function is passed, it will be instantiated by aurelia DI
-      root: App,
-
-      // by default document.body is the target of enhancement
-      // host: document.body,
-
-      // global resources for the enhancement
-      // for refreshing the values of filtered todo list and active todo list from real todo list
-      // this is used by the let element at line 12,13,14
-      resources: [FilterTodoValueConverter]
+      root: App, // Pass in a class / constructor function to let Aurelia DI instantiate it. You can also pass in a regular object.
+      // host: document.body, // (this is the default by convention, you can also manually pass in the host element)
+      resources: [FilterTodoValueConverter] // Specify components here that need to be available globally
     });
   </script>
 </body>

@@ -11,19 +11,11 @@ export class App {
 	constructor() {
 		this.load();
 		this.filter = '';
-		// will be used as an update signaler to notify one or all of the todos have been changed
-		// this is to avoid dirty checking / excessive observation on all todos
-		this.filterVersion = 0;
+		this.filterVersion = 0; // This is observed by the filterTodos value converter to avoid dirty checking
 		this.configureRouting();
 	}
 
-	/**
-	 * simplest form of routing, for the todomvc app
-	 * can also bedone with `History` class injection from 'aurelia-history'
-	 * ```js
-	 * history.activate({ routeHandler: segment => ... })
-	 * ```
-	 */
+	// Simplest form of routing, for the todomvc app. Can also be done with `aurelia-router` (see https://aurelia.io/docs/routing/) for apps that use setRoot
 	configureRouting() {
 		const handleHashChange = () => {
 			const fragment = location.hash;
@@ -112,17 +104,13 @@ export class App {
 	}
 }
 
-/**
- * A value converter for filtering todos based on filter enum
- */
+// A value converter for filtering todos based supplied arguments (see https://aurelia.io/docs/binding/value-converters#introduction)
 export class FilterTodoValueConverter {
 	toView(todos, filter) {
-		if (!Array.isArray(todos)) {
-			return [];
-		}
-		if (filter === 'all' || !filter) {
-			return todos;
-		}
-		return todos.filter(todo => filter === 'active' ? !todo.isCompleted : todo.isCompleted);
+		if (!Array.isArray(todos)) return [];
+		if (filter === 'all' || !filter) return todos;
+
+		const isCompleted = filter !== 'active';
+		return todos.filter(todo => todo.isCompleted === isCompleted);
 	}
 }
