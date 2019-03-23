@@ -11,17 +11,16 @@ export class App {
 	constructor() {
 		this.load();
 		this.filter = '';
-		this.filterVersion = 0; // This is observed by the filterTodos value converter to avoid dirty checking
+		this.filterVersion = 0; // Observed for changes by FilterTodoValueConverter. This is a performant way to avoid the need for dirty checking or deep observation.
 		this.configureRouting();
 	}
 
 	// Simplest form of routing, for the todomvc app. Can also be done with `aurelia-router` (see https://aurelia.io/docs/routing/) for apps that use setRoot
 	configureRouting() {
 		const handleHashChange = () => {
-			const fragment = location.hash;
-			const filter = fragment.replace(/^#?\/?/, '');
-			this.filter = KNOWN_ROUTES[filter] || '';
-			if (!(filter in KNOWN_ROUTES)) {
+			const route = location.hash.replace(/^#?\/?/, '');
+			this.filter = KNOWN_ROUTES[route] || '';
+			if (!this.filter) {
 				location.hash = '#/';
 			}
 		};
@@ -30,16 +29,12 @@ export class App {
 	}
 
 	addNewTodo(title = this.newTodoTitle) {
-		if (title === undefined) {
+		title = title && title.trim();
+		if (!title) {
 			return;
 		}
 
-		title = title.trim();
-		if (title.length === 0) {
-			return;
-		}
-
-		this.todos.push({ title });
+		this.todos.push({ title, isCompleted: false });
 
 		this.newTodoTitle = '';
 		this.save();
@@ -75,7 +70,7 @@ export class App {
 	toggleAll() {
 		const allCompleted = this.todos.every(todo => todo.isCompleted);
 		this.todos.forEach(todo => {
-			todo.isCompleted = allCompleted ? false : true;
+			todo.isCompleted = !allCompleted;
 		});
 		this.filterVersion++;
 	}
@@ -85,18 +80,17 @@ export class App {
 		this.save();
 	}
 
-	onKeyUpTodo(todo, ev) {
+	handleKeyup(todo, ev) {
 		if (ev.keyCode === ENTER_KEY) {
 			this.commitEdit(todo);
-		}
-		if (ev.keyCode === ESC_KEY) {
+		} else if (ev.keyCode === ESC_KEY) {
 			ev.target.blur();
 		}
 	}
 
 	load() {
 		const storageContent = localStorage.getItem(STORAGE_NAME);
-		this.todos = storageContent === null ? [] : JSON.parse(storageContent);
+		this.todos = storageContent && JSON.parse(storageContent) || [];
 	}
 
 	save() {
