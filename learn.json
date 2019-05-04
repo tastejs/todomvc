@@ -907,6 +907,28 @@
 			}]
 		}]
 	},
+	"hullo": {
+		"name": "Hullo",
+		"description": "Hullo is a set of tools based on asynchronous, pressure resolving observables that tie everything together",
+		"homepage": "https://hullo.dev",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/hullo"
+		}],
+		"link_groups": [{
+			"heading": "Resources",
+			"links": [{
+				"name": "Source code",
+				"url": "https://github.com/arturkulig/hullo/"
+			}, {
+				"name": "Documentation",
+				"url": "https://hullo.dev"
+			}, {
+				"name": "Community",
+				"url": "https://discord.gg/5tqWKXC"
+			}]
+		}]
+	},
 	"humble": {
 		"name": "Humble + GopherJS",
 		"description": "Humble is a collection of loosely-coupled tools designed to build client-side and hybrid web applications using GopherJS, which compiles Go code to JavaScript.",
