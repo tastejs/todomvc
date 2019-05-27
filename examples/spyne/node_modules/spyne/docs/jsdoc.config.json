@@ -1,0 +1,22 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "source": {
+    "include": ["src/spynejs"],
+    "exclude": ["src/spynejs/base-mixins", "src/spynejs/streams/test-rxjs.js"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "destination":  "docs",
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+
+    "default" : {
+      "layoutFile" : "custom/layout.tmpl"
+    }
+  }
+}
