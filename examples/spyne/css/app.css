@@ -1,0 +1,45 @@
+/*
+
+app-template.css overrides
+
+remove this comment if used
+remove this file if not
+
+*/
+
+
+body .todo-list.completed li:not(.completed) {
+	display:none;
+}
+body .todo-list.active li.completed {
+	display:none;
+}
+
+body .todo-list li.orange{
+	background-color:orange;
+}
+
+/*
+
+app-template.css overrides
+
+remove this comment if used
+remove this file if not
+
+*/
+
+
+
+
+body .todoapp.hide-elements footer{
+	display:none;
+}
+
+body .todoapp.hide-elements label[for=toggle-all] {
+	display:none;
+}
+
+
+.hide-elements{
+	display: none;
+}

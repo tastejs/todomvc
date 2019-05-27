@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: ViewStream</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+<!--
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+-->
+    <link type="text/css" rel="stylesheet" href="custom/css/jsdoc-viewstream.css">
+
+
+</head>
+
+<body>
+
+<div id="main">
+    <a class="page-title spyne" href='https://www.npmjs.com/package/spyne' target='blank'>spyne</a>
+
+<!--
+    <h1 class="page-title">Class: ViewStream</h1>
+-->
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>ViewStream<span class="signature">(props)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+    <h4 class="name" id="ViewStream"><span class="type-signature"></span>new ViewStream<span class="signature">(props)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The ViewStream object creates or references  a dom elment; the dom element can be as simple as a &#60;p&gt; tag, or the dom element can be a large dom chunk that is generated from data and an html template.
+<br><br>
+Generally, the idea is to extend the ViewStream class and add the custom values within the constructor function, but all of the values can be passed as parameters as well.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>props</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>This json object takes in parameters to generate or reference the dom element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>props.tagName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>'div'  This can be any dom tag</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.el</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">domItem</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>undefined, if defined, ViewStream will connect to that element</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>undefined, // string for innerText or Json object for html template</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.animateIn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>false, animates in View</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.animateInTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>.5</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.animateOut</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>false, animates in View</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.animateOutTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>.5</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>undefined, generates a random id if left undefined</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.debug</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>false</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>props.tmpl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">tmpl</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>undefined, // html template</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// returns &lt;h2>Hello World&lt;/h2>
+new ViewStream({tagName:'h2', data:'Hello World'};</code></pre>
+
+    <pre class="prettyprint"><code>//  returns
+&lt;ul>
+   &lt;li>firstName: Jane&lt;li>
+   &lt;li>lastName: Doe&lt;li>
+   &lt;li>Age: 23&lt;li>
+&lt;/ul>
+
+let myTemplate = '&lt;li>firstName: {{fName}}&lt;li>lastName: {{lName}}&lt;li>Age: {{age}}';
+let myData = {fName: Jane, lName: Doe, age:23};
+new ViewStream({tagName:'ul', data:myData, tmpl:myTemplate});</code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addChannel"><span class="type-signature"></span>addChannel<span class="signature">(str, bool, bool)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Preferred method to connect to instances of registered channels, such as 'DOM', 'UI', and 'ROUTE' channels.</p>
+<p>Add Channel will automatically unsubscribe to the channel, whereas the getChannel method requires the developer to manually unsubscribe.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The name of the registered Channel that was added to the Channels Controller.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bool</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>false, add true if the View should wait for this channel to unsubscribe before removing itself.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bool</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">sendDownStream</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The direction where the stream is allowed to travel.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line643">line 643</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let routeChannel = this.addChannel('ROUTE');
+
+     extendedStateMethods() {
+          return [
+            ['CHANNEL_ROUTE_CHANGE_EVENT', 'onMapRouteEvent']
+          ]
+      }
+
+      onMapRouteEvent(p) {
+         console.log('the route value is ', p);
+      }</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="afterRender"><span class="type-signature"></span>afterRender<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>This method is called once the ViewStream's domElement has been rendered and attached to the dom.
+<br>
+This method is empty and is meant to be overridden.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line565">line 565</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="appendToDom"><span class="type-signature"></span>appendToDom<span class="signature">(node)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Appends a ViewStream object to an existing dom element.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">dom</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the ViewStream child that is to be attached.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line434">line 434</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>//  returns
+&lt;body>
+   &lt;h2>Hello World&lt;/h2>
+&lt;/body>
+
+let viewStream = new ViewStream('h2', 'Hello World');
+viewStream.appendToDom(document.body);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="appendView"><span class="type-signature"></span>appendView<span class="signature">(v, query)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>This method appends a child ViewStream object. <br>After the attachment, rxjs observables are exchanged between the parent and child ViewStream objects.<br><br></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ViewStream.html">ViewStream</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the ViewStream child that is to be attached.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a querySelector within this ViewStream.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line471">line 471</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>//  returns
+&lt;body>
+   &lt;main>
+       &lt;h2>Hello World&lt;/h2>
+   &lt;/main>
+&lt;/body>
+
+
+let parentView = new ViewStream('main');
+parentView.appendToDom(document.body);
+
+let childView = new ViewStream({tagName:'h2', data:'Hello World'};
+parentView.appendView(childView)</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="appendViewToParent"><span class="type-signature"></span>appendViewToParent<span class="signature">(v, query, this)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>This method appends a child ViewStream object to a parent ViewStream object.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ViewStream.html">ViewStream</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the ViewStream parent.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a querySelector within this ViewStream.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>this</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">level</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>parameters can attach the viewStream's dom element up the dom tree while still maintaining the parent-child relationship of the ViewStream objects.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line498">line 498</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>//  returns
+&lt;body>
+   &lt;main>
+       &lt;h2>Hello World&lt;/h2>
+   &lt;/main>
+&lt;/body>
+
+
+let parentView = new ViewStream('main');
+parentView.appendToDom(document.body);
+
+let childView = new ViewStream({tagName:'h2', data:'Hello World'};
+childView.appendToParent(parentView)</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="broadcastEvents"><span class="type-signature"></span>broadcastEvents<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Add any query within the ViewStream's dom and any dom events to automatically be observed by the UI Channel.
+<br></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line585">line 585</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>broadcastEvents() {
+ // ADD BUTTON EVENTS AS NESTED ARRAYS
+ return [
+      ['#my-button', 'mouseover'],
+      ['#my-input', 'change']
+    ]
+  }</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getChannel"><span class="type-signature"></span>getChannel<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Automatically connect to an instance of registered channels, such as 'DOM', 'UI', and 'ROUTE' channels.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line606">line 606</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let uiChannel = this.getChannel('UI');
+
+uiChannel
+   .filter((p) => p.data.id==='#my-button')
+   .subscribe((p) => console.log('my button was clicked ', p));</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="prependToDom"><span class="type-signature"></span>prependToDom<span class="signature">(node)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Prepends the current ViewStream object to an existing dom element.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">dom</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the ViewStream child that is to be attached.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line447">line 447</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>this.prependToDom(document.body);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="prependView"><span class="type-signature"></span>prependView<span class="signature">(v, query)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>This method prepends a child ViewStream object to the current ViewStream object. <br>After the attachment, rxjs observables are exchanged between the parent and child ViewStream objects.<br><br></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ViewStream.html">ViewStream</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the ViewStream child that is to be attached.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a querySelector within this ViewStream.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line543">line 543</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>//  returns
+&lt;body>
+   &lt;main>
+       &lt;h2>Hello World&lt;/h2>
+   &lt;/main>
+&lt;/body>
+
+let parentView = new ViewStream('main');
+parentView.appendToDom(document.body);
+
+let childView = new ViewStream({tagName:'h2', data:'Hello World'};
+parentView.prependView(childView);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="prependViewToParent"><span class="type-signature"></span>prependViewToParent<span class="signature">(v, query, level)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>This method prepends a child ViewStream object to a parent ViewStream object.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ViewStream.html">ViewStream</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>the ViewStream parent.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>a querySelector within this ViewStream.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last"><p>this parameter can attach the viewStream's dom element up the dom tree while still maintaining the parent-child relationship of the ViewStream objects.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line516">line 516</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let parentView = new ViewStream('main');
+parentView.prependToDom(document.body);
+
+let childView = new ViewStream({tagName:'h2', data:'Hello World'};
+childView.prependViewToParent(parentView)</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="sendChannelPayload"><span class="type-signature"></span>sendChannelPayload<span class="signature">(channelName, action, payload)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Method to send data to any registered channel.
+*</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>channelName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The name of the registered Channel that was added to the Channels Controller.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>action</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    DEFAULT_EVENT
+                
+                </td>
+            
+
+            <td class="description last"><p>The event type that listeners can point to.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>payload</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>{}, The main data to send to the channel.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line680">line 680</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let payload = {'location' : 'about'};
+let action = 'PAGE_CHANGE_EVENT';
+this.sendChannelPayload('ROUTE', paylaod, action);</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DomItem.html">DomItem</a></li><li><a href="ViewStream.html">ViewStream</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Dec 15 2017 22:34:55 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

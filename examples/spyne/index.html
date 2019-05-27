@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" data-framework="spyne">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Spyne.js • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<!-- CSS overrides - remove if you don't need it -->
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<section class="todoapp">
+			<header class="header">
+				<h1>todos</h1>
+				<input  data-channel="UI" data-type="title-new" class="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<!-- This section should be hidden by default and shown when there are todos -->
+			<section class="main">
+				<input data-channel="UI" data-type="completed-all" id="toggle-all"  class="toggle-all" type="checkbox">
+				<label data-channel="UI" for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+
+				</ul>
+			</section>
+			<!-- This footer should hidden by default and shown when there are todos -->
+			<footer class="footer">
+				<!-- This should be `0 items left` by default -->
+				<span class="todo-count"><strong>0</strong> item left</span>
+				<!-- Remove this if you don't implement routing -->
+				<ul class="filters">
+					<li>
+						<a data-route='home' class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a data-route='active' href="#/active">Active</a>
+					</li>
+					<li>
+						<a data-route='completed' href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<!-- Hidden if no completed items are left ↓ -->
+				<button data-type="destroy-all" class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<!-- Remove the below line ↓ -->
+			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://frankbatista.com">Frank Batista</a></p>
+			<p>Part of <a href="http://spynejs.org">spyne</a></p>
+		</footer>
+
+		<script class="todo-tmpl" type="template">
+				<div class="view" data-type='title-dbclick-item'  >
+					<input  data-type="completed-item" class="toggle" type="checkbox">
+					<label>{{title}}</label>
+					<button  data-type='destroy-item' class="destroy"></button>
+				</div>
+				<input data-type="title-item" class="edit" value="{{title}}">
+
+		</script>
+		<!-- Scripts here. Don't remove ↓ -->
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/ramda/dist/ramda.min.js"></script>
+		<script src="node_modules/rxjs/bundles/rxjs.umd.js"></script>
+		<script src="node_modules/spyne/lib/spyne.min.js"></script>
+
+
+		<script src="js/model.js"></script>
+		<script src="js/todo.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
