@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: * Solves equations of the form a * x = b</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: * Solves equations of the form a * x = b</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>* Solves equations of the form a * x = b</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="* Solves equations of the form a * x = b"><span class="type-signature"></span>new * Solves equations of the form a * x = b<span class="signature">(options)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    This is the main Class used to combine dom elments and to listen for stream events.<br><br>
+
+The ViewStream class attaches one dom element to one another by passing a reference to one anothers rxjs obxerver.<br><br>
+
+The ViewStream object can create a dom elment that is as simple as a &#60;p&gt; tag with text or as complex view based on a Mustache template
+and a json object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This json object initializes both the View and the RXJS Stream</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options.tagName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">'div'  This can take any dom tag</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.el</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">domItem</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">undefined, connect this viewStream to an already existing item</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">undefined, // Text for the domEl or Object for Mustache</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.animateIn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">false, animates in View</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.animateInTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">.5</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.animateOut</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">false, animates in View</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.animateOutTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">.5</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">undefined, add a custom id for the dom element</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.debug</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">false</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.tmpl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Mustache</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">undefined, // Mustache template</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view-stream.js.html">view-stream.js</a>, <a href="view-stream.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// returns 2
+globalNS.method1(5, 10);</code></pre>
+
+    <pre class="prettyprint"><code>// returns 3
+globalNS.method(5, 15);</code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="-_%2520Solves%2520equations%2520of%2520the%2520form%2520a%2520_%2520x%2520=%2520b.html">* Solves equations of the form a * x = b</a></li><li><a href="DomItem.html">DomItem</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Jun 12 2017 02:43:47 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
