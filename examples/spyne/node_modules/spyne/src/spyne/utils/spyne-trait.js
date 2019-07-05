@@ -23,6 +23,8 @@ export class SpyneTrait {
       'initAutoBinder',
       'getEnhancerMethods',
       'checkForMalformedMethods',
+        'caller',
+        'arguments',
       'bindParentViewStream'];
 
     this.prefix = prefix;

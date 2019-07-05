@@ -1,4 +1,4 @@
-import { SpyneChannelWindow } from '../../spyne/channels/spyne-channel-window-base';
+import { SpyneChannelWindow } from '../../spyne/channels/spyne-channel-window';
 import { SpyneConfigData } from '../mocks/utils-data';
 
 const domData = SpyneConfigData.channels.WINDOW;

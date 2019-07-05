@@ -1,5 +1,5 @@
 //import { baseCoreMixins } from '../utils/mixins/base-core-mixins';
-import { DomEl } from './dom-el-base';
+import { DomEl } from './dom-el';
 //import { ifNilThenUpdate, convertDomStringMapToObj } from '../utils/frp-tools';
 import { fadein, fadeout } from '../utils/viewstream-animations';
 import { ViewStreamObservable } from '../utils/viewstream-observables';

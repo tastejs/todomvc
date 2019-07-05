@@ -12,7 +12,6 @@ export function fadein(el, t) {
 export function fadeout(el, t, callback) {
   let inlineCss = createFaderInlineText(false, t, 'ease');
   el.style.cssText += inlineCss;
-  console.log(t, ' inline is ', inlineCss);
 
   // window.setTimeout(callback, t * 1000);
   el.addEventListener('transitionend', callback, false);

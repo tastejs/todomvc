@@ -1,4 +1,4 @@
-import {ViewStream} from '../views/view-stream-base';
+import {ViewStream} from '../views/view-stream';
 import {curry} from 'ramda';
 export class RouteChannelUpdater{
 

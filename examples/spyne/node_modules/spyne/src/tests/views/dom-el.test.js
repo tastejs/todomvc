@@ -1,4 +1,4 @@
-import { DomEl } from '../../spyne/views/dom-el-base';
+import { DomEl } from '../../spyne/views/dom-el';
 chai.use(require('chai-dom'));
 
 describe('DomEl', () => {

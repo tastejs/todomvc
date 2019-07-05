@@ -59,7 +59,8 @@ describe('Dom Item Selector', () => {
     let el$ =   ViewStreamSelector("ul#my-list");
     let liList = el$('li');
     liList.setClass('foo bar');
-    let isFooBarClassBool = liList.el[0].classList.value === 'foo bar';
+    //console.log('liList ',liList.el[0].className)
+    let isFooBarClassBool = liList.el[0].className === 'foo bar';
     expect(isFooBarClassBool).to.eq(true);
   });
 

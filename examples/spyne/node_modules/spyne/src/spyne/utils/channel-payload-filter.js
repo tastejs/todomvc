@@ -1,4 +1,4 @@
-import {is, reject, ifElse, invoker, identity, isNil, allPass, not, isEmpty, always, compose,  equals, prop, where, defaultTo, path, flatten, any, curry} from 'ramda';
+import {is, reject, ifElse, invoker, identity, isNil, allPass, not, isEmpty, always, compose,  equals, prop, where, defaultTo, path, flatten, any,type, curry} from 'ramda';
 const rMap = require('ramda').map;
 export class ChannelPayloadFilter {
   /**
@@ -134,7 +134,12 @@ export class ChannelPayloadFilter {
   }
 
   static checkPayloadSelector(arr, payload) {
-    // ELEMENT FROM PAYLOAD
+    // ELEMENT FROM PAYLOADs
+
+    let payloadIsNotProps = compose(equals('Function'),type, prop('props')  )(payload);
+    payload = payloadIsNotProps === true ? payload.props() : payload;
+
+
     let el = path(['el'], payload);
 
     // RETURN BOOLEAN MATCH WITH PAYLOAD EL

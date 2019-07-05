@@ -45,7 +45,7 @@
 		// listen to these channel actions and bind to these methods
 		addActionListeners() {
 
-			let filterNewTodo = spyne.ChannelPayloadFilter ('.new-todo', {
+			let filterNewTodo = new spyne.ChannelPayloadFilter ('.new-todo', {
 				event: (evt) =>  evt.key === 'Enter',
 				el:    (e) => e.value.length>=0
 			});
