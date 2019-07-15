@@ -1,0 +1,45 @@
+{
+	"name": "barebones-node-boilerplate",
+	"author": "Jonathon Hibbard",
+	"version": "1.0.0",
+	"description": "A Barebones NodeJS Boilerplate",
+	"keywords": ["es6", "todomvc", "react"],
+	"namespace": "nqdq",
+	"contributors": [
+		"Jonathon Hibbard <infolock@gmail.com>"
+		"Joseph Chen"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:infolock/barebones-node-app-boilerplate.git"
+	},
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"body-parser": "^1.19.0",
+		"express": "^4.17.1",
+		"file-loader": "^4.0.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.5.4",
+		"@babel/plugin-proposal-class-properties": "^7.5.0",
+		"@babel/plugin-syntax-class-properties": "^7.2.0",
+		"@babel/plugin-transform-object-assign": "^7.2.0",
+		"@babel/preset-env": "^7.5.4",
+		"babel-loader": "^8.0.6",
+		"babel-polyfill": "^6.26.0",
+		"babel-preset-es2015": "^6.24.1",
+		"clean-webpack-plugin": "^3.0.0",
+		"css-loader": "^3.0.0",
+		"html-webpack-plugin": "^3.2.0",
+		"isomorphic-fetch": "^2.2.1",
+		"style-loader": "^0.23.1",
+		"webpack": "^4.35.3",
+		"webpack-cli": "^3.3.6",
+		"webpack-dev-middleware": "^3.7.0",
+		"webpack-dev-server": "^3.7.2",
+		"webpack-hot-middleware": "^2.25.0"
+	}
+}

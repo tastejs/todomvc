@@ -1,0 +1,58 @@
+{
+  "_from": "todomvc-app-css@^2.0.0",
+  "_id": "todomvc-app-css@2.2.0",
+  "_inBundle": false,
+  "_integrity": "sha1-b4SxXZ1ODPGGZ5SJ+yNgUMgi3hE=",
+  "_location": "/todomvc-app-css",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "todomvc-app-css@^2.0.0",
+    "name": "todomvc-app-css",
+    "escapedName": "todomvc-app-css",
+    "rawSpec": "^2.0.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.0.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://artifactory-dev.exacttarget.com:443/artifactory/api/npm/sfmc-npm/todomvc-app-css/-/todomvc-app-css-2.2.0.tgz",
+  "_shasum": "6f84b15d9d4e0cf186679489fb236050c822de11",
+  "_spec": "todomvc-app-css@^2.0.0",
+  "_where": "/Users/jonathon.hibbard/Development/JS-Indy/todomvc/examples/backbone",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "bugs": {
+    "url": "https://github.com/tastejs/todomvc-app-css/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "CSS for TodoMVC apps",
+  "files": [
+    "index.css"
+  ],
+  "homepage": "https://github.com/tastejs/todomvc-app-css#readme",
+  "keywords": [
+    "todomvc",
+    "tastejs",
+    "app",
+    "todo",
+    "template",
+    "css",
+    "style",
+    "stylesheet"
+  ],
+  "license": "CC-BY-4.0",
+  "name": "todomvc-app-css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tastejs/todomvc-app-css.git"
+  },
+  "style": "index.css",
+  "version": "2.2.0"
+}
