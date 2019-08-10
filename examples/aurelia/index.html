@@ -56,16 +56,17 @@
 		<p>Enhanced by <a href="https://github.com/bigopon">bigopon</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
-	<script src="node_modules/todomvc-common/base.js"></script>
-	<script src="node_modules/aurelia-script/dist/aurelia.umd.min.js"></script>
-	<script type="module">
-		import { App, FilterTodoValueConverter } from './app.js'; // Native ES6 modules
-		au.enhance({
-			root: App, // Passing in a constructor lets Aurelia DI instantiate it. You can also pass in a regular object.
-			// host: document.body, // (this is the default by convention, you can also manually pass in the host element)
-			resources: [FilterTodoValueConverter] // Specify components here that need to be available globally
-		});
-	</script>
+  <!-- Scripts here. Don't remove ↓ -->
+  <script src="node_modules/todomvc-common/base.js"></script>
+  <script src="node_modules/aurelia-script/dist/aurelia_no_loader.es5.umd.min.js"></script>
+  <script src="app.js"></script>
+  <script type="module">
+    au.enhance({
+      root: App, // Pass in a class / constructor function to let Aurelia DI instantiate it. You can also pass in a regular object.
+      // host: document.body, // (this is the default by convention, you can also manually pass in the host element)
+      resources: [FilterTodoValueConverter] // Specify components here that need to be available globally
+    });
+  </script>
 </body>
 
 </html>
