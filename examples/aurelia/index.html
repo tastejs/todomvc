@@ -58,9 +58,10 @@
 	</footer>
   <!-- Scripts here. Don't remove ↓ -->
   <script src="node_modules/todomvc-common/base.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise"></script>
   <script src="node_modules/aurelia-script/dist/aurelia_no_loader.es5.umd.min.js"></script>
   <script src="app.js"></script>
-  <script type="module">
+  <script>
     au.enhance({
       root: App, // Pass in a class / constructor function to let Aurelia DI instantiate it. You can also pass in a regular object.
       // host: document.body, // (this is the default by convention, you can also manually pass in the host element)

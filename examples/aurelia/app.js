@@ -21,10 +21,10 @@ function App() {
 
 		// Simplest form of routing, for the todomvc app. Can also be done with `aurelia-router` (see https://aurelia.io/docs/routing/) for apps that use setRoot
 		configureRouting: function() {
-			var handleHashChange = () => {
+			var handleHashChange = function() {
 				var fragment = location.hash;
 				var filter = fragment.replace(/^#?\/?/, '');
-				this.filter = KNOWN_ROUTES[filter] || '';
+				app.filter = KNOWN_ROUTES[filter] || '';
 				if (!(filter in KNOWN_ROUTES)) {
 					location.hash = '#/';
 				}
@@ -42,7 +42,7 @@ function App() {
 				return;
 			}
 	
-			this.todos.push({ title, isCompleted: false });
+			this.todos.push({ title: title, isCompleted: false });
 	
 			this.newTodoTitle = '';
 			this.save();
@@ -76,15 +76,15 @@ function App() {
 		},
 
 		toggleAll: function() {
-			const allCompleted = this.todos.every(todo => todo.isCompleted);
-			this.todos.forEach(todo => {
-				todo.isCompleted = !allCompleted;
+			const allCompleted = this.todos.every(function(todo) { return todo.isCompleted; });
+			this.todos.forEach(function(todo) {
+				return todo.isCompleted = !allCompleted;
 			});
 			this.filterVersion++;
 		},
 
 		clearCompletedTodos: function() {
-			this.todos = this.todos.filter(todo => !todo.isCompleted);
+			this.todos = this.todos.filter(function(todo) { return !todo.isCompleted; });
 			this.save();
 		},
 
@@ -118,7 +118,7 @@ function FilterTodoValueConverter() {
 			if (filter === 'all' || !filter) return todos;
 	
 			const isCompleted = filter !== 'active';
-			return todos.filter(todo => todo.isCompleted === isCompleted);
+			return todos.filter(function(todo) { return todo.isCompleted === isCompleted; });
 		}
 	}
 }
