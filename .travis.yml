@@ -5,7 +5,7 @@
 sudo: false
 language: node_js
 node_js:
-  - '9.3.0'
+  - '10.13.0'
 notifications:
   irc: 'irc.freenode.org#tastejs'
 cache:
@@ -33,7 +33,7 @@ env:
 
 #update npm to latest stable version
 before_install:
-  - npm install --global npm@5.8.0
+  - npm install --global npm@6.10.0
 
 # common build steps for each test job
 defaults: &defaults
