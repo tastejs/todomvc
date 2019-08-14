@@ -1,23 +1,49 @@
 {
+  "name": "typescript-todo",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "build": "./node_modules/typescript/bin/tsc -p ./js/ && node ./node_modules/browserify/bin/cmd ./js/app.js -o ./js/bundle.js",
-    "start": "node ./serve.js"
-  },
   "dependencies": {
-    "@types/classnames": "^2.2.6",
-    "@types/react": "^16.7.0",
-    "@types/react-dom": "^16.0.11",
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "24.0.17",
+    "@types/node": "12.7.1",
+    "@types/react": "16.9.1",
+    "@types/react-dom": "16.8.5",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/uuid": "^3.4.5",
     "classnames": "^2.2.6",
-    "director": "^1.2.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "todomvc-app-css": "^2.0.0",
-    "todomvc-common": "^1.0.1"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.0",
+    "todomvc-app-css": "^2.2.0",
+    "todomvc-common": "^1.0.5",
+    "typescript": "3.5.3",
+    "uuid": "^3.3.2"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "start": "serve -l 8000 -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "node-static": "^0.7.11",
-    "typescript": "^2.9.2"
+    "prettier": "^1.18.2",
+    "serve": "^11.1.0"
   }
 }

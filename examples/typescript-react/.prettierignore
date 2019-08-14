@@ -1,0 +1,11 @@
+lib/
+node_modules/
+coverage/
+build/
+out/
+dist/
+**/aggregated-translations/*.*
+README.md
+build_output/
+# NPM project automation depends on some legacy structuring of the the CHANGELOG.md
+CHANGELOG.md
