@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@bahmutov/print-env": "^1.0.1",
+    "phantomjs-prebuilt":"^2.1.1",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "console.table": "^0.9.1",
