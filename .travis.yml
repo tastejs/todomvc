@@ -5,7 +5,14 @@
 sudo: false
 language: node_js
 node_js:
-  - '10.13.0'
+  - 10.13
+# if using Ubuntu 16 need this library
+# https://github.com/cypress-io/cypress-documentation/pull/1647
+addons:
+  apt:
+    packages:
+    - libgconf-2-4
+
 notifications:
   irc: 'irc.freenode.org#tastejs'
 cache:
