@@ -1,6 +1,6 @@
 export class Todo {
-	completed: Boolean;
-	editing: Boolean;
+	completed: boolean;
+	editing: boolean;
 
 	private _title: String;
 	get title() {
