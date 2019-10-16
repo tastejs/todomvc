@@ -123,7 +123,7 @@ class TodoItem extends React.Component {
               todo.completed && filter == "completed"
                 ? todo.completedAt
                 : todo.createdAt,
-              "YYYY-MM-DD HH:mm"
+              "yyyy-MM-dd HH:mm"
             )}
           </label>
         </Row>
