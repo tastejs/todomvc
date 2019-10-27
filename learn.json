@@ -229,8 +229,14 @@
 		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Aurelia Discourse forum",
+				"url": "https://discourse.aurelia.io"
+			}, {
 				"name": "Aurelia discussions on Gitter",
 				"url": "https://gitter.im/Aurelia/Discuss"
+			}, {
+				"name": "Aurelia Twitter account",
+				"url": "https://twitter.com/AureliaEffect"
 			}]
 		}]
 	},
