@@ -1,0 +1,43 @@
+{
+	"private": true,
+	"name": "todomvc",
+	"version": "0.1.0",
+	"scripts": {
+		"cy:open": "bin-up cypress open --project ../.. --env framework=svelte",
+		"cy:run": "bin-up cypress run --project ../.. --env framework=svelte",
+		"cy:run:record": "npm run cy:run -- --record",
+		"build": "rollup -c",
+		"start": "bin-up gulp test-server",
+		"test:gui": "bin-up run-p --race start cy:open",
+		"test": "bin-up run-p --race start cy:run",
+		"test:record": "bin-up run-p --race start cy:run:record",
+		"dev": "rollup -c -w",
+		"svelte:start": "sirv",
+		"jest": "jest src",
+		"jest:watch": "bin-up run test -- --watch"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.7.3",
+		"@babel/preset-env": "^7.8.3",
+		"@rollup/plugin-commonjs": "^11.0.0",
+		"@rollup/plugin-node-resolve": "^6.1.0",
+		"@testing-library/jest-dom": "^5.0.2",
+		"@testing-library/svelte": "^1.11.0",
+		"babel-jest": "^25.1.0",
+		"bin-up": "^1.1.0",
+		"jest": "^25.1.0",
+		"jest-transform-svelte": "^2.1.1",
+		"rollup": "^1.20.0",
+		"rollup-plugin-css-only": "^2.0.0",
+		"rollup-plugin-livereload": "^1.0.0",
+		"rollup-plugin-svelte": "^5.0.3",
+		"rollup-plugin-terser": "^5.1.2",
+		"svelte": "^3.0.0"
+	},
+	"dependencies": {
+		"director": "^1.2.8",
+		"sirv-cli": "^0.4.4",
+		"todomvc-app-css": "^2.2.0",
+		"todomvc-common": "^1.0.5"
+	}
+}

@@ -45,6 +45,7 @@
 		"examples/js_of_ocaml/js/*.js",
 		"examples/olives/olives-todo.js",
 		"examples/polymer/elements/elements.build.js",
+		"examples/svelte/build/*.js",
 		"examples/typescript-*/js/**/*.js",
 		"examples/vanilla-es6/dist/bundle.js"
 	],

@@ -48,6 +48,7 @@ const mainFrameworks = [
   'troopjs_require',
   'knockoutjs',
   'polymer',
+  'svelte',
   'flight'
 ]
 

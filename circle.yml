@@ -141,6 +141,8 @@ jobs:
     <<: *defaults
   jsblocks:
     <<: *defaults
+  svelte:
+    <<: *defaults
 
 workflows:
   version: 2
@@ -209,3 +211,4 @@ workflows:
       - ractive
       - foam
       - jsblocks
+      - svelte

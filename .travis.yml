@@ -219,3 +219,7 @@ jobs:
       env:
         - CYPRESS_framework=vue
       <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=svelte
+      <<: *defaults
