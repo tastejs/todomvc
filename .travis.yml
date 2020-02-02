@@ -121,6 +121,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=emberjs-octane
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=enyo_backbone
       <<: *defaults
     - stage: test

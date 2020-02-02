@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-# /dist/
+/dist/
 /tmp/
 
 # dependencies
@@ -9,6 +9,8 @@
 /node_modules/
 
 # misc
+/.env*
+/.pnp*
 /.sass-cache
 /connect.lock
 /coverage/

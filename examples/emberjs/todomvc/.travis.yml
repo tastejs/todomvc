@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "6"
+  - "8"
 
 sudo: false
 dist: trusty
@@ -10,18 +10,25 @@ addons:
   chrome: stable
 
 cache:
-  directories:
-    - $HOME/.npm
+  yarn: true
 
 env:
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
 
+branches:
+  only:
+    - master
+
 before_install:
-  - npm config set spin false
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
+
+install:
+  - yarn install --non-interactive
 
 script:
-  - npm run lint:hbs
-  - npm run lint:js
-  - npm test
+  - yarn lint:hbs
+  - yarn lint:js
+  - yarn test

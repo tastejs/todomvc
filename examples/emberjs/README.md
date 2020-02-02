@@ -1,9 +1,9 @@
-# Ember.js TodoMVC Example using Ember CLI v3.2
+# Ember.js Octane TodoMVC Example using Ember CLI v3.16
 
 > A framework for creating ambitious web applications.
 
 > _[Ember.js - emberjs.com](http://emberjs.com)_
-> _[Ember CLI - ember-cli.com](http://ember-cli.com)_
+> _[Ember CLI - ember-cli.com](http://cli.emberjs.com)_
 
 ## Note for people updating this app.
 
@@ -13,8 +13,8 @@ You can develop this project as a standard Ember CLI application:
 
 ```bash
 $ cd todomvc
-$ npm install
-$ ember server
+$ yarn
+$ yarn start
 ```
 
 Update to the latest Ember with `ember-cli-update` and with the latest codemods:
@@ -30,21 +30,17 @@ $ git commit -m 'Update TodoMVC with codemods' -a
 Build Ember TodoMVC for production:
 
 ```bash
-$ ember build --prod
+$ yarn ember build --prod
 ```
 
 Run Cypress Test:
 
 ```bash
 # Run this command from the root folder of this repository
-$ npm install
-$ npm run server
+$ yarn
+$ yarn server
 
 # Run in a separated terminal
-$ CYPRESS_framework=emberjs npm run cy:open
+$ yarn cypress open --env framework=emberjs-octane
 ```
-
-### Ember Notes
-
-* The `rootURL` param in `config/environment.js` should keep as empty string.
 

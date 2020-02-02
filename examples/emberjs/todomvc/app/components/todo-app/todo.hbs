@@ -1,0 +1,28 @@
+<li class='
+  {{if @todo.completed "completed"}}
+  {{if this.isEditing "editing"}}
+'>
+  <div class='view'>
+    <input
+      class='toggle'
+      type='checkbox'
+      checked={{@todo.completed}}
+      {{on 'change' this.complete}}
+    >
+    <label {{on 'dblclick' this.edit}}>{{@todo.title}}</label>
+    <button
+      type='button'
+      class='destroy'
+      {{on 'click' (fn this.todoData.remove @todo)}}
+    ></button>
+  </div>
+
+  <input
+    autofocus
+    class='edit'
+    value={{@todo.title}}
+    {{did-insert this.createRef}}
+    {{on 'blur' this.finish}}
+    {{on 'keydown' this.onKeyDown}}
+  >
+</li>

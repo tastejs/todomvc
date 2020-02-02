@@ -1,54 +1,61 @@
 {
   "name": "todomvc",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "Small description for todomvc goes here",
   "repository": "",
   "license": "MIT",
-  "author": "Miguel Camba",
+  "author": "",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
     "build": "ember build",
+    "build:prod": "ember build --environment=production",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember test"
   },
+  "dependencies": {
+    "todomvc-app-css": "^2.3.0",
+    "todomvc-common": "^1.0.5"
+  },
   "devDependencies": {
-    "@ember/jquery": "^0.5.2",
-    "@ember/optional-features": "^0.6.3",
-    "broccoli-asset-rev": "^2.7.0",
-    "ember-ajax": "^3.1.0",
-    "ember-cli": "~3.4.3",
+    "@ember/optional-features": "^1.1.0",
+    "@ember/render-modifiers": "^1.0.2",
+    "@glimmer/component": "^1.0.0",
+    "babel-eslint": "^10.0.3",
+    "broccoli-asset-rev": "^3.0.0",
+    "ember-auto-import": "^1.5.3",
+    "ember-cli": "~3.16.0",
     "ember-cli-app-version": "^3.2.0",
-    "ember-cli-babel": "^6.16.0",
-    "ember-cli-dependency-checker": "^3.0.0",
-    "ember-cli-eslint": "^4.2.3",
-    "ember-cli-htmlbars": "^3.0.0",
-    "ember-cli-htmlbars-inline-precompile": "^1.0.3",
-    "ember-cli-inject-live-reload": "^1.8.2",
-    "ember-cli-qunit": "^4.3.2",
+    "ember-cli-babel": "^7.18.0",
+    "ember-cli-dependency-checker": "^3.2.0",
+    "ember-cli-eslint": "^5.1.0",
+    "ember-cli-htmlbars": "^4.2.0",
+    "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-sri": "^2.1.1",
-    "ember-cli-template-lint": "^1.0.0-beta.1",
-    "ember-cli-uglify": "^2.1.0",
-    "ember-export-application-global": "^2.0.0",
-    "ember-inflector": "^3.0.0",
-    "ember-load-initializers": "^1.1.0",
+    "ember-cli-template-lint": "^2.0.0",
+    "ember-cli-uglify": "^3.0.0",
+    "ember-export-application-global": "^2.0.1",
+    "ember-fetch": "^7.0.1",
+    "ember-hbs-minifier": "^0.4.1",
+    "ember-load-initializers": "^2.1.1",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-resolver": "^5.0.1",
-    "ember-source": "~3.4.0",
-    "eslint-plugin-ember": "^5.2.0",
+    "ember-qunit": "^4.6.0",
+    "ember-resolver": "^7.0.0",
+    "ember-source": "~3.16.2",
+    "eslint-plugin-ember": "^7.8.1",
+    "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.7.1"
+    "qunit-dom": "^1.0.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   },
-  "dependencies": {
-    "todomvc-app-css": "^2.1.2",
-    "todomvc-common": "^1.0.5"
+  "ember": {
+    "edition": "octane"
   }
 }
