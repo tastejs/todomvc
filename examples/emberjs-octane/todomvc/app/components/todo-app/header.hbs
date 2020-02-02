@@ -1,0 +1,8 @@
+<h1>todos</h1>
+<input
+  class='new-todo'
+  placeholder='What needs to be done?'
+  autofocus
+  {{did-insert this.focus}}
+  {{on 'keydown' this.onKeyDown}}
+>

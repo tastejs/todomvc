@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Todomvc Tests</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+<meta name="todomvc/config/environment" content="%7B%22modulePrefix%22%3A%22todomvc%22%2C%22environment%22%3A%22test%22%2C%22rootURL%22%3A%22%22%2C%22locationType%22%3A%22none%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%7D%2C%22APP%22%3A%7B%22LOG_ACTIVE_GENERATION%22%3Afalse%2C%22LOG_VIEW_LOOKUPS%22%3Afalse%2C%22rootElement%22%3A%22%23ember-testing%22%2C%22autoboot%22%3Afalse%2C%22name%22%3A%22todomvc%22%2C%22version%22%3A%220.0.0+1a595254%22%7D%2C%22exportApplicationGlobal%22%3Atrue%7D" />
+<script src="/ember-cli-live-reload.js" type="text/javascript"></script>
+    
+
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/todomvc.css">
+    <link rel="stylesheet" href="assets/test-support.css">
+
+    
+    
+  </head>
+  <body>
+    
+    <div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<div id="ember-testing-container">
+  <div id="ember-testing"></div>
+</div>
+
+    <script src="/testem.js" integrity=""></script>
+    <script src="assets/vendor.js"></script>
+    <script src="assets/test-support.js"></script>
+    <script src="assets/todomvc.js"></script>
+    <script src="assets/tests.js"></script>
+
+    
+    <script>Ember.assert('The tests file was not loaded. Make sure your tests index.html includes "assets/tests.js".', EmberENV.TESTS_FILE_LOADED);</script>
+  </body>
+</html>

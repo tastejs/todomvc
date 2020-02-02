@@ -1,0 +1,27 @@
+{{#if this.todoData.all}}
+  <footer class='footer'>
+
+    <span class='todo-count'>
+      <strong>{{this.remaining}}</strong> {{this.suffix}} left
+    </span>
+
+    <ul class='filters'>
+      <li>
+        <LinkTo @route='index' @activeClass='selected'>All</LinkTo>
+        <LinkTo @route='active' @activeClass='selected'>Active</LinkTo>
+        <LinkTo @route='completed' @activeClass='selected'>Completed</LinkTo>
+      </li>
+    </ul>
+
+    {{#if this.completed}}
+      <button
+        type='button'
+        class='clear-completed'
+        {{on 'click' this.todoData.clearCompleted}}
+      >
+        Clear completed
+      </button>
+    {{/if}}
+
+  </footer>
+{{/if}}
