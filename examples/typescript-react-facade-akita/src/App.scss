@@ -1,0 +1,100 @@
+@import '~@ionic/react/css/core.css';
+// Basic CSS for apps built with Ionic 
+@import '~@ionic/react/css/normalize.css';
+@import '~@ionic/react/css/structure.css';
+@import '~@ionic/react/css/typography.css';
+// Optional CSS utils that can be commented out 
+@import '~@ionic/react/css/padding.css';
+@import '~@ionic/react/css/float-elements.css';
+@import '~@ionic/react/css/text-alignment.css';
+@import '~@ionic/react/css/text-transformation.css';
+@import '~@ionic/react/css/flex-utils.css';
+@import '~@ionic/react/css/display.css';
+
+body, .app {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: grid;
+
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+
+  height: 100vh;
+  text-align: center;
+}
+
+header { grid-area: header; }
+content{ grid-area: content; display: block; position: relative; height: 67vh;}
+footer { grid-area: footer; }
+
+
+
+.hint.md {
+  --ion-toolbar-color: #f5dc90
+  font-size: 14px;
+}
+
+
+// .todoPage {
+//   padding: 20px;
+// }
+// .toolbar {  
+//     display: flex;
+//     flex-direction: row;
+//     box-sizing: border-box;
+//     place-content: center space-between;
+//     align-items: center;
+//     margin-bottom: 50px;
+// }
+
+// .toolbar > .history {
+//   position: absolute;
+//   right: 30px;
+//   top: 30px;
+//     width: 110px;
+//     display: flex;
+//     flex-direction: row;
+//     box-sizing: border-box;
+//     align-items: center;    
+// }
+
+// .history button {
+//   background-color: lightgreen;
+// }
+// .history  button, .todoItem button {
+//   margin-left: 20px;
+// }
+
+// .todoForm {
+//   width: 50vw;
+// }
+
+// .todoForm input {
+//   width: 30vw;
+// }
+
+// .todoItem button {
+//   opacity: 0.4;
+// }
+
+// .todoItem div {
+//   width: 170px;
+//   display: inline-block;
+// }
+// .todoItem:hover {
+//   background-color: rgba(148, 255, 255, 0.507);
+// }
+
+// .todoItem:hover button {
+//   opacity: 1.0;
+// }
+

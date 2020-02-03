@@ -1,0 +1,54 @@
+{
+  "name": "react-todo-akita-final",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@datorama/akita": "4.17.1",
+    "@ionic/core": "5.0.1",
+    "@ionic/react": "5.0.1",
+    "@ionic/react-router": "5.0.1",
+    "@mindspace-io/utils": "1.1.2",
+    "@types/react": "latest",
+    "immer": "5.1.0",
+    "ionic": "5.4.13",
+    "ionicons": "4.6.4-1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-router-dom": "5.1.2",
+    "react-scripts-ts": "^2.13.0",
+    "react-spring": "8.0.27",
+    "react-svg-loader": "3.0.3",
+    "react-testing-library": "latest",
+    "react-transition-group": "4.3.0",
+    "rxjs": "6.5.4"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/chai": "4.1.4",
+    "@types/enzyme": "3.1.13",
+    "@types/enzyme-adapter-react-15": "1.0.3",
+    "@types/enzyme-adapter-react-16": "latest",
+    "@types/jest": "^22.1.3",
+    "@types/node": "^9.4.6",
+    "@types/react": "16.9.17",
+    "@types/react-dom": "16.9.4",
+    "@types/react-router-dom": "5.1.2",
+    "@types/react-test-renderer": "16.0.2",
+    "@types/recompose": "0.30.7",
+    "typescript": "^2.9.2"
+  },
+  "keywords": [],
+  "description": "",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
