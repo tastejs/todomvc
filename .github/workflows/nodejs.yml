@@ -17,8 +17,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd ./examples/typescript-angular
-    - run: pwd && ls -la
+    - run: cd ./examples/typescript-angular && pwd && ls -la
     - run: npm i  
     - run: npm install drill4js-cli --save-dev
     - run: npx drill4js-cli -sc .drill4rc-remote
