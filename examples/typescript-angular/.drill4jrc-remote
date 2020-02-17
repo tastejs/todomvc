@@ -1,0 +1,24 @@
+{
+    "projectName": "typescript-angular",
+    "source_dir": "js",
+    "url": "http://localhost:8080/ast",
+    "ignoreFiles": [
+        "*.js.map",
+        "*.js",
+        "*.html",
+        "*.css",
+        "*.ico",
+        "*.json"
+    ],
+    "ignoreFolders": [
+        "libs",
+        "coverage",
+        "interfaces"
+    ],
+    "sourceMaps": {
+        "url": "http://localhost:8080/source-maps",
+        "pattern":[
+            "./js/**/*.js.map"
+        ]
+    }
+}
