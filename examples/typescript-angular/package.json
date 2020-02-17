@@ -9,6 +9,7 @@
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
-    "typescript": "^1.5.0-alpha"
+    "drill4js-cli": "^0.2.8",
+    "typescript": "^3.7.2"
   }
 }
