@@ -18,8 +18,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd ./examples/typescript-angular && pwd && ls -la
-    - run: npm i  
-    - run: npm install drill4js-cli --save-dev
-    - run: npx drill4js-cli -sc .drill4rc-remote
+    - run: cd ./examples/typescript-angular && npm i  
+    - run: cd ./examples/typescript-angular && npm install drill4js-cli --save-dev
+    - run: cd ./examples/typescript-angular && npx drill4js-cli -sc .drill4rc-remote
       env:
         CI: true
