@@ -1,7 +1,7 @@
 {
     "projectName": "typescript-angular",
     "source_dir": "js",
-    "url": "http://localhost:8080/ast",
+    "url": "http://64.225.99.79:8080/ast",
     "ignoreFiles": [
         "*.js.map",
         "*.js",
