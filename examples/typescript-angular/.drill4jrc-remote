@@ -16,7 +16,7 @@
         "interfaces"
     ],
     "sourceMaps": {
-        "url": "http://localhost:8080/source-maps",
+        "url": "http://64.225.99.79:8080/source-maps",
         "pattern":[
             "./js/**/*.js.map"
         ]
