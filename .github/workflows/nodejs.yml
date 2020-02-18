@@ -18,8 +18,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd ./examples/typescript-angular && pwd && ls -la
+    - run: echo running on branch ${GITHUB_REF##*/}
     - run: cd ./examples/typescript-angular && npm i  
     - run: cd ./examples/typescript-angular && npm install drill4js-cli --save-dev
-    - run: cd ./examples/typescript-angular && npx drill4js-cli -sc .drill4jrc-remote
+    - run: cd ./examples/typescript-angular && npx drill4js-cli -sc .drill4jrc-remote -b ${GITHUB_REF##*/}
       env:
         CI: true
