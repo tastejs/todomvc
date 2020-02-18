@@ -99,7 +99,6 @@ module todos {
 		}
 
 		removeTodo(todoItem: TodoItem) {
-			console.log(todoItem)
 			this.todos.splice(this.todos.indexOf(todoItem), 1);
 		}
 
