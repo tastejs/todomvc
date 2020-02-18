@@ -4,7 +4,6 @@
 
 > _[TypeScript - typescriptlang.org](http://typescriptlang.org)_
 
-
 ## Learning TypeScript
 
 The [TypeScript website](http://typescriptlang.org) is a great resource for getting started.
