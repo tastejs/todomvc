@@ -1,0 +1,165 @@
+﻿@page "/"
+
+@using Blazor.TodoMVC.Clientside.Data
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject NavigationManager NavManager
+@inject IJSRuntime JsRuntime
+<section class="todoapp ">
+    <header class="header">
+        <h1>todos</h1>
+        <input class="new-todo" placeholder="What needs to be done?" autofocus @bind="NewItemText" @onkeyup="NewItemKeyUp" @ref="_itemText">
+    </header>
+    @if (Items.Any())
+    {
+    <section class="main">
+        <input id="toggle-all" class="toggle-all" type="checkbox" @onchange="AllCheckedChanged" checked="@(Items.All(x=>x.Completed))">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+            @foreach (var item in VisibleItems)
+                {
+            <ListItem Item="item" OnRemoveCallback="RemoveItem" OnItemChanged="ItemChanged"></ListItem>
+                }
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <span class="todo-count"><strong>@Items.Count(x => !x.Completed)</strong> item@(Items.Count == 1 ? "" : "s") left</span>
+        <ul class="filters">
+            <li>
+                <a class="@RouteAllClass" href="@RouteAll">All</a>
+            </li>
+            <li>
+                <a class="@RouteActiveClass" href="@RouteActive">Active</a>
+            </li>
+            <li>
+                <a class="@RouteCompletedClass" href="@RouteCompleted">Completed</a>
+            </li>
+        </ul>
+        @if (Items.Any(x => x.Completed))
+            {
+        <button class="clear-completed" @onclick="ClearCompleted">Clear completed</button>
+            }
+    </footer>
+    }
+
+
+</section>
+
+<footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+    <p>Created by <a href="http://todomvc.com">TheJoeIaut</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
+
+
+@functions
+{
+    private ElementReference _itemText;
+    public string NewItemText { get; set; }
+    public List<ListItemModel> Items { get; set; } = new List<ListItemModel>();
+    public List<ListItemModel> VisibleItems { get; set; } = new List<ListItemModel>();
+
+    private async void NewItemKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key.ToLower() == EnterKey && !string.IsNullOrEmpty(NewItemText.Trim()))
+        {
+            Items.Add(new ListItemModel
+            {
+                Text = NewItemText.Trim()
+            });
+            NewItemText = "";
+        }
+
+        await PersistItemsAsync();
+        RefreshFilters(null, null);
+    }
+
+    private async void RemoveItem(ListItemModel item)
+    {
+        Items.Remove(item);
+        await PersistItemsAsync();
+    }
+
+    private async void ItemChanged(ListItemModel item)
+    {
+        foreach (var listItem in Items.Where(x => x.IsEdited && x != item))
+        {
+            listItem.IsEdited = false;
+        }
+
+        await PersistItemsAsync();
+
+        RefreshFilters(null, null);
+    }
+
+    private async void ClearCompleted()
+    {
+        Items.RemoveAll(Completed);
+        await PersistItemsAsync();
+    }
+
+    private async Task PersistItemsAsync()
+    {
+        await LocalStorage.SetItemAsync(LocalStorageKey, Items);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        NavManager.LocationChanged += RefreshFilters;
+
+        Items = await LocalStorage.GetItemAsync<List<ListItemModel>>(LocalStorageKey) ?? new List<ListItemModel>();
+
+        RefreshFilters(null, null);
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("JsFunctions.focusElement", _itemText);
+        }
+    }
+
+    private void RefreshFilters(object sender, LocationChangedEventArgs args)
+    {
+        switch (NavManager.ToBaseRelativePath(NavManager.Uri))
+        {
+
+            case RouteActive:
+                VisibleItems = Items.FindAll(Active).ToList();
+                break;
+            case RouteCompleted:
+                VisibleItems = Items.FindAll(Completed).ToList();
+                break;
+            default:
+                VisibleItems = Items;
+                break;
+        }
+
+        StateHasChanged();
+    }
+
+    private void AllCheckedChanged(ChangeEventArgs e)
+    {
+        Items.ForEach(x => x.Completed = (bool) e.Value);
+
+        RefreshFilters(null, null);
+    }
+
+    private static bool Completed(ListItemModel item) => item.Completed;
+    private static bool Active(ListItemModel item) => !item.Completed;
+
+    public string RouteCompletedClass => NavManager.ToBaseRelativePath(NavManager.Uri) == RouteCompleted?"selected":"";
+    public string RouteActiveClass => NavManager.ToBaseRelativePath(NavManager.Uri) == RouteActive?"selected":"";
+    public string RouteAllClass => NavManager.ToBaseRelativePath(NavManager.Uri) != RouteActive && NavManager.ToBaseRelativePath(NavManager.Uri) != RouteCompleted ?"selected":"";
+
+    public const string RouteCompleted = "#/completed";
+    public const string RouteActive = "#/active";
+    public const string RouteAll = "#/";
+
+    public const string LocalStorageKey = "todos-blazor";
+
+    public const string EnterKey = "enter";
+}

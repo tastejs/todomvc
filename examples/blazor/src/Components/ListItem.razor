@@ -1,0 +1,86 @@
+﻿@using Blazor.TodoMVC.Clientside.Data
+
+@inject IJSRuntime JsRuntime
+
+<li class="@(Item.Completed ? "completed":"") @(Item.IsEdited ? "editing":"")">
+    <div class="view">
+        <input class="toggle" type="checkbox" @onchange="CheckedChanged" checked="@(Item.Completed)">
+        <label @ondblclick="EditItem">@Item.Text</label>
+        <button class="destroy" @onclick="DeleteItem"></button>
+    </div>
+    <input @ref="_itemText" class="edit" @bind="EditText" @onkeyup="ItemTextKeyUp" @onblur="ItemTextBlur">
+</li>
+
+@functions {
+    [Parameter]
+    public ListItemModel Item { get; set; }
+
+    [Parameter]
+    public EventCallback<ListItemModel> OnRemoveCallback { get; set; }
+    [Parameter]
+    public EventCallback<ListItemModel> OnItemChanged { get; set; }
+
+    private ElementReference _itemText;
+
+    public const string EnterKey = "enter";
+    public const string EscapeKey = "escape";
+
+    private string EditText{ get; set; }
+
+
+    public async Task DeleteItem()
+    {
+        await OnRemoveCallback.InvokeAsync(Item);
+    }
+
+    public async Task EditItem()
+    {
+        Item.IsEdited = true;
+        EditText = Item.Text;
+        await OnItemChanged.InvokeAsync(Item);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(Item.IsEdited)
+            await JsRuntime.InvokeVoidAsync("JsFunctions.focusElement", _itemText);
+    }
+
+    private async Task ItemTextKeyUp(KeyboardEventArgs e)
+    {
+        switch (e.Key.ToLower())
+        {
+            case EnterKey:
+                await HandleChange();
+                break;
+            case EscapeKey:
+                Item.IsEdited = false;
+                break;
+        }
+    }
+
+    private async Task ItemTextBlur(FocusEventArgs e)
+    {
+        await HandleChange();
+    }
+
+    private async Task HandleChange()
+    {
+        if (Item.IsEdited)
+        {
+            if (string.IsNullOrEmpty(EditText))
+                await DeleteItem();
+            else
+            {
+                Item.IsEdited = false;
+                Item.Text = EditText;
+            }
+        }
+    }
+
+    private async Task CheckedChanged(ChangeEventArgs e)
+    {
+        Item.Completed = (bool) e.Value;
+        await OnItemChanged.InvokeAsync(Item);
+    }
+}

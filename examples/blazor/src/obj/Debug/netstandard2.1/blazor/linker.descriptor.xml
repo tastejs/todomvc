@@ -1,0 +1,5 @@
+﻿<linker>
+  <assembly fullname="Blazor.TodoMVC.Clientside">
+    <type fullname="*" required="true" />
+  </assembly>
+</linker>

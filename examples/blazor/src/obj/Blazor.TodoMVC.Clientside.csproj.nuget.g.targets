@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.blazor.mono\3.1.0-preview4.19578.1\build\netstandard1.0\Microsoft.AspNetCore.Blazor.Mono.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.blazor.mono\3.1.0-preview4.19578.1\build\netstandard1.0\Microsoft.AspNetCore.Blazor.Mono.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.blazor.devserver\3.1.0-preview4.19579.2\build\Microsoft.AspNetCore.Blazor.DevServer.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.blazor.devserver\3.1.0-preview4.19579.2\build\Microsoft.AspNetCore.Blazor.DevServer.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.blazor.build\3.1.0-preview4.19579.2\build\netstandard1.0\Microsoft.AspNetCore.Blazor.Build.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.blazor.build\3.1.0-preview4.19579.2\build\netstandard1.0\Microsoft.AspNetCore.Blazor.Build.targets')" />
+  </ImportGroup>
+</Project>

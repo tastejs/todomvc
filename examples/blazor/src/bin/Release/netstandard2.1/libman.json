@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "filesystem",
+      "library": "node_modules/todomvc-app-css/",
+      "destination": "wwwroot/lib/todomvc-app-css/",
+      "files": [
+        "index.css"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "node_modules/todomvc-common/",
+      "destination": "wwwroot/lib/todomvc-common/",
+      "files": [
+        "base.css",
+        "base.js"
+      ]
+    }
+  ]
+}
