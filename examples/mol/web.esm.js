@@ -1802,8 +1802,8 @@ var $;
             this.focused([event.target]);
         }
         static blur(event) {
-            const element = $.$mol_mem_cached(() => this.focused())[0];
-            if (element === event.target)
+            const elements = $.$mol_mem_cached(() => this.focused());
+            if (elements && elements[0] === event.target)
                 this.focused([]);
         }
     }
