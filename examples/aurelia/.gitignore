@@ -1,0 +1,11 @@
+node_modules/*
+
+node_modules/aurelia-script/*
+!node_modules/aurelia-script/dist/aurelia_no_loader.es5.umd.min.js
+
+node_modules/todomvc-app-css/*
+!node_modules/todomvc-app-css/index.css
+
+node_modules/todomvc-common/*
+!node_modules/todomvc-common/base.css
+!node_modules/todomvc-common/base.js

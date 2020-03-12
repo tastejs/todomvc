@@ -28,11 +28,10 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 ## Project Structure
 
-All of the Elm code lives in `Todo.elm` and `Todo/Task.elm` and relies
-on the [elm-html][] and [elm-navigation][] packages.
+All of the Elm code lives in `Main.elm` and relies
+on the [elm-html][] package.
 
 [elm-html]: http://package.elm-lang.org/packages/elm-lang/html/latest/
-[elm-navigation]: http://package.elm-lang.org/packages/elm-lang/navigation/latest/
 
 There also is a port handler set up in `index.html` to set the focus on
 particular text fields when necessary.
@@ -45,8 +44,7 @@ on your machine first.
 Run the following commands from the root of this project:
 
 ```bash
-elm-package install -y
-elm-make Todo.elm --output build/elm.js
+elm make src/Main.elm --output build/elm.js
 ```
 
 Then open `index.html` in your browser!

@@ -2,49 +2,26 @@
 
 > *Aurelia* is a next generation JavaScript client framework that leverages simple conventions to empower your creativity.
 
-## Local Installation
-
-Requirements:
-
-- [NodeJS](http://nodejs.org/download/)
-- [jspm](http://jspm.io/)
-- [gulp](http://gulpjs.com/)
-
-Clone the repository:
-
-    git clone https://github.com/mhoyer/todomvc-aurelia
-
-Install jspm and npm packages:
-
-    npm install
-    jspm install
-
-Simply build, test, bundle, export:
-
-    gulp
-
-Run tests and HTTP-server:
-
-    gulp watch
-
 ## Resources
 
 - [Aurelia TodoMVC source](https://github.com/mhoyer/todomvc-aurelia)
 - [TodoMVC](https://github.com/tastejs/todomvc) home of all TodoMVC apps
 - [Aurelia Website](http://aurelia.io/)
-- [Aurelia Documentation](http://aurelia.io/docs.html)
-- [Durandal Blog](http://blog.durandal.io/)
+- [Aurelia Documentation](http://aurelia.io/docs)
+- [Aurelia Blog](http://aurelia.io/blog)
 
 ### Support
 
-- [Twitter @pixelplastic](http://twitter.com/pixelplastic)
+- [Discourse Aurelia](https://discourse.aurelia.io)
 - [Gitter Aurelia/Discuss](https://gitter.im/Aurelia/Discuss)
+- [Original Author: Twitter @pixelplastic](http://twitter.com/pixelplastic)
+- [Enhancement Author: bigopon](https://github.com/bigopon)
 
 *Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
 
 ## Implementation
 
-- Following the getting started tutorial: http://aurelia.io/get-started.html
+- Following the getting started tutorial: https://aurelia.io/docs/tutorials/creating-a-todo-app/
 - Attempt to go TDD where possible
 
 ### Changelog
@@ -77,3 +54,4 @@ Run tests and HTTP-server:
 ## Credit
 
 Created by [Marcel Hoyer](http://marcelhoyer.de)
+Enhanced by [bigopon](https://github.com/bigopon)

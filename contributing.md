@@ -22,6 +22,13 @@ Please bear in mind that your project should have reached a certain level of
 maturity before we can include it. If you haven't settled on a relatively stable
 API, you should probably wait a bit longer before submitting your example.
 
+### A good app that we are looking for should check most if not all of the items below :
+
+- [x] The framework/stack you are using must have a version that is free and open source
+- [x] The framework/stack you are using is at least 1 year old.
+- [x] The framework you are using should have at least 5k stars if it is hosted on Github or equivalent on other platforms.
+- [x] Your app should be able to work on recent versions of all major browsers.
+- [x] Your app should bring something truly new to the table, minor variations of existing frameworks, languages or existing TodoMVC apps will not be accepted.
 
 ## Code Style
 
@@ -49,12 +56,12 @@ If the app breaks for a decent amount of time, we will (temporarily) remove it f
 
 ## Browser Compatibility
 
-Modern browser (latest: Chrome, Firefox, Opera, Safari, IE9)
+Modern browser (latest: Chrome, Firefox, Opera, Safari, IE11/Edge)
 
 
 ## Unit Tests
 
-At present, due to a large number of apps in the TodoMVC suite we haven't been mandating that unit tests be written in order for an application to be accepted.
+At present, due to a large number of apps in the TodoMVC suite, we haven't been mandating that unit tests be written in order for an application to be accepted.
 
 We do, however, plan on addressing this in a future release as we feel it would both help further ensure consistency and provide developers with a reference for writing tests for each framework.
 

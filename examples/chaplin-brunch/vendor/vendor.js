@@ -1,1 +1,0 @@
-Backbone.View = Backbone.NativeView;

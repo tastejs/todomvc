@@ -1,0 +1,211 @@
+version: 2
+
+defaults: &defaults
+  parallelism: 1
+  working_directory: ~/app
+  docker:
+    - image: cypress/browsers:chrome63
+      environment:
+        ## this enables colors + fixes failing unit tests
+        TERM: xterm
+        # avoid million NPM install messages
+        npm_config_loglevel: warn
+        # allow installing when the main user is root
+        npm_config_unsafe_perm: true
+  steps:
+    - checkout
+    -run: npm install --global npm@5.8.0
+    - restore_cache:
+        key: root-deps
+    - run: npm ci
+    - run: npm prune
+    - save_cache:
+        key: root-deps-{{ checksum "package.json" }}
+        paths:
+          - node_modules
+    - run:
+        command: npm run server
+        name: start the server
+        background: true
+    - run:
+        command: npm run cy:run -- --record --env framework=$CIRCLE_JOB
+        name: Test framework
+    - store_artifacts:
+        path: cypress/screenshots
+
+jobs:
+  # main JS frameworks
+  backbone:
+    <<: *defaults
+  dojo:
+    <<: *defaults
+  react:
+    <<: *defaults
+  vue:
+    <<: *defaults
+  angularjs:
+    <<: *defaults
+  knockback:
+    <<: *defaults
+  mithril:
+    <<: *defaults
+  backbone_marionette:
+    <<: *defaults
+  emberjs:
+    <<: *defaults
+  canjs:
+    <<: *defaults
+  ampersand:
+    <<: *defaults
+  troopjs_require:
+    <<: *defaults
+  knockoutjs:
+    <<: *defaults
+  polymer:
+    <<: *defaults
+  flight:
+    <<: *defaults
+  # compiled-to-js frameworks
+  kotlin-react:
+    <<: *defaults
+  typescript-react:
+    <<: *defaults
+  binding-scala:
+    <<: *defaults
+  angular-dart:
+    <<: *defaults
+  serenadejs:
+    <<: *defaults
+  js_of_ocaml:
+    <<: *defaults
+  typescript-backbone:
+    <<: *defaults
+  reagent:
+    <<: *defaults
+  humble:
+    <<: *defaults
+  closure:
+    <<: *defaults
+  typescript-angular:
+    <<: *defaults
+  scalajs-react:
+    <<: *defaults
+  # labs
+  chaplin-brunch:
+    <<: *defaults
+  canjs_require:
+    <<: *defaults
+  rappidjs:
+    <<: *defaults
+  react-alt:
+    <<: *defaults
+  webrx:
+    <<: *defaults
+  backbone_require:
+    <<: *defaults
+  somajs_require:
+    <<: *defaults
+  puremvc:
+    <<: *defaults
+  exoskeleton:
+    <<: *defaults
+  react-backbone:
+    <<: *defaults
+  angular2:
+    <<: *defaults
+  knockoutjs_require:
+    <<: *defaults
+  somajs:
+    <<: *defaults
+  olives:
+    <<: *defaults
+  atmajs:
+    <<: *defaults
+  aurelia:
+    <<: *defaults
+  riotjs:
+    <<: *defaults
+  angularjs_require:
+    <<: *defaults
+  lavaca_require:
+    <<: *defaults
+  duel:
+    <<: *defaults
+  dijon:
+    <<: *defaults
+  enyo_backbone:
+    <<: *defaults
+  ractive:
+    <<: *defaults
+  foam:
+    <<: *defaults
+  jsblocks:
+    <<: *defaults
+
+workflows:
+  version: 2
+  # main JavaScript frameworks from the first tab
+  main-frameworks:
+    jobs:
+      - backbone
+      - dojo
+      - react
+      - vue
+      - angularjs
+      - knockback
+      - mithril
+      - backbone_marionette
+      - emberjs
+      - canjs
+      - ampersand
+      - troopjs_require
+      - knockoutjs
+      - polymer
+      - flight
+  # second tab - compiled-to-js frameworks
+  compiled-to-js:
+    jobs:
+      # elm is not working very well
+      - typescript-react
+      - binding-scala
+      - angular-dart
+      - serenadejs
+      - js_of_ocaml
+      - typescript-backbone
+      - reagent
+      - humble
+      - closure
+      - typescript-angular
+      - scalajs-react
+      - kotlin-react
+  # third tab - labs
+  labs:
+    jobs:
+      - chaplin-brunch
+      - canjs_require
+      - rappidjs
+      - react-alt
+      # App internal error
+      # - webrx
+      - backbone_require
+      - somajs_require
+      - sammyjs
+      - puremvc
+      - exoskeleton
+      - react-backbone
+      - angular2
+      - knockoutjs_require
+      - durandal
+      - somajs
+      - olives
+      - atmajs
+      - aurelia
+      - riotjs
+      - angularjs_require
+      - lavaca_require
+      - duel
+      - dijon
+      - enyo_backbone
+      - ractive
+      - foam
+      - jsblocks

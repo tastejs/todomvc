@@ -1,34 +1,31 @@
 <!doctype html>
 <html lang="en" data-framework="elm">
-<head>
-	<meta charset="utf-8">
-	<title>Elm • TodoMVC</title>
-	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-	<style>
-		body {
-			width: auto;
-		}
-		.todomvc-wrapper {
-			visibility: visible !important;
-		}
-	</style>
-</head>
+	<head>
+		<meta charset="utf-8">
+		<title>Elm • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<style>
+			body {
+				width: auto;
+			}
 
-<body>
-<script src="build/elm.js"></script>
-<script>
-	(function () {
-		var result = localStorage.getItem('elm-todo-model');
-		var savedModel = result ? JSON.parse(result) : null;
-
-		var todomvc = Elm.Todo.fullscreen(savedModel);
-
-		todomvc.ports.save.subscribe(function (model) {
-			localStorage.setItem('elm-todo-model', JSON.stringify(model));
-		});
-	}());
-</script>
-<script async src="node_modules/todomvc-common/base.js"></script>
-</body>
+			.todomvc-wrapper {
+				visibility: visible !important;
+			}
+		</style>
+		<script src="build/elm.js"></script>
+	</head>
+	<body>
+		<script>
+			(() => {
+				const storedState = localStorage.getItem('elm-todo-save');
+				const startingState = storedState ? JSON.parse(storedState) : null;
+				const app = Elm.Main.init({flags: startingState});
+				app.ports.setStorage.subscribe(state => {
+					localStorage.setItem('elm-todo-save', JSON.stringify(state));
+				});
+			})();
+		</script>
+	</body>
 </html>

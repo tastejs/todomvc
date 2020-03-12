@@ -1,27 +1,30 @@
-/*jshint quotmark:false */
-/*jshint white:false */
-/*jshint trailing:false */
-/*jshint newcap:false */
-/*global React, Router*/
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/// <reference path="../typings/tsd.d.ts" />
-/// <reference path="./interfaces.d.ts"/>
-var TodoModel_1 = require("./TodoModel");
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = require("react");
+var ReactDOM = require("react-dom");
+var todoModel_1 = require("./todoModel");
 var footer_1 = require("./footer");
 var todoItem_1 = require("./todoItem");
 var constants_1 = require("./constants");
 var TodoApp = (function (_super) {
     __extends(TodoApp, _super);
     function TodoApp(props) {
-        _super.call(this, props);
-        this.state = {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
             nowShowing: constants_1.ALL_TODOS,
             editing: null
         };
+        return _this;
     }
     TodoApp.prototype.componentDidMount = function () {
         var setState = this.setState;
@@ -37,10 +40,10 @@ var TodoApp = (function (_super) {
             return;
         }
         event.preventDefault();
-        var val = React.findDOMNode(this.refs["newField"]).value.trim();
+        var val = ReactDOM.findDOMNode(this.refs["newField"]).value.trim();
         if (val) {
             this.props.model.addTodo(val);
-            React.findDOMNode(this.refs["newField"]).value = '';
+            ReactDOM.findDOMNode(this.refs["newField"]).value = '';
         }
     };
     TodoApp.prototype.toggleAll = function (event) {
@@ -83,7 +86,7 @@ var TodoApp = (function (_super) {
             }
         });
         var todoItems = shownTodos.map(function (todo) {
-            return (React.createElement(todoItem_1.TodoItem, {"key": todo.id, "todo": todo, "onToggle": _this.toggle.bind(_this, todo), "onDestroy": _this.destroy.bind(_this, todo), "onEdit": _this.edit.bind(_this, todo), "editing": _this.state.editing === todo.id, "onSave": _this.save.bind(_this, todo), "onCancel": function (e) { return _this.cancel(); }}));
+            return (React.createElement(todoItem_1.TodoItem, { key: todo.id, todo: todo, onToggle: _this.toggle.bind(_this, todo), onDestroy: _this.destroy.bind(_this, todo), onEdit: _this.edit.bind(_this, todo), editing: _this.state.editing === todo.id, onSave: _this.save.bind(_this, todo), onCancel: function (e) { return _this.cancel(); } }));
         });
         var activeTodoCount = todos.reduce(function (accum, todo) {
             return todo.completed ? accum : accum + 1;
@@ -91,18 +94,26 @@ var TodoApp = (function (_super) {
         var completedCount = todos.length - activeTodoCount;
         if (activeTodoCount || completedCount) {
             footer =
-                React.createElement(footer_1.TodoFooter, {"count": activeTodoCount, "completedCount": completedCount, "nowShowing": this.state.nowShowing, "onClearCompleted": function (e) { return _this.clearCompleted(); }});
+                React.createElement(footer_1.TodoFooter, { count: activeTodoCount, completedCount: completedCount, nowShowing: this.state.nowShowing, onClearCompleted: function (e) { return _this.clearCompleted(); } });
         }
         if (todos.length) {
-            main = (React.createElement("section", {"className": "main"}, React.createElement("input", {"className": "toggle-all", "type": "checkbox", "onChange": function (e) { return _this.toggleAll(e); }, "checked": activeTodoCount === 0}), React.createElement("ul", {"className": "todo-list"}, todoItems)));
+            main = (React.createElement("section", { className: "main" },
+                React.createElement("input", { id: "toggle-all", className: "toggle-all", type: "checkbox", onChange: function (e) { return _this.toggleAll(e); }, checked: activeTodoCount === 0 }),
+                React.createElement("label", { htmlFor: "toggle-all" }, "Mark all as complete"),
+                React.createElement("ul", { className: "todo-list" }, todoItems)));
         }
-        return (React.createElement("div", null, React.createElement("header", {"className": "header"}, React.createElement("h1", null, "todos"), React.createElement("input", {"ref": "newField", "className": "new-todo", "placeholder": "What needs to be done?", "onKeyDown": function (e) { return _this.handleNewTodoKeyDown(e); }, "autoFocus": true})), main, footer));
+        return (React.createElement("div", null,
+            React.createElement("header", { className: "header" },
+                React.createElement("h1", null, "todos"),
+                React.createElement("input", { ref: "newField", className: "new-todo", placeholder: "What needs to be done?", onKeyDown: function (e) { return _this.handleNewTodoKeyDown(e); }, autoFocus: true })),
+            main,
+            footer));
     };
     return TodoApp;
-})(React.Component);
-var model = new TodoModel_1.TodoModel('react-todos');
+}(React.Component));
+var model = new todoModel_1.TodoModel('react-todos');
 function render() {
-    React.render(React.createElement(TodoApp, {"model": model}), document.getElementsByClassName('todoapp')[0]);
+    ReactDOM.render(React.createElement(TodoApp, { model: model }), document.getElementsByClassName('todoapp')[0]);
 }
 model.subscribe(render);
 render();

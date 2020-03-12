@@ -4,29 +4,41 @@ enyo.kind({
 	name: 'ToDo.NotepadFooterView',
 	tag: 'footer',
 	id: 'footer',
+	attributes: {
+		class: 'footer',
+	},
 	showing: false,
 	components: [{
 		tag: 'span',
-		id: 'todo-count',
+		attributes: {
+			class: 'todo-count'
+		},
 		components: [{
 			name: 'count',
 			id: 'count-number',
-			tag: 'strong'
+			attributes: {
+				class: 'count-number'
+			},
+			tag: 'strong',
 		}, {
 			name: 'countText',
 			id: 'countText',
+			attributes: {
+				class: 'countText'
+			},
 			tag: 'span'
 		}]
 	}, {
 		tag: 'ul',
-		id: 'filters',
+		attributes: {
+			class: 'filters'
+		},
 		components: [{
 			tag: 'li',
 			components: [{
 				tag: 'a',
-				id: 'tagAll',
 				attributes: {
-					class: 'selected',
+					class: 'tagAll selected',
 					href: '#/'
 				},
 				content: 'All'
@@ -35,8 +47,8 @@ enyo.kind({
 			tag: 'li',
 			components: [{
 				tag: 'a',
-				id: 'tagActive',
 				attributes: {
+					class: 'tagActive',
 					href: '#/active'
 				},
 				content: 'Active'
@@ -45,8 +57,8 @@ enyo.kind({
 			tag: 'li',
 			components: [{
 				tag: 'a',
-				id: 'tagComplete',
 				attributes: {
+					class: 'tagComplete',
 					href: '#/completed'
 				},
 				content: 'Completed'
@@ -54,8 +66,12 @@ enyo.kind({
 		}]
 	}, {
 		kind: 'enyo.Button',
-		name: 'clear-completed',
 		id: 'clear-completed',
+		name: 'clear-completed',
+		content: 'Clear completed',
+		attributes: {
+			class: 'clear-completed'
+		},
 		controller: 'ToDo.notepadcontroller',
 		showing: false,
 		handlers: {

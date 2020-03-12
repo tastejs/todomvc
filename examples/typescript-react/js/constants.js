@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ALL_TODOS = 'all';
 exports.ALL_TODOS = ALL_TODOS;
 var ACTIVE_TODOS = 'active';

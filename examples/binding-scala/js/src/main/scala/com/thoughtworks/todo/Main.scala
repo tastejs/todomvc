@@ -112,7 +112,7 @@ import upickle.default.{read, write}
       }
     }
     <section class="main" style:display={if (allTodos.length.bind == 0) "none" else ""}>
-      <input type="checkbox" class="toggle-all" checked={active.items.length.bind == 0} onclick={toggleAllClickHandler}/>
+      <input type="checkbox" id="toggle-all" class="toggle-all" checked={active.items.length.bind == 0} onclick={toggleAllClickHandler}/>
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">{ for { todo <- currentTodoList.bind.items } yield todoListItem(todo).bind }</ul>
     </section>

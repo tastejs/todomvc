@@ -12,20 +12,20 @@
 			}
 		</style>
 		<flatiron-director route="{{route}}" hidden></flatiron-director>
-		<section id="todoapp">
-			<header id="header">
-				<input is="td-input" id="new-todo"
+		<section class="todoapp">
+			<header class="header">
+				<input is="td-input" id="new-todo" class="new-todo"
 							 placeholder="What needs to be done?" autofocus
 							 on-td-input-commit="addTodoAction"
 							 on-td-input-cancel="cancelAddTodoAction">
 			</header>
 
 			<template is="dom-if" if="{{items.length}}">
-				<section id="main">
-					<input id="toggle-all" type="checkbox" checked="[[allCompleted]]"
+				<section class="main">
+					<input id="toggle-all" class="toggle-all" type="checkbox" checked="[[allCompleted]]"
 								 on-change="toggleAllCompletedAction">
 					<label for="toggle-all">Mark all as complete</label>
-					<ul id="todo-list" on-td-destroy-item="destroyItemAction">
+					<ul class="todo-list" on-td-destroy-item="destroyItemAction">
 						<template id="todo-list-repeater" is="dom-repeat" items="{{items}}"
 											filter="{{matchesFilter(route)}}" observe="completed"
 											initial-count="10"
@@ -35,13 +35,13 @@
 					</ul>
 				</section>
 
-				<footer id="footer">
-					<span id="todo-count">
+				<footer class="footer">
+					<span class="todo-count">
 						<strong>{{activeCount}}</strong>
 						<span>{{_computeItemsLeft(activeCount)}}</span><span> left</span>
 					</span>
 
-					<iron-selector id="filters" selected="{{route}}" attr-for-selected="route">
+					<iron-selector class="filters" selected="{{route}}" attr-for-selected="route">
 						<li route="">
 							<a href="#/" class$="{{_computeLinkClass(route, '')}}">All</a>
 						</li>
@@ -54,7 +54,7 @@
 					</iron-selector>
 
 					<template is="dom-if" if="{{anyCompleted}}" strip-whitespace>
-						<button id="clear-completed" on-tap="clearCompletedAction"
+						<button class="clear-completed" on-tap="clearCompletedAction"
 										style="visibility:visible">Clear completed</button>
 					</template>
 

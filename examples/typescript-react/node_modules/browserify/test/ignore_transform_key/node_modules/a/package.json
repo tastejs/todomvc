@@ -1,0 +1,10 @@
+{
+  "name": "a",
+  "version": "1.0.0",
+  "private": true,
+  "browserify": {
+    "transform": [
+      "evil-transform"
+    ]
+  }
+}

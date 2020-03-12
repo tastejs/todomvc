@@ -19,18 +19,18 @@ define(function (require) {
 		// Call the super class' constructor
 		PageView.apply(this, arguments);
 
-		// Map collection view to #todo-list
-		this.mapChildView('#todo-list', TodosCollectionView, this.model);
+		// Map collection view to .todo-list
+		this.mapChildView('.todo-list', TodosCollectionView, this.model);
 
 		// Map DOM and model events to event handler functions declared below
 		this.mapEvent({
-			'#new-todo': {
+			'.new-todo': {
 				keypress: addTodo.bind(this)
 			},
-			'input#toggle-all': {
+			'input.toggle-all': {
 				change: toggleAll.bind(this)
 			},
-			'button#clear-completed': {
+			'button.clear-completed': {
 				click: removeCompleted.bind(this)
 			},
 			model: {
@@ -77,7 +77,7 @@ define(function (require) {
 				this.countIsZero = false;
 				this.redraw();
 			} else {
-				this.redraw('#footer, #toggle-all');
+				this.redraw('.footer, .toggle-all');
 			}
 		}.bind(this));
 	}

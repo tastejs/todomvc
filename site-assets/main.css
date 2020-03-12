@@ -13,6 +13,10 @@ body {
 	color: #353535;
 	font-smoothing: antialiased;
 }
+body.learn-page{
+    max-width: 1600px;
+    margin: 0 auto;
+}
 
 h1,
 h2,
@@ -367,4 +371,59 @@ a.zocial {
 	.logo-icon {
 		display: block;
 	}
+}
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px dashed #c5c5c5;
+    border-bottom: 1px dashed #f7f7f7;
+}
+
+/* Learn page specifics*/
+.learn-page > .learn {
+    position: fixed;
+    height: 100%;
+    width: 272px;
+    top: 0px;
+    left: -300px;
+    overflow-y: auto;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, .6);
+    transition-property: left;
+    transition-duration: 500ms;
+    line-height: 36px;
+    text-indent: 20px;
+}
+.learn-page nav a {
+    display: block;
+}
+
+.learn nav a:hover, .learn-page nav a.selected {
+    background-color: #b83f45;
+    color: #ffffff;
+}
+
+.learn .content {
+    padding: 15px;
+}
+.learn-page header {
+    width: 100%;
+}
+
+div.learn {
+    margin: 50px 20px 20px 20px;
+    padding: 20px;
+    background: #eee;
+}
+
+@media (min-width: 899px) {
+    .learn-page {
+        width: auto;
+        padding-left: 300px;
+    }
+
+    .learn-page > .learn {
+        left: 8px;
+    }
 }

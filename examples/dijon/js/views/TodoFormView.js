@@ -8,7 +8,7 @@
 	'use strict';
 
 	ns.views.TodoFormView = function() {
-		var $newTodo = $('#new-todo');
+		var $newTodo = $('.new-todo');
 		return {
 			system: undefined, //inject
 			enterKey: undefined, //inject

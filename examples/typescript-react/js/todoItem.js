@@ -1,21 +1,25 @@
-/*jshint quotmark: false */
-/*jshint white: false */
-/*jshint trailing: false */
-/*jshint newcap: false */
-/*global React */
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/// <reference path="../typings/tsd.d.ts" />
-/// <reference path="./interfaces.d.ts"/>
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var classNames = require("classnames");
+var React = require("react");
+var ReactDOM = require("react-dom");
 var constants_1 = require("./constants");
 var TodoItem = (function (_super) {
     __extends(TodoItem, _super);
     function TodoItem(props) {
-        _super.call(this, props);
-        this.state = { editText: this.props.todo.title };
+        var _this = _super.call(this, props) || this;
+        _this.state = { editText: _this.props.todo.title };
+        return _this;
     }
     TodoItem.prototype.handleSubmit = function (event) {
         var val = this.state.editText.trim();
@@ -51,18 +55,23 @@ var TodoItem = (function (_super) {
     };
     TodoItem.prototype.componentDidUpdate = function (prevProps) {
         if (!prevProps.editing && this.props.editing) {
-            var node = React.findDOMNode(this.refs["editField"]);
+            var node = ReactDOM.findDOMNode(this.refs["editField"]);
             node.focus();
             node.setSelectionRange(node.value.length, node.value.length);
         }
     };
     TodoItem.prototype.render = function () {
         var _this = this;
-        return (React.createElement("li", {"className": classNames({
-            completed: this.props.todo.completed,
-            editing: this.props.editing
-        })}, React.createElement("div", {"className": "view"}, React.createElement("input", {"className": "toggle", "type": "checkbox", "checked": this.props.todo.completed, "onChange": this.props.onToggle}), React.createElement("label", {"onDoubleClick": function (e) { return _this.handleEdit(); }}, this.props.todo.title), React.createElement("button", {"className": "destroy", "onClick": this.props.onDestroy})), React.createElement("input", {"ref": "editField", "className": "edit", "value": this.state.editText, "onBlur": function (e) { return _this.handleSubmit(e); }, "onChange": function (e) { return _this.handleChange(e); }, "onKeyDown": function (e) { return _this.handleKeyDown(e); }})));
+        return (React.createElement("li", { className: classNames({
+                completed: this.props.todo.completed,
+                editing: this.props.editing
+            }) },
+            React.createElement("div", { className: "view" },
+                React.createElement("input", { className: "toggle", type: "checkbox", checked: this.props.todo.completed, onChange: this.props.onToggle }),
+                React.createElement("label", { onDoubleClick: function (e) { return _this.handleEdit(); } }, this.props.todo.title),
+                React.createElement("button", { className: "destroy", onClick: this.props.onDestroy })),
+            React.createElement("input", { ref: "editField", className: "edit", value: this.state.editText, onBlur: function (e) { return _this.handleSubmit(e); }, onChange: function (e) { return _this.handleChange(e); }, onKeyDown: function (e) { return _this.handleKeyDown(e); } })));
     };
     return TodoItem;
-})(React.Component);
+}(React.Component));
 exports.TodoItem = TodoItem;

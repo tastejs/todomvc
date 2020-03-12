@@ -1,0 +1,72 @@
+{
+  "_from": "resolve@^1.1.4",
+  "_id": "resolve@1.9.0",
+  "_inBundle": false,
+  "_integrity": "sha512-TZNye00tI67lwYvzxCxHGjwTNlUV70io54/Ed4j6PscB8xVfuBJpRenI/o6dVk0cY0PYTY27AgCoGGxRnYuItQ==",
+  "_location": "/resolve",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "resolve@^1.1.4",
+    "name": "resolve",
+    "escapedName": "resolve",
+    "rawSpec": "^1.1.4",
+    "saveSpec": null,
+    "fetchSpec": "^1.1.4"
+  },
+  "_requiredBy": [
+    "/browserify",
+    "/module-deps"
+  ],
+  "_resolved": "https://registry.npmjs.org/resolve/-/resolve-1.9.0.tgz",
+  "_shasum": "a14c6fdfa8f92a7df1d996cb7105fa744658ea06",
+  "_spec": "resolve@^1.1.4",
+  "_where": "/var/www/todomvc/examples/typescript-react/node_modules/browserify",
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "bugs": {
+    "url": "https://github.com/browserify/resolve/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "path-parse": "^1.0.6"
+  },
+  "deprecated": false,
+  "description": "resolve like require.resolve() on behalf of files asynchronously and synchronously",
+  "devDependencies": {
+    "@ljharb/eslint-config": "^13.0.0",
+    "eslint": "^5.10.0",
+    "object-keys": "^1.0.12",
+    "safe-publish-latest": "^1.1.2",
+    "tap": "0.4.13",
+    "tape": "^4.9.1"
+  },
+  "homepage": "https://github.com/browserify/resolve#readme",
+  "keywords": [
+    "resolve",
+    "require",
+    "node",
+    "module"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "resolve",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/browserify/resolve.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "posttest": "npm run test:multirepo",
+    "prepublish": "safe-publish-latest",
+    "pretest": "npm run lint",
+    "test": "npm run --silent tests-only",
+    "test:multirepo": "cd ./test/resolver/multirepo && npm install && npm test",
+    "tests-only": "tape test/*.js"
+  },
+  "version": "1.9.0"
+}

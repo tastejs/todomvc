@@ -6,7 +6,8 @@
 			<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" onkeyup={ addTodo }>
 		</header>
 		<section class="main" show={ todos.length }>
-			<input class="toggle-all" type="checkbox" checked={ allDone } onclick={ toggleAll }>
+			<input id="toggle-all" class="toggle-all" type="checkbox" checked={ allDone } onclick={ toggleAll }>
+			<label for="toggle-all">Mark all as complete</label>
 			<ul class="todo-list">
 				<li riot-tag="todoitem" class="todo { completed: t.completed, editing: t.editing }"
 						each={ t, i in filteredTodos() } todo={ t } parentview={ parent }></li>

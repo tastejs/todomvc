@@ -1,6 +1,0 @@
-# editorconfig.org
-root = true
-
-[*.coffee]
-indent_style = space
-indent_size = 2

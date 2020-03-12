@@ -5,7 +5,14 @@
 sudo: false
 language: node_js
 node_js:
-  - 'stable'
+  - 10.13
+# if using Ubuntu 16 need this library
+# https://github.com/cypress-io/cypress-documentation/pull/1647
+addons:
+  apt:
+    packages:
+    - libgconf-2-4
+
 notifications:
   irc: 'irc.freenode.org#tastejs'
 cache:
@@ -30,10 +37,185 @@ env:
     - GH_OWNER: tastejs
     - GH_PROJECT_NAME: todomvc
     - CHROME_PATH: '/home/travis/build/tastejs/todomvc/chrome-linux/chrome'
+
+#update npm to latest stable version
 before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - wget 'https://download-chromium.appspot.com/dl/Linux_x64?type=snapshots' -O chrome.zip && unzip chrome.zip
-script:
-# We want to gate on passing tests and a successful build
-  - ./test-runner.sh
+  - npm install --global npm@6.10.0
+
+# common build steps for each test job
+defaults: &defaults
+  script:
+    - echo Testing $CYPRESS_framework
+    - $(npm bin)/print-env TRAVIS
+    - npm run test
+
+jobs:
+  include:
+    # install NPM dependencies before each test job
+    - stage: npm ci
+      script:
+        - npm ci
+        - $(npm bin)/print-env TRAVIS
+    # define a separate script for each "examples/*" folder
+    # this will run it in a separate job on TravisCI
+    # all these jobs belong to same stage "test" thus will run in parallel
+    - stage: test
+      env:
+        - CYPRESS_framework=angular-dart
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=angular2
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=angularjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=aurelia
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=backbone_marionette
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=backbone_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=binding-scala
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=canjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=canjs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=closure
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=dijon
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=dojo
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=duel
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=emberjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=enyo_backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=exoskeleton
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=jquery
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=js_of_ocaml
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=jsblocks
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=knockback
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=knockoutjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=knockoutjs_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=kotlin-react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=lavaca_require
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=mithril
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=polymer
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=ractive
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=react-alt
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=react-backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=reagent
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=riotjs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=scalajs-react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=typescript-angular
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=typescript-backbone
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=typescript-react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vanilla-es6
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vanillajs
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=vue
+      <<: *defaults

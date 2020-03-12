@@ -13,13 +13,26 @@
   ],
   "scripts": {
     "test-server": "gulp test-server &",
-    "gulp": "gulp"
+    "server": "gulp test-server",
+    "gulp": "gulp",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:record": "npm run cy:run -- --record",
+    "test": "run-p --race server cy:run",
+    "test:record": "start-server-and-test server http://localhost:8000 cy:run:record",
+    "test:all": "node tests/cya.js"
   },
   "dependencies": {
     "express": "^4.10.0"
   },
   "devDependencies": {
+    "@bahmutov/print-env": "^1.0.1",
+    "bluebird": "^3.5.1",
+    "chalk": "^2.3.0",
+    "console.table": "^0.9.1",
+    "cypress": "^3.4.1",
     "del": "^0.1.1",
+    "figlet": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-cache": "^0.2.0",
@@ -34,9 +47,14 @@
     "gulp-useref": "^1.0.2",
     "gulp-vulcanize": "^1.0.0",
     "jshint-stylish": "^1.0.0",
+    "minimist": "^1.2.0",
+    "npm-run-all": "^4.1.2",
+    "pluralize": "^7.0.0",
     "psi": "^0.1.1",
+    "ramda": "^0.25.0",
     "run-sequence": "^1.0.1",
     "serve-favicon": "^2.3.0",
+    "start-server-and-test": "^1.0.0",
     "vinyl-fs": "github:gulpjs/vinyl-fs#59386ca"
   }
 }

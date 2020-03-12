@@ -21,8 +21,8 @@ app.view = (function () {
 
 	return function (ctrl) {
 		return [
-			m('header#header', [
-				m('h1', 'todos'), m('input#new-todo[placeholder="What needs to be done?"]', {
+			m('header.header', [
+				m('h1', 'todos'), m('input.new-todo[placeholder="What needs to be done?"]', {
 					onkeyup: app.watchInput(ctrl.add.bind(ctrl),
 						ctrl.clearTitle.bind(ctrl)),
 					value: ctrl.title(),
@@ -35,16 +35,19 @@ app.view = (function () {
 					}
 				})
 			]),
-			m('section#main', {
+			m('section.main', {
 				style: {
 					display: ctrl.list.length ? '' : 'none'
 				}
 			}, [
-				m('input#toggle-all[type=checkbox]', {
+				m('input#toggle-all.toggle-all[type=checkbox]', {
 					onclick: ctrl.completeAll.bind(ctrl),
 					checked: ctrl.allCompleted()
 				}),
-				m('ul#todo-list', [
+				m('label', {
+					for: 'toggle-all'
+				}),
+				m('ul.todo-list', [
 					ctrl.list.filter(ctrl.isVisible.bind(ctrl)).map(function (task, index) {
 						return m('li', { class: (function () {
 							var classes = '';

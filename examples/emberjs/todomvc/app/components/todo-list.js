@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { computed, set } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-	repo: Ember.inject.service(),
+export default Component.extend({
+	repo: service(),
 	tagName: 'section',
-	elementId: 'main',
+	classNames: ['main'],
 	canToggle: true,
-	allCompleted: Ember.computed('todos.@each.completed', function () {
-		return this.get('todos').isEvery('completed');
+	allCompleted: computed('todos.@each.completed', function () {
+		return this.todos.isEvery('completed');
 	}),
 
 	actions: {
@@ -19,9 +21,9 @@ export default Ember.Component.extend({
 		},
 
 		toggleAll() {
-			let allCompleted = this.get('allCompleted');
-			this.get('todos').forEach(todo => Ember.set(todo, 'completed', !allCompleted));
-			this.get('repo').persist();
+			let allCompleted = this.allCompleted;
+			this.todos.forEach(todo => set(todo, 'completed', !allCompleted));
+			this.repo.persist();
 		}
 	}
 });

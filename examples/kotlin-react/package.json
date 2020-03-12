@@ -1,0 +1,24 @@
+{
+  "name": "todomvc-ui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "16.4.1",
+    "react-dom": "16.4.1",
+    "todomvc-app-css": "2.0.0",
+    "todomvc-common": "1.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "5.2.0",
+    "react-scripts-kotlin": "2.1.10"
+  },
+  "scripts": {
+    "start": "cross-env PORT=3000 react-scripts-kotlin start",
+    "build": "react-scripts-kotlin build",
+    "eject": "react-scripts-kotlin eject",
+    "clean": "rm -fr build/",
+    "gen-idea-libs": "react-scripts-kotlin gen-idea-libs",
+    "get-types": "react-scripts-kotlin get-types --dest=src/types",
+    "postinstall": "npm run gen-idea-libs"
+  }
+}

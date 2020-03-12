@@ -22,6 +22,7 @@ var dijondemo = {};
 
 				// Values
 				this.system.mapValue( 'enterKey', 13 );
+				this.system.mapValue( 'escapeKey', 27 );
 				this.system.mapValue( 'uuidUtil', ns.utils.Utils );
 				this.system.mapValue( 'pluralizeUtil', ns.utils.Utils );
 

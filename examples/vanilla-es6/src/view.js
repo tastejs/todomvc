@@ -2,7 +2,7 @@ import {ItemList} from './item';
 import {qs, $on, $delegate} from './helpers';
 import Template from './template';
 
-const _itemId = element => parseInt(element.parentNode.dataset.id, 10);
+const _itemId = element => parseInt(element.parentNode.dataset.id || element.parentNode.parentNode.dataset.id, 10);
 const ENTER_KEY = 13;
 const ESCAPE_KEY = 27;
 
@@ -30,7 +30,7 @@ export default class View {
 	 * @param {!Element} target Target Item's label Element
 	 */
 	editItem(target) {
-		const listItem = target.parentElement;
+		const listItem = target.parentElement.parentElement;
 
 		listItem.classList.add('editing');
 
@@ -106,8 +106,8 @@ export default class View {
 	 * @param {string} route The current route
 	 */
 	updateFilterButtons(route) {
-		qs('.filters>.selected').className = '';
-		qs(`.filters>[href="#/${route}"]`).className = 'selected';
+		qs('.filters .selected').className = '';
+		qs(`.filters [href="#/${route}"]`).className = 'selected';
 	}
 
 	/**

@@ -215,10 +215,10 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Get started",
-				"url": "http://aurelia.io/get-started.html"
+				"url": "https://aurelia.io/docs/tutorials/creating-a-todo-app/"
 			}, {
 				"name": "Docs",
-				"url": "http://aurelia.io/docs.html"
+				"url": "https://aurelia.io/docs/"
 			}, {
 				"name": "Aurelia on GitHub",
 				"url": "https://github.com/aurelia"
@@ -227,13 +227,19 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Blog",
-				"url": "http://blog.durandal.io/"
+				"url": "https://aurelia.io/blog/"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Aurelia dicussions on Gitter",
+				"name": "Aurelia Discourse forum",
+				"url": "https://discourse.aurelia.io"
+			}, {
+				"name": "Aurelia discussions on Gitter",
 				"url": "https://gitter.im/Aurelia/Discuss"
+			}, {
+				"name": "Aurelia Twitter account",
+				"url": "https://twitter.com/AureliaEffect"
 			}]
 		}]
 	},
@@ -550,92 +556,6 @@
 			"url": "examples/cyclejs"
 		}]
 	},
-	"dart": {
-		"name": "Dart",
-		"description": "Dart is a class-based, object-oriented language with lexical scoping, closures, and optional static typing. Dart helps you build structured modern web apps and is easy to learn for a wide range of developers.",
-		"homepage": "dartlang.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/vanilladart/web"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "https://www.dartlang.org/docs/dart-up-and-running/contents/ch01.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://api.dartlang.org/docs/releases/latest"
-			}, {
-				"name": "A Tour of the Dart Language",
-				"url": "http://www.dartlang.org/docs/dart-up-and-running/contents/ch02.html"
-			}, {
-				"name": "Articles",
-				"url": "http://www.dartlang.org/articles"
-			}, {
-				"name": "Tutorials",
-				"url": "http://www.dartlang.org/docs/tutorials"
-			}, {
-				"name": "FAQ",
-				"url": "http://www.dartlang.org/support/faq.html"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Getting started with Google Dart",
-				"url": "http://www.techrepublic.com/blog/webmaster/getting-started-with-google-dart/931"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Dart on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/dart"
-			}, {
-				"name": "Dart on Twitter",
-				"url": "http://twitter.com/dart_lang"
-			}, {
-				"name": "Dart on Google+",
-				"url": "https://plus.google.com/+dartlang/posts"
-			}]
-		}]
-	},
-	"deftjs": {
-		"name": "DeftJS",
-		"description": "DeftJS enhances Ext JS and Sencha Touch’s APIs with additional building blocks that enable large development teams to rapidly build enterprise scale applications, leveraging best practices and proven patterns discovered by top RIA developers at some of the best consulting firms in the industry.",
-		"homepage": "deftjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/extjs_deftjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "https://github.com/deftjs/DeftJS/wiki"
-			}, {
-				"name": "DeftJS on GitHub",
-				"url": "https://github.com/deftjs/DeftJS"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Exploring ExtJS with DeftJS",
-				"url": "http://www.briankotek.com/blog/index.cfm/2012/5/8/Exploring-ExtJS-with-DeftJS"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "DeftJS on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/deftjs"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/deftjs"
-			}, {
-				"name": "DeftJS on Twitter",
-				"url": "http://twitter.com/deftjs"
-			}]
-		}]
-	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",
@@ -726,66 +646,13 @@
 			}]
 		}]
 	},
-	"durandal": {
-		"name": "Durandal",
-		"description": "Single Page Apps Done Right.",
-		"homepage": "durandaljs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/durandal/index.html"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Getting Started",
-				"url": "http://durandaljs.com/pages/get-started/"
-			}, {
-				"name": "Documentation",
-				"url": "http://durandaljs.com/pages/docs"
-			}, {
-				"name": "Videos",
-				"url": "http://durandaljs.com/pages/videos/"
-			}, {
-				"name": "Durandal on GitHub",
-				"url": "https://github.com/BlueSpire/Durandal"
-			}]
-		}
-		, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "HotTowel Template - Durandal with ASP.Net MVC",
-				"url": "http://www.johnpapa.net/hottowel/"
-			}, {
-				"name": "Using Durandal to Create Single Page Apps",
-				"url": "http://stephenwalther.com/archive/2013/02/08/using-durandal-to-create-single-page-apps"
-			},{
-				"name": "nuGet Download",
-				"url": "http://www.nuget.org/packages/Durandal/"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Durandal on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/durandal"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/durandaljs"
-			}, {
-				"name": "Durandal on Twitter",
-				"url": "http://twitter.com/durandaljs"
-			}]
-		}]
-	},
 	"emberjs": {
 		"name": "Ember.js",
-		"description": "A framework for creating ambitious web applications.",
+		"description": "A framework for ambitious web developers.",
 		"homepage": "emberjs.com",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/emberjs"
-		}, {
-			"name": "Require.js & Ember.js",
-			"url": "examples/emberjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -796,9 +663,6 @@
 				"name": "API Reference",
 				"url": "http://emberjs.com/api"
 			}, {
-				"name": "Screencast - Building an App with Ember.js",
-				"url": "https://www.youtube.com/watch?v=Ga99hMi7wfY"
-			}, {
 				"name": "Applications built with Ember.js",
 				"url": "http://emberjs.com/ember-users"
 			}, {
@@ -806,25 +670,16 @@
 				"url": "http://emberjs.com/blog"
 			}]
 		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Getting Into Ember.js",
-				"url": "http://net.tutsplus.com/tutorials/javascript-ajax/getting-into-ember-js"
-			}, {
-				"name": "EmberWatch",
-				"url": "http://emberwatch.com"
-			}]
-		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Ember.js Community",
+				"url": "https://emberjs.com/community/"
+			}, {
 				"name": "Ember.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ember.js"
 			}, {
 				"name": "Ember.js on Twitter",
 				"url": "http://twitter.com/emberjs"
-			}, {
-				"name": "Ember.js on Google+",
-				"url": "https://plus.google.com/communities/106387049790387471205"
 			}]
 		}]
 	},
@@ -1221,49 +1076,6 @@
 			"url": "examples/mol"
 		}],
 		"link_groups": []
-	},
-	"kendo": {
-		"name": "Kendo UI",
-		"description": "Comprehensive HTML5/JavaScript framework for modern web and mobile app development.",
-		"homepage": "kendoui.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/kendo"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://docs.kendoui.com"
-			}, {
-				"name": "API Reference",
-				"url": "http://docs.kendoui.com/api/dataviz/chart"
-			}, {
-				"name": "What is Kendo UI",
-				"url": "http://docs.kendoui.com/getting-started/introduction"
-			}, {
-				"name": "Applications built with Kendo UI",
-				"url": "http://demos.kendoui.com"
-			}, {
-				"name": "Blog",
-				"url": "http://www.kendoui.com/blogs.aspx"
-			}, {
-				"name": "FAQ",
-				"url": "http://www.kendoui.com/faq/faq.aspx"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Kendo UI on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/kendo-ui"
-			}, {
-				"name": "Kendo UI on Twitter",
-				"url": "http://twitter.com/kendoui"
-			}, {
-				"name": "Kendo UI on Google+",
-				"url": "https://plus.google.com/117798269023828336983/posts"
-			}]
-		}]
 	},
 	"knockback": {
 		"name": "Knockback.js",
@@ -1820,77 +1632,6 @@
 			}]
 		}]
 	},
-	"sammyjs": {
-		"name": "Sammy.js",
-		"description": "A small web framework with class.",
-		"homepage": "sammyjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/sammyjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://sammyjs.org/intro"
-			}, {
-				"name": "Documentation",
-				"url": "http://sammyjs.org/docs"
-			}, {
-				"name": "Wiki",
-				"url": "http://sammyjs.org/wiki"
-			}, {
-				"name": "FAQ",
-				"url": "http://sammyjs.org/faq"
-			}, {
-				"name": "Sammy.js on GitHub",
-				"url": "http://github.com/quirkey/sammy"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Sammy.js For RESTful Evented JavaScript",
-				"url": "http://churchm.ag/sammy-js-for-restful-evented-javascript"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Mailing list on Google Groups",
-				"url": "http://groups.google.com/group/sammyjs"
-			}, {
-				"name": "Sammy.js on Twitter",
-				"url": "http://twitter.com/sammy_js"
-			}]
-		}]
-	},
-	"sapui5": {
-		"name": "SAPUI5",
-		"description": "SAP's HTML5-based UI technology that allows you to build rich, interactive Web applications.",
-		"homepage": "scn.sap.com/community/developer-center/front-end",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/sapui5"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://scn.sap.com/community/developer-center/front-end/blog/2013/03/19/how-to-build-testable-sapui5-applications"
-			}, {
-				"name": "Getting Started",
-				"url": "https://sapui5.netweaver.ondemand.com/"
-			}, {
-				"name": "API Reference",
-				"url": "https://sapui5.netweaver.ondemand.com/sdk/#content/Overview.html"
-			}, {
-				"name": "Twitter Search",
-				"url": "https://twitter.com/search?q=%23sapui5"
-			}, {
-				"name": "OpenUI5 Twitter",
-				"url": "https://twitter.com/OpenUI5"
-			}]
-		}]
-	},
   	"scalajs-react": {
 		"name": "scalajs-react",
 		"description": "Facebook's React on Scala.js.",
@@ -1918,7 +1659,7 @@
 				"url": "http://www.scala-js.org/"
 			}, {
 				"name": "React tutorial",
-				"url": "https://facebook.github.io/react/docs/tutorial.html"
+				"url": "https://reactjs.org/tutorial/tutorial.html"
 			}]
 		}, {
 			"heading": "Community",
@@ -1991,41 +1732,6 @@
 			}]
 		}]
 	},
-	"socketstream": {
-		"name": "SocketStream",
-		"description": "SocketStream 0.3 is a fast, modular Node.js web framework dedicated to building realtime single-page apps.",
-		"homepage": "socketstream.org",
-		"examples": [{
-			"name": "Real-time Example",
-			"url": "examples/socketstream/README.md",
-			"source_url": "examples/socketstream"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Tour",
-				"url": "http://www.socketstream.org/tour"
-			}, {
-				"name": "SocketStream on GitHub",
-				"url": "https://github.com/socketstream"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Video - Owen Barnes introduces SocketStream",
-				"url": "http://www.infoq.com/presentations/SocketStream"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "SocketStream on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/socketstream"
-			}, {
-				"name": "SocketStream on Twitter",
-				"url": "http://twitter.com/socketstream"
-			}]
-		}]
-	},
 	"somajs": {
 		"name": "soma.js",
 		"description": "soma.js is a framework created to build scalable and maintainable javascript applications.",
@@ -2063,46 +1769,6 @@
 			}, {
 				"name": "soma.js on Twitter",
 				"url": "http://twitter.com/soundstep"
-			}]
-		}]
-	},
-	"spine": {
-		"name": "Spine.js",
-		"description": "Build Awesome JavaScript MVC Applications.",
-		"homepage": "spinejs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/spine"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://spinejs.com/docs/"
-			}, {
-				"name": "Step by Step Tutorials",
-				"url": "http://spinejs.com/docs/example"
-			}, {
-				"name": "API Reference",
-				"url": "http://spinejs.com/api/index"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Building JavaScript Web Apps With MVC & Spine.js",
-				"url": "http://addyosmani.com/blog/building-apps-spinejs"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Spine on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/spine.js"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/spinejs"
-			}, {
-				"name": "Spine's author, Alex MacCaw, on Twitter",
-				"url": "http://twitter.com/maccman"
 			}]
 		}]
 	},
@@ -2214,7 +1880,7 @@
 				"url": "http://vuejs.org/examples/"
 			}, {
 				"name": "Vue.js on GitHub",
-				"url": "https://github.com/yyx990803/vue"
+				"url": "https://github.com/vuejs/vue"
 			}]
 		}, {
 			"heading": "Community",
@@ -2318,6 +1984,7 @@
 		}]
 	},
 	"templates": {
-		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>"
+		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>",
+		"todomvc-home": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %>"
 	}
 }
