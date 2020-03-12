@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "todomvc-common": "^1.0.1"
-  }
-}

@@ -1,28 +1,28 @@
-interface $mol_app_todomvc_task {
+interface $hyoo_todomvc_task {
 	completed? : boolean
 	title? : string
 }
 
 namespace $.$$ {
 	
-	export class $mol_app_todomvc_add extends $.$mol_app_todomvc_add {
+	export class $hyoo_todomvc_add extends $.$hyoo_todomvc_add {
 		
-		event_press( next? : KeyboardEvent ) {
+		press( next? : KeyboardEvent ) {
 			switch( next.keyCode ) {
-				case $mol_keyboard_code.enter : return this.event_done( next )
+				case $mol_keyboard_code.enter : return this.done( next )
 			}
 		}
 		
 	}
 	
-	export class $mol_app_todomvc extends $.$mol_app_todomvc {
+	export class $hyoo_todomvc extends $.$hyoo_todomvc {
 		
 		task_ids( next? : number[] ) : number[] {
-			return $mol_state_local.value( this.state_key( 'mol-todos' ) , next ) || []
+			return this.$.$mol_state_local.value( this.state_key( 'mol-todos' ) , next ) || []
 		}
 		
 		arg_completed() {
-			return $mol_state_arg.value( this.state_key( 'completed' ) )
+			return this.$.$mol_state_arg.value( this.state_key( 'completed' ) )
 		}
 
 		@ $mol_mem
@@ -36,7 +36,7 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		tasks_filtered() {
+		task_ids_filtered() {
 			var completed = this.arg_completed()
 			if( completed ) {
 				return this.groups_completed()[ completed ] || []
@@ -72,7 +72,7 @@ namespace $.$$ {
 			return Math.max( 1 , 1 + Math.max( ... this.task_ids() ) )
 		}
 		
-		event_add( next : Event ) {
+		add( next? : Event ) {
 			var title = this.task_title_new() 
 			if( !title ) return
 			
@@ -86,47 +86,36 @@ namespace $.$$ {
 
 		@ $mol_mem
 		task_rows() {
-			return this.tasks_filtered().map( ( id , index )=> this.Task_row( index ) )
+			return this.task_ids_filtered().map( id => this.Task_row( id ) )
 		}
 		
-		task( id : number , next? : $mol_app_todomvc_task ) {
+		task( id : number , next? : $hyoo_todomvc_task ) {
 			const key = this.state_key( `mol-todos-${id}` )
 			if( next === void 0 ) {
-				return $mol_state_local.value<$mol_app_todomvc_task>( key ) || { title : '' , completed : false }
+				return this.$.$mol_state_local.value<$hyoo_todomvc_task>( key ) || { title : '' , completed : false }
 			}
 			
-			$mol_state_local.value( key , next )
+			this.$.$mol_state_local.value( key , next )
 			
 			return next || void 0
 		}
 		
 		@ $mol_mem_key
-		task_completed( index : number , next? : boolean ) {
-			var id = this.tasks_filtered()[ index ]
-			if( next === void 0 ) return this.task( id ).completed
-			
-			this.task( id , $mol_merge_dict( this.task( id ) , { completed : next } ) )
-			
-			return next
+		task_completed( id : number , next? : boolean ) {
+			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , completed : next } ).completed
 		}
 		
 		@ $mol_mem_key
-		task_title( index : number , next? : string ) {
-			var id = this.tasks_filtered()[ index ]
-			if( next === void 0 ) return this.task( id ).title
-			
-			this.task( id , $mol_merge_dict( this.task( id ) , { title : next } ) )
-			
-			return next
+		task_title( id : number , next? : string ) {
+			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , title : next } ).title
 		}
 		
-		event_task_drop( index : number , next? : Event ) {
-			const id = this.tasks_filtered()[index]
+		task_drop( id : number , next? : Event ) {
 			this.task( id , null )
 			this.task_ids( this.task_ids().filter( id2 => id !== id2 ) )
 		}
 
-		event_sweep() {
+		sweep() {
 			this.task_ids( this.task_ids().filter( id => {
 				if( !this.task( id ).completed ) return true
 				this.task( id , null )
