@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import useRouter from "use-react-router";
 
@@ -7,7 +7,34 @@ import useOnEnter from "../hooks/useOnEnter";
 import useTodos from "../reducers/useTodos";
 import TodoItem from "./TodoItem";
 
+import { fakeRequest } from '../utils/predictTodos'
+// RxJS v6+
+import { fromEvent } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  switchMap,
+  tap
+} from 'rxjs/operators';
+
 export default function TodoList() {
+  useEffect(() => {
+    const todoListener = fromEvent(document.getElementsByClassName('new-todo'), 'keyup')
+      .pipe(
+        debounceTime(200),
+        map((e) => e.target.value),
+        distinctUntilChanged(),
+        switchMap(fakeRequest),
+        tap(c => (document.getElementById('output').innerText = c.join('\n')))
+      )
+    todoListener.subscribe()
+
+        // todo: unsubscribe on finish
+      return () => {
+        todoListener.unsubscribe();
+    };
+  }, [])
   const router = useRouter();
 
   const [todos, { addTodo, deleteTodo, setDone }] = useTodos();
@@ -64,6 +91,7 @@ export default function TodoList() {
     <React.Fragment>
       <header className="header">
         <h1>todos</h1>
+        <p id="output" />
         <input
           className="new-todo"
           placeholder="What needs to be done?"
@@ -71,6 +99,7 @@ export default function TodoList() {
           value={newValue}
           onChange={onNewValueChange}
         />
+
       </header>
 
       <section className="main">
