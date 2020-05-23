@@ -1,0 +1,25 @@
+{
+  "name": "vite-reason-react-starter",
+  "reason": {
+    "react-jsx": 3
+  },
+  "warnings": {
+    "error": "+101+25+8+9+27",
+    "number": "-102-48-3"
+  },
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+  "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": ["reason-react", "relude", "bs-bastet", "bs-decode"],
+  "refmt": 3
+}

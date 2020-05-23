@@ -1,0 +1,26 @@
+{
+  "name": "todo-mvc",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite serve src",
+    "build": "bsb -make-world -clean-world && vite build src --outDir dist ",
+    "re:build": "bsb -make-world -clean-world",
+    "re:watch": "bsb -make-world -clean-world -w",
+    "re:clean": "bsb -clean-world"
+  },
+  "dependencies": {
+    "@pika/react": "^16.13.1",
+    "@pika/react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "bs-bastet": "^1.2.5",
+    "bs-decode": "^0.11.1",
+    "bs-platform": "^7.3.2",
+    "reason-react": "^0.8.0",
+    "relude": "^0.63.1",
+    "todomvc-app-css": "^2.3.0",
+    "todomvc-common": "^1.0.5",
+    "vite": "^0.16.6",
+    "vite-plugin-react": "^1.1.0"
+  }
+}
