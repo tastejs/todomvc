@@ -1,0 +1,150 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Testing - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.4</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="testing"><a href="#testing">Testing</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><strong><a href="testing.html">Testing</a></strong></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<p>Mithril comes with a testing framework called <a href="https://github.com/MithrilJS/mithril.js/tree/master/ospec">ospec</a>. What makes it different from most test frameworks is that it avoids all configurability for the sake of avoiding <a href="http://catb.org/jargon/html/Y/yak-shaving.html">yak shaving</a> and <a href="https://en.wikipedia.org/wiki/Analysis_paralysis">analysis paralysis</a>.</p>
+<p>The easist way to setup the test runner is to create an NPM script for it. Open your project&#39;s <code>package.json</code> file and edit the <code>test</code> line under the <code>scripts</code> section:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;test&quot;: &quot;ospec&quot;
+    }
+}
+</code></pre><p>Remember this is a JSON file, so object key names such as <code>&quot;test&quot;</code> must be inside of double quotes.</p>
+<p>To setup a test suite, create a <code>tests</code> folder and inside of it, create a test file:</p>
+<pre><code class="lang-javascript">// file: tests/math-test.js
+var o = require(&quot;mithril/ospec/ospec&quot;)
+
+o.spec(&quot;math&quot;, function() {
+    o(&quot;addition works&quot;, function() {
+        o(1 + 2).equals(3)
+    })
+})
+</code></pre>
+<p>To run the test, use the command <code>npm test</code>. Ospec considers any Javascript file inside of a <code>tests</code> folder (anywhere in the project) to be a test.</p>
+<pre><code>npm test
+</code></pre><hr>
+<h3 id="running-mithril-in-a-non-browser-environment"><a href="#running-mithril-in-a-non-browser-environment">Running mithril in a non-browser environment</a></h3>
+<p>Mithril has a few dependencies on globals that exist in all its supported browser environments but are missing in all non-browser environments. To work around this you can use the browser mocks that ship with the mithril npm package.</p>
+<p>The simplest way to do this is ensure the following snippet of code runs <strong>before</strong> you include mithril itself in your project.</p>
+<pre><code class="lang-js">// Polyfill DOM env for mithril
+global.window = require(&quot;mithril/test-utils/browserMock.js&quot;)();
+global.document = window.document;
+</code></pre>
+<p>Once that snippet has been run you can <code>require(&quot;mithril&quot;)</code> and it should be quite happy.</p>
+<hr>
+<h3 id="good-testing-practices"><a href="#good-testing-practices">Good testing practices</a></h3>
+<p>Generally speaking, there are two ways to write tests: upfront and after the fact.</p>
+<p>Writing tests upfront requires specifications to be frozen. Upfront tests are a great way of codifying the rules that a yet-to-be-implemented API must obey. However, writing tests upfront may not be a suitable strategy if you don&#39;t have a reasonable idea of what your project will look like, if the scope of the API is not well known or if it&#39;s likely to change (e.g. based on previous history at the company).</p>
+<p>Writing tests after the fact is a way to document the behavior of a system and avoid regressions. They are useful to ensure that obscure corner cases are not inadvertently broken and that previously fixed bugs do not get re-introduced by unrelated changes.</p>
+<hr>
+<h3 id="unit-testing"><a href="#unit-testing">Unit testing</a></h3>
+<p>Unit testing is the practice of isolating a part of an application (typically a single module), and asserting that, given some inputs, it produces the expected outputs.</p>
+<p>Testing a Mithril component is easy. Let&#39;s assume we have a simple component like this:</p>
+<pre><code class="lang-javascript">// MyComponent.js
+var m = require(&quot;mithril&quot;)
+
+module.exports = {
+    view: function() {
+        return m(&quot;div&quot;, 
+            m(&quot;p&quot;, &quot;Hello World&quot;)
+        )
+    }
+}
+</code></pre>
+<p>We can then create a <code>tests/MyComponent.js</code> file and create a test for this component like this:</p>
+<pre><code class="lang-javascript">var MyComponent = require(&quot;MyComponent&quot;)
+
+o.spec(&quot;MyComponent&quot;, function() {
+    o(&quot;returns a div&quot;, function() {
+        var vnode = MyComponent.view()
+
+        o(vnode.tag).equals(&quot;div&quot;)
+        o(vnode.children.length).equals(1)
+        o(vnode.children[0].tag).equals(&quot;p&quot;)
+        o(vnode.children[0].children).equals(&quot;Hello world&quot;)
+    })
+})
+</code></pre>
+<p>Typically, you wouldn&#39;t test the structure of the vnode tree so granularly, and you would instead only test non-trivial, dynamic aspects of the view. A tool that can help making testing easier with deep vnode trees is <a href="https://github.com/StephanHoyer/mithril-query">Mithril Query</a>.</p>
+<p>Sometimes, you need to mock the dependencies of a module in order to test the module in isolation. <a href="https://github.com/mfncooper/mockery">Mockery</a> is one tool that allows you to do that.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.4/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

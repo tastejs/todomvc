@@ -1,0 +1,601 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Change log - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.1</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="change-log"><a href="#change-log">Change log</a></h1>
+<ul>
+<li>Tutorials<ul>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><strong><a href="change-log.html">Change log/Migration</a></strong><ul>
+<li><a href="#v111">v1.1.1</a></li>
+<li><a href="#v110">v1.1.0</a></li>
+<li><a href="#v101">v1.0.1</a></li>
+<li><a href="#migrating-from-v02x">Migrating from v0.2.x</a></li>
+<li><a href="http://mithril.js.org/archive/v0.2.5/index.html">Older docs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="v111"><a href="#v111">v1.1.1</a></h3>
+<h4 id="bug-fixes"><a href="#bug-fixes">Bug fixes</a></h4>
+<ul>
+<li>hyperscript: Allow <code>0</code> as the second argument to <code>m()</code> - <a href="https://github.com/MithrilJS/mithril.js/issues/1752">#1752</a> / <a href="https://github.com/MithrilJS/mithril.js/pull/1753">#1753</a> (<a href="https://github.com/StephanHoyer">@StephanHoyer</a>)</li>
+<li>hyperscript: restore <code>attrs.class</code> handling to what it was in v1.0.1 - <a href="https://github.com/MithrilJS/mithril.js/issues/1764">#1764</a> / <a href="https://github.com/MithrilJS/mithril.js/pull/1769">#1769</a></li>
+<li>documentation improvements (<a href="https://github.com/JAForbes">@JAForbes</a>, <a href="https://github.com/smuemd">@smuemd</a>, <a href="https://github.com/hankeypancake">@hankeypancake</a>)</li>
+</ul>
+<h3 id="v110"><a href="#v110">v1.1.0</a></h3>
+<h4 id="news"><a href="#news">News</a></h4>
+<ul>
+<li>support for ES6 class components</li>
+<li>support for closure components</li>
+<li>improvements in build and release automation</li>
+</ul>
+<h4 id="bug-fixes1"><a href="#bug-fixes1">Bug fixes</a></h4>
+<ul>
+<li>fix IE11 input[type] error - <a href="https://github.com/MithrilJS/mithril.js/issues/1610">#1610</a></li>
+<li>apply <a href="https://github.com/MithrilJS/mithril.js/issues/1609">#1609</a> to unkeyed children case</li>
+<li>fix abort detection <a href="https://github.com/MithrilJS/mithril.js/issues/1612">#1612</a></li>
+<li>fix input value focus issue when value is loosely equal to old value <a href="https://github.com/MithrilJS/mithril.js/issues/1593">#1593</a></li>
+</ul>
+<hr>
+<h3 id="v101"><a href="#v101">v1.0.1</a></h3>
+<h4 id="news1"><a href="#news1">News</a></h4>
+<ul>
+<li>performance improvements in IE <a href="https://github.com/MithrilJS/mithril.js/pull/1598">#1598</a></li>
+</ul>
+<h4 id="bug-fixes2"><a href="#bug-fixes2">Bug fixes</a></h4>
+<ul>
+<li>prevent infinite loop in non-existent default route - <a href="https://github.com/MithrilJS/mithril.js/issues/1579">#1579</a></li>
+<li>call correct lifecycle methods on children of recycled keyed vnodes - <a href="https://github.com/MithrilJS/mithril.js/issues/1609">#1609</a></li>
+</ul>
+<hr>
+<h3 id="migrating-from-v02x"><a href="#migrating-from-v02x">Migrating from <code>v0.2.x</code></a></h3>
+<p><code>v1.x</code> is largely API-compatible with <code>v0.2.x</code>, but there are some breaking changes.</p>
+<p>If you are migrating, consider using the <a href="https://www.npmjs.com/package/mithril-codemods">mithril-codemods</a> tool to help automate the most straightforward migrations.</p>
+<ul>
+<li><a href="#mprop-removed"><code>m.prop</code> removed</a></li>
+<li><a href="#mcomponent-removed"><code>m.component</code> removed</a></li>
+<li><a href="#config-function"><code>config</code> function</a></li>
+<li><a href="#changes-in-redraw-behaviour">Changes in redraw behaviour</a><ul>
+<li><a href="#no-more-redraw-locks">No more redraw locks</a></li>
+<li><a href="#cancelling-redraw-from-event-handlers">Cancelling redraw from event handlers</a></li>
+<li><a href="#synchronous-redraw-removed">Synchronous redraw removed</a></li>
+<li><a href="#mstartcomputationmendcomputation-removed"><code>m.startComputation</code>/<code>m.endComputation</code> removed</a></li>
+</ul>
+</li>
+<li><a href="#component-controller-function">Component <code>controller</code> function</a></li>
+<li><a href="#component-arguments">Component arguments</a></li>
+<li><a href="#view-parameters"><code>view()</code> parameters</a></li>
+<li><a href="#passing-components-to-m">Passing components to <code>m()</code></a></li>
+<li><a href="#passing-vnodes-to-mmount-and-mroute">Passing vnodes to <code>m.mount()</code> and <code>m.route()</code></a></li>
+<li><a href="#mroutemode"><code>m.route.mode</code></a></li>
+<li><a href="#mroute-and-anchor-tags"><code>m.route</code> and anchor tags</a></li>
+<li><a href="#readingwriting-the-current-route">Reading/writing the current route</a></li>
+<li><a href="#accessing-route-params">Accessing route params</a></li>
+<li><a href="#buildingparsing-query-strings">Building/Parsing query strings</a></li>
+<li><a href="#preventing-unmounting">Preventing unmounting</a></li>
+<li><a href="#run-code-on-component-removal">Run code on component removal</a></li>
+<li><a href="#mrequest"><code>m.request</code></a></li>
+<li><a href="#mdeferred-removed"><code>m.deferred</code> removed</a></li>
+<li><a href="#msync-removed"><code>m.sync</code> removed</a></li>
+<li><a href="#xlink-namespace-required"><code>xlink</code> namespace required</a></li>
+<li><a href="#nested-arrays-in-views">Nested arrays in views</a></li>
+<li><a href="#vnode-equality-checks"><code>vnode</code> equality checks</a></li>
+</ul>
+<hr>
+<h2 id="mprop-removed"><a href="#mprop-removed"><code>m.prop</code> removed</a></h2>
+<p>In <code>v1.x</code>, <code>m.prop()</code> is now a more powerful stream micro-library, but it&#39;s no longer part of core. You can read about how to use the optional Streams module in <a href="stream.html">the documentation</a>.</p>
+<h3 id="v02x"><a href="#v02x"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var m = require(&quot;mithril&quot;)
+
+var num = m.prop(1)
+</code></pre>
+<h3 id="v1x"><a href="#v1x"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var m = require(&quot;mithril&quot;)
+var prop = require(&quot;mithril/stream&quot;)
+
+var num = prop(1)
+var doubled = num.map(function(n) {return n * 2})
+</code></pre>
+<hr>
+<h2 id="mcomponent-removed"><a href="#mcomponent-removed"><code>m.component</code> removed</a></h2>
+<p>In <code>v0.2.x</code> components could be created using either <code>m(component)</code> or <code>m.component(component)</code>. <code>v1.x</code> only supports <code>m(component)</code>.</p>
+<h3 id="v02x1"><a href="#v02x1"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">// These are equivalent
+m.component(component)
+m(component)
+</code></pre>
+<h3 id="v1x1"><a href="#v1x1"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m(component)
+</code></pre>
+<hr>
+<h2 id="config-function"><a href="#config-function"><code>config</code> function</a></h2>
+<p>In <code>v0.2.x</code> mithril provided a single lifecycle method, <code>config</code>. <code>v1.x</code> provides much more fine-grained control over the lifecycle of a vnode.</p>
+<h3 id="v02x2"><a href="#v02x2"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {
+    config : function(element, isInitialized) {
+        // runs on each redraw
+        // isInitialized is a boolean representing if the node has been added to the DOM
+    }
+})
+</code></pre>
+<h3 id="v1x2"><a href="#v1x2"><code>v1.x</code></a></h3>
+<p>More documentation on these new methods is available in <a href="lifecycle-methods.html">lifecycle-methods.md</a>.</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {
+    // Called before the DOM node is created
+    oninit : function(vnode) { /*...*/ },
+    // Called after the DOM node is created
+    oncreate : function(vnode) { /*...*/ },
+    // Called before the node is updated, return false to cancel
+    onbeforeupdate : function(vnode, old) { /*...*/ },
+    // Called after the node is updated
+    onupdate : function(vnode) { /*...*/ },
+    // Called before the node is removed, return a Promise that resolves when
+    // ready for the node to be removed from the DOM
+    onbeforeremove : function(vnode) { /*...*/ },
+    // Called before the node is removed, but after onbeforeremove calls done()
+    onremove : function(vnode) { /*...*/ }
+})
+</code></pre>
+<p>If available the DOM-Element of the vnode can be accessed at <code>vnode.dom</code>.</p>
+<hr>
+<h2 id="changes-in-redraw-behaviour"><a href="#changes-in-redraw-behaviour">Changes in redraw behaviour</a></h2>
+<p>Mithril&#39;s rendering engine still operates on the basis of semi-automated global redraws, but some APIs and behaviours differ:</p>
+<h3 id="no-more-redraw-locks"><a href="#no-more-redraw-locks">No more redraw locks</a></h3>
+<p>In v0.2.x, Mithril allowed &#39;redraw locks&#39; which temporarily prevented blocked draw logic: by default, <code>m.request</code> would lock the draw loop on execution and unlock when all pending requests had resolved - the same behaviour could be invoked manually using <code>m.startComputation()</code> and <code>m.endComputation()</code>. The latter APIs and the associated behaviour has been removed in v1.x. Redraw locking can lead to buggy UIs: the concerns of one part of the application should not be allowed to prevent other parts of the view from updating to reflect change.</p>
+<h3 id="cancelling-redraw-from-event-handlers"><a href="#cancelling-redraw-from-event-handlers">Cancelling redraw from event handlers</a></h3>
+<p><code>m.mount()</code> and <code>m.route()</code> still automatically redraw after a DOM event handler runs. Cancelling these redraws from within your event handlers is now done by setting the <code>redraw</code> property on the passed-in event object to <code>false</code>.</p>
+<h4 id="v02x3"><a href="#v02x3"><code>v0.2.x</code></a></h4>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {
+    onclick : function(e) {
+        m.redraw.strategy(&quot;none&quot;)
+    }
+})
+</code></pre>
+<h4 id="v1x3"><a href="#v1x3"><code>v1.x</code></a></h4>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {
+    onclick : function(e) {
+        e.redraw = false
+    }
+})
+</code></pre>
+<h3 id="synchronous-redraw-removed"><a href="#synchronous-redraw-removed">Synchronous redraw removed</a></h3>
+<p>In v0.2.x it was possible to force mithril to redraw immediately by passing a truthy value to <code>m.redraw()</code>. This behavior complicated usage of <code>m.redraw()</code> and caused some hard-to-reason about issues and has been removed.</p>
+<h4 id="v02x4"><a href="#v02x4"><code>v0.2.x</code></a></h4>
+<pre><code class="lang-javascript">m.redraw(true) // redraws immediately &amp; synchronously
+</code></pre>
+<h4 id="v1x4"><a href="#v1x4"><code>v1.x</code></a></h4>
+<pre><code class="lang-javascript">m.redraw() // schedules a redraw on the next requestAnimationFrame tick
+</code></pre>
+<h3 id="mstartcomputationmendcomputation-removed"><a href="#mstartcomputationmendcomputation-removed"><code>m.startComputation</code>/<code>m.endComputation</code> removed</a></h3>
+<p>They are considered anti-patterns and have a number of problematic edge cases, so they no longer exist in v1.x.</p>
+<hr>
+<h2 id="component-controller-function"><a href="#component-controller-function">Component <code>controller</code> function</a></h2>
+<p>In <code>v1.x</code> there is no more <code>controller</code> property in components, use <code>oninit</code> instead.</p>
+<h3 id="v02x5"><a href="#v02x5"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m.mount(document.body, {
+    controller : function() {
+        var ctrl = this
+
+        ctrl.fooga = 1
+    },
+
+    view : function(ctrl) {
+        return m(&quot;p&quot;, ctrl.fooga)
+    }
+})
+</code></pre>
+<h3 id="v1x5"><a href="#v1x5"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m.mount(document.body, {
+    oninit : function(vnode) {
+        vnode.state.fooga = 1
+    },
+
+    view : function(vnode) {
+        return m(&quot;p&quot;, vnode.state.fooga)
+    }
+})
+
+// OR
+
+m.mount(document.body, {
+    oninit : function(vnode) {
+        var state = this  // this is bound to vnode.state by default
+
+        state.fooga = 1
+    },
+
+    view : function(vnode) {
+        var state = this // this is bound to vnode.state by default
+
+        return m(&quot;p&quot;, state.fooga)
+    }
+})
+</code></pre>
+<hr>
+<h2 id="component-arguments"><a href="#component-arguments">Component arguments</a></h2>
+<p>Arguments to a component in <code>v1.x</code> must be an object, simple values like <code>String</code>/<code>Number</code>/<code>Boolean</code> will be treated as text children. Arguments are accessed within the component by reading them from the <code>vnode.attrs</code> object.</p>
+<h3 id="v02x6"><a href="#v02x6"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var component = {
+    controller : function(options) {
+        // options.fooga === 1
+    },
+
+    view : function(ctrl, options) {
+        // options.fooga == 1
+    }
+}
+
+m(&quot;div&quot;, m.component(component, { fooga : 1 }))
+</code></pre>
+<h3 id="v1x6"><a href="#v1x6"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var component = {
+    oninit : function(vnode) {
+        // vnode.attrs.fooga === 1
+    },
+
+    view : function(vnode) {
+        // vnode.attrs.fooga == 1
+    }
+}
+
+m(&quot;div&quot;, m(component, { fooga : 1 }))
+</code></pre>
+<hr>
+<h2 id="view-parameters"><a href="#view-parameters"><code>view()</code> parameters</a></h2>
+<p>In <code>v0.2.x</code> view functions are passed a reference to the <code>controller</code> instance and (optionally) any options passed to the component. In <code>v1.x</code> they are passed <strong>only</strong> the <code>vnode</code>, exactly like the <code>controller</code> function.</p>
+<h3 id="v02x7"><a href="#v02x7"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m.mount(document.body, {
+    controller : function() {},
+
+    view : function(ctrl, options) {
+        // ...
+    }
+})
+</code></pre>
+<h3 id="v1x7"><a href="#v1x7"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m.mount(document.body, {
+    oninit : function(vnode) {
+        // ...
+    },
+
+    view : function(vnode) {
+        // Use vnode.state instead of ctrl
+        // Use vnode.attrs instead of options
+    }
+})
+</code></pre>
+<hr>
+<h2 id="passing-components-to-m"><a href="#passing-components-to-m">Passing components to <code>m()</code></a></h2>
+<p>In <code>v0.2.x</code> you could pass components as the second argument of <code>m()</code> w/o any wrapping required. To help with consistency in <code>v1.x</code> they must always be wrapped with a <code>m()</code> invocation.</p>
+<h3 id="v02x8"><a href="#v02x8"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m(&quot;div&quot;, component)
+</code></pre>
+<h3 id="v1x8"><a href="#v1x8"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m(&quot;div&quot;, m(component))
+</code></pre>
+<hr>
+<h2 id="passing-vnodes-to-mmount-and-mroute"><a href="#passing-vnodes-to-mmount-and-mroute">Passing vnodes to <code>m.mount()</code> and <code>m.route()</code></a></h2>
+<p>In <code>v0.2.x</code>, <code>m.mount(element, component)</code> tolerated <a href="vnodes.html">vnodes</a> as second arguments instead of <a href="components.html">components</a> (even though it wasn&#39;t documented). Likewise, <code>m.route(element, defaultRoute, routes)</code> accepted vnodes as values in the <code>routes</code> object.</p>
+<p>In <code>v1.x</code>, components are required instead in both cases.</p>
+<h3 id="v02x9"><a href="#v02x9"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m.mount(element, m(&#39;i&#39;, &#39;hello&#39;))
+m.mount(element, m(Component, attrs))
+
+m.route(element, &#39;/&#39;, {
+    &#39;/&#39;: m(&#39;b&#39;, &#39;bye&#39;)
+})
+</code></pre>
+<h3 id="v1x9"><a href="#v1x9"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m.mount(element, {view: function () {return m(&#39;i&#39;, &#39;hello&#39;)}})
+m.mount(element, {view: function () {return m(Component, attrs)}})
+
+m.route(element, &#39;/&#39;, {
+    &#39;/&#39;: {view: function () {return m(&#39;b&#39;, &#39;bye&#39;)}}
+})
+</code></pre>
+<hr>
+<h2 id="mroutemode"><a href="#mroutemode"><code>m.route.mode</code></a></h2>
+<p>In <code>v0.2.x</code> the routing mode could be set by assigning a string of <code>&quot;pathname&quot;</code>, <code>&quot;hash&quot;</code>, or <code>&quot;search&quot;</code> to <code>m.route.mode</code>. In <code>v.1.x</code> it is replaced by <code>m.route.prefix(prefix)</code> where <code>prefix</code> can be <code>#</code>, <code>?</code>, or an empty string (for &quot;pathname&quot; mode). The new API also supports hashbang (<code>#!</code>), which is the default, and it supports non-root pathnames and arbitrary mode variations such as querybang (<code>?!</code>)</p>
+<h3 id="v02x10"><a href="#v02x10"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m.route.mode = &quot;pathname&quot;
+m.route.mode = &quot;search&quot;
+</code></pre>
+<h3 id="v1x10"><a href="#v1x10"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m.route.prefix(&quot;&quot;)
+m.route.prefix(&quot;?&quot;)
+</code></pre>
+<hr>
+<h2 id="mroute-and-anchor-tags"><a href="#mroute-and-anchor-tags"><code>m.route()</code> and anchor tags</a></h2>
+<p>Handling clicks on anchor tags via the mithril router is similar to <code>v0.2.x</code> but uses a new lifecycle method and API.</p>
+<h3 id="v02x11"><a href="#v02x11"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">// When clicked this link will load the &quot;/path&quot; route instead of navigating
+m(&quot;a&quot;, {
+    href   : &quot;/path&quot;,
+    config : m.route
+})
+</code></pre>
+<h3 id="v1x11"><a href="#v1x11"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">// When clicked this link will load the &quot;/path&quot; route instead of navigating
+m(&quot;a&quot;, {
+    href     : &quot;/path&quot;,
+    oncreate : m.route.link
+})
+</code></pre>
+<hr>
+<h2 id="readingwriting-the-current-route"><a href="#readingwriting-the-current-route">Reading/writing the current route</a></h2>
+<p>In <code>v0.2.x</code> all interaction w/ the current route happened via <code>m.route()</code>. In <code>v1.x</code> this has been broken out into two functions.</p>
+<h3 id="v02x12"><a href="#v02x12"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">// Getting the current route
+m.route()
+
+// Setting a new route
+m.route(&quot;/other/route&quot;)
+</code></pre>
+<h3 id="v1x12"><a href="#v1x12"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">// Getting the current route
+m.route.get()
+
+// Setting a new route
+m.route.set(&quot;/other/route&quot;)
+</code></pre>
+<hr>
+<h2 id="accessing-route-params"><a href="#accessing-route-params">Accessing route params</a></h2>
+<p>In <code>v0.2.x</code> reading route params was entirely handled through <code>m.route.param()</code>. This API is still available in <code>v1.x</code>, and additionally any route params are passed as properties in the <code>attrs</code> object on the vnode.</p>
+<h3 id="v02x13"><a href="#v02x13"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m.route(document.body, &quot;/booga&quot;, {
+    &quot;/:attr&quot; : {
+        controller : function() {
+            m.route.param(&quot;attr&quot;) // &quot;booga&quot;
+        },
+        view : function() {
+            m.route.param(&quot;attr&quot;) // &quot;booga&quot;
+        }
+    }
+})
+</code></pre>
+<h3 id="v1x13"><a href="#v1x13"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m.route(document.body, &quot;/booga&quot;, {
+    &quot;/:attr&quot; : {
+        oninit : function(vnode) {
+            vnode.attrs.attr // &quot;booga&quot;
+            m.route.param(&quot;attr&quot;) // &quot;booga&quot;
+        },
+        view : function(vnode) {
+            vnode.attrs.attr // &quot;booga&quot;
+            m.route.param(&quot;attr&quot;) // &quot;booga&quot;
+        }
+    }
+})
+</code></pre>
+<hr>
+<h2 id="buildingparsing-query-strings"><a href="#buildingparsing-query-strings">Building/Parsing query strings</a></h2>
+<p><code>v0.2.x</code> used methods hanging off of <code>m.route</code>, <code>m.route.buildQueryString()</code> and <code>m.route.parseQueryString()</code>. In <code>v1.x</code> these have been broken out and attached to the root <code>m</code>.</p>
+<h3 id="v02x14"><a href="#v02x14"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var qs = m.route.buildQueryString({ a : 1 });
+
+var obj = m.route.parseQueryString(&quot;a=1&quot;);
+</code></pre>
+<h3 id="v1x14"><a href="#v1x14"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var qs = m.buildQueryString({ a : 1 });
+
+var obj = m.parseQueryString(&quot;a=1&quot;);
+</code></pre>
+<hr>
+<h2 id="preventing-unmounting"><a href="#preventing-unmounting">Preventing unmounting</a></h2>
+<p>It is no longer possible to prevent unmounting via <code>onunload</code>&#39;s <code>e.preventDefault()</code>. Instead you should explicitly call <code>m.route.set</code> when the expected conditions are met.</p>
+<h3 id="v02x15"><a href="#v02x15"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var Component = {
+    controller: function() {
+        this.onunload = function(e) {
+            if (condition) e.preventDefault()
+        }
+    },
+    view: function() {
+        return m(&quot;a[href=/]&quot;, {config: m.route})
+    }
+}
+</code></pre>
+<h3 id="v1x15"><a href="#v1x15"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var Component = {
+    view: function() {
+        return m(&quot;a&quot;, {onclick: function() {if (!condition) m.route.set(&quot;/&quot;)}})
+    }
+}
+</code></pre>
+<hr>
+<h2 id="run-code-on-component-removal"><a href="#run-code-on-component-removal">Run code on component removal</a></h2>
+<p>Components no longer call <code>this.onunload</code> when they are being removed. They now use the standardized lifecycle hook <code>onremove</code>.</p>
+<h3 id="v02x16"><a href="#v02x16"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var Component = {
+    controller: function() {
+        this.onunload = function(e) {
+            // ...
+        }
+    },
+    view: function() {
+        // ...
+    }
+}
+</code></pre>
+<h3 id="v1x16"><a href="#v1x16"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var Component = {
+    onremove : function() {
+        // ...
+    }
+    view: function() {
+        // ...
+    }
+}
+</code></pre>
+<hr>
+<h2 id="mrequest"><a href="#mrequest">m.request</a></h2>
+<p>Promises returned by <a href="request.html">m.request</a> are no longer <code>m.prop</code> getter-setters. In addition, <code>initialValue</code>, <code>unwrapSuccess</code> and <code>unwrapError</code> are no longer supported options.</p>
+<p>In addition, requests no longer have <code>m.startComputation</code>/<code>m.endComputation</code> semantics. Instead, redraws are always triggered when a request promise chain completes (unless <code>background:true</code> is set).</p>
+<h3 id="v02x17"><a href="#v02x17"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var data = m.request({
+    method: &quot;GET&quot;,
+    url: &quot;https://api.github.com/&quot;,
+    initialValue: [],
+})
+
+setTimeout(function() {
+    console.log(data())
+}, 1000)
+</code></pre>
+<h3 id="v1x17"><a href="#v1x17"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var data = []
+m.request({
+    method: &quot;GET&quot;,
+    url: &quot;https://api.github.com/&quot;,
+})
+.then(function (responseBody) {
+    data = responseBody
+})
+
+setTimeout(function() {
+    console.log(data) // note: not a getter-setter
+}, 1000)
+</code></pre>
+<p>Additionally, if the <code>extract</code> option is passed to <code>m.request</code> the return value of the provided function will be used directly to resolve the request promise, and the <code>deserialize</code> callback is ignored.</p>
+<hr>
+<h2 id="mdeferred-removed"><a href="#mdeferred-removed"><code>m.deferred</code> removed</a></h2>
+<p><code>v0.2.x</code> used its own custom asynchronous contract object, exposed as <code>m.deferred</code>, which was used as the basis for <code>m.request</code>. <code>v1.x</code> uses Promises instead, and implements a <a href="promises.html">polyfill</a> in non-supporting environments. In situations where you would have used <code>m.deferred</code>, you should use Promises instead.</p>
+<h3 id="v02x18"><a href="#v02x18"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">var greetAsync = function() {
+    var deferred = m.deferred()
+    setTimeout(function() {
+        deferred.resolve(&quot;hello&quot;)
+    }, 1000)
+    return deferred.promise
+}
+
+greetAsync()
+    .then(function(value) {return value + &quot; world&quot;})
+    .then(function(value) {console.log(value)}) //logs &quot;hello world&quot; after 1 second
+</code></pre>
+<h3 id="v1x18"><a href="#v1x18"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">var greetAsync = function() {
+    return new Promise(function(resolve){
+        setTimeout(function() {
+            resolve(&quot;hello&quot;)
+        }, 1000)
+    })
+}
+
+greetAsync()
+    .then(function(value) {return value + &quot; world&quot;})
+    .then(function(value) {console.log(value)}) //logs &quot;hello world&quot; after 1 second
+</code></pre>
+<hr>
+<h2 id="msync-removed"><a href="#msync-removed"><code>m.sync</code> removed</a></h2>
+<p>Since <code>v1.x</code> uses standards-compliant Promises, <code>m.sync</code> is redundant. Use <code>Promise.all</code> instead.</p>
+<h3 id="v02x19"><a href="#v02x19"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m.sync([
+    m.request({ method: &#39;GET&#39;, url: &#39;https://api.github.com/users/lhorie&#39; }),
+    m.request({ method: &#39;GET&#39;, url: &#39;https://api.github.com/users/isiahmeadows&#39; }),
+])
+.then(function (users) {
+    console.log(&quot;Contributors:&quot;, users[0].name, &quot;and&quot;, users[1].name)
+})
+</code></pre>
+<h3 id="v1x19"><a href="#v1x19"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">Promise.all([
+    m.request({ method: &#39;GET&#39;, url: &#39;https://api.github.com/users/lhorie&#39; }),
+    m.request({ method: &#39;GET&#39;, url: &#39;https://api.github.com/users/isiahmeadows&#39; }),
+])
+.then(function (users) {
+    console.log(&quot;Contributors:&quot;, users[0].name, &quot;and&quot;, users[1].name)
+})
+</code></pre>
+<hr>
+<h2 id="xlink-namespace-required"><a href="#xlink-namespace-required"><code>xlink</code> namespace required</a></h2>
+<p>In <code>v0.2.x</code>, the <code>xlink</code> namespace was the only supported attribute namespace, and it was supported via special casing behavior. Now namespace parsing is fully supported, and namespaced attributes should explicitly declare their namespace.</p>
+<h3 id="v02x20"><a href="#v02x20"><code>v0.2.x</code></a></h3>
+<pre><code class="lang-javascript">m(&quot;svg&quot;,
+    // the `href` attribute is namespaced automatically
+    m(&quot;image[href=&#39;image.gif&#39;]&quot;)
+)
+</code></pre>
+<h3 id="v1x20"><a href="#v1x20"><code>v1.x</code></a></h3>
+<pre><code class="lang-javascript">m(&quot;svg&quot;,
+    // User-specified namespace on the `href` attribute
+    m(&quot;image[xlink:href=&#39;image.gif&#39;]&quot;)
+)
+</code></pre>
+<hr>
+<h2 id="nested-arrays-in-views"><a href="#nested-arrays-in-views">Nested arrays in views</a></h2>
+<p>Arrays now represent <a href="fragment.html">fragments</a>, which are structurally significant in v1.x virtual DOM. Whereas nested arrays in v0.2.x would be flattened into one continuous list of virtual nodes for the purposes of diffing, v1.x preserves the array structure - the children of any given array are not considered siblings of those of adjacent arrays.</p>
+<hr>
+<h2 id="vnode-equality-checks"><a href="#vnode-equality-checks"><code>vnode</code> equality checks</a></h2>
+<p>If a vnode is strictly equal to the vnode occupying its place in the last draw, v1.x will skip that part of the tree without checking for mutations or triggering any lifecycle methods in the subtree. The component documentation contains <a href="components.html#avoid-creating-component-instances-outside-views">more detail on this issue</a>.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.1/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

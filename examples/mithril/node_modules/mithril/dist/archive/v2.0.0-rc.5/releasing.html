@@ -1,0 +1,201 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Mithril Release Processes - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.5</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="mithril-release-processes"><a href="#mithril-release-processes">Mithril Release Processes</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>Note</strong> These steps all assume that <code>MithrilJS/mithril.js</code> is a git remote named <code>mithriljs</code>, adjust accordingly if that doesn&#39;t match your setup.</p>
+<ul>
+<li><a href="#releasing-a-new-mithril-version">Releasing a new Mithril version</a></li>
+<li><a href="#updating-mithriljsorg">Updating mithril.js.org</a></li>
+<li><a href="#releasing-a-new-ospec-version">Releasing a new ospec version</a></li>
+</ul>
+<h2 id="releasing-a-new-mithril-version"><a href="#releasing-a-new-mithril-version">Releasing a new Mithril version</a></h2>
+<h3 id="prepare-the-release"><a href="#prepare-the-release">Prepare the release</a></h3>
+<ol>
+<li>Ensure your local branch is up to date</li>
+</ol>
+<pre><code class="language-bash">$ git checkout next
+$ git pull --rebase mithriljs next</code></pre>
+<ol start="2">
+<li>Determine patch level of the change</li>
+<li>Update information in <code>docs/change-log.md</code> to match reality of the new version being prepared for release</li>
+<li>Replace all existing references to <code>mithril@next</code> to <code>mithril</code> if moving from a release candidate to stable.</li>
+<li>Commit changes to <code>next</code></li>
+</ol>
+<pre><code>$ git add .
+$ git commit -m &quot;Preparing for release&quot;
+
+# Push to your branch
+$ git push
+
+# Push to MithrilJS/mithril.js
+$ git push mithriljs next</code></pre><h3 id="merge-from-next-to-master"><a href="#merge-from-next-to-master">Merge from <code>next</code> to <code>master</code></a></h3>
+<ol start="6">
+<li>Switch to <code>master</code> and make sure it&#39;s up to date</li>
+</ol>
+<pre><code class="language-bash">$ git checkout master
+$ git pull --rebase mithriljs master</code></pre>
+<ol start="7">
+<li>merge <code>next</code> on top of it</li>
+</ol>
+<pre><code class="language-bash">$ git merge next</code></pre>
+<ol start="8">
+<li>Clean &amp; update npm dependencies and ensure the tests are passing.</li>
+</ol>
+<pre><code class="language-bash">$ npm prune
+$ npm i
+$ npm test</code></pre>
+<h3 id="publish-the-release"><a href="#publish-the-release">Publish the release</a></h3>
+<ol start="9">
+<li><code>npm run release &lt;major|minor|patch|semver&gt;</code>, see the docs for <a href="https://docs.npmjs.com/cli/version"><code>npm version</code></a></li>
+<li>The changes will be automatically pushed to your fork</li>
+<li>Push the changes to <code>MithrilJS/mithril.js</code></li>
+</ol>
+<pre><code class="language-bash">$ git push mithriljs master</code></pre>
+<ol start="12">
+<li>Travis will push the new release to npm &amp; create a GitHub release</li>
+</ol>
+<h3 id="merge-master-back-into-next"><a href="#merge-master-back-into-next">Merge <code>master</code> back into <code>next</code></a></h3>
+<p>This helps to ensure that the <code>version</code> field of <code>package.json</code> doesn&#39;t get out of date.</p>
+<ol start="13">
+<li>Switch to <code>next</code> and make sure it&#39;s up to date</li>
+</ol>
+<pre><code class="language-bash">$ git checkout next
+$ git pull --rebase mithriljs next</code></pre>
+<ol start="14">
+<li>Merge <code>master</code> back onto <code>next</code></li>
+</ol>
+<pre><code class="language-bash">$ git merge master</code></pre>
+<ol start="15">
+<li>Push the changes to your fork &amp; <code>MithrilJS/mithril.js</code></li>
+</ol>
+<pre><code class="language-bash">$ git push
+$ git push mithriljs next</code></pre>
+<h3 id="update-the-github-release"><a href="#update-the-github-release">Update the GitHub release</a></h3>
+<ol start="16">
+<li>The GitHub Release will require a manual description &amp; title to be added. I suggest coming up with a fun title &amp; then copying the <code>docs/change-log.md</code> entry for the build.</li>
+</ol>
+<h2 id="updating-mithriljsorg"><a href="#updating-mithriljsorg">Updating mithril.js.org</a></h2>
+<p>Fixes to documentation can land whenever, updates to the site are published via Travis.</p>
+<pre><code class="language-bash"># These steps assume that MithrilJS/mithril.js is a git remote named &quot;mithriljs&quot;
+
+# Ensure your next branch is up to date
+$ git checkout next
+$ git pull mithriljs next
+
+# Splat the docs folder from next onto master
+$ git checkout master
+$ git checkout next -- ./docs
+
+# Manually ensure that no new feature docs were added
+
+$ git push mithriljs</code></pre>
+<p>After the Travis build completes the updated docs should appear on <a href="https://mithril.js.org">https://mithril.js.org</a> in a few minutes.</p>
+<p><strong>Note:</strong> When updating the stable version with a release candidate out, <strong><em>make sure to update the index + navigation to point to the new stable version!!!</em></strong></p>
+<h2 id="releasing-a-new-ospec-version"><a href="#releasing-a-new-ospec-version">Releasing a new ospec version</a></h2>
+<ol>
+<li>Ensure your local branch is up to date</li>
+</ol>
+<pre><code class="language-bash">$ git checkout next
+$ git pull --rebase mithriljs next</code></pre>
+<ol start="2">
+<li>Determine patch level of the change</li>
+<li>Update <code>version</code> field in <code>ospec/package.json</code> to match new version being prepared for release</li>
+<li>Commit changes to <code>next</code></li>
+</ol>
+<pre><code>$ git add .
+$ git commit -m &quot;chore(ospec): ospec@&lt;version&gt;&quot;
+
+# Push to your branch
+$ git push
+
+# Push to MithrilJS/mithril.js
+$ git push mithriljs next</code></pre><h3 id="merge-from-next-to-master1"><a href="#merge-from-next-to-master1">Merge from <code>next</code> to <code>master</code></a></h3>
+<ol start="5">
+<li>Switch to <code>master</code> and make sure it&#39;s up to date</li>
+</ol>
+<pre><code class="language-bash">$ git checkout master
+$ git pull --rebase mithriljs master</code></pre>
+<ol start="6">
+<li>merge <code>next</code> on top of it</li>
+</ol>
+<pre><code class="language-bash">$ git checkout next -- ./ospec
+$ git add .
+$ git commit -m &quot;chore(ospec): ospec@&lt;version&gt;&quot;</code></pre>
+<ol start="7">
+<li>Ensure the tests are passing!</li>
+</ol>
+<h3 id="publish-the-release1"><a href="#publish-the-release1">Publish the release</a></h3>
+<ol start="8">
+<li>Push the changes to <code>MithrilJS/mithril.js</code></li>
+</ol>
+<pre><code class="language-bash">$ git push mithriljs master</code></pre>
+<ol start="9">
+<li>Publish the changes to npm <strong>from the <code>/ospec</code> folder</strong>. That bit is important to ensure you don&#39;t accidentally ship a new Mithril release!</li>
+</ol>
+<pre><code class="language-bash">$ cd ./ospec
+$ npm publish</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.5/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -5,15 +5,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build --public-url ./ index.html"
-  },
-  "devDependencies": {
-    "cssnano": "^4.1.10",
-    "parcel": "^1.12.4"
+    "build": "parcel build --public-url ./ -d docs index.html "
   },
   "dependencies": {
     "mithril": "^2.0.4",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.0"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10"
   }
 }

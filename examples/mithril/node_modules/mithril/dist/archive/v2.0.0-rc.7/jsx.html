@@ -1,0 +1,257 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> JSX - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.7</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="jsx"><a href="#jsx">JSX</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><strong><a href="jsx.html">JSX</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#using-babel-with-webpack">Using Babel with Webpack</a></li>
+<li><a href="#jsx-vs-hyperscript">JSX vs hyperscript</a></li>
+<li><a href="#converting-html">Converting HTML</a></li>
+</ul>
+</li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>JSX is a syntax extension that enables you to write HTML tags interspersed with JavaScript. It&#39;s not part of any JavaScript standards and it&#39;s not required for building applications, but it may be more pleasing to use depending on your team&#39;s preferences.</p>
+<pre><code class="language-jsx">function MyComponent() {
+    return {
+        view: () =&gt;
+            m(&quot;main&quot;, [
+                m(&quot;h1&quot;, &quot;Hello world&quot;),
+            ])
+    }
+}
+
+// can be written as:
+function MyComponent() {
+    return {
+        view: () =&gt; (
+            &lt;main&gt;
+                &lt;h1&gt;Hello world&lt;/h1&gt;
+            &lt;/main&gt;
+        )
+    }
+}</code></pre>
+<p>When using JSX, it&#39;s possible to interpolate JavaScript expressions within JSX tags by using curly braces:</p>
+<pre><code class="language-jsx">var greeting = &quot;Hello&quot;
+var url = &quot;http://google.com&quot;
+var link = &lt;a href={url}&gt;{greeting}!&lt;/a&gt;
+// yields &lt;a href=&quot;http://google.com&quot;&gt;Hello!&lt;/a&gt;</code></pre>
+<p>Components can be used by using a convention of uppercasing the first letter of the component name:</p>
+<pre><code class="language-jsx">m.render(document.body, &lt;MyComponent /&gt;)
+// equivalent to m.render(document.body, m(MyComponent))</code></pre>
+<hr>
+<h3 id="setup"><a href="#setup">Setup</a></h3>
+<p>The simplest way to use JSX is via a <a href="https://babeljs.io/">Babel</a> plugin.</p>
+<p>Babel requires NPM, which is automatically installed when you install <a href="https://nodejs.org/en/">Node.js</a>. Once NPM is installed, create a project folder and run this command:</p>
+<pre><code class="language-bash">npm init -y</code></pre>
+<p>If you want to use Webpack and Babel together, <a href="#using-babel-with-webpack">skip to the section below</a>.</p>
+<p>To install Babel as a standalone tool, use this command:</p>
+<pre><code class="language-bash">npm install @babel/cli @babel/preset-env @babel/plugin-transform-react-jsx --save-dev</code></pre>
+<p>Create a <code>.babelrc</code> file:</p>
+<pre><code class="language-json">{
+    &quot;presets&quot;: [&quot;@babel/preset-env&quot;],
+    &quot;plugins&quot;: [
+        [&quot;@babel/plugin-transform-react-jsx&quot;, {
+            &quot;pragma&quot;: &quot;m&quot;,
+            &quot;pragmaFrag&quot;: &quot;&#39;[&#39;&quot;
+        }]
+    ]
+}</code></pre>
+<p>To run Babel as a standalone tool, run this from the command line:</p>
+<pre><code class="language-bash">babel src --out-dir bin --source-maps</code></pre>
+<h4 id="using-babel-with-webpack"><a href="#using-babel-with-webpack">Using Babel with Webpack</a></h4>
+<p>If you&#39;re already using Webpack as a bundler, you can integrate Babel to Webpack by following these steps.</p>
+<pre><code class="language-bash">npm install @babel/core babel-loader @babel/preset-env @babel/plugin-transform-react-jsx --save-dev</code></pre>
+<p>Create a <code>.babelrc</code> file:</p>
+<pre><code class="language-json">{
+    &quot;presets&quot;: [&quot;@babel/preset-env&quot;],
+    &quot;plugins&quot;: [
+        [&quot;@babel/plugin-transform-react-jsx&quot;, {
+            &quot;pragma&quot;: &quot;m&quot;,
+            &quot;pragmaFrag&quot;: &quot;&#39;[&#39;&quot;
+        }]
+    ]
+}</code></pre>
+<p>Next, create a file called <code>webpack.config.js</code></p>
+<pre><code class="language-jsx">const path = require(&#39;path&#39;)
+
+module.exports = {
+    entry: &#39;./src/index.js&#39;,
+    output: {
+        path: path.resolve(__dirname, &#39;./bin&#39;),
+        filename: &#39;app.js&#39;,
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: /\/node_modules\//,
+            loader: &#39;babel-loader&#39;
+        }]
+    }
+}</code></pre>
+<p>For those familiar with Webpack already, please note that adding the Babel options to the <code>babel-loader</code> section of your <code>webpack.config.js</code> will throw an error, so you need to include them in the separate <code>.babelrc</code> file.</p>
+<p>This configuration assumes the source code file for the application entry point is in <code>src/index.js</code>, and this will output the bundle to <code>bin/app.js</code>.</p>
+<p>To run the bundler, setup an npm script. Open <code>package.json</code> and add this entry under <code>&quot;scripts&quot;</code>:</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;webpack -d --watch&quot;
+    }
+}</code></pre>
+<p>You can now then run the bundler by running this from the command line:</p>
+<pre><code class="language-bash">npm start</code></pre>
+<h4 id="production-build"><a href="#production-build">Production build</a></h4>
+<p>To generate a minified file, open <code>package.json</code> and add a new npm script called <code>build</code>:</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;webpack -d --watch&quot;,
+        &quot;build&quot;: &quot;webpack -p&quot;,
+    }
+}</code></pre>
+<p>You can use hooks in your production environment to run the production build script automatically. Here&#39;s an example for <a href="https://www.heroku.com/">Heroku</a>:</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;webpack -d --watch&quot;,
+        &quot;build&quot;: &quot;webpack -p&quot;,
+        &quot;heroku-postbuild&quot;: &quot;webpack -p&quot;
+    }
+}</code></pre>
+<hr>
+<h3 id="jsx-vs-hyperscript"><a href="#jsx-vs-hyperscript">JSX vs hyperscript</a></h3>
+<p>JSX is essentially a trade-off: it introduces a non-standard syntax that cannot be run without appropriate tooling, in order to allow a developer to write HTML code using curly braces. The main benefit of using JSX instead of regular HTML is that the JSX specification is much stricter and yields syntax errors when appropriate, whereas HTML is far too forgiving and can make syntax issues difficult to spot.</p>
+<p>Unlike HTML, JSX is case-sensitive. This means <code>&lt;div className=&quot;test&quot;&gt;&lt;/div&gt;</code> is different from <code>&lt;div classname=&quot;test&quot;&gt;&lt;/div&gt;</code> (all lower case). The former compiles to <code>m(&quot;div&quot;, {className: &quot;test&quot;})</code> and the latter compiles to <code>m(&quot;div&quot;, {classname: &quot;test&quot;})</code>, which is not a valid way of creating a class attribute. Fortunately, Mithril supports standard HTML attribute names, and thus, this example can be written like regular HTML: <code>&lt;div class=&quot;test&quot;&gt;&lt;/div&gt;</code>. Also, unlike HTML, JSX is based on XML, so you can do things like <code>&lt;div class=&quot;test&quot; /&gt;</code> as equivalent to <code>&lt;div class=&quot;test&quot;&gt;&lt;/div&gt;</code>, where in HTML you can only use the second.</p>
+<p>JSX is useful for teams where HTML is primarily written by someone without JavaScript experience, but it requires a significant amount of tooling to maintain (whereas plain HTML can, for the most part, simply be opened in a browser).</p>
+<p>Hyperscript is the compiled representation of JSX. It&#39;s designed to be readable and can also be used as-is, instead of JSX (as is done in most of the documentation). Hyperscript tends to be terser than JSX for a couple of reasons:</p>
+<ul>
+<li>it does not require repeating the tag name in closing tags when children are present (e.g. <code>m(&quot;div&quot;, m(&quot;span&quot;))</code> vs <code>&lt;div&gt;&lt;span /&gt;&lt;/div&gt;</code>)</li>
+<li>static attributes can be written using CSS selector syntax (i.e. <code>m(&quot;a.button&quot;)</code> vs <code>&lt;a class=&quot;button&quot;&gt;&lt;/a&gt;</code>)</li>
+</ul>
+<p>In addition, since hyperscript is plain JavaScript, it&#39;s often more natural to indent than JSX:</p>
+<pre><code class="language-jsx">//JSX
+function BigComponent() {
+    function activate() { /* ... */ }
+    function deactivate() { /* ... */ }
+    function update() { /* ... */ }
+    return {
+        view: ({attrs}) =&gt; (
+            &lt;&gt;
+                {attrs.items.map((item) =&gt; &lt;div&gt;{item.name}&lt;/div&gt;)}
+                &lt;div
+                    ondragover={activate}
+                    ondragleave={deactivate}
+                    ondragend={deactivate}
+                    ondrop={update}
+                    onblur={deactivate}
+                /&gt;
+            &lt;/&gt;
+        )
+    }
+}
+
+// hyperscript
+function BigComponent() {
+    function activate() { /* ... */ }
+    function deactivate() { /* ... */ }
+    function update() { /* ... */ }
+    return {
+        view: ({attrs}) =&gt; [
+            attrs.items.map((item) =&gt; m(&quot;div&quot;, item.name)),
+            m(&quot;div&quot;, {
+                ondragover: this.activate,
+                ondragleave: this.deactivate,
+                ondragend: this.deactivate,
+                ondrop: this.update,
+                onblur: this.deactivate,
+            })
+        ]
+    }
+}</code></pre>
+<p>In non-trivial applications, it&#39;s possible for components to have more control flow and component configuration code than markup, making a JavaScript-first approach more readable than an HTML-first approach.</p>
+<p>Needless to say, since hyperscript is pure JavaScript, there&#39;s no need to run a compilation step to produce runnable code.</p>
+<hr>
+<h3 id="converting-html"><a href="#converting-html">Converting HTML</a></h3>
+<p>In Mithril, well-formed HTML is generally valid JSX. Little more than just pasting raw HTML is required for things to just work. About the only things you&#39;d normally have to do are change unquoted property values like <code>attr=value</code> to <code>attr=&quot;value&quot;</code> and change void elements like <code>&lt;input&gt;</code> to <code>&lt;input /&gt;</code>, this being due to JSX being based on XML and not HTML.</p>
+<p>When using hyperscript, you often need to translate HTML to hyperscript syntax to use it. To help speed up this process along, you can use a <a href="http://arthurclemens.github.io/mithril-template-converter/index.html">community-created HTML-to-Mithril-template converter</a> to do much of it for you.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.7/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "name": "serialize-to-js",
+  "version": "3.1.1",
+  "description": "serialize objects to javascript",
+  "keywords": [
+    "javascript",
+    "objects",
+    "serialize"
+  ],
+  "homepage": "https://github.com/commenthol/serialize-to-js",
+  "bugs": {
+    "url": "https://github.com/commenthol/serialize-to-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commenthol/serialize-to-js.git"
+  },
+  "license": "MIT",
+  "author": "commenthol <commenthol@gmail.com>",
+  "main": "lib",
+  "module": "src",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "all": "npm run clean && npm run lint && npm run build &&  npm test",
+    "build": "babel -d lib src",
+    "clean": "rimraf lib doc coverage .nyc_output *.tgz",
+    "coverage": "nyc -r text -r html npm test",
+    "lint": "eslint src test",
+    "prepublishOnly": "npm run all",
+    "readme": "markedpp --githubid -i README.md -o README.md",
+    "test": "mocha"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "mocha": true
+    },
+    "extends": "standard",
+    "plugins": [
+      "standard"
+    ],
+    "rules": {
+      "key-spacing": 0
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^7.0.1",
+    "nyc": "^15.0.0",
+    "rimraf": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "maintainers": "commenthol <commenthol@gmail.com>",
+  "mocha": {
+    "check-leaks": true
+  }
+}

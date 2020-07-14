@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> buildQueryString(object) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.8</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="buildquerystringobject"><a href="#buildquerystringobject">buildQueryString(object)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><strong><a href="buildQueryString.html">m.buildQueryString</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+</ul>
+</li>
+<li><a href="buildPathname.html">m.buildPathname</a></li>
+<li><a href="parsePathname.html">m.parsePathname</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Turns an object into a string of form <code>a=1&amp;b=2</code></p>
+<pre><code class="language-javascript">var querystring = m.buildQueryString({a: &quot;1&quot;, b: &quot;2&quot;})
+// &quot;a=1&amp;b=2&quot;</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>querystring = m.buildQueryString(object)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>object</code></td>
+<td><code>Object</code></td>
+<td>Yes</td>
+<td>A key-value map to be converted into a string</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>String</code></td>
+<td></td>
+<td>A string representing the input object</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>The <code>m.buildQueryString</code> creates a querystring from an object. It&#39;s useful for manipulating URLs</p>
+<pre><code class="language-javascript">var querystring = m.buildQueryString({a: 1, b: 2})
+
+// querystring is &quot;a=1&amp;b=2&quot;</code></pre>
+<h4 id="deep-data-structures"><a href="#deep-data-structures">Deep data structures</a></h4>
+<p>Deep data structures are serialized in a way that is understood by popular web application servers such as PHP, Rails and ExpressJS</p>
+<pre><code class="language-javascript">var querystring = m.buildQueryString({a: [&quot;hello&quot;, &quot;world&quot;]})
+
+// querystring is &quot;a[0]=hello&amp;a[1]=world&quot;</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.8/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

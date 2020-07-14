@@ -1,0 +1,521 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title># m - Mithril.js</title>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+		<link href="lib/prism/prism.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.0.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/lhorie/mithril.js">Chat</a>
+					<a href="https://github.com/lhorie/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h2 id="m">m</h2>
+<hr>
+<ul>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#binding-to-data">Binding to data</a></li>
+<li><a href="#using-html-entities">Using HTML entities</a></li>
+<li><a href="#accessing-the-real-dom-element">Accessing the real DOM element</a></li>
+<li><a href="#persisting-config-data">Persisting config data</a></li>
+<li><a href="#destructors">Destructors</a></li>
+<li><a href="#persisting-dom-elements-across-route-changes">Persisting DOM elements across route changes</a></li>
+<li><a href="#svg">SVG</a></li>
+<li><a href="#dealing-with-focus">Dealing with focus</a></li>
+<li><a href="#dealing-with-sorting-and-deleting-in-lists">Dealing with sorting and deleting in lists</a></li>
+<li><a href="#component-shorthand">Component shorthand</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#the-config-attribute">The <code>config</code> attribute</a></li>
+</ul>
+<hr>
+<p>This is a convenience method to compose virtual elements that can be rendered via <a href="mithril.render.html"><code>m.render()</code></a>.</p>
+<p>You are encouraged to use CSS selectors to define virtual elements. See &quot;Signature&quot; section for details.</p>
+<hr>
+<h3 id="usage">Usage</h3>
+<p>You can use simple tag selectors to make templates resemble HTML:</p>
+<pre><code class="lang-javascript">m(&quot;br&quot;); //yields a virtual element that represents &lt;br&gt;
+
+m(&quot;div&quot;, &quot;Hello&quot;); //yields &lt;div&gt;Hello&lt;/div&gt;
+
+m(&quot;div&quot;, {class: &quot;container&quot;}, &quot;Hello&quot;); //yields &lt;div class=&quot;container&quot;&gt;Hello&lt;/div&gt;
+</code></pre>
+<p>Note that the output value from <code>m()</code> is not an actual DOM element. In order to turn the virtual element into a real DOM element, you must call <a href="mithril.render.html"><code>m.render()</code></a>.</p>
+<pre><code class="lang-javascript">m.render(document.body, m(&quot;br&quot;)); //puts a &lt;br&gt; in &lt;body&gt;
+</code></pre>
+<p>You can also use more complex CSS selectors:</p>
+<pre><code class="lang-javascript">m(&quot;.container&quot;); //yields &lt;div class=&quot;container&quot;&gt;&lt;/div&gt;
+
+m(&quot;#layout&quot;); //yields &lt;div id=&quot;layout&quot;&gt;&lt;/div&gt;
+
+m(&quot;a[name=top]&quot;); //yields &lt;a name=&quot;top&quot;&gt;&lt;/a&gt;
+
+m(&quot;[contenteditable]&quot;); //yields &lt;div contenteditable&gt;&lt;/div&gt;
+
+m(&quot;a#google.external[href=&#39;http://google.com&#39;]&quot;, &quot;Google&quot;); //yields &lt;a id=&quot;google&quot; class=&quot;external&quot; href=&quot;http://google.com&quot;&gt;Google&lt;/a&gt;
+</code></pre>
+<p>Each <code>m()</code> call creates a virtual DOM element, that is, a Javascript object that represents a DOM element, and which is eventually converted into one.</p>
+<p>You can, of course, nest virtual elements:</p>
+<pre><code class="lang-javascript">m(&quot;ul&quot;, [
+    m(&quot;li&quot;, &quot;item 1&quot;),
+    m(&quot;li&quot;, &quot;item 2&quot;),
+]);
+
+/*
+yields
+&lt;ul&gt;
+    &lt;li&gt;item 1&lt;/li&gt;
+    &lt;li&gt;item 2&lt;/li&gt;
+&lt;/ul&gt;
+*/
+</code></pre>
+<hr>
+<p>The CSS selector syntax (e.g. <code>a#google.external[href=&#39;http://google.com&#39;]</code>) is meant to be used for declaring static attributes in the element, i.e. attribute values that don&#39;t change dynamically when the user interacts with the app.</p>
+<p>The <code>attributes</code> argument (i.e. the second parameter in the <code>m(&quot;div&quot;, {class: &quot;container&quot;}, &quot;Hello&quot;)</code> example) is meant to be used for attributes whose values we want to dynamically populate.</p>
+<p>For example, let&#39;s say that you&#39;re generating a link from an entry that comes from a web service:</p>
+<pre><code class="lang-javascript">//assume the variable `link` came from a web service
+var link = {url: &quot;http://google.com&quot;, title: &quot;Google&quot;}
+
+m(&quot;a&quot;, {href: link.url}, link.title); //yields &lt;a href=&quot;http://google.com&quot;&gt;Google&lt;/a&gt;
+</code></pre>
+<p>Here&#39;s a less trivial example:</p>
+<pre><code class="lang-javascript">var links = [
+    {title: &quot;item 1&quot;, url: &quot;/item1&quot;},
+    {title: &quot;item 2&quot;, url: &quot;/item2&quot;},
+    {title: &quot;item 3&quot;, url: &quot;/item3&quot;}
+];
+
+m.render(document.body, [
+    m(&quot;ul.nav&quot;, 
+        links.map(function(link) {
+            return m(&quot;li&quot;,
+                m(&quot;a&quot;, {href: link.url}, link.title) 
+            );
+        })
+    )
+]);
+</code></pre>
+<p>yields:</p>
+<pre><code class="lang-markup">&lt;body&gt;
+    &lt;ul class=&quot;nav&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;/item1&quot;&gt;item 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/item2&quot;&gt;item 2&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/item3&quot;&gt;item 3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+</code></pre>
+<p>As you can see, flow control is done with vanilla Javascript. This allows the developer to abstract away any aspect of the template at will.</p>
+<hr>
+<p>Note that you can use both Javascript property names and HTML attribute names to set values in the <code>attributes</code> argument, but you should pass a value of appropriate type. If an attribute has the same name in Javascript and in HTML, then Mithril assumes you&#39;re setting the Javascript property.</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {class: &quot;widget&quot;}); //yields &lt;div class=&quot;widget&quot;&gt;&lt;/div&gt;
+
+m(&quot;div&quot;, {className: &quot;widget&quot;}); //yields &lt;div class=&quot;widget&quot;&gt;&lt;/div&gt;
+
+m(&quot;button&quot;, {onclick: alert}); //yields &lt;button&gt;&lt;/button&gt;, which alerts its event argument when clicked
+
+//note this uses the Javascript syntax (uppercase &quot;O&quot;) for `readonly`
+//in order to set the boolean javascript property instead of the HTML attribute
+m(&quot;input&quot;, {readOnly: true}); //yields &lt;input readonly /&gt;
+
+//using the HTML attribute name will call `setAttribute`, which may not be what you want
+m(&quot;input&quot;, {readonly: false}); //yields &lt;input readonly=&quot;false&quot; /&gt;, which is still readonly
+</code></pre>
+<hr>
+<p>Note that you can use JSON syntax if the attribute name you are setting has non-alphanumeric characters:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {&quot;data-index&quot;: 1}); //yields &lt;div data-index=&quot;1&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>You can set inline styles like this:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {style: {border: &quot;1px solid red&quot;}}); //yields &lt;div style=&quot;border:1px solid red;&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>Note that in order to keep the framework lean, Mithril does not auto-append units like <code>px</code> or <code>%</code> to any values. Typically, you should not even be using inline styles to begin with (unless you are dynamically changing them).</p>
+<p>Mithril also does not auto-camel-case CSS properties on inline style attributes, so you should use the Javascript syntax when setting them via Javascript objects:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {style: {textAlign: &quot;center&quot;}}); //yields &lt;div style=&quot;text-align:center;&quot;&gt;&lt;/div&gt;
+m(&quot;div&quot;, {style: {cssFloat: &quot;left&quot;}}); //yields &lt;div style=&quot;float:left;&quot;&gt;&lt;/div&gt;
+
+//this does not work
+m(&quot;div&quot;, {style: {&quot;text-align&quot;: &quot;center&quot;}});
+m(&quot;div&quot;, {style: {float: &quot;left&quot;}});
+</code></pre>
+<p>You can find the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference">Javascript syntax for all the CSS rules here</a>.</p>
+<p>You can, however, use CSS syntax when defining style rules as inline strings:</p>
+<pre><code class="lang-javascript">m(&quot;div[style=&#39;text-align:center&#39;]&quot;); //yields &lt;div style=&quot;text-align:center;&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>One caveat of using the CSS syntax is that it clobbers the <code>style</code> attribute in the DOM element on redraws, so this syntax is not appropriate if you need to use it in conjunction with 3rd party tools that modify the element&#39;s style outside of Mithril&#39;s templates (e.g. via <code>config</code>, which is explained below)</p>
+<hr>
+<h3 id="binding-to-data">Binding to data</h3>
+<p>In order to stay flexible, Mithril doesn&#39;t provide helpers for bi-directional bindings out of the box. However, bindings can be implemented easily:</p>
+<pre><code class="lang-javascript">//a data store
+var name = m.prop(&quot;&quot;)
+
+//binding the data store in a view
+m(&quot;input&quot;, {oninput: m.withAttr(&quot;value&quot;, name), value: name()})
+</code></pre>
+<p>In the code above, the <code>oninput</code> event handler updates the <code>name</code> getter-setter, and the Mithril auto-redrawing system redraws the template in order to update the displayed value. You can read more about the <a href="mithril.prop.html"><code>m.prop</code> getter-setter utility here</a> and the <a href="mithril.withAttr.html"><code>m.withAttr</code> event handler factory here</a>. You can also <a href="auto-redrawing.html">learn how the redrawing system works here</a>.</p>
+<p>Note that Mithril always considers the model layer data to be canonical. This means that in the code below, the input on screen will overwritten by the model data any time a redraw happens:</p>
+<pre><code class="lang-javascript">//note that we are not updating the value of the `name` getter-setter via an event handler
+//redraws will always overwrite the current UI value with the value of `name()`
+m(&quot;input&quot;, {value: name()})
+</code></pre>
+<p>Expressiveness can be achieved using standard refactoring techniques:</p>
+<pre><code class="lang-javascript">//refactor the binding to a simple helper
+var binds = function(prop) {
+    return {oninput: m.withAttr(&quot;value&quot;, prop), value: prop()}
+}
+
+//a data store
+var name = m.prop(&quot;&quot;)
+
+//binding the data store in a view
+m(&quot;input&quot;, binds(name))
+</code></pre>
+<p>Here&#39;s an example of a more aggressive refactor:</p>
+<pre><code class="lang-javascript">//refactor the binding to a simple helper
+var input = function(prop) {
+    return m(&quot;input&quot;, {oninput: m.withAttr(&quot;value&quot;, prop), value: prop()})
+}
+
+//a data store
+var name = m.prop(&quot;&quot;)
+
+//binding the data store in a view
+input(name)
+</code></pre>
+<p>Alternatively, you can also explore other techniques in order to achieve better <a href="http://lhorie.github.io/mithril-blog/asymmetrical-data-bindings.html">performance</a> and <a href="http://lhorie.github.io/mithril-blog/extending-the-view-language.html">expressiveness</a>.</p>
+<hr>
+<h3 id="using-html-entities">Using HTML entities</h3>
+<p>By default, Mithril escapes HTML strings in order to help prevent XSS attacks.</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, &quot;&amp;times;&quot;) //becomes &lt;div&gt;&amp;amp;times;&lt;/div&gt;
+</code></pre>
+<p>You can unescape trusted HTML strings by using <a href="mithril.trust.html"><code>m.trust</code></a></p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, m.trust(&quot;&amp;times;&quot;)) //becomes &lt;div&gt;&amp;times;&lt;/div&gt;
+</code></pre>
+<hr>
+<h4 id="accessing-the-real-dom-element">Accessing the real DOM element</h4>
+<p>You can define a non-HTML-standard attribute called <code>config</code>. This special parameter allows you to call methods on the DOM element after it gets created.</p>
+<p>This is useful, for example, if you declare a <code>canvas</code> element and want to use the Javascript API to draw:</p>
+<pre><code class="lang-javascript">function draw(element, isInitialized, context) {
+    //don&#39;t redraw if we did once already
+    if (isInitialized) return;
+
+    var ctx = element.getContext(&quot;2d&quot;);
+    /* draws stuff */
+}
+
+var view = [
+    m(&quot;canvas&quot;, {config: draw})
+]
+
+//this creates the canvas element, and therefore, `isInitialized` is false
+m.render(document.body, view);
+
+//here, isInitialized is `true`
+m.render(document.body, view);
+</code></pre>
+<p>One common way of using <code>config</code> is in conjunction with <a href="mithril.route.html"><code>m.route</code></a>, which is an unobtrusive extension to links that allow Mithril&#39;s routing system to work transparently regardless of which routing mode is used.</p>
+<pre><code class="lang-javascript">//this link can use any of Mithril&#39;s routing system modes
+//(i.e. it can use either the hash, the querystring or the pathname as the router implementation)
+//without needing to hard-code any syntax (`#` or `?`) in the `href` attribute.
+m(&quot;a[href=&#39;/dashboard&#39;]&quot;, {config: m.route}, &quot;Dashboard&quot;);
+</code></pre>
+<p>The <code>config</code> mechanism can also be used to put focus on form inputs, and call methods that would not be possible to execute via the regular attribute syntax.</p>
+<p>Also note that the <code>config</code> callback only runs after a rendering lifecycle is done. Therefore, you should not use <code>config</code> to modify controller and model values, if you expect these changes to render immediately. Changes to controller and model values in this fashion will only render on the next <code>m.render</code> or <code>m.mount</code> call.</p>
+<p>You can use this mechanism to attach custom event listeners to controller methods (for example, when integrating with third party libraries), but you are responsible for making sure the integration with Mithril&#39;s autoredrawing system is in place. See the <a href="integration.html">integration guide</a> for more information.</p>
+<p>You can also use it to attach events to other elements (for example, <code>window.onresize</code>), but you should remove such event handlers via <code>ctx.onunload</code> to avoid surprises.</p>
+<hr>
+<h4 id="persisting-config-data">Persisting config data</h4>
+<p>The third argument for <code>config</code> allows you to map data to a virtual DOM element in a way that persists across redraws. This is useful when a <code>config</code> instantiates 3rd party classes and accesses the instance on redraws.</p>
+<p>The example below shows a contrived redraw counter. In it, the count is stored in the context object and re-accessed on each redraw.</p>
+<pre><code class="lang-javascript">function alertsRedrawCount(element, isInit, context) {
+    if (!isInit) context.count = 0
+    alert(++context.count)
+}
+
+m(&quot;div&quot;, {config: alertsRedrawCount})
+</code></pre>
+<hr>
+<h4 id="destructors">Destructors</h4>
+<p>If the <code>context</code> object that is passed to a <code>config</code> function has a property called <code>onunload</code>, this function will be called when the element gets detached from the document by Mithril&#39;s diff engine.</p>
+<p>This is useful if there are cleanup tasks that need to be run when an element is destroyed (e.g. clearing <code>setTimeout</code>&#39;s, etc)</p>
+<pre><code class="lang-javascript">function unloadable(element, isInit, context) {
+    context.timer = setTimeout(function() {
+        alert(&quot;timed out!&quot;);
+    }, 1000);
+
+    context.onunload = function() {
+        clearTimeout(context.timer);
+        console.log(&quot;unloaded the div&quot;);
+    }
+};
+
+m.render(document, m(&quot;div&quot;, {config: unloadable}));
+
+m.render(document, m(&quot;a&quot;)); //logs `unloaded the div` and `alert` never gets called
+</code></pre>
+<hr>
+<h4 id="persisting-dom-elements-across-route-changes">Persisting DOM elements across route changes</h4>
+<p>When using the <a href="mithril.route.html">router</a>, a route change recreates the DOM tree from scratch in order to unload plugins from the previous page. If you want to keep a DOM element intact across a route change, you can set the <code>retain</code> flag in the config&#39;s context object.</p>
+<p>In the example below, there are two routes, each of which loads a component when a user navigates to their respective URLs. Both components use a <code>menu</code> template, which contains links for navigation between the two components, and an expensive-to-reinitialize element. Setting <code>context.retain = true</code> in the element&#39;s config function allows the span to stay intact after a route change.</p>
+<pre><code class="lang-javascript">//a menu template
+var menu = function() {
+    return m(&quot;div&quot;, [
+        m(&quot;a[href=&#39;/&#39;]&quot;, {config: m.route}, &quot;Home&quot;),
+        m(&quot;a[href=&#39;/contact&#39;]&quot;, {config: m.route}, &quot;Contact&quot;),
+        //an expensive-to-initialize DOM element
+        m(&quot;span&quot;, {config: persistent})
+    ])
+}
+//a configuration that persists across route changes
+function persistent(el, isInit, context) {
+    context.retain = true
+
+    if (!isInit) {
+        //only runs once, even if you move back and forth between `/` and `/contact`
+        doSomethingExpensive(el)
+    }
+}
+
+//components that use the menu above
+var Home = {
+    controller: function() {},
+    view: function() {
+        return m(&quot;div&quot;, [
+            menu(),
+            m(&quot;h1&quot;, &quot;Home&quot;)
+        ])
+    }
+}
+var Contact = {
+    view: function() {
+        return m(&quot;div&quot;, [
+            menu(),
+            m(&quot;h2&quot;, &quot;Contact&quot;)
+        ])
+    }
+}
+
+m.route(document.body, &quot;/&quot;, {
+    &quot;/&quot;: Home,
+    &quot;/contact&quot;: Contact
+})
+</code></pre>
+<p>Note that even if you set <code>context.retain = true</code>, the element will still be destroyed and recreated if it is different enough from the existing element. An element is considered &quot;different enough&quot; if:</p>
+<ul>
+<li>the tag name changes, or</li>
+<li>the list of HTML attributes changes, or</li>
+<li>the value of the element&#39;s id attribute changes</li>
+</ul>
+<p>In addition, setting <code>context.retain = false</code> will also cause the element to be recreated, even if it is not considered different enough.</p>
+<hr>
+<h4 id="svg">SVG</h4>
+<p>You can use Mithril to create SVG documents (as long as you don&#39;t need to support browsers that don&#39;t support SVG natively).</p>
+<p>Mithril automatically figures out the correct XML namespaces when it sees an SVG island in the virtual DOM tree.</p>
+<pre><code class="lang-javascript">m(&quot;svg[height=&#39;200px&#39;][width=&#39;200px&#39;]&quot;, [
+    m(&quot;image[href=&#39;foo.jpg&#39;][height=&#39;200px&#39;][width=&#39;200px&#39;]&quot;)
+])
+</code></pre>
+<hr>
+<h4 id="dealing-with-focus">Dealing with focus</h4>
+<p>The virtual DOM diffing algorithm has a weakness: a naive diff is not aware of the identity of DOM elements. In practice, this means performing operations like shifting an item from the beginning of a list would cause every element in the list to be diffed and potentially recreated. Another side-effect is that UI state like input focus is not tracked correctly if the focused element moves around, and likewise, state for 3rd party plugins that are added via <code>config</code> can also end up in the wrong element.</p>
+<p>Fortunately, with Mithril, it&#39;s possible for developers to attach an identity key to elements so that array operations like shift, splice and sort only affect the minimum amount of elements required, leaving the rest of the DOM elements untouched when a redraw happens. This allows us to maintain input focus and plugin state correctly.</p>
+<p>To maintain the identities of DOM elements, you need to add a <code>key</code> property to the direct children of the array that you&#39;re planning to modify. The key for each child must be unique among a list of sibling DOM elements, but it does not need to be globally unique. Also, keys must be either strings or numbers.</p>
+<pre><code class="lang-javascript">m(&quot;ul&quot;, [
+    items.map(function(item) {
+        return m(&quot;li&quot;, {key: item.id}, [
+            m(&quot;input&quot;)
+        ]);
+    })
+]);
+</code></pre>
+<p>In the example above, input focus would be maintained correctly after a redraw even if <code>items</code> got sorted or reversed. The key is defined in the <code>li</code>, which is the closest element to the <code>items</code> array, not directly on the <code>input</code>, even though we want to track focus on the input.</p>
+<p>Note that in addition to the presence of the <code>key</code> attribute, diffing rules also apply in determining whether an element is recreated. Elements are recreated if either their node name changes, or if the list of attribute names change, or if the ID attribute changes. To avoid surprises, be sure to change only attribute values, using <code>undefined</code> or <code>null</code> as values if appropriate, rather than conditionally substituting attribute dictionaries altogether.</p>
+<pre><code class="lang-javascript">//avoid using this idiom
+m(&quot;li&quot;, selected ? {class: &quot;active&quot;} : {})
+
+//use this idiom instead
+m(&quot;li&quot;, {class: selected ? &quot;active&quot; : &quot;&quot;})
+</code></pre>
+<hr>
+<h3 id="dealing-with-sorting-and-deleting-in-lists">Dealing with sorting and deleting in lists</h3>
+<p>As with input focus, we can maintain referential integrity between data in a list and the respective DOM representation by using keys.</p>
+<pre><code class="lang-javascript">m(&quot;ul&quot;, [
+    items.map(function(item) {
+        return m(&quot;li&quot;, {key: item.id}, [
+            m(&quot;input&quot;)
+        ]);
+    })
+]);
+</code></pre>
+<p>You should always use keys if you need to sort lists, remove items from them or splice them in any way.</p>
+<hr>
+<h3 id="component-shorthand">Component Shorthand</h3>
+<p>If the first argument to <code>m()</code> is a component, it acts as an alias of <code>m.component()</code></p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function() {
+        return {greeting: &quot;hello&quot;}
+    },
+    view: function(ctrl, args) {
+        return m(&quot;h1&quot;, ctrl.greeting + &quot; &quot; + args.data)
+    }
+}
+
+m.render(document.body, [
+    //the two lines below are equivalent
+    m(MyComponent, {data: &quot;world&quot;}),
+    m.component(MyComponent, {data: &quot;world&quot;})
+])
+</code></pre>
+<p>See <a href="mithril.component.html">components</a> for more information.</p>
+<hr>
+<h3 id="signature">Signature</h3>
+<p><a href="how-to-read-signatures.html">How to read signatures</a></p>
+<pre><code class="lang-clike">VirtualElement m(String selector [, Attributes attributes] [, Children... children])
+
+where:
+    VirtualElement :: Object { String tag, Attributes attributes, Children children }
+    Attributes :: Object&lt;any | void config(DOMElement element, Boolean isInitialized, Object context, VirtualElement vdom)&gt;
+    Children :: String text | VirtualElement virtualElement | Component | SubtreeDirective directive | Array&lt;Children children&gt;
+    Component :: Object { Function? controller, Function view }
+    SubtreeDirective :: Object { String subtree }
+</code></pre>
+<ul>
+<li><p><strong>String selector</strong></p>
+<p>This string should be a CSS rule that represents a DOM element.</p>
+<p>Only tag, id, class and attribute selectors are supported.</p>
+<p>If the tag selector is omitted, it defaults to <code>div</code>.</p>
+<p>Note that if the same attribute is defined in the both <code>selector</code> and <code>attributes</code> parameters, the value in <code>attributes</code> is used.</p>
+<p>For developer convenience, Mithril makes an exception for the <code>class</code> attribute: if there are classes defined in both parameters, they are concatenated as a space separated list. It does not, however, de-dupe classes if the same class is declared twice.</p>
+<p><em>Examples:</em></p>
+<p><code>&quot;div&quot;</code></p>
+<p><code>&quot;#container&quot;</code></p>
+<p><code>&quot;.active&quot;</code></p>
+<p><code>&quot;[title=&#39;Application&#39;]&quot;</code></p>
+<p><code>&quot;div#container.active[title=&#39;Application&#39;]&quot;</code></p>
+<p><code>&quot;.active#container&quot;</code></p>
+</li>
+<li><p><strong>Attributes attributes</strong> (optional)</p>
+<p>This key-value map should define a list of HTML attributes and their respective values.</p>
+<p>You can use both HTML and Javascript attribute names. For example, both <code>class</code> and <code>className</code> are valid.</p>
+<p>Values&#39; types should match the expected type for the respective attribute.</p>
+<p>For example, the value for <code>className</code> should be a string.</p>
+<p>When a attribute name expects different types for the value in HTML and Javascript, the Javascript type should be used.</p>
+<p>For example, the value for the <code>onclick</code> attribute should be a function.</p>
+<p>Similar, setting the value of attribute <code>readonly</code> to <code>false</code> is equivalent to removing the attribute in HTML.</p>
+<p>It&#39;s also possible to set values to Javascript-only properties, such as <code>hash</code> in a <code>&lt;a&gt;</code> element.</p>
+<p>Note that if the same attribute is defined in the both <code>selector</code> and <code>attributes</code> parameters, the value in <code>attributes</code> is used.</p>
+<p>For developer convenience, Mithril makes an exception for the <code>class</code> attribute: if there are classes defined in both parameters, they are concatenated as a space separated list. It does not, however, de-dupe classes if the same class is declared twice.</p>
+<p><em>Examples:</em></p>
+<p><code>{ title: &quot;Application&quot; }</code></p>
+<p><code>{ onclick: function(e) { /*do stuff*/ } }</code></p>
+<p><code>{ style: {border: &quot;1px solid red&quot;} }</code></p>
+</li>
+<li><h4 id="the-config-attribute">The <code>config</code> attribute</h4>
+<p><strong>void config(DOMElement element, Boolean isInitialized, Object context, VirtualElement vdom)</strong> (optional)</p>
+<p>You can define a non-HTML-standard attribute called <code>config</code>. This special parameter allows you to call methods on the DOM element after it gets created.</p>
+<p>This is useful, for example, if you declare a <code>canvas</code> element and want to use the Javascript API to draw:</p>
+<pre><code class="lang-javascript">function draw(element, isInitialized) {
+   //don&#39;t redraw if we did once already
+   if (isInitialized) return;
+
+   var ctx = element.getContext(&quot;2d&quot;);
+   /* draws stuff */
+}
+
+var view = [
+   m(&quot;canvas&quot;, {config: draw})
+]
+
+//this creates the canvas element, and therefore, `isInitialized` is false
+m.render(document.body, view);
+
+//here, isInitialized is `true`
+m.render(document.body, view);
+</code></pre>
+<p>One common way of using <code>config</code> is in conjunction with <a href="mithril.route.html"><code>m.route</code></a>, which is an unobtrusive extension to links that allow Mithril&#39;s routing system to work transparently regardless of which routing mode is used.</p>
+<pre><code class="lang-javascript">//this link can use any of Mithril&#39;s routing system modes
+//(i.e. it can use either the hash, the querystring or the pathname as the router implementation)
+//without needing to hard-code any syntax (`#` or `?`) in the `href` attribute.
+m(&quot;a[href=&#39;/dashboard&#39;]&quot;, {config: m.route}, &quot;Dashboard&quot;);
+</code></pre>
+<p>The <code>config</code> mechanism can also be used to put focus on form inputs, and call methods that would not be possible to execute via the regular attribute syntax.</p>
+<p>Also note that the <code>config</code> callback only runs after a rendering lifecycle is done. Therefore, you should not use <code>config</code> to modify controller and model values, if you expect these changes to render immediately. Changes to controller and model values in this fashion will only render on the next <code>m.render</code> or <code>m.mount</code> call.</p>
+<p>You can use this mechanism to attach custom event listeners to controller methods (for example, when integrating with third party libraries), but you are responsible for making sure the integration with Mithril&#39;s autoredrawing system is in place. See the <a href="integration.html">integration guide</a> for more information.</p>
+<p>You can also use it to attach events to other elements (for example, <code>window.onresize</code>), but you should remove such event handlers via <code>ctx.onunload</code> to avoid surprises.</p>
+<ul>
+<li><strong>DOMElement element</strong></li>
+</ul>
+<p>The DOM element that corresponds to virtual element defined by the <code>m()</code> call.</p>
+<ul>
+<li><strong>Boolean isInitialized</strong></li>
+</ul>
+<p>Whether this is the first time we are running this function on this element. This flag is false the first time it runs on an element, and true on redraws that happen after the element has been created.</p>
+<ul>
+<li><strong>Object context</strong></li>
+</ul>
+<p>An object that retains its state across redraws. It can be used to store instances of 3rd party classes that need to be accessed more than one time throughout the lifecycle of a page.</p>
+<p>The example below shows a contrived redraw counter. In it, the count is stored in the context object and re-accessed on each redraw.</p>
+<pre><code class="lang-javascript">function alertsRedrawCount(element, isInit, context) {
+   if (!isInit) context.count = 0
+   alert(++context.count)
+}
+
+m(&quot;div&quot;, {config: alertsRedrawCount})
+</code></pre>
+<p>If the <code>context</code> object that is passed to a <code>config</code> function has a property called <code>onunload</code>, this function will be called when the element gets detached from the document by Mithril&#39;s diff engine.</p>
+<p>This is useful if there are cleanup tasks that need to be run when an element is destroyed (e.g. clearing <code>setTimeout</code>&#39;s, etc)</p>
+<pre><code class="lang-javascript">function unloadable(element, isInit, context) {
+   context.timer = setTimeout(function() {
+       alert(&quot;timed out!&quot;);
+   }, 1000);
+
+   context.onunload = function() {
+       clearTimeout(context.timer);
+       console.log(&quot;unloaded the div&quot;);
+   }
+};
+
+m.render(document, m(&quot;div&quot;, {config: unloadable}));
+
+m.render(document, m(&quot;a&quot;)); //logs `unloaded the div` and `alert` never gets called
+</code></pre>
+<ul>
+<li><strong>VirtualElement vdom</strong></li>
+</ul>
+<p>The virtual DOM element to which the <code>config</code> function is attached</p>
+</li>
+<li><p><strong>Children children</strong> (optional)</p>
+<p>If this argument is a string, it will be rendered as a text node. To render a string as HTML, see <a href="mithril.trust.html"><code>m.trust</code></a></p>
+<p>If it&#39;s a VirtualElement, it will be rendered as a DOM Element.</p>
+<p>If it&#39;s a <a href="mithril.component.html">component</a>, the component will be instantiated and managed internally by Mithril</p>
+<p>If it&#39;s a list, its contents will recursively be rendered as appropriate and appended as children of the element being created.</p>
+<p>If it&#39;s a SubtreeDirective with the value &quot;retain&quot;, it will retain the existing DOM tree in place, if any. See <a href="mithril.render.html#subtree-directives">subtree directives.md</a> for more information.</p>
+</li>
+<li><p><strong>returns</strong> VirtualElement</p>
+<p>The returned VirtualElement is a Javascript data structure that represents the DOM element to be rendered by <a href="mithril.render.html"><code>m.render</code></a></p>
+</li>
+</ul>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="lib/prism/prism.js"></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = 'navigating'
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html

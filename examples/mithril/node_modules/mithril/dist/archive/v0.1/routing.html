@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="routing">Routing</h2>
+<p>Routing is a system that allows creating Single-Page-Applications (SPA), i.e. applications that can go from a page to another without causing a full browser refresh.</p>
+<p>It enables seamless navigability while preserving the ability to bookmark each page individually, and the ability to navigate the application via the browser&#39;s history mechanism.</p>
+<p>Mithril provides utilities to handle three different aspect of routing:</p>
+<ul>
+<li>defining a list of routes</li>
+<li>programmatically redirecting between routes</li>
+<li>making links in templates routed transparently and unobtrusively</li>
+</ul>
+<hr>
+<h3 id="defining-routes">Defining routes</h3>
+<p>To define a list of routes, you need to specify a host DOM element, a default route and a key-value map of possible routes and respective <a href="mithril.module.html">modules</a> to be rendered.</p>
+<p>The example below defines 3 routes, to be rendered in <code>&lt;body&gt;</code>. <code>home</code>, <code>login</code> and <code>dashboard</code> are modules. We&#39;ll see how to define a module in a bit.</p>
+<pre><code class="lang-javascript">m.route(document.body, &quot;/&quot;, {
+    &quot;/&quot;: home,
+    &quot;/login&quot;: login,
+    &quot;/dashboard&quot;: dashboard,
+});</code></pre>
+<p>Routes can take arguments, by prefixing words with a colon <code>:</code></p>
+<p>The example below shows a route that takes an <code>userID</code> parameter</p>
+<pre><code class="lang-javascript">//a sample module
+var dashboard = {
+    controller: function() {
+        this.id = m.route.param(&quot;userID&quot;);
+    },
+    view: function(controller) {
+        m.render(&quot;body&quot;, controller.id);
+    }
+}
+
+//define a route
+m.route(document.body, &quot;/dashboard/johndoe&quot;, {
+    &quot;/dashboard/:userID&quot;: dashboard
+});
+
+//setup routes to start w/ the `#` symbol
+m.route.mode = &quot;hash&quot;;</code></pre>
+<p>This redirects to the URL <code>http://server/#/dashboard/johndoe</code> and yields:</p>
+<pre><code class="lang-markup">&lt;body&gt;johndoe&lt;/body&gt;</code></pre>
+<p>Above, <code>dashboard</code> is a module. It contains a <code>controller</code> and a <code>view</code> properties. When the URL matches a route, the respective module&#39;s controller is instantiated and passed as a parameter to the view.</p>
+<p>In this case, since there&#39;s only route, the app redirects to the default route <code>&quot;/dashboard/johndoe&quot;</code> and, under the hood, it calls <code>m.module(document.body, dashboard)</code>.</p>
+<p>The string <code>johndoe</code> is bound to the <code>:userID</code> parameter, which can be retrived programmatically in the controller via <code>m.route.param(&quot;userID&quot;)</code>.</p>
+<p>The <code>m.route.mode</code> property defines which URL portion is used to implement the routing mechanism. Its value can be set to either &quot;search&quot;, &quot;hash&quot; or &quot;pathname&quot;. The default value is &quot;search&quot;</p>
+<ul>
+<li><p><code>search</code> mode uses the querystring. This allows named anchors (i.e. <code>&lt;a href=&quot;#top&quot;&gt;Back to top&lt;/a&gt;</code>, <code>&lt;a name=&quot;top&quot;&gt;&lt;/a&gt;</code>) to work on the page, but routing changes causes page refreshes in IE8, due to its lack of support for <code>history.pushState</code>.</p>
+<p>Example URL: <code>http://server/?/path/to/page</code></p>
+</li>
+<li><p><code>hash</code> mode uses the hash. It&#39;s the only mode in which routing changes do not cause page refreshes in any browser. However, this mode does not support named anchors and browser history lists.</p>
+<p>Example URL: <code>http://server/#/path/to/page</code></p>
+</li>
+<li><p><code>pathname</code> mode allows routing URLs that contains no special characters, however this mode requires server-side setup in order to support bookmarking and page refreshes. It also causes page refreshes in IE8.</p>
+<p>Example URL: <code>http://server/path/to/page</code></p>
+<p>The simplest server-side setup possible to support pathname mode is to serve the same content regardless of what URL is requested. In Apache, this URL rewriting can be achieved using ModRewrite.</p>
+</li>
+</ul>
+<hr>
+<h3 id="redirecting">Redirecting</h3>
+<p>You can programmatically redirec to another page. Given the example in the &quot;Defining Routes&quot; section:</p>
+<pre><code class="lang-javascript">m.route(&quot;/dashboard/marysue&quot;);</code></pre>
+<p>redirects to <code>http://server/#/dashboard/marysue</code></p>
+<hr>
+<h3 id="mode-abstraction">Mode abstraction</h3>
+<p>This method is meant to be used with a virtual element&#39;s <code>config</code> attribute. For example:</p>
+<pre><code class="lang-javascript">//Note that the &#39;#&#39; is not required in `href`, thanks to the `config` setting.
+m(&quot;a[href=&#39;/dashboard/alicesmith&#39;]&quot;, {config: m.route});</code></pre>
+<p>This makes the href behave correctly regardless of which <code>m.route.mode</code> is selected. It&#39;s a good practice to always use the idiom above, instead of hardcoding <code>?</code> or <code>#</code> in the href attribute.</p>
+<p>See <a href="mithril.html"><code>m()</code></a> for more information on virtual elements.</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

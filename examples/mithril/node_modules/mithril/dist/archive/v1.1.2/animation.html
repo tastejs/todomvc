@@ -1,0 +1,152 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Animations - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.2</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="animations"><a href="#animations">Animations</a></h1>
+<ul>
+<li>Tutorials<ul>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><strong><a href="animation.html">Animation</a></strong><ul>
+<li><a href="#technology-choices">Technology choices</a></li>
+<li><a href="#animation-on-element-creation">Animation on element creation</a></li>
+<li><a href="#animation-on-element-removal">Animation on element removal</a></li>
+<li><a href="#performance">Performance</a></li>
+</ul>
+</li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="technology-choices"><a href="#technology-choices">Technology choices</a></h3>
+<p>Animations are often used to make applications come alive. Nowadays, browsers have good support for CSS animations, and there are <a href="https://greensock.com/gsap">various</a> <a href="http://velocityjs.org/">libraries</a> that provide fast Javascript-based animations. There&#39;s also an upcoming <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API">Web API</a> and a <a href="https://github.com/web-animations/web-animations-js">polyfill</a> if you like living on the bleeding edge.</p>
+<p>Mithril does not provide any animation APIs per se, since these other options are more than sufficient to achieve rich, complex animations. Mithril does, however, offer hooks to make life easier in some specific cases where it&#39;s traditionally difficult to make animations work.</p>
+<hr>
+<h3 id="animation-on-element-creation"><a href="#animation-on-element-creation">Animation on element creation</a></h3>
+<p>Animating an element via CSS when the element created couldn&#39;t be simpler. Just add an animation to a CSS class normally:</p>
+<pre><code class="lang-css">.fancy {animation:fade-in 0.5s;}
+@keyframes fade-in {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+</code></pre>
+<pre><code class="lang-javascript">var FancyComponent = {
+    view: function() {
+        return m(&quot;.fancy&quot;, &quot;Hello world&quot;)
+    }
+}
+
+m.mount(document.body, FancyComponent)
+</code></pre>
+<hr>
+<h3 id="animation-on-element-removal"><a href="#animation-on-element-removal">Animation on element removal</a></h3>
+<p>The problem with animating before removing an element is that we must wait until the animation is complete before we can actually remove the element. Fortunately, Mithril offers a <a href="lifecycle-methods.html#onbeforeremove"><code>onbeforeremove</code></a> hook that allows us to defer the removal of an element.</p>
+<p>Let&#39;s create an <code>exit</code> animation that fades <code>opacity</code> from 1 to 0.</p>
+<pre><code class="lang-css">.exit {animation:fade-out 0.5s;}
+@keyframes fade-out {
+    from {opacity:1;}
+    to {opacity:0;}
+}
+</code></pre>
+<p>Now let&#39;s create a contrived component that shows and hides the <code>FancyComponent</code> we created in the previous section:</p>
+<pre><code class="lang-javascript">var on = true
+
+var Toggler = {
+    view: function() {
+        return [
+            m(&quot;button&quot;, {onclick: function() {on = !on}}, &quot;Toggle&quot;),
+            on ? m(FancyComponent) : null,
+        ]
+    }
+}
+</code></pre>
+<p>Next, let&#39;s modify <code>FancyComponent</code> so that it fades out when removed:</p>
+<pre><code class="lang-javascript">var FancyComponent = {
+    onbeforeremove: function(vnode) {
+        vnode.dom.classList.add(&quot;exit&quot;)
+        return new Promise(function(resolve) {
+            setTimeout(resolve, 500)
+        })
+    },
+    view: function() {
+        return m(&quot;.fancy&quot;, &quot;Hello world&quot;)
+    }
+}
+</code></pre>
+<p><code>vnode.dom</code> points to the root DOM element of the component (<code>&lt;div class=&quot;fancy&quot;&gt;</code>). We use the classList API here to add an <code>exit</code> class to <code>&lt;div class=&quot;fancy&quot;&gt;</code>.</p>
+<p>Then we return a <a href="promise.html">Promise</a> that resolves after half a second. When we return a promise from <code>onbeforeremove</code>, Mithril waits until the promise is resolved and only then it removes the element. In this case, it waits half a second, giving the exit animation the exact time it needs to complete.</p>
+<p>We can verify that both the enter and exit animations work by mounting the <code>Toggler</code> component:</p>
+<pre><code class="lang-javascript">m.mount(document.body, Toggler)
+</code></pre>
+<p>Note that the <code>onbeforeremove</code> hook only fires on the element that loses its <code>parentNode</code> when an element gets detached from the DOM. This behavior is by design and exists to prevent a potential jarring user experience where every conceivable exit animation on the page would run on a route change. If your exit animation is not running, make sure to attach the <code>onbeforeremove</code> handler as high up the tree as it makes sense to ensure that your animation code is called.</p>
+<hr>
+<h3 id="performance"><a href="#performance">Performance</a></h3>
+<p>When creating animations, it&#39;s recommended that you only use the <code>opacity</code> and <code>transform</code> CSS rules, since these can be hardware-accelerated by modern browsers and yield better performance than animating <code>top</code>, <code>left</code>, <code>width</code>, and <code>height</code>.</p>
+<p>It&#39;s also recommended that you avoid the <code>box-shadow</code> rule and selectors like <code>:nth-child</code>, since these are also resource intensive options. If you want to animate a <code>box-shadow</code>, consider <a href="http://tobiasahlin.com/blog/how-to-animate-box-shadow/">putting the <code>box-shadow</code> rule on a pseudo element, and animate that element&#39;s opacity instead</a>. Other things that can be expensive include large or dynamically scaled images and overlapping elements with different <code>position</code> values (e.g. an absolute postioned element over a fixed element).</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.2/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

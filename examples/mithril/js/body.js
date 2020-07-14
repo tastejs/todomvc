@@ -1,14 +1,15 @@
-import m from "mithril";
-import { saveState, ENTER_KEY, ESCAPE_KEY } from "./model";
+import m from "mithril"
+import { saveState, ENTER_KEY, ESCAPE_KEY } from "./model"
 
 const Body = {
-  view: ({ attrs: { mdl } }) =>
-    m("section.main", [
+  view: ({ attrs: { mdl } }) => {
+    console.log(m.route.get())
+    return m("section.main", [
       m("input.toggle-all[id='toggle-all'][type='checkbox']", {
         checked: mdl.todos.filter((todo) => todo.status == "completed").length,
         onclick: (_) => {
-          mdl.todos.map((todo) => (todo.status = "completed"));
-          saveState(mdl);
+          mdl.todos.map((todo) => (todo.status = "completed"))
+          saveState(mdl)
         },
       }),
       m("label[for='toggle-all']", "Mark all as complete"),
@@ -16,7 +17,9 @@ const Body = {
         "ul.todo-list",
         mdl.todos
           .filter((todo) =>
-            mdl.filter == "all" ? todo : todo.status == mdl.filter
+            m.route.get() == "/"
+              ? todo
+              : todo.status == m.route.get().split("/")[1]
           )
           .map((todo, idx) =>
             m(
@@ -31,39 +34,39 @@ const Body = {
                       todo.status == "active"
                         ? (todo.status = "completed")
                         : (todo.status = "active"),
-                        saveState(mdl);
+                        saveState(mdl)
                     },
                   }),
                   m(
                     "label",
                     {
                       ondblclick: (_) => {
-                        todo.isEditing = true;
-                        todo.newtitle = todo.title;
+                        todo.isEditing = true
+                        todo.newtitle = todo.title
                       },
                     },
                     `${todo.title}`
                   ),
                   m("button.destroy", {
                     onclick: () => {
-                      mdl.todos.splice(idx, 1);
-                      saveState(mdl);
+                      mdl.todos.splice(idx, 1)
+                      saveState(mdl)
                     },
                   }),
                 ]),
                 m("input.edit", {
                   onkeydown: (e) => {
                     if (e.which == ESCAPE_KEY) {
-                      todo.isEditing = false;
+                      todo.isEditing = false
                     }
                     if (e.keyCode == ENTER_KEY) {
                       if (todo.newtitle.length) {
-                        todo.isEditing = false;
-                        todo.title = todo.newtitle;
+                        todo.isEditing = false
+                        todo.title = todo.newtitle
                       } else {
-                        mdl.todos.splice(idx, 1);
+                        mdl.todos.splice(idx, 1)
                       }
-                      saveState(mdl);
+                      saveState(mdl)
                     }
                   },
                   oninput: (e) => (todo.newtitle = e.target.value),
@@ -73,7 +76,8 @@ const Body = {
             )
           )
       ),
-    ]),
-};
+    ])
+  },
+}
 
-export default Body;
+export default Body

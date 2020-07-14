@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Examples - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.6</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="examples"><a href="#examples">Examples</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><strong><a href="examples.html">Examples</a></strong></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<p>Here are some examples of Mithril in action</p>
+<ul>
+<li><a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/animation/mosaic.html">Animation</a></li>
+<li><a href="https://how-to-mithril.js.org">Community Added Examples</a></li>
+<li><a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/dbmonster/mithril/index.html">DBMonster</a></li>
+<li><a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/editor/index.html">Markdown Editor</a></li>
+<li>SVG: <a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/svg/clock.html">Clock</a>, <a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/svg/ring.html">Ring</a>, <a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/svg/tiger.html">Tiger</a></li>
+<li><a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/threaditjs/index.html">ThreadItJS</a></li>
+<li><a href="http://cdn.rawgit.com/MithrilJS/mithril.js/master/examples/todomvc/index.html">TodoMVC</a></li>
+</ul>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.6/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

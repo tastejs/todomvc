@@ -1,0 +1,580 @@
+
+<head>
+<meta charset=UTF-8>
+<title> request(options) - Mithril.js</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet>
+<link href=style.css rel=stylesheet>
+<link rel=icon type=image/png sizes=32x32 href=favicon.png>
+<meta name=viewport content="width=device-width,initial-scale=1">
+</head>
+<body>
+<header>
+<section>
+<a class=hamburger href=javascript:;>≡</a>
+<h1><img src=logo.svg> Mithril <small>2.0.2</small></h1>
+<nav>
+<a href=index.html>Guide</a>
+<a href=api.html>API</a>
+<a href=https://gitter.im/MithrilJS/mithril.js>Chat</a>
+<a href=https://github.com/MithrilJS/mithril.js>GitHub</a>
+</nav>
+</section>
+</header>
+<main>
+<section>
+<h1 id=requestoptions><a href=#requestoptions>request(options)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href=hyperscript.html>m</a></li>
+<li><a href=render.html>m.render</a></li>
+<li><a href=mount.html>m.mount</a></li>
+<li><a href=route.html>m.route</a></li>
+<li><strong><a href=request.html>m.request</a></strong><ul>
+<li><a href=#description>Description</a></li>
+<li><a href=#signature>Signature</a></li>
+<li><a href=#how-it-works>How it works</a></li>
+<li><a href=#typical-usage>Typical usage</a></li>
+<li><a href=#error-handling>Error handling</a></li>
+<li><a href=#loading-icons-and-error-messages>Loading icons and error messages</a></li>
+<li><a href=#dynamic-urls>Dynamic URLs</a></li>
+<li><a href=#aborting-requests>Aborting requests</a></li>
+<li><a href=#file-uploads>File uploads</a></li>
+<li><a href=#monitoring-progress>Monitoring progress</a></li>
+<li><a href=#casting-response-to-a-type>Casting response to a type</a></li>
+<li><a href=#non-json-responses>Non-JSON responses</a></li>
+<li><a href=#retrieving-response-details>Retrieving response details</a></li>
+<li><a href=#why-json-instead-of-html>Why JSON instead of HTML</a></li>
+<li><a href=#why-xhr-instead-of-fetch>Why XHR instead of fetch</a></li>
+<li><a href=#avoid-anti-patterns>Avoid anti-patterns</a></li>
+</ul>
+</li>
+<li><a href=jsonp.html>m.jsonp</a></li>
+<li><a href=parseQueryString.html>m.parseQueryString</a></li>
+<li><a href=buildQueryString.html>m.buildQueryString</a></li>
+<li><a href=buildPathname.html>m.buildPathname</a></li>
+<li><a href=parsePathname.html>m.parsePathname</a></li>
+<li><a href=trust.html>m.trust</a></li>
+<li><a href=fragment.html>m.fragment</a></li>
+<li><a href=redraw.html>m.redraw</a></li>
+<li><a href=promise.html>Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href=stream.html>Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href=https://github.com/MithrilJS/mithril.js/blob/master/ospec>Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id=description><a href=#description>Description</a></h3>
+<p>Makes XHR (aka AJAX) requests, and returns a <a href=promise.html>promise</a></p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;PUT&quot;,
+    url: &quot;/api/v1/users/:id&quot;,
+    params: {id: 1},
+    body: {name: &quot;test&quot;}
+})
+.then(function(result) {
+    console.log(result)
+})</code></pre>
+<hr>
+<h3 id=signature><a href=#signature>Signature</a></h3>
+<p><code>promise = m.request(options)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tr>
+<td><code>options</code></td>
+<td><code>Object</code></td>
+<td>Yes</td>
+<td>The request options to pass.</td>
+</tr>
+<tr>
+<td><code>options.method</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>The HTTP method to use. This value should be one of the following: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>, <code>HEAD</code> or <code>OPTIONS</code>. Defaults to <code>GET</code>.</td>
+</tr>
+<tr>
+<td><code>options.url</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>The <a href=paths.html>path name</a> to send the request to, optionally interpolated with values from <code>options.params</code>.</td>
+</tr>
+<tr>
+<td><code>options.params</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>The data to be interpolated into the URL and/or serialized into the query string.</td>
+</tr>
+<tr>
+<td><code>options.body</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>The data to be serialized into the body (for other types of requests).</td>
+</tr>
+<tr>
+<td><code>options.async</code></td>
+<td><code>Boolean</code></td>
+<td>No</td>
+<td>Whether the request should be asynchronous. Defaults to <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>options.user</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>A username for HTTP authorization. Defaults to <code>undefined</code>.</td>
+</tr>
+<tr>
+<td><code>options.password</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>A password for HTTP authorization. Defaults to <code>undefined</code>. This option is provided for <code>XMLHttpRequest</code> compatibility, but you should avoid using it because it sends the password in plain text over the network.</td>
+</tr>
+<tr>
+<td><code>options.withCredentials</code></td>
+<td><code>Boolean</code></td>
+<td>No</td>
+<td>Whether to send cookies to 3rd party domains. Defaults to <code>false</code></td>
+</tr>
+<tr>
+<td><code>options.timeout</code></td>
+<td><code>Number</code></td>
+<td>No</td>
+<td>The amount of milliseconds a request can take before automatically being <a href=https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout>terminated</a>. Defaults to <code>undefined</code>.</td>
+</tr>
+<tr>
+<td><code>options.responseType</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>The expected <a href=https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType>type</a> of the response. Defaults to <code>&quot;&quot;</code> if <code>extract</code> is defined, <code>&quot;json&quot;</code> if missing. If <code>responseType: &quot;json&quot;</code>, it internally performs <code>JSON.parse(responseText)</code>.</td>
+</tr>
+<tr>
+<td><code>options.config</code></td>
+<td><code>xhr = Function(xhr)</code></td>
+<td>No</td>
+<td>Exposes the underlying XMLHttpRequest object for low-level configuration and optional replacement (by returning a new XHR).</td>
+</tr>
+<tr>
+<td><code>options.headers</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>Headers to append to the request before sending it (applied right before <code>options.config</code>).</td>
+</tr>
+<tr>
+<td><code>options.type</code></td>
+<td><code>any = Function(any)</code></td>
+<td>No</td>
+<td>A constructor to be applied to each object in the response. Defaults to the <a href=https://en.wikipedia.org/wiki/Identity_function>identity function</a>.</td>
+</tr>
+<tr>
+<td><code>options.serialize</code></td>
+<td><code>string = Function(any)</code></td>
+<td>No</td>
+<td>A serialization method to be applied to <code>body</code>. Defaults to <code>JSON.stringify</code>, or if <code>options.body</code> is an instance of <a href=https://developer.mozilla.org/en/docs/Web/API/FormData><code>FormData</code></a>, defaults to the <a href=https://en.wikipedia.org/wiki/Identity_function>identity function</a> (i.e. <code>function(value) {return value}</code>).</td>
+</tr>
+<tr>
+<td><code>options.deserialize</code></td>
+<td><code>any = Function(any)</code></td>
+<td>No</td>
+<td>A deserialization method to be applied to the <code>xhr.response</code> or normalized <code>xhr.responseText</code>. Defaults to the <a href=https://en.wikipedia.org/wiki/Identity_function>identity function</a>. If <code>extract</code> is defined, <code>deserialize</code> will be skipped.</td>
+</tr>
+<tr>
+<td><code>options.extract</code></td>
+<td><code>any = Function(xhr, options)</code></td>
+<td>No</td>
+<td>A hook to specify how the XMLHttpRequest response should be read. Useful for processing response data, reading headers and cookies. By default this is a function that returns <code>options.deserialize(parsedResponse)</code>, throwing an exception when the server response status code indicates an error or when the response is syntactically invalid. If a custom <code>extract</code> callback is provided, the <code>xhr</code> parameter is the XMLHttpRequest instance used for the request, and <code>options</code> is the object that was passed to the <code>m.request</code> call. Additionally, <code>deserialize</code> will be skipped and the value returned from the extract callback will be left as-is when the promise resolves.</td>
+</tr>
+<tr>
+<td><code>options.background</code></td>
+<td><code>Boolean</code></td>
+<td>No</td>
+<td>If <code>false</code>, redraws mounted components upon completion of the request. If <code>true</code>, it does not. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise that resolves to the response data, after it has been piped through the <code>extract</code>, <code>deserialize</code> and <code>type</code> methods</td>
+</tr>
+</table>
+<p><code>promise = m.request(url, options)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tr>
+<td><code>url</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>The <a href=paths.html>path name</a> to send the request to. <code>options.url</code> overrides this when present.</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>The request options to pass.</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise that resolves to the response data, after it has been piped through the <code>extract</code>, <code>deserialize</code> and <code>type</code> methods</td>
+</tr>
+</table>
+<p>This second form is mostly equivalent to <code>m.request(Object.assign({url: url}, options))</code>, just it does not depend on the ES6 global <code>Object.assign</code> internally.</p>
+<p><a href=signatures.html>How to read signatures</a></p>
+<hr>
+<h3 id=how-it-works><a href=#how-it-works>How it works</a></h3>
+<p>The <code>m.request</code> utility is a thin wrapper around <a href=https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest><code>XMLHttpRequest</code></a>, and allows making HTTP requests to remote servers in order to save and/or retrieve data from a database.</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/api/v1/users&quot;,
+})
+.then(function(users) {
+    console.log(users)
+})</code></pre>
+<p>A call to <code>m.request</code> returns a <a href=promise.html>promise</a> and triggers a redraw upon completion of its promise chain.</p>
+<p>By default, <code>m.request</code> assumes the response is in JSON format and parses it into a JavaScript object (or array).</p>
+<p>If the HTTP response status code indicates an error, the returned Promise will be rejected. Supplying an extract callback will prevent the promise rejection.</p>
+<hr>
+<h3 id=typical-usage><a href=#typical-usage>Typical usage</a></h3>
+<p>Here&#39;s an illustrative example of a component that uses <code>m.request</code> to retrieve some data from a server.</p>
+<pre><code class=language-javascript>var Data = {
+    todos: {
+        list: [],
+        fetch: function() {
+            m.request({
+                method: &quot;GET&quot;,
+                url: &quot;/api/v1/todos&quot;,
+            })
+            .then(function(items) {
+                Data.todos.list = items
+            })
+        }
+    }
+}
+
+var Todos = {
+    oninit: Data.todos.fetch,
+    view: function(vnode) {
+        return Data.todos.list.map(function(item) {
+            return m(&quot;div&quot;, item.title)
+        })
+    }
+}
+
+m.route(document.body, &quot;/&quot;, {
+    &quot;/&quot;: Todos
+})</code></pre>
+<p>Let&#39;s assume making a request to the server URL <code>/api/items</code> returns an array of objects in JSON format.</p>
+<p>When <code>m.route</code> is called at the bottom, the <code>Todos</code> component is initialized. <code>oninit</code> is called, which calls <code>m.request</code>. This retrieves an array of objects from the server asynchronously. &quot;Asynchronously&quot; means that JavaScript continues running other code while it waits for the response from server. In this case, it means <code>fetch</code> returns, and the component is rendered using the original empty array as <code>Data.todos.list</code>. Once the request to the server completes, the array of objects <code>items</code> is assigned to <code>Data.todos.list</code> and the component is rendered again, yielding a list of <code>&lt;div&gt;</code>s containing the titles of each <code>todo</code>.</p>
+<hr>
+<h3 id=error-handling><a href=#error-handling>Error handling</a></h3>
+<p>When a non-<code>file:</code> request returns with any status other than 2xx or 304, it rejects with an error. This error is a normal <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error>Error</a> instance, but with a few special properties.</p>
+<ul>
+<li><code>error.message</code> is set to the raw response text.</li>
+<li><code>error.code</code> is set to the status code itself.</li>
+<li><code>error.response</code> is set to the parsed response, using <code>options.extract</code> and <code>options.deserialize</code> as is done with normal responses.</li>
+</ul>
+<p>This is useful in many cases where errors are themselves things you can account for. If you want to detect if a session expired - you can do <code>if (error.code === 401) return promptForAuth().then(retry)</code>. If you hit an API&#39;s throttling mechanism and it returned an error with a <code>&quot;timeout&quot;: 1000</code>, you could do a <code>setTimeout(retry, error.response.timeout)</code>.</p>
+<hr>
+<h3 id=loading-icons-and-error-messages><a href=#loading-icons-and-error-messages>Loading icons and error messages</a></h3>
+<p>Here&#39;s an expanded version of the example above that implements a loading indicator and an error message:</p>
+<pre><code class=language-javascript>var Data = {
+    todos: {
+        list: null,
+        error: &quot;&quot;,
+        fetch: function() {
+            m.request({
+                method: &quot;GET&quot;,
+                url: &quot;/api/v1/todos&quot;,
+            })
+            .then(function(items) {
+                Data.todos.list = items
+            })
+            .catch(function(e) {
+                Data.todos.error = e.message
+            })
+        }
+    }
+}
+
+var Todos = {
+    oninit: Data.todos.fetch,
+    view: function(vnode) {
+        return Data.todos.error ? [
+            m(&quot;.error&quot;, Data.todos.error)
+        ] : Data.todos.list ? [
+            Data.todos.list.map(function(item) {
+                return m(&quot;div&quot;, item.title)
+            })
+        ] : m(&quot;.loading-icon&quot;)
+    }
+}
+
+m.route(document.body, &quot;/&quot;, {
+    &quot;/&quot;: Todos
+})</code></pre>
+<p>There are a few differences between this example and the one before. Here, <code>Data.todos.list</code> is <code>null</code> at the beginning. Also, there&#39;s an extra field <code>error</code> for holding an error message, and the view of the <code>Todos</code> component was modified to displays an error message if one exists, or display a loading icon if <code>Data.todos.list</code> is not an array.</p>
+<hr>
+<h3 id=dynamic-urls><a href=#dynamic-urls>Dynamic URLs</a></h3>
+<p>Request URLs may contain interpolations:</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/api/v1/users/:id&quot;,
+    params: {id: 123},
+}).then(function(user) {
+    console.log(user.id) // logs 123
+})</code></pre>
+<p>In the code above, <code>:id</code> is populated with the data from the <code>params</code> object, and the request becomes <code>GET /api/v1/users/123</code>.</p>
+<p>Interpolations are ignored if no matching data exists in the <code>params</code> property.</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/api/v1/users/foo:bar&quot;,
+    params: {id: 123},
+})</code></pre>
+<p>In the code above, the request becomes <code>GET /api/v1/users/foo:bar?id=123</code></p>
+<hr>
+<h3 id=aborting-requests><a href=#aborting-requests>Aborting requests</a></h3>
+<p>Sometimes, it is desirable to abort a request. For example, in an autocompleter/typeahead widget, you want to ensure that only the last request completes, because typically autocompleters fire several requests as the user types and HTTP requests may complete out of order due to the unpredictable nature of networks. If another request finishes after the last fired request, the widget would display less relevant (or potentially wrong) data than if the last fired request finished last.</p>
+<p><code>m.request()</code> exposes its underlying <code>XMLHttpRequest</code> object via the <code>options.config</code> parameter, which allows you to save a reference to that object and call its <code>abort</code> method when required:</p>
+<pre><code class=language-javascript>var searchXHR = null
+function search() {
+    abortPreviousSearch()
+
+    m.request({
+        method: &quot;GET&quot;,
+        url: &quot;/api/v1/users&quot;,
+        params: {search: query},
+        config: function(xhr) {searchXHR = xhr}
+    })
+}
+function abortPreviousSearch() {
+    if (searchXHR !== null) searchXHR.abort()
+    searchXHR = null
+}</code></pre>
+<hr>
+<h3 id=file-uploads><a href=#file-uploads>File uploads</a></h3>
+<p>To upload files, first you need to get a reference to a <a href=https://developer.mozilla.org/en/docs/Web/API/File><code>File</code></a> object. The easiest way to do that is from a <code>&lt;input type=&quot;file&quot;&gt;</code>.</p>
+<pre><code class=language-javascript>m.render(document.body, [
+    m(&quot;input[type=file]&quot;, {onchange: upload})
+])
+
+function upload(e) {
+    var file = e.target.files[0]
+}</code></pre>
+<p>The snippet above renders a file input. If a user picks a file, the <code>onchange</code> event is triggered, which calls the <code>upload</code> function. <code>e.target.files</code> is a list of <code>File</code> objects.</p>
+<p>Next, you need to create a <a href=https://developer.mozilla.org/en/docs/Web/API/FormData><code>FormData</code></a> object to create a <a href=https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html>multipart request</a>, which is a specially formatted HTTP request that is able to send file data in the request body.</p>
+<pre><code class=language-javascript>function upload(e) {
+    var file = e.target.files[0]
+
+    var body = new FormData()
+    body.append(&quot;myfile&quot;, file)
+}</code></pre>
+<p>Next, you need to call <code>m.request</code> and set <code>options.method</code> to an HTTP method that uses body (e.g. <code>POST</code>, <code>PUT</code>, <code>PATCH</code>) and use the <code>FormData</code> object as <code>options.body</code>.</p>
+<pre><code class=language-javascript>function upload(e) {
+    var file = e.target.files[0]
+
+    var body = new FormData()
+    body.append(&quot;myfile&quot;, file)
+
+    m.request({
+        method: &quot;POST&quot;,
+        url: &quot;/api/v1/upload&quot;,
+        body: body,
+    })
+}</code></pre>
+<p>Assuming the server is configured to accept multipart requests, the file information will be associated with the <code>myfile</code> key.</p>
+<h4 id=multiple-file-uploads><a href=#multiple-file-uploads>Multiple file uploads</a></h4>
+<p>It&#39;s possible to upload multiple files in one request. Doing so will make the batch upload atomic, i.e. no files will be processed if there&#39;s an error during the upload, so it&#39;s not possible to have only part of the files saved. If you want to save as many files as possible in the event of a network failure, you should consider uploading each file in a separate request instead.</p>
+<p>To upload multiple files, simply append them all to the <code>FormData</code> object. When using a file input, you can get a list of files by adding the <code>multiple</code> attribute to the input:</p>
+<pre><code class=language-javascript>m.render(document.body, [
+    m(&quot;input[type=file][multiple]&quot;, {onchange: upload})
+])
+
+function upload(e) {
+    var files = e.target.files
+
+    var body = new FormData()
+    for (var i = 0; i &lt; files.length; i++) {
+        body.append(&quot;file&quot; + i, files[i])
+    }
+
+    m.request({
+        method: &quot;POST&quot;,
+        url: &quot;/api/v1/upload&quot;,
+        body: body,
+    })
+}</code></pre>
+<hr>
+<h3 id=monitoring-progress><a href=#monitoring-progress>Monitoring progress</a></h3>
+<p>Sometimes, if a request is inherently slow (e.g. a large file upload), it&#39;s desirable to display a progress indicator to the user to signal that the application is still working.</p>
+<p><code>m.request()</code> exposes its underlying <code>XMLHttpRequest</code> object via the <code>options.config</code> parameter, which allows you to attach event listeners to the XMLHttpRequest object:</p>
+<pre><code class=language-javascript>var progress = 0
+
+m.mount(document.body, {
+    view: function() {
+        return [
+            m(&quot;input[type=file]&quot;, {onchange: upload}),
+            progress + &quot;% completed&quot;
+        ]
+    }
+})
+
+function upload(e) {
+    var file = e.target.files[0]
+
+    var body = new FormData()
+    body.append(&quot;myfile&quot;, file)
+
+    m.request({
+        method: &quot;POST&quot;,
+        url: &quot;/api/v1/upload&quot;,
+        body: body,
+        config: function(xhr) {
+            xhr.upload.addEventListener(&quot;progress&quot;, function(e) {
+                progress = e.loaded / e.total
+
+                m.redraw() // tell Mithril that data changed and a re-render is needed
+            })
+        }
+    })
+}</code></pre>
+<p>In the example above, a file input is rendered. If the user picks a file, an upload is initiated, and in the <code>config</code> callback, a <code>progress</code> event handler is registered. This event handler is fired whenever there&#39;s a progress update in the XMLHttpRequest. Because the XMLHttpRequest&#39;s progress event is not directly handled by Mithril&#39;s virtual DOM engine, <code>m.redraw()</code> must be called to signal to Mithril that data has changed and a redraw is required.</p>
+<hr>
+<h3 id=casting-response-to-a-type><a href=#casting-response-to-a-type>Casting response to a type</a></h3>
+<p>Depending on the overall application architecture, it may be desirable to transform the response data of a request to a specific class or type (for example, to uniformly parse date fields or to have helper methods).</p>
+<p>You can pass a constructor as the <code>options.type</code> parameter and Mithril will instantiate it for each object in the HTTP response.</p>
+<pre><code class=language-javascript>function User(data) {
+    this.name = data.firstName + &quot; &quot; + data.lastName
+}
+
+m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/api/v1/users&quot;,
+    type: User
+})
+.then(function(users) {
+    console.log(users[0].name) // logs a name
+})</code></pre>
+<p>In the example above, assuming <code>/api/v1/users</code> returns an array of objects, the <code>User</code> constructor will be instantiated (i.e. called as <code>new User(data)</code>) for each object in the array. If the response returned a single object, that object would be used as the <code>body</code> argument.</p>
+<hr>
+<h3 id=non-json-responses><a href=#non-json-responses>Non-JSON responses</a></h3>
+<p>Sometimes a server endpoint does not return a JSON response: for example, you may be requesting an HTML file, an SVG file, or a CSV file. By default Mithril attempts to parse a response as if it was JSON. To override that behavior, define a custom <code>options.deserialize</code> function:</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/files/icon.svg&quot;,
+    deserialize: function(value) {return value}
+})
+.then(function(svg) {
+    m.render(document.body, m.trust(svg))
+})</code></pre>
+<p>In the example above, the request retrieves an SVG file, does nothing to parse it (because <code>deserialize</code> merely returns the value as-is), and then renders the SVG string as trusted HTML.</p>
+<p>Of course, a <code>deserialize</code> function may be more elaborate:</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/files/data.csv&quot;,
+    deserialize: parseCSV
+})
+.then(function(data) {
+    console.log(data)
+})
+
+function parseCSV(data) {
+    // naive implementation for the sake of keeping example simple
+    return data.split(&quot;\n&quot;).map(function(row) {
+        return row.split(&quot;,&quot;)
+    })
+}</code></pre>
+<p>Ignoring the fact that the parseCSV function above doesn&#39;t handle a lot of cases that a proper CSV parser would, the code above logs an array of arrays.</p>
+<p>Custom headers may also be helpful in this regard. For example, if you&#39;re requesting an SVG, you probably want to set the content type accordingly. To override the default JSON request type, set <code>options.headers</code> to an object of key-value pairs corresponding to request header names and values.</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/files/image.svg&quot;,
+    headers: {
+        &quot;Content-Type&quot;: &quot;image/svg+xml; charset=utf-8&quot;,
+        &quot;Accept&quot;: &quot;image/svg, text/*&quot;
+    },
+    deserialize: function(value) {return value}
+})</code></pre>
+<hr>
+<h3 id=retrieving-response-details><a href=#retrieving-response-details>Retrieving response details</a></h3>
+<p>By default Mithril attempts to parse <code>xhr.responseText</code> as JSON and returns the parsed object. It may be useful to inspect a server response in more detail and process it manually. This can be accomplished by passing a custom <code>options.extract</code> function:</p>
+<pre><code class=language-javascript>m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/api/v1/users&quot;,
+    extract: function(xhr) {return {status: xhr.status, body: xhr.responseText}}
+})
+.then(function(response) {
+    console.log(response.status, response.body)
+})</code></pre>
+<p>The parameter to <code>options.extract</code> is the XMLHttpRequest object once its operation is completed, but before it has been passed to the returned promise chain, so the promise may still end up in an rejected state if processing throws an exception.</p>
+<hr>
+<h3 id=why-json-instead-of-html><a href=#why-json-instead-of-html>Why JSON instead of HTML</a></h3>
+<p>Many server-side frameworks provide a view engine that interpolates database data into a template before serving HTML (on page load or via AJAX) and then employ jQuery to handle user interactions.</p>
+<p>By contrast, Mithril is framework designed for thick client applications, which typically download templates and data separately and combine them in the browser via JavaScript. Doing the templating heavy-lifting in the browser can bring benefits like reducing operational costs by freeing server resources. Separating templates from data also allow template code to be cached more effectively and enables better code reusability across different types of clients (e.g. desktop, mobile). Another benefit is that Mithril enables a <a href=https://en.wikipedia.org/wiki/Retained_mode>retained mode</a> UI development paradigm, which greatly simplifies development and maintenance of complex user interactions.</p>
+<p>By default, <code>m.request</code> expects response data to be in JSON format. In a typical Mithril application, that JSON data is then usually consumed by a view.</p>
+<p>You should avoid trying to render server-generated dynamic HTML with Mithril. If you have an existing application that does use a server-side templating system, and you wish to re-architecture it, first decide whether the effort is feasible at all to begin with. Migrating from a thick server architecture to a thick client architecture is typically a somewhat large effort, and involves refactoring logic out of templates into logical data services (and the testing that goes with it).</p>
+<p>Data services may be organized in many different ways depending on the nature of the application. <a href=https://en.wikipedia.org/wiki/Representational_state_transfer>RESTful</a> architectures are popular with API providers, and <a href=https://en.wikipedia.org/wiki/Service-oriented_architecture>service oriented architectures</a> are often required where there are lots of highly transactional workflows.</p>
+<hr>
+<h3 id=why-xhr-instead-of-fetch><a href=#why-xhr-instead-of-fetch>Why XHR instead of fetch</a></h3>
+<p><a href=https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API><code>fetch()</code></a> is a newer Web API for fetching resources from servers, similar to <code>XMLHttpRequest</code>.</p>
+<p>Mithril&#39;s <code>m.request</code> uses <code>XMLHttpRequest</code> instead of <code>fetch()</code> for a number of reasons:</p>
+<ul>
+<li><code>fetch</code> is not fully standardized yet, and may be subject to specification changes.</li>
+<li><code>XMLHttpRequest</code> calls can be aborted before they resolve (e.g. to avoid race conditions in for instant search UIs).</li>
+<li><code>XMLHttpRequest</code> provides hooks for progress listeners for long running requests (e.g. file uploads).</li>
+<li><code>XMLHttpRequest</code> is supported by all browsers, whereas <code>fetch()</code> is not supported by Internet Explorer, Safari and Android (non-Chromium).</li>
+</ul>
+<p>Currently, due to lack of browser support, <code>fetch()</code> typically requires a <a href=https://github.com/github/fetch>polyfill</a>, which is over 11kb uncompressed - nearly three times larger than Mithril&#39;s XHR module.</p>
+<p>Despite being much smaller, Mithril&#39;s XHR module supports many important and not-so-trivial-to-implement features like <a href=#dynamic-urls>URL interpolation</a>, querystring serialization and <a href=jsonp.html>JSON-P requests</a>, in addition to its ability to integrate seamlessly to Mithril&#39;s autoredrawing subsystem. The <code>fetch</code> polyfill does not support any of those, and requires extra libraries and boilerplates to achieve the same level of functionality.</p>
+<p>In addition, Mithril&#39;s XHR module is optimized for JSON-based endpoints and makes that most common case appropriately terse - i.e. <code>m.request(url)</code> - whereas <code>fetch</code> requires an additional explicit step to parse the response data as JSON: <code>fetch(url).then(function(response) {return response.json()})</code></p>
+<p>The <code>fetch()</code> API does have a few technical advantages over <code>XMLHttpRequest</code> in a few uncommon cases:</p>
+<ul>
+<li>it provides a streaming API (in the &quot;video streaming&quot; sense, not in the reactive programming sense), which enables better latency and memory consumption for very large responses (at the cost of code complexity).</li>
+<li>it integrates to the <a href=https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API>Service Worker API</a>, which provides an extra layer of control over how and when network requests happen. This API also allows access to push notifications and background synchronization features.</li>
+</ul>
+<p>In typical scenarios, streaming won&#39;t provide noticeable performance benefits because it&#39;s generally not advisable to download megabytes of data to begin with. Also, the memory gains from repeatedly reusing small buffers may be offset or nullified if they result in excessive browser repaints. For those reasons, choosing <code>fetch()</code> streaming instead of <code>m.request</code> is only recommended for extremely resource intensive applications.</p>
+<hr>
+<h3 id=avoid-anti-patterns><a href=#avoid-anti-patterns>Avoid anti-patterns</a></h3>
+<h4 id=promises-are-not-the-response-data><a href=#promises-are-not-the-response-data>Promises are not the response data</a></h4>
+<p>The <code>m.request</code> method returns a <a href=promise.html>Promise</a>, not the response data itself. It cannot return that data directly because an HTTP request may take a long time to complete (due to network latency), and if JavaScript waited for it, it would freeze the application until the data was available.</p>
+<pre><code class=language-javascript>// AVOID
+var users = m.request(&quot;/api/v1/users&quot;)
+console.log(&quot;list of users:&quot;, users)
+// `users` is NOT a list of users, it&#39;s a promise
+
+// PREFER
+m.request(&quot;/api/v1/users&quot;).then(function(users) {
+    console.log(&quot;list of users:&quot;, users)
+})</code></pre>
+<hr>
+<small>License: MIT. &copy; Leo Horie.</small>
+</section>
+</main>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js defer></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js defer></script>
+<script src=https://unpkg.com/mithril@2.0.2/mithril.js async></script>
+<script>
+document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+</script>

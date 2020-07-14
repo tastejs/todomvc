@@ -1,0 +1,41 @@
+{
+  "name": "posthtml-parser",
+  "version": "0.4.2",
+  "description": "Parse HTML/XML to PostHTMLTree",
+  "keywords": [
+    "html",
+    "xml",
+    "parser",
+    "posthtml",
+    "posthtmltree"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "npm run lint && npm run coverage",
+    "lint": "jshint . && jscs .",
+    "coverage": "istanbul cover --report text --report html --report lcov node_modules/mocha/bin/_mocha",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags && rm -rf coverage"
+  },
+  "repository": "posthtml/posthtml-parser",
+  "author": "Ivan Voischev <voischev.ivan@ya.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/posthtml/posthtml-parser/issues"
+  },
+  "homepage": "https://github.com/posthtml/posthtml-parser#readme",
+  "dependencies": {
+    "htmlparser2": "^3.9.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "istanbul": "^0.4.0",
+    "jscs": "^3.0.7",
+    "jshint": "^2.10.3",
+    "mocha": "^6.2.2",
+    "rewire": "^4.0.1",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0"
+  }
+}

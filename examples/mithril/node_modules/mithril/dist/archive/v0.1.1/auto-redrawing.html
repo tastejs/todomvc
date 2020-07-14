@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="installation.html">Installation</a></li>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="integrating-with-the-auto-redrawing-system">Integrating with The Auto-Redrawing System</h2>
+<p>If you need to do custom asynchronous calls without using Mithril&#39;s API, and find that your views are not redrawing, or that you&#39;re being forced to call <a href="mithril.redraw.html"><code>m.redraw</code></a> manually, you should consider using <code>m.startComputation</code> / <code>m.endComputation</code> so that Mithril can intelligently auto-redraw once your custom code finishes running.</p>
+<p>In order to integrate asynchronous code to Mithril&#39;s autoredrawing system, you should call <code>m.startComputation</code> BEFORE making an asynchronous call, and <code>m.endComputation</code> after the asynchronous callback completes.</p>
+<pre><code class="lang-javascript">//this service waits 1 second, logs &quot;hello&quot; and then notifies the view that
+//it may start redrawing (if no other asynchronous operations are pending)
+var doStuff = function() {
+    m.startComputation(); //call `startComputation` before the asynchronous `setTimeout`
+
+    setTimeout(function() {
+        console.log(&quot;hello&quot;);
+
+        m.endComputation(); //call `endComputation` at the end of the callback
+    }, 1000);
+};</code></pre>
+<p>To integrate synchronous code, call <code>m.startComputation</code> at the beginning of the method, and <code>m.endComputation</code> at the end.</p>
+<pre><code class="lang-javascript">window.onfocus = function() {
+    m.startComputation(); //call before everything else in the event handler
+
+    doStuff();
+
+    m.endComputation(); //call after everything else in the event handler
+}</code></pre>
+<p>For each <code>m.startComputation</code> call a library makes, it MUST also make one and ONLY one corresponding <code>m.endComputation</code> call.</p>
+<p>You should not use these methods if your code is intended to run repeatedly (e.g. by using <code>setInterval</code>). If you want to repeatedly redraw the view without necessarily waiting for user input, you should manually call <a href="mithril.redraw.html"><code>m.redraw</code></a> within the repeatable context.</p>
+<hr>
+<h3 id="integrating-multiple-execution-threads">Integrating multiple execution threads</h3>
+<p>When <a href="integration.html">integrating with third party libraries</a>, you might find that you need to call asynchronous methods from outside of Mithril&#39;s API.</p>
+<p>In order to integrate non-trivial asynchronous code to Mithril&#39;s auto-redrawing system, you need to ensure all execution threads call <code>m.startComputation</code> / <code>m.endComputation</code>.</p>
+<p>An execution thread is basically any amount of code that runs before other asynchronous threads start to run.</p>
+<p>Integrating multiple execution threads can be done in a two different ways: in a layered fashion or in comprehensive fashion</p>
+<h4 id="layered-integration">Layered integration</h4>
+<p>Layered integration is recommended for modular code where many different APIs may be put together at the application level.</p>
+<p>Below is an example where various methods implemented with a third party library can be integrated in layered fashion: any of the methods can be used in isolation or in combination.</p>
+<p>Notice how <code>doBoth</code> repeatedly calls <code>m.startComputation</code> since that method calls both <code>doSomething</code> and <code>doAnother</code>. This is perfectly valid: there are three asynchronous computations pending after the <code>jQuery.when</code> method is called, and therefore, three pairs of <code>m.startComputation</code> / <code>m.endComputation</code> in play.</p>
+<pre><code class="lang-javascript">var doSomething = function(callback) {
+    m.startComputation(); //call `startComputation` before the asynchronous AJAX request
+
+    return jQuery.ajax(&quot;/something&quot;).done(function() {
+        if (callback) callback();
+
+        m.endComputation(); //call `endComputation` at the end of the callback
+    });
+};
+var doAnother = function(callback) {
+    m.startComputation(); //call `startComputation` before the asynchronous AJAX request
+
+    return jQuery.ajax(&quot;/another&quot;).done(function() {
+        if (callback) callback();
+        m.endComputation(); //call `endComputation` at the end of the callback
+    });
+};
+var doBoth = function(callback) {
+    m.startComputation(); //call `startComputation` before the asynchronous synchronization method
+
+    jQuery.when(doSomething(), doAnother()).then(function() {
+        if (callback) callback();
+
+        m.endComputation(); //call `endComputation` at the end of the callback
+    })
+};</code></pre>
+<h4 id="comprehensive-integration">Comprehensive integration</h4>
+<p>Comprehensive integration is recommended if integrating a monolithic series of asynchronous operations. In contrast to layered integration, it minimizes the number of <code>m.startComputation</code> / <code>m.endComputation</code> to avoid clutter.</p>
+<p>The example below shows a convoluted series of AJAX requests implemented with a third party library.</p>
+<pre><code class="lang-javascript">var doSomething = function(callback) {
+    m.startComputation(); //call `startComputation` before everything else
+
+    jQuery.ajax(&quot;/something&quot;).done(function() {
+        doStuff();
+        jQuery.ajax(&quot;/another&quot;).done(function() {
+            doMoreStuff();
+            jQuery.ajax(&quot;/more&quot;).done(function() {
+                if (callback) callback();
+
+                m.endComputation(); //call `endComputation` at the end of everything
+            });
+        });
+    });
+};</code></pre>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

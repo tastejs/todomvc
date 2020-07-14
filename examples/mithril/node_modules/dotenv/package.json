@@ -1,0 +1,43 @@
+{
+  "name": "dotenv",
+  "version": "5.0.1",
+  "description": "Loads environment variables from .env file",
+  "main": "lib/main.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "lab",
+    "ci:coverage": "lab test/* -r lcov | coveralls",
+    "lint": "standard",
+    "postlint": "npm run lint-md",
+    "lint-md": "standard-markdown"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/motdotla/dotenv.git"
+  },
+  "keywords": [
+    "dotenv",
+    "env",
+    ".env",
+    "environment",
+    "variables",
+    "config",
+    "settings"
+  ],
+  "readmeFilename": "README.md",
+  "author": "scottmotte",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "babel": "5.8.23",
+    "coveralls": "^2.11.9",
+    "lab": "^14.3.2",
+    "should": "11.1.1",
+    "sinon": "1.17.6",
+    "standard": "8.4.0",
+    "standard-markdown": "2.2.0"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=4.6.0"
+  }
+}

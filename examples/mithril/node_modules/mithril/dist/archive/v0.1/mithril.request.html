@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="api">API (v0.1)</h2>
+							<h3 id="core">Core</h3>
+							<ul>
+								<li><a href="mithril.html">m</a></li>
+								<li><a href="mithril.prop.html">m.prop</a></li>
+								<li><a href="mithril.withAttr.html">m.withAttr</a></li>
+								<li><a href="mithril.module.html">m.module</a></li>
+								<li><a href="mithril.trust.html">m.trust</a></li>
+								<li><a href="mithril.render.html">m.render</a></li>
+								<li><a href="mithril.redraw.html">m.redraw</a></li>
+							</ul>
+							<h3 id="routing">Routing</h3>
+							<ul>
+								<li><a href="mithril.route.html">m.route</a>
+									<ul>
+										<li><a href="mithril.route.html#defining-routes">m.route(rootElement, defaultRoute, routes)</a></li>
+										<li><a href="mithril.route.html#redirecting">m.route(path)</a></li>
+										<li><a href="mithril.route.html#mode-abstraction">m.route(element)</a></li>
+										<li><a href="mithril.route.html#mode">m.route.mode</a></li>
+										<li><a href="mithril.route.html#param">m.route.param</a></li>
+									</ul>
+								</li>
+							</ul>
+							<h3 id="data">Data</h3>
+							<ul>
+								<li><a href="mithril.request.html">m.request</a></li>
+								<li><a href="mithril.deferred.html">m.deferred</a></li>
+								<li><a href="mithril.sync.html">m.sync</a></li>
+								<li><a href="mithril.computation.html">m.startComputation / m.endComputation</a></li>
+							</ul>
+							
+							<h2 id="archive">History</h2>
+							<ul>
+								<li><a href="roadmap.html">Roadmap</a></li>
+								<li><a href="change-log.html">Change log</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="m-request">m.request</h2>
+<p>This is a high-level utility for working with web services, which allows writing asynchronous code relatively procedurally.</p>
+<p>By default, it assumes server responses are in JSON format and optionally instantiates a class with the response data.</p>
+<p>It provides a number of useful features out of the box:</p>
+<ul>
+<li>The ability to get an early reference to a container that will hold the asynchronous response</li>
+<li>The ability to queue operations to be performed after the asynchronous request completes</li>
+<li>The ability to &quot;cast&quot; the response to a class of your choice</li>
+<li>The ability to unwrap data in a response that includes metadata properties</li>
+</ul>
+<hr>
+<h3 id="basic-usage">Basic usage</h3>
+<p>The basic usage pattern for <code>m.request</code> returns an <a href="mithril.prop.html"><code>m.prop</code></a> getter-setter, which is populated when the AJAX request completes.</p>
+<p>The returned getter-setter can be thought of as a box: you can pass this reference around cheaply, and you can &quot;unwrap&quot; its value when needed.</p>
+<pre><code class="lang-javascript">var users = m.request({method: &quot;GET&quot;, url: &quot;/user&quot;});
+
+//assuming the response contains the following data: `[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]`
+//then when resolved (e.g. in a view), the `users` getter-setter will contain a list of users
+//i.e. users() //[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]</code></pre>
+<p>Note that this getter-setter holds an <em>undefined</em> value until the AJAX request completes. Attempting to unwrap its value early will likely result in errors.</p>
+<p>The returned getter-setter also implements the <a href="mithril.deferred.html">promise</a> interface (also known as a <em>thennable</em>): this is the mechanism you should always use to queue operations to be performed on the data from the web service.</p>
+<p>The simplest use case of this feature is to implement functional value assignment via <code>m.prop</code> (i.e. the same thing as above). You can bind a pre-existing getter-setter by passing it in as a parameter to a <code>.then</code> method:</p>
+<pre><code class="lang-javascript">var users = m.prop([]); //default value
+
+m.request({method: &quot;GET&quot;, url: &quot;/user&quot;}).then(users)
+//assuming the response contains the following data: `[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]`
+//then when resolved (e.g. in a view), the `users` getter-setter will contain a list of users
+//i.e. users() //[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]</code></pre>
+<p>This syntax allows you to bind intermediate results before piping them down for further processing, for example:</p>
+<pre><code class="lang-javascript">var users = m.prop([]); //default value
+var doSomething = function() { /*...*/ }
+
+m.request({method: &quot;GET&quot;, url: &quot;/user&quot;}).then(users).then(doSomething)</code></pre>
+<p>While both basic assignment syntax and thennable syntax can be used to the same effect, typically it&#39;s recommended that you use the assignment syntax whenever possible, as it&#39;s easier to read.</p>
+<p>The thennable mechanism is intended to be used in 3 ways:</p>
+<ul>
+<li>in the model layer: to process web service data in transformative ways (e.g. filtering a list based on a parameter that the web service doesn&#39;t support)</li>
+<li>in the controller layer: to bind redirection code upon a condition</li>
+<li>in the controller layer: to bind error messages</li>
+</ul>
+<h4 id="processing-web-service-data">Processing web service data</h4>
+<p>This step is meant to be done in the model layer. Doing it in the controller level is also possible, but philosophically not recommended, because by tying logic to a controller, the code becomes harder to reuse due to unrelated controller dependencies.</p>
+<p>In the example below, the <code>listEven</code> method returns a getter-setter that resolves to a list of users containing only users whose id is even.</p>
+<pre><code class="lang-javascript">//model
+var User = {}
+
+User.listEven = function() {
+    return m.request({method: &quot;GET&quot;, url: &quot;/user&quot;}).then(function(list) {
+        return list.filter(function(user) {return user.id % 2 == 0});
+    });
+}
+
+//controller
+var controller = function() {
+    this.users = User.listEven()
+}</code></pre>
+<h4 id="bind-redirection-code">Bind redirection code</h4>
+<p>This step is meant to be done in the controller layer. Doing it in the model level is also possible, but philosophically not recommended, because by tying redirection to the model, the code becomes harder to reuse due to overly tight coupling.</p>
+<p>In the example below, we use the previously defined <code>listEven</code> model method and queue a controller-level function that redirects to another page if the user list is empty.</p>
+<pre><code class="lang-javascript">//controller
+var controller = function() {
+    this.users = User.listEven().then(function(users) {
+        if (users.length == 0) m.route(&quot;/add&quot;);
+    })
+}</code></pre>
+<h4 id="binding-errors">Binding errors</h4>
+<p>Mithril thennables take two functions as optional parameters: the first parameter is called if the web service request completes successfully. The second one is called if it completes with an error.</p>
+<p>Error binding is meant to be done in the controller layer. Doing it in the model level is also possible, but generally leads to more code in order to connect all the dots.</p>
+<p>In the example below, we bind an error getter-setter to our previous controller so that the <code>error</code> variable gets populated if the server throws an error.</p>
+<pre><code class="lang-javascript">//controller
+var controller = function() {
+    this.error = m.prop(&quot;&quot;)
+
+    this.users = User.listEven().then(function(users) {
+        if (users.length == 0) m.route(&quot;/add&quot;);
+    }, this.error)
+}</code></pre>
+<p>If the controller doesn&#39;t already have a success callback to run after a request resolves, you can still bind errors like this:</p>
+<pre><code class="lang-javascript">//controller
+var controller = function() {
+    this.error = m.prop(&quot;&quot;)
+
+    this.users = User.listEven().then(null, this.error)
+}</code></pre>
+<hr>
+<h3 id="queuing-operations">Queuing Operations</h3>
+<p>As you saw, you can chain operations that act on the response data. Typically this is required in three situations:</p>
+<ul>
+<li>in model-level methods if client-side processing is needed to make the data useful for a controller or view.</li>
+<li>in the controller, to redirect after a model service resolves.</li>
+<li>in the controller, to bind error messages</li>
+</ul>
+<p>In the example below, we take advantage of queuing to debug the ajax response data prior to doing further processing on the user list</p>
+<pre><code class="lang-javascript">var users = m.request({method: &quot;GET&quot;, url: &quot;/user&quot;})
+    .then(console.log);
+    .then(function(users) {
+        //add one more user to the response
+        return users.concat({name: &quot;Jane&quot;})
+    })
+
+//assuming the response contains the following data: `[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]`
+//then when resolved (e.g. in a view), the `users` getter-setter will contain a list of users
+//i.e. users() //[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}, {name: &quot;Jane&quot;}]</code></pre>
+<hr>
+<h3 id="casting-the-response-data-to-a-class">Casting the Response Data to a Class</h3>
+<p>It&#39;s possible to auto-cast a JSON response to a class. This is useful when we want to control access to certain properties in an object, as opposed to exposing all the fields in POJOs (plain old javascript objects) for arbitrary processing.</p>
+<p>In the example below, <code>User.list</code> returns a list of <code>User</code> instances.</p>
+<pre><code class="lang-javascript">var User = function(data) {
+    this.name = m.prop(data.name);
+}
+
+User.list = function() {
+    return m.request({method: &quot;GET&quot;, url: &quot;/user&quot;, type: User});
+}
+
+var users = User.list();
+//assuming the response contains the following data: `[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]`
+//then when resolved (e.g. in a view), `users` will contain a list of User instances
+//i.e. users()[0].name() == &quot;John&quot;</code></pre>
+<hr>
+<h3 id="unwrapping-response-data">Unwrapping Response Data</h3>
+<p>Often, web services return the relevant data wrapped in objects that contain metadata.</p>
+<p>Mithril allows you to unwrap the relevant data, by providing two callback hooks: <code>unwrapSuccess</code> and <code>unwrapError</code>.</p>
+<p>These hooks allow you to unwrap different parts of the response data depending on whether it succeed or failed.</p>
+<pre><code class="lang-javascript">var users = m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/user&quot;,
+    unwrapSuccess: function(response) {
+        return response.data;
+    },
+    unwrapError: function(response) {
+        return response.error;
+    }
+});
+
+//assuming the response is: `{data: [{name: &quot;John&quot;}, {name: &quot;Mary&quot;}], count: 2}`
+//then when resolved (e.g. in a view), the `users` getter-setter will contain a list of users
+//i.e. users() //[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]</code></pre>
+<hr>
+<h3 id="using-different-data-transfer-formats">Using Different Data Transfer Formats</h3>
+<p>By default, <code>m.request</code> uses JSON to send and receive data to web services. You can override this by providing <code>serialize</code> and <code>deserialize</code> options:</p>
+<pre><code class="lang-javascript">var users = m.request({
+    method: &quot;GET&quot;,
+    url: &quot;/user&quot;,
+    serialize: mySerializer,
+    deserialize: myDeserializer
+});</code></pre>
+<p>One typical way to override this is to receive as-is responses. The example below shows how to receive a plain string from a txt file.</p>
+<pre><code class="lang-javascript">var file = m.request({
+    method: &quot;GET&quot;,
+    url: &quot;myfile.txt&quot;,
+    deserialize: function(value) {return value;}
+});</code></pre>
+<hr>
+<h3 id="signature">Signature</h3>
+<p><a href="how-to-read-signatures.html">How to read signatures</a></p>
+<pre><code class="lang-clike">Promise request(XHROptions options)
+
+where:
+    Promise :: GetterSetter { Promise then(any successCallback(any value), any errorCallback(any value)) }
+    GetterSetter :: any getterSetter([any value])
+    XHROptions :: Object {
+        String method,
+        String url,
+        [String user,]
+        [String password,]
+        [Object&lt;any&gt; data,]
+        [Response unwrapSuccess(Response data),]
+        [Response unwrapError(Response data),]
+        [String serialize(any dataToSerialize),]
+        [any deserialize(String dataToDeserialize),]
+        [void type(Object&lt;any&gt; data),]
+        [void config(XMLHttpRequest xhr, XHROptions options)]
+    }
+    Response :: Object&lt;any&gt; | Array&lt;any&gt;</code></pre>
+<ul>
+<li><p><strong>XHROptions options</strong></p>
+<p>A map of options for the XMLHttpRequest</p>
+<ul>
+<li><p><strong>String method</strong></p>
+<p>The HTTP method. Must be either <code>&quot;GET&quot;</code>, <code>&quot;POST&quot;</code>, <code>&quot;PUT&quot;</code>, <code>&quot;DELETE&quot;</code>, <code>&quot;HEAD&quot;</code> or <code>&quot;OPTIONS&quot;</code></p>
+</li>
+<li><p><strong>String url</strong></p>
+<p>The URL to request. If the URL is not in the same domain as the application, the target server must be configured to accept cross-domain requests from the application&#39;s domain, i.e. its responses must include the header <code>Access-Control-Allow-Origin: *</code>.</p>
+</li>
+<li><p><strong>String user</strong> (optional)</p>
+<p>A user for HTTP authentication. Defaults to <code>undefined</code></p>
+</li>
+<li><p><strong>String password</strong> (optional)</p>
+<p>A password for HTTP authentication. Defaults to <code>undefined</code></p>
+</li>
+<li><p><strong>String password</strong> (optional)</p>
+<p>A password for HTTP authentication. Defaults to <code>undefined</code></p>
+</li>
+<li><p><strong>Object<any> data</any></strong> (optional)</p>
+<p>Data to be sent. It&#39;s automatically placed in the appropriate section of the request with the appropriate serialization based on <code>method</code></p>
+</li>
+<li><p><strong>Response unwrapSuccess(Response data)</strong> (optional)</p>
+<p>A preprocessor function to extract the data from a success response in case the response contains metadata wrapping the data.</p>
+<p>The default value (if this parameter is falsy) is the identity function <code>function(value) {return value}</code></p>
+<p>For example, if the response is <code>{data: [{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]}</code> and the unwrap function is <code>function(response) {return response.data}</code>, then the response will be considered to be <code>[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]</code> when processing the <code>type</code> parameter</p>
+<ul>
+<li><p><strong>Object<any> | Array<any> data</any></any></strong></p>
+<p>The data to unwrap</p>
+</li>
+<li><p><strong>returns Object<any> | Array<any> unwrappedData</any></any></strong></p>
+<p>The unwrapped data</p>
+</li>
+</ul>
+</li>
+<li><p><strong>String unwrapError(Response data)</strong> (optional)</p>
+<p>A preprocessor function to extract the data from an error response in case the response contains metadata wrapping the data.</p>
+<p>The default value (if this parameter is falsy) is the identity function <code>function(value) {return value}</code></p>
+<ul>
+<li><p><strong>Object<any> | Array<any> data</any></any></strong></p>
+<p>The data to unwrap</p>
+</li>
+<li><p><strong>returns Object<any> | Array<any> unwrappedData</any></any></strong></p>
+<p>The unwrapped data</p>
+</li>
+</ul>
+</li>
+<li><p><strong>String serialize(any dataToSerialize)</strong> (optional)</p>
+<p>Method to use to serialize the request data</p>
+<p>The default value (if this parameter is falsy) is <code>JSON.stringify</code></p>
+<ul>
+<li><p><strong>any dataToSerialize</strong></p>
+<p>Data to be serialized</p>
+</li>
+<li><p><strong>returns String serializedData</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>any deserialize(String dataToDeserialize)</strong> (optional)</p>
+<p>Method to use to deserialize the response data</p>
+<p>The default value (if this parameter is falsy) is <code>JSON.parse</code></p>
+<ul>
+<li><p><strong>String dataToDeserialize</strong></p>
+<p>Data to be deserialized</p>
+</li>
+<li><p><strong>returns any deserializedData</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>void type(Object<any> data)</any></strong> (optional)</p>
+<p>The response object (or the child items if this object is an Array) will be passed as a parameter to the class constructor defined by <code>type</code></p>
+<p>If this parameter is falsy, the deserialized data will not be wrapped.</p>
+<p>For example, if <code>type</code> is the following class:</p>
+<pre><code class="lang-javascript">var User = function(data) {
+  this.name = m.prop(data.name);
+}</code></pre>
+<p>And the data is <code>[{name: &quot;John&quot;}, {name: &quot;Mary&quot;}]</code>, then the response will contain an array of two User instances.</p>
+</li>
+<li><p><strong>void config(XMLHttpRequest xhr, XHROptions options)</strong> (optional)</p>
+<p>An initialization function that runs after <code>open</code> and before <code>send</code>. Useful for adding request headers and when using XHR2 features, such as the XMLHttpRequest&#39;s <code>upload</code> property.</p>
+<ul>
+<li><p><strong>XMLHttpRequest xhr</strong></p>
+<p>The XMLHttpRequest instance.</p>
+</li>
+<li><p><strong>XHROptions options</strong></p>
+<p>The <code>options</code> parameter that was passed into <code>m.request</code> call</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>returns Promise promise</strong></p>
+<p>returns a promise that can bind callbacks which get called on completion of the AJAX request.</p>
+</li>
+</ul>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

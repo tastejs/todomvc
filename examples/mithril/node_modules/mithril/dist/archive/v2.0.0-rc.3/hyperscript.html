@@ -1,0 +1,522 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> m(selector, attributes, children) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.3</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="mselector,-attributes,-children"><a href="#mselector,-attributes,-children">m(selector, attributes, children)</a></h1>
+<ul>
+<li>Core<ul>
+<li><strong><a href="hyperscript.html">m</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#flexibility">Flexibility</a></li>
+<li><a href="#css-selectors">CSS selectors</a></li>
+<li><a href="#attributes-passed-as-the-second-argument">Attributes passed as the second argument</a></li>
+<li><a href="#dom-attributes">DOM attributes</a></li>
+<li><a href="#style-attribute">Style attribute</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#properties">Properties</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#lifecycle-methods">Lifecycle methods</a></li>
+<li><a href="#keys">Keys</a></li>
+<li><a href="#svg-and-mathml">SVG and MathML</a></li>
+<li><a href="#making-templates-dynamic">Making templates dynamic</a></li>
+<li><a href="#converting-html">Converting HTML</a></li>
+<li><a href="#avoid-anti-patterns">Avoid anti-patterns</a></li>
+</ul>
+</li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Represents an HTML element in a Mithril view</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {class: &quot;foo&quot;}, &quot;hello&quot;)
+// represents &lt;div class=&quot;foo&quot;&gt;hello&lt;/div&gt;
+</code></pre>
+<p>You can also <a href="https://babeljs.io/repl/#?code=%2F**%20%40jsx%20m%20*%2F%0A%3Ch1%3EMy%20first%20app%3C%2Fh1%3E">use HTML syntax</a> via a Babel plugin.</p>
+<pre><code class="lang-markup">/** jsx m */
+&lt;div class=&quot;foo&quot;&gt;hello&lt;/div&gt;
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>vnode = m(selector, attrs, children)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>selector</code></td>
+<td><code>String&#124;Object</code></td>
+<td>Yes</td>
+<td>A CSS selector or a <a href="components.html">component</a></td>
+</tr>
+<tr>
+<td><code>attrs</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>HTML attributes or element properties</td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td><code>Array&lt;Vnode&gt;&#124;String&#124;Number&#124;Boolean</code></td>
+<td>No</td>
+<td>Child <a href="vnodes.html#structure">vnodes</a>. Can be written as <a href="signatures.html#splats">splat arguments</a></td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Vnode</code></td>
+<td></td>
+<td>A <a href="vnodes.html#structure">vnode</a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>Mithril provides a hyperscript function <code>m()</code>, which allows expressing any HTML structure using javascript syntax. It accepts a <code>selector</code> string (required), an <code>attrs</code> object (optional) and a <code>children</code> array (optional).</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {id: &quot;box&quot;}, &quot;hello&quot;)
+
+// equivalent HTML:
+// &lt;div id=&quot;box&quot;&gt;hello&lt;/div&gt;
+</code></pre>
+<p>The <code>m()</code> function does not actually return a DOM element. Instead it returns a <a href="vnodes.html">virtual DOM node</a>, or <em>vnode</em>, which is a javascript object that represents the DOM element to be created.</p>
+<pre><code class="lang-javascript">// a vnode
+var vnode = {tag: &quot;div&quot;, attrs: {id: &quot;box&quot;}, children: [ /*...*/ ]}
+</code></pre>
+<p>To transform a vnode into an actual DOM element, use the <a href="render.html"><code>m.render()</code></a> function:</p>
+<pre><code class="lang-javascript">m.render(document.body, m(&quot;br&quot;)) // puts a &lt;br&gt; in &lt;body&gt;
+</code></pre>
+<p>Calling <code>m.render()</code> multiple times does <strong>not</strong> recreate the DOM tree from scratch each time. Instead, each call will only make a change to a DOM tree if it is absolutely necessary to reflect the virtual DOM tree passed into the call. This behavior is desirable because recreating the DOM from scratch is very expensive, and causes issues such as loss of input focus, among other things. By contrast, updating the DOM only where necessary is comparatively much faster and makes it easier to maintain complex UIs that handle multiple user stories.</p>
+<hr>
+<h3 id="flexibility"><a href="#flexibility">Flexibility</a></h3>
+<p>The <code>m()</code> function is both <em>polymorphic</em> and <em>variadic</em>. In other words, it&#39;s very flexible in what it expects as input parameters:</p>
+<pre><code class="lang-javascript">// simple tag
+m(&quot;div&quot;) // &lt;div&gt;&lt;/div&gt;
+
+// attributes and children are optional
+m(&quot;a&quot;, {id: &quot;b&quot;}) // &lt;a id=&quot;b&quot;&gt;&lt;/a&gt;
+m(&quot;span&quot;, &quot;hello&quot;) // &lt;span&gt;hello&lt;/span&gt;
+
+// tag with child nodes
+m(&quot;ul&quot;, [             // &lt;ul&gt;
+    m(&quot;li&quot;, &quot;hello&quot;), //   &lt;li&gt;hello&lt;/li&gt;
+    m(&quot;li&quot;, &quot;world&quot;), //   &lt;li&gt;world&lt;/li&gt;
+])                    // &lt;/ul&gt;
+
+// array is optional
+m(&quot;ul&quot;,               // &lt;ul&gt;
+    m(&quot;li&quot;, &quot;hello&quot;), //   &lt;li&gt;hello&lt;/li&gt;
+    m(&quot;li&quot;, &quot;world&quot;)  //   &lt;li&gt;world&lt;/li&gt;
+)                     // &lt;/ul&gt;
+</code></pre>
+<hr>
+<h3 id="css-selectors"><a href="#css-selectors">CSS selectors</a></h3>
+<p>The first argument of <code>m()</code> can be any CSS selector that can describe an HTML element. It accepts any valid CSS combinations of <code>#</code> (id), <code>.</code> (class) and <code>[]</code> (attribute) syntax.</p>
+<pre><code class="lang-javascript">m(&quot;div#hello&quot;)
+// &lt;div id=&quot;hello&quot;&gt;&lt;/div&gt;
+
+m(&quot;section.container&quot;)
+// &lt;section class=&quot;container&quot;&gt;&lt;/section&gt;
+
+m(&quot;input[type=text][placeholder=Name]&quot;)
+// &lt;input type=&quot;text&quot; placeholder=&quot;Name&quot; /&gt;
+
+m(&quot;a#exit.external[href=&#39;http://example.com&#39;]&quot;, &quot;Leave&quot;)
+// &lt;a id=&quot;exit&quot; class=&quot;external&quot; href=&quot;http://example.com&quot;&gt;Leave&lt;/a&gt;
+</code></pre>
+<p>If you omit the tag name, Mithril assumes a <code>div</code> tag.</p>
+<pre><code class="lang-javascript">m(&quot;.box.box-bordered&quot;) // &lt;div class=&quot;box box-bordered&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>Typically, it&#39;s recommended that you use CSS selectors for static attributes (i.e. attributes whose value do not change), and pass an attributes object for dynamic attribute values.</p>
+<pre><code class="lang-javascript">var currentURL = &quot;/&quot;
+
+m(&quot;a.link[href=/]&quot;, {
+    class: currentURL === &quot;/&quot; ? &quot;selected&quot; : &quot;&quot;
+}, &quot;Home&quot;)
+
+// equivalent HTML:
+// &lt;a href=&quot;/&quot; class=&quot;link selected&quot;&gt;Home&lt;/a&gt;
+</code></pre>
+<h3 id="attributes-passed-as-the-second-argument"><a href="#attributes-passed-as-the-second-argument">Attributes passed as the second argument</a></h3>
+<p>You can pass attributes, properties, events and lifecycle hooks in the second, optional argument (see the next sections for details).</p>
+<pre><code class="lang-JS">m(&quot;button&quot;, {
+    class: &quot;my-button&quot;,
+    onclick: function() {/* ... */},
+    oncreate: function() {/* ... */}
+})
+</code></pre>
+<p>If the value of such an attribute is <code>null</code> or <code>undefined</code>, it is treated as if the attribute was absent.</p>
+<p>If there are class names in both first and second arguments of <code>m()</code>, they are merged together as you would expect. If the value of the class in the second argument is <code>null</code>or <code>undefined</code>, it is ignored.</p>
+<p>If another attribute is present in both the first and the second argument, the second one takes precedence even if it is  is <code>null</code> or <code>undefined</code>.</p>
+<hr>
+<h3 id="dom-attributes"><a href="#dom-attributes">DOM attributes</a></h3>
+<p>Mithril uses both the Javascript API and the DOM API (<code>setAttribute</code>) to resolve attributes. This means you can use both syntaxes to refer to attributes.</p>
+<p>For example, in the Javascript API, the <code>readonly</code> attribute is called <code>element.readOnly</code> (notice the uppercase). In Mithril, all of the following are supported:</p>
+<pre><code class="lang-javascript">m(&quot;input&quot;, {readonly: true}) // lowercase
+m(&quot;input&quot;, {readOnly: true}) // uppercase
+m(&quot;input[readonly]&quot;)
+m(&quot;input[readOnly]&quot;)
+</code></pre>
+<p>This even includes custom elements. For example, you can use <a href="https://aframe.io/docs/0.8.0/introduction/">A-Frame</a> within Mithril, no problem!</p>
+<pre><code class="lang-javascript">m(&quot;a-scene&quot;, [
+    m(&quot;a-box&quot;, {
+        position: &quot;-1 0.5 -3&quot;,
+        rotation: &quot;0 45 0&quot;,
+        color: &quot;#4CC3D9&quot;,
+    }),
+
+    m(&quot;a-sphere&quot;, {
+        position: &quot;0 1.25 -5&quot;,
+        radius: &quot;1.25&quot;,
+        color: &quot;#EF2D5E&quot;,
+    }),
+
+    m(&quot;a-cylinder&quot;, {
+        position: &quot;1 0.75 -3&quot;,
+        radius: &quot;0.5&quot;,
+        height: &quot;1.5&quot;,
+        color: &quot;#FFC65D&quot;,
+    }),
+
+    m(&quot;a-plane&quot;, {
+        position: &quot;0 0 -4&quot;,
+        rotation: &quot;-90 0 0&quot;,
+        width: &quot;4&quot;,
+        height: &quot;4&quot;,
+        color: &quot;#7BC8A4&quot;,
+    }),
+
+    m(&quot;a-sky&quot;, {
+        color: &quot;#ECECEC&quot;,
+    }),
+])
+</code></pre>
+<p>And yes, this translates to both attributes and properties, and it works just like they would in the DOM. Using <a href="http://brick.mozilla.io/docs/brick-deck">Brick&#39;s <code>brick-deck</code></a> as an example, they have a <code>selected-index</code> attribute with a corresponding <code>selectedIndex</code> getter/setter property.</p>
+<pre><code class="lang-javascript">m(&quot;brick-deck[selected-index=0]&quot;, [/* ... */]) // lowercase
+m(&quot;brick-deck[selectedIndex=0]&quot;, [/* ... */]) // uppercase
+// I know these look odd, but `brick-deck`&#39;s `selectedIndex` property is a
+// string, not a number.
+m(&quot;brick-deck&quot;, {&quot;selected-index&quot;: &quot;0&quot;}, [/* ... */])
+m(&quot;brick-deck&quot;, {&quot;selectedIndex&quot;: &quot;0&quot;}, [/* ... */])
+</code></pre>
+<p>For custom elements, it doesn&#39;t auto-stringify properties, in case they are objects, numbers, or some other non-string value. So assuming you had some custom element <code>my-special-element</code> that has an <code>elem.whitelist</code> array getter/setter property, you could do this, and it&#39;d work as you&#39;d expect:</p>
+<pre><code class="lang-javascript">m(&quot;my-special-element&quot;, {
+    whitelist: [
+        &quot;https://example.com&quot;,
+        &quot;http://neverssl.com&quot;,
+        &quot;https://google.com&quot;,
+    ],
+})
+</code></pre>
+<p>If you have classes or IDs for those elements, the shorthands still work as you would expect. To pull another A-Frame example:</p>
+<pre><code class="lang-javascript">// These two are equivalent
+m(&quot;a-entity#player&quot;)
+m(&quot;a-entity&quot;, {id: &quot;player&quot;})
+</code></pre>
+<p>Do note that all the properties with magic semantics, like lifecycle attributes, <code>onevent</code> handlers, <code>key</code>s, <code>class</code>, and <code>style</code>, those are still treated the same way they are for normal HTML elements.</p>
+<hr>
+<h3 id="style-attribute"><a href="#style-attribute">Style attribute</a></h3>
+<p>Mithril supports both strings and objects as valid <code>style</code> values. In other words, all of the following are supported:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {style: &quot;background:red;&quot;})
+m(&quot;div&quot;, {style: {background: &quot;red&quot;}})
+m(&quot;div[style=background:red]&quot;)
+</code></pre>
+<p>Using a string as a <code>style</code> would overwrite all inline styles in the element if it is redrawn, and not only CSS rules whose values have changed.</p>
+<p>You can use both hyphenated CSS property names (like <code>background-color</code>) and camel cased DOM <code>style</code> property names (like <code>backgroundColor</code>). You can also define <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables">CSS custom properties</a>, if your browser supports them.</p>
+<p>Mithril does not attempt to add units to number values. It simply stringifies them.</p>
+<hr>
+<h3 id="events"><a href="#events">Events</a></h3>
+<p>Mithril supports event handler binding for all DOM events, including events whose specs do not define an <code>on${event}</code> property, such as <code>touchstart</code></p>
+<pre><code class="lang-javascript">function doSomething(e) {
+    console.log(e)
+}
+
+m(&quot;div&quot;, {onclick: doSomething})
+</code></pre>
+<p>Mithril accepts functions and <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventListener">EventListener</a> objects. So this will also work:</p>
+<pre><code class="lang-javascript">var clickListener = {
+    handleEvent: function(e) {
+        console.log(e)
+    }
+}
+
+m(&quot;div&quot;, {onclick: clickListener})
+</code></pre>
+<p>By default, when an event attached with hyperscript fires, this will trigger Mithril&#39;s auto-redraw after your event callback returns (assuming you are using <code>m.mount</code> or <code>m.route</code> instead of <code>m.render</code> directly). You can disable auto-redraw specifically for a single event by setting <code>e.redraw = false</code> on it:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {
+    onclick: function(e) {
+        // Prevent auto-redraw
+        e.redraw = false
+    }
+})
+</code></pre>
+<hr>
+<h3 id="properties"><a href="#properties">Properties</a></h3>
+<p>Mithril supports DOM functionality that is accessible via properties such as <code>&lt;select&gt;</code>&#39;s <code>selectedIndex</code> and <code>value</code> properties.</p>
+<pre><code class="lang-javascript">m(&quot;select&quot;, {selectedIndex: 0}, [
+    m(&quot;option&quot;, &quot;Option A&quot;),
+    m(&quot;option&quot;, &quot;Option B&quot;),
+])
+</code></pre>
+<hr>
+<h3 id="components"><a href="#components">Components</a></h3>
+<p><a href="components.html">Components</a> allow you to encapsulate logic into a unit and use it as if it was an element. They are the base for making large, scalable applications.</p>
+<p>A component is any Javascript object that contains a <code>view</code> method. To consume a component, pass the component as the first argument to <code>m()</code> instead of passing a CSS selector string. You can pass arguments to the component by defining attributes and children, as shown in the example below.</p>
+<pre><code class="lang-javascript">// define a component
+var Greeter = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, vnode.attrs, [&quot;Hello &quot;, vnode.children])
+    }
+}
+
+// consume it
+m(Greeter, {style: &quot;color:red;&quot;}, &quot;world&quot;)
+
+// equivalent HTML:
+// &lt;div style=&quot;color:red;&quot;&gt;Hello world&lt;/div&gt;
+</code></pre>
+<p>To learn more about components, <a href="components.html">see the components page</a>.</p>
+<hr>
+<h3 id="lifecycle-methods"><a href="#lifecycle-methods">Lifecycle methods</a></h3>
+<p>Vnodes and components can have lifecycle methods (also known as <em>hooks</em>), which are called at various points during the lifetime of a DOM element. The lifecycle methods supported by Mithril are: <code>oninit</code>, <code>oncreate</code>, <code>onupdate</code>, <code>onbeforeremove</code>, <code>onremove</code>, and <code>onbeforeupdate</code>.</p>
+<p>Lifecycle methods are defined in the same way as DOM event handlers, but receive the vnode as an argument, instead of an Event object:</p>
+<pre><code class="lang-javascript">function initialize(vnode) {
+    console.log(vnode)
+}
+
+m(&quot;div&quot;, {oninit: initialize})
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Hook</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>oninit(vnode)</code></td>
+<td>Runs before a vnode is rendered into a real DOM element</td>
+</tr>
+<tr>
+<td><code>oncreate(vnode)</code></td>
+<td>Runs after a vnode is appended to the DOM</td>
+</tr>
+<tr>
+<td><code>onupdate(vnode)</code></td>
+<td>Runs every time a redraw occurs while the DOM element is attached to the document</td>
+</tr>
+<tr>
+<td><code>onbeforeremove(vnode)</code></td>
+<td>Runs before a DOM element is removed from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. This method is only triggered on the element that is detached from its parent DOM element, but not on its child elements.</td>
+</tr>
+<tr>
+<td><code>onremove(vnode)</code></td>
+<td>Runs before a DOM element is removed from the document. If a <code>onbeforeremove</code> hook is defined, <code>onremove</code> is called after <code>done</code> is called. This method is triggered on the element that is detached from its parent element, and all of its children</td>
+</tr>
+<tr>
+<td><code>onbeforeupdate(vnode, old)</code></td>
+<td>Runs before <code>onupdate</code> and if it returns <code>false</code>, it prevents a diff for the element and all of its children</td>
+</tr>
+</tbody>
+</table>
+<p>To learn more about lifecycle methods, <a href="lifecycle-methods.html">see the lifecycle methods page</a>.</p>
+<hr>
+<h3 id="keys"><a href="#keys">Keys</a></h3>
+<p>Vnodes in a list can have a special attribute called <code>key</code>, which can be used to manage the identity of the DOM element as the model data that generates the vnode list changes.</p>
+<p>Typically, <code>key</code> should be the unique identifier field of the objects in the data array.</p>
+<pre><code class="lang-javascript">var users = [
+    {id: 1, name: &quot;John&quot;},
+    {id: 2, name: &quot;Mary&quot;},
+]
+
+function userInputs(users) {
+    return users.map(function(u) {
+        return m(&quot;input&quot;, {key: u.id}, u.name)
+    })
+}
+
+m.render(document.body, userInputs(users))
+</code></pre>
+<p>Having a key means that if the <code>users</code> array is shuffled and the view is re-rendered, the inputs will be shuffled in the exact same order, so as to maintain correct focus and DOM state.</p>
+<p>To learn more about keys, <a href="keys.html">see the keys page</a></p>
+<hr>
+<h3 id="svg-and-mathml"><a href="#svg-and-mathml">SVG and MathML</a></h3>
+<p>Mithril fully supports SVG. Xlink is also supported, but unlike in pre-v1.0 versions of Mithril, must have the namespace explicitly defined:</p>
+<pre><code class="lang-javascript">m(&quot;svg&quot;, [
+    m(&quot;image[xlink:href=&#39;image.gif&#39;]&quot;)
+])
+</code></pre>
+<p>MathML is also fully supported.</p>
+<hr>
+<h3 id="making-templates-dynamic"><a href="#making-templates-dynamic">Making templates dynamic</a></h3>
+<p>Since nested vnodes are just plain Javascript expressions, you can simply use Javascript facilities to manipulate them</p>
+<h4 id="dynamic-text"><a href="#dynamic-text">Dynamic text</a></h4>
+<pre><code class="lang-javascript">var user = {name: &quot;John&quot;}
+
+m(&quot;.name&quot;, user.name) // &lt;div class=&quot;name&quot;&gt;John&lt;/div&gt;
+</code></pre>
+<h4 id="loops"><a href="#loops">Loops</a></h4>
+<p>Use <code>Array</code> methods such as <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map</code></a> to iterate over lists of data</p>
+<pre><code class="lang-javascript">var users = [
+    {name: &quot;John&quot;},
+    {name: &quot;Mary&quot;},
+]
+
+m(&quot;ul&quot;, users.map(function(u) { // &lt;ul&gt;
+    return m(&quot;li&quot;, u.name)      //   &lt;li&gt;John&lt;/li&gt;
+                                //   &lt;li&gt;Mary&lt;/li&gt;
+}))                             // &lt;/ul&gt;
+
+// ES6:
+// m(&quot;ul&quot;, users.map(u =&gt;
+//   m(&quot;li&quot;, u.name)
+// ))
+</code></pre>
+<h4 id="conditionals"><a href="#conditionals">Conditionals</a></h4>
+<p>Use the ternary operator to conditionally set content on a view</p>
+<pre><code class="lang-javascript">var isError = false
+
+m(&quot;div&quot;, isError ? &quot;An error occurred&quot; : &quot;Saved&quot;) // &lt;div&gt;Saved&lt;/div&gt;
+</code></pre>
+<p>You cannot use Javascript statements such as <code>if</code> or <code>for</code> within Javascript expressions. It&#39;s preferable to avoid using those statements altogether and instead, use the constructs above exclusively in order to keep the structure of the templates linear and declarative, and to avoid deoptimizations.</p>
+<hr>
+<h3 id="converting-html"><a href="#converting-html">Converting HTML</a></h3>
+<p>In Mithril, well-formed HTML is valid JSX. Little effort other than copy-pasting is required to integrate an independently produced HTML file into a project using JSX.</p>
+<p>When using hyperscript, it&#39;s necessary to convert HTML to hyperscript syntax before the code can be run. To facilitate this, you can <a href="http://arthurclemens.github.io/mithril-template-converter/index.html">use the HTML-to-Mithril-template converter</a>.</p>
+<hr>
+<h3 id="avoid-anti-patterns"><a href="#avoid-anti-patterns">Avoid Anti-patterns</a></h3>
+<p>Although Mithril is flexible, some code patterns are discouraged:</p>
+<h4 id="avoid-dynamic-selectors"><a href="#avoid-dynamic-selectors">Avoid dynamic selectors</a></h4>
+<p>Different DOM elements have different attributes, and often different behaviors. Making a selector configurable can leak the implementation details of a component out of its unit.</p>
+<pre><code class="lang-javascript">// AVOID
+var BadInput = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, [
+            m(&quot;label&quot;),
+            m(vnode.attrs.type || &quot;input&quot;)
+        ])
+    }
+}
+</code></pre>
+<p>Instead of making selectors dynamic, you are encouraged to explicitly code each valid possibility, or refactor the variable portion of the code out.</p>
+<pre><code class="lang-javascript">// PREFER explicit code
+var BetterInput = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, [
+            m(&quot;label&quot;, vnode.attrs.title),
+            m(&quot;input&quot;),
+        ])
+    }
+}
+var BetterSelect = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, [
+            m(&quot;label&quot;, vnode.attrs.title),
+            m(&quot;select&quot;),
+        ])
+    }
+}
+
+// PREFER refactor variability out
+var BetterLabeledComponent = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, [
+            m(&quot;label&quot;, vnode.attrs.title),
+            vnode.children,
+        ])
+    }
+}
+</code></pre>
+<h4 id="avoid-statements-in-view-methods"><a href="#avoid-statements-in-view-methods">Avoid statements in view methods</a></h4>
+<p>Javascript statements often require changing the naturally nested structure of an HTML tree, making the code more verbose and harder to understand. Constructing an virtual DOM tree procedurally can also potentially trigger expensive deoptimizations (such as an entire template being recreated from scratch)</p>
+<pre><code class="lang-javascript">// AVOID
+var BadListComponent = {
+    view: function(vnode) {
+        var list = []
+        for (var i = 0; i &lt; vnode.attrs.items.length; i++) {
+            list.push(m(&quot;li&quot;, vnode.attrs.items[i]))
+        }
+
+        return m(&quot;ul&quot;, list)
+    }
+}
+</code></pre>
+<p>Instead, prefer using Javascript expressions such as the ternary operator and Array methods.</p>
+<pre><code class="lang-javascript">// PREFER
+var BetterListComponent = {
+    view: function(vnode) {
+        return m(&quot;ul&quot;, vnode.attrs.items.map(function(item) {
+            return m(&quot;li&quot;, item)
+        }))
+    }
+}
+</code></pre>
+<h4 id="avoid-creating-vnodes-outside-views"><a href="#avoid-creating-vnodes-outside-views">Avoid creating vnodes outside views</a></h4>
+<p>When a redraw encounters a vnode which is strictly equal to the one in the previous render, it will be skipped and its contents will not be updated. While this may seem like an opportunity for performance optimisation, it should be avoided because it prevents dynamic changes in that node&#39;s tree - this leads to side-effects such as downstream lifecycle methods failing to trigger on redraw. In this sense, Mithril vnodes are immutable: new vnodes are compared to old ones; mutations to vnodes are not persisted.</p>
+<p>The component documentation contains <a href="components.html#avoid-creating-component-instances-outside-views">more detail and an example of this anti-pattern</a>.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.3/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,236 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Keys - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.5</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="keys"><a href="#keys">Keys</a></h1>
+<ul>
+<li>Tutorials<ul>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><strong><a href="keys.html">Keys</a></strong><ul>
+<li><a href="#what-are-keys">What are keys</a></li>
+<li><a href="#how-to-use">How to use</a></li>
+<li><a href="#debugging-key-related-issues">Debugging key related issues</a></li>
+</ul>
+</li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="what-are-keys"><a href="#what-are-keys">What are keys</a></h3>
+<p>Keys are a mechanism that allows re-ordering DOM elements within a NodeList, and mapping specific data items in a list to the respective DOM elements that are derived from them, as the data items move within the list.</p>
+<p>In other words, a <code>key</code> is a way of saying &quot;this DOM element is for the data object with this id&quot;.</p>
+<p>Typically, a <code>key</code> property should be the unique identifier field of the objects in the data array.</p>
+<pre><code class="lang-javascript">var users = [
+    {id: 1, name: &quot;John&quot;},
+    {id: 2, name: &quot;Mary&quot;},
+]
+
+function userInputs(users) {
+    return users.map(function(u) {
+        return m(&quot;input&quot;, {key: u.id}, u.name)
+    })
+}
+
+m.render(document.body, userInputs(users))
+</code></pre>
+<p>Having a key means that if the <code>users</code> array is shuffled and the view is re-rendered, the inputs will be shuffled in the exact same order, so as to maintain correct focus and DOM state.</p>
+<hr>
+<h3 id="how-to-use"><a href="#how-to-use">How to use</a></h3>
+<p>A common pattern is to have data comprised of an array of objects and to generate a list of vnodes that map to each object in the array. For example, consider the following code:</p>
+<pre><code class="lang-javascript">var people = [
+    {id: 1, name: &quot;John&quot;},
+    {id: 2, name: &quot;Mary&quot;},
+]
+
+function userList(users) {
+    return users.map(function(u) {
+        return m(&quot;button&quot;, u.name) // &lt;button&gt;John&lt;/button&gt;
+                                   // &lt;button&gt;Mary&lt;/button&gt;
+    })
+}
+
+m.render(document.body, userList(people))
+</code></pre>
+<p>Let&#39;s suppose the <code>people</code> variable was changed to this:</p>
+<pre><code class="lang-javascript">people = [{id: 2, name: &quot;Mary&quot;}]
+</code></pre>
+<p>The problem is that from the point of view of the <code>userList</code> function, there&#39;s no way to tell if it was the first object that was removed, or if it was the second object that was removed <em>in addition to the first object&#39;s properties being modified</em>. If the first button was focused and the rendering engine removes it, then focus goes back to <code>&lt;body&gt;</code> as expected, but if the rendering engine removes the second button and modifies the text content of the first, then the focus will be on the wrong button after the update.</p>
+<p>Worse still, if there were stateful jQuery plugins attached to these buttons, they could potentially have incorrect internal state after the update.</p>
+<p>Even though in this particular example, we humans intuitively guess that the first item in the list was the one being removed, it&#39;s actually impossible for a computer to automatically solve this problem for all possible inputs.</p>
+<p>Therefore, in the cases when a list of vnodes is derived from a dynamic array of data, you should add a <code>key</code> property to each virtual node that maps to a uniquely identifiable field in the source data. This will allow Mithril to intelligently re-order the DOM to maintain each DOM element correctly mapped to its respective item in the data source.</p>
+<pre><code class="lang-javascript">function correctUserList(users) {
+    return users.map(function(u) {
+        return m(&quot;button&quot;, {key: u.id}, u.name)
+    })
+}
+</code></pre>
+<hr>
+<h3 id="debugging-key-related-issues"><a href="#debugging-key-related-issues">Debugging key related issues</a></h3>
+<p>Keys can cause confusing issues if they are misunderstood. A typical symptom of key related issues is that application state appears to become corrupted after a few user interactions (usually involving a deletion).</p>
+<h4 id="avoid-wrapper-elements-around-keyed-elements"><a href="#avoid-wrapper-elements-around-keyed-elements">Avoid wrapper elements around keyed elements</a></h4>
+<p>Keys must be placed on the virtual node that is an immediate child of the array. This means that if you wrap the <code>button</code> in an <code>div</code> in the example above, the key must be moved to the <code>div</code>.</p>
+<pre><code class="lang-javascript">// AVOID
+users.map(function(u) {
+    return m(&quot;div&quot;, [ // key should be in `div`
+        m(&quot;button&quot;, {key: u.id}, u.name)
+    ])
+})
+</code></pre>
+<h4 id="avoid-hiding-keys-in-component-root-elements"><a href="#avoid-hiding-keys-in-component-root-elements">Avoid hiding keys in component root elements</a></h4>
+<p>If you refactor the code and make a user component, the key must be moved out of the component and put on the component itself, since it is now the immediate child of the array.</p>
+<pre><code class="lang-javascript">// AVOID
+var User = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, { key: vnode.attrs.user.id }, [
+      m(Button, vnode.attrs.user.name)
+    ])
+    }
+}
+
+// PREFER
+users.map(function(u) {
+    return m(User, { key: u.id, user: u }) // key should be here, not in component
+})
+</code></pre>
+<h4 id="avoid-wrapping-keyed-elements-in-arrays"><a href="#avoid-wrapping-keyed-elements-in-arrays">Avoid wrapping keyed elements in arrays</a></h4>
+<p>Arrays are <a href="vnodes.html">vnodes</a>, and therefore keyable. You should not wrap arrays around keyed elements</p>
+<pre><code class="lang-javascript">// AVOID
+users.map(function(u) {
+    return [ // fragment is a vnode, and therefore keyable
+        m(&quot;button&quot;, {key: u.id}, u.name)
+    ]
+})
+
+// PREFER
+users.map(function(u) {
+    return m(&quot;button&quot;, {key: u.id}, u.name)
+})
+
+// PREFER
+users.map(function(u) {
+    return m.fragment({key: u.id}, m(&quot;button&quot;, u.name))
+})
+</code></pre>
+<h4 id="avoid-variable-types"><a href="#avoid-variable-types">Avoid variable types</a></h4>
+<p>Keys must be strings if present or they will be cast to strings if they are not. Therefore, <code>&quot;1&quot;</code> (string) and <code>1</code> (number) are considered the same key.</p>
+<p>You should use either strings or numbers as keys in one array, but not mix both.</p>
+<pre><code class="lang-javascript">// AVOID
+var things = [
+    {id: &quot;1&quot;, name: &quot;Book&quot;},
+    {id: 1, name: &quot;Cup&quot;},
+]
+</code></pre>
+<h4 id="avoid-mixing-keyed-and-non-keyed-vnodes-in-the-same-array"><a href="#avoid-mixing-keyed-and-non-keyed-vnodes-in-the-same-array">Avoid mixing keyed and non-keyed vnodes in the same array</a></h4>
+<p>An array of vnodes must have only keyed vnodes or non-keyed vnodes, but not both. If you need to mix them, create a nested array.</p>
+<pre><code class="lang-javascript">// AVOID
+m(&quot;div&quot;, [
+    m(&quot;div&quot;, &quot;a&quot;),
+    m(&quot;div&quot;, {key: 1}, &quot;b&quot;),
+])
+
+// PREFER
+m(&quot;div&quot;, [
+    m(&quot;div&quot;, {key: 0}, &quot;a&quot;),
+    m(&quot;div&quot;, {key: 1}, &quot;b&quot;),
+])
+
+
+// PREFER
+m(&quot;div&quot;, [
+    m(&quot;div&quot;, &quot;a&quot;),
+    [
+        m(&quot;div&quot;, {key: 1}, &quot;b&quot;),
+    ]
+])
+</code></pre>
+<h4 id="avoid-passing-model-data-directly-to-components-if-the-model-uses-key-as-a-data-property"><a href="#avoid-passing-model-data-directly-to-components-if-the-model-uses-key-as-a-data-property">Avoid passing model data directly to components if the model uses <code>key</code> as a data property</a></h4>
+<p>The <code>key</code> property may appear in your data model in a way that conflicts with Mithril&#39;s key logic. For example, a component may represent an entity whose <code>key</code> property is expected to change over time. This can lead to components receiving the wrong data, re-initialise, or change positions unexpectedly. If your data model uses the <code>key</code> property, make sure to wrap the data such that Mithril doesn&#39;t misinterpret it as a rendering instruction:</p>
+<pre><code class="lang-javascript">// Data model
+var users = [
+    {id: 1, name: &quot;John&quot;, key: &#39;a&#39;},
+    {id: 2, name: &quot;Mary&quot;, key: &#39;b&#39;},
+]
+
+// Later on...
+users[0].key = &#39;c&#39;
+
+// AVOID
+users.map(function(user){
+    // The component for John will be destroyed and recreated
+    return m(UserComponent, user)
+})
+
+// PREFER
+users.map(function(user){
+    // Key is specifically extracted: data model is given its own property
+    return m(UserComponent, {key: user.id, model: user})
+})
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.5/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

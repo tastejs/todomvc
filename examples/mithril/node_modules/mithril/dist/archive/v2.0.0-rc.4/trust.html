@@ -1,0 +1,222 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> trust(html) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.4</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="trusthtml"><a href="#trusthtml">trust(html)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><strong><a href="trust.html">m.trust</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#security-considerations">Security considerations</a></li>
+<li><a href="#scripts-that-do-not-run">Scripts that do not run</a></li>
+<li><a href="#avoid-trusting-html">Avoid trusting HTML</a></li>
+</ul>
+</li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Turns an HTML or SVG string into unescaped HTML or SVG. <strong>Do not use <code>m.trust</code> on unsanitized user input.</strong></p>
+<p>Always try to use an <a href="#avoid-trusting-html">alternative method</a> first, before considering using <code>m.trust</code>.</p>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>vnode = m.trust(html)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>html</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>A string containing HTML or SVG text</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Vnode</code></td>
+<td></td>
+<td>A trusted HTML <a href="vnodes.html">vnode</a> that represents the input string</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>By default, Mithril escapes all values in order to prevent a class of security problems called <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS injections</a>.</p>
+<pre><code class="lang-javascript">var userContent = &quot;&lt;script&gt;alert(&#39;evil&#39;)&lt;/script&gt;&quot;
+var view = m(&quot;div&quot;, userContent)
+
+m.render(document.body, view)
+
+// equivalent HTML
+// &lt;div&gt;&amp;lt;script&amp;gt;alert(&#39;evil&#39;)&amp;lt;/script&amp;gt;&lt;/div&gt;
+</code></pre>
+<p>However, sometimes it is desirable to render rich text and formatting markup. To fill that need, <code>m.trust</code> creates trusted HTML <a href="vnodes.html">vnodes</a> which are rendered as HTML.</p>
+<pre><code class="lang-javascript">var view = m(&quot;div&quot;, [
+    m.trust(&quot;&lt;h1&gt;Here&#39;s some &lt;em&gt;HTML&lt;/em&gt;&lt;/h1&gt;&quot;)
+])
+
+m.render(document.body, view)
+
+// equivalent HTML
+// &lt;div&gt;&lt;h1&gt;Here&#39;s some &lt;em&gt;HTML&lt;/em&gt;&lt;/h1&gt;&lt;/div&gt;
+</code></pre>
+<p>Trusted HTML vnodes are objects, not strings; therefore they cannot be concatenated with regular strings.</p>
+<hr>
+<h3 id="security-considerations"><a href="#security-considerations">Security considerations</a></h3>
+<p>You <strong>must sanitize the input</strong> of <code>m.trust</code> to ensure there&#39;s no user-generated malicious code in the HTML string. If you don&#39;t sanitize an HTML string and mark it as a trusted string, any asynchronous javascript call points within the HTML string will be triggered and run with the authorization level of the user viewing the page.</p>
+<p>There are many ways in which an HTML string may contain executable code. The most common ways to inject security attacks are to add an <code>onload</code> or <code>onerror</code> attributes in <code>&lt;img&gt;</code> or <code>&lt;iframe&gt;</code> tags, and to use unbalanced quotes such as <code>&quot; onerror=&quot;alert(1)</code> to inject executable contexts in unsanitized string interpolations.</p>
+<pre><code class="lang-javascript">var data = {}
+
+// Sample vulnerable HTML string
+var description = &quot;&lt;img alt=&#39;&quot; + data.title + &quot;&#39;&gt; &lt;span&gt;&quot; + data.description + &quot;&lt;/span&gt;&quot;
+
+// An attack using javascript-related attributes
+data.description = &quot;&lt;img onload=&#39;alert(1)&#39;&gt;&quot;
+
+// An attack using unbalanced tags
+data.description = &quot;&lt;/span&gt;&lt;img onload=&#39;alert(1)&#39;&gt;&lt;span&quot;
+
+// An attack using unbalanced quotes
+data.title = &quot;&#39; onerror=&#39;alert(1)&quot;
+
+// An attack using a different attribute
+data.title = &quot;&#39; onmouseover=&#39;alert(1)&quot;
+
+// An attack that does not use javascript
+data.description = &quot;&lt;a href=&#39;http://evil.com/login-page-that-steals-passwords.html&#39;&gt;Click here to read more&lt;/a&gt;&quot;
+</code></pre>
+<p>There are countless non-obvious ways of creating malicious code, so it is highly recommended that you use a <a href="https://en.wikipedia.org/wiki/Whitelist">whitelist</a> of permitted HTML tags, attributes and attribute values, as opposed to a <a href="https://en.wikipedia.org/wiki/Blacklisting">blacklist</a> to sanitize the user input. It&#39;s also highly recommended that you use a proper HTML parser, instead of regular expressions for sanitization, because regular expressions are extremely difficult to test for all edge cases.</p>
+<hr>
+<h3 id="scripts-that-do-not-run"><a href="#scripts-that-do-not-run">Scripts that do not run</a></h3>
+<p>Even though there are many obscure ways to make an HTML string run Javascript, <code>&lt;script&gt;</code> tags are one thing that does not run when it appears in an HTML string.</p>
+<p>For historical reasons, browsers ignore <code>&lt;script&gt;</code> tags that are inserted into the DOM via innerHTML. They do this because once the element is ready (and thus, has an accessible innerHTML property), the rendering engines cannot backtrack to the parsing-stage if the script calls something like document.write(&quot;</body>&quot;).</p>
+<p>This browser behavior may seem surprising to a developer coming from jQuery, because jQuery implements code specifically to find script tags and run them in this scenario. Mithril follows the browser behavior. If jQuery behavior is desired, you should consider either moving the code out of the HTML string and into an <code>oncreate</code> <a href="lifecycle-methods.html">lifecycle method</a>, or use jQuery (or re-implement its script parsing code).</p>
+<hr>
+<h3 id="avoid-trusting-html"><a href="#avoid-trusting-html">Avoid trusting HTML</a></h3>
+<p>As a general rule of thumb, you should avoid using <code>m.trust</code> unless you are explicitly rendering rich text and there&#39;s no other way to get the results that you want.</p>
+<pre><code class="lang-javascript">// AVOID
+m(&quot;div&quot;, m.trust(&quot;hello world&quot;))
+
+// PREFER
+m(&quot;div&quot;, &quot;hello world&quot;)
+</code></pre>
+<h4 id="avoid-blind-copying-and-pasting"><a href="#avoid-blind-copying-and-pasting">Avoid blind copying and pasting</a></h4>
+<p>One common way to misuse <code>m.trust</code> is when working with third party services whose tutorials include HTML code to be copied and pasted. In most cases, HTML should be written using vnodes (typically via the <a href="hyperscript.html"><code>m()</code></a> utility)</p>
+<p>Here&#39;s the example snippet for the <a href="https://developers.facebook.com/docs/plugins/like-button">Facebook Like button</a>:</p>
+<pre><code class="lang-markup">&lt;!-- Load Facebook SDK for JavaScript --&gt;
+&lt;div id=&quot;fb-root&quot;&gt;&lt;/div&gt;
+&lt;script&gt;(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = &quot;//connect.facebook.net/en_US/sdk.js#xfbml=1&quot;;
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, &#39;script&#39;, &#39;facebook-jssdk&#39;));&lt;/script&gt;
+
+&lt;!-- Your like button code --&gt;
+&lt;div class=&quot;fb-like&quot;
+    data-href=&quot;http://www.your-domain.com/your-page.html&quot;
+    data-layout=&quot;standard&quot;
+    data-action=&quot;like&quot;
+    data-show-faces=&quot;true&quot;&gt;
+&lt;/div&gt;
+</code></pre>
+<p>And here&#39;s how to refactor into a Mithril component in a way that avoids <code>m.trust</code>:</p>
+<pre><code class="lang-javascript">var FacebookLikeButton = {
+    oncreate: function() {
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = &quot;//connect.facebook.net/en_US/sdk.js#xfbml=1&quot;;
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, &#39;script&#39;, &#39;facebook-jssdk&#39;));
+    },
+    view: function() {
+        return [
+            m(&quot;#fb-root&quot;),
+            m(&quot;#fb-like[data-href=http://www.your-domain.com/your-page.html][data-layout=standard][data-action=like][data-show-faces=true]&quot;)
+        ]
+    }
+}
+</code></pre>
+<p>The Mithril component above simply copies the script tag&#39;s code into the <code>oncreate</code> hook and declares the remaining HTML tags using Mithril&#39;s <code>m()</code> syntax.</p>
+<h4 id="avoid-html-entities"><a href="#avoid-html-entities">Avoid HTML entities</a></h4>
+<p>A common way to misuse <code>m.trust</code> is to use it for HTML entities. A better approach is to use the corresponding unicode characters:</p>
+<pre><code class="lang-javascript">// AVOID
+m(&quot;h1&quot;, &quot;Coca-Cola&quot;, m.trust(&quot;&amp;trade;&quot;))
+
+// PREFER
+m(&quot;h1&quot;, &quot;Coca-Cola™&quot;)
+</code></pre>
+<p>Unicode characters for accented characters can be typed using a keyboard layout for an applicable language, and one may also choose to memorize keyboard shortcuts to produce commonly used symbols (e.g. <code>Alt+0153</code> in Windows, or <code>Option+2</code> on Mac for the ™ symbol). Another simple method to produce them is to simply copy and paste the desired character from a <a href="https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references">unicode character table</a>. Yet another related method is to type an escaped unicode codepoint (e.g. <code>&quot;\u2122&quot;</code> for the ™ symbol).</p>
+<p>All characters that are representable as HTML entities have unicode counterparts, including non-visible characters such as <code>&amp;nbsp;</code> and <code>&amp;shy;</code>.</p>
+<p>To avoid encoding issues, you should set the file encoding to UTF-8 on the Javascript file, as well as add the <code>&lt;meta charset=&quot;utf-8&quot;&gt;</code> meta tag in the host HTML file.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.4/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

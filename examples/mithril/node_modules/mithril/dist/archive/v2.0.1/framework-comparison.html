@@ -1,0 +1,264 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Framework comparison - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.1</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="framework-comparison"><a href="#framework-comparison">Framework comparison</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6+ on legacy browsers</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><strong><a href="framework-comparison.html">Framework comparison</a></strong><ul>
+<li><a href="#why-not-insert-favorite-framework-here">Why not X?</a></li>
+<li><a href="#why-use-mithril">Why use Mithril?</a></li>
+<li><a href="#react">React</a></li>
+<li><a href="#angular">Angular</a></li>
+<li><a href="#vue">Vue</a></li>
+</ul>
+</li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="https://mithril.js.org/archive/v1.1.6/">v1 Documentation</a></li>
+<li><a href="https://mithril.js.org/archive/v0.2.5/">v0.2 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<p>If you&#39;re reading this page, you probably have used other frameworks to build applications, and you want to know if Mithril would help you solve your problems more effectively.</p>
+<hr>
+<h2 id="why-not-insert-favorite-framework-here?"><a href="#why-not-insert-favorite-framework-here?">Why not [insert favorite framework here]?</a></h2>
+<p>The reality is that most modern frameworks are fast, well-suited to build complex applications, and maintainable if you know how to use them effectively. There are examples of highly complex applications in the wild using just about every popular framework: Udemy uses Angular, AirBnB uses React, Gitlab uses Vue, Guild Wars 2 uses Mithril (yes, inside the game!). Clearly, these are all production-quality frameworks.</p>
+<p>As a rule of thumb, if your team is already heavily invested in another framework/library/stack, it makes more sense to stick with it, unless your team agrees that there&#39;s a very strong reason to justify a costly rewrite.</p>
+<p>However, if you&#39;re starting something new, do consider giving Mithril a try, if nothing else, to see how much value Mithril adopters have been getting out of under 10kb (gzipped) of code. Mithril is used by many well-known companies (e.g. Vimeo, Nike, Fitbit), and it powers large open-sourced platforms too (e.g. Lichess, Flarum).</p>
+<hr>
+<h2 id="why-use-mithril?"><a href="#why-use-mithril?">Why use Mithril?</a></h2>
+<p>In one sentence: because <strong>Mithril is pragmatic</strong>. This <a href="index.html">10 minute guide</a> is a good example: that&#39;s how long it takes to learn components, XHR and routing - and that&#39;s just about the right amount of knowledge needed to build useful applications.</p>
+<p>Mithril is all about getting meaningful work done efficiently. Doing file uploads? <a href="request.html#file-uploads">The docs show you how</a>. Authentication? <a href="route.html#authentication">Documented too</a>. Exit animations? <a href="animation.html">You got it</a>. No extra libraries, no magic.</p>
+<hr>
+<h2 id="comparisons"><a href="#comparisons">Comparisons</a></h2>
+<h3 id="react"><a href="#react">React</a></h3>
+<p>React is a view library maintained by Facebook.</p>
+<p>React and Mithril share a lot of similarities. If you already learned React, you already know almost all you need to build apps with Mithril.</p>
+<ul>
+<li>They both use virtual DOM, lifecycle methods and key-based reconciliation</li>
+<li>They both organize views via components</li>
+<li>They both use JavaScript as a flow control mechanism within views</li>
+</ul>
+<p>The most obvious difference between React and Mithril is in their scope. React is a view library, so a typical React-based application relies on third-party libraries for routing, XHR and state management. Using a library oriented approach allows developers to customize their stack to precisely match their needs. The not-so-nice way of saying that is that React-based architectures can vary wildly from project to project, and that those projects are that much more likely to cross the 1MB size line.</p>
+<p>Mithril has built-in modules for common necessities such as routing and XHR, and the <a href="simple-application.html">guide</a> demonstrates idiomatic usage. This approach is preferable for teams that value consistency and ease of onboarding.</p>
+<h4 id="performance"><a href="#performance">Performance</a></h4>
+<p>Both React and Mithril care strongly about rendering performance, but go about it in different ways. In the past React had two DOM rendering implementations (one using the DOM API, and one using <code>innerHTML</code>). Its upcoming fiber architecture introduces scheduling and prioritization of units of work. React also has a sophisticated build system that disables various checks and error messages for production deployments, and various browser-specific optimizations. In addition, there are also several performance-oriented libraries that leverage React&#39;s <code>shouldComponentUpdate</code> hook and immutable data structure libraries&#39; fast object equality checking properties to reduce virtual DOM reconciliation times. Generally speaking, React&#39;s approach to performance is to engineer relatively complex solutions.</p>
+<p>Mithril follows the less-is-more school of thought. It has a substantially smaller, aggressively optimized codebase. The rationale is that a small codebase is easier to audit and optimize, and ultimately results in less code being run.</p>
+<p>Here&#39;s a comparison of library load times, i.e. the time it takes to parse and run the JavaScript code for each framework, by adding a <code>console.time()</code> call on the first line and a <code>console.timeEnd()</code> call on the last of a script that is composed solely of framework code. For your reading convenience, here are best-of-20 results with logging code manually added to bundled scripts, running from the filesystem, in Chrome on a modest 2010 PC desktop:</p>
+<table>
+<thead>
+<tr>
+<th>React</th>
+<th>Mithril</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>55.8 ms</td>
+<td>4.5 ms</td>
+</tr>
+</tbody></table>
+<p>Library load times matter in applications that don&#39;t stay open for long periods of time (for example, anything in mobile) and cannot be improved via caching or other optimization techniques.</p>
+<p>Since this is a micro-benchmark, you are encouraged to replicate these tests yourself since hardware can heavily affect the numbers. Note that bundler frameworks like Webpack can move dependencies out before the timer calls to emulate static module resolution, so you should either copy the code from the compiled CDN files or open the output file from the bundler library, and manually add the high resolution timer calls <code>console.time</code> and <code>console.timeEnd</code> to the bundled script. Avoid using <code>new Date</code> and <code>performance.now</code>, as those mechanisms are not as statistically accurate.</p>
+<p>For your reading convenience, here&#39;s a version of that benchmark adapted to use CDNs on the web: the <a href="https://jsfiddle.net/0ovkv64u/">benchmark for React is here</a>, and the <a href="https://jsfiddle.net/o7hxooqL/">benchmark for Mithril is here</a>. Note that we&#39;re benchmarking all of Mithril rather than benchmarking only the rendering module (which would be equivalent in scope to React). Also note that this CDN-driven setup incurs some overheads due to fetching resources from disk cache (~2ms per resource). Due to those reasons, the numbers here are not entirely accurate, but they should be sufficient to observe that Mithril&#39;s initialization speed is noticeably better than React.</p>
+<p>Here&#39;s a slightly more meaningful benchmark: measuring the scripting time for creating 10,000 divs (and 10,000 text nodes). Again, here&#39;s the benchmark code for <a href="https://jsfiddle.net/bfoeay4f/">React</a> and <a href="https://jsfiddle.net/fft0ht7n/">Mithril</a>. Their best results are shown below:</p>
+<table>
+<thead>
+<tr>
+<th>React</th>
+<th>Mithril</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>99.7 ms</td>
+<td>42.8 ms</td>
+</tr>
+</tbody></table>
+<p>What these numbers show is that not only does Mithril initializes significantly faster, it can process upwards of 20,000 virtual DOM nodes before React is ready to use.</p>
+<h5 id="update-performance"><a href="#update-performance">Update performance</a></h5>
+<p>Update performance can be even more important than first-render performance, since updates can happen many times while a Single Page Application is running.</p>
+<p>A useful tool to benchmark update performance is a tool developed by the Ember team called DbMonster. It updates a table as fast as it can and measures frames per second (FPS) and JavaScript times (min, max and mean). The FPS count can be difficult to evaluate since it also includes browser repaint times and <code>setTimeout</code> clamping delay, so the most meaningful number to look at is the mean render time. You can compare a <a href="https://raw.githack.com/MithrilJS/mithril.js/master/examples/dbmonster/react/index.html">React implementation</a> and a <a href="https://raw.githack.com/MithrilJS/mithril.js/master/examples/dbmonster/mithril/index.html">Mithril implementation</a>. Sample results are shown below:</p>
+<table>
+<thead>
+<tr>
+<th>React</th>
+<th>Mithril</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12.1 ms</td>
+<td>6.4 ms</td>
+</tr>
+</tbody></table>
+<h5 id="development-performance"><a href="#development-performance">Development performance</a></h5>
+<p>Another thing to keep in mind is that because React adds extra checks and helpful error messages in development mode, it is slower in development than the production version used for the benchmarks above. To illustrate, <a href="https://jsfiddle.net/r1jfckrd/">here&#39;s the 10,000 node benchmark from above using the development version of React</a>.</p>
+<h5 id="drop-in-replacements"><a href="#drop-in-replacements">Drop-in replacements</a></h5>
+<p>There are <a href="https://preactjs.com/">several</a> <a href="https://github.com/Lucifier129/react-lite">projects</a> <a href="https://infernojs.org/">that</a> <a href="https://github.com/alibaba/rax">claim</a> API parity with React (some via compatibility layer libraries), but they are not fully compatible (e.g. PropType support is usually stubbed out, synthetic events are sometimes not supported, and some APIs have different semantics). Note that these libraries typically also include features of their own that are not part of the official React API, which may become problematic down the road if one decides to switch back to React Fiber.</p>
+<p>Claims about small download size (compared to React) are accurate, but most of these libraries are slightly larger than Mithril&#39;s renderer module. Preact is the only exception.</p>
+<p>Be wary of aggressive performance claims, as benchmarks used by some of these projects are known to be out-of-date and flawed (in the sense that they can be - and are - exploited). Boris Kaul (author of some of the benchmarks) has <a href="https://medium.com/@localvoid/how-to-win-in-web-framework-benchmarks-8bc31af76ce7">written in detail about how benchmarks are gamed</a>. Another thing to keep in mind is that some benchmarks aggressively use advanced optimization features and thus demonstrate <em>potential</em> performance, i.e. performance that is possible given some caveats, but realistically unlikely unless you actively spend the time to go over your entire codebase identifying optimization candidates and evaluating the regression risks brought by the optimization caveats.</p>
+<p>In the spirit of demonstrating <em>typical</em> performance characteristics, the benchmarks presented in this comparison page are implemented in an apples-to-apples, naive, idiomatic way (i.e. the way you would normally write 99% of your code) and do not employ tricks or advanced optimizations to make one or other framework look artificially better. You are encouraged to contribute a PR if you feel any DbMonster implementation here could be written more idiomatically.</p>
+<h4 id="complexity"><a href="#complexity">Complexity</a></h4>
+<p>Both React and Mithril have relatively small API surfaces compared to other frameworks, which help ease learning curve. However, whereas idiomatic Mithril can be written without loss of readability using plain ES5 and no other dependencies, idiomatic React relies heavily on complex tooling (e.g. Babel, JSX plugin, etc), and this level of complexity frequently extends to popular parts of its ecosystem, be it in the form of syntax extensions (e.g. non-standard object spread syntax in Redux), architectures (e.g. ones using immutable data libraries), or bells and whistles (e.g. hot module reloading).</p>
+<p>While complex toolchains are also possible with Mithril and other frameworks alike, it&#39;s <em>strongly</em> recommended that you follow the <a href="https://en.wikipedia.org/wiki/KISS_principle">KISS</a> and <a href="https://en.wikipedia.org/wiki/You_aren&#39;t_gonna_need_it">YAGNI</a> principles when using Mithril.</p>
+<h4 id="learning-curve"><a href="#learning-curve">Learning curve</a></h4>
+<p>Both React and Mithril have relatively small learning curves. React&#39;s learning curve mostly involves understanding components and their lifecycle. The learning curve for Mithril components is nearly identical. There are obviously more APIs to learn in Mithril, since Mithril also includes routing and XHR, but the learning curve would be fairly similar to learning React, React Router and a XHR library like superagent or axios.</p>
+<p>Idiomatic React requires working knowledge of JSX and its caveats, and therefore there&#39;s also a small learning curve related to Babel.</p>
+<h4 id="documentation"><a href="#documentation">Documentation</a></h4>
+<p>React documentation is clear and well written, and includes a good API reference, tutorials for getting started, as well as pages covering various advanced concepts. Unfortunately, since React is limited to being only a view library, its documentation does not explore how to use React idiomatically in the context of a real-life application. As a result, there are many popular state management libraries and thus architectures using React can differ drastically from company to company (or even between projects).</p>
+<p>Mithril documentation also includes <a href="index.html">introductory</a> <a href="simple-application.html">tutorials</a>, pages about advanced concepts, and an extensive API reference section, which includes input/output type information, examples for various common use cases and advice against misuse and anti-patterns. It also includes a cheatsheet for quick reference.</p>
+<p>Mithril documentation also demonstrates simple, close-to-the-metal solutions to common use cases in real-life applications where it&#39;s appropriate to inform a developer that web standards may be now on par with larger established libraries.</p>
+<hr>
+<h3 id="angular"><a href="#angular">Angular</a></h3>
+<p>Angular is a web application framework maintained by Google.</p>
+<p>Angular and Mithril are fairly different, but they share a few similarities:</p>
+<ul>
+<li>Both support componentization</li>
+<li>Both have an array of tools for various aspects of web applications (e.g. routing, XHR)</li>
+</ul>
+<p>The most obvious difference between Angular and Mithril is in their complexity. This can be seen most easily in how views are implemented. Mithril views are plain JavaScript, and flow control is done with JavaScript built-in mechanisms such as ternary operators or <code>Array.prototype.map</code>. Angular, on the other hand, implements a directive system to extend HTML views so that it&#39;s possible to evaluate JavaScript-like expressions within HTML attributes and interpolations. Angular actually ships with a parser and a compiler written in JavaScript to achieve that. If that doesn&#39;t seem complex enough, there&#39;s actually two compilation modes (a default mode that generates JavaScript functions dynamically for performance, and <a href="https://docs.angularjs.org/api/ng/directive/ngCsp">a slower mode</a> for dealing with Content Security Policy restrictions).</p>
+<h4 id="performance1"><a href="#performance1">Performance</a></h4>
+<p>Angular has made a lot of progress in terms of performance over the years. Angular 1 used a mechanism known as dirty checking which tended to get slow due to the need to constantly diff large <code>$scope</code> structures. Angular 2 uses a template change detection mechanism that is much more performant. However, even despite Angular&#39;s improvements, Mithril is often faster than Angular, due to the ease of auditing that Mithril&#39;s small codebase size affords.</p>
+<p>It&#39;s difficult to make a comparison of load times between Angular and Mithril for a couple of reasons. The first is that Angular 1 and 2 are in fact completely different codebases, and both versions are officially supported and maintained (and the vast majority of Angular codebases in the wild currently still use version 1). The second reason is that both Angular and Mithril are modular. In both cases, it&#39;s possible to remove a significant part of the framework that is not used in a given application.</p>
+<p>With that being said, the smallest known Angular 2 bundle is a <a href="https://www.lucidchart.com/techblog/2016/09/26/improving-angular-2-load-times/">29kb hello world</a> compressed w/ the Brotli algorithm (it&#39;s 35kb using standard gzip), and with most of Angular&#39;s useful functionality removed. By comparison, a Mithril hello world - including the entire Mithril core with batteries and everything - would be about 10kb gzipped.</p>
+<p>Also, remember that frameworks like Angular and Mithril are designed for non-trivial application, so an application that managed to use all of Angular&#39;s API surface would need to download several hundred kb of framework code, rather than merely 29kb.</p>
+<h5 id="update-performance1"><a href="#update-performance1">Update performance</a></h5>
+<p>A useful tool to benchmark update performance is a tool developed by the Ember team called DbMonster. It updates a table as fast as it can and measures frames per second (FPS) and JavaScript times (min, max and mean). The FPS count can be difficult to evaluate since it also includes browser repaint times and <code>setTimeout</code> clamping delay, so the most meaningful number to look at is the mean render time. You can compare an <a href="https://raw.githack.com/MithrilJS/mithril.js/master/examples/dbmonster/angular/index.html">Angular implementation</a> and a <a href="https://raw.githack.com/MithrilJS/mithril.js/master/examples/dbmonster/mithril/index.html">Mithril implementation</a>. Both implementations are naive (i.e. no optimizations). Sample results are shown below:</p>
+<table>
+<thead>
+<tr>
+<th>Angular</th>
+<th>Mithril</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>11.5 ms</td>
+<td>6.4 ms</td>
+</tr>
+</tbody></table>
+<h4 id="complexity1"><a href="#complexity1">Complexity</a></h4>
+<p>Angular is superior to Mithril in the amount of tools it offers (in the form of various directives and services), but it is also far more complex. Compare <a href="https://angular.io/docs/ts/latest/api/">Angular&#39;s API surface</a> with <a href="api.html">Mithril&#39;s</a>. You can make your own judgment on which API is more self-descriptive and more relevant to your needs.</p>
+<p>Angular 2 has a lot more concepts to understand: on the language level, Typescript is the recommended language, and on top of that there&#39;s also Angular-specific template syntax such as bindings, pipes, &quot;safe navigator operator&quot;. You also need to learn about architectural concepts such as modules, components, services, directives, etc, and where it&#39;s appropriate to use what.</p>
+<h4 id="learning-curve1"><a href="#learning-curve1">Learning curve</a></h4>
+<p>If we compare apples to apples, Angular 2 and Mithril have similar learning curves: in both, components are a central aspect of architecture, and both have reasonable routing and XHR tools.</p>
+<p>With that being said, Angular has a lot more concepts to learn than Mithril. It offers Angular-specific APIs for many things that often can be trivially implemented (e.g. pluralization is essentially a switch statement, &quot;required&quot; validation is simply an equality check, etc). Angular templates also have several layers of abstractions to emulate what JavaScript does natively in Mithril - Angular&#39;s <code>ng-if</code>/<code>ngIf</code> is a <em>directive</em>, which uses a custom <em>parser</em> and <em>compiler</em> to evaluate an expression string and emulate lexical scoping... and so on. Mithril tends to be a lot more transparent, and therefore easier to reason about.</p>
+<h4 id="documentation1"><a href="#documentation1">Documentation</a></h4>
+<p>Angular 2 documentation provides an extensive introductory tutorial, and another tutorial that implements an application. It also has various guides for advanced concepts, a cheatsheet and a style guide. Unfortunately, at the moment, the API reference leaves much to be desired. Several APIs are either undocumented or provide no context for what the API might be used for.</p>
+<p>Mithril documentation includes <a href="index.html">introductory</a> <a href="simple-application.html">tutorials</a>, pages about advanced concepts, and an extensive API reference section, which includes input/output type information, examples for various common use cases and advice against misuse and anti-patterns. It also includes a cheatsheet for quick reference.</p>
+<p>Mithril documentation also demonstrates simple, close-to-the-metal solutions to common use cases in real-life applications where it&#39;s appropriate to inform a developer that web standards may be now on par with larger established libraries.</p>
+<hr>
+<h3 id="vue"><a href="#vue">Vue</a></h3>
+<p>Vue is a view library similar to Angular.</p>
+<p>Vue and Mithril have a lot of differences but they also share some similarities:</p>
+<ul>
+<li>They both use virtual DOM and lifecycle methods</li>
+<li>Both organize views via components</li>
+</ul>
+<p>Vue 2 uses a fork of Snabbdom as its virtual DOM system. In addition, Vue also provides tools for routing and state management as separate modules. Vue looks very similar to Angular and provides a similar directive system, HTML-based templates and logic flow directives. It differs from Angular in that it implements a monkeypatching reactive system that overwrites native methods in a component&#39;s data tree (whereas Angular 1 uses dirty checking and digest/apply cycles to achieve similar results). Similar to Angular 2, Vue compiles HTML templates into functions, but the compiled functions look more like Mithril or React views, rather than Angular&#39;s compiled rendering functions.</p>
+<p>Vue is significantly smaller than Angular when comparing apples to apples, but not as small as Mithril (Vue core is around 23kb gzipped, whereas the equivalent rendering module in Mithril is around 4kb gzipped). Both have similar performance characteristics, but benchmarks usually suggest Mithril is slightly faster.</p>
+<h4 id="performance2"><a href="#performance2">Performance</a></h4>
+<p>Here&#39;s a comparison of library load times, i.e. the time it takes to parse and run the JavaScript code for each framework, by adding a <code>console.time()</code> call on the first line and a <code>console.timeEnd()</code> call on the last of a script that is composed solely of framework code. For your reading convenience, here are best-of-20 results with logging code manually added to bundled scripts, running from the filesystem, in Chrome on a modest 2010 PC desktop:</p>
+<table>
+<thead>
+<tr>
+<th>Vue</th>
+<th>Mithril</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21.8 ms</td>
+<td>4.5 ms</td>
+</tr>
+</tbody></table>
+<p>Library load times matter in applications that don&#39;t stay open for long periods of time (for example, anything in mobile) and cannot be improved via caching or other optimization techniques.</p>
+<h5 id="update-performance2"><a href="#update-performance2">Update performance</a></h5>
+<p>A useful tool to benchmark update performance is a tool developed by the Ember team called DbMonster. It updates a table as fast as it can and measures frames per second (FPS) and JavaScript times (min, max and mean). The FPS count can be difficult to evaluate since it also includes browser repaint times and <code>setTimeout</code> clamping delay, so the most meaningful number to look at is the mean render time. You can compare a <a href="https://raw.githack.com/MithrilJS/mithril.js/master/examples/dbmonster/vue/index.html">Vue implementation</a> and a <a href="https://raw.githack.com/MithrilJS/mithril.js/master/examples/dbmonster/mithril/index.html">Mithril implementation</a>. Both implementations are naive (i.e. no optimizations). Sample results are shown below:</p>
+<table>
+<thead>
+<tr>
+<th>Vue</th>
+<th>Mithril</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.8 ms</td>
+<td>6.4 ms</td>
+</tr>
+</tbody></table>
+<h4 id="complexity2"><a href="#complexity2">Complexity</a></h4>
+<p>Vue is heavily inspired by Angular and has many things that Angular does (e.g. directives, filters, bi-directional bindings, <code>v-cloak</code>), but also has things inspired by React (e.g. components). As of Vue 2.0, it&#39;s also possible to write templates using hyperscript/JSX syntax (in addition to single-file components and the various webpack-based language transpilation plugins). Vue provides both bi-directional data binding and an optional Redux-like state management library, but unlike Angular, it provides no style guide. The many-ways-of-doing-one-thing approach can cause architectural fragmentation in long-lived projects.</p>
+<p>Mithril has far less concepts and typically organizes applications in terms of components and a data layer.  All component creation styles in Mithril output the same vnode structure using native JavaScript features only.  The direct consequence of leaning on the language is less tooling and a simpler project setup.</p>
+<h4 id="documentation2"><a href="#documentation2">Documentation</a></h4>
+<p>Both Vue and Mithril have good documentation. Both include a good API reference with examples, tutorials for getting started, as well as pages covering various advanced concepts.</p>
+<p>However, due to Vue&#39;s many-ways-to-do-one-thing approach, some things may not be adequately documented. For example, there&#39;s no documentation on hyperscript syntax or usage.</p>
+<p>Mithril documentation typically errs on the side of being overly thorough if a topic involves things outside of the scope of Mithril. For example, when a topic involves a 3rd party library, Mithril documentation walks through the installation process for the 3rd party library. Mithril documentation also often demonstrates simple, close-to-the-metal solutions to common use cases in real-life applications where it&#39;s appropriate to inform a developer that web standards may be now on par with larger established libraries.</p>
+<p>Mithril&#39;s tutorials also cover a lot more ground than Vue&#39;s: the <a href="https://vuejs.org/v2/guide/#Getting-Started">Vue tutorial</a> finishes with a static list of foodstuff. <a href="index.html">Mithril&#39;s 10 minute guide</a> covers the majority of its API and goes over key aspects of real-life applications, such as fetching data from a server and routing (and there&#39;s a <a href="simple-application.html">longer, more thorough tutorial</a> if that&#39;s not enough).</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.1/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

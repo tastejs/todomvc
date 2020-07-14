@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="installation.html">Installation</a></li>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="components">Components</h2>
+<p>Components are Mithril&#39;s mechanism for <a href="http://en.wikipedia.org/wiki/Hierarchical_model%E2%80%93view%E2%80%93controller">hierarchical MVC</a>.</p>
+<p>They allow complex, repeating logic to be abstracted into a logical unit of code, and they help modularize applications with widgets or multi-concern views (e.g. dashboards).</p>
+<p>You can also use components for a number of other advanced techniques, like recursive templating (e.g. tree views) and partial template mixins (i.e. injecting part of a template into another).</p>
+<hr>
+<h3 id="nesting-components">Nesting components</h3>
+<p>Here&#39;s an example of nested modules in a widgetization scenario:</p>
+<pre><code class="lang-javascript">//root module
+var dashboard = {};
+
+dashboard.controller = function() {
+    this.userProfile = new userProfile.controller();
+    this.projectList = new projectList.controller();
+}
+
+dashboard.view = function(ctrl) {
+    return m(&quot;#example&quot;, [
+        m(&quot;.profile&quot;, [
+            new userProfile.view(ctrl.userProfile);
+        ]),
+        m(&quot;.projects&quot;, [
+            new projectList.view(ctrl.projectList);
+        ])
+    ])
+}
+
+
+
+//components
+
+//user profile component
+var userProfile = {};
+
+userProfile.controller = function() {
+    this.name = m.prop(&quot;John Doe&quot;);
+};
+
+userProfile.view = function(ctrl) {
+    return [
+        m(&quot;h1&quot;, &quot;Profile&quot;),
+        &quot;Name: &quot; + ctrl.name()
+    ];
+};
+
+
+
+//project list component
+var projectList = {};
+
+projectList.controller = function() {};
+
+projectList.view = function(ctrl) {
+    return &quot;There are no projects&quot;;
+};
+
+
+
+//initialize
+m.module(document.body, dashboard);</code></pre>
+<p>As you can see, components look exactly like regular modules - it&#39;s turtles all the way down! Remember that modules are simply dumb containers for <code>controller</code> and <code>view</code> classes.</p>
+<p>This means components are decoupled both <em>horizontally</em> and <em>vertically</em>. It&#39;s possible to refactor each component as a isolated unit of logic (which itself follows the MVC pattern). And we can do so without touching the rest of the application (as long as the component API stays the same).</p>
+<p>Similarly, it&#39;s possible to mix and match different classes to make mix-in anonymous components (e.g. it&#39;s straightforward to build several views - for, say, a mobile app - that use the same controller).</p>
+<p>It&#39;s also possible to keep references to parent and even sibling components. This is useful, for example, when implementing notification badges in a navigation component, which are triggered and managed by other components in the system.</p>
+<hr>
+<h3 id="librarization">Librarization</h3>
+<p>Applications often reuse rich UI controls that aren&#39;t provided out of the box by HTML. Below is a basic example of a component of that type: a minimalist autocompleter component.</p>
+<p><em>Note: Be mindful that, for the sake of code clarity and brevity, the example below does not support keyboard navigation and other real world features.</em></p>
+<pre><code class="lang-javascript">var autocompleter = {};
+
+autocompleter.controller = function(data, getter) {
+    //binding for the text input
+    this.value = m.prop(&quot;&quot;);
+    //store for the list of items
+    this.data = m.prop([]);
+
+    //method to determine what property of a list item to compare the text input&#39;s value to
+    this.getter = getter;
+
+    //this method changes the relevance list depending on what&#39;s currently in the text input
+    this.change = function(value) {
+        this.value(value);
+
+        var data = value === &quot;&quot; ? [] : data.filter(function(item) {
+            return this.getter(item).toLowerCase().indexOf(value.toLowerCase()) &gt; -1;
+        }, this);
+        this.data(data);
+    };
+
+    //this method is called when an option is selected. It triggers an `onchange` event
+    this.select = function(value) {
+        this.value(value);
+        this.data([]);
+        if (this.onchange) this.onchange({target: {value: value}});
+    };
+}
+
+autocompleter.view = function(ctrl, options) {
+    if (options) ctrl.onchange = options.onchange;
+    return [
+        m(&quot;input&quot;, {oninput: m.withAttr(&quot;value&quot;, ctrl.change.bind(ctrl)), value: ctrl.value()}),
+        ctrl.data().map(function(item) {
+            return m(&quot;div&quot;, {data: ctrl.getter(item), onclick: m.withAttr(&quot;data&quot;, ctrl.select.bind(ctrl))}, ctrl.getter(item));
+        })
+    ];
+}
+
+
+
+//here&#39;s an example of using the autocompleter
+var dashboard = {}
+
+dashboard.controller = function() {
+    this.names = m.prop([{id: 1, name: &quot;John&quot;}, {id: 2, name: &quot;Bob&quot;}, {id: 2, name: &quot;Mary&quot;}]);
+    this.autocompleter = new autocompleter.controller(this.names(), function(item) {
+        return item.name;
+    });
+};
+
+dashboard.view = function(ctrl) {
+    //assuming there&#39;s an element w/ id = &quot;example&quot; somewhere on the page
+    return m(&quot;#example&quot;, [
+        new autocompleter.view(ctrl.autocompleter, {onchange: m.withAttr(&quot;value&quot;, console.log)}),
+    ]);
+};
+
+
+
+//initialize
+m.module(document.body, dashboard);</code></pre>
+<p>It&#39;s recommended that libraries that provide extra functionality to Mithril be implemented using this modular pattern, as opposed to trying to hide implementation in a <a href="mithril.html">virtual element&#39;s <code>config</code> attribute</a>.</p>
+<p>You should only consider using <code>config</code>-based components when leveraging existing libraries.</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

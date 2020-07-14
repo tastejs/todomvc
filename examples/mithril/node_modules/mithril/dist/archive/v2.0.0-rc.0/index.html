@@ -1,0 +1,292 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Introduction - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="introduction"><a href="#introduction">Introduction</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><strong><a href="index.html">Introduction</a></strong><ul>
+<li><a href="#what-is-mithril">What is Mithril?</a></li>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#hello-world">Hello world</a></li>
+<li><a href="#dom-elements">DOM elements</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#xhr">XHR</a></li>
+</ul>
+</li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="what-is-mithril?"><a href="#what-is-mithril?">What is Mithril?</a></h3>
+<p>Mithril is a modern client-side Javascript framework for building Single Page Applications.
+It&#39;s small (&lt; 8kb gzip), fast and provides routing and XHR utilities out of the box.</p>
+<div style="display:flex;margin:0 0 30px;">
+    <div style="width:50%;">
+        <h5>Download size</h5>
+        <small>Mithril (8kb)</small>
+        <div style="animation:grow 0.08s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:4%;"></div>
+        <small style="color:#aaa;">Vue + Vue-Router + Vuex + fetch (40kb)</small>
+        <div style="animation:grow 0.4s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:20%"></div>
+        <small style="color:#aaa;">React + React-Router + Redux + fetch (64kb)</small>
+        <div style="animation:grow 0.64s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:32%"></div>
+        <small style="color:#aaa;">Angular (135kb)</small>
+        <div style="animation:grow 1.35s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:68%"></div>
+    </div>
+    <div style="width:50%;">
+        <h5>Performance</h5>
+        <small>Mithril (6.4ms)</small>
+        <div style="animation:grow 0.64s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:24%;"></div>
+        <small style="color:#aaa;">Vue (9.8ms)</small>
+        <div style="animation:grow 0.98s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:40%"></div>
+        <small style="color:#aaa;">React (12.1ms)</small>
+        <div style="animation:grow 1.21s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:48%"></div>
+        <small style="color:#aaa;">Angular (11.5ms)</small>
+        <div style="animation:grow 1.15s;background:#1e5799;height:3px;margin:0 10px 10px 0;transform-origin:0;width:44%"></div>
+    </div>
+</div>
+
+<p>Mithril is used by companies like Vimeo and Nike, and open source platforms like Lichess.</p>
+<p>If you are an experienced developer and want to know how Mithril compares to other frameworks, see the <a href="framework-comparison.html">framework comparison</a> page.</p>
+<p>Mithril supports browsers all the way back to IE9, no polyfills required.</p>
+<hr>
+<h3 id="getting-started"><a href="#getting-started">Getting started</a></h3>
+<p>An easy way to try out Mithril is to include it from a CDN and follow this tutorial. It&#39;ll cover the majority of the API surface (including routing and XHR) but it&#39;ll only take 10 minutes.</p>
+<p>Let&#39;s create an HTML file to follow along:</p>
+<pre><code class="lang-markup">&lt;body&gt;
+    &lt;script src=&quot;https://unpkg.com/mithril/mithril.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+    var root = document.body
+
+    // your code goes here!
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>To make things simpler you can fork this pen which already has the latest version of mithril loaded.</p>
+<p><p data-height="265" data-theme-id="light" data-slug-hash="XRrXVR" data-default-tab="js,result" data-user="tivac" data-embed-version="2" data-pen-title="Mithril Scaffold" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/tivac/pen/XRrXVR/">Mithril Scaffold</a> by Pat Cavit (<a href="http://codepen.io/tivac">@tivac</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>Mithril is also loaded onto this page already, so you can start poking at the <code>m</code> object in the developer console right away if you&#39;d like!</p>
+<hr>
+<h3 id="hello-world"><a href="#hello-world">Hello world</a></h3>
+<p>Let&#39;s start as small as we can: render some text on screen. Copy the code below into your file (and by copy, I mean type it out - you&#39;ll learn better)</p>
+<pre><code class="lang-javascript">var root = document.body
+
+m.render(root, &quot;Hello world&quot;)
+</code></pre>
+<p>Now, let&#39;s change the text to something else. Add this line of code under the previous one:</p>
+<pre><code class="lang-javascript">m.render(root, &quot;My first app&quot;)
+</code></pre>
+<p>As you can see, you use the same code to both create and update HTML. Mithril automatically figures out the most efficient way of updating the text, rather than blindly recreating it from scratch.</p>
+<h4 id="live-example"><a href="#live-example">Live Example</a></h4>
+<p><p data-height="265" data-theme-id="light" data-slug-hash="KmPdOO" data-default-tab="js,result" data-user="tivac" data-embed-version="2" data-pen-title="Mithril Hello World" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/tivac/pen/KmPdOO/">Mithril Hello World</a> by Pat Cavit (<a href="http://codepen.io/tivac">@tivac</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<hr>
+<h3 id="dom-elements"><a href="#dom-elements">DOM elements</a></h3>
+<p>Let&#39;s wrap our text in an <code>&lt;h1&gt;</code> tag.</p>
+<pre><code class="lang-javascript">m.render(root, m(&quot;h1&quot;, &quot;My first app&quot;))
+</code></pre>
+<p>The <code>m()</code> function can be used to describe any HTML structure you want. So if you need to add a class to the <code>&lt;h1&gt;</code>:</p>
+<pre><code class="lang-javascript">m(&quot;h1&quot;, {class: &quot;title&quot;}, &quot;My first app&quot;)
+</code></pre>
+<p>If you want to have multiple elements:</p>
+<pre><code class="lang-javascript">[
+    m(&quot;h1&quot;, {class: &quot;title&quot;}, &quot;My first app&quot;),
+    m(&quot;button&quot;, &quot;A button&quot;),
+]
+</code></pre>
+<p>And so on:</p>
+<pre><code class="lang-javascript">m(&quot;main&quot;, [
+    m(&quot;h1&quot;, {class: &quot;title&quot;}, &quot;My first app&quot;),
+    m(&quot;button&quot;, &quot;A button&quot;),
+])
+</code></pre>
+<h4 id="live-example1"><a href="#live-example1">Live Example</a></h4>
+<p><p data-height="275" data-theme-id="light" data-slug-hash="gWYade" data-default-tab="js,result" data-user="tivac" data-embed-version="2" data-pen-title="Simple Mithril Example" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/tivac/pen/gWYade/">Simple Mithril Example</a> by Pat Cavit (<a href="http://codepen.io/tivac">@tivac</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>Note: If you prefer <code>&lt;html&gt;</code> syntax, <a href="jsx.html">it&#39;s possible to use it via a Babel plugin</a>.</p>
+<pre><code class="lang-jsx">// HTML syntax via Babel&#39;s JSX plugin
+&lt;main&gt;
+    &lt;h1 class=&quot;title&quot;&gt;My first app&lt;/h1&gt;
+    &lt;button&gt;A button&lt;/button&gt;
+&lt;/main&gt;
+</code></pre>
+<hr>
+<h3 id="components"><a href="#components">Components</a></h3>
+<p>A Mithril component is just an object with a <code>view</code> function. Here&#39;s the code above as a component:</p>
+<pre><code class="lang-javascript">var Hello = {
+    view: function() {
+        return m(&quot;main&quot;, [
+            m(&quot;h1&quot;, {class: &quot;title&quot;}, &quot;My first app&quot;),
+            m(&quot;button&quot;, &quot;A button&quot;),
+        ])
+    }
+}
+</code></pre>
+<p>To activate the component, we use <code>m.mount</code>.</p>
+<pre><code class="lang-javascript">m.mount(root, Hello)
+</code></pre>
+<p>As you would expect, doing so creates this markup:</p>
+<pre><code class="lang-markup">&lt;main&gt;
+    &lt;h1 class=&quot;title&quot;&gt;My first app&lt;/h1&gt;
+    &lt;button&gt;A button&lt;/button&gt;
+&lt;/main&gt;
+</code></pre>
+<p>The <code>m.mount</code> function is similar to <code>m.render</code>, but instead of rendering some HTML only once, it activates Mithril&#39;s auto-redrawing system. To understand what that means, let&#39;s add some events:</p>
+<pre><code class="lang-javascript">var count = 0 // added a variable
+
+var Hello = {
+    view: function() {
+        return m(&quot;main&quot;, [
+            m(&quot;h1&quot;, {class: &quot;title&quot;}, &quot;My first app&quot;),
+            // changed the next line
+            m(&quot;button&quot;, {onclick: function() {count++}}, count + &quot; clicks&quot;),
+        ])
+    }
+}
+
+m.mount(root, Hello)
+</code></pre>
+<p>We defined an <code>onclick</code> event on the button, which increments a variable <code>count</code> (which was declared at the top). We are now also rendering the value of that variable in the button label.</p>
+<p>You can now update the label of the button by clicking the button. Since we used <code>m.mount</code>, you don&#39;t need to manually call <code>m.render</code> to apply the changes in the <code>count</code> variable to the HTML; Mithril does it for you.</p>
+<p>If you&#39;re wondering about performance, it turns out Mithril is very fast at rendering updates, because it only touches the parts of the DOM it absolutely needs to. So in our example above, when you click the button, the text in it is the only part of the DOM Mithril actually updates.</p>
+<h4 id="live-example2"><a href="#live-example2">Live Example</a></h4>
+<p><p data-height="300" data-theme-id="light" data-slug-hash="rmBOQV" data-default-tab="js,result" data-user="tivac" data-embed-version="2" data-pen-title="Mithril Component Example" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/tivac/pen/rmBOQV/">Mithril Component Example</a> by Pat Cavit (<a href="http://codepen.io/tivac">@tivac</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<hr>
+<h3 id="routing"><a href="#routing">Routing</a></h3>
+<p>Routing just means going from one screen to another in an application with several screens.</p>
+<p>Let&#39;s add a splash page that appears before our click counter. First we create a component for it:</p>
+<pre><code class="lang-javascript">var Splash = {
+    view: function() {
+        return m(&quot;a&quot;, {href: &quot;#!/hello&quot;}, &quot;Enter!&quot;)
+    }
+}
+</code></pre>
+<p>As you can see, this component simply renders a link to <code>#!/hello</code>. The <code>#!</code> part is known as a hashbang, and it&#39;s a common convention used in Single Page Applications to indicate that the stuff after it (the <code>/hello</code> part) is a route path.</p>
+<p>Now that we&#39;re going to have more than one screen, we use <code>m.route</code> instead of <code>m.mount</code>.</p>
+<pre><code class="lang-javascript">m.route(root, &quot;/splash&quot;, {
+    &quot;/splash&quot;: Splash,
+    &quot;/hello&quot;: Hello,
+})
+</code></pre>
+<p>The <code>m.route</code> function still has the same auto-redrawing functionality that <code>m.mount</code> does, and it also enables URL awareness; in other words, it lets Mithril know what to do when it sees a <code>#!</code> in the URL.</p>
+<p>The <code>&quot;/splash&quot;</code> right after <code>root</code> means that&#39;s the default route, i.e. if the hashbang in the URL doesn&#39;t point to one of the defined routes (<code>/splash</code> and <code>/hello</code>, in our case), then Mithril redirects to the default route. So if you open the page in a browser and your URL is <code>http://localhost</code>, then you get redirected to <code>http://localhost/#!/splash</code>.</p>
+<p>Also, as you would expect, clicking on the link on the splash page takes you to the click counter screen we created earlier. Notice that now your URL will point to <code>http://localhost/#!/hello</code>. You can navigate back and forth to the splash page using the browser&#39;s back and next button.</p>
+<h4 id="live-example3"><a href="#live-example3">Live Example</a></h4>
+<p><p data-height="300" data-theme-id="light" data-slug-hash="qmWOvr" data-default-tab="js,result" data-user="tivac" data-embed-version="2" data-pen-title="Mithril Routing Example" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/tivac/pen/qmWOvr/">Mithril Routing Example</a> by Pat Cavit (<a href="http://codepen.io/tivac">@tivac</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<hr>
+<h3 id="xhr"><a href="#xhr">XHR</a></h3>
+<p>Basically, XHR is just a way to talk to a server.</p>
+<p>Let&#39;s change our click counter to make it save data on a server. For the server, we&#39;ll use <a href="http://rem-rest-api.herokuapp.com">REM</a>, a mock REST API designed for toy apps like this tutorial.</p>
+<p>First we create a function that calls <code>m.request</code>. The <code>url</code> specifies an endpoint that represents a resource, the <code>method</code> specifies the type of action we&#39;re taking (typically the <code>PUT</code> method <a href="https://en.wiktionary.org/wiki/upsert">upserts</a>), <code>data</code> is the payload that we&#39;re sending to the endpoint and <code>withCredentials</code> means to enable cookies (a requirement for the REM API to work)</p>
+<pre><code class="lang-javascript">var count = 0
+var increment = function() {
+    m.request({
+        method: &quot;PUT&quot;,
+        url: &quot;//rem-rest-api.herokuapp.com/api/tutorial/1&quot;,
+        data: {count: count + 1},
+        withCredentials: true,
+    })
+    .then(function(data) {
+        count = parseInt(data.count)
+    })
+}
+</code></pre>
+<p>Calling the increment function <a href="https://en.wiktionary.org/wiki/upsert">upserts</a> an object <code>{count: 1}</code> to the <code>/api/tutorial/1</code> endpoint. This endpoint returns an object with the same <code>count</code> value that was sent to it. Notice that the <code>count</code> variable is only updated after the request completes, and it&#39;s updated with the response value from the server now.</p>
+<p>Let&#39;s replace the event handler in the component to call the <code>increment</code> function instead of incrementing the <code>count</code> variable directly:</p>
+<pre><code class="lang-javascript">var Hello = {
+    view: function() {
+        return m(&quot;main&quot;, [
+            m(&quot;h1&quot;, {class: &quot;title&quot;}, &quot;My first app&quot;),
+            m(&quot;button&quot;, {onclick: increment}, count + &quot; clicks&quot;),
+        ])
+    }
+}
+</code></pre>
+<p>Clicking the button should now update the count.</p>
+<h4 id="live-example4"><a href="#live-example4">Live Example</a></h4>
+<p><p data-height="265" data-theme-id="light" data-slug-hash="WjeQBW" data-default-tab="js,result" data-user="tivac" data-embed-version="2" data-pen-title="Mithril XHR Example" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/tivac/pen/WjeQBW/">Mithril XHR Example</a> by Pat Cavit (<a href="http://codepen.io/tivac">@tivac</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<hr>
+<p>We covered how to create and update HTML, how to create components, routes for a Single Page Application, and interacted with a server via XHR.</p>
+<p>This should be enough to get you started writing the frontend for a real application. Now that you are comfortable with the basics of the Mithril API, <a href="simple-application.html">be sure to check out the simple application tutorial</a>, which walks you through building a realistic application.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.0/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

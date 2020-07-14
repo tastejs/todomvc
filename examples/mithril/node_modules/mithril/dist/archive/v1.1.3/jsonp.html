@@ -1,0 +1,183 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> jsonp(options) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.3</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="jsonpoptions"><a href="#jsonpoptions">jsonp(options)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><strong><a href="jsonp.html">m.jsonp</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#typical-usage">Typical usage</a></li>
+</ul>
+</li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Makes JSON-P requests. Typically, it&#39;s useful to interact with servers that allow JSON-P but that don&#39;t have CORS enabled.</p>
+<pre><code class="lang-javascript">m.jsonp({
+    url: &quot;/api/v1/users/:id&quot;,
+    data: {id: 1},
+    callbackKey: &quot;callback&quot;,
+})
+.then(function(result) {
+    console.log(result)
+})
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>promise = m.jsonp([url,] options)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>If present, it&#39;s equivalent to having the option <code>{url: url}</code>. Values passed to the <code>options</code> argument override options set via this shorthand.</td>
+</tr>
+<tr>
+<td><code>options.url</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>The URL to send the request to. The URL may be either absolute or relative, and it may contain <a href="#dynamic-urls">interpolations</a>.</td>
+</tr>
+<tr>
+<td><code>options.data</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>The data to be interpolated into the URL and serialized into the querystring.</td>
+</tr>
+<tr>
+<td><code>options.type</code></td>
+<td><code>any = Function(any)</code></td>
+<td>No</td>
+<td>A constructor to be applied to each object in the response. Defaults to the <a href="https://en.wikipedia.org/wiki/Identity_function">identity function</a>.</td>
+</tr>
+<tr>
+<td><code>options.callbackName</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>The name of the function that will be called as the callback. Defaults to a randomized string (e.g. <code>_mithril_6888197422121285_0({a: 1})</code></td>
+</tr>
+<tr>
+<td><code>options.callbackKey</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>The name of the querystring parameter name that specifies the callback name. Defaults to <code>callback</code> (e.g. <code>/someapi?callback=_mithril_6888197422121285_0</code>)</td>
+</tr>
+<tr>
+<td><code>options.background</code></td>
+<td><code>Boolean</code></td>
+<td>No</td>
+<td>If <code>false</code>, redraws mounted components upon completion of the request. If <code>true</code>, it does not. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise that resolves to the response data, after it has been piped through <code>type</code> method</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h4 id="how-it-works"><a href="#how-it-works">How it works</a></h4>
+<p>The <code>m.jsonp</code> utility is useful for third party APIs that can return data in <a href="https://en.wikipedia.org/wiki/JSONP">JSON-P</a> format.</p>
+<p>In a nutshell, JSON-P consists of creating a <code>script</code> tag whose <code>src</code> attribute points to a script that lives in the server outside of your control. Typically, you are required to define a global function and specify its name in the querystring of the script&#39;s URL. The response will return code that calls your global function, passing the server&#39;s data as the first parameter.</p>
+<p>JSON-P has several limitations: it can only use GET requests, it implicitly trusts that the third party server won&#39;t serve malicious code and it requires polluting the global Javascript scope. Nonetheless, it is sometimes the only available way to retrieve data from a service (for example, if the service doesn&#39;t support <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a>).</p>
+<hr>
+<h3 id="typical-usage"><a href="#typical-usage">Typical usage</a></h3>
+<p>Some services follow the de-facto convention of responding with JSON-P if a <code>callback</code> querystring key is provided, thus making <code>m.jsonp</code> automatically work without any effort:</p>
+<pre><code class="lang-javascript">m.jsonp({url: &quot;https://api.github.com/users/lhorie&quot;}).then(function(response) {
+    console.log(response.data.login) // logs &quot;lhorie&quot;
+})
+</code></pre>
+<p>Some services do not follow conventions and therefore you must specify the callback key that the service expects:</p>
+<pre><code class="lang-javascript">m.jsonp({
+    url: &quot;https://api.flickr.com/services/feeds/photos_public.gne?tags=kitten&amp;format=json&quot;,
+    callbackKey: &quot;jsoncallback&quot;,
+})
+.then(function(response) {
+    console.log(response.link) // logs &quot;https://www.flickr.com/photos/tags/kitten/&quot;
+})
+</code></pre>
+<p>And sometimes, you just want to take advantage of HTTP caching for GET requests for rarely-modified data:</p>
+<pre><code class="lang-javascript">// this request is always called with the same querystring, and therefore it is cached
+m.jsonp({
+    url: &quot;https://api.github.com/users/lhorie&quot;,
+    callbackName: &quot;__callback&quot;,
+})
+.then(function(response) {
+    console.log(response.data.login) // logs &quot;lhorie&quot;
+})
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.3/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

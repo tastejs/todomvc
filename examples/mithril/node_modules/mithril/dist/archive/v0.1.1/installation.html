@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="installation.html">Installation</a></li>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="installation">Installation</h2>
+<p>Mithril is available from a variety of sources:</p>
+<hr>
+<h3 id="direct-download">Direct download</h3>
+<p>You can <a href="http://lhorie.github.io/mithril/mithril.min.zip">download a zip of the latest version version here</a>.</p>
+<p>Links to older versions can be found in the <a href="change-log.html">change log</a></p>
+<p>In order to use Mithril, extract it from the zip file and point a script tag to the <code>.js</code> file:</p>
+<pre><code class="lang-markup">&lt;script src=&quot;mithril.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<hr>
+<h3 id="cdns-content-delivery-networks-">CDNs (Content Delivery Networks)</h3>
+<p>You can also find Mithril in <a href="http://cdnjs.com/libraries/mithril/">cdnjs</a> and <a href="http://www.jsdelivr.com/#!mithril">jsdelivr</a></p>
+<p>Content delivery networks allow the library to be cached across different websites that use the same version of the framework, and help reduce latency by serving the files from a server that is physically near the user&#39;s location.</p>
+<h4 id="cdnjs">CdnJs</h4>
+<pre><code class="lang-markup">&lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/mithril/0.1.1/mithril.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h4 id="jsdelivr">JsDelivr</h4>
+<pre><code class="lang-markup">&lt;script src=&quot;//cdn.jsdelivr.net/mithril/0.1.1/mithril.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<hr>
+<h3 id="bower">Bower</h3>
+<p><a href="http://http://bower.io">Bower</a> is a package manager for <a href="http://nodejs.org/">NodeJS</a>. If you&#39;re using NodeJS already or planning on using <a href="http://gruntjs.com/">Grunt</a> to create a build system, you can use Bower to conveniently keep up-to-date with Mithril versions.</p>
+<p>Assuming you have NodeJS installed, you can install Bower by typing this in the command line:</p>
+<pre><code>npm install -g bower</code></pre>
+<p>And you can download Mithril by typing this:</p>
+<pre><code>bower install mithril</code></pre>
+<p>Then, to use Mithril, point a script tag to the downloaded file:</p>
+<pre><code class="lang-markup">&lt;script src=&quot;/bower_components/mithril/mithril.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

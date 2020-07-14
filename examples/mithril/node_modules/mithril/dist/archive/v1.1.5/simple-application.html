@@ -1,0 +1,556 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Simple application - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.5</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="simple-application"><a href="#simple-application">Simple application</a></h1>
+<ul>
+<li>Tutorials<ul>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="index.html">Introduction</a></li>
+<li><strong><a href="simple-application.html">Tutorial</a></strong></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+</ul>
+</li>
+</ul>
+<p>Let&#39;s develop a simple application that covers some of the major aspects of Single Page Applications</p>
+<p>First let&#39;s create an entry point for the application. Create a file <code>index.html</code>:</p>
+<pre><code class="lang-markup">&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+        &lt;title&gt;My Application&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;script src=&quot;bin/app.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The <code>&lt;!doctype html&gt;</code> line indicates this is an HTML 5 document. The first <code>charset</code> meta tag indicates the encoding of the document and the <code>viewport</code> meta tag dictates how mobile browsers should scale the page. The <code>title</code> tag contains the text to be displayed on the browser tab for this application, and the <code>script</code> tag indicates what is the path to the Javascript file that controls the application.</p>
+<p>We could create the entire application in a single Javascript file, but doing so would make it difficult to navigate the codebase later on. Instead, let&#39;s split the code into <em>modules</em>, and assemble these modules into a <em>bundle</em> <code>bin/app.js</code>.</p>
+<p>There are many ways to setup a bundler tool, but most are distributed via NPM. In fact, most modern Javascript libraries and tools are distributed that way, including Mithril. NPM stands for Node.js Package Manager. To download NPM, <a href="https://nodejs.org/en/">install Node.js</a>; NPM is installed automatically with it. Once you have Node.js and NPM installed, open the command line and run this command:</p>
+<pre><code class="lang-bash">npm init -y
+</code></pre>
+<p>If NPM is installed correctly, a file <code>package.json</code> will be created. This file will contain a skeleton project meta-description file. Feel free to edit the project and author information in this file.</p>
+<hr>
+<p>To install Mithril, follow the instructions in the <a href="installation.html">installation</a> page. Once you have a project skeleton with Mithril installed, we are ready to create the application.</p>
+<p>Let&#39;s start by creating a module to store our state. Let&#39;s create a file called <code>src/models/User.js</code></p>
+<pre><code class="lang-javascript">// src/models/User.js
+var User = {
+    list: []
+}
+
+module.exports = User
+</code></pre>
+<p>Now let&#39;s add code to load some data from a server. To communicate with a server, we can use Mithril&#39;s XHR utility, <code>m.request</code>. First, we include Mithril in the module:</p>
+<pre><code class="lang-javascript">// src/models/User.js
+var m = require(&quot;mithril&quot;)
+
+var User = {
+    list: []
+}
+
+module.exports = User
+</code></pre>
+<p>Next we create a function that will trigger an XHR call. Let&#39;s call it <code>loadList</code></p>
+<pre><code class="lang-javascript">// src/models/User.js
+var m = require(&quot;mithril&quot;)
+
+var User = {
+    list: [],
+    loadList: function() {
+        // TODO: make XHR call
+    }
+}
+
+module.exports = User
+</code></pre>
+<p>Then we can add an <code>m.request</code> call to make an XHR request. For this tutorial, we&#39;ll make XHR calls to the <a href="http://rem-rest-api.herokuapp.com/">REM</a> API, a mock REST API designed for rapid prototyping. This API returns a list of users from the <code>GET https://rem-rest-api.herokuapp.com/api/users</code> endpoint. Let&#39;s use <code>m.request</code> to make an XHR request and populate our data with the response of that endpoint.</p>
+<pre><code class="lang-javascript">// src/models/User.js
+var m = require(&quot;mithril&quot;)
+
+var User = {
+    list: [],
+    loadList: function() {
+        return m.request({
+            method: &quot;GET&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users&quot;,
+            withCredentials: true,
+        })
+        .then(function(result) {
+            User.list = result.data
+        })
+    },
+}
+
+module.exports = User
+</code></pre>
+<p>The <code>method</code> option is an <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP method</a>. To retrieve data from the server without causing side-effects on the server, we need to use the <code>GET</code> method. The <code>url</code> is the address for the API endpoint. The <code>withCredentials: true</code> line indicates that we&#39;re using cookies (which is a requirement for the REM API).</p>
+<p>The <code>m.request</code> call returns a Promise that resolves to the data from the endpoint. By default, Mithril assumes a HTTP response body are in JSON format and automatically parses it into a Javascript object or array. The <code>.then</code> callback runs when the XHR request completes. In this case, the callback assigns the <code>result.data</code> array to <code>User.list</code>.</p>
+<p>Notice we also have a <code>return</code> statement in <code>loadList</code>. This is a general good practice when working with Promises, which allows us to register more callbacks to run after the completion of the XHR request.</p>
+<p>This simple model exposes two members: <code>User.list</code> (an array of user objects), and <code>User.loadList</code> (a method that populates <code>User.list</code> with server data).</p>
+<hr>
+<p>Now, let&#39;s create a view module so that we can display data from our User model module.</p>
+<p>Create a file called <code>src/views/UserList.js</code>. First, let&#39;s include Mithril and our model, since we&#39;ll need to use both:</p>
+<pre><code class="lang-javascript">// src/views/UserList.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+</code></pre>
+<p>Next, let&#39;s create a Mithril component. A component is simply an object that has a <code>view</code> method:</p>
+<pre><code class="lang-javascript">// src/views/UserList.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    view: function() {
+        // TODO add code here
+    }
+}
+</code></pre>
+<p>By default, Mithril views are described using <a href="hyperscript.html">hyperscript</a>. Hyperscript offers a terse syntax that can be indented more naturally than HTML for complex tags, and in addition, since its syntax is simply Javascript, it&#39;s possible to leverage a lot of Javascript tooling ecosystem: for example <a href="es6.html">Babel</a>, <a href="jsx.html">JSX</a> (inline-HTML syntax extension), <a href="http://eslint.org/">eslint</a> (linting), <a href="https://github.com/mishoo/UglifyJS2">uglifyjs</a> (minification), <a href="https://github.com/gotwarlost/istanbul">istanbul</a> (code coverage), <a href="https://flowtype.org/">flow</a> (static type analysis), etc.</p>
+<p>Let&#39;s use Mithril hyperscript to create a list of items. Hyperscript is the most idiomatic way of writing Mithril views, but <a href="jsx.html">JSX is another popular alternative that you could explore</a> once you&#39;re more comfortable with the basics:</p>
+<pre><code class="lang-javascript">var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    view: function() {
+        return m(&quot;.user-list&quot;)
+    }
+}
+</code></pre>
+<p>The <code>&quot;.user-list&quot;</code> string is a CSS selector, and as you would expect, <code>.user-list</code> represents a class. When a tag is not specified, <code>div</code> is the default. So this view is equivalent to <code>&lt;div class=&quot;user-list&quot;&gt;&lt;/div&gt;</code>.</p>
+<p>Now, let&#39;s reference the list of users from the model we created earlier (<code>User.list</code>) to dynamically loop through data:</p>
+<pre><code class="lang-javascript">// src/views/UserList.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    view: function() {
+        return m(&quot;.user-list&quot;, User.list.map(function(user) {
+            return m(&quot;.user-list-item&quot;, user.firstName + &quot; &quot; + user.lastName)
+        }))
+    }
+}
+</code></pre>
+<p>Since <code>User.list</code> is a Javascript array, and since hyperscript views are just Javascript, we can loop through the array using the <code>.map</code> method. This creates an array of vnodes that represents a list of <code>div</code>s, each containing the name of a user.</p>
+<p>The problem, of course, is that we never called the <code>User.loadList</code> function. Therefore, <code>User.list</code> is still an empty array, and thus this view would render a blank page. Since we want <code>User.loadList</code> to be called when we render this component, we can take advantage of component <a href="lifecycle-methods.html">lifecycle methods</a>:</p>
+<pre><code class="lang-javascript">// src/views/UserList.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    oninit: User.loadList,
+    view: function() {
+        return m(&quot;.user-list&quot;, User.list.map(function(user) {
+            return m(&quot;.user-list-item&quot;, user.firstName + &quot; &quot; + user.lastName)
+        }))
+    }
+}
+</code></pre>
+<p>Notice that we added an <code>oninit</code> method to the component, which references <code>User.loadList</code>. This means that when the component initializes, User.loadList will be called, triggering an XHR request. When the server returns a response, <code>User.list</code> gets populated.</p>
+<p>Also notice we <strong>didn&#39;t</strong> do <code>oninit: User.loadList()</code> (with parentheses at the end). The difference is that <code>oninit: User.loadList()</code> calls the function once and immediately, but <code>oninit: User.loadList</code> only calls that function when the component renders. This is an important difference and a common pitfall for developers new to javascript: calling the function immediately means that the XHR request will fire as soon as the source code is evaluated, even if the component never renders. Also, if the component is ever recreated (through navigating back and forth through the application), the function won&#39;t be called again as expected.</p>
+<hr>
+<p>Let&#39;s render the view from the entry point file <code>src/index.js</code> we created earlier:</p>
+<pre><code class="lang-javascript">// src/index.js
+var m = require(&quot;mithril&quot;)
+
+var UserList = require(&quot;./views/UserList&quot;)
+
+m.mount(document.body, UserList)
+</code></pre>
+<p>The <code>m.mount</code> call renders the specified component (<code>UserList</code>) into a DOM element (<code>document.body</code>), erasing any DOM that was there previously. Opening the HTML file in a browser should now display a list of person names.</p>
+<hr>
+<p>Right now, the list looks rather plain because we have not defined any styles.</p>
+<p>There are many similar conventions and libraries that help organize application styles nowadays. Some, like <a href="http://getbootstrap.com/">Bootstrap</a> dictate a specific set of HTML structures and semantically meaningful class names, which has the upside of providing low cognitive dissonance, but the downside of making customization more difficult. Others, like <a href="http://tachyons.io/">Tachyons</a> provide a large number of self-describing, atomic class names at the cost of making the class names themselves non-semantic. &quot;CSS-in-JS&quot; is another type of CSS system that is growing in popularity, which basically consists of scoping CSS via transpilation tooling. CSS-in-JS libraries achieve maintainability by reducing the size of the problem space, but come at the cost of having high complexity.</p>
+<p>Regardless of what CSS convention/library you choose, a good rule of thumb is to avoid the cascading aspect of CSS. To keep this tutorial simple, we&#39;ll just use plain CSS with overly explicit class names, so that the styles themselves provide the atomicity of Tachyons, and class name collisions are made unlikely through the verbosity of the class names. Plain CSS can be sufficient for low-complexity projects (e.g. 3 to 6 man-months of initial implementation time and few project phases).</p>
+<p>To add styles, let&#39;s first create a file called <code>styles.css</code> and include it in the <code>index.html</code> file:</p>
+<pre><code class="lang-markup">&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+        &lt;title&gt;My Application&lt;/title&gt;
+        &lt;link href=&quot;styles.css&quot; rel=&quot;stylesheet&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;script src=&quot;bin/app.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Now we can style the <code>UserList</code> component:</p>
+<pre><code class="lang-css">.user-list {list-style:none;margin:0 0 10px;padding:0;}
+.user-list-item {background:#fafafa;border:1px solid #ddd;color:#333;display:block;margin:0 0 1px;padding:8px 15px;text-decoration:none;}
+.user-list-item:hover {text-decoration:underline;}
+</code></pre>
+<p>The CSS above is written using a convention of keeping all styles for a rule in a single line, in alphabetical order. This convention is designed to take maximum advantage of screen real estate, and makes it easier to scan the CSS selectors (since they are always on the left side) and their logical grouping, and it enforces predictable and uniform placement of CSS rules for each selector.</p>
+<p>Obviously you can use whatever spacing/indentation convention you prefer. The example above is just an illustration of a not-so-widespread convention that has strong rationales behind it, but deviate from the more widespread cosmetic-oriented spacing conventions.</p>
+<p>Reloading the browser window now should display some styled elements.</p>
+<hr>
+<p>Let&#39;s add routing to our application.</p>
+<p>Routing means binding a screen to a unique URL, to create the ability to go from one &quot;page&quot; to another. Mithril is designed for Single Page Applications, so these &quot;pages&quot; aren&#39;t necessarily different HTML files in the traditional sense of the word. Instead, routing in Single Page Applications retains the same HTML file throughout its lifetime, but changes the state of the application via Javascript. Client side routing has the benefit of avoiding flashes of blank screen between page transitions, and can reduce the amount of data being sent down from the server when used in conjunction with an web service oriented architecture (i.e. an application that downloads data as JSON instead of downloading pre-rendered chunks of verbose HTML).</p>
+<p>We can add routing by changing the <code>m.mount</code> call to a <code>m.route</code> call:</p>
+<pre><code class="lang-javascript">// src/index.js
+var m = require(&quot;mithril&quot;)
+
+var UserList = require(&quot;./views/UserList&quot;)
+
+m.route(document.body, &quot;/list&quot;, {
+    &quot;/list&quot;: UserList
+})
+</code></pre>
+<p>The <code>m.route</code> call specifies that the application will be rendered into <code>document.body</code>. The <code>&quot;/list&quot;</code> argument is the default route. That means the user will be redirected to that route if they land in a route that does not exist. The <code>{&quot;/list&quot;: UserList}</code> object declares a map of existing routes, and what components each route resolves to.</p>
+<p>Refreshing the page in the browser should now append <code>#!/list</code> to the URL to indicate that routing is working. Since that route render UserList, we should still see the list of people on screen as before.</p>
+<p>The <code>#!</code> snippet is known as a hashbang, and it&#39;s a commonly used string for implementing client-side routing. It&#39;s possible to configure this string it via <a href="route.html#mrouteprefix"><code>m.route.prefix</code></a>. Some configurations require supporting server-side changes, so we&#39;ll just continue using the hashbang for the rest of this tutorial.</p>
+<hr>
+<p>Let&#39;s add another route to our application for editing users. First let&#39;s create a module called <code>views/UserForm.js</code></p>
+<pre><code class="lang-javascript">// src/views/UserForm.js
+
+module.exports = {
+    view: function() {
+        // TODO implement view
+    }
+}
+</code></pre>
+<p>Then we can <code>require</code> this new module from <code>src/index.js</code></p>
+<pre><code class="lang-javascript">// src/index.js
+var m = require(&quot;mithril&quot;)
+
+var UserList = require(&quot;./views/UserList&quot;)
+var UserForm = require(&quot;./views/UserForm&quot;)
+
+m.route(document.body, &quot;/list&quot;, {
+    &quot;/list&quot;: UserList
+})
+</code></pre>
+<p>And finally, we can create a route that references it:</p>
+<pre><code class="lang-javascript">// src/index.js
+var m = require(&quot;mithril&quot;)
+
+var UserList = require(&quot;./views/UserList&quot;)
+var UserForm = require(&quot;./views/UserForm&quot;)
+
+m.route(document.body, &quot;/list&quot;, {
+    &quot;/list&quot;: UserList,
+    &quot;/edit/:id&quot;: UserForm,
+})
+</code></pre>
+<p>Notice that the new route has a <code>:id</code> in it. This is a route parameter; you can think of it as a wild card; the route <code>/edit/1</code> would resolve to <code>UserForm</code> with an <code>id</code> of <code>&quot;1&quot;</code>. <code>/edit/2</code> would also resolve to <code>UserForm</code>, but with an <code>id</code> of <code>&quot;2&quot;</code>. And so on.</p>
+<p>Let&#39;s implement the <code>UserForm</code> component so that it can respond to those route parameters:</p>
+<pre><code class="lang-javascript">// src/views/UserForm.js
+var m = require(&quot;mithril&quot;)
+
+module.exports = {
+    view: function() {
+        return m(&quot;form&quot;, [
+            m(&quot;label.label&quot;, &quot;First name&quot;),
+            m(&quot;input.input[type=text][placeholder=First name]&quot;),
+            m(&quot;label.label&quot;, &quot;Last name&quot;),
+            m(&quot;input.input[placeholder=Last name]&quot;),
+            m(&quot;button.button[type=button]&quot;, &quot;Save&quot;),
+        ])
+    }
+}
+</code></pre>
+<p>And let&#39;s add some styles to <code>styles.css</code>:</p>
+<pre><code class="lang-css">/* styles.css */
+body,.input,.button {font:normal 16px Verdana;margin:0;}
+
+.user-list {list-style:none;margin:0 0 10px;padding:0;}
+.user-list-item {background:#fafafa;border:1px solid #ddd;color:#333;display:block;margin:0 0 1px;padding:8px 15px;text-decoration:none;}
+.user-list-item:hover {text-decoration:underline;}
+
+.label {display:block;margin:0 0 5px;}
+.input {border:1px solid #ddd;border-radius:3px;box-sizing:border-box;display:block;margin:0 0 10px;padding:10px 15px;width:100%;}
+.button {background:#eee;border:1px solid #ddd;border-radius:3px;color:#333;display:inline-block;margin:0 0 10px;padding:10px 15px;text-decoration:none;}
+.button:hover {background:#e8e8e8;}
+</code></pre>
+<p>Right now, this component does nothing to respond to user events. Let&#39;s add some code to our <code>User</code> model in <code>src/models/User.js</code>. This is how the code is right now:</p>
+<pre><code class="lang-javascript">// src/models/User.js
+var m = require(&quot;mithril&quot;)
+
+var User = {
+    list: [],
+    loadList: function() {
+        return m.request({
+            method: &quot;GET&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users&quot;,
+            withCredentials: true,
+        })
+        .then(function(result) {
+            User.list = result.data
+        })
+    },
+}
+
+module.exports = User
+</code></pre>
+<p>Let&#39;s add code to allow us to load a single user</p>
+<pre><code class="lang-javascript">// src/models/User.js
+var m = require(&quot;mithril&quot;)
+
+var User = {
+    list: [],
+    loadList: function() {
+        return m.request({
+            method: &quot;GET&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users&quot;,
+            withCredentials: true,
+        })
+        .then(function(result) {
+            User.list = result.data
+        })
+    },
+
+    current: {},
+    load: function(id) {
+        return m.request({
+            method: &quot;GET&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users/&quot; + id,
+            withCredentials: true,
+        })
+        .then(function(result) {
+            User.current = result
+        })
+    }
+}
+
+module.exports = User
+</code></pre>
+<p>Notice we added a <code>User.current</code> property, and a <code>User.load(id)</code> method which populates that property. We can now populate the <code>UserForm</code> view using this new method:</p>
+<pre><code class="lang-javascript">// src/views/UserForm.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    oninit: function(vnode) {User.load(vnode.attrs.id)},
+    view: function() {
+        return m(&quot;form&quot;, [
+            m(&quot;label.label&quot;, &quot;First name&quot;),
+            m(&quot;input.input[type=text][placeholder=First name]&quot;, {value: User.current.firstName}),
+            m(&quot;label.label&quot;, &quot;Last name&quot;),
+            m(&quot;input.input[placeholder=Last name]&quot;, {value: User.current.lastName}),
+            m(&quot;button.button[type=button]&quot;, &quot;Save&quot;),
+        ])
+    }
+}
+</code></pre>
+<p>Similar to the <code>UserList</code> component, <code>oninit</code> calls <code>User.load()</code>. Remember we had a route parameter called <code>:id</code> on the <code>&quot;/edit/:id&quot;: UserForm</code> route? The route parameter becomes an attribute of the <code>UserForm</code> component&#39;s vnode, so routing to <code>/edit/1</code> would make <code>vnode.attrs.id</code> have a value of <code>&quot;1&quot;</code>.</p>
+<p>Now, let&#39;s modify the <code>UserList</code> view so that we can navigate from there to a <code>UserForm</code>:</p>
+<pre><code class="lang-javascript">// src/views/UserList.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    oninit: User.loadList,
+    view: function() {
+        return m(&quot;.user-list&quot;, User.list.map(function(user) {
+            return m(&quot;a.user-list-item&quot;, {href: &quot;/edit/&quot; + user.id, oncreate: m.route.link}, user.firstName + &quot; &quot; + user.lastName)
+        }))
+    }
+}
+</code></pre>
+<p>Here we changed <code>.user-list-item</code> to <code>a.user-list-item</code>. We added an <code>href</code> that references the route we want, and finally we added <code>oncreate: m.route.link</code>. This makes the link behave like a routed link (as opposed to merely behaving like a regular link). What this means is that clicking the link would change the part of URL that comes after the hashbang <code>#!</code> (thus changing the route without unloading the current HTML page)</p>
+<p>If you refresh the page in the browser, you should now be able to click on a person and be taken to a form. You should also be able to press the back button in the browser to go back from the form to the list of people.</p>
+<hr>
+<p>The form itself still doesn&#39;t save when you press &quot;Save&quot;. Let&#39;s make this form work:</p>
+<pre><code class="lang-javascript">// src/views/UserForm.js
+var m = require(&quot;mithril&quot;)
+var User = require(&quot;../models/User&quot;)
+
+module.exports = {
+    oninit: function(vnode) {User.load(vnode.attrs.id)},
+    view: function() {
+        return m(&quot;form&quot;, {
+                onsubmit: function(e) {
+                    e.preventDefault()
+                    User.save()
+                }
+            }, [
+            m(&quot;label.label&quot;, &quot;First name&quot;),
+            m(&quot;input.input[type=text][placeholder=First name]&quot;, {
+                oninput: m.withAttr(&quot;value&quot;, function(value) {User.current.firstName = value}),
+                value: User.current.firstName
+            }),
+            m(&quot;label.label&quot;, &quot;Last name&quot;),
+            m(&quot;input.input[placeholder=Last name]&quot;, {
+                oninput: m.withAttr(&quot;value&quot;, function(value) {User.current.lastName = value}),
+                value: User.current.lastName
+            }),
+            m(&quot;button.button[type=submit]&quot;, &quot;Save&quot;),
+        ])
+    }
+}
+</code></pre>
+<p>We added <code>oninput</code> events to both inputs, that set the <code>User.current.firstName</code> and <code>User.current.lastName</code> properties when a user types.</p>
+<p>In addition, we declared that a <code>User.save</code> method should be called when the &quot;Save&quot; button is pressed. Let&#39;s implement that method:</p>
+<pre><code class="lang-javascript">// src/models/User.js
+var m = require(&quot;mithril&quot;)
+
+var User = {
+    list: [],
+    loadList: function() {
+        return m.request({
+            method: &quot;GET&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users&quot;,
+            withCredentials: true,
+        })
+        .then(function(result) {
+            User.list = result.data
+        })
+    },
+
+    current: {},
+    load: function(id) {
+        return m.request({
+            method: &quot;GET&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users/&quot; + id,
+            withCredentials: true,
+        })
+        .then(function(result) {
+            User.current = result
+        })
+    },
+
+    save: function() {
+        return m.request({
+            method: &quot;PUT&quot;,
+            url: &quot;https://rem-rest-api.herokuapp.com/api/users/&quot; + User.current.id,
+            data: User.current,
+            withCredentials: true,
+        })
+    }
+}
+
+module.exports = User
+</code></pre>
+<p>In the <code>save</code> method at the bottom, we used the <code>PUT</code> HTTP method to indicate that we are upserting data to the server.</p>
+<p>Now try editing the name of a user in the application. Once you save a change, you should be able to see the change reflected in the list of users.</p>
+<hr>
+<p>Currently, we&#39;re only able to navigate back to the user list via the browser back button. Ideally, we would like to have a menu - or more generically, a layout where we can put global UI elements</p>
+<p>Let&#39;s create a file <code>src/views/Layout.js</code>:</p>
+<pre><code class="lang-javascript">var m = require(&quot;mithril&quot;)
+
+module.exports = {
+    view: function(vnode) {
+        return m(&quot;main.layout&quot;, [
+            m(&quot;nav.menu&quot;, [
+                m(&quot;a[href=&#39;/list&#39;]&quot;, {oncreate: m.route.link}, &quot;Users&quot;)
+            ]),
+            m(&quot;section&quot;, vnode.children)
+        ])
+    }
+}
+</code></pre>
+<p>This component is fairly straightforward, it has a <code>&lt;nav&gt;</code> with a link to the list of users. Similar to what we did to the <code>/edit</code> links, this link uses <code>m.route.link</code> to activate routing behavior in the link.</p>
+<p>Notice there&#39;s also a <code>&lt;section&gt;</code> element with <code>vnode.children</code> as children. <code>vnode</code> is a reference to the vnode that represents an instance of the Layout component (i.e. the vnode returned by a <code>m(Layout)</code> call). Therefore, <code>vnode.children</code> refer to any children of that vnode.</p>
+<p>Let&#39;s add some styles:</p>
+<pre><code class="lang-css">/* styles.css */
+body,.input,.button {font:normal 16px Verdana;margin:0;}
+
+.layout {margin:10px auto;max-width:1000px;}
+.menu {margin:0 0 30px;}
+
+.user-list {list-style:none;margin:0 0 10px;padding:0;}
+.user-list-item {background:#fafafa;border:1px solid #ddd;color:#333;display:block;margin:0 0 1px;padding:8px 15px;text-decoration:none;}
+.user-list-item:hover {text-decoration:underline;}
+
+.label {display:block;margin:0 0 5px;}
+.input {border:1px solid #ddd;border-radius:3px;box-sizing:border-box;display:block;margin:0 0 10px;padding:10px 15px;width:100%;}
+.button {background:#eee;border:1px solid #ddd;border-radius:3px;color:#333;display:inline-block;margin:0 0 10px;padding:10px 15px;text-decoration:none;}
+.button:hover {background:#e8e8e8;}
+</code></pre>
+<p>Let&#39;s change the router in <code>src/index.js</code> to add our layout into the mix:</p>
+<pre><code class="lang-javascript">// src/index.js
+var m = require(&quot;mithril&quot;)
+
+var UserList = require(&quot;./views/UserList&quot;)
+var UserForm = require(&quot;./views/UserForm&quot;)
+var Layout = require(&quot;./views/Layout&quot;)
+
+m.route(document.body, &quot;/list&quot;, {
+    &quot;/list&quot;: {
+        render: function() {
+            return m(Layout, m(UserList))
+        }
+    },
+    &quot;/edit/:id&quot;: {
+        render: function(vnode) {
+            return m(Layout, m(UserForm, vnode.attrs))
+        }
+    },
+})
+</code></pre>
+<p>We replaced each component with a <a href="route.html#routeresolver">RouteResolver</a> (basically, an object with a <code>render</code> method). The <code>render</code> methods can be written in the same way as regular component views would be, by nesting <code>m()</code> calls.</p>
+<p>The interesting thing to pay attention to is how components can be used instead of a selector string in a <code>m()</code> call. Here, in the <code>/list</code> route, we have <code>m(Layout, m(UserList))</code>. This means there&#39;s a root vnode that represents an instance of <code>Layout</code>, which has a <code>UserList</code> vnode as its only child.</p>
+<p>In the <code>/edit/:id</code> route, there&#39;s also a <code>vnode</code> argument that carries the route parameters into the <code>UserForm</code> component. So if the URL is <code>/edit/1</code>, then <code>vnode.attrs</code> in this case is <code>{id: 1}</code>, and this <code>m(UserForm, vnode.attrs)</code> is equivalent to <code>m(UserForm, {id: 1})</code>. The equivalent JSX code would be <code>&lt;UserForm id={vnode.attrs.id} /&gt;</code>.</p>
+<p>Refresh the page in the browser and now you&#39;ll see the global navigation on every page in the app.</p>
+<hr>
+<p>This concludes the tutorial.</p>
+<p>In this tutorial, we went through the process of creating a very simple application where we can list users from a server and edit them individually. As an extra exercise, try to implement user creation and deletion on your own.</p>
+<p>If you want to see more examples of Mithril code, check the <a href="examples.html">examples</a> page. If you have questions, feel free to drop by the <a href="https://gitter.im/MithrilJS/mithril.js">Mithril chat room</a>.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.5/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

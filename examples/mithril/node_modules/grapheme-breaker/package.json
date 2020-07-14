@@ -1,0 +1,47 @@
+{
+  "name": "grapheme-breaker",
+  "version": "0.3.2",
+  "description": "An implementation of the Unicode grapheme cluster breaking algorithm (UAX #29)",
+  "main": "src/GraphemeBreaker",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "brfs": "^1.2.0",
+    "unicode-trie": "^0.3.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "coffee-script": "^1.7.1",
+    "mocha": "^1.20.1",
+    "request": "^2.37.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "prepublish": "coffee -c src/",
+    "postpublish": "rm -rf src/*.js"
+  },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/devongovett/grapheme-breaker"
+  },
+  "keywords": [
+    "unicode",
+    "text",
+    "break",
+    "segment",
+    "character",
+    "grapheme cluster"
+  ],
+  "author": "Devon Govett <devongovett@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devongovett/grapheme-breaker/issues"
+  },
+  "homepage": "https://github.com/devongovett/grapheme-breaker"
+}

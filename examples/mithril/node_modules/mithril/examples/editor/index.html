@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Markdown Editor</title>
+		<style>
+html,body {height:100%;margin:0;}
+h1,h2,h3,h4,h5,h6,p {margin:0 0 10px;}
+#editor {display:flex;height:100%;}
+.input,.preview {box-sizing:border-box;height:100%;margin:0;padding:10px;width:50%;}
+.input {border:0;border-right:1px solid #ccc;outline:none;resize:none;}
+		</style>
+	</head>
+	<body>
+		<div id="editor"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.6.0/marked.min.js"></script>
+		<script src="../../mithril.js"></script>
+		<script>
+//model
+var state = {
+	text: "# Markdown Editor\n\nType on the left panel and see the result on the right panel",
+	update: function(value) {
+		state.text = value
+	}
+}
+
+//view
+var Editor = {
+	view: function() {
+		return [
+			m("textarea.input", {
+				oninput: function (e) { state.update(e.target.value) },
+				value: state.text
+			}),
+			m(".preview", m.trust(marked(state.text))),
+		]
+	}
+}
+
+m.mount(document.getElementById("editor"), Editor)
+		</script>
+	</body>
+</html>

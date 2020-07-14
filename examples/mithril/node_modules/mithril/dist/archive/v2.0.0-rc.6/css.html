@@ -1,0 +1,151 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> CSS - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.6</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="css"><a href="#css">CSS</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><strong><a href="css.html">CSS</a></strong><ul>
+<li><a href="#vanilla-css">Vanilla CSS</a></li>
+<li><a href="#tachyons">Tachyons</a></li>
+<li><a href="#css-in-js">CSS-in-JS</a></li>
+</ul>
+</li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="vanilla-css"><a href="#vanilla-css">Vanilla CSS</a></h3>
+<p>For various reasons, CSS has a bad reputation and often developers reach for complex tools in an attempt to make styling more manageable. In this section, we&#39;ll take a step back and cover some tips on writing plain CSS:</p>
+<ul>
+<li><p><strong>Avoid using the space operator</strong> - The vast majority of CSS maintainability issues are due to CSS specificity issues. The space operator defines a descendant (e.g. <code>.a .b</code>) and at the same time, it increases the level of specificity for the CSS rules that apply to that selector, sometimes overriding styles unexpectedly.</p>
+<p>  Instead, it&#39;s preferable to share a namespace prefix in all class names that belong to a logical group of elements:</p>
+<pre><code class="language-css">  /* AVOID */
+  .chat.container {/*...*/}
+  .chat .item {/*...*/}
+  .chat .avatar {/*...*/}
+  .chat .text {/*...*/}
+
+  /* PREFER */
+  .chat-container {/*...*/}
+  .chat-item {/*...*/}
+  .chat-avatar {/*...*/}
+  .chat-text {/*...*/}</code></pre>
+</li>
+<li><p><strong>Use only single-class selectors</strong> - This convention goes hand-in-hand with the previous one: avoiding high specificity selectors such as <code>#foo</code> or <code>div.bar</code> help decrease the likelyhood of specificity conflicts.</p>
+<pre><code class="language-css">  /* AVOID */
+  #home {}
+  input.highlighted {}
+
+  /* PREFER */
+  .home {}
+  .input-highlighted {}</code></pre>
+</li>
+<li><p><strong>Develop naming conventions</strong> - You can reduce naming collisions by defining keywords for certain types of UI elements. This is particularly effective when brand names are involved:</p>
+<pre><code class="language-css">  /* AVOID */
+  .twitter {} /* icon link in footer */
+  .facebook {} /* icon link in footer */
+  /* later... */
+  .modal.twitter {} /* tweet modal */
+  .modal.facebook {} /* share modal */
+
+  /* PREFER */
+  .link-twitter {}
+  .link-facebook {}
+  /* later... */
+  .modal-twitter {}
+  .modal-facebook {}</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="tachyons"><a href="#tachyons">Tachyons</a></h3>
+<p><a href="https://github.com/tachyons-css/tachyons">Tachyons</a> is a CSS framework, but the concept behind it can easily be used without the library itself.</p>
+<p>The basic idea is that every class name must declare one and only one CSS rule. For example, <code>bw1</code> stands for <code>border-width:1px;</code>. To create a complex style, one simply combines class names representing each of the required CSS rules. For example, <code>.black.bg-dark-blue.br2</code> styles an element with blue background, black text and a 4px border-radius.</p>
+<p>Since each class is small and atomic, it&#39;s essentially impossible to run into CSS conflicts.</p>
+<p>As it turns out, the Tachyons convention fits extremely well with Mithril and JSX:</p>
+<pre><code class="language-jsx">var Hero = &quot;.black.bg-dark-blue.br2.pa3&quot;
+
+m.mount(document.body, &lt;Hero&gt;Hello&lt;/Hero&gt;)
+// equivalent to `m(&quot;.black.bg-dark.br2.pa3&quot;, &quot;Hello&quot;)`</code></pre>
+<hr>
+<h3 id="css-in-js"><a href="#css-in-js">CSS in JS</a></h3>
+<p>In plain CSS, all selectors live in the global scope and are prone to name collisions and specificity conflicts. CSS-in-JS aims to solve the issue of scoping in CSS, i.e. it groups related styles into non-global modules that are invisible to each other. CSS-in-JS is suitable for extremely large dev teams working on a single codebase, but it&#39;s not a good choice for most teams.</p>
+<p>Nowadays there are <a href="https://github.com/MicheleBertoli/css-in-js">a lot of CSS-in-JS libraries with various degrees of robustness</a>. </p>
+<p>The main problem with many of these libraries is that even though they require a non-trivial amount of transpiler tooling and configuration, they also require sacrificing code readability in order to work, e.g. <code>&lt;a class={classnames(styles.button, styles.danger)}&gt;&lt;/a&gt;</code> vs <code>&lt;a class=&quot;button danger&quot;&gt;&lt;/a&gt;</code> (or <code>m(&quot;a.button.danger&quot;)</code> if we&#39;re using hyperscript).</p>
+<p>Often sacrifices also need to be made at time of debugging, when mapping rendered CSS class names back to their source. Often all you get in browser developer tools is a class like <code>button_fvp6zc2gdj35evhsl73ffzq_0 danger_fgdl0s2a5fmle5g56rbuax71_0</code> with useless source maps (or worse, entirely cryptic class names).</p>
+<p>Another common issue is lack of support for less basic CSS features such as <code>@keyframes</code> and <code>@font-face</code>.</p>
+<p>If you are adamant about using a CSS-in-JS library, consider using <a href="https://github.com/j2css/j2c">J2C</a>, which works without configuration and implements <code>@keyframes</code> and <code>@font-face</code>.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.6/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

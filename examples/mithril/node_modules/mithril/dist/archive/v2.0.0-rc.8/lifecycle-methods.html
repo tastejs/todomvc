@@ -1,0 +1,228 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Lifecycle methods - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.8</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="lifecycle-methods"><a href="#lifecycle-methods">Lifecycle methods</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><strong><a href="lifecycle-methods.html">Lifecycle methods</a></strong><ul>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#the-dom-element-lifecycle">The DOM element lifecycle</a></li>
+<li><a href="#oninit">oninit</a></li>
+<li><a href="#oncreate">oncreate</a></li>
+<li><a href="#onupdate">onupdate</a></li>
+<li><a href="#onbeforeremove">onbeforeremove</a></li>
+<li><a href="#onremove">onremove</a></li>
+<li><a href="#onbeforeupdate">onbeforeupdate</a></li>
+<li><a href="#avoid-anti-patterns">Avoid anti-patterns</a></li>
+</ul>
+</li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="usage"><a href="#usage">Usage</a></h3>
+<p><a href="components.html">Components</a> and <a href="vnodes.html">virtual DOM nodes</a> can have lifecycle methods, also known as <em>hooks</em>, which are called at various points during the lifetime of a DOM element.</p>
+<pre><code class="language-javascript">// Sample hook in component
+var ComponentWithHook = {
+    oninit: function(vnode) {
+        console.log(&quot;initialize component&quot;)
+    },
+    view: function() {
+        return &quot;hello&quot;
+    }
+}
+
+// Sample hook in vnode
+function initializeVnode() {
+    console.log(&quot;initialize vnode&quot;)
+}
+
+m(ComponentWithHook, {oninit: initializeVnode})</code></pre>
+<p>All lifecyle methods receive the vnode as their first arguments, and have their <code>this</code> keyword bound to <code>vnode.state</code>.</p>
+<p>Lifecycle methods are only called as a side effect of a <a href="render.html"><code>m.render()</code></a> call. They are not called if the DOM is modified outside of Mithril.</p>
+<hr>
+<h3 id="the-dom-element-lifecycle"><a href="#the-dom-element-lifecycle">The DOM element lifecycle</a></h3>
+<p>A DOM element is typically created and appended to the document. It may then have attributes or child nodes updated when a UI event is triggered and data is changed; and the element may alternatively be removed from the document.</p>
+<p>After an element is removed, it may be temporarily retained in a memory pool. The pooled element may be reused in a subsequent update (in a process called <em>DOM recycling</em>). Recycling an element avoids incurring the performance cost of recreating a copy of an element that existed recently.</p>
+<hr>
+<h3 id="oninit"><a href="#oninit">oninit</a></h3>
+<p>The <code>oninit(vnode)</code> hook is called before a vnode is touched by the virtual DOM engine. <code>oninit</code> is guaranteed to run before its DOM element is attached to the document, and it is guaranteed to run on parent vnodes before their children, but it does not offer any guarantees regarding the existence of ancestor or descendant DOM elements. You should never access the <code>vnode.dom</code> from the <code>oninit</code> method.</p>
+<p>This hook does not get called when an element is updated, but it does get called if an element is recycled.</p>
+<p>Like in other hooks, the <code>this</code> keyword in the <code>oninit</code> callback points to <code>vnode.state</code>.</p>
+<p>The <code>oninit</code> hook is useful for initializing component state based on arguments passed via <code>vnode.attrs</code> or <code>vnode.children</code>.</p>
+<pre><code class="language-javascript">function ComponentWithState() {
+    var initialData
+    return {
+        oninit: function(vnode) {
+            initialData = vnode.attrs.data
+        },
+        view: function(vnode) {
+            return [
+                // displays data from initialization time:
+                m(&quot;div&quot;, &quot;Initial: &quot; + initialData),
+                // displays current data:
+                m(&quot;div&quot;, &quot;Current: &quot; + vnode.attrs.data)
+            ]
+        }
+    }
+}
+
+m(ComponentWithState, {data: &quot;Hello&quot;})</code></pre>
+<p>You should not modify model data synchronously from this method. Since <code>oninit</code> makes no guarantees regarding the status of other elements, model changes created from this method may not be reflected in all parts of the UI until the next render cycle.</p>
+<hr>
+<h3 id="oncreate"><a href="#oncreate">oncreate</a></h3>
+<p>The <code>oncreate(vnode)</code> hook is called after a DOM element is created and attached to the document. <code>oncreate</code> is guaranteed to run at the end of the render cycle, so it is safe to read layout values such as <code>vnode.dom.offsetHeight</code> and <code>vnode.dom.getBoundingClientRect()</code> from this method.</p>
+<p>This hook does not get called when an element is updated.</p>
+<p>Like in other hooks, the <code>this</code> keyword in the <code>oncreate</code> callback points to <code>vnode.state</code>. DOM elements whose vnodes have an <code>oncreate</code> hook do not get recycled.</p>
+<p>The <code>oncreate</code> hook is useful for reading layout values that may trigger a repaint, starting animations and for initializing third party libraries that require a reference to the DOM element.</p>
+<pre><code class="language-javascript">var HeightReporter = {
+    oncreate: function(vnode) {
+        console.log(&quot;Initialized with height of: &quot;, vnode.dom.offsetHeight)
+    },
+    view: function() {}
+}
+
+m(HeightReporter, {data: &quot;Hello&quot;})</code></pre>
+<p>You should not modify model data synchronously from this method. Since <code>oncreate</code> is run at the end of the render cycle, model changes created from this method will not be reflected in the UI until the next render cycle.</p>
+<hr>
+<h3 id="onupdate"><a href="#onupdate">onupdate</a></h3>
+<p>The <code>onupdate(vnode)</code> hook is called after a DOM element is updated, while attached to the document. <code>onupdate</code> is guaranteed to run at the end of the render cycle, so it is safe to read layout values such as <code>vnode.dom.offsetHeight</code> and <code>vnode.dom.getBoundingClientRect()</code> from this method.</p>
+<p>This hook is only called if the element existed in the previous render cycle. It is not called when an element is created or when it is recycled.</p>
+<p>DOM elements whose vnodes have an <code>onupdate</code> hook do not get recycled.</p>
+<p>The <code>onupdate</code> hook is useful for reading layout values that may trigger a repaint, and for dynamically updating UI-affecting state in third party libraries after model data has been changed.</p>
+<pre><code class="language-javascript">function RedrawReporter() {
+    var count = 0
+    return {
+        onupdate: function() {
+            console.log(&quot;Redraws so far: &quot;, ++count)
+        },
+        view: function() {}
+    }
+}
+
+m(RedrawReporter, {data: &quot;Hello&quot;})</code></pre>
+<hr>
+<h3 id="onbeforeremove"><a href="#onbeforeremove">onbeforeremove</a></h3>
+<p>The <code>onbeforeremove(vnode)</code> hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes.</p>
+<p>This hook is only called on the DOM element that loses its <code>parentNode</code>, but it does not get called in its child elements.</p>
+<p>Like in other hooks, the <code>this</code> keyword in the <code>onbeforeremove</code> callback points to <code>vnode.state</code>. DOM elements whose vnodes have an <code>onbeforeremove</code> hook do not get recycled.</p>
+<pre><code class="language-javascript">var Fader = {
+    onbeforeremove: function(vnode) {
+        vnode.dom.classList.add(&quot;fade-out&quot;)
+        return new Promise(function(resolve) {
+            setTimeout(resolve, 1000)
+        })
+    },
+    view: function() {
+        return m(&quot;div&quot;, &quot;Bye&quot;)
+    },
+}</code></pre>
+<hr>
+<h3 id="onremove"><a href="#onremove">onremove</a></h3>
+<p>The <code>onremove(vnode)</code> hook is called before a DOM element is removed from the document. If a <code>onbeforeremove</code> hook is also defined, the <code>onremove</code> hook runs after the promise returned from <code>onbeforeremove</code> is completed.</p>
+<p>This hook is called on any element that is removed from the document, regardless of whether it was directly detached from its parent or whether it is a child of another element that was detached.</p>
+<p>Like in other hooks, the <code>this</code> keyword in the <code>onremove</code> callback points to <code>vnode.state</code>. DOM elements whose vnodes have an <code>onremove</code> hook do not get recycled.</p>
+<p>The <code>onremove</code> hook is useful for running clean up tasks.</p>
+<pre><code class="language-javascript">function Timer() {
+    var timeout = setTimeout(function() {
+        console.log(&quot;timed out&quot;)
+    }, 1000)
+
+    return {
+        onremove: function() {
+            clearTimeout(timeout)
+        },
+        view: function() {}
+    }
+}</code></pre>
+<hr>
+<h3 id="onbeforeupdate"><a href="#onbeforeupdate">onbeforeupdate</a></h3>
+<p>The <code>onbeforeupdate(vnode, old)</code> hook is called before a vnode is diffed in a update. If this function is defined and returns false, Mithril prevents a diff from happening to the vnode, and consequently to the vnode&#39;s children.</p>
+<p>This hook by itself does not prevent a virtual DOM subtree from being generated unless the subtree is encapsulated within a component.</p>
+<p>Like in other hooks, the <code>this</code> keyword in the <code>onbeforeupdate</code> callback points to <code>vnode.state</code>.</p>
+<p>This hook is useful to reduce lag in updates in cases where there is a overly large DOM tree.</p>
+<hr>
+<h3 id="avoid-anti-patterns"><a href="#avoid-anti-patterns">Avoid anti-patterns</a></h3>
+<p>Although Mithril is flexible, some code patterns are discouraged:</p>
+<h4 id="avoid-premature-optimizations"><a href="#avoid-premature-optimizations">Avoid premature optimizations</a></h4>
+<p>You should only use <code>onbeforeupdate</code> to skip diffing as a last resort. Avoid using it unless you have a noticeable performance issue.</p>
+<p>Typically performance problems that can be fixed via <code>onbeforeupdate</code> boil down to one large array of items. In this context, typically &quot;large&quot; means any array that contains a large number of nodes, be it in a wide spread (the infamous 5000 row table), or in a deep, dense tree.</p>
+<p>If you do have a performance issue, first consider whether the UI presents a good user experience and change it if it doesn&#39;t. For example, it&#39;s highly unlikely that a user would ever sift through 5000 rows of raw table data, and highly likely that it would be easier for a user to use a search feature that returns only the top few most relevant items.</p>
+<p>If a design-based solution is not feasible, and you must optimize a UI with a large number of DOM element, apply <code>onbeforeupdate</code> on the parent node of the largest array and re-evaluate performance. In the vast majority of cases, a single check should be sufficient. In the rare case that it is not, rinse and repeat, but you should be increasingly wary of each new <code>onbeforeupdate</code> declaration. Multiple <code>onbeforeupdate</code>s are a code smell that indicates prioritization problems in the design workflow.</p>
+<p>Avoid applying the optimization to other areas of your application &quot;just-in-case&quot;. Remember that, generally speaking, more code incurs a higher maintenance cost than less code, and <code>onbeforeupdate</code> related bugs can be especially difficult to troubleshoot if you rely on object identity for its conditional checks.</p>
+<p>Again, <strong>the <code>onbeforeupdate</code> hook should only be used as a last resort.</strong></p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.8/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		
+		<main>
+			<section class="cta">
+				<div class="container">
+					<h1 class="logo"><span>&#9675;</span> Mithril</h1>
+
+					<p>A Javascript Framework for Building Brilliant Applications</p>
+
+					<a class="button" href="getting-started.html">Guide</a>
+					<a class="button" href="mithril.min.zip">Download v0.1</a>
+				</div>
+			</section>
+			
+			<section class="features">
+				<div class="container row">
+					<div class="feature col(4,4,12)">
+						<h2>Light-weight</h2>
+						<ul>
+							<li>Only 3kb gzipped, no dependencies</li>
+							<li>Small API, small learning curve</li>
+						</ul>
+					</div>
+
+					<div class="feature col(4,4,12)">
+						<h2>Robust</h2>
+						<ul>
+							<li>Safe-by-default templates</li>
+							<li>Hierarchical MVC via components</li>
+						</ul>
+					</div>
+
+					<div class="feature col(4,4,12)">
+						<h2>Fast</h2>
+						<ul>
+							<li>Virtual DOM diffing and compilable templates</li>
+							<li>Intelligent auto-redrawing system</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section class="sample">
+				<div class="container">
+					<div class="col(8,8,12)">
+						<h2>Sample code</h2>
+						
+<pre><code class="language-javascript">//namespace
+var app = {};
+
+//model
+app.PageList = function() {
+	return m.request({method: "GET", url: "pages.json"});
+};
+
+//controller
+app.controller = function() {
+	this.pages = app.PageList();
+};
+
+//view
+app.view = function(ctrl) {
+	return ctrl.pages().map(function(page) {
+		return m("a", {href: page.url}, page.title);
+	});
+};
+
+//initialize
+m.module(document.getElementById("example"), app);</code></pre>
+
+					</div>
+					<div class="col(4,4,12)">
+						<h2>Output</h2>
+						<div id="example" class="example output">
+							<noscript>
+								<a href="getting-started.html">Getting Started</a>
+								<a href="mithril.html">Documentation</a></noscript></div>
+							
+							<script src="mithril.min.js"></script>
+							<script>
+//namespace
+var app = {};
+
+//model
+app.PageList = function() {
+	return m.request({method: "GET", url: "pages.json"});
+};
+
+//controller
+app.controller = function() {
+	this.pages = app.PageList();
+};
+
+//view
+app.view = function(ctrl) {
+	return ctrl.pages().map(function(page) {
+		return m("a", {href: page.url}, page.title);
+	});
+};
+
+//initialize
+m.module(document.getElementById("example"), app);
+							</script>
+						</div>
+					</div>
+				
+			</section>
+
+			<section class="performance">
+				<div class="container">
+					<h2>Performance</h2>
+					<p>To run the execution time tests below, click on their respective links, run the profiler from your desired browser's developer tools and measure the running time of a page refresh. (Lower is better)</p>
+					<div class="row">
+						<div class="col(4,4,6)">
+							<h3>Loading</h3>
+							<table>
+								<tr><td><a href="comparisons/mithril.parsing.html">Mithril</a></td><td><span class="bar" style="background:#161;width:1%;"></span> 0.28ms</td></tr>
+								<tr><td><a href="comparisons/jquery.parsing.html">jQuery</a></td><td><span class="bar" style="background:#66c;width:35%;"></span> 13.11ms</td></tr>
+								<tr><td><a href="comparisons/backbone.parsing.html">Backbone</a></td><td><span class="bar" style="background:#33c;width:50%;"></span> 18.54ms</td></tr>
+								<tr><td><a href="comparisons/angular.parsing.html">Angular</a></td><td><span class="bar" style="background:#c33;width:20%;"></span> 7.49ms</td></tr>
+							</table>
+						</div>
+						<div class="col(8,8,12)">
+							<h3>Rendering</h3>
+							<table>
+								<tr><td><a href="comparisons/mithril.rendering.html">Mithril</a></td><td><span class="bar" style="background:#161;width:4%;"></span> 9.44ms (uncompiled)</td></tr>
+								<tr><td><a href="comparisons/jquery.rendering.html">jQuery</a></td><td><span class="bar" style="background:#66c;width:17%;"></span> 40.27ms</td></tr>
+								<tr><td><a href="comparisons/backbone.rendering.html">Backbone</a></td><td><span class="bar" style="background:#33c;width:10%;"></span> 23.05ms</td></tr>
+								<tr><td><a href="comparisons/angular.rendering.html">Angular</a></td><td><span class="bar" style="background:#c33;width:50%;"></span> 118.63ms</td></tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section class="security">
+				<div class="container">
+					<div class="row">
+						<div class="col(8,8,12)">
+							<h2>Safety</h2>
+							<p>Mithril templates are safe by default, i.e. you can't unintentionally create security holes.</p>
+							<p>To run the tests for each framework, click on the respective links. If you see an alert box, ensuring security with that framework is more work for you.</p>
+						</div>
+						<div class="col(4,4,12)">
+							<h3>Test Summary</h3>
+							<a href="comparisons/mithril.safety.html">Mithril</a> <em class="success">(pass) &#x2713;</em><br>
+							<a href="comparisons/jquery.safety.html">jQuery</a> <em class="error">(fail) &#x2717;</em><br>
+							<a href="comparisons/backbone.safety.html">Backbone</a> <em class="error">(fail) &#x2717;</em><br>
+							<a href="comparisons/angular.safety.html">Angular</a> <em class="success">(pass) &#x2713;</em><br>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section class="more">
+				<div class="container row">
+					<div class="col(6,6,12)">
+						<h2>Guide</h2>
+						<p>Build a simple app, learn the ropes</p>
+						<p><a href="getting-started.html">Read Guide</a></p>
+					</div>
+
+					<div class="col(6,6,12)">
+						<h2>API</h2>
+						<p>Docs and code samples for your reference</p>
+						<p><a href="mithril.html">Read Docs</a></p>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a><br>
+				&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

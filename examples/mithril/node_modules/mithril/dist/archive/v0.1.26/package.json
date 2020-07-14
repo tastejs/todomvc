@@ -1,0 +1,11 @@
+{
+	"name": "mithril",
+	"description": "A Javascript Framework for building brilliant applications",
+	"keywords": ["mvc", "framework"],
+	"version": "0.1.26",
+	"author": "Leo Horie <leohorie@hotmail.com>",
+	"repository": {"type": "git", "url": "https://github.com/lhorie/mithril"},
+	"main": "mithril.js",
+	"licenses": [{"type": "MIT", "url": "http://opensource.org/licenses/MIT"}],
+	"files": ["mithril.min.js", "mithril.min.map", "mithril.js"]
+}

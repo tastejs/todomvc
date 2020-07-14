@@ -1,0 +1,103 @@
+.container {margin:auto;max-width:1000px;padding:0 20px;position:relative;}
+.container:after,.row:after {content:"";display:table;clear:both;}
+.container,.row,[class*='col('] {-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+[class*='col('] {float:left;}
+[class*='(3,'] {width:25%;}
+[class*='(4,'] {width:33.33333%;}
+[class*='(6,'] {width:50%;}
+[class*='(8,'] {width:66.66667%;}
+[class*='(9,'] {width:75%;}
+@media (max-width:1000px) {
+[class*=',3,'] {width:25%;}
+[class*=',4,'] {width:33.33333%;}
+[class*=',6,'] {width:50%;}
+[class*=',8,'] {width:66.66667%;}
+[class*=',9,'] {width:75%;}
+}
+@media (max-width:750px) {
+[class*=',6)'] {width:50%;}
+[class*=',12)'] {width:100%;}
+}
+
+html {background:#999;color:#222;font:14px Helvetica;}
+html,body {margin:0;padding:0;}
+header,footer {background:#999;}
+nav {text-align:right;}
+nav a:first-child,nav a:first-child:visited {color:#fff;font-size:27px;float:left;line-height:1.3em;padding:0;text-decoration:none;}
+nav a {color:#fff;display:inline-block;padding:10px;}
+nav a:visited {color:#ddd;}
+footer {text-align:center;padding:10px 0;}
+footer,footer a,footer a:visited {color:#fff;}
+h1,h2 {font-family:Palatino;margin:0 0 10px;}
+h1 {font-size:3em;text-shadow:0.024em 0.024em #777, -0.024em -0.024em #fff;}
+h1 span {animation:logo 2s;display:inline-block;-webkit-animation:logo 2s;}
+h2 {color:#888;font-style:italic;}
+h3 {margin:10px 0;}
+p {margin:15px 0;}
+ul {margin:15px 0;padding:0 0 0 1em;}
+li {margin:0 0 10px;}
+a {color:#161;}
+a:visited {color:#383;}
+a:hover {text-decoration:none;}
+pre {background:#ffe;border:1px solid #ddd;overflow:auto;margin:0 0 15px;padding:5px 10px;white-space:pre;-webkit-overflow-scrolling:touch;}
+pre[class*="language-"],code {background:#ffe;font:12px/15px Lucida Console,Monaco,monospace;}
+hr {border-top:1px solid #ccc;border-width:1px 0 0;margin:20px 0;}
+table {margin:0 0 10px;width:100%;}
+.cta {padding:30px 0 20px;text-align:center;}
+.cta {
+background:
+linear-gradient(27deg, #e5e5e5 5px, rgba(255,255,255,0) 5px) 0 5px,
+linear-gradient(207deg, #e5e5e5 5px, rgba(255,255,255,0) 5px) 10px 0px,
+linear-gradient(27deg, #f2f2f2 5px, rgba(255,255,255,0) 5px) 0px 10px,
+linear-gradient(207deg, #f2f2f2 5px, rgba(255,255,255,0) 5px) 10px 5px,
+linear-gradient(90deg, #ebebeb 10px, rgba(255,255,255,0) 10px),
+linear-gradient(#ededed 25%, #eaeaea 25%, #eaeaea 50%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 75%, #f4f4f4 75%, #f4f4f4);
+background-color: #e3e3e3;
+background-size: 20px 20px;
+}
+.logo {color:#d3d3d3;font-family:Georgia;font-style:italic;}
+.logo span {font-family:Arial;font-style:normal;}
+.logo :before {content:"\25CB";position:absolute;margin:-0.17em 0 0 -0.10em;}
+.logo :after {content:"\25CB";position:absolute;margin:-0.17em 0 0 -0.5em;}
+.button,.button:visited {background:#5a5;border-radius:5px;box-shadow:1px 1px #777, -1px -1px #fff;color:#fff;display:inline-block;font:normal bold 16px Helvetica;margin:0 10px 10px;padding:10px 30px;text-decoration:none;}
+.features {background:#fff;padding:30px 0 0;}
+.feature {margin:0 0 30px;padding:0 20px 0 0;}
+.sample {background:#f5f5f5;padding:30px 0 10px;}
+.example {background:#ffe;border:1px solid #ddd;display:block;font:Courier New;margin-bottom:20px;padding:5px 10px;}
+.example span {color:#383;font-weight:bold;}
+.example small {color:#888;font-size:1em;}
+.more {background:#ddd;padding:30px 0;}
+.output a,.more a {display:block;margin:0 0 10px;}
+.output a:after,.more a:after {content:" \bb";}
+.performance {background:#fff;padding:30px 0;}
+.performance td:first-child {text-align:right;width:1%;}
+.bar {background:red;height:4px;float:left;margin:0.5em 1em 0 0;}
+.security {background:#f5f5f5;padding:30px 0;}
+.success {color:#383;}
+.error {color:#f00;}
+.content {background:#f5f5f5;padding:30px 0;}
+
+@media (min-width:750px) {
+.sample pre {margin-right:20px;}
+}
+
+@keyframes logo {
+	from {opacity:0;transform:scale(2) rotate(359deg);}
+	to {opacity:1;transform:scale(1) rotate(0deg);}
+}
+@-webkit-keyframes logo {
+	from {opacity:0;-webkit-transform:scale(2) rotate(359deg);}
+	to {opacity:1;-webkit-transform:scale(1) rotate(0deg);}
+}.deprecated {
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: bold;
+    background: #F00;
+    color: #FFF;
+}
+.deprecated a {
+	padding: 5px;
+	background: #800;
+	color: #FFF;
+	border-radius: 5px;
+}

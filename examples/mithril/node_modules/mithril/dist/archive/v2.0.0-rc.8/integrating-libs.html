@@ -1,0 +1,197 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> 3rd Party Integration - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.8</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="3rd-party-integration"><a href="#3rd-party-integration">3rd Party Integration</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><strong><a href="integrating-libs.html">3rd Party Integration</a></strong></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<p>Integration with third party libraries or vanilla JavaScript code can be achieved via <a href="lifecycle-methods.html">lifecycle methods</a>.</p>
+<h2 id="nouislider-example"><a href="#nouislider-example">noUiSlider Example</a></h2>
+<pre><code class="language-javascript">/** NoUiSlider wrapper component */
+function Slider() {
+    var slider
+
+    return {
+        oncreate: function(vnode) {
+            // Initialize 3rd party lib here
+            slider = noUiSlider.create(vnode.dom, {
+                start: 0,
+                range: {min: 0, max: 100}
+            })
+            slider.on(&#39;update&#39;, function(values) {
+                vnode.attrs.onChange(values[0])
+                m.redraw()
+            })
+        },
+        onremove: function() {
+            // Cleanup 3rd party lib on removal
+            slider.destroy()
+        },
+        view: function() {
+            return m(&#39;div&#39;)
+        }
+    }
+}
+
+/** Demo app component */
+function Demo() {
+    var showSlider = false
+    var value = 0
+
+    return {
+        view: function() {
+            return m(&#39;.app&#39;,
+                m(&#39;p&#39;,
+                    m(&#39;button&#39;,
+                        {
+                            type: &#39;button&#39;,
+                            onclick: function() {
+                                showSlider = !showSlider
+                            }
+                        },
+                        showSlider ? &quot;Destroy Slider&quot; : &quot;Create Slider&quot;
+                    )
+                ),
+                showSlider &amp;&amp; m(Slider, {
+                    onChange: function(v) {
+                        value = v
+                    }
+                }),
+                m(&#39;p&#39;, value)
+            )
+        }
+    }
+}
+
+m.mount(document.body, Demo)</code></pre>
+<p><a href="https://flems.io/#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J4A9ACoJAAgBytAKoQAylAgATGACdpAdy0YADoe3S6WQ-RHSJYgDpowAVzTViEetNUbtACgCU0sAO0tIAbhg6cGqaWg4h0lowxE5aaEEJofTUSRiMiNLOru70vmFotJqBwemhdWJi0gCSaBDuGGoAXjDSAMxa6tKGkcQAntJqAEbShNowmXXRPjoAvNIVSt6x+DkweTBlFZr46rRYFBm1dYvEIwUADBQL1wZoAOYwBcBYEGgPF1gMAAPAoARnu91Yz2krH80KW21KAHInIZ1PskRcim4PGgyh0nPBqtDQuVKjB8HliFo4Ph6ABhQgYd4HCJQQlwZD3AC6cKu12kWHwSXUBl0AWhsIW7AW9CSWFoYU+hRcONKxP5oQa0npsGZqL6AyGI3GU2knnlio68Ji2hO8GptFGEv5Mv5YQgMF0BWxJTxGoFiWSqXSWF8SPUEDCSL51yhtXj8YckhkABEYArpEZDGYzpY0NZbA5fbjpOmFQFLqFYMRpHBCLRdFtTGswB04PNajXwgSemt7vFakkUmkq3UPV6faq-ZWaoHhyHBeHKcZMSSl0jDGvNQKw0jJk5iMR6NvA4G52fA2MTAV94fj2hT5eBdk1NQANZT4q42fry-1xtm1WaQAEIAKbW04h3S942fOo3Tg0JwKA6QAH5pDsEB0zgR1xiAzDpAKTD6VyRgvEgzC-2kWMz38J5oLrBsIOWaQADJWKXICLgvS8GSZFkvzVPEwgDRC2UJaQ1jCKjYLPWF6MvPctwucSYBo651JhBJE0HIUFRcYhfFOagnBwBh8EmSpRguctaD5NgOBATAcDwHY4AEGh6EYZgeDYbkqDUNB3wQFBOBcngKicCAEW0SgQFScgeBIYhDDgRAGhcQx3zeHYzjESLosggABUEACZ8FBfB7jESMcK0CAD0YfLaCimKtHwfg4uvbgQDgHIIEMUR2DCnqCratyPISvBktS9KxEy7LcqwZrWuKsqKqqmroupBrDxgFbCuWCautGEw8Bw0ZYAcka8B+YhCHq8gqCmpKj1mjK0CynLzDEO6HugEqNoANl+tp-qgDqPO687+sGvzWCAA">Live Demo</a></p>
+<h2 id="bootstrap-fullcalendar-example"><a href="#bootstrap-fullcalendar-example">Bootstrap FullCalendar Example</a></h2>
+<pre><code class="language-javascript">/** FullCalendar wrapper component */
+var FullCalendar = {
+    oncreate: function (vnode) {
+        console.log(&#39;FullCalendar::oncreate&#39;)
+        $(vnode.dom).fullCalendar({
+            // put your initial options and callbacks here
+        })
+    },
+    onremove: function (vnode) {
+        // Run any destroy / cleanup methods here.
+        $(vnode.dom).fullCalendar(&#39;destroy&#39;)
+    },
+    view: function (vnode) {
+        return m(&#39;div&#39;)
+    }
+}
+
+/** Demo app component */
+function Demo() {
+    var fullCalendarEl
+
+    function next() {
+        $(fullCalendarEl).fullCalendar(&#39;next&#39;)
+    }
+
+    function prev() {
+        $(fullCalendarEl).fullCalendar(&#39;prev&#39;)
+    }
+
+    return {
+        view: function (vnode) {
+            return [
+                m(&#39;h1&#39;, &#39;Calendar&#39;),
+                m(FullCalendar, {
+                    oncreate: function(vnode) {
+                        fullCalendarEl = vnode.dom
+                    }
+                }),
+                m(&#39;button&#39;, {
+                    onclick: prev
+                }, &#39;Mithril Button -&#39;),
+                m(&#39;button&#39;, {
+                    onclick: next
+                }, &#39;Mithril Button +&#39;)
+            ]
+        }
+    }
+}
+
+m.mount(document.body, Demo)</code></pre>
+<p><a href="https://flems.io/#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvAHigjQGsACAJxigBeADog4xAJ6w4hGDGKjuhfmBEgSxAA5xEAel3UAJmgBWcfNSi0ArobBQM-C7Sy6MJjAA9d7AEZxdMGsoKGoMWDRDR10AZnwAdnwABkDg0PCmKN58LA4LODhRAD4QAF8KdGxcRAIzShp6RmYa3QAqVu4AMTSAYQzIx24Ad14MTU0YXm46LE16JmJuVt1hNAA3Qe6Qvois7kFuYFXhYnpqfgxGRG4gtGpiCHpuAAo1tFpDGABKQ+OFYjoaDgtFg+CsAHNngByLZQHYDXiIRBnC6MKFfP4nAAkr3en3whhcX3wQW2-SyzyOaBONOI+m4mmsiwkNimHAgD3C3Fomge9Dg3AwkWm4Sgvgw1E4Atk-ExxFKGOp8oof3o-CwtDWMGut3ujzQLzeH2+vyVJ3pACVrAahRJuJ9xLxaHbdNNYELrJpuDhiIQPtLJjB8HKcUb8YSsMTSXDyY5oQ7iE6JOi-uU-msIDAhjrrXqnrjjT8qbT+MRrLwDVh4xA1imlaVVg3qWg2h0ACIwDWC8bTFxzNALJYrNC6vkGjsa55F1bcbgbKbRnaZRwAUSgxwNN1zY+4A88xCnptns5xi9jvDXUd65+he+IddnTZnW7uO80-DWh6px+4p+vu1XKArzJADeGhd8YFrRVHw3WdS3LA1v2PDMsxzV99UNPETSQn94IrbhkGfH9ZyrKFCAARihChuChJcEXRFVN2I71nlhOismonDmO5O5UW1F88zQAtPmnJjuNnM9QLXfY5ywgkXCI7im3EhVGPE0jfCZU40Coo9xJ4ywIEla4ILWRSf3KGiAFkOWUaBuAAIS0p4AFoGPM48NOcnTOI8n8znYYzdxgfc-O4SyoRs31eHspziG07gAGo6w8gBdRTlPCxsNywHIbAYZ5CWoawcAYfBfA+CRqInWhFTKCoQEwHA8HyBAqEBJpiDwMpUqodguAQFBKmampcmi6B6nLcgag0bQ9F0a1NE4cFnFcMa7KgAABcj8B2gBWXR1piqB8DqKhJAmPA4HOCBeXq4bqhADVSq6qgprwWadH0RbltWw6XAWTaACZdoATnwIH-pe062pAC7HuumK7vKB68BMABHaxJgkSbeGm9R4rm760CWlaZl0DGsd4CRNriEHyN0QwIHECnMexmH6nhq6buRhqmse6MwlA3H8c++afrJlxUhCIXl14WmEmSRnmbpQXzw586JEumpEdurrSlS0ogA">Live Demo</a></p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.8/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

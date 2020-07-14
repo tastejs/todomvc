@@ -1,0 +1,6 @@
+html {background-color:#f5f5f5;}
+
+a {color:#161;text-decoration:none;}
+a:hover {text-decoration:underline;}
+
+input[type=submit] {background-color:#5A5;color:#fff;border:0;font-weight:bold;}

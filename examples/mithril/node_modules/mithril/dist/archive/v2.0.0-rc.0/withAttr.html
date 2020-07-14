@@ -1,0 +1,202 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> withAttr(attrName, callback) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="withattrattrname,-callback"><a href="#withattrattrname,-callback">withAttr(attrName, callback)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><strong><a href="withAttr.html">m.withAttr</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#predictable-event-target">Predictable event target</a></li>
+<li><a href="#attributes-and-properties">Attributes and properties</a></li>
+</ul>
+</li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Returns an event handler that runs <code>callback</code> with the value of the specified DOM attribute</p>
+<pre><code class="lang-javascript">var state = {
+    value: &quot;&quot;,
+    setValue: function(v) {state.value = v}
+}
+
+var Component = {
+    view: function() {
+        return m(&quot;input&quot;, {
+            oninput: m.withAttr(&quot;value&quot;, state.setValue),
+            value: state.value,
+        })
+    }
+}
+
+m.mount(document.body, Component)
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>m.withAttr(attrName, callback, thisArg?)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>attrName</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>The name of the attribute or property whose value will be used</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td><code>any -&gt; undefined</code></td>
+<td>Yes</td>
+<td>The callback</td>
+</tr>
+<tr>
+<td><code>thisArg</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>An object to bind to the <code>this</code> keyword in the callback function</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Event -&gt; undefined</code></td>
+<td></td>
+<td>An event handler function</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>The <code>m.withAttr</code> method creates an event handler. The event handler takes the value of a DOM element&#39;s property and calls a function with it as the argument.</p>
+<p>This helper function is provided to help decouple the browser&#39;s event model from application code.</p>
+<pre><code class="lang-javascript">// standalone usage
+document.body.onclick = m.withAttr(&quot;title&quot;, function(value) {
+    console.log(value) // logs the title of the &lt;body&gt; element when clicked
+})
+</code></pre>
+<p>Typically, <code>m.withAttr()</code> can be used in Mithril component views to avoid polluting the data layer with DOM event model concerns:</p>
+<pre><code class="lang-javascript">var state = {
+    email: &quot;&quot;,
+    setEmail: function(email) {
+        state.email = email.toLowerCase()
+    }
+}
+
+var MyComponent = {
+    view: function() {
+        return m(&quot;input&quot;, {
+            oninput: m.withAttr(&quot;value&quot;, state.setEmail),
+            value: state.email
+        })
+    }
+}
+
+m.mount(document.body, MyComponent)
+</code></pre>
+<hr>
+<h3 id="predictable-event-target"><a href="#predictable-event-target">Predictable event target</a></h3>
+<p>The <code>m.withAttr()</code> helper reads the value of the element to which the event handler is bound, which is not necessarily the same as the element where the event originated.</p>
+<pre><code class="lang-javascript">var state = {
+    url: &quot;&quot;,
+    setURL: function(url) {state.url = url}
+}
+
+var MyComponent = {
+    view: function() {
+        return m(&quot;a[href=&#39;/foo&#39;]&quot;, {onclick: m.withAttr(&quot;href&quot;, state.setURL)}, [
+            m(&quot;span&quot;, state.url)
+        ])
+    }
+}
+
+m.mount(document.body, MyComponent)
+</code></pre>
+<p>In the example above, if the user clicks on the text within the link, <code>e.target</code> will point to the <code>&lt;span&gt;</code>, not the <code>&lt;a&gt;</code>.</p>
+<p>While this behavior works as per its specs, it&#39;s not very intuitive or useful most of the time. Therefore, <code>m.withAttr</code> uses the value of <code>e.currentTarget</code> which does point to the <code>&lt;a&gt;</code>, as one would normally expect.</p>
+<hr>
+<h3 id="attributes-and-properties"><a href="#attributes-and-properties">Attributes and properties</a></h3>
+<p>The first argument of <code>m.withAttr()</code> can be either an attribute or a property.</p>
+<pre><code class="lang-javascript">// reads from `select.selectedIndex` property
+var state = {
+    index: 0,
+    setIndex: function(index) {state.index = index}
+}
+m(&quot;select&quot;, {onclick: m.withAttr(&quot;selectedIndex&quot;, state.setIndex)})
+</code></pre>
+<p>If a value can be both an attribute <em>and</em> a property, the property value is used.</p>
+<pre><code class="lang-javascript">// value is a boolean, because the `input.checked` property is boolean
+var state = {
+    selected: false,
+    setSelected: function(selected) {state.selected = selected}
+}
+m(&quot;input[type=checkbox]&quot;, {onclick: m.withAttr(&quot;checked&quot;, state.setSelected)})
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.0/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

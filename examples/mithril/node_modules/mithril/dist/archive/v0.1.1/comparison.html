@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="installation.html">Installation</a></li>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="how-is-mithril-different-from-other-frameworks">How is Mithril Different from Other Frameworks</h2>
+<p>There are a lot of different Javascript MVC frameworks and evaluating their merits and shortcomings can be a daunting task.</p>
+<p>This page aims to provide a comparison between Mithril and some of the most widely used frameworks, as well as some of the younger, but relevant ones.</p>
+<h3 id="code-size">Code Size</h3>
+<p>One of the most obvious differences between Mithril and most frameworks is in file size: Mithril is less than 3kb gzipped and has no dependencies on other libraries.</p>
+<p>Note that while a small gzipped size can look appealing, that number is often used to &quot;hide the weight&quot; of the uncompressed code: remember that the decompressed Javascript still needs to be parsed and evaluated on every page load, and this cost (which can be in the dozens of milliseconds range for some frameworks in some browsers) cannot be cached.</p>
+<p>This cost might be less of a concern in single page apps, but not necessarily if the app is typically opened simultaneously in multiple tabs, or in less powerful devices.</p>
+<p>The performance tests in the homepage show execution times for parsing and evaluation of Mithril&#39;s code, compared to some popular frameworks. As you can see, it paints a much less flattering picture for some frameworks than when we look at gzipped size alone.</p>
+<h3 id="documentation">Documentation</h3>
+<p>Another point of comparison is documentation. Most of the popular frameworks have at least a bare minimum amount of documentation nowadays, but many leave a bit to be desired: some lack usage examples, and some frameworks&#39; communities need to rely heavily on third party sites for explanations of more advanced topics, and sometimes even for learning the basics.</p>
+<p>This is a problem particularly for frameworks that had breaking changes in the past: It&#39;s common to find answers in StackOverflow that are out-of-date and no longer work with the latest version of said frameworks.</p>
+<p>Mithril has more documentation in this site than the amount of code in the framework, and none of the documentation is auto-generated.</p>
+<p>All API points are explained in prose, and have code examples. Because the entire documentation is hand-crafted, you get the benefit of actually having explanations for things that documentation generator tools don&#39;t support well (for example, interfaces and callback parameter documentation).</p>
+<p>In addition, this guide section covers topics related to how to fit all the pieces together.</p>
+<p>From the get-go, Mithril&#39;s build system produces archived versions of the code and documentation so that you&#39;ll never be stuck without docs for out-of-date versions.</p>
+<p>Given how young Mithril is, hopefully you can appreciate the level of commitment for providing good documentation.</p>
+<h3 id="architecture">Architecture</h3>
+<p>In terms of architecture, one of Mithril&#39;s main differences is that it does not provide base classes to extend from.</p>
+<p>It&#39;s often said that <em>frameworks</em>, in contrast to <em>libraries</em>, dictate how code should be written. In this sense, one could argue that Mithril isn&#39;t really a framework.</p>
+<p>Instead of locking developers down to very specific implementations of design patterns, Mithril&#39;s approach is to provide an idiomatic pattern to follow, and tools to aid the developer when required. This approach means that developers can get discoverable codebases without necessarily getting locked into the framework.</p>
+<p>One related difference is that other frameworks often have hard-coded base classes where every conceivable convenience method gets inherited by the developer&#39;s classes (remember, in Javascript, this can mean copying all of the utility methods over to the child class, regardless of whether they&#39;re going to be used or not).</p>
+<p>Mithril&#39;s on-demand tooling approach means there are no hidden performance costs when implementing core MVC patterns, and there&#39;s also no extra learning curve for framework-specific syntax for those patterns.</p>
+<h3 id="view-layer-paradigm">View Layer Paradigm</h3>
+<p>Some of the older frameworks among the popular ones (out-of-the-box jQuery and Backbone, specifically) take a more procedural paradigm when it comes to the view layer; this means every action requires the developer to write custom view-level code to handle it.</p>
+<p>This can get noticeably bulky when you look at thing like collections: you often need to implement insertion code and deletion code, in addition to a &quot;draw everything&quot; routine for performance. And this is for every list that needs to be displayed in some way.</p>
+<p>Mithril&#39;s view layer paradigm is designed be <strong>declarative</strong>, much like HTML, such that the same code implicitly does everything it needs to. As it turns out, this design decision is actually a compromise: it offers the benefit of decreased application code complexity at the cost of some performance loss. However, as the performance tests in the homepage show, this does not necessarily hurt Mithril in a meaningful way.</p>
+<hr>
+<h2 id="specific-framework-comparisons">Specific Framework Comparisons</h2>
+<p>Warning: this section is likely biased. Take it with a grain of salt.</p>
+<h3 id="jquery">jQuery</h3>
+<p>jQuery is ubiquitous and has a large ecosystem, but it&#39;s not an MVC framework.</p>
+<p>There&#39;s no idiomatic way to organize jQuery code in an MVC pattern and many frameworks were created specifically to overcome that shortcoming.</p>
+<p>As summarized above, Mithril differs from jQuery by allowing DOM-related code to be written largely in a declarative style (thereby decreasing code complexity), in addition to providing an idiomatic way to structure applications.</p>
+<p>One other difference that is extremely clear is the treatment of data. In jQuery it&#39;s common to use the DOM as a data storage mechanism, whereas Mithril encourages data to exist in an isolated model layer.</p>
+<h3 id="backbone">Backbone</h3>
+<p>Backbone was originally designed as a way to structure jQuery-based applications. One of its selling points is that it allows developers to leverage their existing jQuery knowledge, while providing some &quot;walls&quot; to organize the code in a more structured manner.</p>
+<p>As with jQuery, Mithril differs from Backbone by enforcing view code to be written in a declarative style.</p>
+<p>Another marking difference is that Backbone is workflow agnostic, that is, there&#39;s no one idiomatic way to organize applications. This is good for framework adoption, but not necessarily ideal for team scalability and codebase discoverability.</p>
+<p>In contrast, Mithril encourages that applications be developed using the patterns found throughout this guide. This discourages &quot;bastardized&quot; MVC pattern variations and architecturing style fragmentation.</p>
+<p>One technical aspect that is also different is that Backbone is heavily event-oriented. Mithril, on the other hand, purposely avoids the observer pattern in an attempt to abolish &quot;come-from hell&quot;, i.e. a class of debugging problems where you don&#39;t know what triggers some code because of a long chain of events triggering other events.</p>
+<p>A particularly nasty instance of this problem that sometimes occurs in &quot;real-time&quot; applications is when event triggering chains become circular due to a conditional statement bug, causing infinite loops and browser crashes.</p>
+<p>Another significant difference between Backbone and Mithril is in their approach to familiarity: Backbone appeals to people familiar w/ jQuery; Mithril is designed to be familiar to people with server-side MVC framework experience.</p>
+<h3 id="angular">Angular</h3>
+<p>Angular is an MVC framework maintained by Google, and it provides a declarative view layer and an emphasis on testability. It leverages developer experience with server-side MVC frameworks, and in many ways, is very similar in scope to Mithril.</p>
+<p>The main difference between Angular templates and Mithril templates is that Angular templates follow the tradition of being defined in HTML. This has the benefit of cleaner syntax for writing static text, but it comes with the disadvantage of features getting awkwardly tied to HTML syntax, as well as providing poor debugging support.</p>
+<p>One thing you may have noticed in the homepage is that, out of the box, Angular is not as performant as other frameworks. Steep performance degradation is a notoriously common issue in non-trivial Angular applications and there are several third party libraries which attempt to get around performance problems. Speaking from experience, it&#39;s generally difficult to reason about performance in Angular.</p>
+<p>Mithril takes some learnings from that and implements a templating redrawing system that renders less aggressively, is less complex and is easier to profile.</p>
+<p>A noteworthy difference between Angular and Mithril is in framework complexity: Angular implements several subsystems that would seem more logical in programming language implementations (e.g. a parser, a dynamic scoping mechanism, decorators, etc). Mithril, on the other hand, tries to provide only features to support a more classic MVC paradigm.</p>
+<h3 id="ember">Ember</h3>
+<p>Ember is a highly comprehensive MVC framework, providing a large API that covers not only traditional MVC patterns, but also a vast range of helper utilities as well.</p>
+<p>The biggest difference between Ember and Mithril is summarized in the Architecture section above: Ember&#39;s comprehensiveness come at a cost of a steep learning curve, and a high degree of vendor lock-in.</p>
+<p>Ember is also more opinionated in terms of how application architecture should look, and as a result, tends to be less transparent in terms of what is actually happening under the hood.</p>
+<h3 id="react">React</h3>
+<p>React is a templating engine developed by Facebook. It&#39;s relevant for comparison because it uses the same architecture as Mithril&#39;s templating engine: i.e. it acknowledges that DOM operations are the bottleneck of templating systems, and implements a virtual DOM tree which keeps track of changes and only applies diffs to the real DOM where needed.</p>
+<p>The most visible difference between React and Mithril is that React&#39;s <em>JSX</em> syntax does not run natively in the browser, whereas Mithril&#39;s uncompiled templates do. Both can be compiled, but React&#39;s compiled code still has function calls for each virtual DOM element; Mithril templates compile into static javascript data structures.</p>
+<p>Another difference is that Mithril, being an MVC framework, rather than a templating engine, provides an auto-redrawing system that is aware of network asynchrony and that can render views efficiently without cluttering application code with redraw calls, and without letting the developer unintentionally bleed out of the MVC pattern.</p>
+<p>Note also that, despite having a bigger scope, Mithril has a smaller file size than React.</p>
+<h3 id="knockout">Knockout</h3>
+<p>Knockout is a library focused on data binding. It is not an MVC framework in the traditional sense, but idiomatic Knockout code uses the similar concept of view models.</p>
+<p>A Knockout view model is an amalgamation of model and controller layers in a single class. In contrast, Mithril separates the two layers more distinctly.</p>
+<p>Generally speaking, Knockout applications tend to be more tightly coupled than Mithril since Knockout doesn&#39;t provide an equivalent to Mithril&#39;s modules and components.</p>
+<p>As with Angular, Knockout templates are written in HTML, and therefore have the same pros and cons as Angular templates.</p>
+<h3 id="vue">Vue</h3>
+<p>Vue is a relatively new and unknown templating engine, but it boasts impressive results in its performance benchmark.</p>
+<p>It is not a full MVC framework, but it is similar to Angular templates, and uses the same terminology for its features (e.g. directives and filters).</p>
+<p>The most relevant difference is that Vue uses browser features that don&#39;t work (and cannot be made to work) in Internet Explorer 8. Mithril allows developers to support browsers all the way back to IE6 and Blackberry.</p>
+<p>Vue&#39;s implementation cleverly hijacks array methods, but it should be noted that Javascript Arrays cannot be truly subclassed and as such, Vue suffers from abstraction leaks.</p>
+<p>In contrast, Mithril avoids &quot;magic&quot; types.</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

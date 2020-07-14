@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mosaic</title>
+		<style>
+#root {margin:auto;max-width:600px;width:100%;}
+.slice {animation:enter 1s;animation-fill-mode:forwards;background-image:url(flowers.jpg);height:60px;float:left;opacity:0;width:60px;}
+.slice:nth-child(10n) {clear:right;}
+.exit {animation:exit 1s;}
+
+@keyframes enter {
+	from {opacity:0;transform:rotate(-90deg) scale(0);}
+	to {opacity:1;transform:rotate(0) scale(1);}
+}
+@keyframes exit {
+	from {opacity:1;transform:rotate(0) scale(1);}
+	to {opacity:0;transform:rotate(90deg) scale(0);}
+}
+		</style>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script src="../../mithril.js"></script>
+		<script src="../../stream/stream.js"></script>
+		<script>
+var root = document.getElementById("root")
+
+const range = (start, end) => {
+	let full = []
+	for (let i = start; i < end; i++) full.push(i)
+	return full
+}
+
+const exit = vnode => {
+	vnode.dom.classList.add("exit")
+	return new Promise(function(resolve) {
+		setTimeout(resolve, 1000)
+	})
+}
+
+const backgroundPosition = step => i => 
+	// X
+	(i % step * (step+1)) + "% " 
+	// Y
+	+ (Math.floor(i / step) * (step+1)) + "%"
+
+// actions -> state -> vnode
+const view = exit => cells => 
+	m(".container", cells.map(i => 
+	 	m(".slice", {
+			style: {backgroundPosition: backgroundPosition(10)(i)},
+			onbeforeremove: exit
+		})
+	))
+
+// delayed alternate array[0] and array[1] and pipe into actions stream
+const alternate = delay => array => actions => {
+	let i = 1
+	setInterval(() => actions(array[i = 1 - i]), delay)
+	return actions
+}
+
+// prepare stream alternating between empty and full
+alternate(2000)([[], range(0, 10 * 10)])(m.stream())
+	// pipe state stream into view
+	.map(view(exit))
+	// pipe view stream into render
+	.map(vnode => m.render(root, vnode))
+
+		</script>
+	</body>
+</html>

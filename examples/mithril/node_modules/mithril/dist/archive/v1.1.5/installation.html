@@ -1,0 +1,235 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Installation - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.5</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="installation"><a href="#installation">Installation</a></h1>
+<ul>
+<li>Tutorials<ul>
+<li><strong><a href="installation.html">Installation</a></strong><ul>
+<li><a href="#cdn">CDN</a></li>
+<li><a href="#npm">NPM</a></li>
+</ul>
+</li>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="cdn"><a href="#cdn">CDN</a></h3>
+<p>If you&#39;re new to Javascript or just want a very simple setup to get your feet wet, you can get Mithril from a <a href="https://en.wikipedia.org/wiki/Content_delivery_network">CDN</a>:</p>
+<pre><code class="lang-markup">&lt;script src=&quot;https://unpkg.com/mithril/mithril.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<hr>
+<h3 id="npm"><a href="#npm">NPM</a></h3>
+<h4 id="quick-start-with-webpack"><a href="#quick-start-with-webpack">Quick start with Webpack</a></h4>
+<pre><code class="lang-bash"># 1) install
+npm install mithril --save
+
+npm install webpack --save
+
+# 2) add this line into the scripts section in package.json
+#    &quot;scripts&quot;: {
+#        &quot;start&quot;: &quot;webpack src/index.js bin/app.js --watch&quot;
+#    }
+
+# 3) create an `src/index.js` file
+
+# 4) create an `index.html` file containing `&lt;script src=&quot;bin/app.js&quot;&gt;&lt;/script&gt;`
+
+# 5) run bundler
+npm start
+
+# 6) open `index.html` in the (default) browser
+open index.html
+</code></pre>
+<h4 id="step-by-step"><a href="#step-by-step">Step by step</a></h4>
+<p>For production-level projects, the recommended way of installing Mithril is to use NPM.</p>
+<p>NPM (Node package manager) is the default package manager that is bundled w/ Node.js. It is widely used as the package manager for both client-side and server-side libraries in the Javascript ecosystem. Download and install <a href="https://nodejs.org">Node.js</a>; NPM will be automatically installed as well.</p>
+<p>To use Mithril via NPM, go to your project folder, and run <code>npm init --yes</code> from the command line. This will create a file called <code>package.json</code>.</p>
+<pre><code class="lang-bash">npm init --yes
+# creates a file called package.json
+</code></pre>
+<p>Then, to install Mithril, run:</p>
+<pre><code class="lang-bash">npm install mithril --save
+</code></pre>
+<p>This will create a folder called <code>node_modules</code>, and a <code>mithril</code> folder inside of it. It will also add an entry under <code>dependencies</code> in the <code>package.json</code> file</p>
+<p>You are now ready to start using Mithril. The recommended way to structure code is to modularize it via CommonJS modules:</p>
+<pre><code class="lang-javascript">// index.js
+var m = require(&quot;mithril&quot;)
+
+m.render(document.body, &quot;hello world&quot;)
+</code></pre>
+<p>Modularization is the practice of separating the code into files. Doing so makes it easier to find code, understand what code relies on what code, and test.</p>
+<p>CommonJS is a de-facto standard for modularizing Javascript code, and it&#39;s used by Node.js, as well as tools like <a href="http://browserify.org/">Browserify</a> and <a href="https://webpack.js.org/">Webpack</a>. It&#39;s a robust, battle-tested precursor to ES6 modules. Although the syntax for ES6 modules is specified in Ecmascript 6, the actual module loading mechanism is not. If you wish to use ES6 modules despite the non-standardized status of module loading, you can use tools like <a href="http://rollupjs.org/">Rollup</a>, <a href="https://babeljs.io/">Babel</a> or <a href="https://github.com/google/traceur-compiler">Traceur</a>.</p>
+<p>Most browser today do not natively support modularization systems (CommonJS or ES6), so modularized code must be bundled into a single Javascript file before running in a client-side application.</p>
+<p>A popular way for creating a bundle is to setup an NPM script for <a href="https://webpack.js.org/">Webpack</a>. To install Webpack, run this from the command line:</p>
+<pre><code class="lang-bash">npm install webpack --save-dev
+</code></pre>
+<p>Open the <code>package.json</code> that you created earlier, and add an entry to the <code>scripts</code> section:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;webpack src/index.js bin/app.js -d --watch&quot;
+    }
+}
+</code></pre><p>Remember this is a JSON file, so object key names such as <code>&quot;scripts&quot;</code> and <code>&quot;start&quot;</code> must be inside of double quotes.</p>
+<p>The <code>-d</code> flag tells webpack to use development mode, which produces source maps for a better debugging experience.</p>
+<p>The <code>--watch</code> flag tells webpack to watch the file system and automatically recreate <code>app.js</code> if file changes are detected.</p>
+<p>Now you can run the script via <code>npm start</code> in your command line window. This looks up the <code>webpack</code> command in the NPM path, reads <code>index.js</code> and creates a file called <code>app.js</code> which includes both Mithril and the <code>hello world</code> code above. If you want to run the <code>webpack</code> command directly from the command line, you need to either add <code>node_modules/.bin</code> to your PATH, or install webpack globally via <code>npm install webpack -g</code>. It&#39;s, however, recommended that you always install webpack locally and use npm scripts, to ensure builds are reproducible in different computers.</p>
+<pre><code>npm start
+</code></pre><p>Now that you have created a bundle, you can then reference the <code>bin/app.js</code> file from an HTML file:</p>
+<pre><code class="lang-markup">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello world&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script src=&quot;bin/app.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>As you&#39;ve seen above, importing a module in CommonJS is done via the <code>require</code> function. You can reference NPM modules by their library names (e.g. <code>require(&quot;mithril&quot;)</code> or <code>require(&quot;jquery&quot;)</code>), and you can reference your own modules via relative paths minus the file extension (e.g. if you have a file called <code>mycomponent.js</code> in the same folder as the file you&#39;re importing to, you can import it by calling <code>require(&quot;./mycomponent&quot;)</code>).</p>
+<p>To export a module, assign what you want to export to the special <code>module.exports</code> object:</p>
+<pre><code class="lang-javascript">// mycomponent.js
+module.exports = {
+    view: function() {return &quot;hello from a module&quot;}
+}
+</code></pre>
+<p>In the <code>index.js</code>, you would then write this code to import that module:</p>
+<pre><code class="lang-javascript">// index.js
+var m = require(&quot;mithril&quot;)
+
+var MyComponent = require(&quot;./mycomponent&quot;)
+
+m.mount(document.body, MyComponent)
+</code></pre>
+<p>Note that in this example, we&#39;re using <code>m.mount</code>, which wires up the component to Mithril&#39;s autoredraw system. In most applications, you will want to use <code>m.mount</code> (or <code>m.route</code> if your application has multiple screens) instead of <code>m.render</code> to take advantage of the autoredraw system, rather than re-rendering manually every time a change occurs.</p>
+<h4 id="production-build"><a href="#production-build">Production build</a></h4>
+<p>If you open bin/app.js, you&#39;ll notice that the Webpack bundle is not minified, so this file is not ideal for a live application. To generate a minified file, open <code>package.json</code> and add a new npm script:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;webpack src/index.js bin/app.js -d --watch&quot;,
+        &quot;build&quot;: &quot;webpack src/index.js bin/app.js -p&quot;,
+    }
+}
+</code></pre><p>You can use hooks in your production environment to run the production build script automatically. Here&#39;s an example for <a href="https://www.heroku.com/">Heroku</a>:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;start&quot;: &quot;webpack -d --watch&quot;,
+        &quot;build&quot;: &quot;webpack -p&quot;,
+        &quot;heroku-postbuild&quot;: &quot;webpack -p&quot;
+    }
+}
+</code></pre><hr>
+<h3 id="alternate-ways-to-use-mithril"><a href="#alternate-ways-to-use-mithril">Alternate ways to use Mithril</a></h3>
+<h4 id="live-reload-development-environment"><a href="#live-reload-development-environment">Live reload development environment</a></h4>
+<p>Live reload is a feature where code changes automatically trigger the page to reload. <a href="https://github.com/mattdesl/budo">Budo</a> is one tool that enables live reloading.</p>
+<pre><code class="lang-bash"># 1) install
+npm install mithril --save
+npm install budo -g
+
+# 2) add this line into the scripts section in package.json
+#    &quot;scripts&quot;: {
+#        &quot;start&quot;: &quot;budo --live --open index.js&quot;
+#    }
+
+# 3) create an `index.js` file
+
+# 4) run budo
+npm start
+</code></pre>
+<p>The source file <code>index.js</code> will be compiled (bundled) and a browser window opens showing the result. Any changes in the source files will instantly get recompiled and the browser will refresh reflecting the changes.</p>
+<h4 id="mithril-bundler"><a href="#mithril-bundler">Mithril bundler</a></h4>
+<p>Mithril comes with a bundler tool of its own. It is sufficient for ES5-based projects that have no other dependencies other than Mithril, but it&#39;s currently considered experimental for projects that require other NPM dependencies. It produces smaller bundles than webpack, but you should not use it in production yet.</p>
+<p>If you want to try it and give feedback, you can open <code>package.json</code> and change the npm script for webpack to this:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;my-project&quot;,
+    &quot;scripts&quot;: {
+        &quot;build&quot;: &quot;bundle index.js --output app.js --watch&quot;
+    }
+}
+</code></pre><h4 id="vanilla"><a href="#vanilla">Vanilla</a></h4>
+<p>If you don&#39;t have the ability to run a bundler script due to company security policies, there&#39;s an options to not use a module system at all:</p>
+<pre><code class="lang-markup">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello world&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script src=&quot;https://cdn.rawgit.com/MithrilJS/mithril.js/master/mithril.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;index.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="lang-javascript">// index.js
+
+// if a CommonJS environment is not detected, Mithril will be created in the global scope
+m.render(document.body, &quot;hello world&quot;)
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.5/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+.token.comment,.token.prolog,.token.doctype,.token.cdata {color:#888;}
+.token.property,.token.tag,.token.boolean,.token.number,.token.constant,.token.symbol {color:#905;}
+.token.selector,.token.attr-name,.token.string,.token.builtin {color:#690;}
+.token.atrule,.token.attr-value,.token.punctuation,.token.keyword {color:#1e5799;}
+.token.regex,.token.important {color:#e90;}
+

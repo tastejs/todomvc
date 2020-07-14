@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="api">API (v0.1)</h2>
+							<h3 id="core">Core</h3>
+							<ul>
+								<li><a href="mithril.html">m</a></li>
+								<li><a href="mithril.prop.html">m.prop</a></li>
+								<li><a href="mithril.withAttr.html">m.withAttr</a></li>
+								<li><a href="mithril.module.html">m.module</a></li>
+								<li><a href="mithril.trust.html">m.trust</a></li>
+								<li><a href="mithril.render.html">m.render</a></li>
+								<li><a href="mithril.redraw.html">m.redraw</a></li>
+							</ul>
+							<h3 id="routing">Routing</h3>
+							<ul>
+								<li><a href="mithril.route.html">m.route</a>
+									<ul>
+										<li><a href="mithril.route.html#defining-routes">m.route(rootElement, defaultRoute, routes)</a></li>
+										<li><a href="mithril.route.html#redirecting">m.route(path)</a></li>
+										<li><a href="mithril.route.html#mode-abstraction">m.route(element)</a></li>
+										<li><a href="mithril.route.html#mode">m.route.mode</a></li>
+										<li><a href="mithril.route.html#param">m.route.param</a></li>
+									</ul>
+								</li>
+							</ul>
+							<h3 id="data">Data</h3>
+							<ul>
+								<li><a href="mithril.request.html">m.request</a></li>
+								<li><a href="mithril.deferred.html">m.deferred</a></li>
+								<li><a href="mithril.sync.html">m.sync</a></li>
+								<li><a href="mithril.computation.html">m.startComputation / m.endComputation</a></li>
+							</ul>
+							
+							<h2 id="archive">History</h2>
+							<ul>
+								<li><a href="roadmap.html">Roadmap</a></li>
+								<li><a href="change-log.html">Change log</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="m">m</h2>
+<p>This is a convenience method to compose virtual elements that can be rendered via <a href="mithril.render"><code>m.render()</code></a>.</p>
+<p>You are encouraged to use CSS selectors to define virtual elements. See &quot;Signature&quot; section for details.</p>
+<hr>
+<h3 id="usage">Usage</h3>
+<p>You can use simple tag selectors to make templates resemble HTML:</p>
+<pre><code class="lang-javascript">m(&quot;br&quot;); //yields a virtual element that represents &lt;br&gt;
+
+m(&quot;div&quot;, &quot;Hello&quot;); //yields &lt;div&gt;Hello&lt;/div&gt;
+
+m(&quot;div&quot;, {class: &quot;container&quot;}, &quot;Hello&quot;); //yields &lt;div class=&quot;container&quot;&gt;Hello&lt;/div&gt;</code></pre>
+<p>Note that the output value from <code>m()</code> is not an actual DOM element. In order to turn the virtual element into a real DOM element, you must call <a href="mithril.render"><code>m.render()</code></a>.</p>
+<pre><code class="lang-javascript">m.render(document.body, m(&quot;br&quot;)); //puts a &lt;br&gt; in &lt;body&gt;</code></pre>
+<p>You can also use more complex CSS selectors:</p>
+<pre><code class="lang-javascript">m(&quot;.container&quot;); //yields &lt;div class=&quot;container&quot;&gt;&lt;/div&gt;
+
+m(&quot;#layout&quot;); //yields &lt;div id=&quot;layout&quot;&gt;&lt;/div&gt;
+
+m(&quot;a[name=top]&quot;); //yields &lt;a name=&quot;top&quot;&gt;&lt;/a&gt;
+
+m(&quot;[contenteditable]&quot;); //yields &lt;div contenteditable&gt;&lt;/div&gt;
+
+m(&quot;a#google.external[href=&#39;http://google.com&#39;]&quot;, &quot;Google&quot;); //yields &lt;a id=&quot;google&quot; class=&quot;external&quot; href=&quot;http://google.com&quot;&gt;Google&lt;/a&gt;</code></pre>
+<p>Each <code>m()</code> call creates a virtual DOM element, that is, a javascript object that represents a DOM element, and which is eventually converted into one.</p>
+<p>You can, of course, nest virtual elements:</p>
+<pre><code class="lang-javascript">m(&quot;ul&quot;, [
+    m(&quot;li&quot;, &quot;item 1&quot;),
+    m(&quot;li&quot;, &quot;item 2&quot;),
+]);
+
+/*
+yields
+&lt;ul&gt;
+    &lt;li&gt;item 1&lt;/li&gt;
+    &lt;li&gt;item 2&lt;/li&gt;
+&lt;/ul&gt;
+*/</code></pre>
+<p>Be aware that when nesting virtual elements, the child elements must be in an Array.</p>
+<hr>
+<p>The CSS selector syntax (e.g. <code>a#google.external[href=&#39;http://google.com&#39;]</code>) is meant to be used for declaring static attributes in the element, i.e. attribute values that don&#39;t change dynamically when the user interacts with the app.</p>
+<p>The <code>attributes</code> argument (i.e. the second parameter in the <code>m(&quot;div&quot;, {class: &quot;container&quot;}, &quot;Hello&quot;)</code> example) is meant to be used for attributes whose values we want to dynamically populate.</p>
+<p>For example, let&#39;s say that you&#39;re generating a link from an entry that comes from a web service:</p>
+<pre><code class="lang-javascript">//assume the variable `link` came from a web service
+var link = {url: &quot;http://google.com&quot;, title: &quot;Google&quot;}
+
+m(&quot;a&quot;, {href: link.url}, link.title); //yields &lt;a href=&quot;http://google.com&quot;&gt;Google&lt;/a&gt;</code></pre>
+<p>Here&#39;s a less trivial example:</p>
+<pre><code class="lang-javascript">var links = [
+    {title: &quot;item 1&quot;, url: &quot;/item1&quot;},
+    {title: &quot;item 2&quot;, url: &quot;/item2&quot;}
+    {title: &quot;item 3&quot;, url: &quot;/item3&quot;}
+];
+
+m.render(document.body, [
+    m(&quot;ul.nav&quot;, [
+        m(&quot;li&quot;, links.map(function(link) {
+            return m(&quot;a&quot;, {href: link.url}, link.title)
+        })
+    ])
+]);</code></pre>
+<p>yields:</p>
+<pre><code class="lang-markup">&lt;body&gt;
+    &lt;ul class=&quot;nav&quot;&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;/item1&quot;&gt;item 1&lt;/a&gt;
+            &lt;a href=&quot;/item2&quot;&gt;item 2&lt;/a&gt;
+            &lt;a href=&quot;/item3&quot;&gt;item 3&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;</code></pre>
+<p>As you can see, flow control is done with vanilla Javascript. This allows the developer to abstract away any aspect of the template at will.</p>
+<hr>
+<p>Note that you can use both javascript property names and HTML attribute names to set values in the <code>attributes</code> argument, but you should pass a value of appropriate type. If an attribute has the same name in Javascript and in HTML, then Mithril assumes you&#39;re setting the Javascript property.</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {class: &quot;widget&quot;}); //yields &lt;div class=&quot;widget&quot;&gt;&lt;/div&gt;
+
+m(&quot;div&quot;, {className: &quot;widget&quot;}); //yields &lt;div class=&quot;widget&quot;&gt;&lt;/div&gt;
+
+m(&quot;input&quot;, {readonly: true}); //yields &lt;input readonly /&gt;
+
+m(&quot;button&quot;, {onclick: alert}); //yields &lt;button&gt;&lt;/button&gt;, which alerts its event argument when clicked</code></pre>
+<hr>
+<p>Note that you can use JSON syntax if the attribute name you are setting has non-alphanumeric characters:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {&quot;data-index&quot;: 1}); //yields &lt;div data-index=&quot;1&quot;&gt;&lt;/div&gt;</code></pre>
+<p>You can set inline styles like this:</p>
+<pre><code class="lang-javascript">m(&quot;div&quot;, {style: {border: &quot;1px solid red&quot;}}); //yields &lt;div style=&quot;border:1px solid red;&quot;&gt;&lt;/div&gt;</code></pre>
+<p>Note that in order to keep the framework lean, Mithril does not auto-append units like <code>px</code> or <code>%</code> to any values. Typically, you should not even be using inline styles to begin with (unless you are dynamically changing them).</p>
+<hr>
+<p>You can define a non-HTML-standard attribute called <code>config</code>. This special parameter allows you to call methods on the DOM element after it gets created.</p>
+<p>This is useful, for example, if you declare a <code>canvas</code> element and want to use the Javascript API to draw:</p>
+<pre><code class="lang-javascript">function draw(element, isInitialized) {
+    //don&#39;t redraw if we did once already
+    if (isInitialized) return;
+
+    var ctx = element.getContext(&quot;2d&quot;);
+    /* draws stuff */
+}
+
+var view = [
+    m(&quot;canvas&quot;, {config: draw})
+]
+
+//this creates the canvas element, and therefore, `isInitialized` is false
+m.render(document.body, view);
+
+//here, isInitialized is `true`
+m.render(document.body, view);</code></pre>
+<p>One common way of using <code>config</code> is in conjunction with <a href="mithril.route"><code>m.route</code></a>, which is an unobtrusive extension to links that allow Mithril&#39;s routing system to work transparently regardless of which routing mode is used.</p>
+<pre><code class="lang-javascript">//this link can use any of Mithril&#39;s routing system modes
+//(i.e. it can use either the hash, the querystring or the pathname as the router implementation)
+//without needing to hard-code any syntax (`#` or `?`) in the `href` attribute.
+m(&quot;a[href=&#39;/dashboard&#39;]&quot;, {config: m.route}, &quot;Dashboard&quot;);</code></pre>
+<p>The <code>config</code> mechanism can also be used to put focus on form inputs, and call methods that would not be possible to execute via the regular attribute syntax.</p>
+<p>It is only meant to be used to call methods on DOM elements that cannot be called otherwise.</p>
+<p>It is NOT a &quot;free out-of-jail card&quot;. You should not use this method to modify element properties that could be modified via the <code>attributes</code> argument, nor values outside of the DOM element in question.</p>
+<p>Also note that the <code>config</code> callback only runs after a rendering lifecycle is done. Therefore, you should not use <code>config</code> to modify controller and model values, if you expect these changes to render immediately. Changes to controller and model values in this fashion will only render on the next <code>m.render</code> or <code>m.module</code> call.</p>
+<p>You can use this mechanism to attach custom event listeners to controller methods (for example, when integrating with third party libraries), but you are responsible for making sure the integration with Mithril&#39;s autoredrawing system is in place. See the <a href="integration.html">integration guide</a> for more information.</p>
+<hr>
+<h3 id="signature">Signature</h3>
+<p><a href="how-to-read-signatures.html">How to read signatures</a></p>
+<pre><code class="lang-clike">VirtualElement m(String selector [, Attributes attributes] [, Children children])
+
+where:
+    VirtualElement :: Object { String tag, Attributes attributes, Children children }
+    Attributes :: Object&lt;any | void config(DOMElement element, Boolean isInitialized)&gt;
+    Children :: String text | Array&lt;String text | VirtualElement virtualElement | Children children&gt;</code></pre>
+<ul>
+<li><p><strong>String selector</strong></p>
+<p>This string should be a CSS rule that represents a DOM element.</p>
+<p>Only tag, id, class and attribute selectors are supported.</p>
+<p>If the tag selector is omitted, it defaults to <code>div</code>.</p>
+<p>Note that if the same attribute is defined in the both <code>selector</code> and <code>attributes</code> parameters, the value in <code>attributes</code> is used.</p>
+<p>For developer convenience, Mithril makes an exception for the <code>class</code> attribute: if there are classes defined in both parameters, they are concatenated as a space separated list. It does not, however, de-dupe classes if the same class is declared twice.</p>
+<p><em>Examples:</em></p>
+<p><code>&quot;div&quot;</code></p>
+<p><code>&quot;#container&quot;</code></p>
+<p><code>&quot;.active&quot;</code></p>
+<p><code>&quot;[title=&#39;Application&#39;]&quot;</code></p>
+<p><code>&quot;div#container.active[title=&#39;Application&#39;]&quot;</code></p>
+<p><code>&quot;.active#container&quot;</code></p>
+</li>
+<li><p><strong>Attributes attributes</strong> (optional)</p>
+<p>This key-value map should define a list of HTML attributes and their respective values.</p>
+<p>You can use both HTML and Javascript attribute names. For example, both <code>class</code> and <code>className</code> are valid.</p>
+<p>Values&#39; types should match the expected type for the respective attribute.</p>
+<p>For example, the value for <code>className</code> should be a string.</p>
+<p>When a attribute name expects different types for the value in HTML and Javascript, the Javascript type should be used. </p>
+<p>For example, the value for the <code>onclick</code> attribute should be a function.</p>
+<p>Similar, setting the value of attribute <code>readonly</code> to <code>false</code> is equivalent to removing the attribute in HTML.</p>
+<p>It&#39;s also possible to set values to Javascript-only properties, such as <code>hash</code> in a <code>&lt;a&gt;</code> element.</p>
+<p>Note that if the same attribute is defined in the both <code>selector</code> and <code>attributes</code> parameters, the value in <code>attributes</code> is used.</p>
+<p>For developer convenience, Mithril makes an exception for the <code>class</code> attribute: if there are classes defined in both parameters, they are concatenated as a space separated list. It does not, however, de-dupe classes if the same class is declared twice.</p>
+<p><em>Examples:</em></p>
+<p><code>{ title: &quot;Application&quot; }</code></p>
+<p><code>{ onclick: function(e) { /*do stuff*/ } }</code></p>
+<p><code>{ style: {border: &quot;1px solid red&quot;} }</code></p>
+</li>
+<li><h4 id="the-config-attribute">The <code>config</code> attribute</h4>
+<p><strong>void config(DOMElement element, Boolean isInitialized)</strong> (optional)</p>
+<p>You can define a non-HTML-standard attribute called <code>config</code>. This special parameter allows you to call methods on the DOM element after it gets created.</p>
+<p>This is useful, for example, if you declare a <code>canvas</code> element and want to use the Javascript API to draw:</p>
+<pre><code class="lang-javascript">function draw(element, isInitialized) {
+   //don&#39;t redraw if we did once already
+   if (isInitialized) return;
+
+   var ctx = element.getContext(&quot;2d&quot;);
+   /* draws stuff */
+}
+
+var view = [
+   m(&quot;canvas&quot;, {config: draw})
+]
+
+//this creates the canvas element, and therefore, `isInitialized` is false
+m.render(document.body, view);
+
+//here, isInitialized is `true`
+m.render(document.body, view);</code></pre>
+<p>One common way of using <code>config</code> is in conjunction with <a href="mithril.route"><code>m.route</code></a>, which is an unobtrusive extension to links that allow Mithril&#39;s routing system to work transparently regardless of which routing mode is used.</p>
+<pre><code class="lang-javascript">//this link can use any of Mithril&#39;s routing system modes
+//(i.e. it can use either the hash, the querystring or the pathname as the router implementation)
+//without needing to hard-code any syntax (`#` or `?`) in the `href` attribute.
+m(&quot;a[href=&#39;/dashboard&#39;]&quot;, {config: m.route}, &quot;Dashboard&quot;);</code></pre>
+<p>The <code>config</code> mechanism can also be used to put focus on form inputs, and call methods that would not be possible to execute via the regular attribute syntax.</p>
+<p>It is only meant to be used to call methods on DOM elements that cannot be called otherwise.</p>
+<p>It is NOT a &quot;free out-of-jail card&quot;. You should not use this method to modify element properties that could be modified via the <code>attributes</code> argument, nor values outside of the DOM element in question.</p>
+<p>Also note that the <code>config</code> callback only runs after a rendering lifecycle is done. Therefore, you should not use <code>config</code> to modify controller and model values, if you expect these changes to render immediately. Changes to controller and model values in this fashion will only render on the next <code>m.render</code> or <code>m.module</code> call.</p>
+<p>You can use this mechanism to attach custom event listeners to controller methods (for example, when integrating with third party libraries), but you are responsible for making sure the integration with Mithril&#39;s autoredrawing system is in place. See the <a href="integration.html">integration guide</a> for more information.</p>
+<ul>
+<li><strong>DOMElement element</strong></li>
+</ul>
+<p>The DOM element that corresponds to virtual element defined by the <code>m()</code> call.</p>
+<ul>
+<li><strong>Boolean isInitialized</strong></li>
+</ul>
+<p>Whether this is the first time we are running this function on this element. This flag is false the first time it runs on an element, and true on redraws that happen after the element has been created.</p>
+</li>
+<li><p><strong>Children children</strong> (optional)</p>
+<p>If this argument is a string, it will be rendered as a text node. To render a string as HTML, see <a href="mithril.trust"><code>m.trust</code></a></p>
+<p>If it&#39;s a VirtualElement, it will be rendered as a DOM Element.</p>
+<p>If it&#39;s a list, its contents will recursively be rendered as appropriate and appended as children of the element being created.</p>
+</li>
+<li><p><strong>returns</strong> VirtualElement</p>
+<p>The returned VirtualElement is a javascript data structure that represents the DOM element to be rendered by <a href="mithril.render"><code>m.render</code></a></p>
+</li>
+</ul>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

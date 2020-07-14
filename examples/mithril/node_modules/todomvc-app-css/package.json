@@ -1,0 +1,26 @@
+{
+	"name": "todomvc-app-css",
+	"version": "2.3.0",
+	"description": "CSS for TodoMVC apps",
+	"license": "CC-BY-4.0",
+	"repository": "tastejs/todomvc-app-css",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"files": [
+		"index.css"
+	],
+	"keywords": [
+		"todomvc",
+		"tastejs",
+		"app",
+		"todo",
+		"template",
+		"css",
+		"style",
+		"stylesheet"
+	],
+	"style": "index.css"
+}

@@ -1,0 +1,183 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Path Handling - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.6</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="path-handling"><a href="#path-handling">Path Handling</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><strong><a href="paths.html">Path Handling</a></strong><ul>
+<li><a href="#path-types">Path types</a></li>
+<li><a href="#path-parameters">Path parameters</a></li>
+<li><a href="#parameter-normalization">Parameter normalization</a></li>
+<li><a href="#path-normalization">Path normalization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><a href="route.html"><code>m.route</code></a>, <a href="request.html"><code>m.request</code></a>, and <a href="jsonp.html"><code>m.jsonp</code></a> each have a concept called a path. This is used to generate the URL you route to or fetch from.</p>
+<h3 id="path-types"><a href="#path-types">Path types</a></h3>
+<p>There are two general types of paths: raw paths and parameterized paths.</p>
+<ul>
+<li>Raw paths are simply strings used directly as URLs. Nothing is substituted or even split. It&#39;s just normalized with all the parameters appended to the end.</li>
+<li>Parameterized paths let you insert values into paths, escaped by default for convenience and safety against URL injection.</li>
+</ul>
+<p>For <a href="request.html"><code>m.request</code></a> and <a href="jsonp.html"><code>m.jsonp</code></a>, these can be pretty much any URL, but for <a href="route.html">routes</a>, these can only be absolute URL path names without schemes or domains.</p>
+<h3 id="path-parameters"><a href="#path-parameters">Path parameters</a></h3>
+<p>Path parameters are themselves pretty simple. They come in two forms:</p>
+<ul>
+<li><code>:foo</code> - This injects a simple <code>params.foo</code> into the URL, escaping its value first.</li>
+<li><code>:foo...</code> - This injects a raw <code>params.foo</code> path into the URL without escaping anything.</li>
+</ul>
+<p>You&#39;re probably wondering what that <code>params</code> object is supposed to be. It&#39;s pretty simple: it&#39;s the <code>params</code> in either <a href="route.html#mrouteset"><code>m.route.set(path, params)</code></a>, <a href="request.html#signature"><code>m.request({url, params})</code></a>, or <a href="jsonp.html#signature"><code>m.jsonp({url, params})</code></a>.</p>
+<p>When receiving routes via <a href="route.html#signature"><code>m.route(root, defaultRoute, routes)</code></a>, you can use these parameters to <em>extract</em> values from routes. They work basically the same way as generating the paths, just in the opposite direction.</p>
+<pre><code class="language-javascript">// Edit a single item
+m.route(document.body, &quot;/edit/1&quot;, {
+    &quot;/edit/:id&quot;: {
+        view: function() {
+            return [
+                m(Menu),
+                m(&quot;h1&quot;, &quot;Editing user &quot; + m.route.param(&quot;id&quot;))
+            ]
+        }
+    },
+})
+
+// Edit an item identified by path
+m.route(document.body, &quot;/edit/pictures/image.jpg&quot;, {
+    &quot;/edit/:file...&quot;: {
+        view: function() {
+            return [
+                m(Menu),
+                m(&quot;h1&quot;, &quot;Editing file &quot; + m.route.param(&quot;file&quot;))
+            ]
+        }
+    },
+})</code></pre>
+<p>In the first example, assuming you&#39;re navigating to the default route in each, <code>m.route.param(&quot;id&quot;)</code> would be read as <code>&quot;1&quot;</code> and <code>m.route.param(&quot;file&quot;)</code> would be read as <code>pictures/image.jpg</code>.</p>
+<p>Path parameters may be delimited by either a <code>/</code>, <code>-</code>, or <code>.</code>. This lets you have dynamic path segments, and they&#39;re considerably more flexible than just a path name. For example, you could match against routes like <code>&quot;/edit/:name.:ext&quot;</code> for editing based on file extension or <code>&quot;/:lang-:region/view&quot;</code> for a localized route.</p>
+<p>Path parameters are greedy: given a declared route <code>&quot;/edit/:name.:ext&quot;</code>, if you navigate to <code>/edit/file.test.png</code>, the parameters extracted will be <code>{name: &quot;file.test&quot;, ext: &quot;png&quot;}</code>, not <code>{name: &quot;file&quot;, ext: &quot;test.png&quot;}</code>. Similarly, given <code>&quot;/route/:path.../view/:child...&quot;</code>, if you go to <code>/route/foo/view/bar/view/baz</code>, the parameters extracted will be <code>{path: &quot;foo/view/bar&quot;, child: &quot;baz&quot;}</code>.</p>
+<h3 id="parameter-normalization"><a href="#parameter-normalization">Parameter normalization</a></h3>
+<p>Path parameters that are interpolated into path names are omitted from the query string, for convenience and to keep the path name reasonably readable. For example, this sends a server request of <code>GET /api/user/1/connections?sort=name-asc</code>, omitting the duplicate <code>id=1</code> in the URL string.</p>
+<pre><code class="language-javascript">m.request({
+    url: &quot;https://example.com/api/user/:userID/connections&quot;,
+    params: {
+        userID: 1,
+        sort: &quot;name-asc&quot;
+    }
+})</code></pre>
+<p>You can also specify parameters explicitly in the query string itself, such as in this, which is equivalent to the above:</p>
+<pre><code class="language-javascript">m.request({
+    url: &quot;https://example.com/api/user/:userID/connections?sort=name-asc&quot;,
+    params: {
+        userID: 1
+    }
+})</code></pre>
+<p>And of course, you can mix and match. This fires a request to <code>GET /api/user/1/connections?sort=name-asc&amp;first=10</code>.</p>
+<pre><code class="language-javascript">m.request({
+    url: &quot;https://example.com/api/user/:userID/connections?sort=name-asc&quot;,
+    params: {
+        userID: 1,
+        first: 10
+    }
+})</code></pre>
+<p>This even extends to route matching: you can match against a route <em>with</em> explicit query strings. It retains the matched parameter for convenience, so you can still access them via vnode parameters or via <a href="route.html#mrouteparam"><code>m.route.param</code></a>. Note that although this <em>is</em> possible, it&#39;s not generally recommended, since you should prefer paths for pages. It could sometimes useful if you need to generate a somewhat different view just for a particular file type, but it still logically is a query-like parameter, not a whole separate page.</p>
+<pre><code class="language-javascript">// Note: this is generally *not* recommended - you should prefer paths for route
+// declarations, not query strings.
+m.route(document.body, &quot;/edit/1&quot;, {
+    &quot;/edit?type=image&quot;: {
+        view: function() {
+            return [
+                m(Menu),
+                m(&quot;h1&quot;, &quot;Editing photo&quot;)
+            ]
+        }
+    },
+    &quot;/edit&quot;: {
+        view: function() {
+            return [
+                m(Menu),
+                m(&quot;h1&quot;, &quot;Editing &quot; + m.route.param(&quot;type&quot;))
+            ]
+        }
+    }
+})</code></pre>
+<p>Note that query parameters are implicit - you don&#39;t need to name them to accept them. You can match based on an existing value, like in <code>&quot;/edit?type=image&quot;</code>, but you don&#39;t need to use <code>&quot;/edit?type=:type&quot;</code> to accept the value. In fact, Mithril would treat that as you trying to literally match against <code>m.route.param(&quot;type&quot;) === &quot;:type&quot;</code>. Or in summary, use <code>m.route.param(&quot;key&quot;)</code> to extract parameters - it simplifies things.</p>
+<h3 id="path-normalization"><a href="#path-normalization">Path normalization</a></h3>
+<p>Parsed paths are always returned with all the duplicate parameters and extra slashes dropped, and they always start with a slash. These little differences often get in the way, and it makes routing and path handling a lot more complicated than it should be. Mithril internally normalizes paths for routing, but it does not expose the current, normalized route directly. (You could compute it via <a href="parsePathname.html"><code>m.parsePathname(m.route.get()).path</code></a>.)</p>
+<p>When parameters are deduplicated during matching, parameters in the query string are preferred over parameters in the path name, and parameters towards the end of the URL are preferred over parameters closer to the start of the URL.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.6/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

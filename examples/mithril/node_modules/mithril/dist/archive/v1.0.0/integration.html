@@ -1,0 +1,143 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title># Integrating with Other Libraries - Mithril.js</title>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+		<link href="lib/prism/prism.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.0.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/lhorie/mithril.js">Chat</a>
+					<a href="https://github.com/lhorie/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h2 id="integrating-with-other-libraries">Integrating with Other Libraries</h2>
+<p>Integration with third party libraries or vanilla javascript code can be achieved via the <a href="mithril.html#accessing-the-real-dom"><code>config</code> attribute of virtual elements</a>.</p>
+<p>It&#39;s recommended that you encapsulate integration code in a component or a helper function.</p>
+<p>The example below shows a simple component that integrates with the <a href="http://ivaynberg.github.io/select2/">select2 library</a>.</p>
+<pre><code class="lang-javascript">// Component containing a Select that uses Select2 for functionality.
+var S2Component = {
+
+  // Rendered view for S2
+  view: function(ctrl, attrs) {
+    var current = attrs.selectedUser
+
+    return m(&#39;select&#39;, {
+        class: &#39;select-field&#39;,
+        config: S2Component._configure
+      },
+      attrs.data.map(function(item){
+        return m(&#39;option&#39;, {
+                  id: item.id,
+                  value: item.value,
+                  selected: (item.id === current) ? true : false
+                }, item.name);
+      })
+    )
+  },
+
+   // Configure function -- called from m(&#39;select&#39;) in the view
+  _configure: function(element, initialized) {
+
+    /*
+      Note: This function is being called from the &#39;config&#39; attribute
+      in our mithril view.
+
+      Integration with third-party party DOM manipulation (jQuery) needs 
+      {config: function(){}} because that&#39;s the attribute that exposes the real
+      DOM element (as opposed to the virtual DOM element) in the corresponding 
+      function so you can access and manipulate it.
+    */
+
+    // If this hasn&#39;t been initialized, we can do our setup  
+    if(!initialized) {
+
+       $(element).select2({
+        // options
+      });
+
+      // Other logic pertaining to this select also goes here.
+      // e.g. Event handlers, etc.
+    }
+  }
+}
+
+// Primary component.
+var MainComponent = {
+  controller: function() {
+    var ctrl = this;
+
+    // Some arbitrary data
+   // Aaron Burr is the initially selected user.
+    ctrl.selectedUser = 2;
+    ctrl.data = [
+          {id: 1, name: &#39;Alexander Hamilton&#39;},
+          {id: 2, name: &#39;Aaron Burr&#39;},
+          {id: 3, name: &#39;Thomas Jefferson&#39;},
+          {id: 4, name: &#39;John Adams&#39;},
+          {id: 5, name: &#39;James Madison&#39;},
+          {id: 6, name: &#39;Elizabeth Schuyler&#39;},
+          {id: 7, name: &#39;King George&#39;},
+          {id: 8, name: &#39;Marquis de Lafayette&#39;}
+        ]
+  },
+
+  view: function(ctrl) {
+    return m(&#39;div&#39;, {class: &#39;select-container&#39;}, [
+      m(&#39;label&#39;, &#39;Historical Figure: &#39;),
+      m(S2Component, {
+        selectedUser: ctrl.selectedUser,
+        data: ctrl.data
+      })
+    ])
+  }
+}
+
+m.mount(document.body, MainComponent)
+</code></pre>
+<p><a href="https://jsfiddle.net/11pz8afy/9/">Source code in JSFiddle</a></p>
+<p><code>_configure</code> is a helper function that is called via the <code>config</code> attribute in the <code>select</code> we render in our <code>SC2Component.view</code></p>
+<p>This <code>_configure</code> function has a guarded <code>if</code> statement: <code>if(!initialized)</code>. In the event this component is being instantiated for the first time, we&#39;re going to do all of the initial setup on the first render. Subsequent redraws will <strong>not</strong> run the initialization code again, making sure everything in the <code>_configure</code> function is only initialized once.</p>
+<p>The initialization code is simply calling <code>$(element).select2()</code> on the exposed DOM element in order to initialize it. You can also addevent handlers to these elements. If you modify the DOM or any data that your component relies on inside of this function, you&#39;ll need to make sure the component knows to redraw itself by adding <code>m.redraw</code> as needed.</p>
+<p><code>m.startComputation</code> and <code>m.endComputation</code> are used for asynchronous operations. If you were to call a web service using jQuery, then you would be responsible for adding a <code>m.startComputation</code> call before the jQuery ajax call, and for adding a <code>m.endComputation</code> call at the end of the completion callback, in addition to the calls within any event handlers. Refer to the <a href="auto-redrawing.html"><code>auto-redrawing</code></a> guide for an example.</p>
+<p>Though possible, you should avoid calling <code>m.redraw</code>, <code>m.startComputation</code> and <code>m.endComputation</code> in the <code>_configure</code> function&#39;s execution thread. (An execution thread is basically any amount of code that runs before other asynchronous threads start to run.) Relying on multiple redraw passes degrades performance and makes it possible to code yourself into an infinite execution loop situation, which is extremely difficult to debug.</p>
+<p>The component in the example shows how a developer would consume the <code>SC2Component</code>.</p>
+<p>You should always document integration components so that others can find out what attribute parameters can be used to initialize the component.</p>
+<hr>
+<h2 id="integrating-to-legacy-code">Integrating to legacy code</h2>
+<p>If you need to add separate widgets to different places on a same page, you can simply initialize each widget as you would a regular Mithril application (i.e. use <code>m.render</code>, <code>m.mount</code> or <code>m.route</code>).</p>
+<p>There&#39;s just one caveat: while simply initializing multiple &quot;islands&quot; in this fashion works, their initialization calls are not aware of each other and can cause redraws too frequently. To optimize rendering, you should add a <code>m.startComputation</code> call before the first widget initialization call, and a <code>m.endComputation</code> after the last widget initialization call in each execution thread.</p>
+<pre><code class="lang-javascript">m.startComputation()
+
+m.mount(document.getElementById(&quot;widget1-container&quot;), Widget1)
+
+m.mount(document.getElementById(&quot;widget2-container&quot;), Widget2)
+
+m.endComputation()
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="lib/prism/prism.js"></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = 'navigating'
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html

@@ -1,0 +1,316 @@
+
+<head>
+<meta charset=UTF-8>
+<title> Migrating from v1.x - Mithril.js</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet>
+<link href=style.css rel=stylesheet>
+<link rel=icon type=image/png sizes=32x32 href=favicon.png>
+<meta name=viewport content="width=device-width,initial-scale=1">
+</head>
+<body>
+<header>
+<section>
+<a class=hamburger href=javascript:;>≡</a>
+<h1><img src=logo.svg> Mithril <small>2.0.2</small></h1>
+<nav>
+<a href=index.html>Guide</a>
+<a href=api.html>API</a>
+<a href=https://gitter.im/MithrilJS/mithril.js>Chat</a>
+<a href=https://github.com/MithrilJS/mithril.js>GitHub</a>
+</nav>
+</section>
+</header>
+<main>
+<section>
+<h1 id=migrating-from-v1x><a href=#migrating-from-v1x>Migrating from v1.x</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href=hyperscript.html>m</a></li>
+<li><a href=render.html>m.render</a></li>
+<li><a href=mount.html>m.mount</a></li>
+<li><a href=route.html>m.route</a></li>
+<li><a href=request.html>m.request</a></li>
+<li><a href=jsonp.html>m.jsonp</a></li>
+<li><a href=parseQueryString.html>m.parseQueryString</a></li>
+<li><a href=buildQueryString.html>m.buildQueryString</a></li>
+<li><a href=buildPathname.html>m.buildPathname</a></li>
+<li><a href=parsePathname.html>m.parsePathname</a></li>
+<li><a href=trust.html>m.trust</a></li>
+<li><a href=fragment.html>m.fragment</a></li>
+<li><a href=redraw.html>m.redraw</a></li>
+<li><a href=promise.html>Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href=stream.html>Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href=https://github.com/MithrilJS/mithril.js/blob/master/ospec>Ospec</a></li>
+</ul>
+</li>
+</ul>
+<p>v2.x is almost entirely API-compatible with v1.x, but there are some breaking changes.</p>
+<ul>
+<li><a href=#assigning-to-vnodestate>Assigning to <code>vnode.state</code></a></li>
+<li><a href=#changes-to-route-anchors>Changes to route anchors</a></li>
+<li><a href=#changes-to-mrequest-errors>Changes to <code>m.request</code> errors</a></li>
+<li><a href=#mwithattr-removed><code>m.withAttr</code> removed</a></li>
+<li><a href=#mrouteprefix><code>m.route.prefix</code></a></li>
+<li><a href=#mrequest-params-and-body><code>m.request</code>/<code>m.jsonp</code> params and body</a></li>
+<li><a href=#path-templates>Path templates</a></li>
+<li><a href=#lifecycle-call-order>Lifecycle call order</a></li>
+<li><a href=#mredraw><code>m.redraw</code> synchronicity</a></li>
+<li><a href=#selector-attribute-precedence>Selector attribute precedence</a></li>
+<li><a href=#children-normalization>Children normalization</a></li>
+<li><a href=#default-responsetype-for-mrequest>Default <code>responseType</code> for <code>m.request</code></a></li>
+<li><a href=#mrequest-headers><code>m.request</code> headers</a></li>
+<li><a href=#query-parameters-in-hash-strings-in-routes>Query parameters in hash strings in routes</a></li>
+<li><a href=#keys>Keys</a></li>
+<li><a href=#mversion-removed><code>m.version</code> remvoed</a></li>
+</ul>
+<hr>
+<h2 id=assigning-to-vnodestate><a href=#assigning-to-vnodestate>Assigning to <code>vnode.state</code></a></h2>
+<p>In v1.x, you could manipulate <code>vnode.state</code> and assign anything you wanted. In v2.x, an error will be thrown if it changes. Migration may vary, but most cases, it&#39;s as simple as changing references <code>vnode.state</code> to <code>vnode.state.foo</code>, picking an appropriate name for <code>foo</code> (like maybe <code>count</code> if it&#39;s a counter&#39;s current value).</p>
+<h3 id=v1x><a href=#v1x>v1.x</a></h3>
+<pre><code class=language-javascript>var Counter = {
+    oninit: function(vnode) { vnode.state = 0 },
+    view: function(vnode) {
+        return m(&quot;.counter&quot;, [
+            m(&quot;button&quot;, {onclick: function() { vnode.state-- }}, &quot;-&quot;)
+            vnode.state,
+            m(&quot;button&quot;, {onclick: function() { vnode.state++ }}, &quot;+&quot;)
+        ])
+    }
+}</code></pre>
+<h3 id=v2x><a href=#v2x>v2.x</a></h3>
+<pre><code class=language-javascript>var Counter = {
+    oninit: function(vnode) { vnode.state.count = 0 },
+    view: function(vnode) {
+        return m(&quot;.counter&quot;, [
+            m(&quot;button&quot;, {onclick: function() { vnode.state.count-- }}, &quot;-&quot;)
+            vnode.state.count,
+            m(&quot;button&quot;, {onclick: function() { vnode.state.count++ }}, &quot;+&quot;)
+        ])
+    }
+}</code></pre>
+<p><em>When v1.0 first released, class and closure components didn&#39;t exist, so it just pulled what it needed from <code>vnode.tag</code>. This implementation detail is what allowed you to do it, and some began to rely on it. It was also implied as possible in some places within the docs. Now, things are different, and this makes it a little easier to manage from an implementation standpoint as there&#39;s only one reference to state, not two.</em></p>
+<hr>
+<h2 id=changes-to-route-anchors><a href=#changes-to-route-anchors>Changes to route anchors</a></h2>
+<p>In v1.x, you previously used <code>oncreate: m.route.link</code> and, if the link could change, <code>onupdate: m.route.link</code> as well, each as lifecycle hooks on the vnode that could be routed with. In v2.x, you now use an <a href=route.html#mroutelink><code>m.route.Link</code> component</a>. The selector can be specified via a <code>selector:</code> attribute in case you were using anything other than <code>m(&quot;a&quot;, ...)</code>, options can be specified via <code>options:</code>, you can disable it via <code>disabled:</code>, and other attributes can be specified inline including <code>href:</code> (required). The <code>selector:</code> itself can contain be any selector valid as the first argument for <code>m</code>, and the attributes <code>[href=...]</code> and <code>[disabled]</code> can be specified in the selector as well as the normal options.</p>
+<h3 id=v1x0><a href=#v1x0>v1.x</a></h3>
+<pre><code class=language-javascript>m(&quot;a&quot;, {
+    href: &quot;/path&quot;,
+    oncreate: m.route.link,
+})
+
+m(&quot;button&quot;, {
+    href: &quot;/path&quot;,
+    oncreate: m.route.link,
+})
+
+m(&quot;button.btn[href=/path]&quot;, {
+    oncreate: m.route.link,
+})</code></pre>
+<h3 id=v2x0><a href=#v2x0>v2.x</a></h3>
+<pre><code class=language-javascript>m(m.route.Link, {
+    href: &quot;/path&quot;,
+})
+
+m(m.route.Link, {
+    selector: &quot;button&quot;,
+    href: &quot;/path&quot;,
+})
+
+m(m.route.Link, {
+    selector: &quot;button.btn[href=/path]&quot;,
+})</code></pre>
+<hr>
+<h2 id=changes-to-mrequest-errors><a href=#changes-to-mrequest-errors>Changes to <code>m.request</code> errors</a></h2>
+<p>In v1.x, <code>m.request</code> parsed errors from JSON calls and assigned the resulting parsed object&#39;s properties to the response. So, if you received a response with status 403 and a body of <code>{&quot;code&quot;: &quot;backoff&quot;, &quot;timeout&quot;: 1000}</code>, the error would have two extra properties: <code>err.code = &quot;backoff&quot;</code> and <code>err.timeout = 1000</code>.</p>
+<p>In v2.x, the response is assigned to a <code>response</code> property on the result instead, and a <code>code</code> property contains the resulting status code. So if you received a response with status 403 and a body of <code>{&quot;code&quot;: &quot;backoff&quot;, &quot;timeout&quot;: 1000}</code>, the error would have assigned to it two properties: <code>err.response = {code: &quot;backoff&quot;, timeout: 1000}</code> and <code>err.code = 403</code>.</p>
+<hr>
+<h2 id=mwithattr-removed><a href=#mwithattr-removed><code>m.withAttr</code> removed</a></h2>
+<p>In v1.x, event listeners could use <code>oninput: m.withAttr(&quot;value&quot;, func)</code> and similar. In v2.x, just read them directly from the event&#39;s target. It synergized well with streams, but since the idiom of <code>m.withAttr(&quot;value&quot;, stream)</code> was not <em>nearly</em> as common as <code>m.withAttr(&quot;value&quot;, prop)</code>, <code>m.withAttr</code> lost most of its usefulness and so it was removed.</p>
+<h3 id=v1x1><a href=#v1x1>v1.x</a></h3>
+<pre><code class=language-javascript>var value = &quot;&quot;
+
+// In your view
+m(&quot;input[type=text]&quot;, {
+    value: value(),
+    oninput: m.withAttr(&quot;value&quot;, function(v) { value = v }),
+})
+
+// OR
+
+var value = m.stream(&quot;&quot;)
+
+// In your view
+m(&quot;input[type=text]&quot;, {
+    value: value(),
+    oninput: m.withAttr(&quot;value&quot;, value),
+})</code></pre>
+<h3 id=v2x1><a href=#v2x1>v2.x</a></h3>
+<pre><code class=language-javascript>var value = &quot;&quot;
+
+// In your view
+m(&quot;input[type=text]&quot;, {
+    value: value,
+    oninput: function (ev) { value = ev.target.value },
+})
+
+// OR
+
+var value = m.stream(&quot;&quot;)
+
+// In your view
+m(&quot;input[type=text]&quot;, {
+    value: value(),
+    oninput: function (ev) { value(ev.target.value) },
+})</code></pre>
+<hr>
+<h2 id=mrouteprefix><a href=#mrouteprefix><code>m.route.prefix</code></a></h2>
+<p>In v1.x, <code>m.route.prefix</code> was a function called via <code>m.route.prefix(prefix)</code>. It&#39;s now a property you set to via <code>m.route.prefix = prefix</code></p>
+<h3 id=v1x2><a href=#v1x2>v1.x</a></h3>
+<pre><code class=language-javascript>m.route.prefix(&quot;/root&quot;)</code></pre>
+<h3 id=v2x2><a href=#v2x2>v2.x</a></h3>
+<pre><code class=language-javascript>m.route.prefix = &quot;/root&quot;</code></pre>
+<hr>
+<h2 id=mrequestmjsonp-params-and-body><a href=#mrequestmjsonp-params-and-body><code>m.request</code>/<code>m.jsonp</code> params and body</a></h2>
+<p>The <code>data</code> and <code>useBody</code> were refactored into <code>params</code>, query parameters interpolated into the URL and appended to the request, and <code>body</code>, the body to send in the underlying XHR. This gives you much better control over the actual request sent and allows you to both interpolate into query parameters with <code>POST</code> requests and create <code>GET</code> requests with bodies.</p>
+<p><code>m.jsonp</code>, having no meaningful &quot;body&quot;, just uses <code>params</code>, so renaming <code>data</code> to <code>params</code> is sufficient for that method.</p>
+<h3 id=v1x3><a href=#v1x3>v1.x</a></h3>
+<pre><code class=language-javascript>m.request(&quot;https://example.com/api/user/:id&quot;, {
+    method: &quot;GET&quot;,
+    data: {id: user.id}
+})
+
+m.request(&quot;https://example.com/api/user/create&quot;, {
+    method: &quot;POST&quot;,
+    data: userData
+})</code></pre>
+<h3 id=v2x3><a href=#v2x3>v2.x</a></h3>
+<pre><code class=language-javascript>m.request(&quot;https://example.com/api/user/:id&quot;, {
+    method: &quot;GET&quot;,
+    params: {id: user.id}
+})
+
+m.request(&quot;https://example.com/api/user/create&quot;, {
+    method: &quot;POST&quot;,
+    body: userData
+})</code></pre>
+<hr>
+<h2 id=path-templates><a href=#path-templates>Path templates</a></h2>
+<p>In v1.x, there were three separate path template syntaxes that, although they were similar, had 2 separately designed syntaxes and 3 different implementations. It was defined in a fairly ad-hoc way, and parameters weren&#39;t generally escaped. Now, everything is either encoded if it&#39;s <code>:key</code>, raw if it&#39;s <code>:key...</code>. If things are unexpectedly encoded, use <code>:path...</code>. It&#39;s that simple.</p>
+<p>Concretely, here&#39;s how it affects each method:</p>
+<h3 id=mrequest-and-mjsonp-urls,-mrouteset-paths><a href=#mrequest-and-mjsonp-urls,-mrouteset-paths><code>m.request</code> and <code>m.jsonp</code> URLs, <code>m.route.set</code> paths</a></h3>
+<p>Path components in v2.x are escaped automatically when interpolated. Suppose you invoke <code>m.route.set(&quot;/user/:name/photos/:id&quot;, {name: user.name, id: user.id})</code>. Previously, if <code>user</code> was <code>{name: &quot;a/b&quot;, id: &quot;c/d&quot;}</code>, this would set the route to <code>/user/a%2Fb/photos/c/d</code>, but it will now set it to <code>/user/a%2Fb/photos/c%2Fd</code>. If you deliberately <em>want</em> to interpolate a key unescaped, use <code>:key...</code> instead.</p>
+<p>Keys in v2.x cannot contain any instances of <code>.</code> or <code>-</code>. In v1.x, they could contain anything other than <code>/</code>.</p>
+<p>Interpolations in inline query strings, like in <code>/api/search?q=:query</code>, are not performed in v2.x. Pass those via <code>params</code> with appropriate key names instead, without specifying it in the query string.</p>
+<h3 id=mroute-route-patterns><a href=#mroute-route-patterns><code>m.route</code> route patterns</a></h3>
+<p>Path keys of the form <code>:key...</code> return their URL decoded in v1.x, but return the raw URL in v2.x.</p>
+<p>Previously, stuff like <code>:key.md</code> were erroneously accepted, with the resulting parameter&#39;s value set to <code>keymd: &quot;...&quot;</code>. This is no longer the case - the <code>.md</code> is part of the pattern now, not the name.</p>
+<hr>
+<h2 id=lifecycle-call-order><a href=#lifecycle-call-order>Lifecycle call order</a></h2>
+<p>In v1.x, attribute lifecycle hooks on component vnodes were called <em>before</em> the component&#39;s own lifecycle hooks in all cases. In v2.x, this is the case only for <code>onbeforeupdate</code>. So you may need to adjust your code accordingly.</p>
+<h3 id=v1x4><a href=#v1x4>v1.x</a></h3>
+<pre><code class=language-javascript>var Comp = {
+    oncreate: function() {
+        console.log(&quot;Component oncreate&quot;)
+    },
+    view: function() {
+        return m(&quot;div&quot;)
+    },
+}
+
+m.mount(document.body, {
+    view: function() {
+        return m(Comp, {
+            oncreate: function() {
+                console.log(&quot;Attrs oncreate&quot;)
+            },
+        })
+    }
+})
+
+// Logs:
+// Attrs oncreate
+// Component oncreate</code></pre>
+<h3 id=v2x4><a href=#v2x4>v2.x</a></h3>
+<pre><code class=language-javascript>var Comp = {
+    oncreate: function() {
+        console.log(&quot;Component oncreate&quot;)
+    },
+    view: function() {
+        return m(&quot;div&quot;)
+    },
+}
+
+m.mount(document.body, {
+    view: function() {
+        return m(Comp, {
+            oncreate: function() {
+                console.log(&quot;Attrs oncreate&quot;)
+            },
+        })
+    }
+})
+
+// Logs:
+// Component oncreate
+// Attrs oncreate</code></pre>
+<hr>
+<h2 id=mredraw-synchronicity><a href=#mredraw-synchronicity><code>m.redraw</code> synchronicity</a></h2>
+<p><code>m.redraw()</code> in v2.x is always async. You can specifically request a synchronous redraw via <code>m.redraw.sync()</code> provided no redraw is currently occurring.</p>
+<hr>
+<h2 id=selector-attribute-precedence><a href=#selector-attribute-precedence>Selector attribute precedence</a></h2>
+<p>In v1.x, selector attributes took precedence over attributes specified in the attributes object. For instance, <code>m(&quot;[a=b]&quot;, {a: &quot;c&quot;}).attrs</code> returned <code>{a: &quot;b&quot;}</code>.</p>
+<p>In v2.x, attributes specified in the attributes object take precedence over selector attributes. For instance, <code>m(&quot;[a=b]&quot;, {a: &quot;c&quot;}).attrs</code> returns <code>{a: &quot;c&quot;}</code>.</p>
+<p>Note that this is technically reverting to v0.2.x behavior.</p>
+<hr>
+<h2 id=children-normalization><a href=#children-normalization>Children normalization</a></h2>
+<p>In v1.x, component vnode children were normalized like other vnodes. In v2.x, this is no longer the case and you will need to plan accordingly. This does not affect the normalization done on render.</p>
+<hr>
+<h2 id=mrequest-headers><a href=#mrequest-headers><code>m.request</code> headers</a></h2>
+<p>In v1.x, Mithril set these two headers on all non-<code>GET</code> requests, but only when <code>useBody</code> was set to <code>true</code> (the default) and the other conditions listed hold:</p>
+<ul>
+<li><code>Content-Type: application/json; charset=utf-8</code> for requests with JSON bodies</li>
+<li><code>Accept: application/json, text/*</code> for requests expecting JSON responses</li>
+</ul>
+<p>In v2.x, Mithril sets the first for all requests with JSON bodies that are <code>!= null</code> and omits it by default otherwise, and this is done independent of which method is chosen, including on <code>GET</code> requests.</p>
+<p>The first of the two headers, <code>Content-Type</code>, will trigger a CORS prefetch as it <a href=https://fetch.spec.whatwg.org/#cors-safelisted-request-header>is not a CORS-safelisted request header</a> due to the specified content type, and that could introduce new errors depending on how CORS is configured on your server. If you run into issues with this, you may need to override that header in question by passing <code>headers: {&quot;Content-Type&quot;: &quot;text/plain&quot;}</code>. (The <code>Accept</code> header doesn&#39;t trigger anything, so you don&#39;t need to override that.)</p>
+<p><em>The only content types that the Fetch spec lets avoid CORS prefetch checks are <code>application/x-www-form-urlencoded</code>, <code>multipart/form-data</code>, and <code>text/plain</code>. It doesn&#39;t allow anything else, and it intentionally disallows JSON.</em></p>
+<hr>
+<h2 id=query-parameters-in-hash-strings-in-routes><a href=#query-parameters-in-hash-strings-in-routes>Query parameters in hash strings in routes</a></h2>
+<p>In v1.x, you could specify query parameters for routes in both the query string and hash string, so <code>m.route.set(&quot;/route?foo=1&amp;bar=2&quot;)</code>, <code>m.route.set(&quot;/route?foo=1#bar=2&quot;)</code>, and <code>m.route.set(&quot;/route#foo=1&amp;bar=2&quot;)</code> were all equivalent and the attributes extracted from them would have been <code>{foo: &quot;1&quot;, bar: &quot;2&quot;}</code>.</p>
+<p>In v2.x, the contents of hash strings are ignored but preserved. So the attributes extracted from each would be this:</p>
+<ul>
+<li><code>m.route.set(&quot;/route?foo=1&amp;bar=2&quot;)</code> &rarr; <code>{foo: &quot;1&quot;, bar: &quot;2&quot;}</code></li>
+<li><code>m.route.set(&quot;/route?foo=1#bar=2&quot;)</code> &rarr; <code>{foo: &quot;1&quot;}</code></li>
+<li><code>m.route.set(&quot;/route#foo=1&amp;bar=2&quot;)</code> &rarr; <code>{}</code></li>
+</ul>
+<p>The reason for doing this is because URLs like <code>https://example.com/#!/route#key</code> are technically invalid per the <a href=https://url.spec.whatwg.org/#url-code-points>URL spec</a> and were even invalid per the <a href=https://tools.ietf.org/html/rfc3986#appendix-A>RFC that preceded it</a>, and it&#39;s only a quirk of the HTML spec that they&#39;re allowed. (The HTML spec should&#39;ve required IDs and location fragments to be valid URL fragments from the start instead if it wanted to follow spec.)</p>
+<p>Or in short, stop using invalid URLs!</p>
+<hr>
+<h2 id=keys><a href=#keys>Keys</a></h2>
+<p>In v1.x, you could mix keyed and unkeyed vnodes freely. If the first node is keyed, a keyed diff is performed, assuming every element has a key and just ignoring holes as it goes. Otherwise, an iterative diff is performed, and if a node has a key, it would be checked that it didn&#39;t change at the same time tags and similar are checked.</p>
+<p>In v2.x, children lists of both fragments and elements must be either all keyed or all unkeyed. Holes are considered unkeyed for the purposes of this check, too - it no longer ignores them.</p>
+<p>If you need to work around it, use the idiom of a fragment containing a single vnode, like <code>[m(&quot;div&quot;, {key: whatever})]</code>.</p>
+<hr>
+<h2 id=mversion-removed><a href=#mversion-removed><code>m.version</code> removed</a></h2>
+<p>It served little use in general, and you can always add it back yourself. You should prefer feature detection for knowing what features are available, and the v2.x API is designed to better enable this.</p>
+<hr>
+<small>License: MIT. &copy; Leo Horie.</small>
+</section>
+</main>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js defer></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js defer></script>
+<script src=https://unpkg.com/mithril@2.0.2/mithril.js async></script>
+<script>
+document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+</script>

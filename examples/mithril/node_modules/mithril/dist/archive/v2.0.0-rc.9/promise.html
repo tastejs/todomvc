@@ -1,0 +1,440 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Promise(executor) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.9</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="promiseexecutor"><a href="#promiseexecutor">Promise(executor)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="buildPathname.html">m.buildPathname</a></li>
+<li><a href="parsePathname.html">m.parsePathname</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><strong><a href="promise.html">Promise</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a><ul>
+<li><a href="#static-members">Static members</a><ul>
+<li><a href="#promiseresolve">Promise.resolve</a></li>
+<li><a href="#promisereject">Promise.reject</a></li>
+<li><a href="#promiseall">Promise.all</a></li>
+<li><a href="#promiserace">Promise.race</a></li>
+</ul>
+</li>
+<li><a href="#instance-members">Instance members</a><ul>
+<li><a href="#promisethen">promise.then</a></li>
+<li><a href="#promisecatch">promise.catch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#promise-chaining">Promise chaining</a></li>
+<li><a href="#promise-absorption">Promise absorption</a></li>
+<li><a href="#error-handling">Error handling</a></li>
+<li><a href="#shorthands">Shorthands</a></li>
+<li><a href="#multiple-promises">Multiple promises</a></li>
+<li><a href="#why-not-callbacks">Why not callbacks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>A <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">ES6 Promise</a> polyfill.</p>
+<p>A Promise is a mechanism for working with asynchronous computations.</p>
+<p>Mithril provides a polyfill when the environment does not support Promises. The polyfill can also be referenced specifically via <code>m.PromisePolyfill</code>.</p>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>promise = new Promise(executor)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>executor</code></td>
+<td><code>(Function, Function) -&gt; any</code></td>
+<td>Yes</td>
+<td>A function that determines how the promise will be resolved or rejected</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>Returns a promise</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="executor"><a href="#executor">executor</a></h5>
+<p><code>executor(resolve, reject)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>resolve</code></td>
+<td><code>any -&gt; any</code></td>
+<td>No</td>
+<td>Call this function to resolve the promise</td>
+</tr>
+<tr>
+<td><code>reject</code></td>
+<td><code>any -&gt; any</code></td>
+<td>No</td>
+<td>Call this function to reject the promise</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td></td>
+<td></td>
+<td>The return value is ignored</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h4 id="static-members"><a href="#static-members">Static members</a></h4>
+<h5 id="promiseresolve"><a href="#promiseresolve">Promise.resolve</a></h5>
+<p><code>promise = Promise.resolve(value)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>A value to resolve to</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise resolved to <code>value</code></td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="promisereject"><a href="#promisereject">Promise.reject</a></h5>
+<p><code>promise = Promise.reject(value)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>A value to reject as</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A rejected promise with <code>value</code> as its reason</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="promiseall"><a href="#promiseall">Promise.all</a></h5>
+<p><code>promise = Promise.all(promises)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>promises</code></td>
+<td><code>Array&lt;Promise&#124;any&gt;</code></td>
+<td>Yes</td>
+<td>A list of promises to wait for. If an item is not a promise, it&#39;s equivalent to calling <code>Promise.resolve</code> on it</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise that resolves only after all <code>promises</code> resolve, or rejects if any of them are rejected.</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="promiserace"><a href="#promiserace">Promise.race</a></h5>
+<p><code>promise = Promise.race(promises)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>promises</code></td>
+<td><code>Array&lt;Promise&#124;any&gt;</code></td>
+<td>Yes</td>
+<td>A list of promises to wait for. If an item is not a promise, it&#39;s equivalent to calling <code>Promise.resolve</code> on it</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise that resolves as soon as one of the <code>promises</code> is resolved or rejected.</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h4 id="instance-members"><a href="#instance-members">Instance members</a></h4>
+<h5 id="promisethen"><a href="#promisethen">promise.then</a></h5>
+<p><code>nextPromise = promise.then(onFulfilled, onRejected)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>onFulfilled</code></td>
+<td><code>any -> (any&#124;Promise)</code></td>
+<td>No</td>
+<td>A function that is called if the promise is resolved. The first parameter of this function is the value that this promise was resolved with. If the return value of this function is not a Promise, it is used as the value for resolving <code>nextPromise</code>. If the returned value is a Promise, the value of <code>nextPromise</code> depends on the inner Promise&#39;s status. If this function throws, <code>nextPromise</code> is rejected with the error as its reason. If <code>onFulfilled</code> is <code>null</code>, it&#39;s ignored</td>
+</tr>
+<tr>
+<td><code>onRejected</code></td>
+<td><code>any -> (any&#124;Promise)</code></td>
+<td>No</td>
+<td>A function that is called when the promise is rejected. The first parameter of this function is a value that represents the reason why the promise was rejected. If the return value of this function is not a Promise, it is used as the value for resolving <code>nextPromise</code>. If the returned value is a Promise, then value of <code>nextPromise</code> depends on the inner Promise&#39;s status. If this function throws, <code>nextPromise</code> is rejected with the error as its reason. If <code>onRejected</code> is <code>null</code>, it&#39;s ignored</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise whose value depends on the status of the current promise</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="promisecatch"><a href="#promisecatch">promise.catch</a></h5>
+<p><code>nextPromise = promise.catch(onRejected)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>onRejected</code></td>
+<td><code>any -> (any&#124;Promise)</code></td>
+<td>No</td>
+<td>A function that is called when the promise is rejected. The first parameter of this function is a value that represents the reason why the promise was rejected. If the return value of this function is not a Promise, it is used as the value for resolving <code>nextPromise</code>. If the returned value is a Promise, then value of <code>nextPromise</code> depends on the inner Promise&#39;s status. If this function throws, <code>nextPromise</code> is rejected with the error as its reason. If <code>onRejected</code> is <code>null</code>, it&#39;s ignored</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Promise</code></td>
+<td></td>
+<td>A promise whose value depends on the status of the current promise</td>
+</tr>
+</tbody></table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>A Promise is an object that represents a value which may be available in the future</p>
+<pre><code class="language-javascript">// this promise resolves after one second
+var promise = new Promise(function(resolve, reject) {
+  setTimeout(function() {
+    resolve(&quot;hello&quot;)
+  }, 1000)
+})
+
+promise.then(function(value) {
+  // logs &quot;hello&quot; after one second
+  console.log(value)
+})</code></pre>
+<p>Promises are useful for working with asynchronous APIs, such as <a href="request.html"><code>m.request</code></a></p>
+<p>Asynchronous APIs are those which typically take a long time to run, and therefore would take too long to return a value using the <code>return</code> statement of a function. Instead, they do their work in the background, allowing other JavaScript code to run in the meantime. When they are done, they call a function with their results.</p>
+<p>The <code>m.request</code> function takes time to run because it makes an HTTP request to a remote server and has to wait for a response, which may take several milliseconds due to network latency.</p>
+<hr>
+<h3 id="promise-chaining"><a href="#promise-chaining">Promise chaining</a></h3>
+<p>Promises can be chained. Returning a value from a <code>then</code> callback makes it available as the argument to the next <code>then</code> callback. This allows refactoring code into smaller functions</p>
+<pre><code class="language-javascript">function getUsers() {return m.request(&quot;/api/v1/users&quot;)}
+
+// AVOID: hard to test god functions
+getUsers().then(function(users) {
+  var firstTen = users.slice(0, 9)
+  var firstTenNames = firstTen.map(function(user) {return user.firstName + &quot; &quot; + user.lastName})
+  alert(firstTenNames)
+})
+
+// PREFER: easy to test small functions
+function getFirstTen(items) {return items.slice(0, 9)}
+function getUserName(user) {return user.firstName + &quot; &quot; + user.lastName}
+function getUserNames(users) {return users.map(getUserName)}
+
+getUsers()
+  .then(getFirstTen)
+  .then(getUserNames)
+  .then(alert)</code></pre>
+<p>In the refactored code, <code>getUsers()</code> returns a promise, and we chain three callbacks. When <code>getUsers()</code> resolves, the <code>getFirstTen</code> function is called with a list of users as its first argument. This function returns a list of ten items. <code>getUserNames</code> returns a list of names for the 10 items that were passed as the argument to it. Finally, the list of names is alerted.</p>
+<p>In the original code above, it&#39;s very difficult to test the god function since you must make an HTTP request to run the code, and there&#39;s an <code>alert()</code> call at the end of the function</p>
+<p>In the refactored version, it&#39;s trivial to test whether <code>getFirstTen</code> has any off-by-one errors, or whether we forgot to add a space between the first and last names in <code>getUserName</code>.</p>
+<hr>
+<h3 id="promise-absorption"><a href="#promise-absorption">Promise absorption</a></h3>
+<p>Promises absorb other promises. Basically, this means you can never receive a Promise as an argument to <code>onFulfilled</code> or <code>onRejected</code> callbacks for <code>then</code> and <code>catch</code> methods. This feature allows us to flatten nested promises to make code more manageable.</p>
+<pre><code class="language-javascript">function searchUsers(q) {return m.request(&quot;/api/v1/users/search&quot;, {params: {q: q}})}
+function getUserProjects(id) {return m.request(&quot;/api/v1/users/&quot; + id + &quot;/projects&quot;)}
+
+// AVOID: pyramid of doom
+searchUsers(&quot;John&quot;).then(function(users) {
+  getUserProjects(users[0].id).then(function(projects) {
+    var titles = projects.map(function(project) {return project.title})
+    alert(titles)
+  })
+})
+
+// PREFER: flat code flow
+function getFirstId(items) {return items[0].id}
+function getProjectTitles(projects) {return projects.map(getProjectTitle)}
+function getProjectTitle(project) {return project.title}
+
+searchUsers(&quot;John&quot;)
+  .then(getFirstId)
+  .then(getUserProjects)
+  .then(getProjectTitles)
+  .then(alert)</code></pre>
+<p>In the refactored code, <code>getFirstId</code> returns an id, which is passed as the first argument to <code>getUserProjects</code>. That, in turn, returns a promise that resolves to a list of projects. This promise is absorbed, so the first argument to <code>getProjectTitles</code> is not a promise, but the list of projects. <code>getProjectTitles</code> returns a list of titles, and that list is finally alerted.</p>
+<hr>
+<h3 id="error-handling"><a href="#error-handling">Error handling</a></h3>
+<p>Promises can propagate errors to appropriate handlers.</p>
+<pre><code class="language-javascript">searchUsers(&quot;John&quot;)
+  .then(getFirstId)
+  .then(getUserProjects)
+  .then(getProjectTitles)
+  .then(alert)
+  .catch(function(e) {
+    console.log(e)
+  })</code></pre>
+<p>Here&#39;s the previous example with error handling. The <code>searchUsers</code> function could fail if the network was offline, resulting in an error. In that case, none of the <code>.then</code> callbacks would be triggered, and the <code>.catch</code> callback would log the error to console.</p>
+<p>If the request in <code>getUserProjects</code> failed, then similarly, <code>getProjectTitles</code> and <code>alert</code> would not be called. Again, the <code>.catch</code> callback would log the error.</p>
+<p>The error handler would also catch a null reference exception if <code>searchUsers</code> returned no results, and <code>getFirstId</code> attempted to access the <code>id</code> property of a non-existent array item.</p>
+<p>Thanks to these error propagation semantics, it&#39;s easy to keep each function small and testable without sprinkling <code>try</code>/<code>catch</code> blocks everywhere.</p>
+<hr>
+<h3 id="shorthands"><a href="#shorthands">Shorthands</a></h3>
+<p>Sometimes, you already have a value, but want to wrap it in a Promise. It&#39;s for this purpose that <code>Promise.resolve</code> and <code>Promise.reject</code> exist.</p>
+<pre><code class="language-javascript">// suppose this list came from localStorage
+var users = [{id: 1, firstName: &quot;John&quot;, lastName: &quot;Doe&quot;}]
+
+// in that case, `users` may or may not exist depending on whether there was data in localStorage
+var promise = users ? Promise.resolve(users) : getUsers()
+promise
+  .then(getFirstTen)
+  .then(getUserNames)
+  .then(alert)</code></pre>
+<hr>
+<h3 id="multiple-promises"><a href="#multiple-promises">Multiple promises</a></h3>
+<p>In some occasions, you may need to make HTTP requests in parallel, and run code after all requests complete. This can be accomplished by <code>Promise.all</code></p>
+<pre><code class="language-javascript">Promise.all([
+  searchUsers(&quot;John&quot;),
+  searchUsers(&quot;Mary&quot;),
+])
+.then(function(data) {
+  // data[0] is an array of users whose names are John
+  // data[1] is an array of users whose names are Mary
+
+  // the returned value is equivalent to [
+  //   getUserNames(data[0]),
+  //   getUserNames(data[1]),
+  // ]
+  return data.map(getUserNames)
+})
+.then(alert)</code></pre>
+<p>In the example above, there are two user searches happening in parallel. Once they both complete, we take the names of all the users and alert them.</p>
+<p>This example also illustrates another benefit of smaller functions: we reused the <code>getUserNames</code> function we had created above.</p>
+<hr>
+<h3 id="why-not-callbacks"><a href="#why-not-callbacks">Why not callbacks</a></h3>
+<p>Callbacks are another mechanism for working with asynchronous computations, and are indeed more adequate to use if an asynchronous computation may occur more than one time (for example, an <code>onscroll</code> event handler).</p>
+<p>However, for asynchronous computations that only occur once in response to an action, promises can be refactored more effectively, reducing code smells known as pyramids of doom (deeply nested series of callbacks with unmanaged state being used across several closure levels).</p>
+<p>In addition, promises can considerably reduce boilerplate related to error handling.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.9/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

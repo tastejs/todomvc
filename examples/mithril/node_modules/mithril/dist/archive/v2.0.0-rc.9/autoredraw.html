@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> The auto-redraw system - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.9</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="the-auto-redraw-system"><a href="#the-auto-redraw-system">The auto-redraw system</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+<li><a href="paths.html">Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><strong><a href="autoredraw.html">Autoredraw system</a></strong></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<p>Mithril implements a virtual DOM diffing system for fast rendering, and in addition, it offers various mechanisms to gain granular control over the rendering of an application.</p>
+<p>When used idiomatically, Mithril employs an auto-redraw system that synchronizes the DOM whenever changes are made in the data layer. The auto-redraw system becomes enabled when you call <code>m.mount</code> or <code>m.route</code> (but it stays disabled if your app is bootstrapped solely via <code>m.render</code> calls).</p>
+<p>The auto-redraw system simply consists of triggering a re-render function behind the scenes after certain functions complete.</p>
+<h3 id="after-event-handlers"><a href="#after-event-handlers">After event handlers</a></h3>
+<p>Mithril automatically redraws after DOM event handlers that are defined in a Mithril view:</p>
+<pre><code class="language-javascript">var MyComponent = {
+    view: function() {
+        return m(&quot;div&quot;, {onclick: doSomething})
+    }
+}
+
+function doSomething() {
+    // a redraw happens synchronously after this function runs
+}
+
+m.mount(document.body, MyComponent)</code></pre>
+<p>You can disable an auto-redraw for specific events by setting <code>e.redraw</code> to <code>false</code>.</p>
+<pre><code class="language-javascript">var MyComponent = {
+    view: function() {
+        return m(&quot;div&quot;, {onclick: doSomething})
+    }
+}
+
+function doSomething(e) {
+    e.redraw = false
+    // no longer triggers a redraw when the div is clicked
+}
+
+m.mount(document.body, MyComponent)</code></pre>
+<h3 id="after-mrequest"><a href="#after-mrequest">After m.request</a></h3>
+<p>Mithril automatically redraws after <a href="request.html"><code>m.request</code></a> completes:</p>
+<pre><code class="language-javascript">m.request(&quot;/api/v1/users&quot;).then(function() {
+    // a redraw happens after this function runs
+})</code></pre>
+<p>You can disable an auto-redraw for a specific request by setting the <code>background</code> option to true:</p>
+<pre><code class="language-javascript">m.request(&quot;/api/v1/users&quot;, {background: true}).then(function() {
+    // does not trigger a redraw
+})</code></pre>
+<h3 id="after-route-changes"><a href="#after-route-changes">After route changes</a></h3>
+<p>Mithril automatically redraws after <a href="route.html#mrouteset"><code>m.route.set()</code></a> calls and after route changes via links using <a href="route.html#mroutelink"><code>m.route.Link</code></a>.</p>
+<pre><code class="language-javascript">var RoutedComponent = {
+    view: function() {
+        return [
+            // a redraw happens asynchronously after the route changes
+            m(m.route.Link, {href: &quot;/&quot;}),
+            m(&quot;div&quot;, {
+                onclick: function() {
+                    m.route.set(&quot;/&quot;)
+                }
+            }),
+        ]
+    }
+}
+
+m.route(document.body, &quot;/&quot;, {
+    &quot;/&quot;: RoutedComponent,
+})</code></pre>
+<hr>
+<h3 id="when-mithril-does-not-redraw"><a href="#when-mithril-does-not-redraw">When Mithril does not redraw</a></h3>
+<p>Mithril does not redraw after <code>setTimeout</code>, <code>setInterval</code>, <code>requestAnimationFrame</code>, raw <code>Promise</code> resolutions and 3rd party library event handlers (e.g. Socket.io callbacks). In those cases, you must manually call <a href="redraw.html"><code>m.redraw()</code></a>.</p>
+<p>Mithril also does not redraw after lifecycle methods. Parts of the UI may be redrawn after an <code>oninit</code> handler, but other parts of the UI may already have been redrawn when a given <code>oninit</code> handler fires. Handlers like <code>oncreate</code> and <code>onupdate</code> fire after the UI has been redrawn.</p>
+<p>If you need to explicitly trigger a redraw within a lifecycle method, you should call <code>m.redraw()</code>, which will trigger an asynchronous redraw.</p>
+<pre><code class="language-javascript">function StableComponent() {
+    var height = 0
+
+    return {
+        oncreate: function(vnode) {
+            height = vnode.dom.offsetHeight
+            m.redraw()
+        },
+        view: function() {
+            return m(&quot;div&quot;, &quot;This component is &quot; + height + &quot;px tall&quot;)
+        }
+    }
+}</code></pre>
+<p>Mithril does not auto-redraw vnode trees that are rendered via <code>m.render</code>. This means redraws do not occur after event changes and <code>m.request</code> calls for templates that were rendered via <code>m.render</code>. Thus, if your architecture requires manual control over when rendering occurs (as can sometimes be the case when using libraries like Redux), you should use <code>m.render</code> instead of <code>m.mount</code>.</p>
+<p>Remember that <code>m.render</code> expects a vnode tree, and <code>m.mount</code> expects a component:</p>
+<pre><code class="language-javascript">// wrap the component in a m() call for m.render
+m.render(document.body, m(MyComponent))
+
+// don&#39;t wrap the component for m.mount
+m.mount(document.body, MyComponent)</code></pre>
+<p>Mithril may also avoid auto-redrawing if the frequency of requested redraws is higher than one animation frame (typically around 16ms). This means, for example, that when using fast-firing events like <code>onresize</code> or <code>onscroll</code>, Mithril will automatically throttle the number of redraws to avoid lag.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.9/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

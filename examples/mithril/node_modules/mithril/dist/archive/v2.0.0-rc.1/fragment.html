@@ -1,0 +1,148 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> fragment(attrs, children) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.1</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="fragmentattrs,-children"><a href="#fragmentattrs,-children">fragment(attrs, children)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="prop.html">m.prop</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><strong><a href="fragment.html">m.fragment</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+</ul>
+</li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Allows attaching lifecycle methods to a fragment <a href="vnodes.html">vnode</a></p>
+<pre><code class="lang-javascript">var groupVisible = true
+var log = function() {
+    console.log(&quot;group is now visible&quot;)
+}
+
+m(&quot;ul&quot;, [
+    m(&quot;li&quot;, &quot;child 1&quot;),
+    m(&quot;li&quot;, &quot;child 2&quot;),
+    groupVisible ? m.fragment({oninit: log}, [
+        // a fragment containing two elements
+        m(&quot;li&quot;, &quot;child 3&quot;),
+        m(&quot;li&quot;, &quot;child 4&quot;),
+    ]) : null
+])
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p>Generates a fragment <a href="vnodes.html">vnode</a></p>
+<p><code>vnode = m.fragment(attrs, children)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>attrs</code></td>
+<td><code>Object</code></td>
+<td>Yes</td>
+<td>A map of attributes</td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td><code>Array&lt;Vnode&#124;String&#124;Number&#124;Boolean&#124;null&#124;undefined&gt;</code></td>
+<td>Yes</td>
+<td>A list of vnodes</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Vnode</code></td>
+<td></td>
+<td>A fragment <a href="vnodes.html">vnode</a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p><code>m.fragment()</code> creates a <a href="vnodes.html">fragment vnode</a> with attributes. It is meant for advanced use cases involving <a href="keys.html">keys</a> or <a href="lifecycle-methods.html">lifecyle methods</a>.</p>
+<p>A fragment vnode represents a list of DOM elements. If you want a regular element vnode that represents only one DOM element, you should use <a href="hyperscript.html"><code>m()</code></a> instead.</p>
+<p>Normally you can use simple arrays instead to denote a list of nodes:</p>
+<pre><code class="lang-javascript">var groupVisible = true
+
+m(&quot;ul&quot;, [
+    m(&quot;li&quot;, &quot;child 1&quot;),
+    m(&quot;li&quot;, &quot;child 2&quot;),
+    groupVisible ? [
+        // a fragment containing two elements
+        m(&quot;li&quot;, &quot;child 3&quot;),
+        m(&quot;li&quot;, &quot;child 4&quot;),
+    ] : null
+])
+</code></pre>
+<p>However, Javascript arrays cannot be keyed or hold lifecycle methods. One option would be to create a wrapper element to host the key or lifecycle method, but sometimes it is not desirable to have an extra element (for example in complex table structures). In those cases, a fragment vnode can be used instead.</p>
+<p>There are a few benefits that come from using <code>m.fragment</code> instead of handwriting a vnode object structure: m.fragment creates <a href="vnodes.html#monomorphic-class">monomorphic objects</a>, which have better performance characteristics than creating objects dynamically. In addition, using <code>m.fragment</code> makes your intentions clear to other developers, and it makes it less likely that you&#39;ll mistakenly set attributes on the vnode object itself rather than on its <code>attrs</code> map.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.1/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

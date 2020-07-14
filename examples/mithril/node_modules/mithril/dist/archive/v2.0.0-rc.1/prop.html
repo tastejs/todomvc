@@ -1,0 +1,249 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> prop(attrName, callback) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.1</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="propattrname,-callback"><a href="#propattrname,-callback">prop(attrName, callback)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><strong><a href="prop.html">m.prop</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#sending-through-requests">Sending through requests</a></li>
+</ul>
+</li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Returns a simple getter/setter object.</p>
+<pre><code class="lang-javascript">var name = m.prop(&quot;John&quot;)
+
+var oldName = name.get() // First, it&#39;s set to &quot;John&quot;
+name.set(&quot;Mary&quot;)          // Set the value to &quot;Mary&quot;
+var newName = name.get() // Now it&#39;s &quot;Mary&quot;, not &quot;John&quot;
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>prop = m.prop(initial?)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>initial</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>The prop&#39;s initial value</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Prop</code></td>
+<td></td>
+<td>A prop</td>
+</tr>
+</tbody>
+</table>
+<p><code>value = prop.get()</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>any</code></td>
+<td></td>
+<td>The prop&#39;s current value</td>
+</tr>
+</tbody>
+</table>
+<p><code>newValue = prop.set(newValue)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>newValue</code></td>
+<td><code>any</code></td>
+<td>Yes</td>
+<td>The value to set the prop to</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>any</code></td>
+<td></td>
+<td>The value you just set the prop to, for convenience</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>The <code>m.prop</code> method creates a prop, a getter/setter object wrapping a single mutable reference. You can get the current value with <code>prop.get()</code> and set it with <code>prop.set(value)</code>. Unlike <a href="stream.html">streams</a>, you can&#39;t observe them, so you can&#39;t do as much with them.</p>
+<p>In conjunction with <a href="withAttr.html"><code>m.withAttr</code></a>, you can emulate two-way binding pretty easily.</p>
+<pre><code class="lang-javascript">var Component = {
+    oninit: function(vnode) {
+        vnode.state.current = m.prop(&quot;&quot;)
+    },
+    view: function(vnode) {
+        return m(&quot;input&quot;, {
+            oninput: m.withAttr(&quot;value&quot;, vnode.state.current.set),
+            value: vnode.state.current.get(),
+        })
+    }
+}
+</code></pre>
+<p>They&#39;re also useful for making simpler models.</p>
+<pre><code class="lang-javascript">// With props
+var Auth = {
+    username: m.prop(&quot;&quot;),
+    password: m.prop(&quot;&quot;),
+    canSubmit: function() {
+        return Auth.username.get() !== &quot;&quot; &amp;&amp; Auth.password.get() !== &quot;&quot;
+    },
+    login: function() {
+        // ...
+    },
+}
+
+// Without props
+var Auth = {
+    username: &quot;&quot;,
+    password: &quot;&quot;,
+    setUsername: function(value) {
+        Auth.username = value
+    }
+    setPassword: function(value) {
+        Auth.password = value
+    }
+    canSubmit: function() {
+        return Auth.username !== &quot;&quot; &amp;&amp; Auth.password !== &quot;&quot;
+    },
+    login: function() {
+        // ...
+    },
+}
+</code></pre>
+<hr>
+<h3 id="sending-through-requests"><a href="#sending-through-requests">Sending through requests</a></h3>
+<p>For convenience, props define <code>.toJSON</code> as an alias for <code>.get</code>. This is so you can send them through <code>m.request</code> without serializing them manually.</p>
+<p>We could also take this model and simplify it:</p>
+<pre><code class="lang-javascript">// How it&#39;s loaded
+User.load = function(id) {
+    return m.request({
+        method: &quot;GET&quot;,
+        url: &quot;https://rem-rest-api.herokuapp.com/api/users/&quot; + id,
+        withCredentials: true,
+    })
+    .then(function(result) {
+        User.current = {
+            id: result.id,
+            firstName: m.prop(result.firstName),
+            lastName: m.prop(result.lastName),
+        }
+    })
+}
+
+// Original
+User.save = function(user) {
+    return m.request({
+        method: &quot;PUT&quot;,
+        url: &quot;https://rem-rest-api.herokuapp.com/api/users/&quot; + user.id,
+        data: {
+            id: user.id,
+            firstName: user.firstName.get(),
+            lastName: user.lastName.get(),
+        },
+        withCredentials: true,
+    })
+}
+
+// Simplified
+User.save = function(user) {
+    return m.request({
+        method: &quot;PUT&quot;,
+        url: &quot;https://rem-rest-api.herokuapp.com/api/users/&quot; + user.id,
+        data: user,
+        withCredentials: true,
+    })
+}
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.1/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

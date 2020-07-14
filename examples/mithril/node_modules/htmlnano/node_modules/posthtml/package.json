@@ -1,0 +1,67 @@
+{
+  "name": "posthtml",
+  "version": "0.12.3",
+  "description": "HTML/XML processor",
+  "keywords": [
+    "html",
+    "xml",
+    "postproccessor",
+    "parser",
+    "transform",
+    "transformations",
+    "manipulation",
+    "preprocessor",
+    "processor"
+  ],
+  "main": "lib",
+  "types": "types/posthtml.d.ts",
+  "files": [
+    "types",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "posthtml-parser": "^0.4.2",
+    "posthtml-render": "^1.2.2"
+  },
+  "devDependencies": {
+    "chai": "^4.0.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-subset": "^1.6.0",
+    "coveralls": "^3.0.11",
+    "jsdoc-to-markdown": "^5.0.3",
+    "mocha": "^7.1.1",
+    "nyc": "^15.0.1",
+    "standard": "^14.3.3",
+    "standard-version": "^7.1.0"
+  },
+  "scripts": {
+    "lint": "standard --env mocha",
+    "test": "npm run lint && nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "docs:api": "jsdoc2md lib/api.js > docs/api.md",
+    "docs:core": "jsdoc2md lib/index.js > docs/core.md",
+    "release": "standard-version"
+  },
+  "author": "Ivan Voischev <voischev.ivan@ya.ru>",
+  "contributors": [
+    {
+      "name": "Ivan Voischev",
+      "email": "voischev.ivan@ya.ru"
+    },
+    {
+      "name": "Ivan Demidov",
+      "email": "scrum@list.ru"
+    }
+  ],
+  "homepage": "https://posthtml.org",
+  "repository": "https://github.com/posthtml/posthtml.git",
+  "bugs": "https://github.com/posthtml/posthtml/issues",
+  "license": "MIT",
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/posthtml"
+  }
+}

@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Releasing - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/lhorie/mithril.js">Chat</a>
+					<a href="https://github.com/lhorie/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="releasing"><a href="#releasing">Releasing</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/lhorie/mithril.js/blob/rewrite/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="publishing-to-npm"><a href="#publishing-to-npm">Publishing to NPM</a></h2>
+<p>Releasing new builds of mithril to NPM is mostly automated via <code>npm run release</code></p>
+<ol>
+<li>Update information in <code>docs/change-log.md</code> to match reality &amp; the new version that will be released</li>
+<li><code>npm run release &lt;major|minor|patch|semver&gt;</code></li>
+</ol>
+<p>All further steps are automated and run as follows:</p>
+<ol>
+<li>New bundles are generated using updated version</li>
+<li>Tests are run</li>
+<li>Linting is run (but doesn&#39;t fail build)</li>
+<li>Version number in package.json is incremented</li>
+<li><code>git add</code> called on bundle output</li>
+<li><code>package.json</code> and updated bundles are committed to git</li>
+<li>previous commit is tagged using new version number</li>
+<li><code>git push --follow-tags</code> pushes up new version commit &amp; tag to github</li>
+<li>Travis sees new release, starts build</li>
+<li>Travis generates new bundles before running tests</li>
+<li>Travis runs tests</li>
+<li>Travis lints files (but can&#39;t fail build)</li>
+<li>If build fails, abort</li>
+<li>Build succeeded, so travis will commit back any changes to the repo (but there won&#39;t be any)</li>
+<li>Travis sees that this commit has a tag associated with it</li>
+<li>Travis will use the encrypted npm creds in <code>.travis.yml</code> to publish a new version to npm</li>
+</ol>
+<h2 id="publishing-a-github-release"><a href="#publishing-a-github-release">Publishing a GitHub release</a></h2>
+<p>Happens automatically as part of the <a href="#publishing-to-npm">Publishing to NPM</a> process described above.</p>
+<p>Does require a manual description to be added though, as the auto-generated one isn&#39;t very interesting. I suggest coming up with a fun title &amp; then copying the <code>docs/change-log.md</code> entry for the build.</p>
+<h2 id="updating-docschange-logmd"><a href="#updating-docschange-logmd">Updating <code>docs/change-log.md</code></a></h2>
+<p>This is still a manual process, I&#39;m sorry.</p>
+<h2 id="updating-docs-outside-of-a-new-version"><a href="#updating-docs-outside-of-a-new-version">Updating docs (outside of a new version)</a></h2>
+<p>Fixes to documentation can land whenever, updates to the site are published via Travis.</p>
+<ol>
+<li><code>git co next</code></li>
+<li><code>git pull lhorie next</code></li>
+<li><code>git co master</code></li>
+<li><code>git co next -- ./docs</code></li>
+<li>Ensure that no new features are added</li>
+<li><code>git push lhorie</code></li>
+<li>After the Travis build completes new docs should appear in ~3 minutes</li>
+</ol>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js"></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

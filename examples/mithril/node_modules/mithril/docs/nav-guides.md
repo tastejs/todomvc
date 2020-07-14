@@ -1,0 +1,30 @@
+- Getting Started
+	- [Introduction](index.md)
+	- [Installation](installation.md)
+	- [Tutorial](simple-application.md)
+	- [Learning Resources](learning-mithril.md)
+	- [Getting Help](support.md)
+- Resources
+	- [JSX](jsx.md)
+	- [ES6+ on legacy browsers](es6.md)
+	- [Animation](animation.md)
+	- [Testing](testing.md)
+	- [Examples](examples.md)
+	- [3rd Party Integration](integrating-libs.md)
+	- [Path Handling](paths.md)
+- Key concepts
+	- [Vnodes](vnodes.md)
+	- [Components](components.md)
+	- [Lifecycle methods](lifecycle-methods.md)
+	- [Keys](keys.md)
+	- [Autoredraw system](autoredraw.md)
+- Social
+	- [Mithril Jobs](https://github.com/MithrilJS/mithril.js/wiki/JOBS)
+	- [How to contribute](contributing.md)
+	- [Credits](credits.md)
+	- [Code of Conduct](code-of-conduct.md)
+- Misc
+	- [Framework comparison](framework-comparison.md)
+	- [Change log/Migration](change-log.md)
+	- [v1 Documentation](https://mithril.js.org/archive/v1.1.6/)
+	- [v0.2 Documentation](https://mithril.js.org/archive/v0.2.5/)

@@ -1,0 +1,132 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> parseQueryString(string) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/lhorie/mithril.js">Chat</a>
+					<a href="https://github.com/lhorie/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="parsequerystringstring"><a href="#parsequerystringstring">parseQueryString(string)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><strong><a href="parseQueryString.html">m.parseQueryString</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+</ul>
+</li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/lhorie/mithril.js/blob/rewrite/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Turns a string of the form <code>?a=1&amp;b=2</code> to an object</p>
+<pre><code class="lang-javascript">var object = m.parseQueryString(&quot;a=1&amp;b=2&quot;)
+// {a: &quot;1&quot;, b: &quot;2&quot;}
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>object = m.parseQueryString(string)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td><code>String</code></td>
+<td>Yes</td>
+<td>A querystring</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Object</code></td>
+<td></td>
+<td>A key-value map</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>The <code>m.parseQueryString</code> method creates an object from a querystring. It is useful for handling data from URL</p>
+<pre><code class="lang-javascript">var data = m.parseQueryString(&quot;a=hello&amp;b=world&quot;)
+
+// data is {a: &quot;hello&quot;, b: &quot;world&quot;}
+</code></pre>
+<h4 id="boolean-type-casting"><a href="#boolean-type-casting">Boolean type casting</a></h4>
+<p>This method attempts to cast boolean values if possible. This helps prevents bugs related to loose truthiness and unintended type casts.</p>
+<pre><code class="lang-javascript">var data = m.parseQueryString(&quot;a=true&amp;b=false&quot;)
+
+// data is {a: true, b: false}
+</code></pre>
+<h4 id="leading-question-mark-tolerance"><a href="#leading-question-mark-tolerance">Leading question mark tolerance</a></h4>
+<p>For convenience, the <code>m.parseQueryString</code> method ignores a leading question mark, if present:</p>
+<pre><code class="lang-javascript">var data = m.parseQueryString(&quot;?a=hello&amp;b=world&quot;)
+
+// data is {a: &quot;hello&quot;, b: &quot;world&quot;}
+</code></pre>
+<h4 id="deep-data-structures"><a href="#deep-data-structures">Deep data structures</a></h4>
+<p>Querystrings that contain bracket notation are correctly parsed into deep data structures</p>
+<pre><code class="lang-javascript">m.parseQueryString(&quot;a[0]=hello&amp;a[1]=world&quot;)
+
+// data is {a: [&quot;hello&quot;, &quot;world&quot;]}
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js"></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

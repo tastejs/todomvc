@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> How to read signatures - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.5</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="how-to-read-signatures"><a href="#how-to-read-signatures">How to read signatures</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<p>Signature sections typically look like this:</p>
+<p><code>vnode = m(selector, attributes, children)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>selector</code></td>
+<td><code>String&#124;Object</code></td>
+<td>Yes</td>
+<td>A CSS selector or a component</td>
+</tr>
+<tr>
+<td><code>attributes</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>HTML attributes or element properties</td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td><code>Array&lt;Vnode&gt;&#124;String&#124;Number&#124;Boolean</code></td>
+<td>No</td>
+<td>Child <a href="vnodes.html">vnodes</a>. Can be written as <a href="signatures.html#splats">splat arguments</a></td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Vnode</code></td>
+<td></td>
+<td>A <a href="vnodes.html">vnode</a></td>
+</tr>
+</tbody>
+</table>
+<p>The signature line above the table indicates the general syntax of the method, showing the name of the method, the order of its arguments and a suggested variable name for its return value.</p>
+<p>The <strong>Argument</strong> column in the table indicates which part of the signature is explained by the respective table row. The <code>returns</code> row displays information about the return value of the method.</p>
+<p>The <strong>Type</strong> column indicates the expected type for the argument.</p>
+<p>A pipe (<code>|</code>) indicates that an argument is valid if it has any of the listed types. For example, <code>String&#124;Object</code> indicates that <code>selector</code> can be a string OR an object.</p>
+<p>Angled brackets (<code>&lt; &gt;</code>) after an <code>Array</code> indicate the expected type for array items. For exampe, <code>Array&lt;String&gt;</code> indicates that the argument must be an array and that all items in that array must be strings. Angled brackets after an <code>Object</code> indicate a map. For example, <code>Object&lt;String,Component&gt;</code> indicates that the argument must be an object, whose keys are strings and values are <a href="components.html">components</a></p>
+<p>Sometimes non-native types may appear to indicate that a specific object signature is required. For example, <code>Vnode</code> is an object that has a <a href="vnodes.html">virtual DOM node</a> structure.</p>
+<p>The <strong>Required</strong> column indicates whether an argument is required or optional. If an argument is optional, you may set it to <code>null</code> or <code>undefined</code>, or omit it altogether, such that the next argument appears in its place.</p>
+<hr>
+<h3 id="optional-arguments"><a href="#optional-arguments">Optional arguments</a></h3>
+<p>Function arguments surrounded by square brackets <code>[ ]</code> are optional. In the example below, <code>url</code> is an optional argument:</p>
+<p><code>m.request([url,] options)</code></p>
+<hr>
+<h3 id="splats"><a href="#splats">Splats</a></h3>
+<p>A splat argument means that if the argument is an array, you can omit the square brackets and have a variable number of arguments in the method instead.</p>
+<p>In the example at the top, this means that <code>m(&quot;div&quot;, {id: &quot;foo&quot;}, [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;])</code> can also be written as <code>m(&quot;div&quot;, {id: &quot;foo&quot;}, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</code>.</p>
+<p>Splats are useful in some compile-to-js languages such as Coffeescript, and also allow helpful shorthands for some common use cases.</p>
+<hr>
+<h3 id="function-signatures"><a href="#function-signatures">Function signatures</a></h3>
+<p>Functions are denoted with an arrow (<code>-&gt;</code>). The left side of the arrow indicates the types of the input arguments and the right side indicates the type for the return value.</p>
+<p>For example, <code>parseFloat</code> has the signature <code>String -&gt; Number</code>, i.e. it takes a string as input and returns a number as output.</p>
+<p>Functions with multiple arguments are denoted with parenthesis: <code>(String, Array) -&gt; Number</code></p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.5/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

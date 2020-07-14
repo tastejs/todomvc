@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="integrating-with-other-libraries">Integrating with Other Libraries</h2>
+<p>Integration with third party libraries can be achieved via the <code>config</code> attribute of virtual elements.</p>
+<p>It&#39;s recommended that you encapsulate integration code in a component.</p>
+<p>The example below shows a simple component that integrates with the <a href="http://ivaynberg.github.io/select2/">select2 library</a>.</p>
+<pre><code class="lang-javascript">//Select2 component (assumes both jQuery and Select2 are included in the page)
+
+/** @namespace */
+var select2 = {};
+
+/**
+select2 config factory. The params in this doc refer to properties of the `ctrl` argument
+@param {Object} data - the data with which to populate the &lt;option&gt; list
+@param {number} value - the id of the item in `data` that we want to select
+@param {function(Object id)} onchange - the event handler to call when the selection changes.
+    `id` is the the same as `value`
+*/
+select2.config = function(ctrl) {
+    return function(element, isInitialized) {
+        var el = $(element);
+
+        if (!isInitialized) {
+            //set up select2 (only if not initialized already)
+            el.select2()
+                //this event handler updates the controller when the view changes
+                .on(&quot;change&quot;, function(e) {
+                    //integrate with the auto-redrawing system...
+                    m.startComputation();
+
+                    //...so that Mithril autoredraws the view after calling the controller callback
+                    if (typeof ctrl.onchange == &quot;function&quot;) ctrl.onchange(el.select2(&quot;val&quot;));
+
+                    m.endComputation();
+                    //end integration
+                });
+        }
+
+        //update the view with the latest controller value
+        el.select2(&quot;val&quot;, ctrl.value);
+    }
+}
+
+//this view implements select2&#39;s `&lt;select&gt;` progressive enhancement mode
+select2.view = function(ctrl) {
+    return m(&quot;select&quot;, {config: select2.config(ctrl)}, [
+        ctrl.data.map(function(item) {
+            return m(&quot;option&quot;, {value: item.id}, item.name)
+        })
+    ]);
+};
+
+//end component
+
+
+
+//usage
+var dashboard = {};
+
+dashboard.controller = function() {
+    //list of users to show
+    this.data = [{id: 1, name: &quot;John&quot;}, {id: 2, name: &quot;Mary&quot;}, {id: 3, name: &quot;Jane&quot;}];
+
+    //select Mary
+    this.currentUser = this.data[1];
+
+    this.changeUser = function(id) {
+        console.log(id)
+    };
+}
+
+dashboard.view = function(ctrl) {
+    return m(&quot;div&quot;, [
+        m(&quot;label&quot;, &quot;User:&quot;),
+        select2.view({data: ctrl.data, value: ctrl.currentUser.id, onchange: ctrl.changeUser})
+    ]);
+}
+
+m.module(document.body, dashboard);</code></pre>
+<p><code>select2.config</code> is a factory that creates a <code>config</code> function based on a given controller. We declare this outside of the <code>select2.view</code> function to avoid cluttering the template.</p>
+<p>The <code>config</code> function created by our factory only runs the initialization code if it hasn&#39;t already. This <code>if</code> statement is important, because this function may be called multiple times by Mithril&#39;s auto-redrawing system and we don&#39;t want to re-initialize select2 at every redraw.</p>
+<p>The initialization code defines a <code>change</code> event handler. Because this handler is not created using Mithril&#39;s templating engine (i.e. we&#39;re not defining an attribute in a virtual element), we must manually integrate it to the auto-redrawing system.</p>
+<p>This can be done by simply calling <code>m.startComputation</code> at the beginning, and <code>m.endComputation</code> at the end of the function. You must add a pair of these calls for each asynchronous execution thread, unless the thread is already integrated.</p>
+<p>For example, if you were to call a web service using <code>m.request</code>, you would not need to add more calls to <code>m.startComputation</code> / <code>m.endComputation</code> (you would still need the first pair in the event handler, though).</p>
+<p>On the other hand, if you were to call a web service using jQuery, then you would be responsible for adding a <code>m.startComputation</code> call before the jQuery ajax call, and for adding a <code>m.endComputation</code> call at the end of the completion callback, in addition to the calls within the <code>change</code> event handler. Refer to the <a href="auto-redrawing.html"><code>auto-redrawing</code></a> guide for an example.</p>
+<p>One important note about the <code>config</code> method is that you should avoid calling <code>m.redraw</code>, <code>m.startComputation</code> and <code>m.endComputation</code> in the <code>config</code> function&#39;s execution thread. (An execution thread is basically any amount of code that runs before other asynchronous threads start to run)</p>
+<p>While Mithril technically does support this use case, relying on multiple redraw passes degrades performance and makes it possible to code yourself into an infinite execution loop situation, which is extremely difficult to debug.</p>
+<p>The <code>dashboard</code> module in the example shows how a developer would consume the select2 component.</p>
+<p>You should always document integration components so that others can find out what attribute parameters can be used to initialize the component.</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

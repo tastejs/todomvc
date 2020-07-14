@@ -1,0 +1,205 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> API - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.1</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="api"><a href="#api">API</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="prop.html">m.prop</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="cheatsheet"><a href="#cheatsheet">Cheatsheet</a></h3>
+<p>Here are examples for the most commonly used methods. If a method is not listed below, it&#39;s meant for advanced usage.</p>
+<h4 id="mselector,-attrs,-children---"><a href="#mselector,-attrs,-children---">m(selector, attrs, children) - <a href="hyperscript.html">docs</a></a></h4>
+<pre><code class="lang-javascript">m(&quot;div.class#id&quot;, {title: &quot;title&quot;}, [&quot;children&quot;])
+</code></pre>
+<hr>
+<h4 id="mmountelement,-component---"><a href="#mmountelement,-component---">m.mount(element, component) - <a href="mount.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var state = {
+    count: 0,
+    inc: function() {state.count++}
+}
+
+var Counter = {
+    view: function() {
+        return m(&quot;div&quot;, {onclick: state.inc}, state.count)
+    }
+}
+
+m.mount(document.body, Counter)
+</code></pre>
+<hr>
+<h4 id="mrouteroot,-defaultroute,-routes---"><a href="#mrouteroot,-defaultroute,-routes---">m.route(root, defaultRoute, routes) - <a href="route.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var Home = {
+    view: function() {
+        return &quot;Welcome&quot;
+    }
+}
+
+m.route(document.body, &quot;/home&quot;, {
+    &quot;/home&quot;: Home, // defines `http://localhost/#!/home`
+})
+</code></pre>
+<h4 id="mroutesetpath---"><a href="#mroutesetpath---">m.route.set(path) - <a href="route.html#mrouteset">docs</a></a></h4>
+<pre><code class="lang-javascript">m.route.set(&quot;/home&quot;)
+</code></pre>
+<h4 id="mrouteget---"><a href="#mrouteget---">m.route.get() - <a href="route.html#mrouteget">docs</a></a></h4>
+<pre><code class="lang-javascript">var currentRoute = m.route.get()
+</code></pre>
+<h4 id="mrouteprefixprefix---"><a href="#mrouteprefixprefix---">m.route.prefix(prefix) - <a href="route.html#mrouteprefix">docs</a></a></h4>
+<p>Call this before <code>m.route()</code></p>
+<pre><code class="lang-javascript">m.route.prefix(&quot;#!&quot;)
+</code></pre>
+<h4 id="mroutelink---"><a href="#mroutelink---">m.route.link() - <a href="route.html#mroutelink">docs</a></a></h4>
+<pre><code class="lang-javascript">m(&quot;a[href=&#39;/Home&#39;]&quot;, {oncreate: m.route.link}, &quot;Go to home page&quot;)
+</code></pre>
+<hr>
+<h4 id="mrequestoptions---"><a href="#mrequestoptions---">m.request(options) - <a href="request.html">docs</a></a></h4>
+<pre><code class="lang-javascript">m.request({
+    method: &quot;PUT&quot;,
+    url: &quot;/api/v1/users/:id&quot;,
+    data: {id: 1, name: &quot;test&quot;}
+})
+.then(function(result) {
+    console.log(result)
+})
+</code></pre>
+<hr>
+<h4 id="mjsonpoptions---"><a href="#mjsonpoptions---">m.jsonp(options) - <a href="jsonp.html">docs</a></a></h4>
+<pre><code class="lang-javascript">m.jsonp({
+    url: &quot;/api/v1/users/:id&quot;,
+    data: {id: 1},
+    callbackKey: &quot;callback&quot;,
+})
+.then(function(result) {
+    console.log(result)
+})
+</code></pre>
+<hr>
+<h4 id="mparsequerystringquerystring---"><a href="#mparsequerystringquerystring---">m.parseQueryString(querystring) - <a href="parseQueryString.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var object = m.parseQueryString(&quot;a=1&amp;b=2&quot;)
+// {a: &quot;1&quot;, b: &quot;2&quot;}
+</code></pre>
+<hr>
+<h4 id="mbuildquerystringobject---"><a href="#mbuildquerystringobject---">m.buildQueryString(object) - <a href="buildQueryString.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var querystring = m.buildQueryString({a: &quot;1&quot;, b: &quot;2&quot;})
+// &quot;a=1&amp;b=2&quot;
+</code></pre>
+<hr>
+<h4 id="mwithattrattrname,-callback---"><a href="#mwithattrattrname,-callback---">m.withAttr(attrName, callback) - <a href="withAttr.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var state = {
+    value: &quot;&quot;,
+    setValue: function(v) {state.value = v}
+}
+
+var Component = {
+    view: function() {
+        return m(&quot;input&quot;, {
+            oninput: m.withAttr(&quot;value&quot;, state.setValue),
+            value: state.value,
+        })
+    }
+}
+
+m.mount(document.body, Component)
+</code></pre>
+<hr>
+<h4 id="mpropinitial---"><a href="#mpropinitial---">m.prop(initial) - <a href="prop.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var Component = {
+    oninit: function(vnode) {
+        vnode.state.current = m.prop(&quot;&quot;)
+    },
+    view: function(vnode) {
+        return m(&quot;input&quot;, {
+            oninput: function(ev) { vnode.state.current.set(ev.target.value) },
+            value: vnode.state.current.get(),
+        })
+    }
+}
+
+m.mount(document.body, Component)
+</code></pre>
+<hr>
+<h4 id="mtrusthtmlstring---"><a href="#mtrusthtmlstring---">m.trust(htmlString) - <a href="trust.html">docs</a></a></h4>
+<pre><code class="lang-javascript">m.render(document.body, m.trust(&quot;&lt;h1&gt;Hello&lt;/h1&gt;&quot;))
+</code></pre>
+<hr>
+<h4 id="mredraw---"><a href="#mredraw---">m.redraw() - <a href="redraw.html">docs</a></a></h4>
+<pre><code class="lang-javascript">var count = 0
+function inc() {
+    setInterval(function() {
+        count++
+        m.redraw()
+    }, 1000)
+}
+
+var Counter = {
+    oninit: inc,
+    view: function() {
+        return m(&quot;div&quot;, count)
+    }
+}
+
+m.mount(document.body, Counter)
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.1/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,530 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title># m.component - Mithril.js</title>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+		<link href="lib/prism/prism.css" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.0.0</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/lhorie/mithril.js">Chat</a>
+					<a href="https://github.com/lhorie/mithril.js">Github</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h2 id="m-component">m.component</h2>
+<hr>
+<ul>
+<li><a href="#rendering-components">Rendering components</a><ul>
+<li><a href="#optional-controller">Optional controller</a></li>
+<li><a href="#controller-as-a-class-constructor">Controller as a class constructor</a></li>
+<li><a href="#notes-on-the-view-function">Notes on the view function</a></li>
+<li><a href="#shorthand-syntax">Shorthand syntax</a></li>
+</ul>
+</li>
+<li><a href="#parameterized-components">Parameterized components</a></li>
+<li><a href="#nesting-components">Nesting components</a></li>
+<li><a href="#dealing-with-state">Dealing with state</a><ul>
+<li><a href="#stateless-components">Stateless components</a></li>
+<li><a href="#stateful-components">Stateful components</a></li>
+<li><a href="#parameterized-initial-state">Parameterized initial state</a></li>
+</ul>
+</li>
+<li><a href="#data-driven-component-identity">Data-driven component identity</a></li>
+<li><a href="#unloading-components">Unloading/Unmounting components</a></li>
+<li><a href="#nested-asynchronous-components">Nested asynchronous components</a></li>
+<li><a href="#limitations-and-caveats">Limitations and caveats</a></li>
+<li><a href="#opting-out-of-the-auto-redrawing-system">Opting out of the auto redrawing system</a></li>
+<li><a href="#signature">Signature</a></li>
+</ul>
+<hr>
+<p>Components are building blocks for Mithril applications. They allow developers to encapsulate functionality into reusable units.</p>
+<hr>
+<h3 id="rendering-components">Rendering components</h3>
+<p>In Mithril, a component is nothing more than an object that has a <code>view</code> function and, optionally, a <code>controller</code> function.</p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function(data) {
+        return {greeting: &quot;Hello&quot;}
+    },
+    view: function(ctrl) {
+        return m(&quot;h1&quot;, ctrl.greeting)
+    }
+}
+
+m.mount(document.body, MyComponent) // renders &lt;h1&gt;Hello&lt;/h1&gt; into &lt;body&gt;
+</code></pre>
+<p>The optional <code>controller</code> function creates an object that may be used in the following recommended ways:</p>
+<ul>
+<li>It can contain methods meant to be called by a <code>view</code>.</li>
+<li>It can call model methods directly or from methods inside the resulting object.</li>
+<li>It can store contextual data returned from model methods (i.e. a <a href="mithril.deferred.html">promise</a> from a <a href="mithril.request.html">request</a>).</li>
+<li>It can hold a reference to a view model.</li>
+</ul>
+<p>The <code>view</code> has access to methods and properties that the controller chooses to expose in the returned object. With those methods and properties, it creates a template that can consume model data and call controller methods to affect the model. This is the recommended way for views and models to exchange data.</p>
+<pre><code class="lang-javascript">//a simple MVC example
+
+//a sample model that exposes a value
+var model = {count: 0}
+
+var MyComponent = {
+    controller: function(data) {
+        return {
+            increment: function() {
+                //This is a simplication for the sake of the example.
+                //Typically, values are modified via model methods,
+                //rather than modified directly
+                model.count++
+            }
+        }
+    },
+    view: function(ctrl) {
+        return m(&quot;a[href=javascript:;]&quot;, {
+            onclick: ctrl.increment //view calls controller method on click
+        }, &quot;Count: &quot; + model.count)
+    }
+}
+
+m.mount(document.body, MyComponent)
+
+//renders:
+//&lt;a href=&quot;javascript:;&quot;&gt;Count: 0&lt;/a&gt;
+//
+//the number increments when the link is clicked
+</code></pre>
+<p>Note that there is no requirement to tightly couple a controller and view while organizing code. It&#39;s perfectly valid to define controllers and views separately, and only bring them together when mounting them:</p>
+<pre><code class="lang-javascript">//controller.js
+var controller = function(data) {
+    return {greeting: &quot;Hello&quot;}
+}
+
+//view.js
+var view = function(ctrl) {
+    return m(&quot;h1&quot;, ctrl.greeting)
+}
+
+//render
+m.mount(document.body, {controller: controller, view: view}) // renders &lt;h1&gt;Hello&lt;/h1&gt;
+</code></pre>
+<p>There are three ways to render a component:</p>
+<ul>
+<li><a href="mithril.route.html"><code>m.route</code></a> (if you are building a single-page application that has multiple pages)</li>
+<li><a href="mithril.mount.html"><code>m.mount</code></a> (if your app only has one page)</li>
+<li><a href="mithril.render.html"><code>m.render</code></a> (if you are integrating Mithril&#39;s rendering engine into a larger framework and wish to manage redrawing yourself).</li>
+</ul>
+<p>The <code>controller</code> function is called <em>once</em> when the component is rendered. Subsequently, the <code>view</code> function is called and will be called again anytime a redraw is required. The return value of the <code>controller</code> function is passed to the <code>view</code> as its first argument.</p>
+<h4 id="optional-controller">Optional controller</h4>
+<p>The <code>controller</code> function is optional and defaults to an empty function   <code>controller: function() {}</code></p>
+<pre><code class="lang-javascript">//a component without a controller
+var MyComponent = {
+    view: function() {
+        return m(&quot;h1&quot;, &quot;Hello&quot;)
+    }
+}
+
+m.mount(document.body, MyComponent) // renders &lt;h1&gt;Hello&lt;/h1&gt;
+</code></pre>
+<h4 id="controller-as-a-class-constructor">Controller as a class constructor</h4>
+<p>A controller can also be used as a class constructor (i.e. it&#39;s possible to attach properties to the <code>this</code> object within the constructor, instead of returning a value).</p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function(data) {
+        this.greeting = &quot;Hello&quot;
+    },
+    view: function(ctrl) {
+        return m(&quot;h1&quot;, ctrl.greeting)
+    }
+}
+
+m.mount(document.body, MyComponent) // renders &lt;h1&gt;Hello&lt;/h1&gt;
+</code></pre>
+<h4 id="notes-on-the-view-function">Notes on the view function</h4>
+<p>The <code>view</code> function does not create a DOM tree when called. The return value of the view function is merely a plain Javascript data structure that represents a DOM tree. Internally, Mithril uses this data representation of the DOM to probe for data changes and update the DOM only where necessary. This rendering technique is known as <em>virtual DOM diffing</em>.</p>
+<p>The view function is run again whenever a redraw is required (i.e. whenever event handlers are triggered by user input). Its return value is used to diff against the previous virtual DOM tree.</p>
+<p>It may sound expensive to recompute an entire view any time there&#39;s a change to be displayed, but this operation actually turns out to be quite fast, compared to rendering strategies used by older frameworks. Mithril&#39;s diffing algorithm makes sure expensive DOM operations are performed only if absolutely necessary, and as an extra benefit, the global nature of the redraw makes it easy to reason about and troubleshoot the state of the application.</p>
+<h3 id="shorthand-syntax">Shorthand syntax</h3>
+<p>If the first argument to <code>m()</code> is a component, it acts as an alias of <code>m.component()</code></p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function() {
+        return {greeting: &quot;hello&quot;}
+    },
+    view: function(ctrl, args) {
+        return m(&quot;h1&quot;, ctrl.greeting + &quot; &quot; + args.data)
+    }
+}
+
+m.render(document.body, [
+    //the two lines below are equivalent
+    m(MyComponent, {data: &quot;world&quot;}),
+    m.component(MyComponent, {data: &quot;world&quot;})
+])
+</code></pre>
+<hr>
+<h3 id="parameterized-components">Parameterized components</h3>
+<p>Components can have arguments &quot;preloaded&quot;. In practice, this means that calling <code>m.component(MyComponent, {foo: &quot;bar&quot;})</code> will return a component that behaves exactly the same as <code>MyComponent</code>, but <code>{foo: &quot;bar&quot;}</code> will be bound as an argument to both the <code>controller</code> and <code>view</code> functions.</p>
+<pre><code class="lang-javascript">//declare a component
+var MyComponent = {
+    controller: function(args, extras) {
+        console.log(args.name, extras)
+        return {greeting: &quot;Hello&quot;}
+    },
+    view: function(ctrl, args, extras) {
+        return m(&quot;h1&quot;, ctrl.greeting + &quot; &quot; + args.name + &quot; &quot; + extras)
+    }
+}
+
+//create a component whose controller and view functions receive some arguments
+var component = m.component(MyComponent, {name: &quot;world&quot;}, &quot;this is a test&quot;)
+
+var ctrl = new component.controller() // logs &quot;world&quot;, &quot;this is a test&quot;
+
+m.render(document.body, component.view(ctrl)) // render the virtual DOM tree manually
+
+//&lt;body&gt;&lt;h1&gt;Hello world this is a test&lt;/h1&gt;&lt;/body&gt;
+</code></pre>
+<p>The first parameter after the component object is meant to be used as an attribute map and should be an object (e.g. <code>{name: &quot;world&quot;}</code>). Subsequent parameters have no restrictions (e.g. <code>&quot;this is a test&quot;</code>)</p>
+<hr>
+<h3 id="nesting-components">Nesting components</h3>
+<p>Component views can include other components:</p>
+<pre><code class="lang-javascript">var App = {
+    view: function() {
+        return m(&quot;.app&quot;, [
+            m(&quot;h1&quot;, &quot;My App&quot;),
+
+            //nested component
+            m.component(MyComponent, {message: &quot;Hello&quot;})
+        ])
+    }
+}
+
+var MyComponent = {
+    controller: function(args) {
+        return {greeting: args.message}
+    },
+    view: function(ctrl) {
+        return m(&quot;h2&quot;, ctrl.greeting)
+    }
+}
+
+m.mount(document.body, App)
+
+// &lt;div class=&quot;app&quot;&gt;
+//      &lt;h1&gt;My App&lt;/h1&gt;
+//      &lt;h2&gt;Hello&lt;/h2&gt;
+// &lt;/div&gt;
+</code></pre>
+<p>Components can be placed anywhere a regular element can. If you have components inside a sortable list, you should add <code>key</code> attributes to your components to ensure that DOM elements are not recreated from scratch, but merely moved when possible. Keys must be unique within a list of sibling DOM elements, and they must be either a string or a number:</p>
+<pre><code class="lang-javascript">var App = {
+    controller: function() {
+        return {data: [1, 2, 3]}
+    },
+    view: function(ctrl) {
+        return m(&quot;.app&quot;, [
+            //pressing the button reverses the list
+            m(&quot;button[type=button]&quot;, {onclick: function() {ctrl.data.reverse()}}, &quot;My App&quot;),
+
+            ctrl.data.map(function(item) {
+                //the key ensures the components aren&#39;t recreated from scratch, if they merely exchanged places
+                return m.component(MyComponent, {message: &quot;Hello &quot; + item, key: item})
+            })
+        ])
+    }
+}
+
+var MyComponent = {
+    controller: function(args) {
+        return {greeting: args.message}
+    },
+    view: function(ctrl) {
+        return m(&quot;h2&quot;, ctrl.greeting)
+    }
+}
+
+m.mount(document.body, App)
+</code></pre>
+<h3 id="dealing-with-state">Dealing with state</h3>
+<h4 id="stateless-components">Stateless components</h4>
+<p>A component is said to be stateless when it does not store data internally. Instead, it&#39;s composed of <a href="http://en.wikipedia.org/wiki/Pure_function">pure functions</a>. It&#39;s a good practice to make components stateless because they are more predictable, and easier to reason about, test and troubleshoot.</p>
+<p>Instead of copying arguments to the controller object and then passing the controller object to the view (thereby creating internal state in the component), it is often desirable that views update based on the current value of arguments initially passed to a component.</p>
+<p>The following example illustrates this pattern:</p>
+<pre><code class="lang-javascript">var MyApp = {
+    controller: function() {
+        return {
+            temp: m.prop(10) // kelvin
+        }
+    },
+    view: function(ctrl) {
+        return m(&quot;div&quot;, [
+            m(&quot;input&quot;, {oninput: m.withAttr(&quot;value&quot;, ctrl.temp), value: ctrl.temp()}), &quot;K&quot;,
+            m(&quot;br&quot;),
+            m.component(TemperatureConverter, {value: ctrl.temp()})
+        ]);
+    }
+};
+var TemperatureConverter = {
+    controller: function() {
+        //note how the controller does not handle the input arguments
+
+        //define some helper functions to be called from the view
+        return {
+            kelvinToCelsius: function(value) {
+                return value - 273.15
+            },
+            kelvinToFahrenheit: function(value) {
+                return (9 / 5 * (value - 273.15)) + 32
+            }
+        }
+    },
+    view: function(ctrl, args) {
+        return m(&#39;div&#39;, [
+            &quot;celsius:&quot;, ctrl.kelvinToCelsius(args.value),
+            m(&quot;br&quot;),
+            &quot;fahrenheit:&quot;, ctrl.kelvinToFahrenheit(args.value),
+        ]);
+    }
+};
+m.mount(document.body, MyApp);
+</code></pre>
+<p>In the example above, the text input is bi-directionally bound to a <code>temp</code> getter-setter. Changing the temperature value from the input updates the temperature value, which is passed to the TemperatureConverter view directly, and transformation functions are called from there. The TemperatureConverter controller never stores the value.</p>
+<p>Testing the various parts of the component is trivial:</p>
+<pre><code class="lang-javascript">//test a transformation function in the controller
+var ctrl = new TemperatureConverter.controller();
+assert(ctrl.kelvinToCelsius(273.15) == 0)
+
+//test the template
+var tpl = TemperatureConverter.view(ctrl, {value: 273.15})
+assert(tpl.children[1] == 0)
+
+//test with real DOM
+var testRoot = document.createElement(&quot;div&quot;)
+m.render(testRoot, TemperatureConverter.view(ctrl, {value: 273.15}))
+assert(testRoot.innerHTML.indexOf(&quot;celsius:0&quot;) &gt; -1)
+</code></pre>
+<p>Note that the sample component above is illustrative. Ideally, temperature conversion functions (and any functions that deal strictly within the domain of the data) should go in the model layer, not in a component&#39;s controller.</p>
+<hr>
+<h3 id="stateful-components">Stateful components</h3>
+<p>Usually it&#39;s recommended that you store application state outside of components (either in a <a href="http://lhorie.github.io/mithril-blog/what-is-a-view-model.html">view-model</a> or in the top-level component in the case of nested components). Components <em>can</em> be stateful, but the purpose of component state is to prevent the pollution of the model layer with aspects that are inherently related to the component. For example, an autocompleter component may need to internally store a flag to indicate whether the dropdown is visible, but this kind of state is not relevant to an application&#39;s business logic.</p>
+<p>You might also elect to maintain component state when it&#39;s not meaningful outside the scope of a single component. For example, you might have a <code>UserForm</code> component that lives alongside other unrelated components on a bigger page, but it probably doesn&#39;t make sense for the parent page to be aware of the unsaved user data stored within the <code>UserForm</code> component.</p>
+<hr>
+<h4 id="parameterized-initial-state">Parameterized initial state</h4>
+<p>The ability to handle arguments in the controller is useful for setting up the initial state for a component whose state depends on input data:</p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function(args) {
+        //we only want to make this call once
+        return {
+            things: m.request({method: &quot;GET&quot;, url: &quot;/api/things/&quot;, data: args}) //slice the data in some way
+        }
+    },
+    view: function(ctrl) {
+        return m(&quot;ul&quot;, [
+            ctrl.things().map(function(thing) {
+                return m(&quot;li&quot;, thing.name)
+            })
+        ]);
+    }
+};
+</code></pre>
+<p>However, it&#39;s recommended that you aggregate all of your requests in a single place instead of scattering them across multiple components. Aggregating requests in a top-level component makes it easier to replay the request chain (i.e. fetching an updated list of items after you&#39;ve saved something that changes that list), and it ensures the entire data set is loaded in memory before drilling down into nested components, avoiding redundant AJAX calls for sibling components that need the same data. Be sure to read the <a href="components.html#application-architecture-with-components">Application Architecture section</a> to learn more about organizing componentized code.</p>
+<hr>
+<h4 id="data-driven-component-identity">Data-driven component identity</h4>
+<p>A component can be re-initialized from scratch by changing the <code>key</code> associated with it. This is useful for re-running ajax calls for different model entities.</p>
+<p>Suppose we have a component called <code>ProjectList</code> and the following data:</p>
+<pre><code class="lang-javascript">
+var people = [
+    {id: 1, name: &quot;John&quot;},
+    {id: 2, name: &quot;Mary&quot;}
+]
+
+//ajax and display a list of projects for John
+m.render(document.body, m(ProjectList, {key: people[0].id, value: people[0]}))
+
+//ajax and display a list of projects for Mary
+m.render(document.body, m(ProjectList, {key: people[1].id, value: people[1]}))
+</code></pre>
+<p>In the example above, since the key is different, the ProjectList component is recreated from scratch. As a result, the controller runs again, the DOM is re-generated, and any applicable 3rd party plugins in configs are re-initialized.</p>
+<p>Remember that the rules for keys apply to components the same way they do to regular elements: it is not allowed to have duplicate keys on children of the same parent, and they must be either strings or numbers (or something with a <code>.toString()</code> implementation that makes the entity uniquely identifiable in the local scope when serialized). You can learn more about keys <a href="mithril.html#dealing-with-focus">here</a>.</p>
+<hr>
+<h3 id="unloading-components">Unloading components</h3>
+<p>If a component&#39;s controller contains the function <code>onunload</code>, it will be called under one of these circumstances:</p>
+<ul>
+<li>when a new call to <code>m.mount</code> updates the root DOM element of the component in question</li>
+<li>when a route changes (if you are using <a href="mithril.route.html"><code>m.route</code></a>)</li>
+</ul>
+<p>To unload/unmount a component without loading another component, you can simply call <code>m.mount</code> with a <code>null</code> as the component parameter:</p>
+<pre><code class="lang-javascript">m.mount(rootElement, null);
+</code></pre>
+<p>Often, you will want to do some work before the component is unloaded (i.e. clear timers or unsubscribe event handlers):</p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function() {
+        return {
+            onunload: function() {
+                console.log(&quot;unloading my component&quot;);
+            }
+        }
+    },
+    view: function() {
+        return m(&quot;div&quot;, &quot;test&quot;)
+    }
+};
+
+m.mount(document.body, MyComponent);
+
+//...
+
+var AnotherComponent = {
+    view: function() {
+        return m(&quot;div&quot;, &quot;another&quot;)
+    }
+};
+
+// mount on the same DOM element, replacing MyComponent
+m.mount(document.body, AnotherComponent); // logs &quot;unloading my component&quot;
+</code></pre>
+<p>You can also use the <code>onunload</code> function to PREVENT a component from being unloaded in the context of a route change (i.e. to alert a user to save their changes before navigating away from a page)</p>
+<pre><code class="lang-javascript">var component = {
+    controller: function() {
+        var unsaved = m.prop(false)
+        return {
+            unsaved: unsaved,
+
+            onunload: function(e) {
+                if (unsaved()) {
+                    e.preventDefault()
+                }
+            }
+        }
+    },
+    //...
+}
+</code></pre>
+<p>Normally, calling <code>m.mount</code> will return the controller instance for that component, but there&#39;s one corner case: if <code>e.preventDefault()</code> is called from a controller&#39;s <code>onunload</code> method, then the <code>m.mount</code> call will not instantiate the new controller, and will return <code>undefined</code>.</p>
+<p>Mithril does not hook into the browser&#39;s <code>onbeforeunload</code> event. To prevent unloading when attempting to navigate away from a page, you can check the return value of <code>m.mount</code></p>
+<pre><code class="lang-javascript">window.onbeforeunload = function() {
+    if (!m.mount(rootElement, null)) {
+        //onunload&#39;s preventDefault was called
+        return &quot;Are you sure you want to leave?&quot;
+    }
+}
+</code></pre>
+<p>Components that are nested inside other components can also call <code>onunload</code> and its <code>e.preventDefault()</code> like top-level components. The <code>onunload</code> event is called if an instantiated component is removed from a virtual element tree via a redraw.</p>
+<p>In the example below, clicking the button triggers the component&#39;s <code>onunload</code> event and logs &quot;unloaded!&quot;.</p>
+<pre><code class="lang-javascript">var MyApp = {
+    controller: function() {
+        return {loaded: true}
+    },
+    view: function(ctrl) {
+        return [
+            m(&quot;button[type=button]&quot;, {onclick: function() {ctrl.loaded = false}}),
+            ctrl.loaded ? MyComponent : &quot;&quot;
+        ]
+    }
+}
+
+var MyComponent = {
+    controller: function() {
+        return {
+            onunload: function() {
+                console.log(&quot;unloaded!&quot;)
+            }
+        }
+    },
+    view: function() {
+        return m(&quot;h1&quot;, &quot;My component&quot;)
+    }
+}
+
+m.mount(document.body, MyApp)
+</code></pre>
+<p>Calling <code>e.preventDefault()</code> from a component&#39;s <code>onunload</code> function aborts route changes, but it does not abort rollback or affect the current redraw in any way.</p>
+<hr>
+<h3 id="nested-asynchronous-components">Nested asynchronous components</h3>
+<p>Since controllers can call model methods, it&#39;s possible for nested components to encapsulate asynchronous behavior. When components aren&#39;t nested, Mithril waits for all asynchronous tasks to complete, but when components are nested, a component&#39;s parent view renders before the component completes its asynchronous tasks. The existence of the component only becomes known to the diff engine at the time when the template is rendered.</p>
+<p>When a component has asynchronous payloads and they are queued by the <a href="auto-redrawing.html">auto-redrawing system</a>, its view is NOT rendered until all asynchronous operations complete. When the component&#39;s asynchronous operations complete, another redraw is triggered and the entire template tree is evaluated again. This means that the virtual dom tree may take two or more redraws (depending on how many nested asynchronous components there are) to be fully rendered.</p>
+<p>There are <a href="components.html#application-architecture-with-components">different ways to organize components</a> that can side-step the need for multiple redraws. Regardless, you could also force multiple redraws to happen by using the <a href="mithril.request.html#rendering-before-web-service-requests-finish"><code>background</code></a> and <code>initialValue</code> options in <code>m.request</code>, or by manually calling <a href="mithril.redraw.html"><code>m.redraw()</code></a>.</p>
+<p>If a component A contains another component B that calls asynchronous services, when component A is rendered, a <code>&lt;placeholder&gt;</code> tag is rendered in place of component B until B&#39;s asynchronous services resolve. Once resolved, the placeholder is replaced with component B&#39;s view.</p>
+<hr>
+<h3 id="limitations-and-caveats">Limitations and caveats</h3>
+<p>One important limitation to be aware of when using components is that you cannot call Mithril&#39;s redrawing methods (<a href="mithril.computation.html"><code>m.startComputation</code> / <code>m.endComputation</code></a> and <a href="mithril.redraw.html"><code>m.redraw</code></a>) from templates.</p>
+<p>In addition, you cannot call <code>m.request</code> from templates. Doing so will trigger another redraw, which will result in an infinite loop.</p>
+<p>There are a few other technical caveats when nesting components:</p>
+<ol>
+<li><p>Nested component views must return either a virtual element or another component. Returning an array, a string, a number, boolean, falsy value, etc will result in an error.</p>
+</li>
+<li><p>Nested components cannot change <code>m.redraw.strategy</code> from the controller constructor (but they can from event handlers). It&#39;s recommended that you use the <a href="mithril.html#persisting-dom-elements-across-route-changes"><code>ctx.retain</code></a> flag instead of changing the redraw strategy in controller constructors.</p>
+</li>
+<li><p>The root DOM element in a component&#39;s view must not be changed during the lifecycle of the component, otherwise undefined behavior will occur. In other words, don&#39;t do this:</p>
+<pre><code class="lang-javascript">var MyComponent = {
+  view: function() {
+      return someCondition ? m(&quot;a&quot;) : m(&quot;b&quot;)
+  }
+}
+</code></pre>
+</li>
+<li><p>If a component&#39;s root element is a subtree directive on its first rendering pass, undefined behavior will occur.</p>
+</li>
+</ol>
+<hr>
+<h3 id="opting-out-of-the-auto-redrawing-system">Opting out of the auto redrawing system</h3>
+<p>Components can be rendered without enabling the <a href="auto-redrawing.html">auto-redrawing system</a>, via <a href="mithril.render.html"><code>m.render</code></a>:</p>
+<pre><code class="lang-javascript">var MyComponent = {
+    controller: function() {
+        return {greeting: &quot;Hello&quot;}
+    },
+    view: function(ctrl) {
+        return m(&quot;h1&quot;, ctrl.greeting)
+    }
+}
+
+m.render(document.body, MyComponent)
+</code></pre>
+<p>However, using <a href="mithril.render.html"><code>m.render</code></a> is only recommended if you want to use Mithril as part of a larger framework that manages the rendering lifecycle on its own. The vast majority of times, it&#39;s advisable to use <code>m.mount</code> instead.</p>
+<hr>
+<h3 id="signature">Signature</h3>
+<p><a href="how-to-read-signatures.html">How to read signatures</a></p>
+<pre><code class="lang-clike">Component component(Component component [, Object attributes [, any... args]])
+
+where:
+    Component :: Object { Controller, View }
+    Controller :: SimpleController | UnloadableController
+    SimpleController :: void controller([Object attributes [, any... args]])
+    UnloadableController :: void controller([Object attributes [, any... args]]) { prototype: void unload(UnloadEvent e) }
+    UnloadEvent :: Object {void preventDefault()}
+    View :: void view(Object controllerInstance [, Object attributes [, any... args]])
+</code></pre>
+<ul>
+<li><p><strong>Component component</strong></p>
+<p>A component is supposed to be an Object with two keys: <code>controller</code> and <code>view</code>. Each of these should point to a Javascript function. If a controller is not specified, Mithril will automatically create an empty controller function.</p>
+</li>
+<li><p><strong>Object attributes</strong></p>
+<p>A key/value map of attributes that gets bound as an argument to both the <code>controller</code> and <code>view</code> functions of the component.</p>
+</li>
+<li><p><strong>any... args</strong></p>
+<p>Other arguments to be bound as arguments to both the <code>controller</code> and <code>view</code> functions</p>
+</li>
+<li><p><strong>returns Component parameterizedComponent</strong></p>
+<p>A component with arguments bound</p>
+</li>
+</ul>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="lib/prism/prism.js"></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = 'navigating'
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html

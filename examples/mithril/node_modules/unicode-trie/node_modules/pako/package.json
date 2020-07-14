@@ -1,0 +1,40 @@
+{
+  "name": "pako",
+  "description": "zlib port to javascript - fast, modularized, with browser support",
+  "version": "0.2.9",
+  "keywords": [
+    "zlib",
+    "deflate",
+    "inflate",
+    "gzip"
+  ],
+  "homepage": "https://github.com/nodeca/pako",
+  "contributors": [
+    "Andrei Tuputcyn (https://github.com/andr83)",
+    "Vitaly Puzrin (https://github.com/puzrin)"
+  ],
+  "files": [
+    "index.js",
+    "dist/",
+    "lib/"
+  ],
+  "license": "MIT",
+  "repository": "nodeca/pako",
+  "devDependencies": {
+    "mocha": "1.21.5",
+    "benchmark": "*",
+    "ansi": "*",
+    "browserify": "*",
+    "eslint": "^2.1.0",
+    "eslint-plugin-nodeca": "~1.0.3",
+    "uglify-js": "*",
+    "istanbul": "*",
+    "ndoc": "*",
+    "lodash": "*",
+    "async": "*",
+    "grunt": "~0.4.4",
+    "grunt-cli": "~0.1.13",
+    "grunt-saucelabs": "~8.6.0",
+    "grunt-contrib-connect": "~0.9.0"
+  }
+}

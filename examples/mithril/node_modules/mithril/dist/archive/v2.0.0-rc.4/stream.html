@@ -1,0 +1,755 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> stream() - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.4</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="stream"><a href="#stream">stream()</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><a href="render.html">m.render</a></li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><strong><a href="stream.html">Stream</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a><ul>
+<li><a href="#static-members">Static members</a><ul>
+<li><a href="#streamcombine">Stream.combine</a></li>
+<li><a href="#streammerge">Stream.merge</a></li>
+<li><a href="#streamscan">Stream.scan</a></li>
+<li><a href="#streamscanmerge">Stream.scanMerge</a></li>
+<li><a href="#streamlift">Stream.lift</a></li>
+<li><a href="#streamskip">Stream.SKIP</a></li>
+<li><a href="#streamfantasy-landof">Stream[&quot;fantasy-land/of&quot;]</a></li>
+</ul>
+</li>
+<li><a href="#instance-members">Instance members</a><ul>
+<li><a href="#streammap">stream.map</a></li>
+<li><a href="#streamend">stream.end</a></li>
+<li><a href="#streamfantasy-landof-1">stream[&quot;fantasy-land/of&quot;]</a></li>
+<li><a href="#streamfantasy-landmap">stream[&quot;fantasy-land/map&quot;]</a></li>
+<li><a href="#streamfantasy-landap">stream[&quot;fantasy-land/ap&quot;]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#basic-usage">Basic usage</a><ul>
+<li><a href="#streams-as-variables">Streams as variables</a></li>
+<li><a href="#bidirectional-bindings">Bidirectional bindings</a></li>
+<li><a href="#computed-properties">Computed properties</a></li>
+</ul>
+</li>
+<li><a href="#chaining-streams">Chaining streams</a></li>
+<li><a href="#combining-streams">Combining streams</a></li>
+<li><a href="#stream-states">Stream states</a></li>
+<li><a href="#serializing-streams">Serializing streams</a></li>
+<li><a href="#streams-do-not-trigger-rendering">Streams do not trigger rendering</a></li>
+<li><a href="#what-is-fantasy-land">What is Fantasy Land</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>A Stream is a reactive data structure, similar to cells in spreadsheet applications.</p>
+<p>For example, in a spreadsheet, if <code>A1 = B1 + C1</code>, then changing the value of <code>B1</code> or <code>C1</code> automatically changes the value of <code>A1</code>.</p>
+<p>Similarly, you can make a stream depend on other streams so that changing the value of one automatically updates the other. This is useful when you have very expensive computations and want to only run them when necessary, as opposed to, say, on every redraw.</p>
+<p>Streams are NOT bundled with Mithril&#39;s core distribution. To include the Streams module, use:</p>
+<pre><code class="lang-javascript">var Stream = require(&quot;mithril/stream&quot;)
+</code></pre>
+<p>You can also download the module directly if your environment does not support a bundling toolchain:</p>
+<pre><code class="lang-markup">&lt;script src=&quot;https://unpkg.com/mithril@next/stream&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>When loaded directly with a <code>&lt;script&gt;</code> tag (rather than required), the stream library will be exposed as <code>window.m.stream</code>. If <code>window.m</code> is already defined (e.g. because you also use the main Mithril script), it will attach itself to the existing object. Otherwise it creates a new <code>window.m</code>. If you want to use streams in conjunction with Mithril as raw script tags, you should include Mithril in your page before <code>mithril/stream</code>, because <code>mithril</code> will otherwise overwrite the <code>window.m</code> object defined by <code>mithril-stream</code>. This is not a concern when the libraries are consumed as CommonJS modules (using <code>require(...)</code>).</p>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p>Creates a stream</p>
+<p><code>stream = Stream(value)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>value</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>If this argument is present, the value of the stream is set to it</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h4 id="static-members"><a href="#static-members">Static members</a></h4>
+<h5 id="streamcombine"><a href="#streamcombine">Stream.combine</a></h5>
+<p>Creates a computed stream that reactively updates if any of its upstreams are updated. See <a href="#combining-streams">combining streams</a></p>
+<p><code>stream = Stream.combine(combiner, streams)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>combiner</code></td>
+<td><code>(Stream..., Array) -&gt; any</code></td>
+<td>Yes</td>
+<td>See <a href="#combiner">combiner</a> argument</td>
+</tr>
+<tr>
+<td><code>streams</code></td>
+<td><code>Array&lt;Stream&gt;</code></td>
+<td>Yes</td>
+<td>A list of streams to be combined</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h6 id="combiner"><a href="#combiner">combiner</a></h6>
+<p>Specifies how the value of a computed stream is generated. See <a href="#combining-streams">combining streams</a></p>
+<p><code>any = combiner(streams..., changed)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>streams...</code></td>
+<td>splat of <code>Streams</code></td>
+<td>No</td>
+<td>Splat of zero or more streams that correspond to the streams passed as the second argument to <a href="#stream-combine"><code>stream.combine</code></a></td>
+</tr>
+<tr>
+<td><code>changed</code></td>
+<td><code>Array&lt;Stream&gt;</code></td>
+<td>Yes</td>
+<td>List of streams that were affected by an update</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>any</code></td>
+<td></td>
+<td>Returns a computed value</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streammerge"><a href="#streammerge">Stream.merge</a></h5>
+<p>Creates a stream whose value is the array of values from an array of streams</p>
+<p><code>stream = Stream.merge(streams)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>streams</code></td>
+<td><code>Array&lt;Stream&gt;</code></td>
+<td>Yes</td>
+<td>A list of streams</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream whose value is an array of input stream values</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streamscan"><a href="#streamscan">Stream.scan</a></h5>
+<p>Creates a new stream with the results of calling the function on every value in the stream with an accumulator and the incoming value.</p>
+<p>Note that you can prevent dependent streams from being updated by returning the special value <code>stream.SKIP</code> inside the accumulator function.</p>
+<p><code>stream = Stream.scan(fn, accumulator, stream)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fn</code></td>
+<td>`(accumulator, value) -&gt; result \</td>
+<td>SKIP`</td>
+<td>Yes</td>
+<td>A function that takes an accumulator and value parameter and returns a new accumulator value of the same type</td>
+</tr>
+<tr>
+<td><code>accumulator</code></td>
+<td><code>any</code></td>
+<td>Yes</td>
+<td>The starting value for the accumulator</td>
+</tr>
+<tr>
+<td><code>stream</code></td>
+<td><code>Stream</code></td>
+<td>Yes</td>
+<td>Stream containing the values</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a new stream containing the result</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streamscanmerge"><a href="#streamscanmerge">Stream.scanMerge</a></h5>
+<p>Takes an array of pairs of streams and scan functions and merges all those streams using the given functions into a single stream.</p>
+<p><code>stream = Stream.scanMerge(pairs, accumulator)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pairs</code></td>
+<td><code>Array&lt;[Stream, (accumulator, value) -&gt; value]&gt;</code></td>
+<td>Yes</td>
+<td>An array of tuples of stream and scan functions</td>
+</tr>
+<tr>
+<td><code>accumulator</code></td>
+<td><code>any</code></td>
+<td>Yes</td>
+<td>The starting value for the accumulator</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a new stream containing the result</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streamlift"><a href="#streamlift">Stream.lift</a></h5>
+<p>Creates a computed stream that reactively updates if any of its upstreams are updated. See <a href="#combining-streams">combining streams</a>. Unlike <code>combine</code>, the input streams are a variable number of arguments (instead of an array) and the callback receives the stream values instead of streams. There is no <code>changed</code> parameter. This is generally a more user-friendly function for applications than <code>combine</code>.</p>
+<p><code>stream = Stream.lift(lifter, stream1, stream2, ...)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lifter</code></td>
+<td><code>(any...) -&gt; any</code></td>
+<td>Yes</td>
+<td>See <a href="#lifter">lifter</a> argument</td>
+</tr>
+<tr>
+<td><code>streams...</code></td>
+<td>list of <code>Streams</code></td>
+<td>Yes</td>
+<td>Streams to be lifted</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h6 id="lifter"><a href="#lifter">lifter</a></h6>
+<p>Specifies how the value of a computed stream is generated. See <a href="#combining-streams">combining streams</a></p>
+<p><code>any = lifter(streams...)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>streams...</code></td>
+<td>splat of <code>Streams</code></td>
+<td>No</td>
+<td>Splat of zero or more streams that correspond to the streams passed to <a href="#stream-lift"><code>stream.lift</code></a></td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>any</code></td>
+<td></td>
+<td>Returns a computed value</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streamskip"><a href="#streamskip">Stream.SKIP</a></h5>
+<p>A special value that can be returned to stream callbacks to skip execution of downstreams</p>
+<hr>
+<h5 id="streamfantasy-landof"><a href="#streamfantasy-landof">Stream[&quot;fantasy-land/of&quot;]</a></h5>
+<p>This method is functionally identical to <code>stream</code>. It exists to conform to <a href="https://github.com/fantasyland/fantasy-land">Fantasy Land&#39;s Applicative specification</a>. For more information, see the <a href="#what-is-fantasy-land">What is Fantasy Land</a> section.</p>
+<p><code>stream = Stream[&quot;fantasy-land/of&quot;](value)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>value</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>If this argument is present, the value of the stream is set to it</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="instance-members"><a href="#instance-members">Instance members</a></h4>
+<h5 id="streammap"><a href="#streammap">stream.map</a></h5>
+<p>Creates a dependent stream whose value is set to the result of the callback function. This method is an alias of <a href="#streamfantasy-landmap">stream[&quot;fantasy-land/map&quot;]</a>.</p>
+<p><code>dependentStream = stream().map(callback)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>callback</code></td>
+<td><code>any -&gt; any</code></td>
+<td>Yes</td>
+<td>A callback whose return value becomes the value of the stream</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streamend"><a href="#streamend">stream.end</a></h5>
+<p>A co-dependent stream that unregisters dependent streams when set to true. See <a href="#ended-state">ended state</a>.</p>
+<p><code>endStream = stream().end</code></p>
+<hr>
+<h5 id="streamfantasy-landof1"><a href="#streamfantasy-landof1">stream[&quot;fantasy-land/of&quot;]</a></h5>
+<p>This method is functionally identical to <code>stream</code>. It exists to conform to <a href="https://github.com/fantasyland/fantasy-land">Fantasy Land&#39;s Applicative specification</a>. For more information, see the <a href="#what-is-fantasy-land">What is Fantasy Land</a> section.</p>
+<p><code>stream = stream()[&quot;fantasy-land/of&quot;](value)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>value</code></td>
+<td><code>any</code></td>
+<td>No</td>
+<td>If this argument is present, the value of the stream is set to it</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5 id="streamfantasy-landmap"><a href="#streamfantasy-landmap">stream[&quot;fantasy-land/map&quot;]</a></h5>
+<p>Creates a dependent stream whose value is set to the result of the callback function. See <a href="#chaining-streams">chaining streams</a></p>
+<p>This method exists to conform to <a href="https://github.com/fantasyland/fantasy-land">Fantasy Land&#39;s Applicative specification</a>. For more information, see the <a href="#what-is-fantasy-land">What is Fantasy Land</a> section.</p>
+<p><code>dependentStream = stream()[&quot;fantasy-land/map&quot;](callback)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>callback</code></td>
+<td><code>any -&gt; any</code></td>
+<td>Yes</td>
+<td>A callback whose return value becomes the value of the stream</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h5 id="streamfantasy-landap"><a href="#streamfantasy-landap">stream[&quot;fantasy-land/ap&quot;]</a></h5>
+<p>The name of this method stands for <code>apply</code>. If a stream <code>a</code> has a function as its value, another stream <code>b</code> can use it as the argument to <code>b.ap(a)</code>. Calling <code>ap</code> will call the function with the value of stream <code>b</code> as its argument, and it will return another stream whose value is the result of the function call. This method exists to conform to <a href="https://github.com/fantasyland/fantasy-land">Fantasy Land&#39;s Applicative specification</a>. For more information, see the <a href="#what-is-fantasy-land">What is Fantasy Land</a> section.</p>
+<p><code>stream = stream()[&quot;fantasy-land/ap&quot;](apply)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apply</code></td>
+<td><code>Stream</code></td>
+<td>Yes</td>
+<td>A stream whose value is a function</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td><code>Stream</code></td>
+<td></td>
+<td>Returns a stream</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="basic-usage"><a href="#basic-usage">Basic usage</a></h3>
+<p>Streams are not part of the core Mithril distribution. To include them in a project, require its module:</p>
+<pre><code class="lang-javascript">var stream = require(&quot;mithril/stream&quot;)
+</code></pre>
+<h4 id="streams-as-variables"><a href="#streams-as-variables">Streams as variables</a></h4>
+<p><code>stream()</code> returns a stream. At its most basic level, a stream works similar to a variable or a getter-setter property: it can hold state, which can be modified.</p>
+<pre><code class="lang-javascript">var username = stream(&quot;John&quot;)
+console.log(username()) // logs &quot;John&quot;
+
+username(&quot;John Doe&quot;)
+console.log(username()) // logs &quot;John Doe&quot;
+</code></pre>
+<p>The main difference is that a stream is a function, and therefore can be composed into higher order functions.</p>
+<pre><code class="lang-javascript">var users = stream()
+
+// request users from a server using the fetch API
+fetch(&quot;/api/users&quot;)
+    .then(function(response) {return response.json()})
+    .then(users)
+</code></pre>
+<p>In the example above, the <code>users</code> stream is populated with the response data when the request resolves.</p>
+<h4 id="bidirectional-bindings"><a href="#bidirectional-bindings">Bidirectional bindings</a></h4>
+<p>Streams can also be populated from event callbacks and similar.</p>
+<pre><code class="lang-javascript">// a stream
+var user = stream(&quot;&quot;)
+
+// a bi-directional binding to the stream
+m(&quot;input&quot;, {
+    oninput: function (e) { user(e.target.value) },
+    value: user()
+})
+</code></pre>
+<p>In the example above, when the user types in the input, the <code>user</code> stream is updated to the value of the input field.</p>
+<h4 id="computed-properties"><a href="#computed-properties">Computed properties</a></h4>
+<p>Streams are useful for implementing computed properties:</p>
+<pre><code class="lang-javascript">var title = stream(&quot;&quot;)
+var slug = title.map(function(value) {
+    return value.toLowerCase().replace(/\W/g, &quot;-&quot;)
+})
+
+title(&quot;Hello world&quot;)
+console.log(slug()) // logs &quot;hello-world&quot;
+</code></pre>
+<p>In the example above, the value of <code>slug</code> is computed when <code>title</code> is updated, not when <code>slug</code> is read.</p>
+<p>It&#39;s of course also possible to compute properties based on multiple streams:</p>
+<pre><code class="lang-javascript">var firstName = stream(&quot;John&quot;)
+var lastName = stream(&quot;Doe&quot;)
+var fullName = stream.merge([firstName, lastName]).map(function(values) {
+    return values.join(&quot; &quot;)
+})
+
+console.log(fullName()) // logs &quot;John Doe&quot;
+
+firstName(&quot;Mary&quot;)
+
+console.log(fullName()) // logs &quot;Mary Doe&quot;
+</code></pre>
+<p>Computed properties in Mithril are updated atomically: streams that depend on multiple streams will never be called more than once per value update, no matter how complex the computed property&#39;s dependency graph is.</p>
+<hr>
+<h3 id="chaining-streams"><a href="#chaining-streams">Chaining streams</a></h3>
+<p>Streams can be chained using the <code>map</code> method. A chained stream is also known as a <em>dependent stream</em>.</p>
+<pre><code class="lang-javascript">// parent stream
+var value = stream(1)
+
+// dependent stream
+var doubled = value.map(function(value) {
+    return value * 2
+})
+
+console.log(doubled()) // logs 2
+</code></pre>
+<p>Dependent streams are <em>reactive</em>: their values are updated any time the value of their parent stream is updated. This happens regardless of whether the dependent stream was created before or after the value of the parent stream was set.</p>
+<p>You can prevent dependent streams from being updated by returning the special value <code>stream.SKIP</code></p>
+<pre><code class="lang-javascript">var skipped = stream(1).map(function(value) {
+    return stream.SKIP
+})
+
+skipped.map(function() {
+    // never runs
+})
+</code></pre>
+<hr>
+<h3 id="combining-streams"><a href="#combining-streams">Combining streams</a></h3>
+<p>Streams can depend on more than one parent stream. These kinds of streams can be created via <code>stream.merge()</code></p>
+<pre><code class="lang-javascript">var a = stream(&quot;hello&quot;)
+var b = stream(&quot;world&quot;)
+
+var greeting = stream.merge([a, b]).map(function(values) {
+    return values.join(&quot; &quot;)
+})
+
+console.log(greeting()) // logs &quot;hello world&quot;
+</code></pre>
+<p>Or you can use the helper function <code>stream.lift()</code></p>
+<pre><code class="lang-javascript">var a = stream(&quot;hello&quot;)
+var b = stream(&quot;world&quot;)
+
+var greeting = stream.lift(function(_a, _b) {
+    return _a + &quot; &quot; + _b
+}, a, b)
+
+console.log(greeting()) // logs &quot;hello world&quot;
+</code></pre>
+<p>There&#39;s also a lower level method called <code>stream.combine()</code> that exposes the stream themselves in the reactive computations for more advanced use cases</p>
+<pre><code class="lang-javascript">var a = stream(5)
+var b = stream(7)
+
+var added = stream.combine(function(a, b) {
+    return a() + b()
+}, [a, b])
+
+console.log(added()) // logs 12
+</code></pre>
+<p>A stream can depend on any number of streams and it&#39;s guaranteed to update atomically. For example, if a stream A has two dependent streams B and C, and a fourth stream D is dependent on both B and C, the stream D will only update once if the value of A changes. This guarantees that the callback for stream D is never called with unstable values such as when B has a new value but C has the old value. Atomicity also brings the performance benefits of not recomputing downstreams unnecessarily.</p>
+<p>You can prevent dependent streams from being updated by returning the special value <code>stream.SKIP</code></p>
+<pre><code class="lang-javascript">var skipped = stream.combine(function(stream) {
+    return stream.SKIP
+}, [stream(1)])
+
+skipped.map(function() {
+    // never runs
+})
+</code></pre>
+<hr>
+<h3 id="stream-states"><a href="#stream-states">Stream states</a></h3>
+<p>At any given time, a stream can be in one of three states: <em>pending</em>, <em>active</em>, and <em>ended</em>.</p>
+<h4 id="pending-state"><a href="#pending-state">Pending state</a></h4>
+<p>Pending streams can be created by calling <code>stream()</code> with no parameters.</p>
+<pre><code class="lang-javascript">var pending = stream()
+</code></pre>
+<p>If a stream is dependent on more than one stream, any of its parent streams is in a pending state, the dependent streams is also in a pending state, and does not update its value.</p>
+<pre><code class="lang-javascript">var a = stream(5)
+var b = stream() // pending stream
+
+var added = stream.combine(function(a, b) {
+    return a() + b()
+}, [a, b])
+
+console.log(added()) // logs undefined
+</code></pre>
+<p>In the example above, <code>added</code> is a pending stream, because its parent <code>b</code> is also pending.</p>
+<p>This also applies to dependent streams created via <code>stream.map</code>:</p>
+<pre><code class="lang-javascript">var value = stream()
+var doubled = value.map(function(value) {return value * 2})
+
+console.log(doubled()) // logs undefined because `doubled` is pending
+</code></pre>
+<h4 id="active-state"><a href="#active-state">Active state</a></h4>
+<p>When a stream receives a value, it becomes active (unless the stream is ended).</p>
+<pre><code class="lang-javascript">var stream1 = stream(&quot;hello&quot;) // stream1 is active
+
+var stream2 = stream() // stream2 starts off pending
+stream2(&quot;world&quot;) // then becomes active
+</code></pre>
+<p>A dependent stream with multiple parents becomes active if all of its parents are active.</p>
+<pre><code class="lang-javascript">var a = stream(&quot;hello&quot;)
+var b = stream()
+
+var greeting = stream.merge([a, b]).map(function(values) {
+    return values.join(&quot; &quot;)
+})
+</code></pre>
+<p>In the example above, the <code>a</code> stream is active, but <code>b</code> is pending. setting <code>b(&quot;world&quot;)</code> would cause <code>b</code> to become active, and therefore <code>greeting</code> would also become active, and be updated to have the value <code>&quot;hello world&quot;</code></p>
+<h4 id="ended-state"><a href="#ended-state">Ended state</a></h4>
+<p>A stream can stop affecting its dependent streams by calling <code>stream.end(true)</code>. This effectively removes the connection between a stream and its dependent streams.</p>
+<pre><code class="lang-javascript">var value = stream()
+var doubled = value.map(function(value) {return value * 2})
+
+value.end(true) // set to ended state
+
+value(5)
+
+console.log(doubled())
+// logs undefined because `doubled` no longer depends on `value`
+</code></pre>
+<p>Ended streams still have state container semantics, i.e. you can still use them as getter-setters, even after they are ended.</p>
+<pre><code class="lang-javascript">var value = stream(1)
+value.end(true) // set to ended state
+
+console.log(value(1)) // logs 1
+
+value(2)
+console.log(value()) // logs 2
+</code></pre>
+<p>Ending a stream can be useful in cases where a stream has a limited lifetime (for example, reacting to <code>mousemove</code> events only while a DOM element is being dragged, but not after it&#39;s been dropped).</p>
+<hr>
+<h3 id="serializing-streams"><a href="#serializing-streams">Serializing streams</a></h3>
+<p>Streams implement a <code>.toJSON()</code> method. When a stream is passed as the argument to <code>JSON.stringify()</code>, the value of the stream is serialized.</p>
+<pre><code class="lang-javascript">var value = stream(123)
+var serialized = JSON.stringify(value)
+console.log(serialized) // logs 123
+</code></pre>
+<hr>
+<h3 id="streams-do-not-trigger-rendering"><a href="#streams-do-not-trigger-rendering">Streams do not trigger rendering</a></h3>
+<p>Unlike libraries like Knockout, Mithril streams do not trigger re-rendering of templates. Redrawing happens in response to event handlers defined in Mithril component views, route changes, or after <a href="request.html"><code>m.request</code></a> calls resolve.</p>
+<p>If redrawing is desired in response to other asynchronous events (e.g. <code>setTimeout</code>/<code>setInterval</code>, websocket subscription, 3rd party library event handler, etc), you should manually call <a href="redraw.html"><code>m.redraw()</code></a></p>
+<hr>
+<h3 id="what-is-fantasy-land"><a href="#what-is-fantasy-land">What is Fantasy Land</a></h3>
+<p><a href="https://github.com/fantasyland/fantasy-land">Fantasy Land</a> specifies interoperability of common algebraic structures. In plain english, that means that libraries that conform to Fantasy Land specs can be used to write generic functional style code that works regardless of how these libraries implement the constructs.</p>
+<p>For example, say we want to create a generic function called <code>plusOne</code>. The naive implementation would look like this:</p>
+<pre><code class="lang-javascript">function plusOne(a) {
+    return a + 1
+}
+</code></pre>
+<p>The problem with this implementation is that it can only be used with a number. However it&#39;s possible that whatever logic produces a value for <code>a</code> could also produce an error state (wrapped in a Maybe or an Either from a library like <a href="https://github.com/sanctuary-js/sanctuary">Sanctuary</a> or <a href="https://github.com/ramda/ramda-fantasy">Ramda-Fantasy</a>), or it could be a Mithril stream, or a <a href="https://github.com/paldepind/flyd">flyd</a> stream, etc. Ideally, we wouldn&#39;t want to write a similar version of the same function for every possible type that <code>a</code> could have and we wouldn&#39;t want to be writing wrapping/unwrapping/error handling code repeatedly.</p>
+<p>This is where Fantasy Land can help. Let&#39;s rewrite that function in terms of a Fantasy Land algebra:</p>
+<pre><code class="lang-javascript">var fl = require(&quot;fantasy-land&quot;)
+
+function plusOne(a) {
+    return a[fl.map](function(value) {return value + 1})
+}
+</code></pre>
+<p>Now this method works with any Fantasy Land compliant <a href="https://github.com/fantasyland/fantasy-land#functor">Functor</a>, such as <a href="https://github.com/ramda/ramda-fantasy/blob/master/docs/Maybe.md"><code>R.Maybe</code></a>, <a href="https://github.com/sanctuary-js/sanctuary#either-type"><code>S.Either</code></a>, <code>stream</code>, etc.</p>
+<p>This example may seem convoluted, but it&#39;s a trade-off in complexity: the naive <code>plusOne</code> implementation makes sense if you have a simple system and only ever increment numbers, but the Fantasy Land implementation becomes more powerful if you have a large system with many wrapper abstractions and reused algorithms.</p>
+<p>When deciding whether you should adopt Fantasy Land, you should consider your team&#39;s familiarity with functional programming, and be realistic regarding the level of discipline that your team can commit to maintaining code quality (vs the pressure of writing new features and meeting deadlines). Functional style programming heavily depends on compiling, curating and mastering a large set of small, precisely defined functions, and therefore it&#39;s not suitable for teams who do not have solid documentation practices, and/or lack experience in functional oriented languages.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.4/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,133 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> 3rd Party Integration - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>1.1.6</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="3rd-party-integration"><a href="#3rd-party-integration">3rd Party Integration</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><strong><a href="integrating-libs.html">3rd Party Integration</a></strong></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><a href="components.html">Components</a></li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+</ul>
+</li>
+</ul>
+<p>Integration with third party libraries or vanilla javascript code can be achieved via <a href="lifecycle-methods.html">lifecycle methods</a>.</p>
+<h2 id="example"><a href="#example">Example</a></h2>
+<pre><code class="lang-javascript">var FullCalendar = {
+
+    oncreate: function (vnode) {
+        console.log(&#39;FullCalendar::oncreate&#39;)
+        $(vnode.dom).fullCalendar({
+            // put your initial options and callbacks here
+        })
+
+        Object.assign(vnode.attrs.parentState, {fullCalendarEl: vnode.dom})
+    },
+
+    // Consider that the lib will modify this parent element in the DOM (e.g. add dependent class attribute and values).
+    // As long as you return the same view results here, mithril will not
+    // overwrite the actual DOM because it&#39;s always comparing old and new VDOM
+    // before applying DOM updates.
+    view: function (vnode) {
+        return m(&#39;div&#39;)
+    },
+
+    onbeforeremove: function (vnode) {
+        // Run any destroy / cleanup methods here.
+        //E.g. $(vnode.state.fullCalendarEl).fullCalendar(&#39;destroy&#39;)
+    }
+}
+
+m.mount(document.body, {
+    view: function (vnode) {
+        return [
+            m(&#39;h1&#39;, &#39;Calendar&#39;),
+            m(FullCalendar, {parentState: vnode.state}),
+            m(&#39;button&#39;, {onclick: prev}, &#39;Mithril Button -&#39;),
+            m(&#39;button&#39;, {onclick: next}, &#39;Mithril Button +&#39;)
+
+        ]
+
+        function next() {
+            $(vnode.state.fullCalendarEl).fullCalendar(&#39;next&#39;)
+        }
+
+        function prev() {
+            $(vnode.state.fullCalendarEl).fullCalendar(&#39;prev&#39;)
+        }
+
+    }
+
+})
+</code></pre>
+<p>Running example <a href="https://flems.io/#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvAHigjQGsACAJxigBeADog4xAJ6w4hGDGKjuhfmBEgSxAA5xEAel3UAJmgBWcfNSi0ArobBQM-C7Sy6MJjAA9d7AEZxdMGsoKGoMWDRDR10AZnwAdnwABkDg0PCmKN58LA4LODhRAD4QAF8KdGxcRAIzShp6RmYagDdHbgAxNIBhDMj2wW5gYTQR4WJ6an4MRkRuILRqYgh6bgAKFrRaQxgASiGxhWI6NDhaWHwrAHM1gHIukN6oft5EREnpxlvdw-GAEg2Wx2+EMLl2+CCjz6WTWw1GR3G+m4mmsxG4EhsvG4HAgy3C3FommW9Dg3AwkW4YRCvgw1E4pNk-F+xFKP1G8PGAHlfCYYEt8BgChArmhAdsYALiMReOZNI4mMQAMrEGYwChDSFQJ6ZRwAUSgc024pBLlZh3KY3hLQgMAA7nMFksVmh1kadvs4eNxvxiNZeC6sHdDBAWt9zRRLeN6L4YGBaPx+FhaC0YA7rItiS6xe6DhziEiAErpsloCTcHbiXi0Mu6SmwcnWTTcHDEQjbBkwJzM-QAt0S8SqiE9aF6qDgzXal5B+DS6th+GlEaL9lYHI2BhrUHUaw4Bj4XzbCTqz3Ea12tMZ52uoF7XNe6XyP0u5DM8aB26EACMt3Vt0nWW+CM8zfNYHi1EdeGPOV+AYZVVUNG98AHRhWSA+8QNuXxUQmNAfzvBEjkmdg6TmTR+BaV8WV-ABZXFlGgbgACFsNWABaQDKPfLCpXoPCT3QnDLAgEjuDQGBPAUYCqO4W5aNbXgGOYniXQAannZkAF1IyOR1M1E8TiDWD1KN7RDkIlCcIP1cdhwiGFbjEiT1KOZdmV0q8yJgFojPw+9TONcyhyhOzRxs4KdV4O5PNDNl71chdLVZMoKhATAcDwfIECoE4mmIPAyg0qh2C4BAUEqdKalyeToHqP1yBqDRtD0XR000TgrmcVwqvoqAAAFP3wAaAFZdG6hSoHwOoqEkTRqhAOpynKuak13PKqDqvBGp0fRWvazrRpcBVeoAJkGgBOfBjoO1bJqykAZrmhaUrSx6AEdrE7CRat4er1ClJqdrQNqOroVwTHez7eriU7P10YNxF0cGPt4CRbvqB68Cepa8E1KkIu+36tua3aQZcVIQjxl4oYSZI4YgBHcYgtHpokWbMYQUoNNKIA">flems: FullCalendar</a></p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@1.1.6/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

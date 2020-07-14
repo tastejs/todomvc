@@ -2222,15 +2222,14 @@ module.exports = m
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ENTER_KEY = exports.ESCAPE_KEY = exports.saveState = exports.model = exports.newTodo = void 0;
-var TODO = {
-  title: "",
-  status: "active",
-  isEditing: false
-};
+exports.ROUTES = exports.ENTER_KEY = exports.ESCAPE_KEY = exports.saveState = exports.model = exports.newTodo = void 0;
 
 var newTodo = function newTodo() {
-  return JSON.parse(JSON.stringify(TODO));
+  return JSON.parse(JSON.stringify({
+    title: "",
+    status: "active",
+    isEditing: false
+  }));
 };
 
 exports.newTodo = newTodo;
@@ -2250,6 +2249,17 @@ var ESCAPE_KEY = 27;
 exports.ESCAPE_KEY = ESCAPE_KEY;
 var ENTER_KEY = 13;
 exports.ENTER_KEY = ENTER_KEY;
+var ROUTES = [{
+  route: "/",
+  filter: "all"
+}, {
+  route: "/active",
+  filter: "active"
+}, {
+  route: "/completed",
+  filter: "completed"
+}];
+exports.ROUTES = ROUTES;
 },{}],"js/header.js":[function(require,module,exports) {
 "use strict";
 
@@ -2302,6 +2312,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Body = {
   view: function view(_ref) {
     var mdl = _ref.attrs.mdl;
+    console.log(_mithril.default.route.get());
     return (0, _mithril.default)("section.main", [(0, _mithril.default)("input.toggle-all[id='toggle-all'][type='checkbox']", {
       checked: mdl.todos.filter(function (todo) {
         return todo.status == "completed";
@@ -2313,7 +2324,7 @@ var Body = {
         (0, _model.saveState)(mdl);
       }
     }), (0, _mithril.default)("label[for='toggle-all']", "Mark all as complete"), (0, _mithril.default)("ul.todo-list", mdl.todos.filter(function (todo) {
-      return mdl.filter == "all" ? todo : todo.status == mdl.filter;
+      return _mithril.default.route.get() == "/" ? todo : todo.status == _mithril.default.route.get().split("/")[1];
     }).map(function (todo, idx) {
       return (0, _mithril.default)("li.".concat(todo.status, ".").concat(todo.isEditing && "editing"), {
         key: idx
@@ -2370,6 +2381,8 @@ exports.default = void 0;
 
 var _mithril = _interopRequireDefault(require("mithril"));
 
+var _model = require("./model");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var totalActiveTodos = function totalActiveTodos(mdl) {
@@ -2387,13 +2400,14 @@ var todosCompleted = function todosCompleted(mdl) {
 var Footer = {
   view: function view(_ref) {
     var mdl = _ref.attrs.mdl;
-    return (0, _mithril.default)("footer.footer", [(0, _mithril.default)("span.todo-count", [(0, _mithril.default)("strong", "".concat(totalActiveTodos(mdl), " ").concat(totalActiveTodos(mdl) == 1 ? "item" : "items"))]), (0, _mithril.default)("ul.filters", [(0, _mithril.default)("li", (0, _mithril.default)("a[href='#!/']", {
-      class: mdl.filter == "all" && "selected"
-    }, "All")), (0, _mithril.default)("li", (0, _mithril.default)("a[href='#!/active']", {
-      class: mdl.filter == "active" && "selected"
-    }, "Active")), (0, _mithril.default)("li", (0, _mithril.default)("a[href='#!/completed']", {
-      class: mdl.filter == "completed" && "selected"
-    }, "Completed"))]), todosCompleted(mdl) >= 1 && (0, _mithril.default)("button.clear-completed", {
+    return (0, _mithril.default)("footer.footer", [(0, _mithril.default)("span.todo-count", [(0, _mithril.default)("strong", "".concat(totalActiveTodos(mdl), " ").concat(totalActiveTodos(mdl) == 1 ? "item" : "items"))]), (0, _mithril.default)("ul.filters", _model.ROUTES.map(function (_ref2) {
+      var route = _ref2.route,
+          filter = _ref2.filter;
+      return (0, _mithril.default)("li", (0, _mithril.default)(_mithril.default.route.Link, {
+        class: _mithril.default.route.get() == route && "selected",
+        href: route
+      }, filter));
+    })), todosCompleted(mdl) >= 1 && (0, _mithril.default)("button.clear-completed", {
       onclick: function onclick(_) {
         return mdl.todos.map(function (todo) {
           return todo.status = "active";
@@ -2404,7 +2418,7 @@ var Footer = {
 };
 var _default = Footer;
 exports.default = _default;
-},{"mithril":"node_modules/mithril/index.js"}],"js/routes.js":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","./model":"js/model.js"}],"js/routes.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2419,6 +2433,8 @@ var _header = _interopRequireDefault(require("./header"));
 var _body = _interopRequireDefault(require("./body"));
 
 var _footer = _interopRequireDefault(require("./footer"));
+
+var _model = require("./model");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2436,43 +2452,22 @@ var Layout = {
 };
 
 var Routes = function Routes(mdl) {
-  return {
-    "/": {
-      onmatch: function onmatch() {
-        return mdl.filter = "all";
-      },
+  return _model.ROUTES.reduce(function (routes, _ref2) {
+    var route = _ref2.route;
+    routes[route] = {
       render: function render() {
         return (0, _mithril.default)(Layout, {
           mdl: mdl
         });
       }
-    },
-    "/active": {
-      onmatch: function onmatch() {
-        return mdl.filter = "active";
-      },
-      render: function render() {
-        return (0, _mithril.default)(Layout, {
-          mdl: mdl
-        });
-      }
-    },
-    "/completed": {
-      onmatch: function onmatch() {
-        return mdl.filter = "completed";
-      },
-      render: function render() {
-        return (0, _mithril.default)(Layout, {
-          mdl: mdl
-        });
-      }
-    }
-  };
+    };
+    return routes;
+  }, {});
 };
 
 var _default = Routes;
 exports.default = _default;
-},{"mithril":"node_modules/mithril/index.js","./header":"js/header.js","./body":"js/body.js","./footer":"js/footer.js"}],"js/index.js":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","./header":"js/header.js","./body":"js/body.js","./footer":"js/footer.js","./model":"js/model.js"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 var _mithril = _interopRequireDefault(require("mithril"));
@@ -2485,9 +2480,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var root = document.getElementById("todomvc");
 var mdl = localStorage.getItem("todos-mithril") ? JSON.parse(localStorage.getItem("todos-mithril")) : _model.model;
+_mithril.default.route.prefix = "";
 
 _mithril.default.route(root, "/", (0, _routes.default)(mdl));
-},{"mithril":"node_modules/mithril/index.js","./model":"js/model.js","./routes":"js/routes.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","./model":"js/model.js","./routes":"js/routes.js"}],"../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2515,7 +2511,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56478" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51119" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -2691,5 +2687,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel/src/builtins/hmr-runtime.js","js/index.js"], null)
+},{}]},{},["../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
 //# sourceMappingURL=/js.00a46daa.js.map

@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> render(element, vnodes) - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.1</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="renderelement,-vnodes"><a href="#renderelement,-vnodes">render(element, vnodes)</a></h1>
+<ul>
+<li>Core<ul>
+<li><a href="hyperscript.html">m</a></li>
+<li><strong><a href="render.html">m.render</a></strong><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#signature">Signature</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#why-virtual-dom">Why Virtual DOM</a></li>
+<li><a href="#differences-from-other-api-methods">Differences from other API methods</a></li>
+<li><a href="#standalone-usage">Standalone usage</a></li>
+</ul>
+</li>
+<li><a href="mount.html">m.mount</a></li>
+<li><a href="route.html">m.route</a></li>
+<li><a href="request.html">m.request</a></li>
+<li><a href="jsonp.html">m.jsonp</a></li>
+<li><a href="parseQueryString.html">m.parseQueryString</a></li>
+<li><a href="buildQueryString.html">m.buildQueryString</a></li>
+<li><a href="withAttr.html">m.withAttr</a></li>
+<li><a href="prop.html">m.prop</a></li>
+<li><a href="trust.html">m.trust</a></li>
+<li><a href="fragment.html">m.fragment</a></li>
+<li><a href="redraw.html">m.redraw</a></li>
+<li><a href="version.html">m.version</a></li>
+<li><a href="promise.html">Promise</a></li>
+</ul>
+</li>
+<li>Optional<ul>
+<li><a href="stream.html">Stream</a></li>
+</ul>
+</li>
+<li>Tooling<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/blob/master/ospec">Ospec</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="description"><a href="#description">Description</a></h3>
+<p>Renders a template to the DOM</p>
+<pre><code class="lang-javascript">m.render(document.body, &quot;hello&quot;)
+// &lt;body&gt;hello&lt;/body&gt;
+</code></pre>
+<hr>
+<h3 id="signature"><a href="#signature">Signature</a></h3>
+<p><code>m.render(element, vnodes)</code></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>element</code></td>
+<td><code>Element</code></td>
+<td>Yes</td>
+<td>A DOM element that will be the parent node to the subtree</td>
+</tr>
+<tr>
+<td><code>vnodes</code></td>
+<td><code>Array&lt;Vnode&gt;&#124;Vnode</code></td>
+<td>Yes</td>
+<td>The <a href="vnodes.html">vnodes</a> to be rendered</td>
+</tr>
+<tr>
+<td><strong>returns</strong></td>
+<td></td>
+<td></td>
+<td>Returns <code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a href="signatures.html">How to read signatures</a></p>
+<hr>
+<h3 id="how-it-works"><a href="#how-it-works">How it works</a></h3>
+<p>The <code>m.render(element, vnodes)</code> method takes a virtual DOM tree (typically generated via the <a href="hyperscript.html"><code>m()</code> hyperscript function</a>), generates a DOM tree and mounts it on <code>element</code>. If <code>element</code> already has a DOM tree mounted via a previous <code>m.render()</code> call, <code>vnodes</code> is diffed against the previous <code>vnodes</code> tree and the existing DOM tree is modified only where needed to reflect the changes. Unchanged DOM nodes are not touched at all. </p>
+<p><code>m.render</code> is synchronous.</p>
+<hr>
+<h3 id="why-virtual-dom"><a href="#why-virtual-dom">Why Virtual DOM</a></h3>
+<p>It may seem wasteful to generate a vnode tree on every redraw, but as it turns out, creating and comparing Javascript data structures is surprisingly cheap compared to reading and modifying the DOM.</p>
+<p>Touching the DOM can be extremely expensive for a couple of reasons. Alternating reads and writes can adversely affect performance by causing several browser repaints to occur in quick succession, whereas comparing virtual dom trees allows writes to be batched into a single repaint. Also, the performance characteristics of various DOM operations vary between implementations and can be difficult to learn and optimize for all browsers. For example, in some implementations, reading <code>childNodes.length</code> has a complexity of O(n); in some, reading <code>parentNode</code> causes a repaint, etc.</p>
+<p>In contrast, traversing a javascript data structure has a much more predictable and sane performance profile, and in addition, a vnode tree is implemented in such a way that enables modern javascript engines to apply aggressive optimizations such as hidden classes for even better performance.</p>
+<hr>
+<h3 id="differences-from-other-api-methods"><a href="#differences-from-other-api-methods">Differences from other API methods</a></h3>
+<p><code>m.render()</code> method is internally called by <a href="mount.html"><code>m.mount()</code></a>, <a href="route.html"><code>m.route()</code></a>, <a href="redraw.html"><code>m.redraw()</code></a> and <a href="request.html"><code>m.request()</code></a>. It is not called after <a href="stream.html">stream updates</a></p>
+<p>Unlike with <code>m.mount()</code> and <code>m.route()</code>, a vnode tree rendered via <code>m.render()</code> does not auto-redraw in response to view events, <code>m.redraw()</code> calls or <code>m.request()</code> calls. It is a low level mechanism suitable for library authors who wish to manually control rendering instead of relying on Mithril&#39;s built-in auto-redrawing system.</p>
+<p>Another difference is that <code>m.render</code> method expects a <a href="vnodes.html">vnode</a> (or a array of vnodes) as its second parameter, whereas <code>m.mount()</code> and <code>m.route()</code> expect components.</p>
+<hr>
+<h3 id="standalone-usage"><a href="#standalone-usage">Standalone usage</a></h3>
+<p><code>var render = require(&quot;mithril/render&quot;)</code></p>
+<p>The <code>m.render</code> module is similar in scope to view libraries like Knockout, React and Vue. It is approximately 500 lines of code (3kb min+gzip) and implements a virtual DOM diffing engine with a modern search space reduction algorithm and DOM recycling, which translate to top-of-class performance, both in terms of initial page load and re-rendering. It has no dependencies on other parts of Mithril and can be used as a standalone library.</p>
+<p>Despite being incredibly small, the render module is fully functional and self-sufficient. It supports everything you might expect: SVG, custom elements, and all valid attributes and events - without any weird case-sensitive edge cases or exceptions. Of course, it also fully supports <a href="components.html">components</a> and <a href="lifecycle-methods.html">lifecycle methods</a>.</p>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.1/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

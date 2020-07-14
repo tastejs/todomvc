@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Mithril</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic" rel="stylesheet">
+		<link href="lib/prism/prism.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<nav class="container">
+				<a href="index.html" class="logo"><span>&#9675;</span> Mithril</a>
+				<a href="getting-started.html">Guide</a>
+				<a href="mithril.html">API</a>
+				<a href="mithril.min.zip">Download</a>
+				<a href="http://github.com/lhorie/mithril.js" target="_blank">Github</a>
+			</nav>
+		<div class="deprecated">
+    WARNING: This documentation is for an old version of mithril!
+    Please see the <a href="https://mithril.js.org/">current docs</a> for more accurate info.
+</div></header>
+		<main>
+			<section class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col(3,3,12)">
+							<h2 id="core-topics">Core Topics</h2>
+							<ul>
+								<li><a href="installation.html">Installation</a></li>
+								<li><a href="getting-started.html">Getting Started</a></li>
+								<li><a href="routing.html">Routing</a></li>
+								<li><a href="web-services.html">Web Services</a></li>
+								<li><a href="components.html">Components</a></li>
+							</ul>
+							<h2 id="advanced-topics.html">Advanced Topics</h2>
+							<ul>
+								<li><a href="compiling-templates.html">Compiling Templates</a></li>
+								<li><a href="auto-redrawing.html">The Auto-Redrawing System</a></li>
+								<li><a href="integration.html">Integrating with Other Libraries</a></li>
+							</ul>
+							<h2 id="misc">Misc</h2>
+							<ul>
+								<li><a href="comparison.html">Differences from Other MVC Frameworks</a></li>
+								<li><a href="practices.html">Good Practices</a></li>
+								<li><a href="tools.html">Useful Tools</a></li>
+							</ul>
+						</div>
+						<div class="col(9,9,12)">
+							<h2 id="how-should-code-be-organized">How Should Code Be Organized</h2>
+<p>While Mithril doesn&#39;t dictate how to organize your code, it does provide some recommendations for structuring it.</p>
+<p>As a rule of thumb, controllers should not change model entity properties on an individual basis.</p>
+<p>Data manipulation should be done in model classes, such that controllers never have entities lying around in temporarily invalid states.</p>
+<p>Mithril&#39;s design strongly encourages all entity logic to be handled in atomic model layer methods (in the sense of entity state stability).</p>
+<p>In fact, unavoidable abstraction leaks (such as network-bound asynchrony) are laid out in such a way as to make idiomatic code organization elegant, and conversely, to make it so that the abstraction leak problems themselves discourage attempts to misplace entity logic in the controller.</p>
+<p>This design decision comes from experience with DRY and <a href="http://en.wikipedia.org/wiki/Bus_factor">&quot;bus factor&quot;</a> of large, highly relational model layers.</p>
+<p>This is in stark contrast to the ActiveRecord pattern of other frameworks, where model entities are largely object representations of database entities and these entities are manipulated in controllers in an ad-hoc field-by-field fashion, and the &quot;committed&quot; via a <code>save</code> method.</p>
+<p>Because Mithril encourages all entity logic to be done in the model layer, it&#39;s idiomatic to create modules with model-level classes that deal specifically with relationship between entities, when there isn&#39;t already a model entity that can logically hold the relational business logic.</p>
+<p>Models are also responsible for centralizing tasks such as filtering of entity lists and validation routines, so that access to these methods is available across the application.</p>
+<p>DOM manipulation should be done in the view via <a href="mithril"><code>m()</code> and <code>config</code></a>. Controllers may explicitly call <a href="mithril.redraw"><code>m.redraw</code></a>, but, if possible, it&#39;s preferable to abstract this into a service which integrates w/ Mithril&#39;s auto-redrawing system (see. <a href="mithril.computation"><code>m.startComputation</code> / <code>m.endComputation</code></a>)</p>
+<hr>
+<h2 id="file-separation">File Separation</h2>
+<p>The examples in this site usually conflate different MVC layers together for the sake of readability, but normally it&#39;s recommended that each layer on a module be in different files. For example:</p>
+<pre><code class="lang-javascript">//app.model.js
+var app = {};
+
+app.PageList = function() {
+    return m.request({method: &quot;GET&quot;, url: &quot;pages.json&quot;});
+};</code></pre>
+<pre><code class="lang-javascript">//app.controller.js
+app.controller = function() {
+    this.pages = new app.PageList();
+};</code></pre>
+<pre><code class="lang-javascript">//app.view.js
+app.view = function(ctrl) {
+    return ctrl.pages().map(function(page) {
+        return m(&quot;a&quot;, {href: page.url}, page.title);
+    });
+};</code></pre>
+<p>You can use task automation tools such as GruntJS to concatenate the files back together for production.</p>
+<p>Typically, when separating MVC layers, it&#39;s common that the namespace declaration be in the model layer, since this is usually the most used dependency for the other layers.</p>
+<p>You may choose to declare the namespace in a separate file or have the build system generate it on demand, instead.</p>
+<p>You should avoid grouping classes by the MVC layer they belong to, i.e. don&#39;t create 3 files called model.js, controllers.js and views.js.</p>
+<p>That organization pattern needlessly ties unrelated aspects of the application together and dilutes the clarity of modules.</p>
+<hr>
+<h2 id="global-namespace-hygiene">Global Namespace Hygiene</h2>
+<p>For developer convenience, Mithril uses the global <code>m</code> variable as a namespace, much like jQuery uses <code>$</code>.</p>
+<p>If you want to ensure global namespace hygiene, you can wrap your code in &quot;islands&quot; like this:</p>
+<pre><code class="lang-javascript">new function(m) {
+
+    //your code goes here
+
+}(Mithril);</code></pre>
+<p>If you are creating components to be used by 3rd parties, it&#39;s recommended that you always use this idiom.</p>
+<p>In the unlikely case that you have another global variable called <code>m</code> in your page, you should consider renaming it to make it more descriptive, or use the idiom below to keep it intact.</p>
+<pre><code class="lang-markup">&lt;script&gt;_temp = m&lt;/script&gt;
+&lt;script src=&quot;mithril.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;m = _temp&lt;/script&gt;</code></pre>
+<hr>
+<h2 id="usage-of-m-redraw">Usage of m.redraw</h2>
+<p><code>m.redraw</code> is a method that allows you to render a template outside the scope of Mithril&#39;s auto-redrawing system.</p>
+<p>Calling of this method while using <code>m.module</code> or <code>m.route</code> should only be done if you have recurring asynchronous view updates (i.e. something that uses setInterval).</p>
+<p>If you&#39;re integrating other non-recurring services (e.g. calling setTimeout), you should use <a href="mithril.computation.html"><code>m.startComputation</code> / <code>m.emdComputation</code></a> instead.</p>
+<p>This is the most potentially expensive method in Mithril and should not be used at a rate faster than the rate at which the native <code>requestAnimationFrame</code> method fires (i.e. the rate at which browsers are comfortable calling recurring rendering-intensive code). Typically, this rate is around 60 calls per second.</p>
+<p>If you call this method more often than that, Mithril may ignore calls or defer them to the next browser repaint cycle.</p>
+<p>If calls are more expensive than a repaint window, the browser may drop frames, resulting in choppy animations. It&#39;s your responsibility to make sure single iterations of animation rendering code don&#39;t take longer than 16ms (for a frequency of 60 frames-per-second).</p>
+<p>In addition, note that template performance, both in Mithril templates as well as in general, is dependent on markup complexity. You are responsible for ensuring that templates aren&#39;t too big to render efficiently.</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container">
+				Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>
+				<br>&copy; 2014 Leo Horie
+			</div>
+		</footer>
+		<script src="lib/prism/prism.js"></script>
+	</body>
+</html>

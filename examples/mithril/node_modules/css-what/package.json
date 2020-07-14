@@ -1,0 +1,48 @@
+{
+    "author": "Felix Böhm <me@feedic.com> (http://feedic.com)",
+    "name": "css-what",
+    "description": "a CSS selector parser",
+    "version": "3.3.0",
+    "repository": {
+        "url": "https://github.com/fb55/css-what"
+    },
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib/**/*"
+    ],
+    "scripts": {
+        "test": "jest --coverage -u && npm run lint",
+        "coverage": "cat coverage/lcov.info | coveralls",
+        "lint": "eslint src",
+        "format": "prettier --write '**/*.{ts,md,json}'",
+        "build": "tsc",
+        "prepare": "npm run build"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/jest": "^25.1.4",
+        "@types/node": "^14.0.5",
+        "@typescript-eslint/eslint-plugin": "^2.31.0",
+        "@typescript-eslint/parser": "^2.31.0",
+        "coveralls": "^3.0.5",
+        "eslint": "^7.0.0",
+        "eslint-config-prettier": "^6.0.0",
+        "jest": "^26.0.1",
+        "prettier": "^2.0.5",
+        "ts-jest": "^26.0.0",
+        "typescript": "^3.5.3"
+    },
+    "optionalDependencies": {},
+    "engines": {
+        "node": ">= 6"
+    },
+    "license": "BSD-2-Clause",
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node"
+    },
+    "prettier": {
+        "tabWidth": 4
+    }
+}

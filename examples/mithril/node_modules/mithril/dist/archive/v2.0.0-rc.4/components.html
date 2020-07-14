@@ -1,0 +1,620 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title> Components - Mithril.js</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<header>
+			<section>
+				<a class="hamburger" href="javascript:;">≡</a>
+				<h1><img src="logo.svg"> Mithril <small>2.0.0-rc.4</small></h1>
+				<nav>
+					<a href="index.html">Guide</a>
+					<a href="api.html">API</a>
+					<a href="https://gitter.im/MithrilJS/mithril.js">Chat</a>
+					<a href="https://github.com/MithrilJS/mithril.js">GitHub</a>
+				</nav>
+			</section>
+		</header>
+		<main>
+			<section>
+				<h1 id="components"><a href="#components">Components</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href="index.html">Introduction</a></li>
+<li><a href="installation.html">Installation</a></li>
+<li><a href="simple-application.html">Tutorial</a></li>
+<li><a href="learning-mithril.html">Learning Resources</a></li>
+<li><a href="support.html">Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href="jsx.html">JSX</a></li>
+<li><a href="es6.html">ES6</a></li>
+<li><a href="css.html">CSS</a></li>
+<li><a href="animation.html">Animation</a></li>
+<li><a href="testing.html">Testing</a></li>
+<li><a href="examples.html">Examples</a></li>
+<li><a href="integrating-libs.html">3rd Party Integration</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href="vnodes.html">Vnodes</a></li>
+<li><strong><a href="components.html">Components</a></strong><ul>
+<li><a href="#structure">Structure</a></li>
+<li><a href="#lifecycle-methods">Lifecycle methods</a></li>
+<li><a href="#passing-data-to-components">Passing data to components</a></li>
+<li><a href="#state">State</a><ul>
+<li><a href="#closure-component-state">Closure component state</a></li>
+<li><a href="#pojo-component-state">POJO component state</a></li>
+</ul>
+</li>
+<li><a href="#es6-classes">ES6 Classes</a><ul>
+<li><a href="#class-component-state">Class component state</a></li>
+</ul>
+</li>
+<li><a href="#avoid-anti-patterns">Avoid anti-patterns</a></li>
+</ul>
+</li>
+<li><a href="lifecycle-methods.html">Lifecycle methods</a></li>
+<li><a href="keys.html">Keys</a></li>
+<li><a href="autoredraw.html">Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href="https://github.com/MithrilJS/mithril.js/wiki/JOBS">Mithril Jobs</a></li>
+<li><a href="contributing.html">How to contribute</a></li>
+<li><a href="credits.html">Credits</a></li>
+<li><a href="code-of-conduct.html">Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href="framework-comparison.html">Framework comparison</a></li>
+<li><a href="change-log.html">Change log/Migration</a></li>
+<li><a href="archive/v1.1.6">v1 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="structure"><a href="#structure">Structure</a></h3>
+<p>Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.</p>
+<p>Any Javascript object that has a <code>view</code> method is a Mithril component. Components can be consumed via the <a href="hyperscript.html"><code>m()</code></a> utility:</p>
+<pre><code class="lang-javascript">// define your component
+var Example = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, &quot;Hello&quot;)
+    }
+}
+
+// consume your component
+m(Example)
+
+// equivalent HTML
+// &lt;div&gt;Hello&lt;/div&gt;
+</code></pre>
+<hr>
+<h3 id="lifecycle-methods"><a href="#lifecycle-methods">Lifecycle methods</a></h3>
+<p>Components can have the same <a href="lifecycle-methods.html">lifecycle methods</a> as virtual DOM nodes. Note that <code>vnode</code> is passed as an argument to each lifecycle method, as well as to <code>view</code> (with the <em>previous</em> vnode passed additionally to <code>onbeforeupdate</code>):</p>
+<pre><code class="lang-javascript">var ComponentWithHooks = {
+    oninit: function(vnode) {
+        console.log(&quot;initialized&quot;)
+    },
+    oncreate: function(vnode) {
+        console.log(&quot;DOM created&quot;)
+    },
+    onbeforeupdate: function(newVnode, oldVnode) {
+        return true
+    },
+    onupdate: function(vnode) {
+        console.log(&quot;DOM updated&quot;)
+    },
+    onbeforeremove: function(vnode) {
+        console.log(&quot;exit animation can start&quot;)
+        return new Promise(function(resolve) {
+            // call after animation completes
+            resolve()
+        })
+    },
+    onremove: function(vnode) {
+        console.log(&quot;removing DOM element&quot;)
+    },
+    view: function(vnode) {
+        return &quot;hello&quot;
+    }
+}
+</code></pre>
+<p>Like other types of virtual DOM nodes, components may have additional lifecycle methods defined when consumed as vnode types.</p>
+<pre><code class="lang-javascript">function initialize(vnode) {
+    console.log(&quot;initialized as vnode&quot;)
+}
+
+m(ComponentWithHooks, {oninit: initialize})
+</code></pre>
+<p>Lifecycle methods in vnodes do not override component methods, nor vice versa. Component lifecycle methods are always run after the vnode&#39;s corresponding method.</p>
+<p>Take care not to use lifecycle method names for your own callback function names in vnodes.</p>
+<p>To learn more about lifecycle methods, <a href="lifecycle-methods.html">see the lifecycle methods page</a>.</p>
+<hr>
+<h3 id="passing-data-to-components"><a href="#passing-data-to-components">Passing data to components</a></h3>
+<p>Data can be passed to component instances by passing an <code>attrs</code> object as the second parameter in the hyperscript function:</p>
+<pre><code class="lang-javascript">m(Example, {name: &quot;Floyd&quot;})
+</code></pre>
+<p>This data can be accessed in the component&#39;s view or lifecycle methods via the <code>vnode.attrs</code>:</p>
+<pre><code class="lang-javascript">var Example = {
+    view: function (vnode) {
+        return m(&quot;div&quot;, &quot;Hello, &quot; + vnode.attrs.name)
+    }
+}
+</code></pre>
+<p>NOTE: Lifecycle methods can also be defined in the <code>attrs</code> object, so you should avoid using their names for your own callbacks as they would also be invoked by Mithril itself. Use them in <code>attrs</code> only when you specifically wish to use them as lifecycle methods.</p>
+<hr>
+<h3 id="state"><a href="#state">State</a></h3>
+<p>Like all virtual DOM nodes, component vnodes can have state. Component state is useful for supporting object-oriented architectures, for encapsulation and for separation of concerns.</p>
+<p>Note that unlike many other frameworks, mutating component state does <em>not</em> trigger <a href="autoredraw.html">redraws</a> or DOM updates. Instead, redraws are performed when event handlers fire, when HTTP requests made by <a href="request.html">m.request</a> complete or when the browser navigates to different routes. Mithril&#39;s component state mechanisms simply exist as a convenience for applications.</p>
+<p>If a state change occurs that is not as a result of any of the above conditions (e.g. after a <code>setTimeout</code>), then you can use <code>m.redraw()</code> to trigger a redraw manually.</p>
+<h4 id="closure-component-state"><a href="#closure-component-state">Closure Component State</a></h4>
+<p>In the above examples, each component is defined as a POJO (Plain Old Javascript Object), which is used by Mithril internally as the prototype for that component&#39;s instances. It&#39;s possible to use component state with a POJO (as we&#39;ll discuss below), but it&#39;s not the cleanest or simplest approach. For that we&#39;ll use a  <strong><em>closure component</em></strong>, which is simply a wrapper function which <em>returns</em> a POJO component instance, which in turn carries its own, closed-over scope.</p>
+<p>With a closure component, state can simply be maintained by variables that are declared within the outer function:</p>
+<pre><code class="lang-javascript">function ComponentWithState(initialVnode) {
+    // Component state variable, unique to each instance
+    var count = 0
+
+    // POJO component instance: any object with a
+    // view function which returns a vnode
+    return {
+        oninit: function(vnode){
+            console.log(&quot;init a closure component&quot;)
+        },
+        view: function(vnode) {
+            return m(&quot;div&quot;,
+                m(&quot;p&quot;, &quot;Count: &quot; + count),
+                m(&quot;button&quot;, {
+                    onclick: function() {
+                        count += 1
+                    }
+                }, &quot;Increment count&quot;)
+            )
+        }
+    }
+}
+</code></pre>
+<p>Any functions declared within the closure also have access to its state variables.</p>
+<pre><code class="lang-javascript">function ComponentWithState(initialVnode) {
+    var count = 0
+
+    function increment() {
+        count += 1
+    }
+
+    function decrement() {
+        count -= 1
+    }
+
+    return {
+        view: function(vnode) {
+            return m(&quot;div&quot;,
+                m(&quot;p&quot;, &quot;Count: &quot; + count),
+                m(&quot;button&quot;, {
+                    onclick: increment
+                }, &quot;Increment&quot;),
+                m(&quot;button&quot;, {
+                    onclick: decrement
+                }, &quot;Decrement&quot;)
+            )
+        }
+    }
+}
+</code></pre>
+<p>Closure components are consumed in the same way as POJOs, e.g. <code>m(ComponentWithState, { passedData: ... })</code>.</p>
+<p>A big advantage of closure components is that we don&#39;t need to worry about binding <code>this</code> when attaching event handler callbacks. In fact <code>this</code> is never used at all and we never have to think about <code>this</code> context ambiguities.</p>
+<hr>
+<h4 id="pojo-component-state"><a href="#pojo-component-state">POJO Component State</a></h4>
+<p>It is generally recommended that you use closures for managing component state. If, however, you have reason to manage state in a POJO, the state of a component can be accessed in three ways: as a blueprint at initialization, via <code>vnode.state</code> and via the <code>this</code> keyword in component methods.</p>
+<h4 id="at-initialization"><a href="#at-initialization">At initialization</a></h4>
+<p>For POJO components, the component object is the prototype of each component instance, so any property defined on the component object will be accessible as a property of <code>vnode.state</code>. This allows simple &quot;blueprint&quot; state initialization.</p>
+<p>In the example below, <code>data</code> becomes a property of the <code>ComponentWithInitialState</code> component&#39;s <code>vnode.state</code> object.</p>
+<pre><code class="lang-javascript">var ComponentWithInitialState = {
+    data: &quot;Initial content&quot;,
+    view: function(vnode) {
+        return m(&quot;div&quot;, vnode.state.data)
+    }
+}
+
+m(ComponentWithInitialState)
+
+// Equivalent HTML
+// &lt;div&gt;Initial content&lt;/div&gt;
+</code></pre>
+<h4 id="via-vnodestate"><a href="#via-vnodestate">Via vnode.state</a></h4>
+<p>As you can see, state can also be accessed via the <code>vnode.state</code> property, which is available to all lifecycle methods as well as the <code>view</code> method of a component.</p>
+<pre><code class="lang-javascript">var ComponentWithDynamicState = {
+    oninit: function(vnode) {
+        vnode.state.data = vnode.attrs.text
+    },
+    view: function(vnode) {
+        return m(&quot;div&quot;, vnode.state.data)
+    }
+}
+
+m(ComponentWithDynamicState, {text: &quot;Hello&quot;})
+
+// Equivalent HTML
+// &lt;div&gt;Hello&lt;/div&gt;
+</code></pre>
+<h4 id="via-the-this-keyword"><a href="#via-the-this-keyword">Via the this keyword</a></h4>
+<p>State can also be accessed via the <code>this</code> keyword, which is available to all lifecycle methods as well as the <code>view</code> method of a component.</p>
+<pre><code class="lang-javascript">var ComponentUsingThis = {
+    oninit: function(vnode) {
+        this.data = vnode.attrs.text
+    },
+    view: function(vnode) {
+        return m(&quot;div&quot;, this.data)
+    }
+}
+
+m(ComponentUsingThis, {text: &quot;Hello&quot;})
+
+// Equivalent HTML
+// &lt;div&gt;Hello&lt;/div&gt;
+</code></pre>
+<p>Be aware that when using ES5 functions, the value of <code>this</code> in nested anonymous functions is not the component instance. There are two recommended ways to get around this Javascript limitation, use ES6 arrow functions, or if ES6 is not available, use <code>vnode.state</code>.</p>
+<hr>
+<h3 id="es6-classes"><a href="#es6-classes">ES6 classes</a></h3>
+<p>If it suits your needs (like in object-oriented projects), components can also be written using ES6 class syntax:</p>
+<pre><code class="lang-javascript">class ES6ClassComponent {
+    constructor(vnode) {
+        this.kind = &quot;ES6 class&quot;
+    }
+    view() {
+        return m(&quot;div&quot;, `Hello from an ${this.kind}`)
+    }
+    oncreate() {
+        console.log(`A ${this.kind} component was created`)
+    }
+}
+</code></pre>
+<p>Component classes must define a <code>view()</code> method, detected via <code>.prototype.view</code>, to get the tree to render.</p>
+<p>They can be consumed in the same way regular components can.</p>
+<pre><code class="lang-javascript">// EXAMPLE: via m.render
+m.render(document.body, m(ES6ClassComponent))
+
+// EXAMPLE: via m.mount
+m.mount(document.body, ES6ClassComponent)
+
+// EXAMPLE: via m.route
+m.route(document.body, &quot;/&quot;, {
+    &quot;/&quot;: ES6ClassComponent
+})
+
+// EXAMPLE: component composition
+class AnotherES6ClassComponent {
+    view() {
+        return m(&quot;main&quot;, [
+            m(ES6ClassComponent)
+        ])
+    }
+}
+</code></pre>
+<h4 id="class-component-state"><a href="#class-component-state">Class Component State</a></h4>
+<p>With classes, state can be managed by class instance properties and methods, and accessed via <code>this</code>:</p>
+<pre><code class="lang-javascript">class ComponentWithState {
+    constructor(vnode) {
+        this.count = 0
+    }
+    increment() {
+        this.count += 1
+    }
+    decrement() {
+        this.count -= 1
+    }
+    view() {
+        return m(&quot;div&quot;,
+            m(&quot;p&quot;, &quot;Count: &quot; + count),
+            m(&quot;button&quot;, {
+                onclick: () =&gt; {this.increment()}
+            }, &quot;Increment&quot;),
+            m(&quot;button&quot;, {
+                onclick: () =&gt; {this.decrement()}
+            }, &quot;Decrement&quot;)
+        )
+    }
+}
+</code></pre>
+<p>Note that we must wrap the event callbacks in arrow functions so that the <code>this</code> context is preserved correctly.</p>
+<hr>
+<h3 id="mixing-component-kinds"><a href="#mixing-component-kinds">Mixing component kinds</a></h3>
+<p>Components can be freely mixed. A class component can have closure or POJO components as children, etc...</p>
+<hr>
+<h3 id="avoid-anti-patterns"><a href="#avoid-anti-patterns">Avoid anti-patterns</a></h3>
+<p>Although Mithril is flexible, some code patterns are discouraged:</p>
+<h4 id="avoid-fat-components"><a href="#avoid-fat-components">Avoid fat components</a></h4>
+<p>Generally speaking, a &quot;fat&quot; component is a component that has custom instance methods. In other words, you should avoid attaching functions to <code>vnode.state</code> or <code>this</code>. It&#39;s exceedingly rare to have logic that logically fits in a component instance method and that can&#39;t be reused by other components. It&#39;s relatively common that said logic might be needed by a different component down the road.</p>
+<p>It&#39;s easier to refactor code if that logic is placed in the data layer than if it&#39;s tied to a component state.</p>
+<p>Consider this fat component:</p>
+<pre><code class="lang-javascript">// views/Login.js
+// AVOID
+var Login = {
+    username: &quot;&quot;,
+    password: &quot;&quot;,
+    setUsername: function(value) {
+        this.username = value
+    },
+    setPassword: function(value) {
+        this.password = value
+    },
+    canSubmit: function() {
+        return this.username !== &quot;&quot; &amp;&amp; this.password !== &quot;&quot;
+    },
+    login: function() {/*...*/},
+    view: function() {
+        return m(&quot;.login&quot;, [
+            m(&quot;input[type=text]&quot;, {
+                oninput: function (e) { this.setUsername(e.target.value) },
+                value: this.username,
+            }),
+            m(&quot;input[type=password]&quot;, {
+                oninput: function (e) { this.setPassword(e.target.value) },
+                value: this.password,
+            }),
+            m(&quot;button&quot;, {disabled: !this.canSubmit(), onclick: this.login}, &quot;Login&quot;),
+        ])
+    }
+}
+</code></pre>
+<p>Normally, in the context of a larger application, a login component like the one above exists alongside components for user registration and password recovery. Imagine that we want to be able to prepopulate the email field when navigating from the login screen to the registration or password recovery screens (or vice versa), so that the user doesn&#39;t need to re-type their email if they happened to fill the wrong page (or maybe you want to bump the user to the registration form if a username is not found).</p>
+<p>Right away, we see that sharing the <code>username</code> and <code>password</code> fields from this component to another is difficult. This is because the fat component encapsulates its state, which by definition makes this state difficult to access from outside.</p>
+<p>It makes more sense to refactor this component and pull the state code out of the component and into the application&#39;s data layer. This can be as simple as creating a new module:</p>
+<pre><code class="lang-javascript">// models/Auth.js
+// PREFER
+var Auth = {
+    username: &quot;&quot;,
+    password: &quot;&quot;,
+    setUsername: function(value) {
+        Auth.username = value
+    },
+    setPassword: function(value) {
+        Auth.password = value
+    },
+    canSubmit: function() {
+        return Auth.username !== &quot;&quot; &amp;&amp; Auth.password !== &quot;&quot;
+    },
+    login: function() {/*...*/},
+}
+
+module.exports = Auth
+</code></pre>
+<p>Then, we can clean up the component:</p>
+<pre><code class="lang-javascript">// views/Login.js
+// PREFER
+var Auth = require(&quot;../models/Auth&quot;)
+
+var Login = {
+    view: function() {
+        return m(&quot;.login&quot;, [
+            m(&quot;input[type=text]&quot;, {
+                oninput: function (e) { Auth.setUsername(e.target.value) },
+                value: Auth.username
+            }),
+            m(&quot;input[type=password]&quot;, {
+                oninput: function (e) { Auth.setPassword(e.target.value) },
+                value: Auth.password
+            }),
+            m(&quot;button&quot;, {
+                disabled: !Auth.canSubmit(),
+                onclick: Auth.login
+            }, &quot;Login&quot;)
+        ])
+    }
+}
+</code></pre>
+<p>This way, the <code>Auth</code> module is now the source of truth for auth-related state, and a <code>Register</code> component can easily access this data, and even reuse methods like <code>canSubmit</code>, if needed. In addition, if validation code is required (for example, for the email field), you only need to modify <code>setEmail</code>, and that change will do email validation for any component that modifies an email field.</p>
+<p>As a bonus, notice that we no longer need to use <code>.bind</code> to keep a reference to the state for the component&#39;s event handlers.</p>
+<h4 id="don&#39;t-forward-vnodeattrs-itself-to-other-vnodes"><a href="#don&#39;t-forward-vnodeattrs-itself-to-other-vnodes">Don&#39;t forward <code>vnode.attrs</code> itself to other vnodes</a></h4>
+<p>Sometimes, you might want to keep an interface flexible and your implementation simpler by forwarding attributes to a particular child component or element, in this case <a href="https://getbootstrap.com/docs/4.1/components/modal/">Bootstrap&#39;s modal</a>. It might be tempting to forward a vnode&#39;s attributes like this:</p>
+<pre><code class="lang-javascript">// AVOID
+var Modal = {
+    // ...
+    view: function(vnode) {
+        return m(&quot;.modal[tabindex=-1][role=dialog]&quot;, vnode.attrs, [
+            //         forwarding `vnode.attrs` here ^
+            // ...
+        ])
+    }
+}
+</code></pre>
+<p>If you do it like above, you could run into issues when using it:</p>
+<pre><code class="lang-js">var MyModal = {
+    view: function() {
+        return m(Modal, {
+            // This toggles it twice, so it doesn&#39;t show
+            onupdate: function(vnode) {
+                if (toggle) $(vnode.dom).modal(&quot;toggle&quot;)
+            }
+        }, [
+            // ...
+        ])
+    }
+}
+</code></pre>
+<p>Instead, you should forward <em>single</em> attributes into vnodes:</p>
+<pre><code class="lang-js">// PREFER
+var Modal = {
+    // ...
+    view: function(vnode) {
+        return m(&quot;.modal[tabindex=-1][role=dialog]&quot;, vnode.attrs.attrs, [
+            //              forwarding `attrs:` here ^
+            // ...
+        ])
+    }
+}
+
+// Example
+var MyModal = {
+    view: function() {
+        return m(Modal, {
+            attrs: {
+                // This toggles it once
+                onupdate: function(vnode) {
+                    if (toggle) $(vnode.dom).modal(&quot;toggle&quot;)
+                }
+            },
+            // ...
+        })
+    }
+}
+</code></pre>
+<h4 id="don&#39;t-manipulate-children"><a href="#don&#39;t-manipulate-children">Don&#39;t manipulate <code>children</code></a></h4>
+<p>If a component is opinionated in how it applies attributes or children, you should switch to using custom attributes.</p>
+<p>Often it&#39;s desirable to define multiple sets of children, for example, if a component has a configurable title and body.</p>
+<p>Avoid destructuring the <code>children</code> property for this purpose.</p>
+<pre><code class="lang-javascript">// AVOID
+var Header = {
+    view: function(vnode) {
+        return m(&quot;.section&quot;, [
+            m(&quot;.header&quot;, vnode.children[0]),
+            m(&quot;.tagline&quot;, vnode.children[1]),
+        ])
+    }
+}
+
+m(Header, [
+    m(&quot;h1&quot;, &quot;My title&quot;),
+    m(&quot;h2&quot;, &quot;Lorem ipsum&quot;),
+])
+
+// awkward consumption use case
+m(Header, [
+    [
+        m(&quot;h1&quot;, &quot;My title&quot;),
+        m(&quot;small&quot;, &quot;A small note&quot;),
+    ],
+    m(&quot;h2&quot;, &quot;Lorem ipsum&quot;),
+])
+</code></pre>
+<p>The component above breaks the assumption that children will be output in the same contiguous format as they are received. It&#39;s difficult to understand the component without reading its implementation. Instead, use attributes as named parameters and reserve <code>children</code> for uniform child content:</p>
+<pre><code class="lang-javascript">// PREFER
+var BetterHeader = {
+    view: function(vnode) {
+        return m(&quot;.section&quot;, [
+            m(&quot;.header&quot;, vnode.attrs.title),
+            m(&quot;.tagline&quot;, vnode.attrs.tagline),
+        ])
+    }
+}
+
+m(BetterHeader, {
+    title: m(&quot;h1&quot;, &quot;My title&quot;),
+    tagline: m(&quot;h2&quot;, &quot;Lorem ipsum&quot;),
+})
+
+// clearer consumption use case
+m(BetterHeader, {
+    title: [
+        m(&quot;h1&quot;, &quot;My title&quot;),
+        m(&quot;small&quot;, &quot;A small note&quot;),
+    ],
+    tagline: m(&quot;h2&quot;, &quot;Lorem ipsum&quot;),
+})
+</code></pre>
+<h4 id="define-components-statically,-call-them-dynamically"><a href="#define-components-statically,-call-them-dynamically">Define components statically, call them dynamically</a></h4>
+<h5 id="avoid-creating-component-definitions-inside-views"><a href="#avoid-creating-component-definitions-inside-views">Avoid creating component definitions inside views</a></h5>
+<p>If you create a component from within a <code>view</code> method (either directly inline or by calling a function that does so), each redraw will have a different clone of the component. When diffing component vnodes, if the component referenced by the new vnode is not strictly equal to the one referenced by the old component, the two are assumed to be different components even if they ultimately run equivalent code. This means components created dynamically via a factory will always be re-created from scratch.</p>
+<p>For that reason you should avoid recreating components. Instead, consume components idiomatically.</p>
+<pre><code class="lang-javascript">// AVOID
+var ComponentFactory = function(greeting) {
+    // creates a new component on every call
+    return {
+        view: function() {
+            return m(&quot;div&quot;, greeting)
+        }
+    }
+}
+m.render(document.body, m(ComponentFactory(&quot;hello&quot;)))
+// calling a second time recreates div from scratch rather than doing nothing
+m.render(document.body, m(ComponentFactory(&quot;hello&quot;)))
+
+// PREFER
+var Component = {
+    view: function(vnode) {
+        return m(&quot;div&quot;, vnode.attrs.greeting)
+    }
+}
+m.render(document.body, m(Component, {greeting: &quot;hello&quot;}))
+// calling a second time does not modify DOM
+m.render(document.body, m(Component, {greeting: &quot;hello&quot;}))
+</code></pre>
+<h5 id="avoid-creating-component-instances-outside-views"><a href="#avoid-creating-component-instances-outside-views">Avoid creating component instances outside views</a></h5>
+<p>Conversely, for similar reasons, if a component instance is created outside of a view, future redraws will perform an equality check on the node and skip it. Therefore component instances should always be created inside views:</p>
+<pre><code class="lang-javascript">// AVOID
+var Counter = {
+    count: 0,
+    view: function(vnode) {
+        return m(&quot;div&quot;,
+            m(&quot;p&quot;, &quot;Count: &quot; + vnode.state.count ),
+
+            m(&quot;button&quot;, {
+                onclick: function() {
+                    vnode.state.count++
+                }
+            }, &quot;Increase count&quot;)
+        )
+    }
+}
+
+var counter = m(Counter)
+
+m.mount(document.body, {
+    view: function(vnode) {
+        return [
+            m(&quot;h1&quot;, &quot;My app&quot;),
+            counter
+        ]
+    }
+})
+</code></pre>
+<p>In the example above, clicking the counter component button will increase its state count, but its view will not be triggered because the vnode representing the component shares the same reference, and therefore the render process doesn&#39;t diff them. You should always call components in the view to ensure a new vnode is created:</p>
+<pre><code class="lang-javascript">// PREFER
+var Counter = {
+    count: 0,
+    view: function(vnode) {
+        return m(&quot;div&quot;,
+            m(&quot;p&quot;, &quot;Count: &quot; + vnode.state.count ),
+
+            m(&quot;button&quot;, {
+                onclick: function() {
+                    vnode.state.count++
+                }
+            }, &quot;Increase count&quot;)
+        )
+    }
+}
+
+m.mount(document.body, {
+    view: function(vnode) {
+        return [
+            m(&quot;h1&quot;, &quot;My app&quot;),
+            m(Counter)
+        ]
+    }
+})
+</code></pre>
+
+				<hr />
+				<small>License: MIT. &copy; Leo Horie.</small>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js" defer></script>
+		<script src="https://unpkg.com/mithril@2.0.0-rc.4/mithril.js" async></script>
+		<script>
+		document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+		</script>
+	</body>
+</html>

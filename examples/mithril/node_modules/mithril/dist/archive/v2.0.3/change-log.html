@@ -1,0 +1,242 @@
+
+<head>
+<meta charset=UTF-8>
+<title> Change log - Mithril.js</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet>
+<link href=style.css rel=stylesheet>
+<link rel=icon type=image/png sizes=32x32 href=favicon.png>
+<meta name=viewport content="width=device-width,initial-scale=1">
+</head>
+<body>
+<header>
+<section>
+<a class=hamburger href=javascript:;>≡</a>
+<h1><img src=logo.svg> Mithril <small>2.0.3</small></h1>
+<nav>
+<a href=index.html>Guide</a>
+<a href=api.html>API</a>
+<a href=https://gitter.im/MithrilJS/mithril.js>Chat</a>
+<a href=https://github.com/MithrilJS/mithril.js>GitHub</a>
+</nav>
+</section>
+</header>
+<main>
+<section>
+<h1 id=change-log><a href=#change-log>Change log</a></h1>
+<ul>
+<li>Getting Started<ul>
+<li><a href=index.html>Introduction</a></li>
+<li><a href=installation.html>Installation</a></li>
+<li><a href=simple-application.html>Tutorial</a></li>
+<li><a href=learning-mithril.html>Learning Resources</a></li>
+<li><a href=support.html>Getting Help</a></li>
+</ul>
+</li>
+<li>Resources<ul>
+<li><a href=jsx.html>JSX</a></li>
+<li><a href=es6.html>ES6+ on legacy browsers</a></li>
+<li><a href=animation.html>Animation</a></li>
+<li><a href=testing.html>Testing</a></li>
+<li><a href=examples.html>Examples</a></li>
+<li><a href=integrating-libs.html>3rd Party Integration</a></li>
+<li><a href=paths.html>Path Handling</a></li>
+</ul>
+</li>
+<li>Key concepts<ul>
+<li><a href=vnodes.html>Vnodes</a></li>
+<li><a href=components.html>Components</a></li>
+<li><a href=lifecycle-methods.html>Lifecycle methods</a></li>
+<li><a href=keys.html>Keys</a></li>
+<li><a href=autoredraw.html>Autoredraw system</a></li>
+</ul>
+</li>
+<li>Social<ul>
+<li><a href=https://github.com/MithrilJS/mithril.js/wiki/JOBS>Mithril Jobs</a></li>
+<li><a href=contributing.html>How to contribute</a></li>
+<li><a href=credits.html>Credits</a></li>
+<li><a href=code-of-conduct.html>Code of Conduct</a></li>
+</ul>
+</li>
+<li>Misc<ul>
+<li><a href=framework-comparison.html>Framework comparison</a></li>
+<li><strong><a href=change-log.html>Change log/Migration</a></strong><ul>
+<li><a href=#v203>v2.0.3</a></li>
+<li><a href=#v201>v2.0.1</a></li>
+<li><a href=#v200>v2.0.0</a></li>
+<li><a href=migration-v1x.html>Migrating from v1.x</a></li>
+<li><a href=migration-v02x.html>Migrating from v0.2.x</a></li>
+<li><a href=https://mithril.js.org/archive/v1.1.6/change-log.html>v1.x changelog</a></li>
+<li><a href=https://mithril.js.org/archive/v1.1.6/index.html>v1.x docs</a></li>
+<li><a href=https://mithril.js.org/archive/v0.2.5/index.html>v0.2 docs</a></li>
+<li><a href=https://github.com/MithrilJS/mithril.js/blob/master/ospec/change-log.md><code>ospec</code> change log</a></li>
+<li><a href=https://github.com/MithrilJS/mithril.js/blob/master/stream/change-log.md><code>mithril/stream</code> change log</a></li>
+</ul>
+</li>
+<li><a href=https://mithril.js.org/archive/v1.1.6/ >v1 Documentation</a></li>
+<li><a href=https://mithril.js.org/archive/v0.2.5/ >v0.2 Documentation</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id=v203><a href=#v203>v2.0.3</a></h3>
+<ul>
+<li>Ensure vnodes are removed correctly in the face of <code>onbeforeremove</code> resolving after new nodes are added (<a href=https://github.com/MithrilJS/mithril.js/pull/2492>#2492</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>Fix prototype pollution vulnerability in <code>m.parseQueryString</code> (<a href=https://github.com/MithrilJS/mithril.js/pull/2494>#2494</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+</ul>
+<p><em>v2.0.2 was skipped as it had a critical flaw and was immediately unpublished.</em></p>
+<h3 id=v201><a href=#v201>v2.0.1</a></h3>
+<p>Same as v2.0.0, but with a publish that didn&#39;t have a botched upload.</p>
+<h3 id=v200><a href=#v200>v2.0.0</a></h3>
+<h4 id=breaking-changes><a href=#breaking-changes>Breaking changes</a></h4>
+<ul>
+<li>API: Component vnode <code>children</code> are not normalized into vnodes on ingestion; normalization only happens if and when they are ingested by the view (<a href=https://github.com/MithrilJS/mithril.js/pull/2155/ >#2155</a> (thanks to <a href=https://github.com/magikstm>@magikstm</a> for related optimization <a href=https://github.com/MithrilJS/mithril.js/pull/2064>#2064</a>))</li>
+<li>API: <code>m.redraw()</code> is always asynchronous (<a href=https://github.com/MithrilJS/mithril.js/pull/1592>#1592</a>)</li>
+<li>API: <code>m.mount()</code> will only render its own root when called, it will not trigger a <code>redraw()</code> (<a href=https://github.com/MithrilJS/mithril.js/pull/1592>#1592</a>)</li>
+<li>API: Assigning to <code>vnode.state</code> (as in <code>vnode.state = ...</code>) is no longer supported. Instead, an error is thrown if <code>vnode.state</code> changes upon the invocation of a lifecycle hook.</li>
+<li>API: <code>m.request</code> will no longer reject the Promise on server errors (eg. status &gt;= 400) if the caller supplies an <code>extract</code> callback. This gives applications more control over handling server responses.</li>
+<li>hyperscript: when attributes have a <code>null</code> or <code>undefined</code> value, they are treated as if they were absent. <a href=https://github.com/MithrilJS/mithril.js/issues/1773>#1773</a> (<a href=https://github.com/MithrilJS/mithril.js/pull/2174>#2174</a>)</li>
+<li>API: <code>m.request</code> errors no longer copy response fields to the error, but instead assign the parsed JSON response to <code>error.response</code> and the HTTP status code <code>error.code</code>.</li>
+<li>hyperscript: when an attribute is defined on both the first and second argument (as a CSS selector and an <code>attrs</code> field, respectively), the latter takes precedence, except for <code>class</code> attributes that are still added together. <a href=https://github.com/MithrilJS/mithril.js/issues/2172>#2172</a> (<a href=https://github.com/MithrilJS/mithril.js/pull/2174>#2174</a>)</li>
+<li>cast className using toString (<a href=https://github.com/MithrilJS/mithril.js/pull/2309>#2309</a>)</li>
+<li>render: call attrs&#39; hooks last, with express exception of <code>onbeforeupdate</code> to allow attrs to block components from even diffing (<a href=https://github.com/MithrilJS/mithril.js/pull/2297>#2297</a>)</li>
+<li>API: <code>m.withAttr</code> removed. (<a href=https://github.com/MithrilJS/mithril.js/pull/2317>#2317</a>)</li>
+<li>request: <code>data</code> has now been split to <code>params</code> and <code>body</code> and <code>useBody</code> has been removed in favor of just using <code>body</code>. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)</li>
+<li>route, request: Interpolated arguments are URL-escaped (and for declared routes, URL-unescaped) automatically. If you want to use a raw route parameter, use a variadic parameter like in <code>/asset/:path.../view</code>. This was previously only available in <code>m.route</code> route definitions, but it&#39;s now usable in both that and where paths are accepted. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)</li>
+<li>route, request: Interpolated arguments are <em>not</em> appended to the query string. This means <code>m.request({url: &quot;/api/user/:id/get&quot;, params: {id: user.id}})</code> would result in a request like <code>GET /api/user/1/get</code>, not one like <code>GET /api/user/1/get?id=1</code>. If you really need it in both places, pass the same value via two separate parameters with the non-query-string parameter renamed, like in <code>m.request({url: &quot;/api/user/:urlID/get&quot;, params: {id: user.id, urlID: user.id}})</code>. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)</li>
+<li>route, request: <code>m.route.set</code>, <code>m.request</code>, and <code>m.jsonp</code> all use the same path template syntax now, and vary only in how they receive their parameters. Furthermore, declared routes in <code>m.route</code> shares the same syntax and semantics, but acts in reverse as if via pattern matching. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)</li>
+<li>request: <code>options.responseType</code> now defaults to <code>&quot;json&quot;</code> if <code>extract</code> is absent, and <code>deserialize</code> receives the parsed response, not the raw string. If you want the old behavior, <a href=https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType>use <code>responseType: &quot;text&quot;</code></a>. (<a href=https://github.com/MithrilJS/mithril.js/pull/2335>#2335</a>)</li>
+<li>request: set <code>Content-Type: application/json; charset=utf-8</code> for all XHR methods by default, provided they have a body that&#39;s <code>!= null</code> (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2421>#2421</a>)<ul>
+<li>This can cause CORS issues when issuing <code>GET</code> with bodies, but you can address them through configuring CORS appropriately.</li>
+<li>Previously, it was only set for all non-<code>GET</code> methods and only when <code>useBody: true</code> was passed (the default), and it was always set for them. Now it&#39;s automatically omitted when no body is present, so the hole is slightly broadened.</li>
+</ul>
+</li>
+<li>route: query parameters in hash strings are no longer supported (<a href=https://github.com/MithrilJS/mithril.js/pull/2448>#2448</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>It&#39;s technically invalid in hashes, so I&#39;d rather push people to keep in line with spec.</li>
+</ul>
+</li>
+<li>render: validate all elements are either keyed or unkeyed, and treat <code>null</code>/<code>undefined</code>/booleans as strictly unkeyed (<a href=https://github.com/MithrilJS/mithril.js/pull/2452>#2452</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>Gives a nice little perf boost with keyed fragments.</li>
+<li>Minor, but imperceptible impact (within the margin of error) with unkeyed fragments.</li>
+<li>Also makes the model a lot more consistent - all values are either keyed or unkeyed.</li>
+</ul>
+</li>
+<li>vnodes: normalize boolean children to <code>null</code>/<code>undefined</code> at the vnode level, always stringify non-object children that aren&#39;t holes (<a href=https://github.com/MithrilJS/mithril.js/pull/2452>#2452</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>Previously, <code>true</code> was equivalent to <code>&quot;true&quot;</code> and <code>false</code> was equivalent to <code>&quot;&quot;</code>.</li>
+<li>Previously, numeric children weren&#39;t coerced. Now, they are.</li>
+<li>Unlikely to break most components, but it <em>could</em> break some users.</li>
+<li>This increases consistency with how booleans are handled with children, so it should be more intuitive.</li>
+</ul>
+</li>
+<li>route: <code>key</code> parameter for routes now only works globally for components (<a href=https://github.com/MithrilJS/mithril.js/pull/2458>#2458</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>Previously, it worked for route resolvers, too.</li>
+<li>This lets you ensure global layouts used in <code>render</code> still render by diff.</li>
+</ul>
+</li>
+<li>redraw: <code>mithril/redraw</code> now just exposes the <code>m.redraw</code> callback (<a href=https://github.com/MithrilJS/mithril.js/pull/2458>#2458</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>The <code>.schedule</code>, <code>.unschedule</code>, and <code>.render</code> properties of the former <code>redrawService</code> are all removed.</li>
+<li>If you want to know how to work around it, look at the call to <code>mount</code> in Mithril&#39;s source for <code>m.route</code>. That should help you in finding ways around the removed feature. (It doesn&#39;t take that much more code.)</li>
+</ul>
+</li>
+<li>api: <code>m.version</code> has been removed. If you really need the version for whatever reason, just read the <code>version</code> field of <code>mithril/package.json</code> directly. (<a href=https://github.com/MithrilJS/mithril.js/pull/2466>#2466</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>route: <code>m.route.prefix(...)</code> is now <code>m.route.prefix = ...</code>. (<a href=https://github.com/MithrilJS/mithril.js/pull/2469>#2469</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>This is a fully fledged property, so you can not only write to it, but you can also read from it.</li>
+<li>This aligns better with user intuition.</li>
+</ul>
+</li>
+<li>route: <code>m.route.link</code> function removed in favor of <code>m.route.Link</code> component. (<a href=https://github.com/MithrilJS/mithril.js/pull/2469>#2469</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>An optional <code>options</code> object is accepted as an attribute. This was initially targeting the old <code>m.route.link</code> function and was transferred to this. (<a href=https://github.com/MithrilJS/mithril.js/pull/1930>#1930</a>)</li>
+<li>The new component handles many more edge cases around user interaction, including accessibility.</li>
+<li>Link navigation can be disabled and cancelled.</li>
+<li>Link targets can be trivially changed.</li>
+</ul>
+</li>
+</ul>
+<h4 id=news><a href=#news>News</a></h4>
+<ul>
+<li>Mithril now only officially supports IE11, Firefox ESR, and the last two versions of Chrome/FF/Edge/Safari. (<a href=https://github.com/MithrilJS/mithril.js/pull/2296>#2296</a>)</li>
+<li>API: Introduction of <code>m.redraw.sync()</code> (<a href=https://github.com/MithrilJS/mithril.js/pull/1592>#1592</a>)</li>
+<li>API: Event handlers may also be objects with <code>handleEvent</code> methods (<a href=https://github.com/MithrilJS/mithril.js/pull/1949>#1949</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2222>#2222</a>).</li>
+<li>API: <code>m.request</code> better error message on JSON parse error - (<a href=https://github.com/MithrilJS/mithril.js/pull/2195>#2195</a>, <a href=https://github.com/codeclown>@codeclown</a>)</li>
+<li>API: <code>m.request</code> supports <code>timeout</code> as attr - (<a href=https://github.com/MithrilJS/mithril.js/pull/1966>#1966</a>)</li>
+<li>API: <code>m.request</code> supports <code>responseType</code> as attr - (<a href=https://github.com/MithrilJS/mithril.js/pull/2193>#2193</a>)</li>
+<li>Mocks: add limited support for the DOMParser API (<a href=https://github.com/MithrilJS/mithril.js/pull/2097>#2097</a>)</li>
+<li>API: add support for raw SVG in <code>m.trust()</code> string (<a href=https://github.com/MithrilJS/mithril.js/pull/2097>#2097</a>)</li>
+<li>render/core: remove the DOM nodes recycling pool (<a href=https://github.com/MithrilJS/mithril.js/pull/2122>#2122</a>)</li>
+<li>render/core: revamp the core diff engine, and introduce a longest-increasing-subsequence-based logic to minimize DOM operations when re-ordering keyed nodes.</li>
+<li>docs: Emphasize Closure Components for stateful components, use them for all stateful component examples.</li>
+<li>API: ES module bundles are now available for <code>mithril</code> and <code>mithril/stream</code> (<a href=https://github.com/MithrilJS/mithril.js/pull/2194>#2194</a> <a href=https://github.com/porsager>@porsager</a>).<ul>
+<li>All of the <code>m.*</code> properties from <code>mithril</code> are re-exported as named exports in addition to being attached to <code>m</code>.</li>
+<li><code>m()</code> itself from <code>mithril</code> is exported as the default export.</li>
+<li><code>mithril/stream</code>&#39;s primary export is exported as the default export.</li>
+</ul>
+</li>
+<li>fragments: allow same attrs/children overloading logic as hyperscript (<a href=https://github.com/MithrilJS/mithril.js/pull/2328>#2328</a>)</li>
+<li>route: Declared routes may check against path names with query strings. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)</li>
+<li>route: Declared routes in <code>m.route</code> now support <code>-</code> and <code>.</code> as delimiters for path segments. This means you can have a route like <code>&quot;/edit/:file.:ext&quot;</code>. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)<ul>
+<li>Previously, this was possible to do in <code>m.route.set</code>, <code>m.request</code>, and <code>m.jsonp</code>, but it was wholly untested for and also undocumented.</li>
+</ul>
+</li>
+<li>API: <code>m.buildPathname</code> and <code>m.parsePathname</code> added. (<a href=https://github.com/MithrilJS/mithril.js/pull/2361>#2361</a>)</li>
+<li>route: Use <code>m.mount(root, null)</code> to unsubscribe and clean up after a <code>m.route(root, ...)</code> call. (<a href=https://github.com/MithrilJS/mithril.js/pull/2453>#2453</a>)</li>
+<li>render: new <code>redraw</code> parameter exposed any time a child event handler is used (<a href=https://github.com/MithrilJS/mithril.js/pull/2458>#2458</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>route: <code>m.route.SKIP</code> can be returned from route resolvers to skip to the next route (<a href=https://github.com/MithrilJS/mithril.js/pull/2469>#2469</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>API: Full DOM no longer required to execute <code>require(&quot;mithril&quot;)</code>. You just need to set the necessary globals to <em>something</em>, even if <code>null</code> or <code>undefined</code>, so they can be properly used. (<a href=https://github.com/MithrilJS/mithril.js/pull/2469>#2469</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)<ul>
+<li>This enables isomorphic use of <code>m.route.Link</code> and <code>m.route.prefix</code>.</li>
+<li>This enables isomorphic use of <code>m.request</code>, provided the <code>background: true</code> option is set and that an <code>XMLHttpRequest</code> polyfill is included as necessary.</li>
+<li>Note that methods requiring DOM operations will still throw errors, such as <code>m.render(...)</code>, <code>m.redraw()</code>, and <code>m.route(...)</code>.</li>
+</ul>
+</li>
+<li>render: Align custom elements to work like normal elements, minus all the HTML-specific magic. (<a href=https://github.com/MithrilJS/mithril.js/pull/2221>#2221</a>)</li>
+</ul>
+<h4 id=bug-fixes><a href=#bug-fixes>Bug fixes</a></h4>
+<ul>
+<li>API: <code>m.route.set()</code> causes all mount points to be redrawn (<a href=https://github.com/MithrilJS/mithril.js/pull/1592>#1592</a>)</li>
+<li>render/attrs: Using style objects in hyperscript calls will now properly diff style properties from one render to another as opposed to re-writing all element style properties every render.</li>
+<li>render/attrs All vnodes attributes are properly removed when absent or set to <code>null</code> or <code>undefined</code> <a href=https://github.com/MithrilJS/mithril.js/issues/1804>#1804</a> <a href=https://github.com/MithrilJS/mithril.js/issues/2082>#2082</a> (<a href=https://github.com/MithrilJS/mithril.js/pull/1865>#1865</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2130>#2130</a>)</li>
+<li>render/core: Render state correctly on select change event <a href=https://github.com/MithrilJS/mithril.js/issues/1916>#1916</a> (<a href=https://github.com/MithrilJS/mithril.js/pull/1918>#1918</a> <a href=https://github.com/robinchew>@robinchew</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2052>#2052</a>)</li>
+<li>render/core: fix various updateNodes/removeNodes issues when the pool and fragments are involved <a href=https://github.com/MithrilJS/mithril.js/issues/1990>#1990</a>, <a href=https://github.com/MithrilJS/mithril.js/issues/1991>#1991</a>, <a href=https://github.com/MithrilJS/mithril.js/issues/2003>#2003</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2021>#2021</a></li>
+<li>render/core: fix crashes when the keyed vnodes with the same <code>key</code> had different <code>tag</code> values <a href=https://github.com/MithrilJS/mithril.js/issues/2128>#2128</a> <a href=https://github.com/JacksonJN>@JacksonJN</a> (<a href=https://github.com/MithrilJS/mithril.js/pull/2130>#2130</a>)</li>
+<li>render/core: fix cached nodes behavior in some keyed diff scenarios <a href=https://github.com/MithrilJS/mithril.js/issues/2132>#2132</a> (<a href=https://github.com/MithrilJS/mithril.js/pull/2130>#2130</a>)</li>
+<li>render/events: <code>addEventListener</code> and <code>removeEventListener</code> are always used to manage event subscriptions, preventing external interference.</li>
+<li>render/events: Event listeners allocate less memory, swap at low cost, and are properly diffed now when rendered via <code>m.mount()</code>/<code>m.redraw()</code>.</li>
+<li>render/events: <code>Object.prototype</code> properties can no longer interfere with event listener calls.</li>
+<li>render/events: Event handlers, when set to literally <code>undefined</code> (or any non-function), are now correctly removed.</li>
+<li>render/hooks: fixed an ommission that caused <code>oninit</code> to be called unnecessarily in some cases <a href=https://github.com/MithrilJS/mithril.js/issues/1992>#1992</a></li>
+<li>docs: tweaks: (<a href=https://github.com/MithrilJS/mithril.js/pull/2104>#2104</a> <a href=https://github.com/mikeyb>@mikeyb</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2205>#2205</a>, <a href=https://github.com/cavemansspa>@cavemansspa</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2250>#2250</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>, <a href=https://github.com/MithrilJS/mithril.js/pull/2265>#2265</a>, <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>render/core: avoid touching <code>Object.prototype.__proto__</code> setter with <code>key: &quot;__proto__&quot;</code> in certain situations (<a href=https://github.com/MithrilJS/mithril.js/pull/2251>#2251</a>)</li>
+<li>render/core: Vnodes stored in the dom node supplied to <code>m.render()</code> are now normalized <a href=https://github.com/MithrilJS/mithril.js/pull/2266>#2266</a></li>
+<li>render/core: CSS vars can now be specified in <code>{style}</code> attributes (<a href=https://github.com/MithrilJS/mithril.js/pull/2192>#2192</a> <a href=https://github.com/barneycarroll>@barneycarroll</a>), (<a href=https://github.com/MithrilJS/mithril.js/pull/2311>#2311</a> <a href=https://github.com/porsager>@porsager</a>), (<a href=https://github.com/MithrilJS/mithril.js/pull/2312>#2312</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>request: don&#39;t modify params, call <code>extract</code>/<code>serialize</code>/<code>deserialize</code> with correct <code>this</code> value (<a href=https://github.com/MithrilJS/mithril.js/pull/2288>#2288</a>)</li>
+<li>render: simplify component removal (<a href=https://github.com/MithrilJS/mithril.js/pull/2214>#2214</a>)</li>
+<li>render: remove some redundancy within the component initialization code (<a href=https://github.com/MithrilJS/mithril.js/pull/2213>#2213</a>)</li>
+<li>API: <code>mithril</code> loads <code>mithril/index.js</code>, not the bundle, so users of <code>mithril/hyperscript</code>, <code>mithril/render</code>, and similar see the same Mithril instance as those just using <code>mithril</code> itself.<ul>
+<li><code>https://unpkg.com/mithril</code> is configured to receive the <em>minified</em> bundle, not the development bundle.</li>
+<li>The raw bundle itself remains accessible at <code>mithril.js</code>, and is <em>not</em> browser-wrapped.</li>
+<li>Note: this <em>will</em> increase overhead with bundlers like Webpack, Rollup, and Browserify.</li>
+</ul>
+</li>
+<li>request: autoredraw support fixed for <code>async</code>/<code>await</code> in Chrome (<a href=https://github.com/MithrilJS/mithril.js/pull/2428>#2428</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>render: fix when attrs change with <code>onbeforeupdate</code> returning false, then remaining the same on next redraw (<a href=https://github.com/MithrilJS/mithril.js/pull/2447>#2447</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>render: fix internal error when <code>onbeforeupdate</code> returns false and then true with new child tree (<a href=https://github.com/MithrilJS/mithril.js/pull/2447>#2447</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>route: arbitrary prefixes are properly supported now, including odd prefixes like <code>?#</code> and invalid prefixes like <code>#foo#bar</code> (<a href=https://github.com/MithrilJS/mithril.js/pull/2448>#2448</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>request: correct IE workaround for response type non-support (<a href=https://github.com/MithrilJS/mithril.js/pull/2449>#2449</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>render: correct <code>contenteditable</code> check to also check for <code>contentEditable</code> property name (<a href=https://github.com/MithrilJS/mithril.js/pull/2450>#2450</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>docs: clarify valid key usage (<a href=https://github.com/MithrilJS/mithril.js/pull/2452>#2452</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>route: don&#39;t pollute globals (<a href=https://github.com/MithrilJS/mithril.js/pull/2453>#2453</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+<li>request: track xhr replacements correctly (<a href=https://github.com/MithrilJS/mithril.js/pull/2455>#2455</a> <a href=https://github.com/isiahmeadows>@isiahmeadows</a>)</li>
+</ul>
+<hr>
+<small>License: MIT. &copy; Leo Horie.</small>
+</section>
+</main>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js defer></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js defer></script>
+<script src=https://unpkg.com/mithril@2.0.3/mithril.js async></script>
+<script>
+document.querySelector(".hamburger").onclick = function() {
+			document.body.className = document.body.className === "navigating" ? "" : "navigating"
+			document.querySelector("h1 + ul").onclick = function() {
+				document.body.className = ''
+			}
+		}
+</script>

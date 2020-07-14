@@ -1,0 +1,97 @@
+body {-webkit-text-size-adjust: 100%;}
+body,table,h5 {font:normal 16px 'Open Sans';}
+header,main {margin:auto;max-width:1000px;}
+header section {position:absolute;width:250px;}
+nav a {border-left:1px solid #ddd;padding:0 10px;}
+nav a:first-child {border:0;padding-left:0;}
+main {margin-bottom:100px;}
+main section {margin-left:270px;}
+p {margin:0 0 15px;}
+pre,code {background:#eee;font-family:monospace;font-size:14px;}
+pre {border-left:3px solid #1e5799;overflow:auto;padding:10px 20px;margin:20px 0;}
+code {border:1px solid #ddd;display:inline-block;margin:0 0 1px;padding:5px 3px;white-space:pre;}
+pre code {border:0;margin:0;padding:0;}
+table {border-collapse:collapse;margin:0 0 30px;width:100%;}
+tbody tr:nth-child(odd) {background:#fafafa;}
+thead tr,tbody tr:nth-child(even) {background:#f3f3f3;}
+tr {border-bottom:1px solid #eee;}
+th {text-align:left;}
+th,td {padding:3px 10px;vertical-align:top;}
+a {color:#1e5799;text-decoration:none;}
+a:hover {text-decoration:underline;}
+hr {border:0;border-bottom:1px solid #ddd;margin:30px 0;}
+
+/* Headings */
+h1,h2,h3,h4,h5 {position:relative}
+h1 {font-size:24px;margin:0 0 15px;}
+h2 {font-size:22px;margin:45px 0 15px;}
+h3 {font-size:20px;margin:45px 0 15px;}
+h4 {font-size:18px;margin:30px 0 15px;}
+h5 {font-weight:bold;margin:15px 0 15px;}
+h1 img {transform:rotate(180deg);vertical-align:middle;width:20px;}
+h1 small {font-size:16px;}
+h2 a,h3 a,h4 a,h5 a,
+h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,
+h2 a:active,h3 a:active,h4 a:active,h5 a:active,
+h2 a:visited,h3 a:visited,h4 a:visited,h5 a:visited {color:#000;text-decoration:none;}
+h2::before,h3::before,h4::before,h5::before {content:"#";position:absolute;left:-20px;visibility:hidden;}
+h2:hover::before,h3:hover::before,h4:hover::before,h5:hover::before {visibility:visible;}
+#signature + p code {padding:3px 10px;}
+h1 + ul {margin:40px 0 0 -270px;padding:0;position:absolute;width:250px;}
+h1 + ul + hr {display:none;}
+h1 + ul li {list-style:none;margin:0;padding:0;}
+h1 + ul li:last-child {border-bottom:0;}
+h1 + ul ul {margin:0 0 2px;padding:0 0 0 15px;}
+h1 + ul ul li {border:0;}
+h1 + ul strong + ul {border-left:3px solid #1e5799;}
+
+.hamburger {display:none;}
+
+@keyframes grow {
+	from {transform:scaleX(0)}
+	to {transform:scaleX(100%)}
+}
+
+@media (max-width: 767px) {
+	.hamburger {display:block;font-size:30px;padding:0 10px;position:fixed;right:0;top:0;z-index:2;}
+	.hamburger:hover {text-decoration:none;}
+	main section {margin:0;}
+	header section {margin:0 0 20px;position:static;width:auto;}
+	h1 + ul {background:#eee;border:1px solid #ccc;box-sizing:border-box;display:none;height:100%;margin:0;overflow:auto;padding:20px;position:fixed;right:0;top:0;width:100%;}
+	h1 + ul + hr {display:block;}
+	.navigating h1 + ul {display:block;}
+	.navigating {overflow:hidden;}
+}
+@media (max-width: 1024px) {
+	table,table tbody,table tr,table th,table td {display:block;}
+	table thead {display:none;}
+	table td:before {display:inline-block;font-style:italic;font-weight:bold;padding:0 10px 0 0;width:100px;}
+	table tr:not(:last-child) td:nth-child(1):before {content:"Argument:";}
+	table tr:last-child td:nth-child(3) {display:none;}
+	table td:nth-child(2):before {content:"Type:";}
+	table td:nth-child(3):before {content:"Required:";}
+	table td:nth-child(4):before {content:"Description:";}
+	#structure ~ table td:nth-child(1):before {content:"Property:";}
+	#structure ~ table td:nth-child(2):before {content:"Type:";}
+	#structure ~ table td:nth-child(3):before {content:"Description:";}
+	#vnode-types ~ table td:nth-child(1):before {content:"Vnode type:";}
+	#vnode-types ~ table td:nth-child(2):before {content:"Example:";}
+	#vnode-types ~ table td:nth-child(3):before {content:"Description:";}
+	#lifecycle-methods ~ table td:nth-child(1):before {content:"Hook:";}
+	#lifecycle-methods ~ table td:nth-child(2):before {content:"Description:";}
+	#react ~ table td:nth-child(1):before {content:"React:";}
+	#angular ~ table td:nth-child(1):before {content:"Angular:";}
+	#vue ~ table td:nth-child(1):before {content:"Vue:";}
+	#comparisons ~ table td:nth-child(2):before {content:"Mithril:";}
+}
+@media print {
+	nav,h1 + ul {display:none;}
+	main section {margin:0;}
+}
+
+/* prism theming */
+.token.comment,.token.prolog,.token.doctype,.token.cdata {color:#888;}
+.token.property,.token.tag,.token.boolean,.token.number,.token.constant,.token.symbol {color:#905;}
+.token.selector,.token.attr-name,.token.string,.token.builtin {color:#690;}
+.token.atrule,.token.attr-value,.token.punctuation,.token.keyword {color:#1e5799;}
+.token.regex,.token.important {color:#e90;}
