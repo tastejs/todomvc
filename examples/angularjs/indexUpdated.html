@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" data-framework="angularjs">
+	<head>
+		<meta charset="utf-8">
+		<title>AngularJS • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+        <style>[ng-cloak] { display: none; }
+        .red {
+    color: red !important;
+  }
+  
+  .blue {
+    color: black !important;
+  }
+  .green {
+    color: green !important;
+  }
+  .magenta {
+    color: magenta !important;
+  }
+  .yellow {
+    color: yellow !important;
+  }
+  .interaction-box {
+  width: 1020px;
+  height: 268px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 5px;
+}
+
+.interaction-box ul {
+  height: 265px;
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.search-result {
+  list-style-type: none;
+  font-size: 17px;
+  padding: 5px;
+}
+  </style>
+	</head>
+	<body ng-app="todomvc" style="max-width: 1058px;">
+		<ng-view></ng-view>
+
+		<script type="text/ng-template" id="todomvc-index.html">
+			<section class="todoapp">
+				<header class="header">
+					<h1>todos</h1>
+					<form class="todo-form" ng-submit="addTodo()">
+						<input class="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
+					</form>
+				</header>
+				<section class="main" ng-show="todos.length" ng-cloak>
+					<input id="toggle-all" class="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+                    <label for="toggle-all">Mark all as complete</label>
+                    <div class="interaction-box">
+					<ul class="todo-list">
+						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+							<div class="view">
+								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+                                <label class="search-result" ng-dblclick="editTodo(todo)" ng-class="{ 'red' : todo.newInsert && !todo.completed , 'blue': !todo.newInsert && !todo.completed , 'green' : ($index+1 == todos.length) && todo.completed , 'magenta' : ($index+1 == todos.length-1) && todo.completed , 'yellow' : ($index+1 == todos.length-2) && todo.completed  }">
+                                   <span style="display: inline-block;
+                                   width: 180px;
+                                   white-space: nowrap;
+                                   overflow: hidden !important;
+                                   text-overflow: ellipsis;" title="{{todo.title}}">{{todo.title}}</span> &nbsp; Created-Date:  <span>{{todo.createdDate}}</span> &nbsp; Completed-Date:  <span>{{todo.completeddate}}</span></label>
+								<button class="destroy" ng-click="removeTodo(todo)"></button>
+							</div>
+							<form ng-submit="saveEdits(todo, 'submit')">
+								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
+							</form>
+						</li>
+                    </ul>
+                </div>
+				</section>
+				<footer class="footer" ng-show="todos.length" ng-cloak>
+					<span class="todo-count"><strong>{{remainingCount}}</strong>
+						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+					</span>
+					<ul class="filters">
+						<li>
+							<a ng-class="{selected: status == ''} " href="#/">All</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
+						</li>
+					</ul>
+					<button class="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed</button>
+				</footer>
+			</section>
+			<footer class="info">
+				<p>Double-click to edit a todo</p>
+				<p>Credits:
+					<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
+					<a href="http://ericbidelman.com">Eric Bidelman</a>,
+					<a href="http://jacobmumm.com">Jacob Mumm</a> and
+					<a href="http://blog.igorminar.com">Igor Minar</a>
+				</p>
+				<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+			</footer>
+		</script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-route/angular-route.js"></script>
+		<script src="node_modules/angular-resource/angular-resource.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/todoCtrlUpdated.js"></script>
+		<script src="js/services/todoStorageUpdated.js"></script>
+		<script src="js/directives/todoFocus.js"></script>
+		<script src="js/directives/todoEscape.js"></script>
+	</body>
+</html>
