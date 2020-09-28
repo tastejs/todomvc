@@ -75,7 +75,7 @@
 				if (!value) {
 					return;
 				}
-				this.todos.push({ id: this.todos.length + 1, title: value, completed: false });
+				this.todos.push({ id: Math.random().toString(36).substr(2, 9), title: value, completed: false });
 				this.newTodo = '';
 			},
 
