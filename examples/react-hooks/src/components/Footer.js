@@ -10,6 +10,7 @@ export default function Footer() {
       <p>
         Part of <a href="http://todomvc.com">TodoMVC</a>
       </p>
+		<p>Best ToDo MVC currently !</p>
     </footer>
   );
 }
