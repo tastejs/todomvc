@@ -90,6 +90,8 @@ jobs:
     <<: *defaults
   scalajs-react:
     <<: *defaults
+  hullo:
+    <<: *defaults
   # labs
   chaplin-brunch:
     <<: *defaults
@@ -178,6 +180,7 @@ workflows:
       - typescript-angular
       - scalajs-react
       - kotlin-react
+      - hullo
   # third tab - labs
   labs:
     jobs:

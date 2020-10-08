@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"declaration": false,
+		"target": "es5",
+		"lib": ["esnext", "esnext.asynciterable", "dom"],
+		"types": [],
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"alwaysStrict": true,
+		"downlevelIteration": false,
+		"esModuleInterop": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"skipLibCheck": true,
+		"pretty": true,
+		"strict": true,
+		"sourceMap": true
+	},
+	"include": ["ts/*.ts"],
+	"exclude": ["node_modules"]
+}

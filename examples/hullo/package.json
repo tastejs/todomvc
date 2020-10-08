@@ -1,0 +1,31 @@
+{
+  "name": "todomvc-hullo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "PURPOSE=dev webpack -w",
+    "build": "PURPOSE=dev webpack",
+    "test": "exit 0"
+  },
+  "author": "Artur Kulig",
+  "license": "ISC",
+  "dependencies": {
+    "@hullo/browser": "^0.7.0",
+    "@hullo/core": "^0.7.0",
+    "@hullo/dom": "^0.7.0",
+    "todomvc-app-css": "^2.2.0",
+    "todomvc-common": "^1.0.5"
+  },
+  "devDependencies": {
+    "acorn": "^6.1.1",
+    "css-loader": "^2.1.1",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "^1.2.3",
+    "ts-loader": "^5.4.5",
+    "typescript": "^3.4.5",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
+  }
+}
