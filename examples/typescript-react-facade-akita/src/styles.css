@@ -1,0 +1,96 @@
+/* @import '~@ionic/react/css/core.css';
+// Basic CSS for apps built with Ionic
+@import '~@ionic/react/css/normalize.css';
+@import '~@ionic/react/css/structure.css';
+@import '~@ionic/react/css/typography.css';
+// Optional CSS utils that can be commented out
+@import '~@ionic/react/css/padding.css';
+@import '~@ionic/react/css/float-elements.css';
+@import '~@ionic/react/css/text-alignment.css';
+@import '~@ionic/react/css/text-transformation.css';
+@import '~@ionic/react/css/flex-utils.css';
+@import '~@ionic/react/css/display.css'; */
+
+body,
+.app {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: grid;
+  grid-template-areas: 'header' 'content' 'footer';
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+  height: 100vh;
+  text-align: center;
+}
+
+header {
+  grid-area: header;
+}
+
+content {
+  grid-area: content;
+  display: block;
+  position: relative;
+  height: 67vh;
+}
+
+footer {
+  grid-area: footer;
+}
+
+.todo-enter {
+  opacity: 0;
+}
+
+.todo-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.todo-exit {
+  opacity: 1;
+}
+
+.todo-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.help {
+  z-index: 1000;
+  position: absolute;
+  left: 40vw;
+  top: 100px;
+  transform-origin: top left;
+}
+
+.help-enter {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.help-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: 200ms ease-out;
+}
+
+.help-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.help-exit-active {
+  opacity: 0;
+  transform: scale(0);
+  transition: 200ms ease-in;
+}
+
+.help-exit-done {
+  opacity: 0;
+  transform: scale(0);
+}
