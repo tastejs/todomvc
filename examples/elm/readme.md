@@ -13,7 +13,6 @@ started.
 Here are some links you may find helpful:
 
 * [Try Elm](http://elm-lang.org/try)
-* [Learn Elm](http://elm-lang.org/Learn.elm)
 * [An Introduction to Elm](http://guide.elm-lang.org/)
 
 Get help from other Elm users:
