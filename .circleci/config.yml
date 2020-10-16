@@ -21,7 +21,7 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": "*test* |$CIRCLE_BRANCH| |$CIRCLE_USERNAME|                    |$CIRCLE_WORKFLOW_ID|\n\n|$CIRCLE_PROJECT_REPONAME| |$CIRCLE_PROJECT_USERNAME| |$CIRCLE_BUILD_NUM| \n\n|$CIRCLE_BUILD_URL| |$CIRCLE_PR_NUMBER| |$CIRCLE_PR_REPONAME| \n\n|$CIRCLE_PR_USERNAME|        |$CIRCLE_PULL_REQUEST| |$CIRCLE_REPOSITORY_URL| |$CIRCLE_SHA1|"
+                            "text": "|$SLACK_JOB_STATUS| *test* |$CIRCLE_BRANCH| |$CIRCLE_USERNAME| |$CIRCLE_WORKFLOW_ID|\n\n|$CIRCLE_PROJECT_REPONAME| |$CIRCLE_PROJECT_USERNAME| |$CIRCLE_BUILD_NUM| \n\n|$CIRCLE_BUILD_URL| |$CIRCLE_PR_NUMBER| |$CIRCLE_PR_REPONAME| \n\n|$CIRCLE_PR_USERNAME| |$CIRCLE_PULL_REQUEST| |$CIRCLE_REPOSITORY_URL| |$CIRCLE_SHA1|"
                         }
                     }
                 ]
@@ -31,4 +31,5 @@ workflows:
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - job1
+        - job1:
+            context: ross-test
