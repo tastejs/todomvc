@@ -1,0 +1,34 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+orbs:
+  slack: circleci/slack@4.0
+# Orchestrate or schedule a set of jobs
+jobs:
+  job1:
+    docker:
+    - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo "Hello world"
+      - slack/notify:
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "*test* |$CIRCLE_BRANCH| |$CIRCLE_USERNAME|                    |$CIRCLE_WORKFLOW_ID|\n\n|$CIRCLE_PROJECT_REPONAME| |$CIRCLE_PROJECT_USERNAME| |$CIRCLE_BUILD_NUM| \n\n|$CIRCLE_BUILD_URL| |$CIRCLE_PR_NUMBER| |$CIRCLE_PR_REPONAME| \n\n|$CIRCLE_PR_USERNAME|        |$CIRCLE_PULL_REQUEST| |$CIRCLE_REPOSITORY_URL| |$CIRCLE_SHA1|"
+                        }
+                    }
+                ]
+            }
+workflows:
+  version: 2
+  welcome:
+    # Run the welcome/run job in its own container
+    jobs:
+      - job1
