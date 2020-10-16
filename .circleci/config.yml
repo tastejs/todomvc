@@ -14,6 +14,7 @@ jobs:
           command: |
             echo "Hello world"
       - slack/notify:
+          event: always
           custom: |
             {
                 "blocks": [
