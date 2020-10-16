@@ -19,7 +19,7 @@
 | --------- | ----------- | ------------------------------------------------ |
 | `cancel`  |             | `CustomEvent<void>`                              |
 | `destroy` |             | `CustomEvent<string>`                            |
-| `edit`    |             | `CustomEvent<void>`                              |
+| `edit`    |             | `CustomEvent<string>`                            |
 | `save`    |             | `CustomEvent<{ todoId: string; text: string; }>` |
 | `toggle`  |             | `CustomEvent<string>`                            |
 
