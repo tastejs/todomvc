@@ -14,7 +14,7 @@ jobs:
           command: |
             echo "Hello world"
       - slack/notify:
-          event: always
+          event: success
           custom: |
             {
                 "blocks": [
@@ -22,7 +22,7 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": "|$CCI_STATUS| *test* |$CIRCLE_BRANCH| |$CIRCLE_USERNAME| |$CIRCLE_WORKFLOW_ID|\n\n|$CIRCLE_PROJECT_REPONAME| |$CIRCLE_PROJECT_USERNAME| |$CIRCLE_BUILD_NUM| \n\n|$CIRCLE_BUILD_URL| |$CIRCLE_PR_NUMBER| |$CIRCLE_PR_REPONAME| \n\n|$CIRCLE_PR_USERNAME| |$CIRCLE_PULL_REQUEST| |$CIRCLE_REPOSITORY_URL| |$CIRCLE_SHA1|"
+                            "text": "*Success:* $CIRCLE_PROJECT_USERNAME's build #$CIRCLE_BUILD_NUM in $CIRCLE_PROJECT_REPORTNAME on the |$CIRCLE_BRANCH| branch was pretty good.\n |$CIRCLE_BUILD_URL| |$CIRCLE_PR_NUMBER| |$CIRCLE_PR_REPONAME| \n\n|$CIRCLE_PR_USERNAME| |$CIRCLE_PULL_REQUEST| |$CIRCLE_REPOSITORY_URL| |$CIRCLE_SHA1|"
                         }
                     }
                 ]
