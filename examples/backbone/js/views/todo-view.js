@@ -30,28 +30,29 @@ var app = app || {};
 		// **TodoView** in this app, we set a direct reference on the model for
 		// convenience.
 		initialize: function () {
-			this.listenTo(this.model, 'change', this.render);
+			this.listenTo(this.model, 'change:completed', this.renderToggle);
+			this.listenTo(this.model, 'change:title', this.renderTitle);
 			this.listenTo(this.model, 'destroy', this.remove);
 			this.listenTo(this.model, 'visible', this.toggleVisible);
 		},
 
-		// Re-render the titles of the todo item.
+		// Render a new todo item.
 		render: function () {
-			// Backbone LocalStorage is adding `id` attribute instantly after
-			// creating a model.  This causes our TodoView to render twice. Once
-			// after creating a model and once on `id` change.  We want to
-			// filter out the second redundant render, which is caused by this
-			// `id` change.  It's known Backbone LocalStorage bug, therefore
-			// we've to create a workaround.
-			// https://github.com/tastejs/todomvc/issues/469
-			if (this.model.changed.id !== undefined) {
-				return;
-			}
-
 			this.$el.html(this.template(this.model.toJSON()));
+			this.$input = this.$('.edit');
+			return this;
+		},
+
+		// Re-render the toggle status of the todo item.
+		renderToggle: function () {
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();
-			this.$input = this.$('.edit');
+			return this;
+		},
+
+		// Re-render the title of the todo item.
+		renderTitle: function () {
+			this.$('label').html(this.model.get('title'));
 			return this;
 		},
 
