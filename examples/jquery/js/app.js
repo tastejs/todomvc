@@ -49,7 +49,10 @@ jQuery(function ($) {
 				'/:filter': function (filter) {
 					this.filter = filter;
 					this.render();
-				}.bind(this)
+				}.bind(this),
+				'/': function () {
+					window.location.hash = '/all';
+				}
 			}).init('/all');
 		},
 		bindEvents: function () {
