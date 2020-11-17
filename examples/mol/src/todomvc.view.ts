@@ -7,7 +7,7 @@ namespace $.$$ {
 	
 	export class $hyoo_todomvc_add extends $.$hyoo_todomvc_add {
 		
-		press( next? : KeyboardEvent ) {
+		press( next : KeyboardEvent ) {
 			switch( next.keyCode ) {
 				case $mol_keyboard_code.enter : return this.done( next )
 			}
@@ -29,7 +29,7 @@ namespace $.$$ {
 		groups_completed() {
 			var groups : { [ index : string ] : number[] } = { 'true' : [] , 'false' : [] }
 			for( let id of this.task_ids() ) {
-				var task = this.task( id )
+				var task = this.task( id )!
 				groups[ String( task.completed ) ].push( id )
 			}
 			return groups
@@ -50,7 +50,7 @@ namespace $.$$ {
 			if( next === void 0 ) return this.groups_completed()[ 'false' ].length === 0
 			
 			for( let id of this.groups_completed()[ String( !next ) ] ) {
-				var task = this.task( id )
+				var task = this.task( id )!
 				this.task( id , { title : task.title , completed : next } )
 			}
 			
@@ -80,7 +80,7 @@ namespace $.$$ {
 			var task = { completed : false , title }
 			this.task( id , task )
 			
-			this.task_ids( this.task_ids().concat( id ) )
+			this.task_ids([ id , ... this.task_ids() ])
 			this.task_title_new( '' )
 		}
 
@@ -89,7 +89,7 @@ namespace $.$$ {
 			return this.task_ids_filtered().map( id => this.Task_row( id ) )
 		}
 		
-		task( id : number , next? : $hyoo_todomvc_task ) {
+		task( id : number , next? : $hyoo_todomvc_task | null ) {
 			const key = this.state_key( `mol-todos-${id}` )
 			if( next === void 0 ) {
 				return this.$.$mol_state_local.value<$hyoo_todomvc_task>( key ) || { title : '' , completed : false }
@@ -97,17 +97,17 @@ namespace $.$$ {
 			
 			this.$.$mol_state_local.value( key , next )
 			
-			return next || void 0
+			return next || null
 		}
 		
 		@ $mol_mem_key
 		task_completed( id : number , next? : boolean ) {
-			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , completed : next } ).completed
+			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , completed : next } )!.completed
 		}
 		
 		@ $mol_mem_key
 		task_title( id : number , next? : string ) {
-			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , title : next } ).title
+			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , title : next } )!.title
 		}
 		
 		task_drop( id : number , next? : Event ) {
@@ -117,7 +117,7 @@ namespace $.$$ {
 
 		sweep() {
 			this.task_ids( this.task_ids().filter( id => {
-				if( !this.task( id ).completed ) return true
+				if( !this.task( id )!.completed ) return true
 				this.task( id , null )
 				return false
 			} ) )

@@ -73,11 +73,3 @@ $hyoo_todomvc_task_row $mol_view
 	attr *
 		^
 		hyoo_todomvc_task_row_completed <= completed?val false
-
-
-$my_button_danger $mol_view
-	sub /
-		<= Icon $mol_icon_alert_circle
-		<= title
-
-

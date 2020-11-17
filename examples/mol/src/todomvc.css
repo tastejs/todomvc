@@ -86,6 +86,7 @@
 	color: rgba(275, 147, 147, 0.2);
 	text-rendering: optimizeLegibility;
 	text-transform: lowercase;
+	line-height: 1.5;
 }
 
 [hyoo_todomvc_task_row] {
@@ -117,6 +118,7 @@
 [hyoo_todomvc_task_row_drop] {
 	font-size: 1.25rem;
 	flex:  0 04rem;
+	padding: 1.25rem;
 }
 [hyoo_todomvc_task_row]:not(:hover) [hyoo_todomvc_task_row_drop]:not(:focus) {
 	opacity: 0;

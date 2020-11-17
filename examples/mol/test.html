@@ -17,4 +17,20 @@
 <div mol_view_root="$hyoo_todomvc">
 
 <script src="web.js" charset="utf-8"></script>
-<script src="node_modules/todomvc-common/base.js" charset="utf-8"></script>
+
+				<script src="/mol/build/client/client.js" charset="utf-8"></script>
+				<script>
+					setTimeout( ()=> {
+
+						const test = document.createElement( 'script' )
+						test.src = 'web.test.js'
+						
+						const audit =  document.createElement( 'script' )
+						audit.src = 'web.audit.js'
+						
+						test.onload = ()=> document.head.appendChild( audit )
+						document.head.appendChild( test )
+
+					}, 250 )
+				</script>
+				
