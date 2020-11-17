@@ -80,7 +80,7 @@ namespace $.$$ {
 			var task = { completed : false , title }
 			this.task( id , task )
 			
-			this.task_ids([ id , ... this.task_ids() ])
+			this.task_ids([ ... this.task_ids(), id ])
 			this.task_title_new( '' )
 		}
 

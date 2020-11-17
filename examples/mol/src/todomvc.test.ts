@@ -104,7 +104,7 @@ namespace $.$$ {
 			app.Add().value( 'test title 2' )
 			app.Add().done()
 
-			const task2 = app.task_rows()[0]
+			const task2 = app.task_rows()[1]
 			task2.Complete().click()
 
 			$mol_assert_ok( app.task_rows().includes( task1 ) )
@@ -136,7 +136,7 @@ namespace $.$$ {
 			app.Add().value( 'test title 2' )
 			app.Add().done()
 
-			const task2 = app.task_rows()[0]
+			const task2 = app.task_rows()[1]
 			task2.Complete().click()
 
 			$mol_assert_ok( app.task_rows().includes( task1 ) )
