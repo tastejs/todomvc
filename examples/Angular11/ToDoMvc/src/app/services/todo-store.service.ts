@@ -1,37 +1,25 @@
-export class Todo {
-	completed: boolean;
-	editing: boolean;
+import { Injectable } from '@angular/core';
+import { Todo } from '../models/todo.model';
 
-	private _title: String;
-	get title() {
-		return this._title;
-	}
-	set title(value: String) {
-		this._title = value.trim();
-	}
+@Injectable({
+  providedIn: 'root'
+})
+export class TodoStoreService {
 
-	constructor(title: String) {
-		this.completed = false;
-		this.editing = false;
-		this.title = title.trim();
-	}
-}
-
-export class TodoStore {
-	todos: Array<Todo>;
+  public todos: Array<Todo>;
 
 	constructor() {
-		let persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
+		let persistedTodos = JSON.parse(localStorage.getItem('angular11-todos') || '[]');
 		// Normalize back into classes
 		this.todos = persistedTodos.map( (todo: {_title: String, completed: boolean}) => {
-			let ret = new Todo(todo._title);
+			let ret:Todo = new Todo(todo._title);
 			ret.completed = todo.completed;
 			return ret;
 		});
 	}
 
 	private updateStore() {
-		localStorage.setItem('angular2-todos', JSON.stringify(this.todos));
+		localStorage.setItem('angular11-todos', JSON.stringify(this.todos));
 	}
 
 	private getWithCompleted(completed: Boolean) {
@@ -42,7 +30,7 @@ export class TodoStore {
 		return this.todos.length === this.getCompleted().length;
 	}
 
-	setAllTo(completed: Boolean) {
+	setAllTo(completed: boolean) {
 		this.todos.forEach((t: Todo) => t.completed = completed);
 		this.updateStore();
 	}
