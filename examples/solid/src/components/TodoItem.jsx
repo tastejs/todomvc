@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import { editTodo, removeTodo, setIsTodoCompleted } from "../utils/store";
 import classNames from 'classnames';
 import { onClickOutside } from '../utils/clickoutside'
@@ -7,7 +7,7 @@ function TodoItem(props) {
 	const [isEditing, setIsEditing] = createSignal(false)
 	let ref;
 
-	onClickOutside(ref, () => setIsEditing(false));
+	onClickOutside(() => ref, () => setIsEditing(false));
 
   return <li class={classNames({ completed: props.completed, editing: isEditing()})} onDblClick={() => setIsEditing(true)}>
 		<div class="view">
