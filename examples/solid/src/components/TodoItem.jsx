@@ -5,11 +5,21 @@ import { onClickOutside } from '../utils/clickoutside'
 
 function TodoItem(props) {
 	const { editTodo, removeTodo, setIsTodoCompleted } = useContext(TodosContext)[1];
-
 	const [isEditing, setIsEditing] = createSignal(false)
-	let ref;
+	const [newTitle, setNewTitle] = createSignal(props.title);
 
-	onClickOutside(() => ref, () => setIsEditing(false));
+	const submit = () => (setIsEditing(false), editTodo(props.id, newTitle()));
+
+	let ref;
+	//onClickOutside(() => ref, submit);
+
+	const onKeyDown = ev => {
+		if(ev.key === 'Enter') submit();
+		else if(ev.key === 'Escape') {
+			setIsEditing(false);
+			setNewTitle(props.title);
+		}
+	}
 
   return <li class={classNames({ completed: props.completed, editing: isEditing()})} onDblClick={() => setIsEditing(true)}>
 		<div class="view">
@@ -22,7 +32,14 @@ function TodoItem(props) {
 			<label>{props.title}</label>
 			<button class="destroy" onClick={() => removeTodo(props.id)}></button>
 		</div>
-		<input ref={ref} class="edit" value={props.title} onInput={e => editTodo(props.id, e.currentTarget.value)} />
+		<input
+			ref={ref}
+			class="edit"
+			value={newTitle()}
+			onInput={e => setNewTitle(e.currentTarget.value)}
+			onKeyDown={onKeyDown}
+			onBlur={submit}
+		/>
 	</li>
 }
 
