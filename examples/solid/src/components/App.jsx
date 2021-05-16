@@ -15,18 +15,18 @@ function App() {
 				<h1>todos</h1>
 				<NewTodoInput />
 			</header>
-			<section className="main">
-				<input id="toggle-all" class="toggle-all" type="checkbox" checked={isAllComplete()} onChange={toggleCompleted} />
-				<label for="toggle-all">Mark all as complete</label>
-				<Router>
-					<ul className="todo-list">
-						<TodoList />
-					</ul>
-					<Show when={state.todos.length > 0}>
+			<Show when={state.todos.length > 0}>
+				<section className="main">
+					<input id="toggle-all" class="toggle-all" type="checkbox" checked={isAllComplete()} onChange={toggleCompleted} />
+					<label for="toggle-all">Mark all as complete</label>
+					<Router>
+						<ul className="todo-list">
+							<TodoList />
+						</ul>
 						<Footer />
-					</Show>
-				</Router>
-			</section>
+					</Router>
+				</section>
+			</Show>
 		</>
   );
 }
