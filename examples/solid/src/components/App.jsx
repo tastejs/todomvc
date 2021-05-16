@@ -1,7 +1,8 @@
 import { For, Show, useContext } from 'solid-js';
 import { TodosContext } from '../utils/store';
+import { Router } from '../utils/router';
 import NewTodoInput from './NewTodoInput';
-import TodoItem from './TodoItem';
+import TodoList from './TodoList';
 import Footer from './Footer';
 
 function App() {
@@ -17,14 +18,14 @@ function App() {
 			<section className="main">
 				<input id="toggle-all" class="toggle-all" type="checkbox" checked={isAllComplete()} onChange={toggleCompleted} />
 				<label for="toggle-all">Mark all as complete</label>
-				<ul className="todo-list">
-					<For each={state.todos}>
-						{todo => <TodoItem {...todo} />}
-					</For>
-				</ul>
-				<Show when={state.todos.length > 0}>
-					<Footer />
-				</Show>
+				<Router>
+					<ul className="todo-list">
+						<TodoList />
+					</ul>
+					<Show when={state.todos.length > 0}>
+						<Footer />
+					</Show>
+				</Router>
 			</section>
 		</>
   );
