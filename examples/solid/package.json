@@ -1,0 +1,26 @@
+{
+  "name": "solid",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "solid-js": "^1.0.0-rc.1",
+    "solid-scripts": "0.0.55"
+  },
+  "dependencies": {
+    "classnames": "^2.3.1",
+    "todomvc-app-css": "^2.4.1",
+    "todomvc-common": "^1.0.5"
+  },
+  "scripts": {
+    "start": "solid-scripts start",
+    "build": "solid-scripts build",
+    "test": "solid-scripts test"
+  },
+  "browserslist": [
+    "Chrome 74",
+    "Firefox 63",
+    "Safari 11",
+    "Edge 17",
+    "Node 10"
+  ]
+}
