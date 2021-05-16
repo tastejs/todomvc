@@ -40,7 +40,8 @@ export function TodosProvider(props) {
 				setState('todos', todos => todos.map(todo => ({ ...todo, completed })))
 			},
 			editTodo(id, title) {
-				setState('todos', produce(todos => {
+				if(title.trim().length === 0) setState('todos', todos => todos.filter(todo => todo.id !== id));
+				else setState('todos', produce(todos => {
 					todos.find(todo => todo.id === id).title = title.trim();
 				}));
 				// TODO: Fix to not use produce while keeping TodoItem's own internal state.
