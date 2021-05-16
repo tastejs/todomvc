@@ -1,10 +1,13 @@
-import { For, Show } from 'solid-js';
-import { state } from '../utils/store';
+import { For, Show, useContext } from 'solid-js';
+import { TodosContext } from '../utils/store';
 import NewTodoInput from './NewTodoInput';
 import TodoItem from './TodoItem';
 import Footer from './Footer';
 
 function App() {
+	const isAllComplete = () => state.todos.every(todo => todo.completed);
+	const [state, { toggleCompleted }] = useContext(TodosContext);
+
   return (
 		<>
 			<header className="header">
@@ -12,7 +15,7 @@ function App() {
 				<NewTodoInput />
 			</header>
 			<section className="main">
-				<input id="toggle-all" class="toggle-all" type="checkbox" />
+				<input id="toggle-all" class="toggle-all" type="checkbox" checked={isAllComplete()} onChange={toggleCompleted} />
 				<label for="toggle-all">Mark all as complete</label>
 				<ul className="todo-list">
 					<For each={state.todos}>

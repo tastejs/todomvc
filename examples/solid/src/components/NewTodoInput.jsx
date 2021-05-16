@@ -1,7 +1,8 @@
-import { createSignal } from "solid-js";
-import { addTodo } from "../utils/store";
+import { createSignal, useContext } from "solid-js";
+import { TodosContext } from "../utils/store";
 
 function NewTodoInput() {
+	const { addTodo } = useContext(TodosContext)[1];
 	const [title, setTitle] = createSignal('')
 	const onKeydown = (e) => {
 		if(e.key !== 'Enter') return;

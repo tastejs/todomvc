@@ -1,9 +1,11 @@
-import { createEffect, createSignal } from "solid-js";
-import { editTodo, removeTodo, setIsTodoCompleted } from "../utils/store";
+import { createEffect, createSignal, useContext } from "solid-js";
+import { TodosContext } from "../utils/store";
 import classNames from 'classnames';
 import { onClickOutside } from '../utils/clickoutside'
 
 function TodoItem(props) {
+	const { editTodo, removeTodo, setIsTodoCompleted } = useContext(TodosContext)[1];
+
 	const [isEditing, setIsEditing] = createSignal(false)
 	let ref;
 

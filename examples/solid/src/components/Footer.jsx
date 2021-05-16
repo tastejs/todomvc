@@ -1,7 +1,9 @@
-import { Show } from "solid-js";
-import { clearCompleted, state } from "../utils/store"
+import { Show, useContext } from "solid-js";
+import { TodosContext } from "../utils/store"
 
 function Footer() {
+	const [state, { clearCompleted }] = useContext(TodosContext);
+
 	const count = () => state.todos.filter(todo => !todo.completed).length;
 	const completedExists = () => state.todos.some(todo => todo.completed);
 
