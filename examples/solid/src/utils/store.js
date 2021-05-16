@@ -6,7 +6,9 @@ function id() {
 
 function createLocalState(initState) {
   const [state, setState] = createState(initState);
-  if (localStorage.todos) setState({ todos: JSON.parse(localStorage.todos) });
+  if (localStorage.todos) {
+		setState({ todos: JSON.parse(localStorage.todos) });
+	}
   createEffect(() => localStorage.setItem('todos', JSON.stringify(state.todos)));
   return [state, setState];
 }
@@ -16,7 +18,7 @@ export const TodosContext = createContext([{ todos: [] }, {}]);
 export function TodosProvider(props) {
   const [state, setState] = createLocalState({
 		todos: []
-	})
+	});
 
 	const isAllComplete = () => state.todos.every(todo => todo.completed);
 
@@ -33,11 +35,11 @@ export function TodosProvider(props) {
 				setState('todos', todos => todos.map(todo => todo.id === id ? {...todo, completed} : todo));
 			},
 			clearCompleted() {
-				setState('todos', todos => todos.filter(todo => !todo.completed))
+				setState('todos', todos => todos.filter(todo => !todo.completed));
 			},
 			toggleCompleted() {
 				const completed = !isAllComplete();
-				setState('todos', todos => todos.map(todo => ({ ...todo, completed })))
+				setState('todos', todos => todos.map(todo => ({ ...todo, completed })));
 			},
 			editTodo(id, title) {
 				if(title.trim().length === 0) setState('todos', todos => todos.filter(todo => todo.id !== id));
