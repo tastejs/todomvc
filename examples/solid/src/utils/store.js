@@ -18,6 +18,8 @@ export function TodosProvider(props) {
 		todos: []
 	})
 
+	const isAllComplete = () => state.todos.every(todo => todo.completed);
+
 	const store = [
 		state,
 		{
@@ -34,7 +36,8 @@ export function TodosProvider(props) {
 				setState('todos', todos => todos.filter(todo => !todo.completed))
 			},
 			toggleCompleted() {
-				setState('todos', todos => todos.map(todo => ({...todo, completed: !todo.completed})))
+				const completed = !isAllComplete();
+				setState('todos', todos => todos.map(todo => ({ ...todo, completed })))
 			},
 			editTodo(id, title) {
 				setState('todos', produce(todos => {
