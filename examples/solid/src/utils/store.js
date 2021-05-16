@@ -6,8 +6,8 @@ function id() {
 
 function createLocalState(initState) {
   const [state, setState] = createState(initState);
-  if (localStorage.todos) setState(JSON.parse(localStorage.todos));
-  createEffect(() => localStorage.setItem('todos', JSON.stringify(state)));
+  if (localStorage.todos) setState({ todos: JSON.parse(localStorage.todos) });
+  createEffect(() => localStorage.setItem('todos', JSON.stringify(state.todos)));
   return [state, setState];
 }
 
