@@ -35,4 +35,5 @@ export function editTodo(id, title) {
 	setState('todos', produce(todos => {
 		todos.find(todo => todo.id === id).title = title;
 	}));
+	// TODO: Fix to not use produce while keeping TodoItem's own internal state.
 }
