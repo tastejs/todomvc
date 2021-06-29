@@ -89,7 +89,10 @@ var app = app || {};
 							onChange={this.props.onToggle}
 						/>
 						<label onDoubleClick={this.handleEdit}>
-							{`${this.props.todo.title} - tag:${this.props.todo.tag}`}
+							{`${this.props.todo.title}`}
+							<div className="tagDiv">
+								{`${this.props.todo.tag}`}
+							</div>
 						</label>
 						<button className="destroy" onClick={this.props.onDestroy} />
 					</div>
