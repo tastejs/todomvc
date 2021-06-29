@@ -21,10 +21,15 @@ var app = app || {};
 			return {
 				nowShowing: app.ALL_TODOS,
 				editing: null,
-				newTodo: ''
+				newTodo: '',
+				newTag: ''
 			};
 		},
 
+		/*
+		Some sort of router. When hit with different endpoints seems
+		to update state variable "nowShowing" based on the endpoint
+		*/
 		componentDidMount: function () {
 			var setState = this.setState;
 			var router = Router({
@@ -35,11 +40,20 @@ var app = app || {};
 			router.init('/');
 		},
 
+		// updates state variable "newTodo" with what you type in
 		handleChange: function (event) {
-			console.log('STUFF IS BEING CHANGED!')
+			console.log('Todo being typed in!')
 			this.setState({newTodo: event.target.value});
 		},
 
+		// updates state variable "newTodo" with what you type in
+		handleTagChange: function (event) {
+			console.log('TAG is being typed in!')
+			this.setState({newTag: event.target.value});
+		},
+
+		// when the user hits the "ENTER" key and if there is a value for
+		// the state variable "newTodo"
 		handleNewTodoKeyDown: function (event) {
 			if (event.keyCode !== ENTER_KEY) {
 				return;
@@ -48,10 +62,14 @@ var app = app || {};
 			event.preventDefault();
 
 			var val = this.state.newTodo.trim();
+			var tag = this.state.newTag.trim();
+			//console.log(`this.state: ${this.state.newTodo}`)
+			console.log(`val: ${val}`)
 
 			if (val) {
-				this.props.model.addTodo(val);
-				this.setState({newTodo: ''});
+				this.props.model.addTodo(val, tag); // saves todo item to local storage
+				this.setState({newTodo: ''}); // makes newTodo state variable empty again
+				this.setState({newTag: ''}); // makes newTag state variable empty again
 			}
 		},
 
@@ -68,6 +86,11 @@ var app = app || {};
 			this.props.model.destroy(todo);
 		},
 
+		/*
+		Tracks which todo we're editing by its unique id which was
+		created using the util.js file and added to the todo object
+		in the todos array in local storage
+		*/
 		edit: function (todo) {
 			this.setState({editing: todo.id});
 		},
@@ -88,8 +111,13 @@ var app = app || {};
 		render: function () {
 			var footer;
 			var main;
-			var todos = this.props.model.todos;
+			var todos = this.props.model.todos; // array of todo objects stored in local storage.
 
+			/*
+			If the state says we're looking at active todos then it'll filter
+			through the todo array and return a new array with only the todos
+			that have their completed property as "false"
+			*/
 			var shownTodos = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
 				case app.ACTIVE_TODOS:
@@ -101,6 +129,7 @@ var app = app || {};
 				}
 			}, this);
 
+			// mapping the each of the todos we want to render into a todoItem component
 			var todoItems = shownTodos.map(function (todo) {
 				return (
 					<TodoItem
@@ -116,12 +145,15 @@ var app = app || {};
 				);
 			}, this);
 
+			// how many total "Active" or not copmleted todos are there?
 			var activeTodoCount = todos.reduce(function (accum, todo) {
 				return todo.completed ? accum : accum + 1;
 			}, 0);
 
+			// how many "completed" todos there are
 			var completedCount = todos.length - activeTodoCount;
 
+			//
 			if (activeTodoCount || completedCount) {
 				footer =
 					<TodoFooter
@@ -164,6 +196,14 @@ var app = app || {};
 							onChange={this.handleChange}
 							autoFocus={true}
 						/>
+						<input
+							className="new-tag"
+							placeholder="Enter a tag"
+							value={this.state.newTag}
+							onKeyDown={this.handleNewTodoKeyDown}
+							onChange={this.handleTagChange}
+							autoFocus={true}
+						/>
 					</header>
 					{main}
 					{footer}
@@ -172,8 +212,13 @@ var app = app || {};
 		}
 	});
 
+	// model is an instance of class ToDoModel from todomodel.js
+	// this variable is used liberally in this file
 	var model = new app.TodoModel('react-todos');
 
+	/*
+	Renders TodoApp component to DOM within element with classname "todoapp"
+	*/
 	function render() {
 		React.render(
 			<TodoApp model={model}/>,
