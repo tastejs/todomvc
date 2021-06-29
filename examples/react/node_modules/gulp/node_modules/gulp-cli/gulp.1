@@ -1,0 +1,83 @@
+.TH "GULP" "" "June 2020" "" ""
+.SH "NAME"
+\fBgulp\fR
+.SS Usage
+.P
+\fBgulp [flags] <task> <task>\.\.\.\fP
+.SS Tasks
+.P
+The task(s) listed will be executed\.
+If more than one task is listed, Gulp will execute all of them
+concurrently, that is, as if they had all been listed as dependencies of
+a single task\.
+.P
+By default, Gulp does not serialize tasks listed on the command line\. If you would like to execute tasks serially, you must specify the \fB\-\-series\fP flag\. e\.g\. \fBgulp clean build \-\-series\fP
+.P
+Just running \fBgulp\fP will execute the task \fBdefault\fP\|\. If there is no
+\fBdefault\fP task, gulp will error\.
+.SS Compilers
+.P
+You can find a list of supported languages at https:// If you would like to add support for a new language, send pull requests/open issues on that project\.
+.SS Environment
+.P
+The CLI adds process\.env\.INIT_CWD which is the original cwd it was launched from\.
+.SS Flags
+.P
+gulp has very few flags to know about\. All other flags are for tasks to use if needed\.
+.P
+\fBSome flags only work with gulp 4 and will be ignored when invoked against gulp 3\.\fR
+.P
+\fB\-\-help\fR, \fB\-h\fR
+    Show the help\.
+.P
+\fB\-\-version\fR, \fB\-v\fR
+    Print the global and local gulp versions\.
+.P
+\fB\-\-require\fR [path]
+    Will require a module before running the gulpfile\. This is useful for transpilers but also has other applications\.
+.P
+\fB\-\-gulpfile\fR [path], \fB\-f\fR [path]
+    Manually set path of gulpfile\. Useful if you have multiple gulpfiles\. This will set the CWD to the gulpfile directory as well\.
+.P
+\fB\-\-cwd\fR [path]
+    Manually set the CWD\. The search for the gulpfile, as well as the relativity of all requires will be from here\.
+.P
+\fB\-\-verify\fR [path (optional)]
+    Will verify plugins referenced in project's package\.json against the plugins blacklist\.
+.P
+\fB\-\-tasks\fR, \fB\-T\fR
+    Print the task dependency tree for the loaded gulpfile\.
+.P
+\fB\-\-tasks\-simple\fR
+    Print a plaintext list of tasks for the loaded gulpfile\.
+.P
+\fB\-\-tasks\-json\fR [path]
+    Print the task dependency tree, in JSON format, for the loaded gulpfile\. The [path] argument is optional, and if given writes the JSON to the path\.
+.P
+\fB\-\-tasks\-depth\fR [number]
+    Specify the depth of the task dependency tree to print\. This flag can be used with \-\-tasks or \-\-tasks\-json\. (This flag was named \-\-depth before but is deprecated\.)
+.P
+\fB\-\-compact\-tasks\fR
+    Reduce the output of task dependency tree by printing only top tasks and their child tasks\. This flag can be used with \-\-tasks or \-\-tasks\-json\.
+.P
+\fB\-\-sort\-tasks\fR
+    Will sort top tasks of task dependency tree\. This flag can be used with \-\-tasks\.
+.P
+\fB\-\-color\fR
+    Will force gulp and gulp plugins to display colors, even when no color support is detected\.
+.P
+\fB\-\-no\-color\fR
+    Will force gulp and gulp plugins to not display colors, even when color support is detected\.
+.P
+\fB\-\-silent\fR, \fB\-S\fR
+    Suppress all gulp logging\.
+.P
+\fB\-\-continue\fR
+    Continue execution of tasks upon failure\.
+.P
+\fB\-\-series\fR
+    Run tasks given on the CLI in series (the default is parallel)\.
+.P
+\fB\-\-log\-level\fR, \fB\-L\fR
+    Set the loglevel\. \-L for least verbose and \-LLLL for most verbose\. \-LLL is default\.
+

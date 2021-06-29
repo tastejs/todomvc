@@ -8,7 +8,11 @@
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
-    "bin-up": "^1.1.0"
+    "bin-up": "^1.1.0",
+    "gulp": "^4.0.2"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   },
   "scripts": {
     "cy:open": "bin-up cypress open --project ../.. --env framework=react",
@@ -17,6 +21,7 @@
     "start": "bin-up gulp test-server",
     "test:gui": "bin-up run-p --race start cy:open",
     "test": "bin-up run-p --race start cy:run",
-    "test:record": "bin-up run-p --race start cy:run:record"
+    "test:record": "bin-up run-p --race start cy:run:record",
+    "preinstall": "npx npm-force-resolutions"
   }
 }

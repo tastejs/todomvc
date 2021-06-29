@@ -35,3 +35,29 @@ _If you have other helpful links to share, or find any of the links above no lon
 The app is built with [JSX](http://facebook.github.io/react/docs/jsx-in-depth.html) and compiled at runtime for a lighter and more fun code reading experience. As stated in the link, JSX is not mandatory.
 
 To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and visit http://localhost/.../myexample/.
+
+# Sunit's Implementation
+
+- Fork and clone repo
+
+- run: npm install --global gulp-cli
+
+- updated devDependencies in root directory to "gulp": "^4.0.0",
+
+- run: npm install
+
+- Updated gulp to latest version 4.0.2
+
+- Modified gulpfile in root directory to use gulp.series() (modfication required because old code was deprecated)
+
+- Run: npm start to start gulp test-server on port 8000 (localhost:8000)
+
+- Click "react" which will take you to: http://localhost:8000/examples/react/#/
+
+- CSS modified at ~/react/node_modules/todomvc-app-css/index.css
+
+## Possible areas of improvement
+
+- Update React syntax to ES6 or use React Hooks
+
+-

@@ -11,8 +11,8 @@ var app = app || {};
 	app.ALL_TODOS = 'all';
 	app.ACTIVE_TODOS = 'active';
 	app.COMPLETED_TODOS = 'completed';
-	var TodoFooter = app.TodoFooter;
-	var TodoItem = app.TodoItem;
+	var TodoFooter = app.TodoFooter; // access to footer component
+	var TodoItem = app.TodoItem; // access to item component
 
 	var ENTER_KEY = 13;
 
@@ -36,6 +36,7 @@ var app = app || {};
 		},
 
 		handleChange: function (event) {
+			console.log('STUFF IS BEING CHANGED!')
 			this.setState({newTodo: event.target.value});
 		},
 
@@ -154,7 +155,7 @@ var app = app || {};
 			return (
 				<div>
 					<header className="header">
-						<h1>todos</h1>
+						<h1>Sunit's Todos</h1>
 						<input
 							className="new-todo"
 							placeholder="What needs to be done?"

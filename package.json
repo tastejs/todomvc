@@ -20,7 +20,11 @@
     "cy:run:record": "npm run cy:run -- --record",
     "test": "run-p --race server cy:run",
     "test:record": "start-server-and-test server http://localhost:8000 cy:run:record",
-    "test:all": "node tests/cya.js"
+    "test:all": "node tests/cya.js",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   },
   "dependencies": {
     "express": "^4.10.0"
@@ -33,7 +37,7 @@
     "cypress": "^3.4.1",
     "del": "^0.1.1",
     "figlet": "^1.2.0",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.0",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-cache": "^0.2.0",
     "gulp-if": "^1.2.1",
