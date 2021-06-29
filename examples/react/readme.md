@@ -56,8 +56,16 @@ To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and v
 
 - CSS modified at ~/react/node_modules/todomvc-app-css/index.css
 
+# Notes/Ideas for adding tags feature
+
+- in todoModel.js add a "tags" property to the todos object when they are created. tags: ["funny", "green", "etc"]
+
+- in app.jsx use the shownTodos variable to filter based on tag (currently filtering based on completed or not)
+
 ## Possible areas of improvement
 
 - Update React syntax to ES6 or use React Hooks
 
--
+- Abiltiy to edit or remove existing tag
+
+- Add multiple tags (separated by commas or spaces)
