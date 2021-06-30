@@ -161,6 +161,7 @@ var app = app || {};
 						completedCount={completedCount}
 						nowShowing={this.state.nowShowing}
 						onClearCompleted={this.clearCompleted}
+						todos={todos}
 					/>;
 			}
 

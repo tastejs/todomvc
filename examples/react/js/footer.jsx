@@ -24,6 +24,19 @@ var app = app || {};
 			}
 
 			var nowShowing = this.props.nowShowing;
+
+			var tags = this.props.todos.map(function (todo) {
+				return (
+					<li>
+						<a
+							href={`#/${todo.tag}`}
+							className="tags">
+								{todo.tag}
+						</a>
+					</li>
+				)
+			});
+
 			return (
 				<footer className="footer">
 					<span className="todo-count">
@@ -53,6 +66,10 @@ var app = app || {};
 									Completed
 							</a>
 						</li>
+					</ul>
+					<br></br>
+					<ul className="filters">
+						{tags}
 					</ul>
 					{clearButton}
 				</footer>
