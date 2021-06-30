@@ -243,7 +243,7 @@ var app = app || {};
 						/>
 						<input
 							className="new-tag"
-							placeholder="Enter a tag"
+							placeholder="Enter tags separated by spaces"
 							value={this.state.newTags}
 							onKeyDown={this.handleNewTodoKeyDown}
 							onChange={this.handleTagChange}
