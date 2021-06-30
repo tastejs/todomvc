@@ -27,18 +27,24 @@ var app = app || {};
 
 			var handleTagClick = this.props.handleTagClick
 
-			var todosWithTags = this.props.todos.filter(function (todo) {
-				return todo.tag !== '';
+			var tagsOnly = this.props.todos.map(function (todo) {
+				return todo.tag;
 			})
 
-			var footerTagList = todosWithTags.map(function (todo) {
+			var uniqueTagsOnly = [...new Set(tagsOnly)];
+
+			var tagList = uniqueTagsOnly.filter(function (tag) {
+				return tag !== '';
+			})
+
+			var footerTagList = tagList.map(function (tag) {
 				return (
 					<li>
 						<a
-							href={`#/${todo.tag}`}
+							href={`#/${tag}`}
 							className="tags"
 							onClick={handleTagClick}>
-								{todo.tag}
+								{tag}
 						</a>
 					</li>
 				)
