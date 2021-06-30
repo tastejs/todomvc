@@ -44,14 +44,14 @@ var app = app || {};
 				)
 			});
 
-			var tagCount = todosWithTags.length;
+			// var tagCount = todosWithTags.length;
 
 			var clearTagsButton = null;
 
-			if (tagCount > 0) {
+			if (this.props.selectedTag !== '') {
 				clearTagsButton = (
 					<button
-						className="clear-completed"
+						className="clear-tags"
 						onClick={this.props.onClearTags}>
 						Clear tags filter
 					</button>
@@ -88,13 +88,15 @@ var app = app || {};
 							</a>
 						</li>
 					</ul>
+					<div className="clear-buttons">
+						{clearButton}
+						{clearTagsButton}
+					</div>
 					<br></br>
 					<ul className="filters tags">
 						Filter by tags:
 						{footerTagList}
 					</ul>
-					{clearButton}
-					{clearTagsButton}
 				</footer>
 			);
 		}

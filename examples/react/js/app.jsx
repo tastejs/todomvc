@@ -185,6 +185,7 @@ var app = app || {};
 						todos={todos}
 						handleTagClick={this.handleTagClick}
 						onClearTags={this.clearTags}
+						selectedTag={this.state.selectedTag}
 					/>;
 			}
 
