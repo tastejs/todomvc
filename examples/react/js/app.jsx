@@ -116,6 +116,10 @@ var app = app || {};
 			this.props.model.clearCompleted();
 		},
 
+		clearTags: function () {
+			this.setState({selectedTag: ''});
+		},
+
 		render: function () {
 			var footer;
 			var main;
@@ -180,6 +184,7 @@ var app = app || {};
 						onClearCompleted={this.clearCompleted}
 						todos={todos}
 						handleTagClick={this.handleTagClick}
+						onClearTags={this.clearTags}
 					/>;
 			}
 

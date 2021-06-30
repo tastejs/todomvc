@@ -44,6 +44,20 @@ var app = app || {};
 				)
 			});
 
+			var tagCount = todosWithTags.length;
+
+			var clearTagsButton = null;
+
+			if (tagCount > 0) {
+				clearTagsButton = (
+					<button
+						className="clear-completed"
+						onClick={this.props.onClearTags}>
+						Clear tags filter
+					</button>
+				);
+			}
+
 			return (
 				<footer className="footer">
 					<span className="todo-count">
@@ -80,6 +94,7 @@ var app = app || {};
 						{footerTagList}
 					</ul>
 					{clearButton}
+					{clearTagsButton}
 				</footer>
 			);
 		}
