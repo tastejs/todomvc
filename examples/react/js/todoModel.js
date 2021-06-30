@@ -28,11 +28,11 @@ var app = app || {};
 		this.onChanges.forEach(function (cb) { cb(); });
 	};
 
-	app.TodoModel.prototype.addTodo = function (todo, tag) {
+	app.TodoModel.prototype.addTodo = function (todo, tags) {
 		this.todos = this.todos.concat({
 			id: Utils.uuid(),
 			title: todo,
-			tag: tag,
+			tags: tags,
 			completed: false
 		});
 

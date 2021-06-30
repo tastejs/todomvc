@@ -56,6 +56,8 @@ To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and v
 
 - CSS modified at ~/react/node_modules/todomvc-app-css/index.css
 
+- If you're getting issues try clearing the browser's local storage object (that's where the todo's are being saved) using: localStorage.clear(); in the console
+
 # Notes/Ideas for adding tags feature
 
 - in todoModel.js add a "tags" property to the todos object when they are created. tags: ["funny", "green", "etc"]

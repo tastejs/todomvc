@@ -20,10 +20,10 @@ var app = app || {};
 		getInitialState: function () {
 			return {
 				nowShowing: app.ALL_TODOS,
-				selectedTag: '',
+				selectedTags: [],
 				editing: null,
 				newTodo: '',
-				newTag: ''
+				newTags: []
 			};
 		},
 
@@ -44,8 +44,20 @@ var app = app || {};
 		},
 
 		handleTagClick: function (event) {
-			console.log('click event:', event.target.text)
-			this.setState({selectedTag: event.target.text});
+			var newSelection = event.target.text;
+			console.log('click event:', newSelection)
+
+			var selectedTags = this.state.selectedTags;
+
+			var index = selectedTags.indexOf(newSelection);
+
+			if (index === -1) {
+				selectedTags.push(newSelection)
+			} else {
+				selectedTags.splice(index, 1)
+			}
+
+			this.setState({selectedTags: selectedTags});
 		},
 
 		// updates state variable "newTodo" with what you type in
@@ -57,7 +69,7 @@ var app = app || {};
 		// updates state variable "newTodo" with what you type in
 		handleTagChange: function (event) {
 			console.log('TAG is being typed in!')
-			this.setState({newTag: event.target.value});
+			this.setState({newTags: event.target.value});
 		},
 
 		// when the user hits the "ENTER" key and if there is a value for
@@ -70,14 +82,15 @@ var app = app || {};
 			event.preventDefault();
 
 			var val = this.state.newTodo.trim();
-			var tag = this.state.newTag.trim();
-			//console.log(`this.state: ${this.state.newTodo}`)
-			console.log(`tag: ${tag}`)
+			var tagString = this.state.newTags.trim();
+			var tagArray = tagString.split(' ');
+
+			console.log(`tags: ${tagArray}`)
 
 			if (val) {
-				this.props.model.addTodo(val, tag); // saves todo item to local storage
+				this.props.model.addTodo(val, tagArray); // saves todo item to local storage
 				this.setState({newTodo: ''}); // makes newTodo state variable empty again
-				this.setState({newTag: ''}); // makes newTag state variable empty again
+				this.setState({newTags: ''}); // makes newTag state variable empty again
 			}
 		},
 
@@ -117,21 +130,21 @@ var app = app || {};
 		},
 
 		clearTags: function () {
-			this.setState({selectedTag: ''});
+			this.setState({selectedTags: []});
 		},
 
 		render: function () {
 			var footer;
 			var main;
 			var todos = this.props.model.todos; // array of todo objects stored in local storage.
-			var selectedTag = this.state.selectedTag;
+			var selectedTags = this.state.selectedTags;
 
 			/*
 			If the state says we're looking at active todos then it'll filter
 			through the todo array and return a new array with only the todos
 			that have their completed property as "false"
 			*/
-			var activeOrCompletedFilter = todos.filter(function (todo) {
+			var todosFilteredByCompleted = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
 				case app.ACTIVE_TODOS:
 					return !todo.completed;
@@ -142,16 +155,23 @@ var app = app || {};
 				}
 			}, this);
 
-			var tagFilter = activeOrCompletedFilter.filter(function (todo) {
-				if (this.state.selectedTag !== '') {
-					return todo.tag === this.state.selectedTag
+
+
+			var todosFilteredByTags = todosFilteredByCompleted.filter(function (todo) {
+				console.log('todo.tags:', todo)
+				var found = todo.tags.some(function(tag) {
+					return (selectedTags.includes(tag))
+				});
+
+				if (selectedTags.length !== 0) {
+					return found;
 				} else {
 					return true;
 				}
 			}, this);
 
 			// mapping the each of the todos we want to render into a todoItem component
-			var todoItems = tagFilter.map(function (todo) {
+			var todoItems = todosFilteredByTags.map(function (todo) {
 				return (
 					<TodoItem
 						key={todo.id}
@@ -166,7 +186,7 @@ var app = app || {};
 				);
 			}, this);
 
-			// how many total "Active" or not copmleted todos are there?
+			// how many total "Active" or not completed todos are there?
 			var activeTodoCount = todos.reduce(function (accum, todo) {
 				return todo.completed ? accum : accum + 1;
 			}, 0);
@@ -185,7 +205,7 @@ var app = app || {};
 						todos={todos}
 						handleTagClick={this.handleTagClick}
 						onClearTags={this.clearTags}
-						selectedTag={this.state.selectedTag}
+						selectedTags={this.state.selectedTags}
 					/>;
 			}
 
@@ -224,7 +244,7 @@ var app = app || {};
 						<input
 							className="new-tag"
 							placeholder="Enter a tag"
-							value={this.state.newTag}
+							value={this.state.newTags}
 							onKeyDown={this.handleNewTodoKeyDown}
 							onChange={this.handleTagChange}
 							autoFocus={true}

@@ -28,10 +28,10 @@ var app = app || {};
 			var handleTagClick = this.props.handleTagClick
 
 			var tagsOnly = this.props.todos.map(function (todo) {
-				return todo.tag;
+				return todo.tags;
 			})
 
-			var uniqueTagsOnly = [...new Set(tagsOnly)];
+			var uniqueTagsOnly = [...new Set(tagsOnly.flat())];
 
 			var tagList = uniqueTagsOnly.filter(function (tag) {
 				return tag !== '';
@@ -50,11 +50,9 @@ var app = app || {};
 				)
 			});
 
-			// var tagCount = todosWithTags.length;
-
 			var clearTagsButton = null;
 
-			if (this.props.selectedTag !== '') {
+			if (this.props.selectedTags.length !== 0) {
 				clearTagsButton = (
 					<button
 						className="clear-tags"
