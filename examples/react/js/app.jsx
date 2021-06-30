@@ -20,6 +20,7 @@ var app = app || {};
 		getInitialState: function () {
 			return {
 				nowShowing: app.ALL_TODOS,
+				selectedTag: '',
 				editing: null,
 				newTodo: '',
 				newTag: ''
@@ -32,12 +33,19 @@ var app = app || {};
 		*/
 		componentDidMount: function () {
 			var setState = this.setState;
+			//var pathName = window.location.href.split('/');
 			var router = Router({
 				'/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
 				'/active': setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
 				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
 			});
 			router.init('/');
+			console.log(this.state.nowShowing);
+		},
+
+		handleTagClick: function (event) {
+			console.log('click event:', event.target.text)
+			this.setState({selectedTag: event.target.text});
 		},
 
 		// updates state variable "newTodo" with what you type in
@@ -112,13 +120,14 @@ var app = app || {};
 			var footer;
 			var main;
 			var todos = this.props.model.todos; // array of todo objects stored in local storage.
+			var selectedTag = this.state.selectedTag;
 
 			/*
 			If the state says we're looking at active todos then it'll filter
 			through the todo array and return a new array with only the todos
 			that have their completed property as "false"
 			*/
-			var shownTodos = todos.filter(function (todo) {
+			var activeOrCompletedFilter = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
 				case app.ACTIVE_TODOS:
 					return !todo.completed;
@@ -129,8 +138,16 @@ var app = app || {};
 				}
 			}, this);
 
+			var tagFilter = activeOrCompletedFilter.filter(function (todo) {
+				if (this.state.selectedTag !== '') {
+					return todo.tag === this.state.selectedTag
+				} else {
+					return true;
+				}
+			}, this);
+
 			// mapping the each of the todos we want to render into a todoItem component
-			var todoItems = shownTodos.map(function (todo) {
+			var todoItems = tagFilter.map(function (todo) {
 				return (
 					<TodoItem
 						key={todo.id}
@@ -162,6 +179,7 @@ var app = app || {};
 						nowShowing={this.state.nowShowing}
 						onClearCompleted={this.clearCompleted}
 						todos={todos}
+						handleTagClick={this.handleTagClick}
 					/>;
 			}
 

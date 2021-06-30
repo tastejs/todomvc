@@ -66,6 +66,10 @@ To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and v
 
 - Update React syntax to ES6 or use React Hooks
 
-- Abiltiy to edit or remove existing tag
+- Add abiltiy to edit or remove existing tags
 
 - Add multiple tags (separated by commas or spaces)
+
+- Create a separate component for "tag" and maybe "tagInput" for better separation of concerns
+
+- Add ability to filter by selecting numerous tags at once

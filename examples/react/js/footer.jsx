@@ -25,12 +25,15 @@ var app = app || {};
 
 			var nowShowing = this.props.nowShowing;
 
+			var handleTagClick = this.props.handleTagClick
+
 			var tags = this.props.todos.map(function (todo) {
 				return (
 					<li>
 						<a
 							href={`#/${todo.tag}`}
-							className="tags">
+							className="tags"
+							onClick={handleTagClick}>
 								{todo.tag}
 						</a>
 					</li>
@@ -68,7 +71,8 @@ var app = app || {};
 						</li>
 					</ul>
 					<br></br>
-					<ul className="filters">
+					<ul className="filters tags">
+						Filter by tags:
 						{tags}
 					</ul>
 					{clearButton}
