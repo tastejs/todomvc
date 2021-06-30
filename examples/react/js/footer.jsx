@@ -18,7 +18,7 @@ var app = app || {};
 					<button
 						className="clear-completed"
 						onClick={this.props.onClearCompleted}>
-						Clear completed
+						Delete completed
 					</button>
 				);
 			}
