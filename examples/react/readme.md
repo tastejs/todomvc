@@ -68,8 +68,8 @@ To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and v
 
 - Add abiltiy to edit or remove existing tags
 
-- Add multiple tags (separated by commas or spaces)
+- Add multiple tags per todo item (separated by commas or spaces)
 
 - Create a separate component for "tag" and maybe "tagInput" for better separation of concerns
 
-- Add ability to filter by selecting numerous tags at once
+- Add ability to filter on multiple tags simultaneously

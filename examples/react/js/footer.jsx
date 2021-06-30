@@ -100,7 +100,7 @@ var app = app || {};
 					</div>
 					<br></br>
 					<ul className="filters tags">
-						Filter by tags:
+						Filter by tag:
 						{footerTagList}
 					</ul>
 				</footer>
