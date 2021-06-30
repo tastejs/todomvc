@@ -27,7 +27,11 @@ var app = app || {};
 
 			var handleTagClick = this.props.handleTagClick
 
-			var tags = this.props.todos.map(function (todo) {
+			var todosWithTags = this.props.todos.filter(function (todo) {
+				return todo.tag !== '';
+			})
+
+			var footerTagList = todosWithTags.map(function (todo) {
 				return (
 					<li>
 						<a
@@ -73,7 +77,7 @@ var app = app || {};
 					<br></br>
 					<ul className="filters tags">
 						Filter by tags:
-						{tags}
+						{footerTagList}
 					</ul>
 					{clearButton}
 				</footer>

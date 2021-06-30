@@ -72,7 +72,7 @@ var app = app || {};
 			var val = this.state.newTodo.trim();
 			var tag = this.state.newTag.trim();
 			//console.log(`this.state: ${this.state.newTodo}`)
-			console.log(`val: ${val}`)
+			console.log(`tag: ${tag}`)
 
 			if (val) {
 				this.props.model.addTodo(val, tag); // saves todo item to local storage
