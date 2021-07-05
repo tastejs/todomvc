@@ -88,6 +88,8 @@ var app = app || {};
 			var footer;
 			var main;
 			var todos = this.props.model.todos;
+			var noOfItemColored = 3 /* this 3 can be get from config */
+			var noOfItemColoredSuffix = 1;
 
 			var shownTodos = todos.filter(function (todo) {
 				switch (this.state.nowShowing) {
@@ -99,6 +101,17 @@ var app = app || {};
 					return true;
 				}
 			}, this);
+			shownTodos.reverse().map(function (todo) {
+				if(todo.completed && noOfItemColored > 0) {
+					todo.selectedColorId = 'last-'+ noOfItemColoredSuffix;
+					noOfItemColored--;
+					noOfItemColoredSuffix++;
+					todo.selectedColorChanged = true;
+				}else{
+					todo.selectedColorId = todo.selectedColorChanged?"remove-transition":"";
+				}
+			},this)
+			shownTodos.reverse();
 
 			var todoItems = shownTodos.map(function (todo) {
 				return (
@@ -111,6 +124,7 @@ var app = app || {};
 						editing={this.state.editing === todo.id}
 						onSave={this.save.bind(this, todo)}
 						onCancel={this.cancel}
+						selectedColorId={todo.selectedColorId}
 					/>
 				);
 			}, this);
