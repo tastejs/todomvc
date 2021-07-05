@@ -57,7 +57,8 @@ var app = app || {};
 			return (
 				nextProps.todo !== this.props.todo ||
 				nextProps.editing !== this.props.editing ||
-				nextState.editText !== this.state.editText
+				nextState.editText !== this.state.editText ||
+				nextProps.selectedColorId !== this.props.selectedColorId
 			);
 		},
 
@@ -74,23 +75,38 @@ var app = app || {};
 				node.setSelectionRange(node.value.length, node.value.length);
 			}
 		},
+		componentDidMount: function () {
+				var node = React.findDOMNode(this.refs.viewField);
+				this.timeoutId = setTimeout(() =>{
+					node.classList.remove("defaultColor");
+					clearTimeout(this.timeoutId);
+				}, 100);
+		},
+
+		componentWillUnmount:function () {
+			if (this.timeoutId) {
+				clearTimeout(this.timeoutId);
+			}
+		},
 
 		render: function () {
-			return (
-				<li className={classNames({
+  			return (
+				<li id={this.props.todo && this.props.todo.selectedColorId} className={ classNames({
 					completed: this.props.todo.completed,
 					editing: this.props.editing
 				})}>
-					<div className="view">
+					<div className="view defaultColor" ref="viewField">
 						<input
 							className="toggle"
 							type="checkbox"
 							checked={this.props.todo.completed}
 							onChange={this.props.onToggle}
 						/>
-						<label onDoubleClick={this.handleEdit}>
+						<label onDoubleClick={this.handleEdit}  className="items">
 							{this.props.todo.title}
 						</label>
+						<div className="added-time items">Added Time : {this.props.todo.addedTime}</div>
+						<div className="completed-time items">{this.props.todo.completed ? `Completed Time : ${this.props.todo.CompletedTime}`:``}</div>
 						<button className="destroy" onClick={this.props.onDestroy} />
 					</div>
 					<input

@@ -32,7 +32,9 @@ var app = app || {};
 		this.todos = this.todos.concat({
 			id: Utils.uuid(),
 			title: title,
-			completed: false
+			completed: false,
+			selectedColorChanged:false,
+			addedTime:new Date().toLocaleString()
 		});
 
 		this.inform();
@@ -44,7 +46,7 @@ var app = app || {};
 		// we use map() and filter() everywhere instead of mutating the array or
 		// todo items themselves.
 		this.todos = this.todos.map(function (todo) {
-			return Utils.extend({}, todo, {completed: checked});
+			return Utils.extend({}, todo, {completed: checked,CompletedTime:new Date().toLocaleString()});
 		});
 
 		this.inform();
@@ -54,7 +56,7 @@ var app = app || {};
 		this.todos = this.todos.map(function (todo) {
 			return todo !== todoToToggle ?
 				todo :
-				Utils.extend({}, todo, {completed: !todo.completed});
+				Utils.extend({}, todo, {completed: !todo.completed,CompletedTime:new Date().toLocaleString()});
 		});
 
 		this.inform();
