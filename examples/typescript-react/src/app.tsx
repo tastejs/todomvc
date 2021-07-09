@@ -1,17 +1,12 @@
-import { IAppProps, IAppState, ITodo } from "./interfaces";
+import { IAppProps, IAppState, ITodo } from './interfaces';
 
 declare var Router;
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { TodoModel } from "./todoModel";
-import { TodoFooter } from "./footer";
-import { TodoItem } from "./todoItem";
-import {
-	ALL_TODOS,
-	ACTIVE_TODOS,
-	COMPLETED_TODOS,
-	ENTER_KEY,
-} from "./constants";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { TodoModel } from './todoModel';
+import { TodoFooter } from './footer';
+import { TodoItem } from './todoItem';
+import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS, ENTER_KEY } from './constants';
 
 class TodoApp extends React.Component<IAppProps, IAppState> {
 	public state: IAppState;
@@ -20,18 +15,18 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 		super(props);
 		this.state = {
 			nowShowing: ALL_TODOS,
-			editing: null,
+			editing: null
 		};
 	}
 
 	public componentDidMount() {
 		const setState = this.setState;
 		const router = Router({
-			"/": setState.bind(this, { nowShowing: ALL_TODOS }),
-			"/active": setState.bind(this, { nowShowing: ACTIVE_TODOS }),
-			"/completed": setState.bind(this, { nowShowing: COMPLETED_TODOS }),
+			'/': setState.bind(this, { nowShowing: ALL_TODOS }),
+			'/active': setState.bind(this, { nowShowing: ACTIVE_TODOS }),
+			'/completed': setState.bind(this, { nowShowing: COMPLETED_TODOS })
 		});
-		router.init("/");
+		router.init('/');
 	}
 
 	public handleNewTodoKeyDown(event: React.KeyboardEvent) {
@@ -42,13 +37,12 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 		event.preventDefault();
 
 		const val = (
-			ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement
+			ReactDOM.findDOMNode(this.refs['newField']) as HTMLInputElement
 		).value.trim();
 
 		if (val) {
 			this.props.model.addTodo(val);
-			(ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value =
-				"";
+			(ReactDOM.findDOMNode(this.refs['newField']) as HTMLInputElement).value = '';
 		}
 	}
 
@@ -88,7 +82,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 		let main;
 		const todos = this.props.model.todos;
 
-		const shownTodos = todos.filter((todo) => {
+		const shownTodos = todos.filter(todo => {
 			switch (this.state.nowShowing) {
 				case ACTIVE_TODOS:
 					return !todo.completed;
@@ -99,7 +93,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 			}
 		});
 
-		const todoItems = shownTodos.map((todo) => {
+		const todoItems = shownTodos.map(todo => {
 			return (
 				<TodoItem
 					key={todo.id}
@@ -137,29 +131,29 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
 		if (todos.length) {
 			main = (
-				<section className="main">
+				<section className='main'>
 					<input
-						id="toggle-all"
-						className="toggle-all"
-						type="checkbox"
-						onChange={(e) => this.toggleAll(e)}
+						id='toggle-all'
+						className='toggle-all'
+						type='checkbox'
+						onChange={e => this.toggleAll(e)}
 						checked={activeTodoCount === 0}
 					/>
-					<label htmlFor="toggle-all">Mark all as complete</label>
-					<ul className="todo-list">{todoItems}</ul>
+					<label htmlFor='toggle-all'>Mark all as complete</label>
+					<ul className='todo-list'>{todoItems}</ul>
 				</section>
 			);
 		}
 
 		return (
 			<div>
-				<header className="header">
+				<header className='header'>
 					<h1>todos</h1>
 					<input
-						ref="newField"
-						className="new-todo"
-						placeholder="What needs to be done?"
-						onKeyDown={(e) => this.handleNewTodoKeyDown(e)}
+						ref='newField'
+						className='new-todo'
+						placeholder='What needs to be done?'
+						onKeyDown={e => this.handleNewTodoKeyDown(e)}
 						autoFocus={true}
 					/>
 				</header>
@@ -170,12 +164,12 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 	}
 }
 
-const model = new TodoModel("react-todos");
+const model = new TodoModel('react-todos');
 
 function render() {
 	ReactDOM.render(
 		<TodoApp model={model} />,
-		document.getElementsByClassName("todoapp")[0]
+		document.getElementsByClassName('todoapp')[0]
 	);
 }
 

@@ -1,8 +1,8 @@
-import { ITodoItemProps, ITodoItemState } from "./interfaces";
-import * as classNames from "classnames";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { ENTER_KEY, ESCAPE_KEY } from "./constants";
+import { ITodoItemProps, ITodoItemState } from './interfaces';
+import * as classNames from 'classnames';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { ENTER_KEY, ESCAPE_KEY } from './constants';
 
 export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 	public state: ITodoItemState;
@@ -67,9 +67,7 @@ export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 	 */
 	public componentDidUpdate(prevProps: ITodoItemProps) {
 		if (!prevProps.editing && this.props.editing) {
-			const node = ReactDOM.findDOMNode(
-				this.refs["editField"]
-			) as HTMLInputElement;
+			const node = ReactDOM.findDOMNode(this.refs['editField']) as HTMLInputElement;
 			node.focus();
 			node.setSelectionRange(node.value.length, node.value.length);
 		}
@@ -80,28 +78,28 @@ export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 			<li
 				className={classNames({
 					completed: this.props.todo.completed,
-					editing: this.props.editing,
+					editing: this.props.editing
 				})}
 			>
-				<div className="view">
+				<div className='view'>
 					<input
-						className="toggle"
-						type="checkbox"
+						className='toggle'
+						type='checkbox'
 						checked={this.props.todo.completed}
 						onChange={this.props.onToggle}
 					/>
 					<label onDoubleClick={() => this.handleEdit()}>
 						{this.props.todo.title}
 					</label>
-					<button className="destroy" onClick={this.props.onDestroy} />
+					<button className='destroy' onClick={this.props.onDestroy} />
 				</div>
 				<input
-					ref="editField"
-					className="edit"
+					ref='editField'
+					className='edit'
 					value={this.state.editText}
 					onBlur={() => this.handleSubmit()}
-					onChange={(e) => this.handleChange(e)}
-					onKeyDown={(e) => this.handleKeyDown(e)}
+					onChange={e => this.handleChange(e)}
+					onKeyDown={e => this.handleKeyDown(e)}
 				/>
 			</li>
 		);

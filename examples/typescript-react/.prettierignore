@@ -1,4 +1,5 @@
 # Add files here to ignore them from prettier formatting
 
 www
+package-lock.json
 src/**/*.js

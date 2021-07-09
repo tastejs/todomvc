@@ -1,20 +1,17 @@
-import * as classNames from "classnames";
-import * as React from "react";
-import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from "./constants";
-import { Utils } from "./utils";
-import { ITodoFooterProps } from "./interfaces";
+import * as classNames from 'classnames';
+import * as React from 'react';
+import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from './constants';
+import { Utils } from './utils';
+import { ITodoFooterProps } from './interfaces';
 
 class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 	public render() {
-		const activeTodoWord = Utils.pluralize(this.props.count, "item");
+		const activeTodoWord = Utils.pluralize(this.props.count, 'item');
 		let clearButton = null;
 
 		if (this.props.completedCount > 0) {
 			clearButton = (
-				<button
-					className="clear-completed"
-					onClick={this.props.onClearCompleted}
-				>
+				<button className='clear-completed' onClick={this.props.onClearCompleted}>
 					Clear completed
 				</button>
 			);
@@ -22,32 +19,32 @@ class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
 		const nowShowing = this.props.nowShowing;
 		return (
-			<footer className="footer">
-				<span className="todo-count">
+			<footer className='footer'>
+				<span className='todo-count'>
 					<strong>{this.props.count}</strong> {activeTodoWord} left
 				</span>
-				<ul className="filters">
+				<ul className='filters'>
 					<li>
 						<a
-							href="#/"
+							href='#/'
 							className={classNames({ selected: nowShowing === ALL_TODOS })}
 						>
 							All
 						</a>
-					</li>{" "}
+					</li>{' '}
 					<li>
 						<a
-							href="#/active"
+							href='#/active'
 							className={classNames({ selected: nowShowing === ACTIVE_TODOS })}
 						>
 							Active
 						</a>
-					</li>{" "}
+					</li>{' '}
 					<li>
 						<a
-							href="#/completed"
+							href='#/completed'
 							className={classNames({
-								selected: nowShowing === COMPLETED_TODOS,
+								selected: nowShowing === COMPLETED_TODOS
 							})}
 						>
 							Completed

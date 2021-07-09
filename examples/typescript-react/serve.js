@@ -1,14 +1,14 @@
-var static = require("node-static");
-var file = new static.Server("./");
+var static = require('node-static');
+var file = new static.Server('./');
 
-require("http")
+require('http')
 	.createServer(function (request, response) {
 		request
-			.addListener("end", function () {
+			.addListener('end', function () {
 				file.serve(request, response);
 			})
 			.resume();
 	})
 	.listen(4200);
 
-console.log("Serving on http://localhost:4200/");
+console.log('Serving on http://localhost:4200/');
