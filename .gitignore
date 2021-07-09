@@ -3,3 +3,7 @@
 /dist
 /tooling/node_modules
 cypress/screenshots
+
+## examples/typescript-react
+/examples/typescript-react/src/**/*.js
+/examples/typescript-react/node_modules
