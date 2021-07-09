@@ -1,2 +1,2 @@
-export * from "./footer";
-export * from "./todoItem";
+export * from './FooterComponent';
+export * from './todoItem';

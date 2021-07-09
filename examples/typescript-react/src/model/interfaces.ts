@@ -1,3 +1,5 @@
+import {TodoType} from "./constants";
+
 export interface ITodo {
 	id: string;
 	title: string;
@@ -24,6 +26,13 @@ export interface ITodoFooterProps {
 	onClearCompleted: any;
 	nowShowing: string;
 	count: number;
+	items: IFooterItem[];
+}
+
+export interface IFooterItem {
+	href: string;
+	type: TodoType;
+	label: string
 }
 
 export interface ITodoModel {

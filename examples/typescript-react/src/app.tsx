@@ -1,12 +1,25 @@
-import {ENTER_KEY, IAppProps, IAppState, ITodo, TodoModel, TodoType} from './model';
+import {
+	ENTER_KEY,
+	IAppProps,
+	IAppState, IFooterItem,
+	ITodo,
+	TodoModel,
+	TodoType
+} from './model';
 
 declare var Router;
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { TodoFooter, TodoItem } from './components';
+import { FooterComponent, TodoItem } from './components';
 
 class TodoApp extends React.Component<IAppProps, IAppState> {
 	public state: IAppState;
+
+	private items: IFooterItem[] = [
+		{href: '#/', type: TodoType.ALL_TODOS, label: 'All'},
+		{href: '#/active', type: TodoType.ACTIVE_TODOS, label: 'Active'},
+		{href: '#/completed', type: TodoType.COMPLETED_TODOS, label: 'Completed'},
+	]
 
 	constructor(props: IAppProps) {
 		super(props);
@@ -117,7 +130,8 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
 		if (activeTodoCount || completedCount) {
 			footer = (
-				<TodoFooter
+				<FooterComponent
+					items={this.items}
 					count={activeTodoCount}
 					completedCount={completedCount}
 					nowShowing={this.state.nowShowing}

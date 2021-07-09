@@ -1,4 +1,4 @@
-import {ENTER_KEY, ESCAPE_KEY, ITodoItemProps, ITodoItemState} from '../model';
+import { ENTER_KEY, ESCAPE_KEY, ITodoItemProps, ITodoItemState } from '../model';
 import * as classNames from 'classnames';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
