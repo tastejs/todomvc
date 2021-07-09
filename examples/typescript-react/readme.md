@@ -14,23 +14,23 @@ The [TypeScript website](http://typescriptlang.org) is a great resource for gett
 
 Here are some links you may find helpful:
 
-* [Tutorial](http://www.typescriptlang.org/Tutorial)
-* [Code Playground](http://www.typescriptlang.org/Playground)
-* [Documentation](https://github.com/Microsoft/TypeScript/wiki)
-* [Applications built with TypeScript](http://www.typescriptlang.org/Samples)
-* [Blog](http://blogs.msdn.com/b/typescript)
-* [Source Code](https://github.com/Microsoft/TypeScript)
+- [Tutorial](http://www.typescriptlang.org/Tutorial)
+- [Code Playground](http://www.typescriptlang.org/Playground)
+- [Documentation](https://github.com/Microsoft/TypeScript/wiki)
+- [Applications built with TypeScript](http://www.typescriptlang.org/Samples)
+- [Blog](http://blogs.msdn.com/b/typescript)
+- [Source Code](https://github.com/Microsoft/TypeScript)
 
 Articles and guides from the community:
 
-* [Thoughts on TypeScript](http://www.nczonline.net/blog/2012/10/04/thoughts-on-typescript)
-* [ScreenCast - Why I Like TypeScript](https://www.youtube.com/watch?v=Mh5VQVfWTbs)
+- [Thoughts on TypeScript](http://www.nczonline.net/blog/2012/10/04/thoughts-on-typescript)
+- [ScreenCast - Why I Like TypeScript](https://www.youtube.com/watch?v=Mh5VQVfWTbs)
 
 Get help from other TypeScript users:
 
-* [TypeScript on StackOverflow](http://stackoverflow.com/questions/tagged/typescript)
-* [Forums](https://github.com/Microsoft/TypeScript/issues)
-* [TypeScript on Twitter](http://twitter.com/typescriptlang)
+- [TypeScript on StackOverflow](http://stackoverflow.com/questions/tagged/typescript)
+- [Forums](https://github.com/Microsoft/TypeScript/issues)
+- [TypeScript on Twitter](http://twitter.com/typescriptlang)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
 
@@ -40,44 +40,42 @@ The [React getting started documentation](http://facebook.github.io/react/docs/g
 
 Here are some links you may find helpful:
 
-* [Documentation](http://facebook.github.io/react/docs/getting-started.html)
-* [API Reference](http://facebook.github.io/react/docs/reference.html)
-* [Blog](http://facebook.github.io/react/blog/)
-* [React on GitHub](https://github.com/facebook/react)
-* [Support](http://facebook.github.io/react/support.html)
+- [Documentation](http://facebook.github.io/react/docs/getting-started.html)
+- [API Reference](http://facebook.github.io/react/docs/reference.html)
+- [Blog](http://facebook.github.io/react/blog/)
+- [React on GitHub](https://github.com/facebook/react)
+- [Support](http://facebook.github.io/react/support.html)
 
 Articles and guides from the community:
 
-* [How is Facebook's React JavaScript library](http://www.quora.com/React-JS-Library/How-is-Facebooks-React-JavaScript-library)
-* [React: Under the hood](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
+- [How is Facebook's React JavaScript library](http://www.quora.com/React-JS-Library/How-is-Facebooks-React-JavaScript-library)
+- [React: Under the hood](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
 
 Get help from other React users:
 
-* [React on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
-* [Discussion Forum](https://discuss.reactjs.org/)
+- [React on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
+- [Discussion Forum](https://discuss.reactjs.org/)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
-
-
 
 ## Running
 
 A standalone TypeScript compiler is available on NPM.
 
-	npm install typescript
+    npm install typescript
 
 To compile the TypeScript in this project:
 
-	# from examples/typescript-react
-	$ ./node_modules/typescript/bin/tsc -p ./js/
+    # from examples/typescript-react
+    $ ./node_modules/typescript/bin/tsc -p ./js/
 
 To be able to run the output JS files in the browser:
 
-	# from examples/typescript-react
-	$ ./node_modules/browserify/bin/cmd ./js/app.js -o ./js/bundle.js"
+    # from examples/typescript-react
+    $ ./node_modules/browserify/bin/cmd ./js/app.js -o ./js/bundle.js"
 
 To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and visit http://localhost/.../myexample/.
 Alternatively you can run:
 
-	# from examples/typescript-react
-	$ npm run start
+    # from examples/typescript-react
+    $ npm run start
