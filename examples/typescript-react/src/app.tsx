@@ -1,11 +1,9 @@
-import { IAppProps, IAppState, ITodo } from './interfaces';
+import { IAppProps, IAppState, ITodo, TodoModel } from './model';
 
 declare var Router;
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { TodoModel } from './todoModel';
-import { TodoFooter } from './footer';
-import { TodoItem } from './todoItem';
+import { TodoFooter, TodoItem } from './components';
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS, ENTER_KEY } from './constants';
 
 class TodoApp extends React.Component<IAppProps, IAppState> {

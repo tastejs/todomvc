@@ -1,4 +1,4 @@
-import { Utils } from './utils';
+import { Utils } from '../utils';
 import { ITodo, ITodoModel } from './interfaces';
 
 // Generic "model" object. You can use whatever

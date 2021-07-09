@@ -1,8 +1,8 @@
-import { ITodoItemProps, ITodoItemState } from './interfaces';
+import { ITodoItemProps, ITodoItemState } from '../model';
 import * as classNames from 'classnames';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ENTER_KEY, ESCAPE_KEY } from './constants';
+import { ENTER_KEY, ESCAPE_KEY } from '../constants';
 
 export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 	public state: ITodoItemState;

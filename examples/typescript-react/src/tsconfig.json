@@ -17,12 +17,12 @@
 	"filesGlob": ["**/*.ts", "**/*.tsx", "!node_modules/**"],
 	"files": [
 		"constants.ts",
-		"interfaces.ts",
-		"todoModel.ts",
-		"utils.ts",
+		"model/interfaces.ts",
+		"model/todoModel.ts",
+		"utils/utils.ts",
 		"app.tsx",
-		"footer.tsx",
-		"todoItem.tsx"
+		"components/footer.tsx",
+		"components/todoItem.tsx"
 	],
 	"exclude": [],
 	"baseUrl": "types",
