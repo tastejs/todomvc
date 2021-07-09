@@ -21,7 +21,7 @@
     ],
     "files": [
         "constants.ts",
-        "interfaces.d.ts",
+        "interfaces.ts",
         "todoModel.ts",
         "utils.ts",
         "app.tsx",

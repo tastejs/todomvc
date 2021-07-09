@@ -1,11 +1,5 @@
-/*jshint quotmark:false */
-/*jshint white:false */
-/*jshint trailing:false */
-/*jshint newcap:false */
-
-/// <reference path="./interfaces.d.ts"/>
-
 import { Utils } from "./utils";
+import {ITodo, ITodoModel} from "./interfaces";
 
 // Generic "model" object. You can use whatever
 // framework you want. For this application it
