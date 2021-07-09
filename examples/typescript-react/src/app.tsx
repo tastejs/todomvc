@@ -1,10 +1,9 @@
-import { IAppProps, IAppState, ITodo, TodoModel } from './model';
+import {ENTER_KEY, IAppProps, IAppState, ITodo, TodoModel, TodoType} from './model';
 
 declare var Router;
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { TodoFooter, TodoItem } from './components';
-import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS, ENTER_KEY } from './constants';
 
 class TodoApp extends React.Component<IAppProps, IAppState> {
 	public state: IAppState;
@@ -12,7 +11,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 	constructor(props: IAppProps) {
 		super(props);
 		this.state = {
-			nowShowing: ALL_TODOS,
+			nowShowing: TodoType.ALL_TODOS,
 			editing: null
 		};
 	}
@@ -20,9 +19,9 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 	public componentDidMount() {
 		const setState = this.setState;
 		const router = Router({
-			'/': setState.bind(this, { nowShowing: ALL_TODOS }),
-			'/active': setState.bind(this, { nowShowing: ACTIVE_TODOS }),
-			'/completed': setState.bind(this, { nowShowing: COMPLETED_TODOS })
+			'/': setState.bind(this, { nowShowing: TodoType.ALL_TODOS }),
+			'/active': setState.bind(this, { nowShowing: TodoType.ACTIVE_TODOS }),
+			'/completed': setState.bind(this, { nowShowing: TodoType.COMPLETED_TODOS })
 		});
 		router.init('/');
 	}
@@ -82,9 +81,9 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
 		const shownTodos = todos.filter(todo => {
 			switch (this.state.nowShowing) {
-				case ACTIVE_TODOS:
+				case TodoType.ACTIVE_TODOS:
 					return !todo.completed;
-				case COMPLETED_TODOS:
+				case TodoType.COMPLETED_TODOS:
 					return todo.completed;
 				default:
 					return true;
