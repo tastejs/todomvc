@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc -p ./js/ && node ./node_modules/browserify/bin/cmd ./js/app.js -o ./js/bundle.js",
+    "lint": "eslint js/**/*.tsx js/**/*.tsx",
     "start": "node ./serve.js"
   },
   "dependencies": {
@@ -16,7 +17,15 @@
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
     "browserify": "^16.2.3",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "node-static": "^0.7.11",
     "typescript": "^2.9.2"
   }

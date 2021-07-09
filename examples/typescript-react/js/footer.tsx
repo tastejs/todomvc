@@ -1,23 +1,18 @@
-/*jshint quotmark:false */
-/*jshint white:false */
-/*jshint trailing:false */
-/*jshint newcap:false */
-/*global React */
 
-/// <reference path="./interfaces.d.ts"/>
 
 import * as classNames from "classnames";
 import * as React from "react";
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from "./constants";
 import { Utils } from "./utils";
+import {ITodoFooterProps} from "./interfaces";
 
 class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
   public render() {
-    var activeTodoWord = Utils.pluralize(this.props.count, 'item');
-    var clearButton = null;
+	  const activeTodoWord = Utils.pluralize(this.props.count, 'item');
+	  let clearButton = null;
 
-    if (this.props.completedCount > 0) {
+	  if (this.props.completedCount > 0) {
       clearButton = (
         <button
           className="clear-completed"
