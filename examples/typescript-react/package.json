@@ -3,7 +3,7 @@
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc -p ./src/ && node ./node_modules/browserify/bin/cmd ./src/app.js -o ./www/bundle.js",
     "lint": "eslint js/**/*.tsx js/**/*.tsx",
-    "fromat": "npx prettier --write .",
+    "format": "npx prettier --write .",
     "start": "node ./serve.js"
   },
   "dependencies": {
