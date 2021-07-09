@@ -20,13 +20,16 @@
     "cy:run:record": "npm run cy:run -- --record",
     "test": "run-p --race server cy:run",
     "test:record": "start-server-and-test server http://localhost:8000 cy:run:record",
-    "test:all": "node tests/cya.js"
+    "test:all": "node tests/cya.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "express": "^4.10.0"
   },
   "devDependencies": {
     "@bahmutov/print-env": "^1.0.1",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "console.table": "^0.9.1",
@@ -46,6 +49,7 @@
     "gulp-uncss": "^0.5.0",
     "gulp-useref": "^1.0.2",
     "gulp-vulcanize": "^1.0.0",
+    "husky": "^7.0.1",
     "jshint-stylish": "^1.0.0",
     "minimist": "^1.2.0",
     "npm-run-all": "^4.1.2",
