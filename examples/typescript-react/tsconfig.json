@@ -15,20 +15,12 @@
 		"suppressImplicitAnyIndexErrors": true,
 	  	"baseUrl": ".",
 		"paths": {
-		  "@coding-challenge/*": ["*/index.ts"],
+		  "@coding-challenge/*": ["src/*/index.ts"],
 		}
 	},
 
-	"filesGlob": ["**/*.ts", "**/*.tsx", "!node_modules/**"],
-	"files": [
-		"model/constants.ts",
-		"model/interfaces.ts",
-		"model/todoModel.ts",
-		"utils/utils.ts",
-		"app.tsx",
-		"components/footer/FooterComponent.tsx",
-		"components/todo_item/todoItem.tsx"
-	],
+	"filesGlob": ["src/**/*.ts", "src/**/*.tsx", "!node_modules/**"],
+    "include": ["src/**/*"],
 	"exclude": [],
 	"baseUrl": "types",
 	"typeRoots": ["types"]
