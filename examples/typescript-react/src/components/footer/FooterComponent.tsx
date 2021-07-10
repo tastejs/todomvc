@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import { Utils } from '@coding-challenge/utils';
-import { IFooterItem, ITodoFooterProps } from '@coding-challenge/model';
+import { Utils } from '../../utils';
+import { IFooterItem, ITodoFooterProps } from '../../model';
 
 export const FooterComponent = ({
 	completedCount,

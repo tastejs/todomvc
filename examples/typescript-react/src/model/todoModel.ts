@@ -6,7 +6,7 @@ import { ITodo, ITodoModel } from './interfaces';
 // may not even be worth separating this logic
 // out, but we do this to demonstrate one way to
 // separate out parts of your application.
-class TodoModel implements ITodoModel {
+export class TodoModel implements ITodoModel {
 	public key: string;
 	public todos: Array<ITodo>;
 	public onChanges: Array<any>;
@@ -84,5 +84,3 @@ class TodoModel implements ITodoModel {
 		this.inform();
 	}
 }
-
-export { TodoModel };

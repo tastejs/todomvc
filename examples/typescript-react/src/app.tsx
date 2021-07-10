@@ -6,8 +6,8 @@ import {
 	ITodo,
 	TodoModel,
 	TodoType
-} from '@coding-challenge/model';
-import { FooterComponent, TodoItem } from '@coding-challenge/components';
+} from './model';
+import { FooterComponent, ToDoItemComponent } from './components';
 
 declare var Router;
 import * as React from 'react';
@@ -106,7 +106,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
 		const todoItems = shownTodos.map(todo => {
 			return (
-				<TodoItem
+				<ToDoItemComponent
 					key={todo.id}
 					todo={todo}
 					onToggle={this.toggle.bind(this, todo)}
