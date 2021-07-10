@@ -1,4 +1,4 @@
-import {TodoType} from "./constants";
+import { TodoType } from './constants';
 
 export interface ITodo {
 	id: string;
@@ -32,7 +32,7 @@ export interface ITodoFooterProps {
 export interface IFooterItem {
 	href: string;
 	type: TodoType;
-	label: string
+	label: string;
 }
 
 export interface ITodoModel {

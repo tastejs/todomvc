@@ -12,8 +12,13 @@
 		"removeComments": true,
 		"noLib": false,
 		"preserveConstEnums": true,
-		"suppressImplicitAnyIndexErrors": true
+		"suppressImplicitAnyIndexErrors": true,
+	  	"baseUrl": ".",
+		"paths": {
+		  "@coding-challenge/*": ["*/index.ts"],
+		}
 	},
+
 	"filesGlob": ["**/*.ts", "**/*.tsx", "!node_modules/**"],
 	"files": [
 		"model/constants.ts",
@@ -21,8 +26,8 @@
 		"model/todoModel.ts",
 		"utils/utils.ts",
 		"app.tsx",
-		"components/FooterComponent.tsx",
-		"components/todoItem.tsx"
+		"components/footer/FooterComponent.tsx",
+		"components/todo_item/todoItem.tsx"
 	],
 	"exclude": [],
 	"baseUrl": "types",

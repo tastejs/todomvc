@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import {Utils} from '../utils';
-import {IFooterItem, ITodoFooterProps} from '../model';
+import { Utils } from '@coding-challenge/utils';
+import { IFooterItem, ITodoFooterProps } from '@coding-challenge/model';
 
 export const FooterComponent = ({
 	completedCount,
@@ -22,8 +22,8 @@ export const FooterComponent = ({
 					{item.label}
 				</a>
 			</li>
-		)
-	}
+		);
+	};
 
 	return (
 		<footer className='footer'>
