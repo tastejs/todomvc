@@ -1,0 +1,29 @@
+{
+	"roots": ["<rootDir>/src"],
+	"verbose": true,
+	"clearMocks": true,
+	"resetMocks": true,
+	"restoreMocks": true,
+	"moduleDirectories": ["node_modules"],
+	"moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+	"transformIgnorePatterns": ["node_modules/(?!compact-timezone-list)"],
+	"globals": {
+		"ts-jest": {
+			"tsconfig": "tsconfig.json",
+			"diagnostics": false
+		}
+	},
+	"setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+	"coverageThreshold": {
+		"global": {
+			"branches": 12.5,
+			"functions": 8,
+			"lines": 15.5,
+			"statements": 15
+		}
+	},
+	"transform": {
+		"^.+\\.tsx?$": "ts-jest"
+	},
+	"testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$"
+}

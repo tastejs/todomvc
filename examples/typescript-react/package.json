@@ -4,7 +4,9 @@
     "build": "./node_modules/typescript/bin/tsc -p ./ && node ./node_modules/browserify/bin/cmd ./src/main.js -o ./www/bundle.js",
     "lint": "eslint js/**/*.tsx js/**/*.tsx",
     "format": "npx prettier --write .",
-    "start": "node ./serve.js"
+    "start": "node ./serve.js",
+    "test": "jest --env=jsdom",
+    "test:watch": "jest --watch --env=jsdom"
   },
   "dependencies": {
     "@types/classnames": "^2.2.6",
@@ -18,6 +20,9 @@
     "todomvc-common": "^1.0.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "browserify": "^16.2.3",
@@ -27,8 +32,10 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^27.0.6",
     "node-static": "^0.7.11",
     "prettier": "2.3.2",
-    "typescript": "^2.9.2"
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
   }
 }
