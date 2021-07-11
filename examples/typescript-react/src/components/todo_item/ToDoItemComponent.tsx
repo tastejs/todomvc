@@ -1,5 +1,4 @@
 import { ENTER_KEY, ESCAPE_KEY, ITodoItemProps, ITodoItemState } from '../../model';
-import * as classNames from 'classnames';
 import * as React from 'react';
 import { useState } from 'react';
 import { BadgeComponent } from '../badge/BadgeComponent';
@@ -45,10 +44,7 @@ export const ToDoItemComponent = ({
 
 	return (
 		<li
-			className={classNames({
-				completed: todo.completed,
-				editing: editing
-			})}
+			className={`${todo.completed ? 'completed' : ''} ${editing ? 'editing' : ''}`}
 		>
 			<ViewContainer isVisible={!editing}>
 				<input

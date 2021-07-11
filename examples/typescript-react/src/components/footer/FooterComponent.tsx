@@ -1,4 +1,3 @@
-import * as classNames from 'classnames';
 import * as React from 'react';
 import { Utils } from '../../utils';
 import { IFooterItem, ITodoFooterProps } from '../../model';
@@ -17,7 +16,7 @@ export const FooterComponent = ({
 			<li key={index}>
 				<a
 					href={item.href}
-					className={classNames({ selected: nowShowing === item.type })}
+					className={`${nowShowing === item.type ? 'selected' : ''}`}
 				>
 					{item.label}
 				</a>
