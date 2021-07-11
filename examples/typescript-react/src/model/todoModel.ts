@@ -28,11 +28,14 @@ export class TodoModel implements ITodoModel {
 		});
 	}
 
-	public addTodo(title: string) {
+	public addTodo(title: string, badges: string[] = []) {
 		this.todos = this.todos.concat({
 			id: Utils.uuid(),
 			title: title,
-			completed: false
+			completed: false,
+			badges: badges.map(badgeName => {
+				return { name: badgeName };
+			})
 		});
 
 		this.inform();
@@ -68,9 +71,16 @@ export class TodoModel implements ITodoModel {
 		this.inform();
 	}
 
-	public save(todoToSave: ITodo, text: string) {
+	public save(todoToSave: ITodo, text: string, badges?: string[]) {
 		this.todos = this.todos.map(function (todo) {
-			return todo !== todoToSave ? todo : Utils.extend({}, todo, { title: text });
+			return todo !== todoToSave
+				? todo
+				: Utils.extend({}, todo, {
+						title: text,
+						badges: badges.map(badge => {
+							return { name: badge };
+						})
+				  });
 		});
 
 		this.inform();

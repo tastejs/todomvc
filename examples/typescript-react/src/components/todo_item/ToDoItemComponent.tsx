@@ -2,6 +2,9 @@ import { ENTER_KEY, ESCAPE_KEY, ITodoItemProps, ITodoItemState } from '../../mod
 import * as classNames from 'classnames';
 import * as React from 'react';
 import { useState } from 'react';
+import { BadgeComponent } from '../badge/BadgeComponent';
+import styled from 'styled-components';
+import { Utils } from '../../utils';
 
 export const ToDoItemComponent = ({
 	onSave,
@@ -12,21 +15,18 @@ export const ToDoItemComponent = ({
 	onToggle,
 	editing
 }: ITodoItemProps) => {
-	const [state, setState] = useState<ITodoItemState>({ editText: todo.title });
+	const [state, setState] = useState<ITodoItemState>({
+		editText: `${todo.title} ${Utils.getLabelsFromArray(todo.badges)}`.trim()
+	});
 
 	const handleSubmit = () => {
-		const val = state.editText.trim();
-		if (val) {
-			onSave(val);
-			setState({ editText: val });
+		const newText = Utils.removeLabelsFromString(state.editText);
+		if (newText) {
+			onSave(newText, Utils.getLabelsFromString(state.editText));
+			setState({ editText: state.editText.trim() });
 		} else {
 			onDestroy();
 		}
-	};
-
-	const handleEdit = () => {
-		onEdit();
-		setState({ editText: todo.title });
 	};
 
 	const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -50,16 +50,25 @@ export const ToDoItemComponent = ({
 				editing: editing
 			})}
 		>
-			<div className='view'>
+			<ViewContainer isVisible={!editing}>
 				<input
 					className='toggle'
 					type='checkbox'
 					checked={todo.completed}
 					onChange={onToggle}
 				/>
-				<label onDoubleClick={() => handleEdit()}>{todo.title}</label>
+				<label onDoubleClick={() => onEdit()}>{todo.title}</label>
+				{!!todo.badges.length && (
+					<BadgeListContainer>
+						{todo.badges.map((badge, i) => (
+							<BadgeContainer hasRightSpacing={i < todo.badges.length}>
+								<BadgeComponent name={badge.name.replace('@', '')} />
+							</BadgeContainer>
+						))}
+					</BadgeListContainer>
+				)}
 				<button className='destroy' onClick={onDestroy} />
-			</div>
+			</ViewContainer>
 			<input
 				className='edit'
 				value={state.editText}
@@ -70,3 +79,19 @@ export const ToDoItemComponent = ({
 		</li>
 	);
 };
+
+const BadgeListContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	padding-right: 2rem;
+`;
+
+const BadgeContainer = styled.div<{ hasRightSpacing: boolean }>`
+	margin: ${props => (props.hasRightSpacing ? 'auto 0.5rem auto 0' : 'auto 0')};
+`;
+
+const ViewContainer = styled.div<{ isVisible: boolean }>`
+	display: ${props => (props.isVisible ? 'flex' : 'none')};
+	justify-content: space-between;
+	margin: auto 1rem;
+`;

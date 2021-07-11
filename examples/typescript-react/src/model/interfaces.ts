@@ -4,17 +4,22 @@ export interface ITodo {
 	id: string;
 	title: string;
 	completed: boolean;
+	badges?: IBadgeProps[];
 }
 
 export interface ITodoItemProps {
 	key: string;
 	todo: ITodo;
 	editing?: boolean;
-	onSave: (val: any) => void;
+	onSave: (text: any, badges?: string[]) => void;
 	onDestroy: () => void;
 	onEdit: () => void;
 	onCancel: (event: any) => void;
 	onToggle: () => void;
+}
+
+export interface IBadgeProps {
+	name: string;
 }
 
 export interface ITodoItemState {
@@ -41,11 +46,11 @@ export interface ITodoModel {
 	onChanges: Array<any>;
 	subscribe(onChange);
 	inform();
-	addTodo(title: string);
+	addTodo(title: string, badges?: string[]);
 	toggleAll(checked);
 	toggle(todoToToggle);
 	destroy(todo);
-	save(todoToSave, text);
+	save(todoToSave, text, badges?: string[]);
 	clearCompleted();
 }
 

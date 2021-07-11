@@ -1,6 +1,7 @@
-class Utils {
+import { IBadgeProps } from '../model';
+
+export class Utils {
 	public static uuid(): string {
-		/*jshint bitwise:false */
 		let i, random;
 		let uuid = '';
 
@@ -17,6 +18,31 @@ class Utils {
 
 	public static pluralize(count: number, word: string) {
 		return count === 1 ? word : word + 's';
+	}
+
+	public static getLabelsFromString(
+		inputValue: string,
+		annotationSymbol: string = '@'
+	): string[] {
+		return inputValue.split(' ').filter(v => v.startsWith(annotationSymbol));
+	}
+
+	public static removeLabelsFromString(
+		inputValue: string,
+		annotationSymbol: string = '@'
+	) {
+		return inputValue
+			.split(' ')
+			.filter(v => !v.startsWith(annotationSymbol))
+			.join(' ')
+			.trim();
+	}
+
+	public static getLabelsFromArray(
+		badges: IBadgeProps[],
+		annotationSymbol: string = '@'
+	) {
+		return badges.map(badge => badge.name).join(' ');
 	}
 
 	public static store(namespace: string, data?: any) {
@@ -41,5 +67,3 @@ class Utils {
 		return newObj;
 	}
 }
-
-export { Utils };

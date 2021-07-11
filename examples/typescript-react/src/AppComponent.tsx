@@ -11,6 +11,7 @@ import { FooterComponent, ToDoItemComponent } from './components';
 declare var Router;
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { Utils } from './utils';
 
 const footerItems: IFooterItem[] = [
 	{ href: '#/', type: TodoType.ALL_TODOS, label: 'All' },
@@ -47,7 +48,10 @@ export const AppComponent = ({ model }: IAppProps) => {
 		event.preventDefault();
 
 		if (currentInputValue) {
-			model.addTodo(currentInputValue);
+			model.addTodo(
+				Utils.removeLabelsFromString(currentInputValue),
+				Utils.getLabelsFromString(currentInputValue)
+			);
 			setCurrentInputValue('');
 		}
 	};
@@ -70,8 +74,8 @@ export const AppComponent = ({ model }: IAppProps) => {
 		setState({ editing: todo.id });
 	};
 
-	const save = (todoToSave: ITodo, text: String) => {
-		model.save(todoToSave, text);
+	const save = (todoToSave: ITodo, text: String, badges: string[]) => {
+		model.save(todoToSave, text, badges);
 		setState({ editing: null });
 	};
 
