@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BadgeComponent /> should render badge 1`] = `
+<div
+  class="sc-bdnxRM flBqrq"
+>
+  label
+</div>
+`;
