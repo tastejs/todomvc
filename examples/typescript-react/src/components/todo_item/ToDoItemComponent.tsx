@@ -61,7 +61,10 @@ export const ToDoItemComponent = ({
 				{!!todo.badges.length && (
 					<BadgeListContainer>
 						{todo.badges.map((badge, i) => (
-							<BadgeContainer hasRightSpacing={i < todo.badges.length}>
+							<BadgeContainer
+								hasRightSpacing={i < todo.badges.length}
+								key={`${badge.name}${i}`}
+							>
 								<BadgeComponent name={badge.name.replace('@', '')} />
 							</BadgeContainer>
 						))}

@@ -12,9 +12,9 @@ export const FooterComponent = ({
 }: ITodoFooterProps): JSX.Element => {
 	const activeTodoWord = Utils.pluralize(count, 'item');
 
-	const renderItem = (item: IFooterItem): JSX.Element => {
+	const renderItem = (item: IFooterItem, index: number): JSX.Element => {
 		return (
-			<li>
+			<li key={index}>
 				<a
 					href={item.href}
 					className={classNames({ selected: nowShowing === item.type })}
@@ -31,7 +31,7 @@ export const FooterComponent = ({
 				<strong>{count}</strong> {activeTodoWord} left
 			</span>
 			<ul className='filters'>
-				{items.map((item: IFooterItem) => renderItem(item))}
+				{items.map((item: IFooterItem, i) => renderItem(item, i))}
 			</ul>
 			{!!completedCount && (
 				<button className='clear-completed' onClick={onClearCompleted}>
