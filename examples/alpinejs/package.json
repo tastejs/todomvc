@@ -1,0 +1,16 @@
+{
+  "name": "alpine-todo",
+  "version": "1.0.0",
+  "description": "TodoMvc using Alpine.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mansoor Khan",
+  "license": "MIT",
+  "dependencies": {
+    "alpinejs": "^3.2.1",
+    "todomvc-app-css": "^2.4.1",
+    "todomvc-common": "^1.0.5"
+  }
+}
