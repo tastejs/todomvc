@@ -25,13 +25,23 @@ const todoApp = (state) => {
 	const remaining = state.items.filter((item) => !item.complete);
 	let toggleAll = "";
 	if (state.items.length) {
+<<<<<<< HEAD
 		toggleAll = html`<input
+=======
+		toggleAll = html`
+			<input
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 				id="toggle-all"
 				type="checkbox"
 				class="toggle-all"
 				${remaining.length ? "" : "checked"}
 				onclick="toggleAll();"
+<<<<<<< HEAD
 			/><label for="toggle-all">Mark all as complete</label>`;
+=======
+			/>
+			<label for="toggle-all">Mark all as complete</label>`;
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 	}
 	return html`<div class="todoapp">
 		${header()}
@@ -87,11 +97,15 @@ const todo = (item, i) => {
 		`;
 	}
 	return html`
+<<<<<<< HEAD
 		<li
 			class="${item.complete ? "completed" : ""} ${item._editing
 				? "editing"
 				: ""}"
 		>
+=======
+		<li class="${item.complete ? "completed" : ""} ${item._editing ? "editing" : ""}">
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 			${body}
 		</li>
 	`;
@@ -99,10 +113,17 @@ const todo = (item, i) => {
 const footer = (remaining, items) => {
 	let clearCompleted = "";
 	if (remaining.length !== items.length) {
+<<<<<<< HEAD
 		clearCompleted = html`<button
 			class="clear-completed"
 			onClick="clearCompleted()"
 		>
+=======
+		clearCompleted = html`
+		<button
+			class="clear-completed"
+			onClick="clearCompleted()">
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 			Clear completed
 		</button>`;
 	}
@@ -115,6 +136,7 @@ const footer = (remaining, items) => {
 		</span>
 		<ul class="filters">
 			<li>
+<<<<<<< HEAD
 				<a
 					class="${state.filter === "" ? "selected" : ""}"
 					onClick="updateFilter('')"
@@ -134,6 +156,19 @@ const footer = (remaining, items) => {
 					onClick="updateFilter('completed')"
 					>Completed</a
 				>
+=======
+				<a class="${state.filter === "" ? "selected" : ""}" onClick="updateFilter('')">
+					All
+				</a>
+			</li>
+			<li>
+				<a class="${state.filter === "active" ? "selected" : ""}" onClick="updateFilter('active')">Active</a>
+			</li>
+			<li>
+				<a class="${state.filter === "completed" ? "selected" : ""}" onClick="updateFilter('completed')">
+					Completed
+				</a>
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 			</li>
 		</ul>
 		${clearCompleted}
@@ -161,12 +196,29 @@ function onCreate(e) {
 	}
 }
 function onSave(e, i) {
+<<<<<<< HEAD
+=======
+	if (e.which === 27) {
+		state.items[i]._editing = false;
+		e.target.value = state.items[i].name;
+		turnTheCrank();
+		return;
+	}
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 	const text = getFinalText(e);
 	if (text) {
 		state.items[i].name = text;
 		state.items[i]._editing = false;
 		setItems();
 		turnTheCrank();
+<<<<<<< HEAD
+=======
+	} else if (text !== null && state.items[i] && state.items[i]._editing) {
+		state.items[i]._editing = false;
+		state.items.splice(i, 1);
+		setItems();
+		turnTheCrank();
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 	}
 }
 function toggle(i) {
@@ -189,6 +241,7 @@ window.onhashchange = function () {
 	turnTheCrank();
 };
 const getFinalText = (e) =>
+<<<<<<< HEAD
 	e.which === 13 || e.type === "blur" || e.which === 27
 		? e.target.value.trim()
 		: null;
@@ -199,6 +252,23 @@ const state = {
 	newTodo: "",
 	items: (prevState && JSON.parse(prevState)) || [],
 };
+=======
+	e.which === 13 || e.type === "blur" ? e.target.value.trim() : null;
+let state;
+window.onload = () => {
+	const container = document.getElementById("container");
+	const prevState = window.localStorage.getItem("todos-vanilla-slim");
+	state = {
+		filter: window.location.hash.split("#")[1] || "",
+		newTodo: "",
+		items: (prevState && JSON.parse(prevState)) || [],
+	};
+	turnTheCrank(null, () => {
+		document.querySelectorAll(".new-todo")[0].focus();
+		setItems(); // apprently TodoMVC tests need this line
+	});
+}
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
 function turnTheCrank(refocus, cb) {
 	requestAnimationFrame(() => {
 		container.innerHTML = todoApp(state).__html__;
@@ -207,8 +277,12 @@ function turnTheCrank(refocus, cb) {
 	});
 }
 const setItems = (window.onbeforeunload = () =>
+<<<<<<< HEAD
 	localStorage.setItem("todos-vanilla-slim", JSON.stringify(state.items)));
 turnTheCrank(null, () => {
 	document.querySelectorAll(".new-todo")[0].focus();
 	setItems(); // apprently TodoMVC tests need this line
 });
+=======
+	window.localStorage.setItem("todos-vanilla-slim", JSON.stringify(state.items)));
+>>>>>>> 8c9b5e20a418c134d3ed0bd8dcf215b1c0105afe
