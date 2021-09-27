@@ -68,7 +68,7 @@ export default class Store {
 	 * Update an item in the Store.
 	 *
 	 * @param {ItemUpdate} update Record with an id and a property to update
-	 * @param {function()} [callback] Called when partialRecord is applied
+	 * @param {function()} [callback] Called when the ItemUpdate is applied
 	 */
 	update(update, callback) {
 		const id = update.id;
