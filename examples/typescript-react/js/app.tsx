@@ -27,13 +27,13 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
   }
 
   public componentDidMount() {
-    var setState = this.setState;
-    var router = Router({
-      '/': setState.bind(this, {nowShowing: ALL_TODOS}),
-      '/active': setState.bind(this, {nowShowing: ACTIVE_TODOS}),
-      '/completed': setState.bind(this, {nowShowing: COMPLETED_TODOS})
-    });
-    router.init('/');
+		const setState = this.setState;
+		const router = Router({
+			'/': setState.bind(this, {nowShowing: ALL_TODOS}),
+			'/active': setState.bind(this, {nowShowing: ACTIVE_TODOS}),
+			'/completed': setState.bind(this, {nowShowing: COMPLETED_TODOS})
+		});
+		router.init('/');
   }
 
   public handleNewTodoKeyDown(event : React.KeyboardEvent) {
@@ -43,18 +43,18 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
 
     event.preventDefault();
 
-    var val = (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value.trim();
+		const val = (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value.trim();
 
-    if (val) {
+		if (val) {
       this.props.model.addTodo(val);
       (ReactDOM.findDOMNode(this.refs["newField"]) as HTMLInputElement).value = '';
     }
   }
 
   public toggleAll(event : React.FormEvent) {
-    var target : any = event.target;
-    var checked = target.checked;
-    this.props.model.toggleAll(checked);
+		const target: any = event.target;
+		const checked = target.checked;
+		this.props.model.toggleAll(checked);
   }
 
   public toggle(todoToToggle : ITodo) {
@@ -83,47 +83,48 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
   }
 
   public render() {
-    var footer;
-    var main;
-    const todos = this.props.model.todos;
+		const { model } = this.props;
+		let footer;
+		let main;
+		const todos = model.todos;
 
-    var shownTodos = todos.filter((todo) => {
-      switch (this.state.nowShowing) {
-      case ACTIVE_TODOS:
-        return !todo.completed;
-      case COMPLETED_TODOS:
-        return todo.completed;
-      default:
-        return true;
-      }
-    });
+		const shownTodos = todos.filter((todo) => {
+			switch (this.state.nowShowing) {
+				case ACTIVE_TODOS:
+					return !todo.completed;
+				case COMPLETED_TODOS:
+					return todo.completed;
+				default:
+					return true;
+			}
+		});
 
-    var todoItems = shownTodos.map((todo) => {
-      return (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          onToggle={this.toggle.bind(this, todo)}
-          onDestroy={this.destroy.bind(this, todo)}
-          onEdit={this.edit.bind(this, todo)}
-          editing={this.state.editing === todo.id}
-          onSave={this.save.bind(this, todo)}
-          onCancel={ e => this.cancel() }
-        />
-      );
-    });
+		const todoItems = shownTodos.map((todo) => {
+			return (
+					<TodoItem
+							key={todo.id}
+							todo={todo}
+							onToggle={this.toggle.bind(this, todo)}
+							onDestroy={this.destroy.bind(this, todo)}
+							onEdit={this.edit.bind(this, todo)}
+							editing={this.state.editing === todo.id}
+							onSave={this.save.bind(this, todo)}
+							onCancel={e => this.cancel()}
+					/>
+			);
+		});
 
-    // Note: It's usually better to use immutable data structures since they're
+		// Note: It's usually better to use immutable data structures since they're
     // easier to reason about and React works very well with them. That's why
     // we use map(), filter() and reduce() everywhere instead of mutating the
     // array or todo items themselves.
-    var activeTodoCount = todos.reduce(function (accum, todo) {
-      return todo.completed ? accum : accum + 1;
-    }, 0);
+		const activeTodoCount = todos.reduce(function (accum, todo) {
+			return todo.completed ? accum : accum + 1;
+		}, 0);
 
-    var completedCount = todos.length - activeTodoCount;
+		const completedCount = todos.length - activeTodoCount;
 
-    if (activeTodoCount || completedCount) {
+		if (activeTodoCount || completedCount) {
       footer =
         <TodoFooter
           count={activeTodoCount}
@@ -174,7 +175,7 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
   }
 }
 
-var model = new TodoModel('react-todos');
+const model = new TodoModel('react-todos');
 
 function render() {
   ReactDOM.render(

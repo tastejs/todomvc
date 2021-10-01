@@ -14,24 +14,24 @@ import { Utils } from "./utils";
 class TodoFooter extends React.Component<ITodoFooterProps, {}> {
 
   public render() {
-    var activeTodoWord = Utils.pluralize(this.props.count, 'item');
-    var clearButton = null;
+		const { completedCount, onClearCompleted, count, nowShowing } = this.props;
+		let activeTodoWord = Utils.pluralize(count, 'item');
+		let clearButton = null;
 
-    if (this.props.completedCount > 0) {
+		if (completedCount > 0) {
       clearButton = (
         <button
           className="clear-completed"
-          onClick={this.props.onClearCompleted}>
+          onClick={onClearCompleted}>
           Clear completed
         </button>
       );
     }
 
-    const nowShowing = this.props.nowShowing;
     return (
       <footer className="footer">
         <span className="todo-count">
-          <strong>{this.props.count}</strong> {activeTodoWord} left
+          <strong>{count}</strong> {activeTodoWord} left
         </span>
         <ul className="filters">
           <li>
