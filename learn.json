@@ -335,6 +335,16 @@
 			}]
 		}]
 	},
+	"effector": {
+		"name": "Effector",
+		"description": "The state manager",
+		"homepage": "https://effector.dev/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/effector/dist"
+		}],
+		"link_groups": []
+	},
 	"elm": {
 		"name": "Elm",
 		"description": "A functional reactive language for interactive applications",
