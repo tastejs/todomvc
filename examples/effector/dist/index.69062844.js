@@ -491,57 +491,57 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "attr", ()=>q
 );
-parcelHelpers.export(exports, "combine", ()=>ee
+parcelHelpers.export(exports, "combine", ()=>Q
 );
 parcelHelpers.export(exports, "data", ()=>G
 );
-parcelHelpers.export(exports, "explicitUnmount", ()=>M
+parcelHelpers.export(exports, "explicitUnmount", ()=>F
 );
-parcelHelpers.export(exports, "focus", ()=>K
+parcelHelpers.export(exports, "focus", ()=>J
 );
-parcelHelpers.export(exports, "h", ()=>A
+parcelHelpers.export(exports, "h", ()=>_
 );
-parcelHelpers.export(exports, "handler", ()=>J
+parcelHelpers.export(exports, "handler", ()=>H
 );
-parcelHelpers.export(exports, "list", ()=>T
+parcelHelpers.export(exports, "list", ()=>V
 );
-parcelHelpers.export(exports, "map", ()=>Q
+parcelHelpers.export(exports, "map", ()=>K
 );
 parcelHelpers.export(exports, "node", ()=>X
 );
-parcelHelpers.export(exports, "nodeMethod", ()=>W
+parcelHelpers.export(exports, "nodeMethod", ()=>L
 );
-parcelHelpers.export(exports, "remap", ()=>R
+parcelHelpers.export(exports, "remap", ()=>O
 );
-parcelHelpers.export(exports, "signalOwn", ()=>z
+parcelHelpers.export(exports, "signalOwn", ()=>M
 );
 parcelHelpers.export(exports, "spec", ()=>Y
 );
-parcelHelpers.export(exports, "storeField", ()=>D
+parcelHelpers.export(exports, "storeField", ()=>R
 );
-parcelHelpers.export(exports, "style", ()=>H
+parcelHelpers.export(exports, "style", ()=>Z
 );
-parcelHelpers.export(exports, "text", ()=>U
+parcelHelpers.export(exports, "text", ()=>B
 );
-parcelHelpers.export(exports, "transform", ()=>B
+parcelHelpers.export(exports, "transform", ()=>W
 );
-parcelHelpers.export(exports, "tree", ()=>V
+parcelHelpers.export(exports, "tree", ()=>P
 );
 parcelHelpers.export(exports, "using", ()=>o1
 );
-parcelHelpers.export(exports, "variant", ()=>te
+parcelHelpers.export(exports, "variant", ()=>ee
 );
-parcelHelpers.export(exports, "visible", ()=>Z
+parcelHelpers.export(exports, "visible", ()=>U
 );
 var _effector = require("effector");
 var process = require("process");
 function e2(e, t) {
-    const n = ge(e);
+    const n = de(e);
     for(let e1 = 0; e1 < t.length; e1++){
-        const s = ge(t[e1]);
+        const s = de(t[e1]);
         s.family.type = 'crosslink';
-        const l = me(s), i = be(n);
-        l.includes(n) || l.push(n), i.includes(s) || i.push(s);
+        const i = ge(s), l = me(n);
+        i.includes(n) || i.push(n), l.includes(s) || l.push(s);
     }
 }
 function t1(e, t) {
@@ -553,13 +553,13 @@ function n1(e, t) {
 function s1(e, t) {
     e && e !== t && (e.locality.sibling.left.ref = t);
 }
-function l1() {
+function i1() {
     const e = {
         stack: null
-    }, t = de.get(), n = _effector.createNode({
+    }, t = pe.get(), n = _effector.createNode({
         node: [
-            ve,
-            ke
+            ye,
+            ve
         ],
         parent: [
             t && t.signal
@@ -571,7 +571,7 @@ function l1() {
     });
     return e.self = n, n;
 }
-function i1(e) {
+function l1(e) {
     switch(e = String(e)){
         case '__proto__':
         case '__defineGetter__':
@@ -583,17 +583,17 @@ function i1(e) {
         case 'valueOf':
             return 'blacklisted';
         default:
-            return e.replace(we, '');
+            return e.replace(ke, '');
     }
 }
 function r1(e) {
-    return String(e).replace(xe, '');
+    return String(e).replace(we, '');
 }
 function o1(e, t) {
-    const n = e.namespaceURI, s = e.tagName.toLowerCase(), i = 'http://www.w3.org/2000/svg' === n ? 'svg' : 'foreignObject' === s ? 'foreignObject' : 'html', r = de.get(), o = {
+    const n = e.namespaceURI, s = e.tagName.toLowerCase(), l = 'http://www.w3.org/2000/svg' === n ? 'svg' : 'foreignObject' === s ? 'foreignObject' : 'html', r = pe.get(), o = {
         parent: r,
-        signal: r && r.signal ? r.signal : l1(),
-        namespace: i,
+        signal: r && r.signal ? r.signal : i1(),
+        namespace: l,
         targetElement: e,
         svgRoot: 'svg' === s ? e : r ? r.svgRoot : null,
         child: [],
@@ -632,7 +632,7 @@ function o1(e, t) {
         mountStatus: 'initial',
         visible: 1
     };
-    de.replace(o), he.push({
+    pe.replace(o), ue.push({
         node: e,
         append: [],
         reverse: 0
@@ -640,12 +640,12 @@ function o1(e, t) {
     try {
         _effector.withRegion(o.signal, t);
     } finally{
-        a1(he.pop()), de.replace(r);
+        a1(ue.pop()), pe.replace(r);
     }
 }
 function a1({ node: e , append: t , reverse: n = 0  }) {
     if (0 === t.length) return;
-    const s = Ie.createDocumentFragment();
+    const s = Ce.createDocumentFragment();
     if (n) {
         for(let e3 = t.length - 1; e3 >= 0; e3--)s.appendChild(t[e3]);
         e.prepend(s);
@@ -655,12 +655,12 @@ function a1({ node: e , append: t , reverse: n = 0  }) {
     }
 }
 function c1(e, t) {
-    t.parent = e, t.signal.seq.push(Ne), t.signal.scope.stack = t, e.child.push(t);
+    t.parent = e, t.signal.seq.push(Ie), t.signal.scope.stack = t, e.child.push(t);
 }
 function f1(e, t) {
     return _effector.createNode({
         node: [
-            _e
+            Ne
         ],
         parent: e,
         meta: {
@@ -678,196 +678,155 @@ function f1(e, t) {
     });
 }
 function u1() {
-    Ve = 0, Re();
+    Pe = 0, Oe();
 }
-function h1(e6, t, n) {
-    const s = ((e)=>'high' === We.get(e) ? ze : Le
-    )(e6);
-    let l = s.get(e6);
-    if (l || (l = [], s.set(e6, l)), t) for(let e5 = 0; e5 < n.length; e5++)l.push(n[e5]);
-    else l.push(n);
-    Fe();
-}
-function p1(t, n, s = 0, l = "low") {
-    const i = ++Xe, r = _effector.createEvent(), o = _effector.is.store(a = t) ? a.updates : a;
-    var a;
-    const c = {
+function h1(t, n, s) {
+    const i = ++Xe, l = _effector.createEvent(), r = _effector.is.store(t) ? t.updates : t, o = {
         type: 'crosslink',
         owners: [
-            o,
-            r
+            r,
+            l
         ]
     };
     return _effector.createNode({
         node: [
-            He
+            Ue
         ],
         parent: [
-            o
+            r
         ],
         scope: {
-            taskID: i,
-            flat: s
+            taskID: i
         },
-        family: c
+        family: o
     }), e2(t, [
-        r
-    ]), Me.set(i, _effector.createNode({
+        l
+    ]), Fe.set(i, _effector.createNode({
         node: [
-            Je
+            Ze
         ],
         child: [
             _effector.createNode({
                 node: [
+                    We,
                     Be,
-                    Ue,
-                    Ze
+                    Ue
                 ],
                 scope: {
                     taskID: i
                 },
-                family: c
+                family: o
             }),
             _effector.createNode({
                 node: [
                     Ge,
-                    Ue
+                    Be
                 ],
                 child: [
-                    r
+                    l
                 ],
-                family: c
+                family: o
             })
         ],
         scope: {
             fn: n
         },
-        family: c
-    })), We.set(i, l), r;
+        family: o
+    })), Le.set(i, s), l;
 }
-function d1({ trigger: e7 = _effector.createEvent() , fn: t3 , priority: n2 = "low" , timeout: s = 1 / 0 , batchWindow: l = 0 , retries: i2 = 1 / 0 , mark: r2 = e7.shortName  }) {
-    const o2 = p1(e7.map((e)=>[
+function p1({ trigger: e5 = _effector.createEvent() , fn: t , priority: n2 = "low" , timeout: s = 1 / 0 , batchWindow: i = 0 , retries: l2 = 1 / 0 , mark: r2 = e5.shortName  }) {
+    const o2 = e5.map((e)=>[
             {
-                inserted: Oe(),
+                inserted: Ae(),
                 retry: 0,
                 value: e
             }
         ]
-    ), (e, n)=>{
-        let r, o = 0;
-        const a = [], c = [];
-        for(r = 0; r < e.length; r++){
-            const i = e[r], f = Oe();
-            if (i.inserted + l > f) {
-                c.push(i);
-                continue;
-            }
-            if (i.inserted + s < f) continue;
-            if (f - n >= 10) {
-                o = 1;
-                break;
-            }
-            const u = t3(i.value);
-            void 0 !== u && a.push(u);
-        }
-        if (o) for(let t2 = r; t2 < e.length; t2++){
-            const n = e[t2];
-            n.retry += 1, n.retry >= i2 || c.push(n);
-        }
-        return {
-            done: a,
-            fail: c
-        };
-    }, 1, n2);
+    );
     return {
-        trigger: e7,
-        processed: o2,
-        connect: (t)=>{
-            _effector.createNode({
-                node: [],
-                parent: t,
-                child: e7,
-                family: {
-                    type: 'crosslink',
-                    owners: [
-                        t,
-                        e7
-                    ]
+        trigger: e5,
+        processed: h1(o2, (e, n)=>{
+            let r, o = 0;
+            const a = [], c = [];
+            for(r = 0; r < e.length; r++){
+                const l = e[r], f = Ae();
+                if (l.inserted + i > f) {
+                    c.push(l);
+                    continue;
                 }
-            });
-        }
+                if (l.inserted + s < f) continue;
+                if (f - n >= 10) {
+                    o = 1;
+                    break;
+                }
+                const u = t(l.value);
+                void 0 !== u && a.push(u);
+            }
+            if (o) for(let t2 = r; t2 < e.length; t2++){
+                const n = e[t2];
+                n.retry += 1, n.retry >= l2 || c.push(n);
+            }
+            return {
+                done: a,
+                fail: c
+            };
+        }, n2)
     };
 }
-function g1({ trigger: e8 = _effector.createEvent() , fn: t4 , priority: n3 = "low" , timeout: s2 = 1 / 0 , batchWindow: l2 = 0 , retries: i3 = 1 / 0 , mark: r3 = e8.shortName , flatten: o3  }) {
-    const a2 = p1(e8.map((e)=>{
-        const t = [], n = Oe();
+function d1({ trigger: e6 = _effector.createEvent() , fn: t3 , priority: n3 = "low" , timeout: s2 = 1 / 0 , batchWindow: i2 = 0 , retries: l3 = 1 / 0 , mark: r3 = e6.shortName , flatten: o3  }) {
+    const a2 = e6.map((e)=>{
+        const t = [], n = Ae();
         for(let s = 0; s < e.length; s++){
-            const l = o3(e[s]);
-            for(let e9 = 0; e9 < l.length; e9++)t.push({
+            const i = o3(e[s]);
+            for(let e7 = 0; e7 < i.length; e7++)t.push({
                 inserted: n,
                 retry: 0,
-                value: l[e9]
+                value: i[e7]
             });
         }
         return t;
-    }), (e, n)=>{
-        let r, o = 0;
-        const a = [], c = [];
-        for(r = 0; r < e.length; r++){
-            const i = e[r], f = Oe();
-            if (i.inserted + l2 > f) {
-                c.push(i);
-                continue;
-            }
-            if (i.inserted + s2 < f) continue;
-            if (f - n >= 10) {
-                o = 1;
-                break;
-            }
-            const u = t4(i.value);
-            void 0 !== u && a.push(u);
-        }
-        if (o) for(let t = r; t < e.length; t++){
-            const n = e[t];
-            n.retry += 1, n.retry >= i3 || c.push(n);
-        }
-        return {
-            done: a,
-            fail: c
-        };
-    }, 1, n3);
+    });
     return {
-        trigger: e8,
-        processed: a2,
-        connect: (t)=>{
-            _effector.createNode({
-                node: [
-                    Ke
-                ],
-                parent: t,
-                child: e8,
-                family: {
-                    type: 'crosslink',
-                    owners: [
-                        t,
-                        e8
-                    ]
+        trigger: e6,
+        processed: h1(a2, (e, n)=>{
+            let r, o = 0;
+            const a = [], c = [];
+            for(r = 0; r < e.length; r++){
+                const l = e[r], f = Ae();
+                if (l.inserted + i2 > f) {
+                    c.push(l);
+                    continue;
                 }
-            });
-        }
+                if (l.inserted + s2 < f) continue;
+                if (f - n >= 10) {
+                    o = 1;
+                    break;
+                }
+                const u = t3(l.value);
+                void 0 !== u && a.push(u);
+            }
+            if (o) for(let t = r; t < e.length; t++){
+                const n = e[t];
+                n.retry += 1, n.retry >= l3 || c.push(n);
+            }
+            return {
+                done: a,
+                fail: c
+            };
+        }, n3)
     };
 }
-function m1(e, t, n) {
+function g1(e, t, n) {
     f1(e, t.watch(n));
 }
-function b(e, t, n) {
+function m1(e, t, n) {
     _effector.createNode({
         node: [
-            Qe
+            He
         ],
         parent: t,
         child: [
-            et
+            Je
         ],
         family: {
             type: 'crosslink',
@@ -879,15 +838,15 @@ function b(e, t, n) {
         meta: {
             op: 'debounceRaf'
         }
-    }), _effector.is.store(t) && _effector.launch(et, {
+    }), _effector.is.store(t) && _effector.launch(Je, {
         data: t.getState(),
         handler: n
     }, 1);
 }
-function y(e, t, n, s) {
-    _effector.is.unit(n) ? (e ? m1 : b)(t, n, s) : s(n);
+function b(e, t, n, s) {
+    _effector.is.unit(n) ? (e ? g1 : m1)(t, n, s) : s(n);
 }
-function v(e, t = e.child.length - 1) {
+function y1(e, t = e.child.length - 1) {
     for(let n = t; n >= 0; n--){
         const t = e.child[n];
         switch(t.node.type){
@@ -896,18 +855,18 @@ function v(e, t = e.child.length - 1) {
                 if (!t.visible) continue;
                 return t;
         }
-        const s = v(t);
+        const s = y1(t);
         if (s) return s;
     }
     return null;
 }
-function k(e) {
+function v(e) {
     if (!e.parent) return null;
     switch(e.parent.node.type){
         case 'element':
         case 'using':
             {
-                const t = v(e.parent, e.parent.child.indexOf(e) - 1);
+                const t = y1(e.parent, e.parent.child.indexOf(e) - 1);
                 if (t) return t;
                 break;
             }
@@ -916,7 +875,7 @@ function k(e) {
             {
                 let t = e, n = e.parent;
                 for(; n;){
-                    const e = v(n, n.child.indexOf(t) - 1);
+                    const e = y1(n, n.child.indexOf(t) - 1);
                     if (e) return e;
                     t = n, n = n.parent;
                 }
@@ -925,27 +884,27 @@ function k(e) {
     }
     return null;
 }
-function w(e) {
-    return '' !== e && 0 !== e && (0 == e || null == e);
+function k(e) {
+    return '' !== e && 0 !== e && '0' !== e && (0 == e || null == e);
 }
-function x(e, t, n) {
-    w(n) ? delete e[t] : e[t] = `${n}`;
+function w(e, t, n) {
+    k(n) ? delete e[t] : e[t] = `${n}`;
 }
-function S(e, t, n, s) {
+function x(e, t, n, s) {
     if (n.visible = s, s) {
         if (!t.contains(e)) {
-            const s = k(n);
-            s && t.contains(s.targetElement) ? s.targetElement.after(e) : t.appendChild(e);
+            const s = v(n);
+            s && t.contains(s.targetElement) ? s.targetElement.after(e) : t.prepend(e);
         }
     } else e.remove();
 }
-function E(e, t, n) {
+function S(e, t, n) {
     if (null === n) return;
-    const s = de.get().parent.targetElement;
-    b(t, n, S.bind(null, e, s, de.get()));
+    const s = pe.get();
+    m1(t, n, x.bind(null, e, s.parent.targetElement, s));
 }
-function C(e, t, n) {
-    if (w(n)) {
+function E(e, t, n) {
+    if (k(n)) {
         switch(t){
             case 'value':
                 delete e.value;
@@ -968,42 +927,41 @@ function C(e, t, n) {
         e.setAttribute(t, `${n}`);
     }
 }
-function I(e10, t, n, s, l, i) {
-    const r = e10.createSVGTransform();
-    switch(i){
+function C(e8, t, n, s, i, l) {
+    const r = e8.createSVGTransform();
+    switch(l){
         case 'translate':
         case 'scale':
             s = ((e)=>_effector.is.store(e) ? e : _effector.is.store(e.x) ? _effector.is.store(e.y) ? _effector.combine({
                     x: e.x,
                     y: e.y
-                }) : e.x.map(lt.bind(null, e.y)) : _effector.is.store(e.y) ? e.y.map(rt.bind(null, e.x)) : e
+                }) : e.x.map(tt.bind(null, e.y)) : _effector.is.store(e.y) ? e.y.map(nt.bind(null, e.x)) : e
             )(s);
     }
-    y(0, t, s, l.bind(null, r)), n.appendItem(r);
+    b(0, t, s, i.bind(null, r)), n.appendItem(r);
 }
-function N(e, t) {
-    const n = Ie.createTextNode(`${t}`), s = e.firstChild;
-    s ? s.replaceWith(n) : e.appendChild(n);
+function I(e, t) {
+    e.replaceData(0, (e.textContent || '').length, String(t));
 }
-function _(e) {
+function N(e) {
     e.focus();
 }
 function $(e) {
     e.blur();
 }
-function A(e11, t5, n4) {
-    'function' == typeof t5 && (n4 = t5, t5 = {
-    }), void 0 === t5 && (t5 = {
+function _(e9, t4, n4) {
+    'function' == typeof t4 && (n4 = t4, t4 = {
+    }), void 0 === t4 && (t4 = {
     });
-    const { noAppend: s3 = 0  } = t5, i4 = de.get(), r = i4 ? i4.namespace : 'html';
+    const { noAppend: s3 = 0  } = t4, l4 = pe.get(), r = l4 ? l4.namespace : 'html';
     let o = r, u = 'html';
-    'type' in t5 ? (u = t5.type, o = t5.type) : o = u = 'svg' === r ? 'svg' : 'html', 'svg' === e11 && (u = 'svg', o = 'svg');
-    const h = 'svg' === u ? Ie.createElementNS('http://www.w3.org/2000/svg', e11) : Ie.createElement(e11);
-    'foreignObject' === r ? (h.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml'), o = 'html') : 'svg' === e11 ? (h.setAttribute('xmlns', 'http://www.w3.org/2000/svg'), o = 'svg') : 'foreignObject' === e11 && (o = 'foreignObject');
-    const p = l1(), d = {
+    'type' in t4 ? (u = t4.type, o = t4.type) : o = u = 'svg' === r ? 'svg' : 'html', 'svg' === e9 && (u = 'svg', o = 'svg');
+    const h = 'svg' === u ? Ce.createElementNS('http://www.w3.org/2000/svg', e9) : Ce.createElement(e9);
+    'foreignObject' === r ? (h.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml'), o = 'html') : 'svg' === e9 ? (h.setAttribute('xmlns', 'http://www.w3.org/2000/svg'), o = 'svg') : 'foreignObject' === e9 && (o = 'foreignObject');
+    const p = i1(), d = {
         type: 'element',
         pure: 0,
-        tag: e11,
+        tag: e9,
         attr: [],
         data: [],
         visible: [],
@@ -1043,145 +1001,150 @@ function A(e11, t5, n4) {
         mountStatus: 'initial',
         visible: 1
     };
-    i4 && c1(i4, g), 'svg' === e11 ? g.svgRoot = h : i4 && (g.svgRoot = i4.svgRoot), de.replace(g), n4 ? ((e, t, n, s)=>{
-        let l = 0;
-        he.push({
+    l4 && c1(l4, g), 'svg' === e9 ? g.svgRoot = h : l4 && (g.svgRoot = l4.svgRoot), pe.replace(g), n4 ? ((e, t, n, s)=>{
+        let i = 0;
+        ue.push({
             node: t,
             append: [],
             reverse: 0
         });
         try {
-            _effector.withRegion(e, s), l = 1;
+            _effector.withRegion(e, s), i = 1;
         } finally{
-            a1(he.pop()), l || de.replace(n);
+            a1(ue.pop()), i || pe.replace(n);
         }
-    })(p, h, i4, n4) : (d.pure = 1, Y(t5));
-    const m = (()=>{
-        const e12 = (()=>{
-            const e14 = de.getElementNode(), t = {
+    })(p, h, l4, n4) : (d.pure = 1, Y(t4));
+    const y = (()=>{
+        const e10 = (()=>{
+            const e12 = pe.getElementNode(), t = {
                 attr: {
                 },
                 data: {
                 },
                 visible: null,
-                text: null,
+                text: [],
                 styleVar: {
                 },
                 styleProp: {
                 },
                 handler: [],
-                transform: e14.transform,
-                focus: e14.focus,
-                blur: e14.blur
+                transform: e12.transform,
+                focus: e12.focus,
+                blur: e12.blur
             };
-            for(let n = 0; n < e14.handler.length; n++){
-                const { options: s , map: l  } = e14.handler[n];
+            for(let n = 0; n < e12.handler.length; n++){
+                const { options: s , map: i  } = e12.handler[n];
                 s.passive = s.prevent ? 0 : s.passive;
-                for(const e13 in l){
-                    const t = l[e13];
-                    l[e13] = (e)=>{
+                for(const e11 in i){
+                    const t = i[e11];
+                    i[e11] = (e)=>{
                         s.prevent && e.preventDefault(), s.stop && e.stopPropagation(), t(e);
                     };
                 }
                 t.handler.push({
                     options: s,
-                    map: l
+                    map: i
                 });
             }
-            for(let n5 = 0; n5 < e14.attr.length; n5++){
-                const s = e14.attr[n5];
-                for(const e in s)t.attr[e] = s[e];
+            for(let n5 = 0; n5 < e12.attr.length; n5++){
+                const s = e12.attr[n5];
+                for(const e in s)'xlink:href' === e ? t.attr.href = s[e] : t.attr[e] = s[e];
             }
-            for(let n6 = 0; n6 < e14.data.length; n6++){
-                const s = e14.data[n6];
+            for(let n6 = 0; n6 < e12.data.length; n6++){
+                const s = e12.data[n6];
                 for(const e in s)t.data[e] = s[e];
             }
-            e14.visible.length > 0 && (t.visible = e14.visible[e14.visible.length - 1]), e14.text.length > 0 && (t.text = e14.text[e14.text.length - 1]);
-            for(let n7 = 0; n7 < e14.styleVar.length; n7++){
-                const s = e14.styleVar[n7];
+            e12.visible.length > 0 && (t.visible = e12.visible[e12.visible.length - 1]), t.text = e12.text;
+            for(let n7 = 0; n7 < e12.styleVar.length; n7++){
+                const s = e12.styleVar[n7];
                 for(const e in s)t.styleVar[e] = s[e];
             }
-            for(let n8 = 0; n8 < e14.styleProp.length; n8++){
-                const s = e14.styleProp[n8];
+            for(let n8 = 0; n8 < e12.styleProp.length; n8++){
+                const s = e12.styleProp[n8];
                 for(const e in s)t.styleProp[e] = s[e];
             }
             return t;
-        })(), t6 = de.get(), n9 = t6.targetElement, s4 = t6.signal;
+        })(), t5 = pe.get(), n9 = t5.targetElement, s4 = t5.signal;
         return ((e, t, n)=>{
-            for(const s in n)y('value' !== s && 'checked' !== s && 'min' !== s && 'max' !== s, t, n[s], C.bind(null, e, s));
-        })(n9, s4, e12.attr), ((e, t, n)=>{
-            for(const s in n)y(0, t, n[s], x.bind(null, e.dataset, s));
-        })(n9, s4, e12.data), ((e, t, n)=>{
+            for(const s in n)b('value' !== s && 'checked' !== s && 'min' !== s && 'max' !== s, t, n[s], E.bind(null, e, s));
+        })(n9, s4, e10.attr), ((e, t, n)=>{
+            for(const s in n)b(0, t, n[s], w.bind(null, e.dataset, s));
+        })(n9, s4, e10.data), ((e, t, n)=>{
             for(let s = 0; s < n.length; s++){
-                const { options: l , map: i  } = n[s];
-                for(const t7 in i)e.addEventListener(t7, i[t7], l);
-                f1(t, tt.bind(null, e, n[s]));
+                const { options: i , map: l  } = n[s];
+                for(const t6 in l)e.addEventListener(t6, l[t6], i);
+                f1(t, Ke.bind(null, e, n[s]));
             }
-        })(n9, s4, e12.handler), ((e, t, n)=>{
+        })(n9, s4, e10.handler), ((e, t, n)=>{
             const s = e.style;
-            for(const e15 in n)y(0, t, n[e15], nt.bind(null, s, e15));
-        })(n9, s4, e12.styleProp), ((e, t, n)=>{
+            for(const e13 in n)b(0, t, n[e13], Qe.bind(null, s, e13));
+        })(n9, s4, e10.styleProp), ((e, t, n)=>{
             const s = e.style;
-            for(const e16 in n)y(0, t, n[e16], st.bind(null, s, `--${e16}`));
-        })(n9, s4, e12.styleVar), ((e, t, n)=>{
-            const s = de.get();
+            for(const e14 in n)b(0, t, n[e14], et.bind(null, s, `--${e14}`));
+        })(n9, s4, e10.styleVar), ((e, t, n)=>{
+            const s = pe.get();
             if ('svg' !== s.namespace) return;
             if (0 === n.length) return;
-            const l = e.transform.baseVal, i = s.svgRoot;
-            for(let e17 = 0; e17 < n.length; e17++){
-                const s = n[e17];
-                for(const e in s)I(i, t, l, s[e], ot[e], e);
+            const i = e.transform.baseVal, l = s.svgRoot;
+            for(let e15 = 0; e15 < n.length; e15++){
+                const s = n[e15];
+                for(const e in s)C(l, t, i, s[e], st[e], e);
             }
-        })(n9, s4, e12.transform), ((e, t, n)=>{
-            null !== n && (_effector.is.unit(n) ? b(t, n, N.bind(null, e)) : N(e, n));
-        })(n9, s4, e12.text), E(n9, s4, e12.visible), ((e, t, n)=>{
-            for(let s = 0; s < n.length; s++)y(1, t, n[s], _.bind(null, e));
-        })(n9, s4, e12.focus), ((e, t, n)=>{
-            for(let s = 0; s < n.length; s++)y(1, t, n[s], $.bind(null, e));
-        })(n9, s4, e12.blur), e12;
+        })(n9, s4, e10.transform), ((e, t, n)=>{
+            for(let s = 0; s < n.length; s++){
+                const i = n[s];
+                if (null === i) continue;
+                const l = Ce.createTextNode('');
+                e.appendChild(l), _effector.is.unit(i) ? m1(t, i, I.bind(null, l)) : I(l, i);
+            }
+        })(n9, s4, e10.text), S(n9, s4, e10.visible), ((e, t, n)=>{
+            for(let s = 0; s < n.length; s++)b(1, t, n[s], N.bind(null, e));
+        })(n9, s4, e10.focus), ((e, t, n)=>{
+            for(let s = 0; s < n.length; s++)b(1, t, n[s], $.bind(null, e));
+        })(n9, s4, e10.blur), e10;
     })();
-    de.replace(i4), g.visible = !m.visible || m.visible.getState(), s3 || he.length > 0 && g.visible && he[he.length - 1].append.push(h);
+    pe.replace(l4), g.visible = !y.visible || y.visible.getState(), s3 || ue.length > 0 && g.visible && ue[ue.length - 1].append.push(h);
 }
-function O(e, t) {
+function A(e, t) {
     return e.bind(null, t);
 }
-function R(t, n) {
-    const s = de.get();
+function O(t, n) {
+    const s = pe.get();
     if (Array.isArray(n)) {
-        const l = [];
-        for(let e = 0; e < n.length; e++)l[e] = t.map(O(P, n[e]));
-        return s && e2(s.signal, l), l;
+        const i = [];
+        for(let e = 0; e < n.length; e++)i[e] = t.map(A(D, n[e]));
+        return s && e2(s.signal, i), i;
     }
     if ('object' == typeof n && null !== n) {
-        const l = [], i = {
+        const i = [], l = {
         };
-        for(const e in n)i[e] = t.map(O(P, n[e])), l.push(i[e]);
-        return s && e2(s.signal, l), i;
+        for(const e in n)l[e] = t.map(A(D, n[e])), i.push(l[e]);
+        return s && e2(s.signal, i), l;
     }
-    const l = t.map(O(P, n));
-    return s && e2(s.signal, l), l;
+    const i = t.map(A(D, n));
+    return s && e2(s.signal, i), i;
 }
-function D(t, n) {
-    const s = t.map(O(P, n)), l = de.get();
-    return l && e2(l.signal, [
+function R(t, n) {
+    const s = t.map(A(D, n)), i = pe.get();
+    return i && e2(i.signal, [
         s
     ]), s;
 }
-function P(e, t) {
+function D(e, t) {
     return t[e];
 }
-function V({ key: e , child: t , source: n10  }, s) {
-    T({
+function P({ key: e , child: t , source: n10  }, s) {
+    V({
         source: n10,
         key: e
-    }, ({ store: n , key: l , signal: i  })=>{
-        const r = R(n, t);
+    }, ({ store: n , key: i , signal: l  })=>{
+        const r = O(n, t);
         s({
             store: n,
-            key: l,
-            signal: i
+            key: i,
+            signal: l
         }, ()=>{
-            V({
+            P({
                 key: e,
                 child: t,
                 source: r
@@ -1189,10 +1152,13 @@ function V({ key: e , child: t , source: n10  }, s) {
         });
     });
 }
-function T(t, n) {
-    let s, i, r = 0;
-    _effector.is.store(t) ? (i = ft, s = t) : (i = O(ut, t.key), s = t.source, r = !!t.reverse);
-    const o = de.get(), a = l1(), u = {
+function V(t, n = ()=>{
+}) {
+    let s;
+    n = t.fn ? t.fn : n;
+    let l, r = 0;
+    _effector.is.store(t) ? (l = ot, s = t) : (l = A(at, t.key), s = t.source, r = !!t.reverse);
+    const o = pe.get(), a = i1(), u = {
         parent: o,
         signal: a,
         namespace: o.namespace,
@@ -1233,51 +1199,60 @@ function T(t, n) {
         mountStatus: 'initial',
         visible: 1
     };
-    c1(o, u), de.replace(u);
+    c1(o, u), pe.replace(u);
     const h = {
         parentNode: o.targetElement,
         cb: n,
         shortName: s.shortName,
         reverse: r,
         parentStack: u,
-        getID: i,
-        fields: t.fields ? t.fields : null
-    }, p = _effector.createStore(j(h, [], s.getState()));
+        getID: l,
+        fields: t.fields ? t.fields : null,
+        visible: t.visible ? t.visible : null
+    }, p = _effector.createStore(T(h, [], s.getState()));
     e2(a, [
         p
-    ]), f1(a, O(pt, p)), _effector.sample({
+    ]), f1(a, A(ft, p)), _effector.sample({
         source: p,
         clock: s,
-        fn: O(j, h),
+        fn: A(T, h),
         target: p
-    }), de.replace(o);
+    }), pe.replace(o);
 }
-function j(i, r, o) {
-    const a = Array(o.length).fill(0), f = o.map(i.getID), u = [], h = [], p = [];
+function T(l, r, o) {
+    const a = Array(o.length).fill(0), f = o.map(l.getID), u = [], h = [], p = [];
     for(let e = 0; e < r.length; e++){
         const t = r[e], n = t.node, s = f.indexOf(n.key);
-        -1 !== s ? (h.push(t), a[s] = 1, n.store.getState() !== o[s] && _effector.launch(n.store, o[s], 1)) : p.push(t);
+        -1 !== s ? (h.push(t), a[s] = 1, n.store.getState() !== o[s] && _effector.launch({
+            target: n.store,
+            params: o[s],
+            defer: 1
+        })) : p.push(t);
     }
     if (p.length > 0) {
         for(let e = 0; e < p.length; e++){
-            const l = p[e], { node: i , locality: r  } = l;
-            i.active = 0, i.store = null, t1(r.sibling.left.ref, r.sibling.right.ref), n1(l, null), s1(l, null);
+            const i = p[e], { node: l , locality: r  } = i;
+            l.active = 0, l.store = null, t1(r.sibling.left.ref, r.sibling.right.ref), n1(i, null), s1(i, null);
         }
-        _effector.launch(ht, p, 1);
+        _effector.launch({
+            target: ct,
+            params: p,
+            defer: 1
+        });
     }
     let d = h.length > 0 ? h[h.length - 1] : null;
     for(let n = 0; n < o.length; n++){
         if (a[n]) continue;
-        const s = o[n], r = _effector.createStore(s), f = l1(), p = i.fields ? R(r, i.fields) : null;
+        const s = o[n], r = _effector.createStore(s), f = i1(), p = l.fields ? O(r, l.fields) : null;
         e2(f, [
             r
         ]);
-        const g = i.getID(s, n), m = {
-            parent: i.parentStack,
+        const g = l.getID(s, n), m = {
+            parent: l.parentStack,
             signal: f,
-            namespace: i.parentStack.namespace,
-            targetElement: i.parentStack.targetElement,
-            svgRoot: i.parentStack.svgRoot,
+            namespace: l.parentStack.namespace,
+            targetElement: l.parentStack.targetElement,
+            svgRoot: l.parentStack.svgRoot,
             child: [],
             locality: {
                 sibling: {
@@ -1307,24 +1282,30 @@ function j(i, r, o) {
                 active: 1,
                 nodes: [],
                 fields: p,
-                visible: []
+                visible: l.visible ? [
+                    r.map(l.visible)
+                ] : []
             },
             mountStatus: 'initial',
             visible: 1
         };
-        t1(d, m), d = m, c1(i.parentStack, m), u.push(m), h.push(m);
+        t1(d, m), d = m, c1(l.parentStack, m), u.push(m), h.push(m);
     }
-    return u.length > 0 && _effector.launch(ct, {
-        context: i,
-        list: u
-    }, 1), h;
+    return u.length > 0 && _effector.launch({
+        target: rt,
+        params: {
+            context: l,
+            list: u
+        },
+        defer: 1
+    }), h;
 }
-function F(e, t, n, s) {
-    const l = k(e);
-    l && s.contains(l.targetElement) ? n ? l.targetElement.before(t) : l.targetElement.after(t) : s.appendChild(t);
+function j(e, t, n, s) {
+    const i = v(e);
+    i && s.contains(i.targetElement) ? n ? i.targetElement.before(t) : i.targetElement.after(t) : s.appendChild(t);
 }
-function M(e) {
-    const t = de.get();
+function F(e) {
+    const t = pe.get();
     t && _effector.createNode({
         node: [],
         parent: e,
@@ -1338,111 +1319,114 @@ function M(e) {
         }
     });
 }
-function z(t) {
-    const n = de.get();
+function M(t) {
+    const n = pe.get();
     return n && e2(n.signal, [
         t
     ]), t;
 }
-function L(e) {
-    const t = de.get();
+function z(e) {
+    const t = pe.get();
     if ('element' !== t.node.type && 'using' !== t.node.type) throw Error(`"${e}" extension can be used only with element nodes, got "${t.node.type}"`);
 }
-function W(e18) {
+function L(e16) {
     let t;
     return X((e)=>{
         t = e;
     }), (...n)=>{
-        if (t) return t[e18](...n);
+        if (t) return t[e16](...n);
     };
 }
 function X(e) {
-    const t = de.get();
+    const t = pe.get();
     t.targetElement.__STATIC__ || e(t.targetElement);
 }
 function Y(e) {
-    e.attr && q(e.attr), e.data && G(e.data), e.transform && B(e.transform), 'text' in e && U(e.text), 'visible' in e && Z(e.visible), (e.style || e.styleVar) && H({
+    e.attr && q(e.attr), e.data && G(e.data), e.transform && W(e.transform), 'text' in e && B(e.text), 'visible' in e && U(e.visible), (e.style || e.styleVar) && Z({
         prop: e.style,
         val: e.styleVar
-    }), e.focus && K(e.focus), e.handler && J(e.handler);
+    }), e.focus && J(e.focus), e.handler && H(e.handler);
 }
 function q(e) {
-    L('attr'), de.getElementNode().attr.push(e);
+    z('attr'), pe.getElementNode().attr.push(e);
 }
 function G(e) {
-    L('data'), de.getElementNode().data.push(e);
+    z('data'), pe.getElementNode().data.push(e);
+}
+function W(e) {
+    z('transform'), pe.getElementNode().transform.push(e);
 }
 function B(e) {
-    L('transform'), de.getElementNode().transform.push(e);
+    z('text'), pe.getElementNode().text.push(e);
 }
 function U(e) {
-    L('text'), de.getElementNode().text.push(e);
-}
-function Z(e) {
-    const t = de.get();
+    const t = pe.get();
     if ('element' !== t.node.type && 'using' !== t.node.type && 'listItem' !== t.node.type) throw Error(`"visible" extension can be used only with element or listItem nodes, got "${t.node.type}"`);
-    de.getElementNode().visible.push(e);
+    pe.getElementNode().visible.push(e);
 }
-function H({ prop: e , val: t  }) {
-    L('style'), e && de.getElementNode().styleProp.push(e), t && de.getElementNode().styleVar.push(t);
+function Z({ prop: e , val: t  }) {
+    z('style'), e && pe.getElementNode().styleProp.push(e), t && pe.getElementNode().styleVar.push(t);
 }
-function J(e, t) {
-    L('handler'), void 0 === t && (t = e, e = {
+function H(e, t) {
+    z('handler'), void 0 === t && (t = e, e = {
     });
-    const { passive: n = 1 , capture: s = 0 , prevent: l = 0 , stop: i = 0  } = e;
-    de.getElementNode().handler.push({
+    const { passive: n = 1 , capture: s = 0 , prevent: i = 0 , stop: l = 0  } = e;
+    pe.getElementNode().handler.push({
         options: {
             passive: n,
             capture: s,
-            prevent: l,
-            stop: i
+            prevent: i,
+            stop: l
         },
         map: t
     });
 }
-function K({ focus: e , blur: t  }) {
-    L('focus');
-    const n = de.getElementNode();
+function J({ focus: e , blur: t  }) {
+    z('focus');
+    const n = pe.getElementNode();
     e && n.focus.push(e), t && n.blur.push(t);
 }
-function Q(e, { fn: t  }) {
-    return console.error('separate map method is deprecated, use store.map as usual'), z(e.map(t));
+function K(e, { fn: t  }) {
+    return console.error('separate map method is deprecated, use store.map as usual'), M(e.map(t));
 }
-function ee({ source: e , fn: t  }) {
-    return console.error('separate combine method is deprecated, use common combine method as usual'), z(_effector.combine(e, t));
+function Q({ source: e , fn: t  }) {
+    return console.error('separate combine method is deprecated, use common combine method as usual'), M(_effector.combine(e, t));
 }
-function te(e19, t8) {
-    T({
-        source: _effector.createStore(Object.entries(t8).map(([e, t])=>({
-                key: e,
-                val: t
+function ee(e17, t7) {
+    const n = _effector.createStore(Object.entries(t7).map(([e, t])=>({
+            key: e,
+            val: t
+        })
+    )), s = _effector.combine(n, e17, (e18, t)=>e18.map((e)=>({
+                key: e.key,
+                val: e.val,
+                visible: e.key === t
             })
-        )),
+        )
+    );
+    V({
+        source: s,
         key: 'key',
-        fields: [
-            'key',
-            'val'
-        ]
-    }, ({ fields: [t9, n]  })=>{
-        Y({
-            visible: _effector.combine(t9, e19, (e, t)=>e === t
-            )
-        }), n.getState()();
+        visible: ({ visible: e  })=>e
+        ,
+        fn ({ store: e  }) {
+            e.getState().val();
+        }
     });
 }
-const he = [];
-let pe;
-const de = {
-    get: ()=>pe
+const ue = [];
+let he;
+const pe = {
+    get: ()=>he
     ,
     replace (e) {
-        pe = e;
+        he = e;
     },
-    getElementNode: ()=>pe.node
-}, ge = (e)=>e.graphite || e
-, me = (e)=>e.family.owners
-, be = (e)=>e.family.links
-, ye = _effector.createNode({
+    getElementNode: ()=>he.node
+}, de = (e)=>e.graphite || e
+, ge = (e)=>e.family.owners
+, me = (e)=>e.family.links
+, be = _effector.createNode({
     node: [
         _effector.step.run({
             fn (e) {
@@ -1450,52 +1434,52 @@ const de = {
             }
         })
     ]
-}), ve = _effector.step.compute({
-    fn (e, l) {
-        l.self.next.push(ye);
-        const { stack: i  } = l, { parent: r  } = i, { left: o , right: a  } = i.locality.sibling;
-        r && (r.locality.child.last.ref === i && (r.locality.child.last.ref = o.ref), r.locality.child.first.ref === i && (r.locality.child.first.ref = a.ref)), o.ref && o.ref.locality.sibling.right.ref === i && a.ref && a.ref.locality.sibling.left.ref === i ? t1(o.ref, a.ref) : o.ref && o.ref.locality.sibling.right.ref === i ? n1(o.ref, null) : a.ref && a.ref.locality.sibling.left.ref === i && s1(a.ref, null);
+}), ye = _effector.step.compute({
+    fn (e, i) {
+        i.self.next.push(be);
+        const { stack: l  } = i, { parent: r  } = l, { left: o , right: a  } = l.locality.sibling;
+        r && (r.locality.child.last.ref === l && (r.locality.child.last.ref = o.ref), r.locality.child.first.ref === l && (r.locality.child.first.ref = a.ref)), o.ref && o.ref.locality.sibling.right.ref === l && a.ref && a.ref.locality.sibling.left.ref === l ? t1(o.ref, a.ref) : o.ref && o.ref.locality.sibling.right.ref === l ? n1(o.ref, null) : a.ref && a.ref.locality.sibling.left.ref === l && s1(a.ref, null);
     }
-}), ke = _effector.step.compute({
+}), ve = _effector.step.compute({
     fn: (e, { self: t  })=>t
-}), we = /[^a-zA-Z0-9\-]/g, xe = /[\\<>"]/g;
-class Se {
+}), ke = /[^a-zA-Z0-9\-]/g, we = /[\\<>"]/g;
+class xe {
     constructor(){
         this.properties = Object.create(null);
     }
-    setProperty(e27, t13) {
-        this.properties[i1(e27)] = r1(t13);
+    setProperty(e26, t11) {
+        this.properties[l1(e26)] = r1(t11);
     }
-    removeProperty(e20) {
-        delete this.properties[i1(e20)];
+    removeProperty(e19) {
+        delete this.properties[l1(e19)];
+    }
+}
+class Se {
+    constructor(){
+        this.items = [];
+    }
+    appendItem(e20) {
+        this.items.push(e20);
     }
 }
 class Ee {
     constructor(){
-        this.items = [];
-    }
-    appendItem(e21) {
-        this.items.push(e21);
-    }
-}
-class Ce {
-    constructor(){
         this.value = '';
     }
-    setTranslate(e22, t10) {
-        this.value = `translate(${e22} ${t10})`;
+    setTranslate(e21, t8) {
+        this.value = `translate(${e21} ${t8})`;
     }
-    setScale(e23, t11) {
-        this.value = `scale(${e23} ${t11})`;
+    setScale(e22, t9) {
+        this.value = `scale(${e22} ${t9})`;
     }
-    setRotate(e24, t12, n11) {
-        this.value = 0 !== t12 || 0 !== n11 ? `rotate(${e24} ${t12} ${n11})` : `rotate(${e24})`;
+    setRotate(e23, t10, n11) {
+        this.value = 0 !== t10 || 0 !== n11 ? `rotate(${e23} ${t10} ${n11})` : `rotate(${e23})`;
     }
-    setSkewX(e25) {
-        this.value = `skewX(${e25})`;
+    setSkewX(e24) {
+        this.value = `skewX(${e24})`;
     }
-    setSkewY(e26) {
-        this.value = `skewY(${e26})`;
+    setSkewY(e25) {
+        this.value = `skewY(${e25})`;
     }
 }
 (new class {
@@ -1506,8 +1490,8 @@ class Ce {
         }, this.sibling = {
             left: null,
             right: null
-        }, this.parent = null, this.tagName = '', this.namespaceURI = 'http://www.w3.org/1999/xhtml', this.dataset = Object.create(null), this.style = new Se, this.firstChild = null, this.transform = {
-            baseVal: new Ee
+        }, this.parent = null, this.tagName = '', this.namespaceURI = 'http://www.w3.org/1999/xhtml', this.dataset = Object.create(null), this.style = new xe, this.firstChild = null, this.transform = {
+            baseVal: new Se
         }, this.isFragment = 1, this.attributes = Object.create(null), this.textContent = null, this.__STATIC__ = 1;
     }
     appendChild(e) {
@@ -1516,11 +1500,11 @@ class Ce {
             for(; n;)t = n.sibling.right, this.appendChild(n), n = t;
         } else this.child.last ? (this.child.last.sibling.right = e, e.sibling.left = this.child.last) : (this.child.first = e, this.firstChild = e), this.child.last = e, e.parent = this;
     }
-    prepend(e28) {
-        e28.parent && e28.remove(), this.child.last ? (this.child.first.sibling.left = e28, e28.sibling.right = this.child.first) : (this.child.first = e28, this.child.last = e28), this.child.first = e28, this.firstChild = e28, e28.parent = this;
+    prepend(e27) {
+        e27.parent && e27.remove(), this.child.last ? (this.child.first.sibling.left = e27, e27.sibling.right = this.child.first) : (this.child.first = e27, this.child.last = e27), this.child.first = e27, this.firstChild = e27, e27.parent = this;
     }
-    contains(e29) {
-        let t = e29;
+    contains(e28) {
+        let t = e28;
         for(; t;){
             if (t === this) return 1;
             t = t.parent;
@@ -1532,31 +1516,34 @@ class Ce {
         const { parent: e  } = this;
         e.child.first === this && e.child.last === this ? (e.firstChild = null, e.child.first = null, e.child.last = null) : e.child.first === this ? (e.child.first = this.sibling.right, e.firstChild = this.sibling.right, this.sibling.right.sibling.left = null) : e.child.last === this ? (e.child.last = this.sibling.left, this.sibling.left.sibling.right = null) : (this.sibling.right.sibling.left = this.sibling.left, this.sibling.left.sibling.right = this.sibling.right), this.sibling.left = null, this.sibling.right = null, this.parent = null;
     }
-    addEventListener(e30, t, n) {
+    addEventListener(e29, t, n) {
     }
-    removeEventListener(e31, t14, n12) {
+    removeEventListener(e30, t12, n12) {
     }
-    setAttribute(e32, t15) {
-        this.attributes[i1(e32)] = r1(t15);
+    setAttribute(e31, t13) {
+        this.attributes[l1(e31)] = r1(t13);
     }
-    removeAttribute(e33) {
-        delete this.attributes[i1(e33)];
+    removeAttribute(e32) {
+        delete this.attributes[l1(e32)];
     }
-    replaceWith(e34) {
+    replaceWith(e33) {
         if (!this.parent) return;
         const { parent: t  } = this;
-        e34.parent && e34.remove(), t.child.first === this && t.child.last === this ? (t.firstChild = e34, t.child.first = e34, t.child.last = e34) : t.child.first === this ? (t.child.first = e34, t.firstChild = e34, this.sibling.right.sibling.left = e34) : t.child.last === this ? (t.child.last = e34, this.sibling.left.sibling.right = e34) : (this.sibling.right.sibling.left = e34, this.sibling.left.sibling.right = e34), e34.sibling.left = this.sibling.left, e34.sibling.right = this.sibling.right, e34.parent = t, this.sibling.left = null, this.sibling.right = null, this.parent = null;
+        e33.parent && e33.remove(), t.child.first === this && t.child.last === this ? (t.firstChild = e33, t.child.first = e33, t.child.last = e33) : t.child.first === this ? (t.child.first = e33, t.firstChild = e33, this.sibling.right.sibling.left = e33) : t.child.last === this ? (t.child.last = e33, this.sibling.left.sibling.right = e33) : (this.sibling.right.sibling.left = e33, this.sibling.left.sibling.right = e33), e33.sibling.left = this.sibling.left, e33.sibling.right = this.sibling.right, e33.parent = t, this.sibling.left = null, this.sibling.right = null, this.parent = null;
     }
     focus() {
     }
     blur() {
     }
     createSVGTransform() {
-        return new Ce;
+        return new Ee;
+    }
+    replaceData(e34, t14, n13) {
+        'string' == typeof this.textContent && (this.textContent = `${this.textContent.slice(0, e34)}${n13}${this.textContent.slice(e34 + t14)}`);
     }
 }).isBody = 1;
-let Ie = 'undefined' != typeof document ? document : null;
-const Ne = _effector.step.compute({
+let Ce = 'undefined' != typeof document ? document : null;
+const Ie = _effector.step.compute({
     fn (e, t) {
         if (!t.stack) return e;
         const { stack: n  } = t;
@@ -1564,26 +1551,26 @@ const Ne = _effector.step.compute({
         const s = n.parent.child.indexOf(n);
         return -1 !== s && n.parent.child.splice(s, 1), n.parent = null, e;
     }
-}), _e = _effector.step.run({
+}), Ne = _effector.step.run({
     fn (e, { fn: t  }) {
         t(e);
     }
 });
-let $e, Ae, Oe;
+let $e, _e, Ae;
 $e = ()=>{
-}, Ae = ()=>{
-}, Oe = 'undefined' != typeof performance && performance.now ? ()=>performance.now()
+}, _e = ()=>{
+}, Ae = 'undefined' != typeof performance && performance.now ? ()=>performance.now()
  : 'undefined' != typeof process && process.hrtime ? ()=>{
     const e = process.hrtime();
     return (1000000000 * e[0] + e[1]) / 1000000;
 } : ()=>Date.now()
 ;
-const Re = _effector.createEvent();
-let De, Pe = 0, Ve = 0;
-const Te = 'undefined' != typeof requestAnimationFrame ? requestAnimationFrame : (e)=>setTimeout(e, 0)
-, je = 'undefined' != typeof cancelAnimationFrame ? cancelAnimationFrame : clearTimeout, Fe = ()=>{
-    Ve || (Ve = 1, De = Te(u1));
-}, Me = new Map, ze = new Map, Le = new Map, We = new Map;
+const Oe = _effector.createEvent();
+let Re, De = 0, Pe = 0;
+const Ve = 'undefined' != typeof requestAnimationFrame ? requestAnimationFrame : (e)=>setTimeout(e, 0)
+, Te = 'undefined' != typeof cancelAnimationFrame ? cancelAnimationFrame : clearTimeout, je = ()=>{
+    Pe || (Pe = 1, Re = Ve(u1));
+}, Fe = new Map, Me = new Map, ze = new Map, Le = new Map;
 let Xe = 0, Ye = 0;
 const qe = _effector.createNode({
     node: [
@@ -1592,37 +1579,37 @@ const qe = _effector.createNode({
             }
         }),
         _effector.step.filter({
-            fn: ()=>0 === ze.size && 0 === Le.size ? 0 : Oe() - Ye >= 10 ? 0 : (je(De), Pe = 1, Ve = 0, 1)
+            fn: ()=>0 === Me.size && 0 === ze.size ? 0 : Ae() - Ye >= 10 ? 0 : (Te(Re), De = 1, Pe = 0, 1)
         })
     ],
     child: [
-        Re
+        Oe
     ]
 });
-Re.watch(()=>{
-    if (Ve) return;
-    if (0 === ze.size && 0 === Le.size) return void (Pe = 0);
+Oe.watch(()=>{
+    if (Pe) return;
+    if (0 === Me.size && 0 === ze.size) return void (De = 0);
     let e = 0;
-    Pe || (Ye = Oe()), Pe = 0;
-    for (const [t, n] of ze){
-        if (Oe() - Ye >= 10) {
-            Fe(), e = 1;
+    De || (Ye = Ae()), De = 0;
+    for (const [t, n] of Me){
+        if (Ae() - Ye >= 10) {
+            je(), e = 1;
             break;
         }
-        ze.delete(t), _effector.launch({
-            target: Me.get(t),
+        Me.delete(t), _effector.launch({
+            target: Fe.get(t),
             params: n,
             defer: 1
         });
     }
-    if (!e) for (const [t16, n13] of Le){
-        if (Oe() - Ye >= 10) {
-            Fe(), e = 1;
+    if (!e) for (const [t15, n14] of ze){
+        if (Ae() - Ye >= 10) {
+            je(), e = 1;
             break;
         }
-        Le.delete(t16), _effector.launch({
-            target: Me.get(t16),
-            params: n13,
+        ze.delete(t15), _effector.launch({
+            target: Fe.get(t15),
+            params: n14,
             defer: 1
         });
     }
@@ -1634,50 +1621,46 @@ Re.watch(()=>{
 });
 const Ge = _effector.step.compute({
     fn: ({ done: e  })=>e
-}), Be = _effector.step.compute({
+}), We = _effector.step.compute({
     fn: ({ fail: e  })=>e
-}), Ue = _effector.step.filter({
+}), Be = _effector.step.filter({
     fn: (e)=>e.length > 0
-}), Ze = _effector.step.compute({
+}), Ue = _effector.step.compute({
     fn (e, { taskID: t  }) {
-        h1(t, 1, e);
+        const n = 'high' === Le.get(t) ? Me : ze;
+        let s = n.get(t);
+        s || (s = [], n.set(t, s));
+        for(let t16 = 0; t16 < e.length; t16++)s.push(e[t16]);
+        je();
     }
-}), He = _effector.step.compute({
-    fn (e, { taskID: t , flat: n  }) {
-        h1(t, n, e);
-    }
-}), Je = _effector.step.run({
+}), Ze = _effector.step.run({
     fn: (e, { fn: t  })=>t(e, Ye)
-}), Ke = _effector.step.compute({
-    fn: (e)=>[
-            e
-        ]
-}), Qe = _effector.step.run({
+}), He = _effector.step.run({
     fn: (e, { handler: t  })=>({
             data: e,
             handler: t
         })
-}), { trigger: et  } = d1({
+}), { trigger: Je  } = p1({
     priority: 'high',
     mark: 'domOperation',
     fn ({ handler: e , data: t  }) {
         e(t);
     }
-}), tt = (e, { map: t , options: n  })=>{
+}), Ke = (e, { map: t , options: n  })=>{
     for(const s in t)e.removeEventListener(s, t[s], n);
-}, nt = (e, t, n)=>{
-    w(n) ? delete e[t] : e[t] = n;
-}, st = (e, t, n)=>{
-    w(n) ? e.removeProperty(t) : e.setProperty(t, n);
-}, lt = (e, t)=>({
+}, Qe = (e, t, n)=>{
+    k(n) ? delete e[t] : e[t] = n;
+}, et = (e, t, n)=>{
+    k(n) ? e.removeProperty(t) : e.setProperty(t, n);
+}, tt = (e, t)=>({
         x: t,
         y: e
     })
-, rt = (e, t)=>({
+, nt = (e, t)=>({
         x: e,
         y: t
     })
-, ot = {
+, st = {
     translate (e, { x: t = 0 , y: n = 0  }) {
         e.setTranslate(t, n);
     },
@@ -1693,44 +1676,44 @@ const Ge = _effector.step.compute({
     skewY (e, t) {
         e.setSkewY(t);
     }
-}, { trigger: at  } = d1({
+}, { trigger: lt  } = p1({
     mark: 'append DOM nodes',
     fn: (e)=>{
         for(let t = 0; t < e.append.length; t++){
             const n = e.append[t];
             if (0 == n.listItem.active) continue;
             if (0 === n.appended.length) continue;
-            const s = Ie.createDocumentFragment();
+            const s = Ce.createDocumentFragment();
             if (e.reverse) for(let e36 = n.appended.length - 1; e36 >= 0; e36--)s.appendChild(n.appended[e36]);
             else for(let e35 = 0; e35 < n.appended.length; e35++)s.appendChild(n.appended[e35]);
-            F(n.listItemStack, s, e.reverse, e.node);
+            j(n.listItemStack, s, e.reverse, e.node);
         }
     }
-}), { trigger: ct  } = d1({
+}), { trigger: rt  } = p1({
     mark: 'addRecords',
     fn: ({ context: e39 , list: t18  })=>{
-        const { parentStack: n , parentNode: s , cb: l , reverse: i  } = e39, r = de.get();
-        de.replace(n);
+        const { parentStack: n , parentNode: s , cb: i , reverse: l  } = e39, r = pe.get();
+        pe.replace(n);
         const o = [], a = [];
-        he.push({
+        ue.push({
             node: s,
             append: a,
-            reverse: i
+            reverse: l
         });
         for(let e37 = 0; e37 < t18.length; e37++){
             const n = t18[e37], r = n.node;
             if (r.active) {
-                de.replace(n), _effector.withRegion(n.signal, O(l, r));
+                pe.replace(n), _effector.withRegion(n.signal, A(i, r));
                 for(let e38 = 0; e38 < a.length; e38++)r.nodes.push(a[e38]);
                 r.visible.length > 0 ? _effector.withRegion(n.signal, ()=>{
                     const e40 = r.visible[r.visible.length - 1];
                     e40.updates.watch((e)=>{
                         if (0 != r.active) {
                             if (e) {
-                                const e = Ie.createDocumentFragment();
-                                if (i) for(let t = r.nodes.length - 1; t >= 0; t--)e.appendChild(r.nodes[t]);
+                                const e = Ce.createDocumentFragment();
+                                if (l) for(let t = r.nodes.length - 1; t >= 0; t--)e.appendChild(r.nodes[t]);
                                 else for(let t17 = 0; t17 < r.nodes.length; t17++)e.appendChild(r.nodes[t17]);
-                                F(n, e, i, s);
+                                j(n, e, l, s);
                             } else for(let e41 = 0; e41 < r.nodes.length; e41++)r.nodes[e41].remove();
                         }
                     }), e40.getState() && o.push({
@@ -1745,21 +1728,21 @@ const Ge = _effector.step.compute({
                 }), a.length = 0;
             }
         }
-        he.pop(), o.length > 0 && _effector.launch({
-            target: at,
+        ue.pop(), o.length > 0 && _effector.launch({
+            target: lt,
             params: {
                 node: s,
                 append: o,
-                reverse: i
+                reverse: l
             },
             defer: 1
-        }), de.replace(r);
+        }), pe.replace(r);
     }
-}), ft = (e, t)=>t
-, ut = (e, t)=>t[e]
-, ht = _effector.createEvent();
-g1({
-    trigger: ht,
+}), ot = (e, t)=>t
+, at = (e, t)=>t[e]
+, ct = _effector.createEvent();
+d1({
+    trigger: ct,
     priority: 'high',
     mark: 'runSignals',
     flatten: ({ signal: e  })=>[
@@ -1767,10 +1750,14 @@ g1({
         ]
     ,
     fn: (e)=>{
-        e.scope && _effector.launch(e, null, 0);
+        e.scope && _effector.launch({
+            target: e,
+            params: null,
+            defer: 0
+        });
     }
-}), g1({
-    trigger: ht,
+}), d1({
+    trigger: ct,
     priority: 'high',
     mark: 'remove DOM nodes',
     flatten ({ node: e  }) {
@@ -1779,16 +1766,20 @@ g1({
     },
     fn: (e)=>(e.remove(), e)
 });
-const pt = (e)=>{
+const ft = (e)=>{
     const t = e.getState();
     for(let e42 = 0; e42 < t.length; e42++){
         const n = t[e42].node;
         n.active = 0, n.store = null;
     }
-    _effector.launch(ht, t, 1);
+    _effector.launch({
+        target: ct,
+        params: t,
+        defer: 1
+    });
 };
 
-},{"process":"lDnB8","effector":"55tTI","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"lDnB8":[function(require,module,exports) {
+},{"process":"lDnB8","effector":"6OH3Z","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"lDnB8":[function(require,module,exports) {
 // shim for using process in browser
 var process = module.exports = {
 };
@@ -1937,1207 +1928,1554 @@ process.umask = function() {
     return 0;
 };
 
-},{}],"55tTI":[function(require,module,exports) {
+},{}],"6OH3Z":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Kind", ()=>w
+parcelHelpers.export(exports, "allSettled", ()=>A
 );
-parcelHelpers.export(exports, "blocks", ()=>Le
+parcelHelpers.export(exports, "attach", ()=>y1
 );
-parcelHelpers.export(exports, "clearNode", ()=>Ne
+parcelHelpers.export(exports, "clearNode", ()=>lt
 );
-parcelHelpers.export(exports, "combine", ()=>l1
+parcelHelpers.export(exports, "combine", ()=>p1
 );
-parcelHelpers.export(exports, "createApi", ()=>b1
+parcelHelpers.export(exports, "createApi", ()=>b
 );
-parcelHelpers.export(exports, "createDomain", ()=>g
+parcelHelpers.export(exports, "createDomain", ()=>v
 );
 parcelHelpers.export(exports, "createEffect", ()=>h1
 );
-parcelHelpers.export(exports, "createEvent", ()=>a1
+parcelHelpers.export(exports, "createEvent", ()=>u1
 );
-parcelHelpers.export(exports, "createNode", ()=>e4
+parcelHelpers.export(exports, "createNode", ()=>a1
 );
-parcelHelpers.export(exports, "createStore", ()=>c1
+parcelHelpers.export(exports, "createStore", ()=>d1
 );
-parcelHelpers.export(exports, "createStoreObject", ()=>l1
+parcelHelpers.export(exports, "createStoreObject", ()=>m1
 );
-parcelHelpers.export(exports, "forward", ()=>Ee
+parcelHelpers.export(exports, "fork", ()=>$
 );
-parcelHelpers.export(exports, "fromObservable", ()=>d1
+parcelHelpers.export(exports, "forward", ()=>ct
 );
-parcelHelpers.export(exports, "guard", ()=>v1
+parcelHelpers.export(exports, "fromObservable", ()=>k
 );
-parcelHelpers.export(exports, "is", ()=>q
+parcelHelpers.export(exports, "guard", ()=>C
 );
-parcelHelpers.export(exports, "launch", ()=>pe
+parcelHelpers.export(exports, "hydrate", ()=>N
 );
-parcelHelpers.export(exports, "merge", ()=>m1
+parcelHelpers.export(exports, "is", ()=>W
 );
-parcelHelpers.export(exports, "restore", ()=>y1
+parcelHelpers.export(exports, "launch", ()=>o1
 );
-parcelHelpers.export(exports, "restoreEffect", ()=>y1
+parcelHelpers.export(exports, "merge", ()=>w
 );
-parcelHelpers.export(exports, "restoreEvent", ()=>y1
+parcelHelpers.export(exports, "restore", ()=>M
 );
-parcelHelpers.export(exports, "restoreObject", ()=>y1
+parcelHelpers.export(exports, "sample", ()=>x
 );
-parcelHelpers.export(exports, "sample", ()=>u1
+parcelHelpers.export(exports, "scopeBind", ()=>F
 );
-parcelHelpers.export(exports, "setStoreName", ()=>r1
+parcelHelpers.export(exports, "serialize", ()=>O
 );
-parcelHelpers.export(exports, "split", ()=>p1
+parcelHelpers.export(exports, "setStoreName", ()=>s1
 );
-parcelHelpers.export(exports, "step", ()=>G
+parcelHelpers.export(exports, "split", ()=>j
 );
-parcelHelpers.export(exports, "version", ()=>Je
+parcelHelpers.export(exports, "step", ()=>pe
 );
-parcelHelpers.export(exports, "withRegion", ()=>o1
+parcelHelpers.export(exports, "version", ()=>Mt
 );
-var _symbolObservable = require("symbol-observable");
-var _symbolObservableDefault = parcelHelpers.interopDefault(_symbolObservable);
-function e4({ node: e = [] , from: t , source: r , parent: n = t || r , to: o , target: a , child: s = o || a , scope: c = {
-} , meta: i = {
-} , family: f = {
-    type: 'regular'
-}  }) {
-    const l = ee(n), u = ee(f.links), p = ee(f.owners), m = [], d = {
-    };
-    for(let t2 = 0; t2 < e.length; t2++){
-        const r = e[t2];
-        r && (m.push(r), te(r, d));
-    }
-    const h = {
-        seq: m,
-        next: ee(s),
-        meta: i,
-        scope: c,
-        family: {
-            type: f.type || 'crosslink',
-            links: u,
-            owners: p
-        },
-        reg: d
-    };
-    for(let e1 = 0; e1 < u.length; e1++)L(u[e1]).push(h);
-    for(let e2 = 0; e2 < p.length; e2++)Q(p[e2]).push(h);
-    for(let e3 = 0; e3 < l.length; e3++)l[e3].next.push(h);
-    return h;
+parcelHelpers.export(exports, "withFactory", ()=>De
+);
+parcelHelpers.export(exports, "withRegion", ()=>n1
+);
+function e1(e, t) {
+    for(let r in e)t(e[r], r);
 }
-function t1(e, t = "combine") {
-    let r = t + '(', n = '', o = 0;
-    for(const t3 in e){
-        const a = e[t3];
-        if (null != a && (r += n, r += N(a) ? a.compositeName.fullName : a.toString()), o += 1, 25 === o) break;
-        n = ', ';
-    }
-    return r += ')', r;
+function t1(e, t) {
+    e.forEach(t);
 }
 function r1(e, t) {
-    const r = n1(t, e.parent);
-    e.shortName = t, e.compositeName ? (e.compositeName.path = r.path, e.compositeName.shortName = r.shortName, e.compositeName.fullName = r.fullName) : e.compositeName = r;
+    if (!e) throw Error(t);
 }
 function n1(e, t) {
-    let r, n, o;
-    const a = e;
-    return t ? (o = t.compositeName, 0 === e.length ? (r = o.path, n = o.fullName) : (r = o.path.concat([
+    Ne = {
+        parent: Ne,
+        value: e,
+        template: Ie(e, 'template') || Fe(),
+        sidRoot: Ie(e, 'sidRoot') || Ne && Ne.sidRoot
+    };
+    try {
+        return t();
+    } finally{
+        Ne = je(Ne);
+    }
+}
+function a1({ node: e2 = [] , from: r , source: n , parent: a = r || n , to: o , target: l , child: s = o || l , scope: i = {
+} , meta: f = {
+} , family: c = {
+    type: 'regular'
+} , regional: u  } = {
+}) {
+    let d = Re(a), p = Re(c.links), m = Re(c.owners), g = [];
+    t1(e2, (e)=>e && G(g, e)
+    );
+    let h = {
+        id: ae(),
+        seq: g,
+        next: Re(s),
+        meta: f,
+        scope: i,
+        family: {
+            type: c.type || "crosslink",
+            links: p,
+            owners: m
+        }
+    };
+    return t1(p, (e)=>G(we(e), h)
+    ), t1(m, (e)=>G(Se(e), h)
+    ), t1(d, (e)=>G(e.next, h)
+    ), u && Ne && $e(Ce(Ne), [
+        h
+    ]), h;
+}
+function o1(e, r, n) {
+    let a = Je, o = null, l = Ue;
+    if (e.target && (r = e.params, n = e.defer, a = 'page' in e ? e.page : a, e.stack && (o = e.stack), l = Ae(e) || l, e = e.target), l && Ue && l !== Ue && (Ue = null), Array.isArray(e)) for(let t3 = 0; t3 < e.length; t3++)Le('pure', a, ke(e[t3]), o, r[t3], l);
+    else Le('pure', a, ke(e), o, r, l);
+    if (n && !He) return;
+    let s, i, f, c, u, d, p = {
+        isRoot: He,
+        currentPage: Je,
+        scope: Ue,
+        isWatch: Ge
+    };
+    He = 0;
+    e: for(; c = Ee();){
+        let { idx: e , stack: r , type: n  } = c;
+        f = r.node, Je = u = r.page, Ue = Ae(r), u ? d = u.reg : Ue && (d = Ue.reg);
+        let a = !!u, o = !!Ue, l = {
+            fail: 0,
+            scope: f.scope
+        };
+        s = i = 0;
+        for(let t2 = e; t2 < f.seq.length && !s; t2++){
+            let c = f.seq[t2];
+            if (c.order) {
+                let { priority: a , barrierID: o  } = c.order, l = o ? u ? `${u.fullID}_${o}` : o : 0;
+                if (t2 !== e || n !== a) {
+                    o ? We.has(l) || (We.add(l), Be(t2, r, a, o)) : Be(t2, r, a);
+                    continue e;
+                }
+                o && We.delete(l);
+            }
+            switch(c.type){
+                case 'mov':
+                    {
+                        let e, t = c.data;
+                        switch(t.from){
+                            case z:
+                                e = Ce(r);
+                                break;
+                            case "a":
+                            case 'b':
+                                e = r[t.from];
+                                break;
+                            case "value":
+                                e = t.store;
+                                break;
+                            case "store":
+                                if (d && !d[t.store.id]) {
+                                    if (a) {
+                                        let e = Xe(u, t.store.id);
+                                        r.page = u = e, e ? d = e.reg : o ? (Ze(Ue, t.store, 0, 1, t.softRead), d = Ue.reg) : d = void 0;
+                                    } else o && Ze(Ue, t.store, 0, 1, t.softRead);
+                                }
+                                e = ge(d && d[t.store.id] || t.store);
+                        }
+                        switch(t.to){
+                            case z:
+                                r.value = e;
+                                break;
+                            case "a":
+                            case 'b':
+                                r[t.to] = e;
+                                break;
+                            case "store":
+                                Ye(u, Ue, f, t.target).current = e;
+                        }
+                        break;
+                    }
+                case 'compute':
+                    let e = c.data;
+                    if (e.fn) {
+                        Ge = 'watch' === Ie(f, 'op');
+                        let t = e.safe ? (0, e.fn)(Ce(r), l.scope, r) : et(l, e.fn, r);
+                        e.filter ? i = !t : r.value = t, Ge = p.isWatch;
+                    }
+            }
+            s = l.fail || i;
+        }
+        if (!s) {
+            let e = Ce(r);
+            t1(f.next, (t)=>{
+                Le('child', u, t, r, e, Ae(r));
+            });
+            let n = Ae(r);
+            if (n) {
+                Ie(f, 'needFxCounter') && Le('child', u, n.fxCount, r, e, n), Ie(f, 'storeChange') && Le('child', u, n.storeChange, r, e, n);
+                let a = n.additionalLinks[f.id];
+                a && t1(a, (t)=>{
+                    Le('child', u, t, r, e, n);
+                });
+            }
+        }
+    }
+    He = p.isRoot, Je = p.currentPage, Ue = Ae(p);
+}
+function l1(t, r = "combine") {
+    let n = r + '(', a = '', o = 0;
+    return e1(t, (e)=>{
+        o < 25 && (null != e && (n += a, n += _(e) ? tt(e).fullName : e.toString()), o += 1, a = ', ');
+    }), n + ')';
+}
+function s1(e, t) {
+    e.shortName = t, Object.assign(tt(e), i1(t, je(e)));
+}
+function i1(e, t) {
+    let r, n, a = e;
+    if (t) {
+        let a = tt(t);
+        0 === e.length ? (r = a.path, n = a.fullName) : (r = a.path.concat([
+            e
+        ]), n = 0 === a.fullName.length ? e : a.fullName + '/' + e);
+    } else r = 0 === e.length ? [] : [
         e
-    ]), n = 0 === o.fullName.length ? e : o.fullName + '/' + e)) : (r = 0 === e.length ? [] : [
-        e
-    ], n = e), {
+    ], n = e;
+    return {
         shortName: a,
         fullName: n,
         path: r
     };
 }
-function o1(e, t) {
-    je = {
-        parent: je,
-        value: e
-    };
-    try {
-        return t();
-    } finally{
-        je = je.parent;
+function f1(e, t) {
+    let r = t ? e : e[0];
+    return Y(r), r.and && (e = r.and), [
+        e,
+        r.or
+    ];
+}
+function c1(e, ...t) {
+    let r = Fe();
+    if (r) {
+        let n = r.handlers[e];
+        if (n) return n(r, ...t);
     }
 }
-function a1(t4, r2) {
-    const n = (e, ...t)=>n.create(e, t, t)
-    ;
-    return n.graphite = e4({
-        meta: Oe('event', n, r2, t4)
-    }), n.create = (e)=>(pe(n, e), e)
-    , n.watch = C(qe, n), n.map = (e)=>{
-        let t, r;
-        'object' == typeof e && (t = e, r = e.name, e = e.fn);
-        const o = a1(ye(n, r), t);
-        return De(n, o, 'map', e), o;
-    }, n.filter = (e)=>'function' == typeof e ? (console.error('.filter(fn) is deprecated, use .filterMap instead'), s1(n, e)) : Re(n, 'filter', e.fn, [
-            T({
-                fn: $
-            })
-        ])
-    , n.filterMap = C(s1, n), n.prepend = (e)=>{
-        const t = a1('* → ' + n.shortName, {
-            parent: n.parent
-        });
-        return De(t, n, 'prepend', e), Ce(n, t), t;
-    }, n.subscribe = (e)=>qe(n, (t)=>e.next(t)
-        )
-    , n[_symbolObservableDefault.default] = ()=>n
-    , _e(n);
-}
-function s1(e, t) {
-    return Re(e, 'filterMap', t, [
-        P({
-            fn: $
+function u1(e3, t4) {
+    let r2 = (e4, ...t5)=>(J(!Ie(r2, 'derived'), 'call of derived event', 'createEvent'), Je ? ((e, t, r, n)=>{
+            let a = Je, o = null;
+            if (t) for(o = Je; o && o.template !== t;)o = je(o);
+            Qe(o);
+            let l = e.create(r, n);
+            return Qe(a), l;
+        })(r2, n2, e4, t5) : r2.create(e4, t5))
+    , n2 = Fe();
+    return Object.assign(r2, {
+        graphite: a1({
+            meta: pt("event", r2, e3, t4),
+            regional: 1
         }),
-        I.defined()
-    ]);
-}
-function c1(t5, r3) {
-    const n2 = W(t5), o2 = W(t5), a2 = ze('updates'), s = {
-        subscribers: new Map,
-        updates: a2,
-        defaultState: t5,
-        stateRef: n2,
-        getState: C(X, n2),
-        setState (e) {
-            pe({
-                target: s,
+        create: (e)=>(o1({
+                target: r2,
                 params: e,
-                defer: 1
+                scope: Ue
+            }), e)
+        ,
+        watch: (e)=>ut(r2, e)
+        ,
+        map: (e)=>gt(r2, R, e, [
+                ie({
+                    fn: ve
+                })
+            ])
+        ,
+        filter: (e)=>gt(r2, "filter", e.fn ? e : e.fn, [
+                fe({
+                    fn: ve
+                })
+            ])
+        ,
+        filterMap: (e5)=>gt(r2, 'filterMap', e5, [
+                ie({
+                    fn: ve
+                }),
+                ue((e)=>!X(e)
+                , 1)
+            ])
+        ,
+        prepend (e) {
+            let t = u1('* \u2192 ' + r2.shortName, {
+                parent: je(r2)
             });
+            return c1('eventPrepend', ke(t)), ft(t, r2, [
+                ie({
+                    fn: ve
+                })
+            ], 'prepend', e), dt(r2, t), t;
         }
-    };
-    if (s.graphite = e4({
+    });
+}
+function d1(e6, n3) {
+    let l = me(e6), s2 = mt('updates');
+    c1('storeBase', l);
+    let i = l.id, f = {
+        subscribers: new Map,
+        updates: s2,
+        defaultState: e6,
+        stateRef: l,
+        getState () {
+            let e, t = l;
+            if (Je) {
+                let t = Je;
+                for(; t && !t.reg[i];)t = je(t);
+                t && (e = t);
+            }
+            return !e && Ue && (Ze(Ue, l, 1), e = Ue), e && (t = e.reg[i]), ge(t);
+        },
+        setState: (e)=>o1({
+                target: f,
+                params: e,
+                defer: 1,
+                scope: Ue
+            })
+        ,
+        reset: (...e7)=>(t1(e7, (e)=>f.on(e, ()=>f.defaultState
+                )
+            ), f)
+        ,
+        on: (e8, r)=>(ee(e8, '.on', 'first argument'), J(!Ie(f, 'derived'), '.on in derived store', 'createStore'), t1(Array.isArray(e8) ? e8 : [
+                e8
+            ], (e)=>{
+                f.off(e), Me(f).set(e, st(ht(e, f, 'on', be, r)));
+            }), f)
+        ,
+        off (e) {
+            let t = Me(f).get(e);
+            return t && (t(), Me(f).delete(e)), f;
+        },
+        map (e, t) {
+            let r, n;
+            K(e) && (r = e, e = e.fn), J(X(t), 'second argument of store.map', 'updateFilter');
+            let a = f.getState();
+            Fe() ? n = null : X(a) || (n = e(a, t));
+            let o = d1(n, {
+                name: `${f.shortName} \u2192 *`,
+                derived: 1,
+                and: r
+            }), s = ht(f, o, R, ye, e);
+            return he(xe(o), {
+                type: R,
+                fn: e,
+                from: l
+            }), xe(o).noInit = 1, c1('storeMap', l, s), o;
+        },
+        watch (e9, t) {
+            if (!t || !_(e9)) {
+                let t = ut(f, e9);
+                return c1('storeWatch', l, e9) || e9(f.getState()), t;
+            }
+            return r1(Q(t), 'second argument should be a function'), e9.watch((e)=>t(f.getState(), e)
+            );
+        }
+    }, u = pt("store", f, n3), p = f.defaultConfig.updateFilter;
+    f.graphite = a1({
         scope: {
-            state: n2
+            state: l,
+            fn: p
         },
         node: [
-            I.defined(),
-            B({
-                store: n2
+            ue((e, t, r)=>(r.scope && !r.scope.reg[l.id] && (r.b = 1), e)
+            ),
+            de(l),
+            ue((e, t, { a: r , b: n  })=>!X(e) && (e !== r || n)
+            , 1),
+            p && fe({
+                fn: ye
             }),
-            I.changed({
-                store: o2
-            }),
-            B({
-                store: o2
+            se({
+                from: z,
+                target: l
             })
         ],
-        child: a2,
-        meta: Oe('store', s, r3)
-    }), Ae && void 0 === t5) throw Error("current state can't be undefined, use null instead");
-    return s.watch = s.subscribe = C(f1, s), s.reset = (...e)=>{
-        for (const t of e)s.on(t, ()=>s.defaultState
-        );
-        return s;
-    }, s.on = (e, t)=>(s.off(e), s.subscribers.set(e, Se(Me(e, s, 'on', 1, t))), s)
-    , s.off = C(i1, s), s.map = (e, t)=>{
-        let r, n, o;
-        'object' == typeof e && (r = e, n = e.name, t = e.firstState, e = e.fn);
-        const a = s.getState();
-        void 0 !== a && (o = e(a, t));
-        const i = c1(o, {
-            name: ye(s, n),
-            config: r,
-            strict: 0
-        });
-        return Me(s, i, 'map', 0, e), i;
-    }, s[_symbolObservableDefault.default] = ()=>({
-            subscribe (e) {
-                if (e !== Object(e)) throw Error('expect observer to be an object');
-                return f1(s, (t)=>{
-                    e.next && e.next(t);
-                });
-            },
-            [_symbolObservableDefault.default] () {
-                return this;
-            }
-        })
-    , V(s, [
-        a2
-    ]), _e(s);
-}
-function i1(e, t) {
-    const r = e.subscribers.get(t);
-    return void 0 !== r && (r(), e.subscribers.delete(t)), e;
-}
-function f1(e, t6, r) {
-    if (!r || !N(t6)) {
-        if ('function' != typeof t6) throw Error('watch requires function handler');
-        return t6(e.getState()), qe(e, t6);
-    }
-    if ('function' != typeof r) throw Error('second argument should be a function');
-    return t6.watch((t)=>r(e.getState(), t)
-    );
-}
-function l1(...e5) {
-    if (0 === e5.length) throw Error('at least one argument required');
-    let t, r, n, o, a;
-    'ɔ' in e5[0] && (n = e5[0].config, e5 = e5[0].ɔ);
-    {
-        const n = e5[e5.length - 1];
-        'function' == typeof n ? (r = e5.slice(0, -1), t = n) : r = e5;
-    }
-    if (1 === r.length) {
-        const e = r[0];
-        x(e) || (o = e, a = 1);
-    }
-    return a || (o = r, t && (t = He(t))), Array.isArray(o) ? Ie(o, (e)=>e.slice()
-    , [], n, t) : Ie(o, (e)=>Object.assign({
-        }, e)
-    , {
-    }, n, t);
-}
-function u1(...t) {
-    let r, n, o;
-    'ɔ' in t[0] && (o = t[0].config, t = t[0].ɔ);
-    let [s, i, f, l = 0] = t;
-    if (void 0 === i && 'source' in s) {
-        if ('clock' in s && null == s.clock) throw Error('config.clock should be defined');
-        i = s.clock, f = s.fn, l = s.greedy, r = s.target, n = s.name, s = s.source;
-    }
-    if (void 0 === i && (i = s), n = o || n || s.shortName, s = Pe(s), i = Pe(i), 'boolean' == typeof f && (l = f, f = null), r || (r = x(s) && x(i) ? c1(f ? f(X(U(s)), X(U(i))) : X(U(s)), {
-        name: n
-    }) : a1(n)), x(s)) V(s, [
-        _e(xe(i, r, {
-            scope: {
-                fn: f
-            },
-            node: [
-                !l && F({
-                    priority: 'sampler'
-                }),
-                H({
-                    store: U(s),
-                    to: f ? 'a' : 'stack'
-                }),
-                f && P({
-                    fn: Z
-                })
-            ],
-            meta: {
-                op: 'sample',
-                sample: 'store'
-            }
-        }))
-    ]);
-    else {
-        const t = W(0), n = W(), o = W();
-        _e(e4({
-            parent: s,
-            node: [
-                B({
-                    store: n
-                }),
-                H({
-                    from: 'value',
-                    store: 1,
-                    target: t
-                })
-            ],
-            family: {
-                owners: [
-                    s,
-                    r,
-                    i
-                ],
-                links: r
-            },
-            meta: {
-                op: 'sample',
-                sample: 'source'
-            }
-        })), V(s, [
-            _e(xe(i, r, {
-                scope: {
-                    fn: f
-                },
-                node: [
-                    B({
-                        store: o
-                    }),
-                    H({
-                        store: t
-                    }),
-                    T({
-                        fn: (e)=>e
-                    }),
-                    !l && F({
-                        priority: 'sampler'
-                    }),
-                    H({
-                        store: n
-                    }),
-                    H({
-                        store: o,
-                        to: 'a'
-                    }),
-                    f && P({
-                        fn: Y
-                    })
-                ],
-                meta: {
-                    op: 'sample',
-                    sample: 'clock'
-                }
-            }))
-        ]);
-    }
-    return r;
-}
-function p1(e, t) {
-    const r = {
-    };
-    let n = x(e) ? e.updates : e;
-    for(const e6 in t)r[e6] = n.filter({
-        fn: t[e6]
-    }), n = n.filter({
-        fn: C(Te, t[e6])
+        child: s2,
+        meta: u,
+        regional: 1
     });
-    return r.__ = n, r;
+    let m = Ie(f, 'sid');
+    return m && ('ignore' !== Ie(f, 'serialize') && qe(f, 'storeChange', 1), l.sid = m), r1(Ie(f, 'derived') || !X(e6), "current state can't be undefined, use null instead"), $e(f, [
+        s2
+    ]), f;
 }
-function m1(e) {
-    const r = a1(t1(e, 'merge'));
-    return Ee({
-        from: e,
-        to: r,
-        meta: {
-            op: 'merge'
+function p1(...e) {
+    let t6, n, a;
+    [e, a] = f1(e);
+    let o, l, s, i = e[e.length - 1];
+    if (Q(i) ? (n = e.slice(0, -1), t6 = i) : n = e, 1 === n.length) {
+        let e = n[0];
+        V(e) || (o = e, l = 1);
+    }
+    if (!l && (o = n, t6)) {
+        s = 1;
+        let e = t6;
+        t6 = (t)=>e(...t)
+        ;
+    }
+    return r1(K(o), 'shape should be an object'), yt(Array.isArray(o), !s, o, a, t6);
+}
+function m1(...e) {
+    return J(0, 'createStoreObject', 'combine'), p1(...e);
+}
+function g1() {
+    let e = {
+    };
+    return e.req = new Promise((t, r)=>{
+        e.rs = t, e.rj = r;
+    }), e.req.catch(()=>{
+    }), e;
+}
+function h1(e10, t7) {
+    let n4 = u1(Q(e10) ? {
+        handler: e10
+    } : e10, t7), l2 = ke(n4);
+    qe(l2, 'op', n4.kind = "effect"), n4.use = (e)=>(r1(Q(e), '.use argument should be a function'), m.scope.handler = e, n4)
+    , n4.use.getCurrent = ()=>m.scope.handler
+    ;
+    let s = n4.finally = mt('finally'), i2 = n4.done = s.filterMap({
+        named: 'done',
+        fn ({ status: e , params: t , result: r  }) {
+            if ('done' === e) return {
+                params: t,
+                result: r
+            };
         }
-    }), r;
-}
-function d1(e) {
-    if (e !== Object(e)) throw Error('expect observable to be an object');
-    const t = _symbolObservableDefault.default in e ? e[_symbolObservableDefault.default]() : e;
-    if (!t.subscribe) throw Error('expect observable to have .subscribe');
-    const r = a1(), n = A(Ne, r, void 0);
-    return t.subscribe({
-        next: r,
-        error: n,
-        complete: n
-    }), r;
-}
-function h1(t7, r4) {
-    const n3 = a1(t7, r4);
-    let o3 = n3.defaultConfig.handler || (()=>(console.error("no handler used in " + n3.getType()), Promise.resolve())
-    );
-    J(n3).meta.onCopy = [
-        'runner'
-    ], J(n3).meta.unit = 'effect';
-    const s2 = ze('done'), i = ze('fail'), f = ze('finally');
-    n3.done = s2, n3.fail = i, n3.finally = f, n3.use = (e)=>(o3 = e, n3)
-    ;
-    const l = ()=>o3
-    ;
-    n3.use.getCurrent = l, n3.kind = 'effect';
-    const u = e4({
+    }), f2 = n4.fail = s.filterMap({
+        named: 'fail',
+        fn ({ status: e , params: t , error: r  }) {
+            if ('fail' === e) return {
+                params: t,
+                error: r
+            };
+        }
+    }), c2 = n4.doneData = i2.map({
+        named: 'doneData',
+        fn: ({ result: e  })=>e
+    }), p = n4.failData = f2.map({
+        named: 'failData',
+        fn: ({ error: e  })=>e
+    }), m = a1({
         scope: {
-            done: s2,
-            fail: i,
-            anyway: f,
-            getHandler: l
+            handlerId: Ie(l2, 'sid'),
+            handler: n4.defaultConfig.handler || (()=>r1(0, `no handler used in ${n4.getType()}`)
+            )
         },
         node: [
-            K({
-                fn: ({ params: e7 , req: t8  }, { getHandler: r5 , done: n4 , fail: o4 , anyway: a3  })=>(((e, t, r, n)=>{
-                        let o, a, s = 0;
-                        try {
-                            a = e(t);
-                        } catch (e8) {
-                            s = 1, o = e8;
-                        }
-                        s ? n(o) : Object(a) !== a || 'function' != typeof a.then ? r(a) : a.then(r, n);
-                    })(r5(), e7, C(Ke, {
-                        event: n4,
-                        anyway: a3,
-                        params: e7,
-                        fn: t8.rs,
-                        ok: 1
-                    }), C(Ke, {
-                        event: o4,
-                        anyway: a3,
-                        params: e7,
-                        fn: t8.rj,
-                        ok: 0
-                    })), e7)
-            })
+            ue((e, t, r)=>{
+                let n = t, a = n.handler;
+                if (Ae(r)) {
+                    let e = Ae(r).handlers[n.handlerId];
+                    e && (a = e);
+                }
+                return e.handler = a, e;
+            }, 0, 1),
+            ue(({ params: e , req: t , handler: r , args: n = [
+                e
+            ]  }, a, o)=>{
+                let l = vt(e, t, 1, s, o), i = vt(e, t, 0, s, o), [f, c] = bt(r, i, n);
+                f && (K(c) && Q(c.then) ? c.then(l, i) : l(c));
+            }, 0, 1)
         ],
         meta: {
             op: 'fx',
-            fx: 'runner',
-            onCopy: [
-                'done',
-                'fail',
-                'anyway'
-            ]
+            fx: 'runner'
         }
     });
-    J(n3).scope.runner = u, J(n3).seq.push(P({
-        fn: (e, t, r)=>r.parent ? {
-                params: e,
-                req: {
-                    rs (e) {
-                    },
-                    rj (e) {
-                    }
+    l2.scope.runner = m, G(l2.seq, ue((e, { runner: t  }, r)=>{
+        let n = je(r) ? {
+            params: e,
+            req: {
+                rs (e) {
+                },
+                rj (e) {
                 }
-            } : e
-    }), K({
-        fn: (e, { runner: t  })=>(pe({
-                target: t,
-                params: e,
-                defer: 1
-            }), e.params)
-    })), n3.create = (e9)=>{
-        const t9 = (()=>{
-            const e = {
-            };
-            return e.req = new Promise((t, r)=>{
-                e.rs = t, e.rj = r;
-            }), e.req.catch(()=>{
-            }), e;
-        })();
-        return pe(n3, {
-            params: e9,
-            req: t9
-        }), t9.req;
+            }
+        } : e;
+        return o1({
+            target: t,
+            params: n,
+            defer: 1,
+            scope: Ae(r)
+        }), n.params;
+    }, 0, 1)), n4.create = (e)=>{
+        let t = g1(), r = {
+            params: e,
+            req: t
+        };
+        if (Ue) {
+            if (!Ge) {
+                let e = Ue;
+                t.req.finally(()=>{
+                    Ke(e);
+                }).catch(()=>{
+                });
+            }
+            o1({
+                target: n4,
+                params: r,
+                scope: Ue
+            });
+        } else o1(n4, r);
+        return t.req;
     };
-    const p = c1(0, {
+    let h = n4.inFlight = d1(0, {
         named: 'inFlight'
-    }).on(n3, (e)=>e + 1
-    ).on(s2, (e)=>e - 1
-    ).on(i, (e)=>e - 1
-    ), m = p.map({
+    }).on(n4, (e)=>e + 1
+    ).on(s, (e)=>e - 1
+    );
+    qe(s, 'needFxCounter', 'dec'), qe(n4, 'needFxCounter', 1);
+    let y = n4.pending = h.map({
         fn: (e)=>e > 0
         ,
         named: 'pending'
     });
-    return n3.inFlight = p, n3.pending = m, V(n3, [
-        s2,
-        i,
-        f,
-        m,
+    return $e(n4, [
+        s,
+        i2,
+        f2,
+        c2,
         p,
-        u
-    ]), n3;
+        y,
+        h
+    ]), n4;
 }
-function g(t10, r) {
-    const n = new Set, o = new Set, s = new Set, i = new Set, f = {
-        domains: n,
-        stores: o,
-        effects: s,
-        events: i
-    }, l = e4({
-        family: {
-            type: 'domain'
+function y1(e11) {
+    let t;
+    [e11, t] = f1(e11, 1);
+    let { source: r , effect: n5 , mapParams: a  } = e11, l = h1(e11, t);
+    qe(l, 'attached', 1);
+    let s3, { runner: i3  } = ke(l).scope, c3 = ue((e, t, n)=>{
+        let s, { params: i , req: f , handler: c  } = e, u = l.finally, d = vt(i, f, 0, u, n), p = n.a, m = L(c), g = 1;
+        if (a ? [g, s] = bt(a, d, [
+            i,
+            p
+        ]) : s = r && m ? p : i, g) {
+            if (!m) return e.args = [
+                p,
+                s
+            ], 1;
+            o1({
+                target: c,
+                params: {
+                    params: s,
+                    req: {
+                        rs: vt(i, f, 1, u, n),
+                        rj: d
+                    }
+                },
+                page: n.page,
+                defer: 1
+            });
         }
-    }), u = {
-        history: f,
-        graphite: l
-    };
-    l.meta = Oe('domain', u, r, t10);
-    const p = ze('onEvent'), m = ze('onEffect'), d = ze('onStore'), y = ze('onDomain'), b = {
-        event: p,
-        effect: m,
-        store: d,
-        domain: y
-    };
-    u.hooks = b, u.onCreateEvent = Ge(p, i, l), u.onCreateEffect = Ge(m, s, l), u.onCreateStore = Ge(d, o, l), u.onCreateDomain = Ge(y, n, l), u.createEvent = u.event = (e, t)=>p(a1(e, {
-            parent: u,
-            config: t
-        }))
-    , u.createEffect = u.effect = (e, t)=>m(h1(e, {
-            parent: u,
-            config: t
-        }))
-    , u.createDomain = u.domain = (e, t)=>g({
-            name: e,
-            parent: u,
-            config: t
-        })
-    , u.createStore = u.store = (e, t)=>d(c1(e, {
-            parent: u,
-            config: t
-        }))
-    , _e(u);
-    const v = u.parent;
-    if (v) {
-        for(const e in b)Ee({
-            from: b[e],
-            to: v.hooks[e]
-        });
-        v.hooks.domain(u);
-    }
-    return u;
+    }, 1, 1);
+    if (r) {
+        let e;
+        V(r) ? (e = r, $e(e, [
+            l
+        ])) : (e = p1(r), $e(l, [
+            e
+        ])), s3 = [
+            de(xe(e)),
+            c3
+        ];
+    } else s3 = [
+        c3
+    ];
+    return i3.seq.splice(1, 0, ...s3), l.use(n5), dt(n5, l, "effect"), l;
 }
-function y1(e, t12, r) {
-    if (x(e)) return e;
-    if (N(e)) {
-        const n = e.parent;
-        let o;
-        return E(e) && (o = c1(t12, {
-            parent: n,
-            name: e.shortName,
-            "ɔ": r
-        }).on(e, (e, t)=>t
-        )), _(e) && (o = c1(t12, {
-            parent: n,
-            name: e.shortName,
-            "ɔ": r
-        }).on(e.done, (e, { result: t  })=>t
-        )), n && n.hooks.store(o), o;
-    }
-    const n = {
+function b(...t8) {
+    let [[r, n6], a] = f1(t8), o = {
     };
-    for(const t11 in e){
-        const r = e[t11];
-        n[t11] = x(r) ? r : c1(r, {
-            name: t11
+    return e1(n6, (e, t)=>{
+        let n = o[t] = u1(t, {
+            parent: je(r),
+            config: a
         });
-    }
-    return n;
+        r.on(n, e), dt(r, n);
+    }), o;
 }
-function b1(e, t) {
-    const r = {
+function v(r3, n) {
+    let l3 = a1({
+        family: {
+            type: "domain"
+        },
+        regional: 1
+    }), s = {
+        history: {
+        },
+        graphite: l3,
+        hooks: {
+        }
     };
-    for(const n in t){
-        const o = r[n] = a1(n, {
-            parent: e.parent
-        });
-        e.on(o, t[n]), Ce(e, o);
-    }
-    return r;
+    l3.meta = pt("domain", s, r3, n), e1({
+        Event: u1,
+        Effect: h1,
+        Store: d1,
+        Domain: v
+    }, (e12, r4)=>{
+        let n = r4.toLowerCase(), a = mt(`on${r4}`);
+        s.hooks[n] = a;
+        let l = new Set;
+        s.history[`${n}s`] = l, a.create = (e)=>(o1(a, e), e)
+        , G(ke(a).seq, ue((e, t, r)=>(r.scope = null, e)
+        )), a.watch((e)=>{
+            $e(s, [
+                e
+            ]), l.add(e), e.ownerSet || (e.ownerSet = l), je(e) || (e.parent = s);
+        }), $e(s, [
+            a
+        ]), s[`onCreate${r4}`] = (e)=>(t1(l, e), a.watch(e))
+        , s[`create${r4}`] = s[n] = (t, r)=>a(e12(t, {
+                parent: s,
+                or: r
+            }))
+        ;
+    });
+    let i = je(s);
+    return i && e1(s.hooks, (e, t)=>ft(e, i.hooks[t])
+    ), s;
 }
-function v1(t13, r) {
-    r || (t13 = (r = t13).source);
-    const { filter: n , greedy: o , name: s = "guard"  } = r, c = r.target || a1(s);
-    N(t13) || (t13 = l1(t13));
-    const i = {
-        op: 'guard'
-    };
-    if (N(n)) u1({
-        source: n,
-        clock: t13,
-        target: e4({
-            node: [
-                T({
-                    fn: ({ guard: e  })=>e
+function k(e) {
+    Y(e);
+    let t = D in e ? e[D]() : e;
+    r1(t.subscribe, 'expect observable to have .subscribe');
+    let n = u1(), a = st(n);
+    return t.subscribe({
+        next: n,
+        error: a,
+        complete: a
+    }), n;
+}
+function w(e, t) {
+    let r = u1(t || l1(e, 'merge'));
+    return ee(e, 'merge', 'first argument'), ft(e, r, [], 'merge'), r;
+}
+function S(e, n) {
+    let a = 0;
+    return t1(wt, (t)=>{
+        t in e && (r1(null != e[t], St(n, t)), a = 1);
+    }), a;
+}
+function x(...e) {
+    let t, r, n, [[o, l, s], i] = f1(e), p = 1;
+    X(l) && K(o) && S(o, 'sample') && (l = o.clock, s = o.fn, p = !o.greedy, t = o.target, r = o.name, n = o.sid, o = o.source), [o, l] = xt(o, l, 'sample'), X(l) && (l = o), ee(l, 'sample', 'clock'), i || r || (r = o.shortName);
+    let m = !!t;
+    if (t || (V(o) && V(l) ? t = d1(s ? s(ge(xe(o)), ge(xe(l))) : ge(xe(o)), {
+        name: r,
+        sid: n,
+        or: i
+    }) : (t = u1(r, i), c1('sampleTarget', ke(t)))), V(o)) {
+        let e = xe(o);
+        $e(o, [
+            ft(l, t, [
+                c1('sampleSourceLoader'),
+                de(e, !s, p),
+                s && ie({
+                    fn: be
                 }),
-                P({
-                    fn: ({ data: e  })=>e
+                c1('sampleSourceUpward', m)
+            ], "sample", s)
+        ]), c1('sampleStoreSource', e);
+    } else {
+        let e13 = me(0), r = me(), n = me();
+        c1('sampleNonStoreSource', e13, r, n), a1({
+            parent: o,
+            node: [
+                se({
+                    from: z,
+                    target: r
+                }),
+                se({
+                    from: "value",
+                    store: 1,
+                    target: e13
                 })
             ],
-            child: c,
-            meta: i,
             family: {
                 owners: [
-                    t13,
-                    n,
-                    c
+                    o,
+                    t,
+                    l
                 ],
-                links: c
-            }
+                links: t
+            },
+            meta: {
+                op: "sample"
+            },
+            regional: 1
+        }), $e(o, [
+            ft(l, t, [
+                c1('sampleSourceLoader'),
+                se({
+                    from: z,
+                    target: n
+                }),
+                de(e13, 1),
+                ue((e)=>e
+                , 1),
+                de(r, 1, p),
+                de(n),
+                s && ie({
+                    fn: ye
+                }),
+                c1('sampleSourceUpward', m)
+            ], "sample", s)
+        ]);
+    }
+    return t;
+}
+function C(...e14) {
+    let t9 = 'guard', [[n, o], l] = f1(e14);
+    o || (o = n, n = o.source), S(o, t9);
+    let { filter: s , greedy: i , clock: c , name: d = l && l.name ? l.name : t9  } = o, p = o.target || u1(d, l), m = _(s);
+    return [n, c] = xt(n, c, t9), c && (ee(c, t9, 'clock'), n = x({
+        source: n,
+        clock: c,
+        greedy: i,
+        fn: m ? null : (e, t)=>({
+                source: e,
+                clock: t
+            })
+    })), ee(p, t9, 'target'), m ? x({
+        source: s,
+        clock: n,
+        target: a1({
+            node: [
+                ue(({ guard: e  })=>e
+                , 1),
+                ue(({ data: e  })=>e
+                )
+            ],
+            child: p,
+            meta: {
+                op: t9
+            },
+            family: {
+                owners: [
+                    n,
+                    s,
+                    p,
+                    ...[].concat(c || [])
+                ],
+                links: p
+            },
+            regional: 1
         }),
         fn: (e, t)=>({
                 guard: e,
                 data: t
             })
         ,
-        greedy: o,
-        name: s
-    });
-    else {
-        if ('function' != typeof n) throw Error('`filter` should be function or unit');
-        xe(t13, c, {
+        greedy: i,
+        name: d
+    }) : (r1(Q(s), '`filter` should be function or unit'), ft(n, p, c ? [
+        fe({
+            fn: ({ source: e , clock: t  }, { fn: r  })=>r(e, t)
+        }),
+        ue(({ source: e  })=>e
+        )
+    ] : [
+        fe({
+            fn: ve
+        })
+    ], t9, s)), p;
+}
+function M(t10, r, n) {
+    if (V(t10)) return t10;
+    if (E(t10) || L(t10)) {
+        let e = je(t10), a = d1(r, {
+            parent: e,
+            name: t10.shortName,
+            and: n
+        });
+        return ft(L(t10) ? t10.doneData : t10, a), e && e.hooks.store(a), a;
+    }
+    let a = Array.isArray(t10) ? [] : {
+    };
+    return e1(t10, (e, t)=>a[t] = V(e) ? e : d1(e, {
+            name: t
+        })
+    ), a;
+}
+function j(...t11) {
+    let n7, [[o2, l], s] = f1(t11), i = !l;
+    i && (n7 = o2.cases, l = o2.match, o2 = o2.source);
+    let d = V(l), p = !_(l) && Q(l), m = !d && !p && K(l);
+    n7 || (n7 = {
+    }), i || (r1(m, 'match should be an object'), e1(l, (e, t)=>n7[t] = u1(s)
+    ), n7.__ = u1(s));
+    let g, h = new Set([].concat(o2, Object.values(n7))), y = Object.keys(d || p ? n7 : l);
+    if (d || p) d && h.add(l), g = [
+        d && de(xe(l), 0, 1),
+        ie({
+            safe: d,
+            filter: 1,
+            fn (e, t, r) {
+                let n = String(d ? r.a : l(e));
+                Ct(t, U(y, n) ? n : '__', e, r);
+            }
+        })
+    ];
+    else if (m) {
+        let t12 = me({
+        });
+        t12.type = 'shape';
+        let r5, n = [];
+        e1(l, (e15, a)=>{
+            if (_(e15)) {
+                r5 = 1, G(n, a), h.add(e15);
+                let o = ft(e15, [], [
+                    de(t12),
+                    ue((e, t, { a: r  })=>r[a] = e
+                    )
+                ]);
+                if (V(e15)) {
+                    t12.current[a] = e15.getState();
+                    let r = xe(e15);
+                    he(t12, {
+                        from: r,
+                        field: a,
+                        type: 'field'
+                    }), c1('splitMatchStore', r, o);
+                }
+            }
+        }), r5 && c1('splitBase', t12), g = [
+            r5 && de(t12, 0, 1),
+            fe({
+                fn (e, t, r) {
+                    for(let a = 0; a < y.length; a++){
+                        let o = y[a];
+                        if (U(n, o) ? r.a[o] : l[o](e)) return void Ct(t, o, e, r);
+                    }
+                    Ct(t, '__', e, r);
+                }
+            })
+        ];
+    } else r1(0, 'expect match to be unit, function or object');
+    if (a1({
+        meta: {
+            op: 'split'
+        },
+        parent: o2,
+        scope: n7,
+        node: g,
+        family: {
+            owners: Array.from(h)
+        },
+        regional: 1
+    }), !i) return n7;
+}
+function A(e16, { scope: t , params: r  }) {
+    if (!_(e16)) return Promise.reject(Error('first argument should be unit'));
+    let n = g1();
+    n.parentFork = Ue;
+    let { fxCount: a  } = t;
+    G(a.scope.defers, n);
+    let l = [
+        e16
+    ], s = [];
+    return G(s, L(e16) ? {
+        params: r,
+        req: {
+            rs (e) {
+                n.value = {
+                    status: 'done',
+                    value: e
+                };
+            },
+            rj (e) {
+                n.value = {
+                    status: 'fail',
+                    value: e
+                };
+            }
+        }
+    } : r), G(l, a), G(s, null), o1({
+        target: l,
+        params: s,
+        scope: t
+    }), n.req;
+}
+function I(e17, r) {
+    let n = [];
+    (function e(a) {
+        U(n, a) || (G(n, a), "store" === Ie(a, 'op') && Ie(a, 'sid') && r(a, Ie(a, 'sid')), t1(a.next, e), t1(we(a), e), t1(Se(a), e));
+    })(e17);
+}
+function q(e18, n) {
+    if (Array.isArray(e18) && (e18 = new Map(e18)), e18 instanceof Map) {
+        let a = {
+        };
+        return t1(e18, (e, t)=>{
+            r1(_(t), 'Map key should be a unit'), n && n(t, e), r1(t.sid, 'unit should have a sid'), r1(!(t.sid in a), 'duplicate sid found'), a[t.sid] = e;
+        }), a;
+    }
+    return e18;
+}
+function $(e19, n8) {
+    let o3, l = e19;
+    B(e19) && (o3 = e19, l = n8);
+    let s = ((e20)=>{
+        let r6 = a1({
             scope: {
-                fn: n
+                defers: [],
+                inFlight: 0,
+                fxID: 0
             },
             node: [
-                T({
-                    fn: $
+                ue((e, t, r)=>{
+                    je(r) ? 'dec' === Ie(je(r).node, 'needFxCounter') ? t.inFlight -= 1 : (t.inFlight += 1, t.fxID += 1) : t.fxID += 1;
+                }),
+                ie({
+                    priority: "sampler",
+                    batch: 1
+                }),
+                ue((e21, r)=>{
+                    let { defers: n , fxID: a  } = r;
+                    r.inFlight > 0 || 0 === n.length || Promise.resolve().then(()=>{
+                        r.fxID === a && t1(n.splice(0, n.length), (e)=>{
+                            Ke(e.parentFork), e.rs(e.value);
+                        });
+                    });
+                }, 0, 1)
+            ]
+        }), n9 = a1({
+            node: [
+                ue((e, t, r)=>{
+                    let n = je(r);
+                    if (n && je(n)) {
+                        let t = n.node;
+                        if (!Ie(t, 'isCombine') || 'combine' !== Ie(je(n).node, 'op')) {
+                            let n = Ae(r), a = t.scope.state.id, o = Ie(t, 'sid');
+                            n.sidIdMap[o] = a, n.sidValuesMap[o] = e;
+                        }
+                    }
                 })
-            ],
-            meta: i
-        });
+            ]
+        }), o = {
+            cloneOf: e20,
+            reg: {
+            },
+            sidValuesMap: {
+            },
+            sidIdMap: {
+            },
+            getState (e) {
+                if ('current' in e) return Ye(Je, o, null, e).current;
+                let t = ke(e);
+                return Ye(Je, o, t, t.scope.state, 1).current;
+            },
+            kind: "scope",
+            graphite: a1({
+                family: {
+                    type: "domain",
+                    links: [
+                        r6,
+                        n9
+                    ]
+                },
+                meta: {
+                    unit: 'fork'
+                },
+                scope: {
+                    forkInFlightCounter: r6
+                }
+            }),
+            additionalLinks: {
+            },
+            handlers: {
+            },
+            fxCount: r6,
+            storeChange: n9
+        };
+        return o;
+    })(o3);
+    if (l) {
+        if (l.values) {
+            let e22 = q(l.values, (e)=>r1(V(e), 'Values map can contain only stores as keys')
+            );
+            Object.assign(s.sidValuesMap, e22);
+        }
+        l.handlers && (s.handlers = q(l.handlers, (e)=>r1(L(e), "Handlers map can contain only effects as keys")
+        ));
     }
-    return c;
+    return s;
 }
-var w = {
-    __proto__: null,
-    store: "store",
-    event: "event",
-    effect: "effect",
-    domain: "domain"
-};
-const N = (e)=>('function' == typeof e || 'object' == typeof e && null !== e) && 'kind' in e
-, S = (e)=>(t)=>N(t) && t.kind === e
-, x = S("store"), E = S("event"), _ = S("effect"), j = S("domain");
-var q = {
-    __proto__: null,
-    unit: N,
-    store: x,
-    event: E,
-    effect: _,
-    domain: j
-};
-const C = (e, t)=>e.bind(null, t)
-, A = (e, t, r)=>e.bind(null, t, r)
-, O = ()=>{
-    let e = 0;
-    return ()=>(++e).toString(36)
+function N(e23, { values: t13  }) {
+    r1(K(t13), 'values property should be an object');
+    let n, a, l, s = q(t13), i = Object.getOwnPropertyNames(s), f = [], c = [];
+    T(e23) ? (n = e23, l = 1, r1(n.cloneOf, 'scope should be created from domain'), a = ke(n.cloneOf)) : B(e23) ? a = ke(e23) : r1(0, 'first argument of hydrate should be domain or scope'), I(a, (e, t)=>{
+        U(i, t) && (G(f, e), G(c, s[t]));
+    }), o1({
+        target: f,
+        params: c,
+        scope: n
+    }), l && Object.assign(n.sidValuesMap, s);
+}
+function F(e, { scope: t14  } = {
+}) {
+    r1(t14 || Ue, 'scopeBind cannot be called outside of forked .watch');
+    let n = t14 || Ue;
+    return L(e) ? (t)=>{
+        let r = g1();
+        return o1({
+            target: e,
+            params: {
+                params: t,
+                req: r
+            },
+            scope: n
+        }), r.req;
+    } : (t)=>(o1({
+            target: e,
+            params: t,
+            scope: n
+        }), t)
     ;
-}, z = O(), D = O(), R = (e, t, r)=>({
-        id: D(),
-        type: e,
-        data: r,
-        hasRef: t
-    })
+}
+function O(t, n10 = {
+}) {
+    let a = n10.ignore ? n10.ignore.map(({ sid: e  })=>e
+    ) : [], o = {
+    };
+    return e1(t.sidValuesMap, (e, r)=>{
+        if (U(a, r)) return;
+        let n = t.sidIdMap[r];
+        o[r] = n && n in t.reg ? t.reg[n].current : e;
+    }), 'onlyChanges' in n10 && !n10.onlyChanges && (r1(t.cloneOf, 'scope should be created from domain'), I(ke(t.cloneOf), (e, r)=>{
+        r in o || U(a, r) || Ie(e, 'isCombine') || 'ignore' === Ie(e, 'serialize') || (o[r] = t.getState(e));
+    })), o;
+}
+let D = 'undefined' != typeof Symbol && Symbol.observable || '@@observable', R = 'map', z = 'stack', _ = (e)=>(Q(e) || K(e)) && 'kind' in e
 ;
-let M = 0;
-const F = ({ priority: e = "barrier"  })=>R('barrier', 0, {
-        barrierID: ++M,
-        priority: e
-    })
-, H = ({ from: e = "store" , store: t , target: r , to: n = r ? 'store' : 'stack'  })=>R('mov', 'store' === e, {
+const P = (e)=>(t)=>_(t) && t.kind === e
+;
+let V = P("store"), E = P("event"), L = P("effect"), B = P("domain"), T = P("scope");
+var W = {
+    __proto__: null,
+    unit: _,
+    store: V,
+    event: E,
+    effect: L,
+    domain: B,
+    scope: T
+};
+let U = (e, t)=>e.includes(t)
+, H = (e, t)=>{
+    let r = e.indexOf(t);
+    -1 !== r && e.splice(r, 1);
+}, G = (e, t)=>e.push(t)
+, J = (e, t, r)=>!e && console.error(`${t} is deprecated, use ${r} instead`)
+, K = (e)=>'object' == typeof e && null !== e
+, Q = (e)=>'function' == typeof e
+, X = (e)=>void 0 === e
+, Y = (e)=>r1(K(e) || Q(e), 'expect first argument be an object')
+;
+const Z = (e, t, n, a)=>r1(!(!K(e) && !Q(e) || !('family' in e) && !('graphite' in e)), `${t}: expect ${n} to be a unit (store, event or effect)${a}`)
+;
+let ee = (e24, r, n)=>{
+    Array.isArray(e24) ? t1(e24, (e, t)=>Z(e, r, `${t} item of ${n}`, '')
+    ) : Z(e24, r, n, ' or array of units');
+};
+const te = ()=>{
+    let e = 0;
+    return ()=>"" + ++e
+    ;
+};
+let re = te(), ne = te(), ae = te();
+const oe = (e, t, r, n)=>{
+    let a = {
+        id: ne(),
+        type: e,
+        data: t
+    };
+    return r && (a.order = {
+        priority: r
+    }, n && (a.order.barrierID = ++le)), a;
+};
+let le = 0, se = ({ from: e = "store" , store: t , target: r , to: n = r ? "store" : z , batch: a , priority: o  })=>oe('mov', {
         from: e,
         store: t,
         to: n,
         target: r
+    }, o, a)
+, ie = ({ fn: e , batch: t , priority: r , safe: n = 0 , filter: a = 0  })=>oe('compute', {
+        fn: e,
+        safe: n,
+        filter: a
+    }, r, t)
+, fe = ({ fn: e  })=>ie({
+        fn: e,
+        filter: 1
     })
-, I = {
-    defined: ()=>R('check', 0, {
-            type: 'defined'
-        })
-    ,
-    changed: ({ store: e  })=>R('check', 1, {
-            type: 'changed',
-            store: e
-        })
-}, P = A(R, 'compute', 0), T = A(R, 'filter', 0), K = A(R, 'run', 0), B = ({ store: e  })=>H({
-        from: 'stack',
-        target: e
+, ce = ({ fn: e  })=>ie({
+        fn: e,
+        priority: "effect"
     })
-;
-var G = {
-    __proto__: null,
-    barrier: F,
-    mov: H,
-    check: I,
-    compute: P,
-    filter: T,
-    run: K,
-    update: B
-};
-const J = (e)=>e.graphite || e
-, L = (e)=>e.family.owners
-, Q = (e)=>e.family.links
-, U = (e)=>e.stateRef
-, V = (e, t)=>{
-    const r = J(e);
-    for(let e10 = 0; e10 < t.length; e10++){
-        const n = J(t[e10]);
-        'domain' !== r.family.type && (n.family.type = 'crosslink'), L(n).push(r), Q(r).push(n);
-    }
-}, W = (e)=>({
-        id: D(),
+, ue = (e, t, r)=>ie({
+        fn: e,
+        safe: 1,
+        filter: t,
+        priority: r && "effect"
+    })
+, de = (e, t, r)=>se({
+        store: e,
+        to: t ? z : "a",
+        priority: r && "sampler",
+        batch: 1
+    })
+, pe = {
+    mov: se,
+    compute: ie,
+    filter: fe,
+    run: ce
+}, me = (e)=>({
+        id: ne(),
         current: e
     })
-, X = ({ current: e  })=>e
-, Y = (e, { fn: t  }, { a: r  })=>t(e, r)
-, Z = (e, { fn: t  }, { a: r  })=>t(r, e)
-, $ = (e, { fn: t  })=>t(e)
-, ee = (e = [])=>{
-    const t = [];
-    if (Array.isArray(e)) for(let r = 0; r < e.length; r++)Array.isArray(e[r]) ? t.push(...e[r]) : t.push(e[r]);
-    else t.push(e);
-    return t.map(J);
-}, te = ({ hasRef: e , type: t , data: r  }, n)=>{
-    let o;
-    e && (o = r.store, n[o.id] = o), 'mov' === t && 'store' === r.to && (o = r.target, n[o.id] = o);
-};
-let re = null;
-const ne = (e, t)=>{
+, ge = ({ current: e  })=>e
+, he = (e, t)=>{
+    e.before || (e.before = []), G(e.before, t);
+}, ye = (e, { fn: t  }, { a: r  })=>t(e, r)
+, be = (e, { fn: t  }, { a: r  })=>t(r, e)
+, ve = (e, { fn: t  })=>t(e)
+, ke = (e)=>e.graphite || e
+, we = (e)=>e.family.owners
+, Se = (e)=>e.family.links
+, xe = (e)=>e.stateRef
+, Ce = (e)=>e.value
+, Me = (e)=>e.subscribers
+, je = (e)=>e.parent
+, Ae = (e)=>e.scope
+, Ie = (e, t)=>ke(e).meta[t]
+, qe = (e, t, r)=>ke(e).meta[t] = r
+, $e = (e25, r)=>{
+    let n = ke(e25);
+    t1(r, (e)=>{
+        let t = ke(e);
+        "domain" !== n.family.type && (t.family.type = "crosslink"), G(we(t), n), G(Se(n), t);
+    });
+}, Ne = null, Fe = ()=>Ne && Ne.template
+, Oe = (e)=>(e && Ne && Ne.sidRoot && (e = `${Ne.sidRoot}|${e}`), e)
+, De = ({ sid: e , name: t , loc: r , method: o , fn: l  })=>n1(a1({
+        meta: {
+            sidRoot: Oe(e),
+            name: t,
+            loc: r,
+            method: o
+        }
+    }), l)
+;
+const Re = (e = [])=>(Array.isArray(e) ? e : [
+        e
+    ]).flat().map(ke)
+;
+let ze = null;
+const _e = (e, t)=>{
     if (!e) return t;
     if (!t) return e;
     let r;
-    const n = e.v.type === t.v.type;
-    return (n && e.v.id > t.v.id || !n && 'sampler' === e.v.type) && (r = e, e = t, t = r), r = ne(e.r, t), e.r = e.l, e.l = r, e;
-}, oe = [];
-let ae = 0;
-for(; ae < 5;)oe.push({
+    return (e.v.type === t.v.type && e.v.id > t.v.id || Te(e.v.type) > Te(t.v.type)) && (r = e, e = t, t = r), r = _e(e.r, t), e.r = e.l, e.l = r, e;
+}, Pe = [];
+let Ve = 0;
+for(; Ve < 6;)G(Pe, {
     first: null,
     last: null,
     size: 0
-}), ae += 1;
-const se = ()=>{
-    for(let e = 0; e < 5; e++){
-        const t = oe[e];
+}), Ve += 1;
+const Ee = ()=>{
+    for(let e = 0; e < 6; e++){
+        let t = Pe[e];
         if (t.size > 0) {
-            if (2 === e || 3 === e) {
+            if (3 === e || 4 === e) {
                 t.size -= 1;
-                const e = re.v;
-                return re = ne(re.l, re.r), e;
+                let e = ze.v;
+                return ze = _e(ze.l, ze.r), e;
             }
             1 === t.size && (t.last = null);
-            const r = t.first;
-            return t.first = r.right, t.size -= 1, r.value;
+            let r = t.first;
+            return t.first = r.r, t.size -= 1, r.v;
         }
     }
-}, ce = (e, t, r, n)=>ie(0, {
+}, Le = (e, t, r, n, a, o)=>Be(0, {
         a: null,
         b: null,
-        node: t,
-        parent: r,
-        value: n
+        node: r,
+        parent: n,
+        value: a,
+        page: t,
+        scope: o
     }, e)
-, ie = (e, t, r, n = 0)=>{
-    const o = fe(r), a = oe[o], s = {
-        idx: e,
-        stack: t,
-        type: r,
-        id: n
+, Be = (e, t, r, n = 0)=>{
+    let a = Te(r), o = Pe[a], l = {
+        v: {
+            idx: e,
+            stack: t,
+            type: r,
+            id: n
+        },
+        l: null,
+        r: null
     };
-    if (2 === o || 3 === o) re = ne(re, {
-        v: s,
-        l: 0,
-        r: 0
-    });
-    else {
-        const e = {
-            right: null,
-            value: s
-        };
-        0 === a.size ? a.first = e : a.last.right = e, a.last = e;
-    }
-    a.size += 1;
-}, fe = (e)=>{
+    3 === a || 4 === a ? ze = _e(ze, l) : (0 === o.size ? o.first = l : o.last.r = l, o.last = l), o.size += 1;
+}, Te = (e)=>{
     switch(e){
         case 'child':
             return 0;
         case 'pure':
             return 1;
-        case 'barrier':
+        case 'read':
             return 2;
-        case 'sampler':
+        case "barrier":
             return 3;
-        case 'effect':
+        case "sampler":
             return 4;
+        case "effect":
+            return 5;
         default:
             return -1;
     }
-}, le = new Set;
-let ue = 0;
-const pe = (e12, t14, r7)=>{
-    if (e12.target && (t14 = e12.params, r7 = e12.defer, e12 = e12.target), Array.isArray(e12)) for(let r6 = 0; r6 < e12.length; r6++)ce('pure', J(e12[r6]), null, t14[r6]);
-    else ce('pure', J(e12), null, t14);
-    r7 && ue || (()=>{
-        const e = ue;
-        ue = 1;
-        const t = {
-            stop: 0
-        };
-        let r, n;
-        e: for(; n = se();){
-            const { idx: e , stack: o , type: a  } = n;
-            r = o.node;
-            const s = {
-                skip: 0,
-                fail: 0,
-                ref: '',
-                scope: r.scope
-            };
-            for(let n5 = e; n5 < r.seq.length && !t.stop; n5++){
-                const c = r.seq[n5], i = c.data;
-                switch(c.type){
-                    case 'barrier':
-                        {
-                            const t = i.barrierID, r = i.priority;
-                            if (n5 !== e || a !== r) {
-                                le.has(t) || (le.add(t), ie(n5, o, r, t));
-                                continue e;
-                            }
-                            le.delete(t);
-                            break;
-                        }
-                    case 'mov':
-                        {
-                            let e;
-                            switch(i.from){
-                                case 'stack':
-                                    e = o.value;
-                                    break;
-                                case 'a':
-                                    e = o.a;
-                                    break;
-                                case 'b':
-                                    e = o.b;
-                                    break;
-                                case 'value':
-                                    e = i.store;
-                                    break;
-                                case 'store':
-                                    e = X(r.reg[i.store.id]);
-                            }
-                            switch(i.to){
-                                case 'stack':
-                                    o.value = e;
-                                    break;
-                                case 'a':
-                                    o.a = e;
-                                    break;
-                                case 'b':
-                                    o.b = e;
-                                    break;
-                                case 'store':
-                                    r.reg[i.target.id].current = e;
-                            }
-                            break;
-                        }
-                    case 'check':
-                        switch(i.type){
-                            case 'defined':
-                                s.skip = void 0 === o.value;
-                                break;
-                            case 'changed':
-                                s.skip = o.value === X(r.reg[i.store.id]);
+}, We = new Set;
+let Ue, He = 1, Ge = 0, Je = null, Ke = (e)=>{
+    Ue = e;
+}, Qe = (e)=>{
+    Je = e;
+};
+const Xe = (e, t)=>{
+    if (e) {
+        for(; e && !e.reg[t];)e = je(e);
+        if (e) return e;
+    }
+    return null;
+};
+let Ye = (e, t, r, n, a)=>{
+    let o = Xe(e, n.id);
+    return o ? o.reg[n.id] : t ? (Ze(t, n, a), t.reg[n.id]) : n;
+}, Ze = (e, r7, n, a, o5)=>{
+    let l = e.reg, s = r7.sid;
+    if (l[r7.id]) return;
+    let i = {
+        id: r7.id,
+        current: r7.current
+    };
+    if (s && s in e.sidValuesMap && !(s in e.sidIdMap)) i.current = e.sidValuesMap[s];
+    else if (r7.before && !o5) {
+        let o4 = 0, s = n || !r7.noInit || a;
+        t1(r7.before, (t)=>{
+            switch(t.type){
+                case R:
+                    {
+                        let r = t.from;
+                        if (r || t.fn) {
+                            r && Ze(e, r, n, a);
+                            let o = r && l[r.id].current;
+                            s && (i.current = t.fn ? t.fn(o) : o);
                         }
                         break;
-                    case 'filter':
-                        s.skip = !me(s, i, o);
-                        break;
-                    case 'run':
-                        if (n5 !== e || 'effect' !== a) {
-                            ie(n5, o, 'effect');
-                            continue e;
-                        }
-                    case 'compute':
-                        o.value = me(s, i, o);
-                }
-                t.stop = s.fail || s.skip;
+                    }
+                case 'field':
+                    o4 || (o4 = 1, i.current = Array.isArray(i.current) ? [
+                        ...i.current
+                    ] : {
+                        ...i.current
+                    }), Ze(e, t.from, n, a), s && (i.current[t.field] = l[l[t.from.id].id].current);
             }
-            if (!t.stop) for(let e11 = 0; e11 < r.next.length; e11++)ce('child', r.next[e11], o, o.value);
-            t.stop = 0;
-        }
-        ue = e;
-    })();
-}, me = (e, { fn: t  }, r)=>{
+        });
+    }
+    s && (e.sidIdMap[s] = r7.id), l[r7.id] = i;
+};
+const et = (e, t, r)=>{
     try {
-        return t(r.value, e.scope, r);
+        return t(Ce(r), e.scope, r);
     } catch (t15) {
         console.error(t15), e.fail = 1;
     }
-}, de = (e, t = {
-})=>(Object(e) === e && (de(e.config, t), null != e.name && ('object' == typeof e.name ? de(e.name, t) : t.name = e.name), e.loc && (t.loc = e.loc), e.sid && (t.sid = e.sid), e.handler && (t.handler = e.handler), e.parent && (t.parent = e.parent), 'strict' in e && (t.strict = e.strict), e.named && (t.named = e.named), de(e.ɔ, t)), t)
-, he = de, ge = (e, t)=>'' + e.shortName + t
-, ye = (e, t)=>null == t ? ge(e, ' → *') : t
-, be = (e, t)=>{
-    const r = e.indexOf(t);
-    -1 !== r && e.splice(r, 1);
-}, ve = (e, t)=>{
-    be(e.next, t), be(L(e), t), be(Q(e), t);
-}, ke = (e, t, r)=>{
+}, tt = (e)=>e.compositeName
+;
+let rt = (t16, r = {
+})=>(K(t16) && (rt(t16.or, r), e1(t16, (e, t)=>{
+        X(e) || 'or' === t || 'and' === t || (r[t] = e);
+    }), rt(t16.and, r)), r)
+;
+const nt = (e, t)=>{
+    H(e.next, t), H(we(e), t), H(Se(e), t);
+}, at = (e, t, r)=>{
     let n;
     e.next.length = 0, e.seq.length = 0, e.scope = null;
-    let o = Q(e);
-    for(; n = o.pop();)ve(n, e), (t || r && !e.meta.sample || 'crosslink' === n.family.type) && ke(n, t, r);
-    for(o = L(e); n = o.pop();)ve(n, e), r && 'crosslink' === n.family.type && ke(n, t, r);
-}, we = (e)=>e.clear()
-, Ne = (e, { deep: t  } = {
+    let a = Se(e);
+    for(; n = a.pop();)nt(n, e), (t || r && 'sample' !== Ie(e, 'op') || "crosslink" === n.family.type) && at(n, t, 'on' !== Ie(n, 'op') && r);
+    for(a = we(e); n = a.pop();)nt(n, e), r && "crosslink" === n.family.type && at(n, t, 'on' !== Ie(n, 'op') && r);
+}, ot = (e)=>e.clear()
+;
+let lt = (e, { deep: t  } = {
 })=>{
     let r = 0;
-    if (x(e)) we(e.subscribers);
-    else if (j(e)) {
+    if (e.ownerSet && e.ownerSet.delete(e), V(e)) ot(Me(e));
+    else if (B(e)) {
         r = 1;
-        const t = e.history;
-        we(t.events), we(t.effects), we(t.stores), we(t.domains);
+        let t = e.history;
+        ot(t.events), ot(t.effects), ot(t.stores), ot(t.domains);
     }
-    ke(J(e), !!t, r);
-}, Se = (e)=>{
-    const t = A(Ne, e, void 0);
+    at(ke(e), !!t, r);
+}, st = (e)=>{
+    let t = ()=>lt(e)
+    ;
     return t.unsubscribe = t, t;
-}, xe = (t, r, { node: n , scope: o , meta: a  })=>e4({
-        node: n,
-        parent: t,
-        child: r,
-        scope: o,
-        meta: a,
+}, ft = (e, t, r, n, o)=>a1({
+        node: r,
+        parent: e,
+        child: t,
+        scope: {
+            fn: o
+        },
+        meta: {
+            op: n
+        },
         family: {
             owners: [
-                t,
-                r
+                e,
+                t
             ],
-            links: r
-        }
+            links: t
+        },
+        regional: 1
     })
-, Ee = ({ from: t , to: r , meta: n = {
-    op: 'forward'
-}  })=>{
-    if (!t || !r) throw Error('from and to fields should be defined');
-    return Se(e4({
+, ct = (e)=>{
+    let [{ from: t , to: r  }, n] = f1(e, 1);
+    return ee(t, 'forward', '"from"'), ee(r, 'forward', '"to"'), st(a1({
         parent: t,
         child: r,
-        meta: n,
+        meta: {
+            op: 'forward',
+            config: n
+        },
         family: {
-        }
+        },
+        regional: 1
     }));
-}, _e = (e)=>(je && V(je.value, [
-        e
-    ]), e)
-;
-let je = null;
-const qe = (t, r)=>Se(_e(e4({
+}, ut = (e, t)=>(r1(Q(t), '.watch argument should be a function'), st(a1({
         scope: {
-            fn: r
+            fn: t
         },
         node: [
-            K({
-                fn: $
+            ce({
+                fn: ve
             })
         ],
-        parent: t,
+        parent: e,
         meta: {
             op: 'watch'
         },
         family: {
-            owners: t
-        }
+            owners: e
+        },
+        regional: 1
     })))
-, Ce = ({ parent: e  }, t)=>{
-    e && e.hooks.event(t);
-};
-let Ae;
-const Oe = (e, t, r, o)=>{
-    const a = he({
-        name: o,
-        config: r
-    }), s = z(), { parent: c = null , sid: i = null , strict: f = 1 , named: l = null  } = a, u = l || a.name || ('domain' === e ? '' : s), p = n1(u, c);
-    return t.kind = e, t.id = s, t.sid = i, t.shortName = u, t.parent = c, t.compositeName = p, t.defaultConfig = a, t.thru = C(Fe, t), t.getType = ()=>p.fullName
-    , Ae = f, {
-        unit: e,
-        name: u,
-        sid: i,
-        named: l
+, dt = (e, t, r = "event")=>{
+    je(e) && je(e).hooks[r](t);
+}, pt = (e26, t17, r, n)=>{
+    let a = "domain" === e26, o = re(), l = rt({
+        or: n,
+        and: 'string' == typeof r ? {
+            name: r
+        } : r
+    }), { parent: s = null , sid: f = null , named: c = null  } = l, u = c || l.name || (a ? '' : o), d = i1(u, s), p = {
+        op: t17.kind = e26,
+        name: t17.shortName = u,
+        sid: t17.sid = Oe(f),
+        named: c,
+        unitId: t17.id = o,
+        serialize: l.serialize,
+        derived: l.derived
     };
-}, ze = (e)=>a1({
+    if (t17.parent = s, t17.compositeName = d, t17.defaultConfig = l, t17.thru = (e)=>(J(0, 'thru', 'js pipe'), e(t17))
+    , t17.getType = ()=>d.fullName
+    , !a) {
+        t17.subscribe = (e)=>(Y(e), t17.watch(Q(e) ? e : (t)=>e.next && e.next(t)
+            ))
+        , t17[D] = ()=>t17
+        ;
+        let e27 = Fe();
+        e27 && (p.nativeTemplate = e27);
+    }
+    return p;
+}, mt = (e)=>u1({
         named: e
     })
-, De = (e, t, r, n)=>xe(e, t, {
-        scope: {
+;
+const gt = (e, t, r, n)=>{
+    let a;
+    K(r) && (a = r, r = r.fn);
+    let o = u1({
+        name: `${e.shortName} \u2192 *`,
+        derived: 1,
+        and: a
+    });
+    return ft(e, o, n, t, r), o;
+}, ht = (e, t, r, n, a)=>{
+    let o = xe(t), l = se({
+        store: o,
+        to: "a",
+        priority: 'read'
+    });
+    r === R && (l.data.softRead = 1);
+    let s = [
+        l,
+        ie({
             fn: n
-        },
-        node: [
-            P({
-                fn: $
-            })
-        ],
-        meta: {
-            op: r
-        }
-    })
-, Re = (e, t, r, n)=>{
-    const o = a1(ge(e, ' →? *'));
-    return xe(e, o, {
-        scope: {
-            fn: r
-        },
-        node: n,
-        meta: {
-            op: t
-        }
-    }), o;
-}, Me = (e, { graphite: t , stateRef: r  }, n, o, a)=>xe(e, t, {
-        scope: {
-            fn: a
-        },
-        node: [
-            H({
-                store: r,
-                to: 'a'
-            }),
-            P({
-                fn: o ? Z : Y
-            }),
-            I.defined(),
-            I.changed({
-                store: r
-            }),
-            B({
-                store: r
-            })
-        ],
-        meta: {
-            op: n
-        }
-    })
-, Fe = (e, t)=>t(e)
-, He = (e)=>(t)=>e(...t)
-, Ie = (e13, r8, n6, o, a)=>{
-    const s = r8(n6), i = c1(s, {
-        name: o || t1(e13)
-    }), f = W(s), l = W(1), u = [
-        I.defined(),
-        H({
-            store: f,
-            to: 'a'
-        }),
-        T({
-            fn: (e, { key: t  }, { a: r  })=>e !== r[t]
-        }),
-        H({
-            store: l,
-            to: 'b'
-        }),
-        P({
-            fn (e, { clone: t , key: r  }, n) {
-                n.b && (n.a = t(n.a)), n.a[r] = e;
-            }
-        }),
-        H({
-            from: 'a',
-            target: f
-        }),
-        H({
-            from: 'value',
-            store: 0,
-            target: l
-        }),
-        F({
-            priority: 'barrier'
-        }),
-        H({
-            from: 'value',
-            store: 1,
-            target: l
-        }),
-        H({
-            store: f
-        }),
-        a && P({
-            fn: a
-        }),
-        I.changed({
-            store: U(i)
         })
     ];
-    for(const t16 in e13){
-        const o = e13[t16];
-        x(o) ? (n6[t16] = o.defaultState, s[t16] = o.getState(), xe(o, i, {
-            scope: {
-                key: t16,
-                clone: r8
-            },
-            node: u,
-            meta: {
-                op: 'combine'
-            }
-        })) : s[t16] = n6[t16] = o;
+    return c1('storeOnMap', o, s, V(e) && xe(e)), ft(e, t, s, r, a);
+}, yt = (t18, n11, a2, o, s)=>{
+    let i = t18 ? (e)=>e.slice()
+     : (e)=>({
+            ...e
+        })
+    , f = t18 ? [] : {
+    }, u = i(f), p = me(u), m = me(1);
+    p.type = t18 ? 'list' : 'shape', p.noInit = 1, c1('combineBase', p, m);
+    let g = d1(u, {
+        name: l1(a2),
+        derived: 1,
+        and: o
+    }), h = xe(g);
+    h.noInit = 1, qe(g, 'isCombine', 1);
+    let y = [
+        ue((e, t, r)=>(r.scope && !r.scope.reg[p.id] && (r.c = 1), e)
+        ),
+        de(p),
+        se({
+            store: m,
+            to: 'b'
+        }),
+        ue((e, { key: t  }, r)=>{
+            if (r.c || e !== r.a[t]) return n11 && r.b && (r.a = i(r.a)), r.a[t] = e, 1;
+        }, 1),
+        se({
+            from: "a",
+            target: p
+        }),
+        se({
+            from: "value",
+            store: 0,
+            target: m
+        }),
+        se({
+            from: "value",
+            store: 1,
+            target: m,
+            priority: "barrier",
+            batch: 1
+        }),
+        de(p, 1),
+        s && ie({
+            fn: ve
+        })
+    ];
+    return e1(a2, (e, t)=>{
+        if (!V(e)) return r1(!_(e) && !X(e), `combine expects a store in a field ${t}`), void (u[t] = f[t] = e);
+        f[t] = e.defaultState, u[t] = e.getState();
+        let n = ft(e, g, y, 'combine', s);
+        n.scope.key = t;
+        let a = xe(e);
+        he(p, {
+            type: 'field',
+            field: t,
+            from: a
+        }), c1('combineField', a, n);
+    }), g.defaultShape = a2, he(h, {
+        type: R,
+        from: p,
+        fn: s
+    }), Fe() || (g.defaultState = s ? h.current = s(u) : f), g;
+};
+let bt = (e, t, r)=>{
+    try {
+        return [
+            1,
+            e(...r)
+        ];
+    } catch (e28) {
+        return t(e28), [
+            0,
+            null
+        ];
     }
-    return i.defaultShape = e13, i.defaultState = a ? U(i).current = a(s) : n6, i;
-}, Pe = (e)=>N(e) ? e : l1(e)
-, Te = (e, t)=>!e(t)
-, Ke = ({ event: e , anyway: t , params: r , fn: n , ok: o  }, a)=>{
-    pe({
-        target: [
-            t,
-            e,
-            Be
-        ],
-        params: o ? [
-            {
-                status: 'done',
-                params: r,
-                result: a
-            },
-            {
-                params: r,
-                result: a
-            },
-            {
-                fn: n,
-                value: a
-            }
-        ] : [
-            {
-                status: 'fail',
-                params: r,
-                error: a
-            },
-            {
-                params: r,
-                error: a
-            },
-            {
-                fn: n,
-                value: a
-            }
-        ],
-        defer: 1
-    });
-}, Be = e4({
+}, vt = (e, t, r, n, a)=>(l)=>o1({
+            target: [
+                n,
+                kt
+            ],
+            params: [
+                r ? {
+                    status: 'done',
+                    params: e,
+                    result: l
+                } : {
+                    status: 'fail',
+                    params: e,
+                    error: l
+                },
+                {
+                    value: l,
+                    fn: r ? t.rs : t.rj
+                }
+            ],
+            defer: 1,
+            page: a.page,
+            scope: Ae(a)
+        })
+, kt = a1({
     node: [
-        K({
-            fn ({ fn: e , value: t  }) {
-                e(t);
-            }
+        ce({
+            fn: ({ fn: e , value: t  })=>e(t)
         })
     ],
     meta: {
         op: 'fx',
         fx: 'sidechain'
     }
-}), Ge = (e14, t, r9)=>(e14.watch((e)=>{
-        V(r9, [
-            e
-        ]), t.add(e);
-    }), V(r9, [
-        e14
-    ]), (r)=>(t.forEach(r), e14.watch(r))
-    )
-, Je = "20.11.5";
-var Le = {
-    __proto__: null,
-    filterChanged: T({
-        fn: (e, { state: t  })=>void 0 !== e && e !== X(t)
-    }),
-    noop: P({
-        fn: (e)=>e
-    })
-};
-
-},{"symbol-observable":"bdAOc","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"bdAOc":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/* global window */ var _ponyfillJs = require("./ponyfill.js");
-var _ponyfillJsDefault = parcelHelpers.interopDefault(_ponyfillJs);
-var global = arguments[3];
-var root;
-if (typeof self !== 'undefined') root = self;
-else if (typeof window !== 'undefined') root = window;
-else if (typeof global !== 'undefined') root = global;
-else if (typeof module !== 'undefined') root = module;
-else root = Function('return this')();
-var result = _ponyfillJsDefault.default(root);
-exports.default = result;
-
-},{"./ponyfill.js":"jGIpP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"jGIpP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function symbolObservablePonyfill(root) {
-    var result;
-    var Symbol = root.Symbol;
-    if (typeof Symbol === 'function') {
-        if (Symbol.observable) result = Symbol.observable;
-        else {
-            result = Symbol('observable');
-            Symbol.observable = result;
-        }
-    } else result = '@@observable';
-    return result;
-}
-exports.default = symbolObservablePonyfill;
+});
+const wt = [
+    'source',
+    'clock',
+    'target'
+], St = (e, t)=>e + `: ${t} should be defined`
+;
+let xt = (e, t, n)=>(r1(!X(e) || !X(t), St(n, 'either source or clock')), X(e) ? (ee(t, n, 'clock'), Array.isArray(t) && (t = w(t)), e = t) : _(e) || (e = p1(e)), [
+        e,
+        t
+    ])
+;
+const Ct = (e, t, r, n)=>{
+    let a = e[t];
+    a && o1({
+        target: a,
+        params: Array.isArray(a) ? a.map(()=>r
+        ) : r,
+        defer: 1,
+        stack: n
+    });
+}, Mt = "22.1.2";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -3215,7 +3553,7 @@ const Header = ()=>{
     });
 };
 
-},{"effector-dom":"bckam","effector":"55tTI","./title":"eRfoS","./model":"l19vq","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"eRfoS":[function(require,module,exports) {
+},{"effector-dom":"bckam","effector":"6OH3Z","./title":"eRfoS","./model":"l19vq","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"eRfoS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Title", ()=>Title
@@ -3306,7 +3644,7 @@ $activeFilter// фильтрация
 .on(filtered, (_, filter)=>filter
 );
 
-},{"effector":"55tTI","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","effector-localstorage/sync":"jUOwr"}],"jUOwr":[function(require,module,exports) {
+},{"effector":"6OH3Z","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","effector-localstorage/sync":"jUOwr"}],"jUOwr":[function(require,module,exports) {
 function connectStorage(key) {
     var errorHandler;
     function holder(value) {
