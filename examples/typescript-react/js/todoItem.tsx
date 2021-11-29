@@ -15,9 +15,13 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 
   public state : ITodoItemState;
 
+  public getTags() {
+  	return this.props.tags.map(tag => "@"+tag.tag);
+  }
+
   constructor(props : ITodoItemProps){
     super(props);
-    this.state = { editText: this.props.todo.title };
+    this.state = { editText: this.props.todo.title +" "+ this.getTags()};
   }
 
   public handleSubmit(event : React.FormEvent) {
@@ -32,12 +36,12 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 
   public handleEdit() {
     this.props.onEdit();
-    this.setState({editText: this.props.todo.title});
+    this.setState({editText: this.props.todo.title + this.getTags()});
   }
 
   public handleKeyDown(event : React.KeyboardEvent) {
     if (event.keyCode === ESCAPE_KEY) {
-      this.setState({editText: this.props.todo.title});
+      this.setState({editText: this.props.todo.title + this.getTags()});
       this.props.onCancel(event);
     } else if (event.keyCode === ENTER_KEY) {
       this.handleSubmit(event);
@@ -46,6 +50,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 
   public handleChange(event : React.FormEvent) {
     var input : any = event.target;
+    console.log("EVENT INPUT"+input)
     this.setState({ editText : input.value });
   }
 
@@ -59,7 +64,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   public shouldComponentUpdate(nextProps : ITodoItemProps, nextState : ITodoItemState) {
     return (
       nextProps.todo !== this.props.todo ||
-      nextProps.editing !== this.props.editing ||
+	  nextProps.editing !== this.props.editing ||
       nextState.editText !== this.state.editText
     );
   }
@@ -92,8 +97,14 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
             onChange={this.props.onToggle}
           />
           <label onDoubleClick={ e => this.handleEdit() }>
-            {this.props.todo.title}
-          </label>
+			  {this.props.todo.title}
+			  <span style={{float: 'right'}}>
+				  {this.props.tags.map((tag, index) =>
+					  <span key={index} className="badge bg-secondary">
+						  {tag.tag}
+					  </span>
+				  )}</span>
+		  </label>
           <button className="destroy" onClick={this.props.onDestroy} />
         </div>
         <input

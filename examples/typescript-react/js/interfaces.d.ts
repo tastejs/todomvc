@@ -13,6 +13,7 @@ interface ITodoItemProps {
   onEdit: ()  => void;
   onCancel: (event : any) => void;
   onToggle: () => void;
+  tags: ITags[];
 }
 
 interface ITodoItemState {
@@ -31,6 +32,7 @@ interface ITodoModel {
   key : any;
   todos : Array<ITodo>;
   onChanges : Array<any>;
+  tags: Array<ITags>;
   subscribe(onChange);
   inform();
   addTodo(title : string);
@@ -39,6 +41,13 @@ interface ITodoModel {
   destroy(todo);
   save(todoToSave, text);
   clearCompleted();
+  addTags(tags: string[], todoId: string)
+}
+
+interface ITags {
+	todoId: string
+	id: string,
+	tag: string
 }
 
 interface IAppProps {

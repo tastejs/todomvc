@@ -85,8 +85,12 @@ var TodoApp = (function (_super) {
                     return true;
             }
         });
+        var tags = this.props.model.tags;
+        var showTags = function (id) {
+            return tags.filter(function (tag) { return tag.todoId === id; });
+        };
         var todoItems = shownTodos.map(function (todo) {
-            return (React.createElement(todoItem_1.TodoItem, { key: todo.id, todo: todo, onToggle: _this.toggle.bind(_this, todo), onDestroy: _this.destroy.bind(_this, todo), onEdit: _this.edit.bind(_this, todo), editing: _this.state.editing === todo.id, onSave: _this.save.bind(_this, todo), onCancel: function (e) { return _this.cancel(); } }));
+            return (React.createElement(todoItem_1.TodoItem, { key: todo.id, todo: todo, tags: showTags(todo.id), onToggle: _this.toggle.bind(_this, todo), onDestroy: _this.destroy.bind(_this, todo), onEdit: _this.edit.bind(_this, todo), editing: _this.state.editing === todo.id, onSave: _this.save.bind(_this, todo), onCancel: function (e) { return _this.cancel(); } }));
         });
         var activeTodoCount = todos.reduce(function (accum, todo) {
             return todo.completed ? accum : accum + 1;

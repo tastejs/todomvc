@@ -18,9 +18,12 @@ var TodoItem = (function (_super) {
     __extends(TodoItem, _super);
     function TodoItem(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { editText: _this.props.todo.title };
+        _this.state = { editText: _this.props.todo.title + " " + _this.getTags() };
         return _this;
     }
+    TodoItem.prototype.getTags = function () {
+        return this.props.tags.map(function (tag) { return "@" + tag.tag; });
+    };
     TodoItem.prototype.handleSubmit = function (event) {
         var val = this.state.editText.trim();
         if (val) {
@@ -33,11 +36,11 @@ var TodoItem = (function (_super) {
     };
     TodoItem.prototype.handleEdit = function () {
         this.props.onEdit();
-        this.setState({ editText: this.props.todo.title });
+        this.setState({ editText: this.props.todo.title + this.getTags() });
     };
     TodoItem.prototype.handleKeyDown = function (event) {
         if (event.keyCode === constants_1.ESCAPE_KEY) {
-            this.setState({ editText: this.props.todo.title });
+            this.setState({ editText: this.props.todo.title + this.getTags() });
             this.props.onCancel(event);
         }
         else if (event.keyCode === constants_1.ENTER_KEY) {
@@ -46,6 +49,7 @@ var TodoItem = (function (_super) {
     };
     TodoItem.prototype.handleChange = function (event) {
         var input = event.target;
+        console.log("EVENT INPUT" + input);
         this.setState({ editText: input.value });
     };
     TodoItem.prototype.shouldComponentUpdate = function (nextProps, nextState) {
@@ -68,7 +72,11 @@ var TodoItem = (function (_super) {
             }) },
             React.createElement("div", { className: "view" },
                 React.createElement("input", { className: "toggle", type: "checkbox", checked: this.props.todo.completed, onChange: this.props.onToggle }),
-                React.createElement("label", { onDoubleClick: function (e) { return _this.handleEdit(); } }, this.props.todo.title),
+                React.createElement("label", { onDoubleClick: function (e) { return _this.handleEdit(); } },
+                    this.props.todo.title,
+                    React.createElement("span", { style: { float: 'right' } }, this.props.tags.map(function (tag, index) {
+                        return React.createElement("span", { key: index, className: "badge bg-secondary" }, tag.tag);
+                    }))),
                 React.createElement("button", { className: "destroy", onClick: this.props.onDestroy })),
             React.createElement("input", { ref: "editField", className: "edit", value: this.state.editText, onBlur: function (e) { return _this.handleSubmit(e); }, onChange: function (e) { return _this.handleChange(e); }, onKeyDown: function (e) { return _this.handleKeyDown(e); } })));
     };

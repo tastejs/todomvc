@@ -98,11 +98,18 @@ class TodoApp extends React.Component<IAppProps, IAppState> {
       }
     });
 
+    const tags = this.props.model.tags;
+
+    const showTags = (id: string) => {
+		return tags.filter(tag => tag.todoId === id)
+	}
+
     var todoItems = shownTodos.map((todo) => {
       return (
         <TodoItem
           key={todo.id}
           todo={todo}
+		  tags={showTags(todo.id)}
           onToggle={this.toggle.bind(this, todo)}
           onDestroy={this.destroy.bind(this, todo)}
           onEdit={this.edit.bind(this, todo)}
