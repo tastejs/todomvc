@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-framework="tag">
+	<head>
+		<meta charset="utf-8">
+		<title>Tag • TodoMVC</title>
+		<link rel="stylesheet" href="vendor/todomvc-app.css">
+		<link rel="stylesheet" href="vendor/todomvc-common-base.css">
+	</head>
+	<body>
+    <noscript>JavaScript is required to manage your todo list</noscript>
+    <section class="todoapp">
+      <todo-list>
+        <header class="header">
+          <h1>todos</h1>
+          <input class="new-todo" placeholder="What needs to be done?" autofocus>
+        </header>
+        <section class="main">
+          <input id="toggle-all" class="toggle-all" type="checkbox">
+          <label for="toggle-all">Mark all as complete</label>
+          <ul class="todo-list"></ul>
+          <footer class="footer">
+            <span class="todo-count">X remaining</span>
+            <ul class="filters">
+              <li>
+                <a href="#/" class="selected">All</a>
+              </li>
+              <li>
+              <a href="#/active">Active</a>
+              </li>
+              <li>
+              <a href="#/completed">Completed</a>
+              </li>
+            </ul>
+            <button class="clear-completed">Clear completed</button>
+          </footer>
+        </section>
+      </todo-list>
+    </section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by <a href="https://tychi.me">~tychi</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+    <script type="module">
+      // tag is a tiny library for binding HTML fragments to JavaScript closures
+      import tag from './vendor/tag.bundle.js'
+
+      import initialTodoList from './data/initialTodoList.js'
+
+      import {
+        showFilters,
+        showListItems,
+        onFilterChange
+      } from './features/todoList.js'
+
+      import {
+        showNewItemForm,
+        onNewItemInput,
+        onItemEdit,
+        onItemChange,
+        onItemToggle,
+        onItemDelete,
+      } from './features/todoListItems.js'
+
+      import {
+        showCompletenessToggle,
+        onCompletenessToggle
+      } from './features/toggleCompleteness.js'
+
+      import {
+        showClearCompletedAction,
+        onClearCompletedAction,
+      } from './features/clearCompleted.js'
+
+      import {
+        showIncompleteCount,
+      } from './features/counting.js'
+
+      // create a new tag: <todo-list>
+      // define the initial state and shape of the data
+      const $ = tag('todo-list', initialTodoList)
+
+      onFilterChange($)
+      onNewItemInput($)
+      onItemEdit($)
+      onItemChange($)
+      onItemToggle($)
+      onItemDelete($)
+      onCompletenessToggle($)
+      onClearCompletedAction($)
+
+      // html is a render function; if a string is returned, it is rendered
+      // whenever state changes, the render function will be called on each target
+      $.html((target) => `
+        <header class="header">
+          <h1>todos</h1>
+          ${showNewItemForm($)}
+        </header>
+        <section class="main">
+          ${showCompletenessToggle($)}
+          <ul class="todo-list">
+            ${showListItems($)}
+          </ul>
+          <footer class="footer">
+            ${showIncompleteCount($)}
+            <ul class="filters">
+              ${showFilters($)}
+            </ul>
+            ${showClearCompletedAction($)}
+          </footer>
+        </section>
+      `)
+    </script>
+	</body>
+</html>
