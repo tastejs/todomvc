@@ -59,7 +59,7 @@
 
 [hyoo_todomvc_panel] {
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-	max-width: 38rem;
+	width: 38rem;
 	--mol_theme_back: white;
 	--mol_theme_text: black;
 	background-color: var(--mol_theme_back);

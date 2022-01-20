@@ -1,0 +1,201 @@
+$mol_hotkey $mol_plugin
+	event *
+		^
+		keydown?event <=> keydown?event null
+	key *
+	mod_ctrl false
+	mod_alt false
+	mod_shift false
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	minimal_height 40
+	autocomplete false
+	selection?val /number
+	auto /
+		<= selection_watcher null
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint \ 
+		spellcheck <= spellcheck false
+		autocomplete <= autocomplete_native \
+		selectionEnd <= selection_end 0
+		selectionStart <= selection_start 0
+	attr *
+		^
+		maxlength <= length_max Infinity
+		type <= type?val \text
+	event *
+		^
+		input?event <=> event_change?event null
+		keydown?event <=> event_key_press?event null
+	plugins /
+		<= Submit $mol_hotkey
+			key * enter?event <=> submit?event null
+
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	minimal_height 40
+	minimal_width 40
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_or_error <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+
+$mol_link $mol_view
+	dom_name \a
+	attr *
+		^
+		href <= uri \
+		title <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
+$mol_button_typed $mol_button
+
+$mol_button_minor $mol_button_typed
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /$mol_view_content
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_scroll $mol_view
+	minimal_height 0
+	_event_scroll_timer?val null
+	field *
+		^
+		scrollTop <= scroll_top?val 0
+		scrollLeft <= scroll_left?val 0
+		tabIndex <= tabindex -1
+	event *
+		^
+		scroll?event <=> event_scroll?event null
+
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
+
+$mol_bar $mol_view
+
+$hyoo_todomvc $mol_scroll
+	title \Todos
+	sub /
+		<= Page $mol_list
+			rows /
+				<= Title $mol_view
+					minimal_height 176
+					sub /
+						<= title
+				<= Panel $mol_list
+					rows <= panels /
+						<= Head $mol_view
+							minimal_height 64
+							sub <= Head_content /
+								<= Head_complete $mol_check
+									enabled <= head_complete_enabled false
+									checked?val <=> completed_all?val false
+									title \❯
+								<= Add $hyoo_todomvc_add
+									value?val <=> task_title_new?val \
+									done?event <=> add?event null
+						<= List $mol_list
+							rows <= task_rows /$mol_view
+						<= Foot $mol_view
+							sub <= foot_content /
+								<= Pending $mol_view
+									sub /
+										<= pending_message \0 items left 
+								<= Filter $mol_bar
+									sub <= filterOptions /
+										<= Filter_all $mol_link
+											sub /
+												<= filter_all_label \All
+											arg *
+												completed null
+										<= Filter_active $mol_link
+											sub /
+												<= filter_active_label \Active
+											arg *
+												completed \false
+										<= Filter_completed $mol_link
+											sub /
+												<= filter_completed_label \Completed
+											arg *
+												completed \true
+								<= Sweep $mol_button_minor
+									enabled <= sweep_enabled true
+									click?event <=> sweep?event null
+									sub / <= sweep_label \Clear completed
+	Task_row!id $hyoo_todomvc_task_row
+		completed?val <=> task_completed!id?val false
+		title?val <=> task_title!id?val \
+		drop?event <=> task_drop!id?event null
+
+$hyoo_todomvc_add $mol_string
+	hint \What needs to be done?
+	event *
+		^
+		keydown?event <=> press?event null
+	done?event null
+
+$hyoo_todomvc_task_row $mol_view
+	minimal_height 64
+	sub /
+		<= Complete $mol_check
+			checked?val <=> completed?val false
+		<= Title $mol_string
+			hint <= title_hint \Task title
+			value?val <=> title?val \
+		<= Drop $mol_button_typed
+			sub / \✖
+			click?event <=> drop?event null
+	attr *
+		^
+		hyoo_todomvc_task_row_completed <= completed?val false

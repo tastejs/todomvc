@@ -102,12 +102,12 @@ namespace $.$$ {
 		
 		@ $mol_mem_key
 		task_completed( id : number , next? : boolean ) {
-			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , completed : next } )!.completed
+			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , completed : next } )!.completed ?? false
 		}
 		
 		@ $mol_mem_key
 		task_title( id : number , next? : string ) {
-			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , title : next } )!.title
+			return this.task( id , next === undefined ? undefined : { ... this.task( id ) , title : next } )!.title ?? ''
 		}
 		
 		task_drop( id : number , next? : Event ) {

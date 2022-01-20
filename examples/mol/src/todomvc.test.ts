@@ -7,7 +7,7 @@ namespace $.$$ {
 			const app = $hyoo_todomvc.make({ $ })
 
 			const rows = app.task_rows()
-			const title = Math.random().toString(16).slice(2)
+			const title = $mol_guid()
 
 			app.Add().value( title )
 			app.Add().done()
@@ -23,7 +23,7 @@ namespace $.$$ {
 
 		'task rename'( $ ) {
 
-			const title = Math.random().toString(16).slice(2)
+			const title = $mol_guid()
 
 			save: {
 
