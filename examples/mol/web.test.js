@@ -107,6 +107,12 @@ var $;
 //mol/type/assert/assert.ts
 ;
 "use strict";
+//mol/type/equals/equals.test.ts
+;
+"use strict";
+//mol/type/equals/equals.ts
+;
+"use strict";
 //mol/type/partial/deep/deep.test.ts
 ;
 "use strict";
@@ -313,6 +319,12 @@ var $;
             $mol_assert_ok($mol_compare_deep(/\x22/mig, /\x22/mig));
             $mol_assert_not($mol_compare_deep(/\x22/mig, /\x21/mig));
             $mol_assert_not($mol_compare_deep(/\x22/mig, /\x22/mg));
+        },
+        'Error'() {
+            $mol_assert_not($mol_compare_deep(new Error('xxx'), new Error('xxx')));
+            const fail = (message) => new Error(message);
+            $mol_assert_ok($mol_compare_deep(...['xxx', 'xxx'].map(msg => new Error(msg))));
+            $mol_assert_not($mol_compare_deep(...['xxx', 'yyy'].map(msg => new Error(msg))));
         },
         'Map'() {
             $mol_assert_ok($mol_compare_deep(new Map, new Map));
@@ -592,6 +604,76 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    function $mol_log3_area_lazy(event) {
+        const self = this;
+        const stack = self.$mol_log3_stack;
+        const deep = stack.length;
+        let logged = false;
+        stack.push(() => {
+            logged = true;
+            self.$mol_log3_area.call(self, event);
+        });
+        return () => {
+            if (logged)
+                self.console.groupEnd();
+            if (stack.length > deep)
+                stack.length = deep;
+        };
+    }
+    $.$mol_log3_area_lazy = $mol_log3_area_lazy;
+    $.$mol_log3_stack = [];
+})($ || ($ = {}));
+//mol/log3/log3.ts
+;
+"use strict";
+//mol/type/keys/extract/extract.test.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        $.$mol_log3_come = () => { };
+        $.$mol_log3_done = () => { };
+        $.$mol_log3_fail = () => { };
+        $.$mol_log3_warn = () => { };
+        $.$mol_log3_rise = () => { };
+        $.$mol_log3_area = () => () => { };
+    });
+})($ || ($ = {}));
+//mol/log3/log3.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_log3_web_make(level, color) {
+        return function $mol_log3_logger(event) {
+            const pending = this.$mol_log3_stack.pop();
+            if (pending)
+                pending();
+            let tpl = '%c';
+            const chunks = Object.values(event);
+            for (let i = 0; i < chunks.length; ++i) {
+                tpl += (typeof chunks[i] === 'string') ? ' ⦙ %s' : ' ⦙ %o';
+            }
+            const style = `color:${color};font-weight:bolder`;
+            this.console[level](tpl, style, ...chunks);
+            const self = this;
+            return () => self.console.groupEnd();
+        };
+    }
+    $.$mol_log3_web_make = $mol_log3_web_make;
+    $.$mol_log3_come = $mol_log3_web_make('info', 'royalblue');
+    $.$mol_log3_done = $mol_log3_web_make('info', 'forestgreen');
+    $.$mol_log3_fail = $mol_log3_web_make('error', 'orangered');
+    $.$mol_log3_warn = $mol_log3_web_make('warn', 'goldenrod');
+    $.$mol_log3_rise = $mol_log3_web_make('log', 'magenta');
+    $.$mol_log3_area = $mol_log3_web_make('group', 'cyan');
+})($ || ($ = {}));
+//mol/log3/log3.web.ts
+;
+"use strict";
+var $;
 (function ($_1) {
     $mol_test_mocks.push($ => {
         $.$mol_after_tick = $mol_after_mock_commmon;
@@ -636,11 +718,12 @@ var $;
             const sub = new $mol_wire_pub_sub;
             const bu1 = sub.track_on();
             try {
-                pub1.track_promote();
-                pub2.track_promote();
-                pub2.track_promote();
+                pub1.promote();
+                pub2.promote();
+                pub2.promote();
             }
             finally {
+                sub.track_cut();
                 sub.track_off(bu1);
             }
             pub1.emit();
@@ -648,11 +731,12 @@ var $;
             $mol_assert_like(sub.pub_list, [pub1, pub2, pub2]);
             const bu2 = sub.track_on();
             try {
-                pub1.track_promote();
-                pub1.track_promote();
-                pub2.track_promote();
+                pub1.promote();
+                pub1.promote();
+                pub2.promote();
             }
             finally {
+                sub.track_cut();
                 sub.track_off(bu2);
             }
             pub1.emit();
@@ -666,74 +750,21 @@ var $;
             try {
                 const bu2 = sub2.track_on();
                 try {
-                    $mol_assert_fail(() => sub1.track_promote(), 'Circular subscription');
+                    $mol_assert_fail(() => sub1.promote(), 'Circular subscription');
                 }
                 finally {
+                    sub2.track_cut();
                     sub2.track_off(bu2);
                 }
             }
             finally {
+                sub1.track_cut();
                 sub1.track_off(bu1);
             }
         },
     });
 })($ || ($ = {}));
 //mol/wire/pub/sub/sub.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'Primitives'() {
-            $mol_assert_equal($mol_key(null), 'null');
-            $mol_assert_equal($mol_key(false), 'false');
-            $mol_assert_equal($mol_key(true), 'true');
-            $mol_assert_equal($mol_key(0), '0');
-            $mol_assert_equal($mol_key(''), '""');
-        },
-        'Array & POJO'() {
-            $mol_assert_equal($mol_key([null]), '[null]');
-            $mol_assert_equal($mol_key({ foo: 0 }), '{"foo":0}');
-            $mol_assert_equal($mol_key({ foo: [false] }), '{"foo":[false]}');
-        },
-        'Function'() {
-            const func = () => { };
-            $mol_assert_equal($mol_key(func), $mol_key(func));
-            $mol_assert_unique($mol_key(func), $mol_key(() => { }));
-        },
-        'Objects'() {
-            class User {
-            }
-            const jin = new User();
-            $mol_assert_equal($mol_key(jin), $mol_key(jin));
-            $mol_assert_unique($mol_key(jin), $mol_key(new User()));
-        },
-        'Elements'() {
-            const foo = $mol_jsx("div", null, "bar");
-            $mol_assert_equal($mol_key(foo), $mol_key(foo));
-            $mol_assert_unique($mol_key(foo), $mol_key($mol_jsx("div", null, "bar")));
-        },
-        'Custom JSON representation'() {
-            class User {
-                name;
-                age;
-                constructor(name, age) {
-                    this.name = name;
-                    this.age = age;
-                }
-                toJSON() { return { name: this.name }; }
-            }
-            $mol_assert_equal($mol_key(new User('jin', 18)), '{"name":"jin"}');
-        },
-        'Special native classes'() {
-            $mol_assert_equal($mol_key(new Date('xyz')), 'null');
-            $mol_assert_equal($mol_key(new Date('2001-01-02T03:04:05.678Z')), '"2001-01-02T03:04:05.678Z"');
-            $mol_assert_equal($mol_key(/./), '"/./"');
-            $mol_assert_equal($mol_key(/\./gimsu), '"/\\\\./gimsu"');
-        },
-    });
-})($ || ($ = {}));
-//mol/key/key.test.tsx
 ;
 "use strict";
 var $;
@@ -835,8 +866,9 @@ var $;
                 const val = obj[field];
                 if (typeof val !== 'function')
                     return val;
+                const temp = $mol_wire_task.getter(val);
                 return function $mol_wire_sync(...args) {
-                    const fiber = $mol_wire_fiber.temp(obj, val, ...args);
+                    const fiber = temp(obj, args);
                     return fiber.sync();
                 };
             }
@@ -848,6 +880,52 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    function $mol_promise() {
+        let done;
+        let fail;
+        const promise = new Promise((d, f) => {
+            done = d;
+            fail = f;
+        });
+        return Object.assign(promise, {
+            done,
+            fail,
+        });
+    }
+    $.$mol_promise = $mol_promise;
+})($ || ($ = {}));
+//mol/promise/promise.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        $.$mol_after_timeout = $mol_after_mock_timeout;
+    });
+})($ || ($ = {}));
+//mol/after/timeout/timeout.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_wait_timeout_async(timeout) {
+        const promise = $mol_promise();
+        const task = new this.$mol_after_timeout(timeout, () => promise.done());
+        return Object.assign(promise, {
+            destructor: () => task.destructor()
+        });
+    }
+    $.$mol_wait_timeout_async = $mol_wait_timeout_async;
+    function $mol_wait_timeout(timeout) {
+        return this.$mol_wire_sync(this).$mol_wait_timeout_async(timeout);
+    }
+    $.$mol_wait_timeout = $mol_wait_timeout;
+})($ || ($ = {}));
+//mol/wait/timeout/timeout.ts
+;
+"use strict";
+var $;
 (function ($_1) {
     $mol_test({
         'Cached channel'($) {
@@ -856,19 +934,13 @@ var $;
                 static value(next = 1) {
                     return next + 1;
                 }
-                static test() {
-                    $mol_assert_equal(App.value(), 2);
-                    App.value(2);
-                    $mol_assert_equal(App.value(), 3);
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
             ], App, "value", null);
-            __decorate([
-                $mol_wire_method
-            ], App, "test", null);
-            App.test();
+            $mol_assert_equal(App.value(), 2);
+            App.value(2);
+            $mol_assert_equal(App.value(), 3);
         },
         'Mem overrides mem'($) {
             class Base extends $mol_object2 {
@@ -892,19 +964,13 @@ var $;
                 static value(next) {
                     return super.value(next) * 3;
                 }
-                static test() {
-                    $mol_assert_equal(this.value(), 9);
-                    $mol_assert_equal(this.value(5), 21);
-                    $mol_assert_equal(this.value(), 21);
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
             ], App, "value", null);
-            __decorate([
-                $mol_wire_method
-            ], App, "test", null);
-            App.test();
+            $mol_assert_equal(App.value(), 9);
+            $mol_assert_equal(App.value(5), 21);
+            $mol_assert_equal(App.value(), 21);
         },
         'Auto recalculation of cached values'($) {
             class App extends $mol_object2 {
@@ -918,12 +984,6 @@ var $;
                 static zzz() {
                     return this.yyy() + 1;
                 }
-                static test() {
-                    $mol_assert_equal(App.yyy(), 2);
-                    $mol_assert_equal(App.zzz(), 3);
-                    App.xxx(5);
-                    $mol_assert_equal(App.zzz(), 7);
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
@@ -934,10 +994,10 @@ var $;
             __decorate([
                 $mol_wire_mem(0)
             ], App, "zzz", null);
-            __decorate([
-                $mol_wire_method
-            ], App, "test", null);
-            App.test();
+            $mol_assert_equal(App.yyy(), 2);
+            $mol_assert_equal(App.zzz(), 3);
+            App.xxx(5);
+            $mol_assert_equal(App.zzz(), 7);
         },
         'Skip recalculation when actually no dependency changes'($) {
             const log = [];
@@ -955,13 +1015,6 @@ var $;
                     log.push('zzz');
                     return this.yyy()[0] + 1;
                 }
-                static test() {
-                    App.zzz();
-                    $mol_assert_like(log, ['zzz', 'yyy', 'xxx']);
-                    App.xxx(5);
-                    App.zzz();
-                    $mol_assert_like(log, ['zzz', 'yyy', 'xxx', 'xxx', 'yyy']);
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
@@ -972,10 +1025,12 @@ var $;
             __decorate([
                 $mol_wire_mem(0)
             ], App, "zzz", null);
-            __decorate([
-                $mol_wire_method
-            ], App, "test", null);
-            App.test();
+            App.zzz();
+            $mol_assert_like(log, ['zzz', 'yyy', 'xxx']);
+            App.xxx(5);
+            $mol_assert_like(log, ['zzz', 'yyy', 'xxx', 'xxx']);
+            App.zzz();
+            $mol_assert_like(log, ['zzz', 'yyy', 'xxx', 'xxx', 'yyy']);
         },
         'Flow: Auto'($) {
             class App extends $mol_object2 {
@@ -1020,13 +1075,6 @@ var $;
                 static bar() {
                     return { ...this.foo(), count: ++counter };
                 }
-                static test() {
-                    $mol_assert_like(App.bar(), { numbs: [1], count: 1 });
-                    App.foo({ numbs: [1] });
-                    $mol_assert_like(App.bar(), { numbs: [1], count: 1 });
-                    App.foo({ numbs: [2] });
-                    $mol_assert_like(App.bar(), { numbs: [2], count: 2 });
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
@@ -1034,10 +1082,11 @@ var $;
             __decorate([
                 $mol_wire_mem(0)
             ], App, "bar", null);
-            __decorate([
-                $mol_wire_method
-            ], App, "test", null);
-            App.test();
+            $mol_assert_like(App.bar(), { numbs: [1], count: 1 });
+            App.foo({ numbs: [1] });
+            $mol_assert_like(App.bar(), { numbs: [1], count: 1 });
+            App.foo({ numbs: [2] });
+            $mol_assert_like(App.bar(), { numbs: [2], count: 2 });
         },
         'Cycle: Fail'($) {
             class App extends $mol_object2 {
@@ -1075,13 +1124,6 @@ var $;
                 static slow(next) {
                     return this.store(next);
                 }
-                static test() {
-                    App.fast();
-                    $mol_assert_equal(App.slow(666), 666);
-                    $mol_assert_equal(App.fast(), App.slow(), 666);
-                    App.store(777);
-                    $mol_assert_equal(App.fast(), App.slow(), 777);
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
@@ -1092,10 +1134,11 @@ var $;
             __decorate([
                 $mol_wire_mem(0)
             ], App, "slow", null);
-            __decorate([
-                $mol_wire_method
-            ], App, "test", null);
-            App.test();
+            App.fast();
+            $mol_assert_equal(App.slow(666), 666);
+            $mol_assert_equal(App.fast(), App.slow(), 666);
+            App.store(777);
+            $mol_assert_equal(App.fast(), App.slow(), 777);
         },
         'Actions inside invariant'($) {
             class App extends $mol_object2 {
@@ -1112,11 +1155,6 @@ var $;
                         this.count(count + 1);
                     return count + 1;
                 }
-                static test() {
-                    $mol_assert_like(App.res(), 1);
-                    App.count(5);
-                    $mol_assert_like(App.res(), 6);
-                }
             }
             __decorate([
                 $mol_wire_mem(0)
@@ -1127,10 +1165,43 @@ var $;
             __decorate([
                 $mol_wire_mem(0)
             ], App, "res", null);
+            $mol_assert_like(App.res(), 1);
+            App.count(5);
+            $mol_assert_like(App.res(), 6);
+        },
+        async 'Toggle with async'($) {
+            class App extends $mol_object2 {
+                static $ = $;
+                static checked(next = false) {
+                    $$.$mol_wait_timeout(0);
+                    return next;
+                }
+                static toggle() {
+                    const prev = this.checked();
+                    $mol_assert_unique(this.checked(!prev), prev);
+                }
+                static res() {
+                    return this.checked();
+                }
+                static test() {
+                    $mol_assert_equal(App.res(), false);
+                    App.toggle();
+                    $mol_assert_equal(App.res(), true);
+                }
+            }
+            __decorate([
+                $mol_wire_mem(0)
+            ], App, "checked", null);
+            __decorate([
+                $mol_wire_method
+            ], App, "toggle", null);
+            __decorate([
+                $mol_wire_mem(0)
+            ], App, "res", null);
             __decorate([
                 $mol_wire_method
             ], App, "test", null);
-            App.test();
+            await $mol_wire_async(App).test();
         },
         'Restore after error'($) {
             class App extends $mol_object2 {
@@ -1229,28 +1300,41 @@ var $;
             App.showing(true);
             $mol_assert_unique(App.render(), details);
         },
-        'Forget sub fibers on complete'($) {
+        async 'Hold pubs while wait async task'($) {
             class App extends $mol_object2 {
-                static get $() { return $; }
+                static $ = $;
                 static counter = 0;
-                static count() { return this.counter++; }
-                static data(next = 1) { return next; }
+                static resets(next) {
+                    return ($mol_wire_probe(() => this.resets()) ?? -1) + 1;
+                }
+                static async wait() { }
+                static value() {
+                    return ++this.counter;
+                }
                 static result() {
-                    return this.count() + this.data();
+                    if (this.resets())
+                        $mol_wire_sync(this).wait();
+                    return this.value();
+                }
+                static test() {
                 }
             }
             __decorate([
-                $mol_wire_method
-            ], App, "count", null);
+                $mol_wire_mem(0)
+            ], App, "resets", null);
             __decorate([
                 $mol_wire_mem(0)
-            ], App, "data", null);
+            ], App, "value", null);
             __decorate([
                 $mol_wire_mem(0)
             ], App, "result", null);
+            __decorate([
+                $mol_wire_method
+            ], App, "test", null);
             $mol_assert_equal(App.result(), 1);
-            App.data(2);
-            $mol_assert_equal(App.result(), 3);
+            App.resets(null);
+            $mol_wire_fiber.sync();
+            $mol_assert_equal(await $mol_wire_async(App).result(), 1);
         },
         'Memoize by single simple key'($) {
             class Team extends $mol_object2 {
@@ -1265,9 +1349,6 @@ var $;
                     ];
                 }
                 static test() {
-                    $mol_assert_like(this.user_names(), ['jin', 'john']);
-                    Team.user_name('jin', 'JIN');
-                    $mol_assert_like(this.user_names(), ['JIN', 'john']);
                 }
             }
             __decorate([
@@ -1279,7 +1360,9 @@ var $;
             __decorate([
                 $mol_wire_method
             ], Team, "test", null);
-            Team.test();
+            $mol_assert_like(Team.user_names(), ['jin', 'john']);
+            Team.user_name('jin', 'JIN');
+            $mol_assert_like(Team.user_names(), ['JIN', 'john']);
         },
         'Memoize by single complex key'($) {
             class Map extends $mol_object2 {
@@ -1356,59 +1439,45 @@ var $;
                     ++this.sums;
                     return this.value(index - 1) + this.value(index - 2);
                 }
-                static test() {
-                    $mol_assert_equal(this.value(4), 5);
-                    $mol_assert_equal(this.sums, 3);
-                    this.value(1, 2);
-                    $mol_assert_equal(this.value(4), 8);
-                    $mol_assert_equal(this.sums, 6);
-                }
             }
             __decorate([
                 $mol_wire_mem(1)
             ], Fib, "value", null);
-            __decorate([
-                $mol_wire_method
-            ], Fib, "test", null);
-            Fib.test();
-        },
-        'Unsubscribe from temp pubs on complete'($) {
-            class Random extends $mol_object2 {
-                static $ = $;
-                static seed() {
-                    return Math.random();
-                }
-                static resets(next) {
-                    return Math.random();
-                }
-                static value() {
-                    this.resets();
-                    return this.seed();
-                }
-                static test() {
-                    const first = this.value();
-                    this.resets(null);
-                    const second = this.value();
-                    $mol_assert_unique(first, second);
-                }
-            }
-            __decorate([
-                $mol_wire_method
-            ], Random, "seed", null);
-            __decorate([
-                $mol_wire_mem(0)
-            ], Random, "resets", null);
-            __decorate([
-                $mol_wire_mem(0)
-            ], Random, "value", null);
-            __decorate([
-                $mol_wire_method
-            ], Random, "test", null);
-            Random.test();
+            $mol_assert_equal(Fib.value(4), 5);
+            $mol_assert_equal(Fib.sums, 3);
+            Fib.value(1, 2);
+            $mol_assert_equal(Fib.value(4), 8);
+            $mol_assert_equal(Fib.sums, 6);
         },
     });
 })($ || ($ = {}));
 //mol/wire/mem/mem.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'Previous value'() {
+            class Cache extends $mol_object2 {
+                static store(next) {
+                    if (!next)
+                        return {};
+                    return {
+                        ...$mol_wire_probe(() => this.store()) ?? {},
+                        ...next,
+                    };
+                }
+            }
+            __decorate([
+                $mol_wire_mem(0)
+            ], Cache, "store", null);
+            $mol_assert_like(Cache.store(), {});
+            $mol_assert_like(Cache.store({ foo: 666 }), { foo: 666 });
+            $mol_assert_like(Cache.store({ bar: 777 }), { foo: 666, bar: 777 });
+        },
+    });
+})($ || ($ = {}));
+//mol/wire/probe/probe.test.ts
 ;
 "use strict";
 var $;
@@ -1444,19 +1513,6 @@ var $;
     });
 })($ || ($ = {}));
 //mol/maybe/maybe.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'const returns stored value'() {
-            const foo = { bar: $mol_const(Math.random()) };
-            $mol_assert_equal(foo.bar(), foo.bar());
-            $mol_assert_equal(foo.bar(), foo.bar['()']);
-        },
-    });
-})($ || ($ = {}));
-//mol/const/const.test.ts
 ;
 "use strict";
 var $;
@@ -1603,6 +1659,19 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    $mol_test({
+        'const returns stored value'() {
+            const foo = { bar: $mol_const(Math.random()) };
+            $mol_assert_equal(foo.bar(), foo.bar());
+            $mol_assert_equal(foo.bar(), foo.bar['()']);
+        },
+    });
+})($ || ($ = {}));
+//mol/const/const.test.ts
+;
+"use strict";
+var $;
 (function ($_1) {
     $mol_test({
         'FQN of anon function'($) {
@@ -1616,21 +1685,120 @@ var $;
 //mol/func/name/name.test.ts
 ;
 "use strict";
-//mol/type/keys/extract/extract.test.ts
+var $;
+(function ($) {
+    class $mol_wire_log extends $mol_object2 {
+        static watch(task) {
+            return task;
+        }
+        static track(fiber) {
+            const prev = $mol_wire_probe(() => this.track(fiber));
+            let next;
+            try {
+                next = fiber.sync();
+            }
+            finally {
+                for (const pub of fiber.pub_list) {
+                    if (pub instanceof $mol_wire_fiber) {
+                        this.track(pub);
+                    }
+                }
+            }
+            if (prev !== undefined && !$mol_compare_deep(prev, next)) {
+                this.$.$mol_log3_rise({
+                    message: 'Changed',
+                    place: fiber,
+                });
+            }
+            return next;
+        }
+        static active() {
+            try {
+                this.watch()?.();
+            }
+            finally {
+                for (const pub of $mol_wire_auto().pub_list) {
+                    if (pub instanceof $mol_wire_fiber) {
+                        this.track(pub);
+                    }
+                }
+            }
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_wire_log, "watch", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_wire_log, "track", null);
+    __decorate([
+        $mol_mem
+    ], $mol_wire_log, "active", null);
+    $.$mol_wire_log = $mol_wire_log;
+})($ || ($ = {}));
+//mol/wire/log/log.ts
 ;
 "use strict";
 var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        $.$mol_log3_come = () => { };
-        $.$mol_log3_done = () => { };
-        $.$mol_log3_fail = () => { };
-        $.$mol_log3_warn = () => { };
-        $.$mol_log3_rise = () => { };
-        $.$mol_log3_area = () => () => { };
+(function ($) {
+    $mol_test({
+        'Primitives'() {
+            $mol_assert_equal($mol_key(null), 'null');
+            $mol_assert_equal($mol_key(false), 'false');
+            $mol_assert_equal($mol_key(true), 'true');
+            $mol_assert_equal($mol_key(0), '0');
+            $mol_assert_equal($mol_key(''), '""');
+        },
+        'Array & POJO'() {
+            $mol_assert_equal($mol_key([null]), '[null]');
+            $mol_assert_equal($mol_key({ foo: 0 }), '{"foo":0}');
+            $mol_assert_equal($mol_key({ foo: [false] }), '{"foo":[false]}');
+        },
+        'Function'() {
+            const func = () => { };
+            $mol_assert_equal($mol_key(func), $mol_key(func));
+            $mol_assert_unique($mol_key(func), $mol_key(() => { }));
+        },
+        'Objects'() {
+            class User {
+            }
+            const jin = new User();
+            $mol_assert_equal($mol_key(jin), $mol_key(jin));
+            $mol_assert_unique($mol_key(jin), $mol_key(new User()));
+        },
+        'Elements'() {
+            const foo = $mol_jsx("div", null, "bar");
+            $mol_assert_equal($mol_key(foo), $mol_key(foo));
+            $mol_assert_unique($mol_key(foo), $mol_key($mol_jsx("div", null, "bar")));
+        },
+        'Custom JSON representation'() {
+            class User {
+                name;
+                age;
+                constructor(name, age) {
+                    this.name = name;
+                    this.age = age;
+                }
+                toJSON() { return { name: this.name }; }
+            }
+            $mol_assert_equal($mol_key(new User('jin', 18)), '{"name":"jin"}');
+        },
+        'Special native classes'() {
+            $mol_assert_equal($mol_key(new Date('xyz')), 'null');
+            $mol_assert_equal($mol_key(new Date('2001-01-02T03:04:05.678Z')), '"2001-01-02T03:04:05.678Z"');
+            $mol_assert_equal($mol_key(/./), '"/./"');
+            $mol_assert_equal($mol_key(/\./gimsu), '"/\\\\./gimsu"');
+        },
     });
 })($ || ($ = {}));
-//mol/log3/log3.test.ts
+//mol/key/key.test.tsx
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_wire_log.active();
+})($ || ($ = {}));
+//mol/wire/atom/atom.test.ts
 ;
 "use strict";
 var $;
@@ -1739,493 +1907,6 @@ var $;
     });
 })($ || ($ = {}));
 //mol/view/view/view.test.ts
-;
-"use strict";
-var $;
-(function ($_1) {
-    var $$;
-    (function ($$) {
-        $mol_test({
-            'handle clicks by default'($) {
-                let clicked = false;
-                const clicker = $mol_button.make({
-                    $,
-                    click: (event) => { clicked = true; },
-                });
-                const element = clicker.dom_tree();
-                const event = $mol_dom_context.document.createEvent('mouseevent');
-                event.initEvent('click', true, true);
-                element.dispatchEvent(event);
-                $mol_assert_ok(clicked);
-            },
-            'no handle clicks if disabled'($) {
-                let clicked = false;
-                const clicker = $mol_button.make({
-                    $,
-                    click: (event) => { clicked = true; },
-                    enabled: () => false,
-                });
-                const element = clicker.dom_tree();
-                const event = $mol_dom_context.document.createEvent('mouseevent');
-                event.initEvent('click', true, true);
-                element.dispatchEvent(event);
-                $mol_assert_not(clicked);
-            },
-            'Store error'($) {
-                const clicker = $mol_button.make({
-                    $,
-                    click: (event) => $.$mol_fail(new Error('Test error')),
-                });
-                const event = $mol_dom_context.document.createEvent('mouseevent');
-                $mol_assert_fail(() => clicker.event_activate(event), 'Test error');
-                $mol_assert_fail(() => clicker.status(), 'Test error');
-            },
-        });
-    })($$ = $_1.$$ || ($_1.$$ = {}));
-})($ || ($ = {}));
-//mol/button/button.test.ts
-;
-"use strict";
-//mol/type/result/result.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_style_sheet_test1 extends $mol_view {
-        Item() { return new $mol_view; }
-    }
-    $.$mol_style_sheet_test1 = $mol_style_sheet_test1;
-    class $mol_style_sheet_test2 extends $mol_view {
-        List() { return new $mol_style_sheet_test1; }
-    }
-    $.$mol_style_sheet_test2 = $mol_style_sheet_test2;
-    $mol_test({
-        'component block styles'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                display: 'block',
-                zIndex: 1,
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tdisplay: block;\n\tz-index: 1;\n}\n');
-        },
-        'various units'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const { px, per } = $mol_style_unit;
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                width: per(50),
-                height: px(50),
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\twidth: 50%;\n\theight: 50px;\n}\n');
-        },
-        'various functions'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const { calc } = $mol_style_func;
-            const { px, per } = $mol_style_unit;
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                width: calc(`${per(100)} - ${px(1)}`),
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\twidth: calc(100% - 1px);\n}\n');
-        },
-        'property groups'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const { px } = $mol_style_unit;
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                flex: {
-                    grow: 5
-                }
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tflex-grow: 5;\n}\n');
-        },
-        'property shorthand'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const { px } = $mol_style_unit;
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                padding: [px(5), 'auto']
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tpadding: 5px auto;\n}\n');
-        },
-        'sequenced values'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const { url } = $mol_style_func;
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                background: {
-                    image: [[url('foo')], [url('bar')]],
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tbackground-image: url("foo"),url("bar");\n}\n');
-        },
-        'sequenced structs'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const { rem } = $mol_style_unit;
-            const { hsla } = $mol_style_func;
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                box: {
-                    shadow: [
-                        {
-                            inset: true,
-                            x: 0,
-                            y: 0,
-                            blur: rem(.5),
-                            spread: 0,
-                            color: 'red',
-                        },
-                        {
-                            inset: false,
-                            x: 0,
-                            y: 0,
-                            blur: rem(.5),
-                            spread: 0,
-                            color: 'blue',
-                        },
-                    ],
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tbox-shadow: inset 0 0 0.5rem 0 red,0 0 0.5rem 0 blue;\n}\n');
-        },
-        'component block styles with pseudo class'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                ':focus': {
-                    color: 'red',
-                    display: 'block',
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test]:focus {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-        'component block styles with pseudo element'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                '::first-line': {
-                    color: 'red',
-                    display: 'block',
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test]::first-line {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-        'component block styles with media query'() {
-            class $mol_style_sheet_test extends $mol_view {
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                '@media': {
-                    'print': {
-                        color: 'red',
-                        display: 'block',
-                    },
-                },
-            });
-            $mol_assert_equal(sheet, '@media print {\n[mol_style_sheet_test] {\n\tcolor: red;\n\tdisplay: block;\n}\n}\n');
-        },
-        'component block styles with attribute value'() {
-            class $mol_style_sheet_test extends $mol_view {
-                attr() {
-                    return {
-                        mol_theme: '$mol_theme_dark'
-                    };
-                }
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                '@': {
-                    mol_theme: {
-                        '$mol_theme_dark': {
-                            color: 'red',
-                            display: 'block',
-                        },
-                    },
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test][mol_theme="$mol_theme_dark"] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-        'component element styles'() {
-            class $mol_style_sheet_test extends $mol_view {
-                Item() { return new $mol_view; }
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                Item: {
-                    color: 'red',
-                    display: 'block',
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test_item] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-        'component element of element styles'() {
-            const sheet = $mol_style_sheet($mol_style_sheet_test2, {
-                List: {
-                    Item: {
-                        color: 'red',
-                        display: 'block',
-                    },
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test2_list_item] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-        'component element styles with block attribute value'() {
-            class $mol_style_sheet_test extends $mol_view {
-                Item() { return new $mol_view; }
-                attr() {
-                    return {
-                        mol_theme: '$mol_theme_dark'
-                    };
-                }
-            }
-            const sheet = $mol_style_sheet($mol_style_sheet_test, {
-                '@': {
-                    mol_theme: {
-                        '$mol_theme_dark': {
-                            Item: {
-                                color: 'red',
-                            },
-                        },
-                    },
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test][mol_theme="$mol_theme_dark"] [mol_style_sheet_test_item] {\n\tcolor: red;\n}\n');
-        },
-        'inner component styles by class'() {
-            const sheet = $mol_style_sheet($mol_style_sheet_test2, {
-                $mol_style_sheet_test1: {
-                    color: 'red',
-                    display: 'block',
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test2] [mol_style_sheet_test1] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-        'child component styles by class'() {
-            const sheet = $mol_style_sheet($mol_style_sheet_test2, {
-                '>': {
-                    $mol_style_sheet_test1: {
-                        color: 'red',
-                        display: 'block',
-                    },
-                },
-            });
-            $mol_assert_equal(sheet, '[mol_style_sheet_test2] > [mol_style_sheet_test1] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
-        },
-    });
-})($ || ($ = {}));
-//mol/style/sheet/sheet.test.ts
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push(context => {
-        class $mol_state_arg_mock extends $mol_state_arg {
-            static $ = context;
-            static href(next) { return next || ''; }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_state_arg_mock, "href", null);
-        context.$mol_state_arg = $mol_state_arg_mock;
-    });
-    $mol_test({
-        'args as dictionary'($) {
-            $.$mol_state_arg.href('#!foo=bar/xxx');
-            $mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
-            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!yyy/lol=123');
-        },
-        'one value from args'($) {
-            $.$mol_state_arg.href('#!foo=bar/xxx');
-            $mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
-            $mol_assert_equal($.$mol_state_arg.value('xxx'), '');
-            $.$mol_state_arg.value('foo', 'lol');
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=lol/xxx');
-            $.$mol_state_arg.value('foo', '');
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo/xxx');
-            $.$mol_state_arg.value('foo', null);
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!xxx');
-        },
-        'nested args'($) {
-            const base = new $.$mol_state_arg('nested.');
-            class Nested extends $mol_state_arg {
-                constructor(prefix) {
-                    super(base.prefix + prefix);
-                }
-                static value = (key, next) => base.value(key, next);
-            }
-            $.$mol_state_arg.href('#!foo=bar/nested.xxx=123');
-            $mol_assert_equal(Nested.value('foo'), null);
-            $mol_assert_equal(Nested.value('xxx'), '123');
-            Nested.value('foo', 'lol');
-            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=bar/nested.xxx=123/nested.foo=lol');
-        },
-    });
-})($ || ($ = {}));
-//mol/state/arg/arg.web.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'null by default'() {
-            const key = String(Math.random());
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-        'storing'() {
-            const key = String(Math.random());
-            $mol_state_session.value(key, '$mol_state_session_test');
-            $mol_assert_equal($mol_state_session.value(key), '$mol_state_session_test');
-            $mol_state_session.value(key, null);
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//mol/state/session/session.test.ts
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        $.$mol_after_timeout = $mol_after_mock_timeout;
-    });
-})($ || ($ = {}));
-//mol/after/timeout/timeout.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test_mocks.push(context => {
-        class $mol_state_local_mock extends $mol_state_local {
-            static state = {};
-            static value(key, next = this.state[key]) {
-                return this.state[key] = (next || null);
-            }
-        }
-        __decorate([
-            $mol_mem_key
-        ], $mol_state_local_mock, "value", null);
-        context.$mol_state_local = $mol_state_local_mock;
-    });
-})($ || ($ = {}));
-//mol/state/local/local.mock.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'local get set delete'() {
-            var key = '$mol_state_local_test:' + Math.random();
-            $mol_assert_equal($mol_state_local.value(key), null);
-            $mol_state_local.value(key, 123);
-            $mol_assert_equal($mol_state_local.value(key), 123);
-            $mol_state_local.value(key, null);
-            $mol_assert_equal($mol_state_local.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//mol/state/local/local.test.ts
-;
-"use strict";
-var $;
-(function ($_1) {
-    var $$;
-    (function ($$) {
-        $mol_test({
-            'task add'($) {
-                const app = $hyoo_todomvc.make({ $ });
-                const rows = app.task_rows();
-                const title = $mol_guid();
-                app.Add().value(title);
-                app.Add().done();
-                $mol_assert_equal(app.task_rows()[0].title(), title);
-                $mol_assert_equal(app.task_rows()[0].completed(), false);
-                $mol_assert_like(app.task_rows().slice(1), rows);
-                $mol_assert_equal(app.Add().value(), '');
-            },
-            'task rename'($) {
-                const title = $mol_guid();
-                save: {
-                    const app = $hyoo_todomvc.make({ $ });
-                    app.Add().value('test title');
-                    app.Add().done();
-                    app.task_rows()[0].Title().value(title);
-                }
-                load: {
-                    const app = $hyoo_todomvc.make({ $ });
-                    $mol_assert_equal(app.task_rows()[0].Title().value(), title);
-                }
-            },
-            'task toggle'($) {
-                save: {
-                    const app = $hyoo_todomvc.make({ $ });
-                    app.Add().value('test title');
-                    app.Add().done();
-                    $mol_assert_equal(app.task_rows()[0].Complete().checked(), false);
-                    app.task_rows()[0].Complete().click();
-                }
-                toggle: {
-                    const app = $hyoo_todomvc.make({ $ });
-                    $mol_assert_equal(app.task_rows()[0].Complete().checked(), true);
-                    app.task_rows()[0].Complete().click();
-                }
-                load: {
-                    const app = $hyoo_todomvc.make({ $ });
-                    $mol_assert_equal(app.task_rows()[0].Complete().checked(), false);
-                }
-            },
-            'task delete'($) {
-                const app = $hyoo_todomvc.make({ $ });
-                app.Add().value('test title');
-                app.Add().done();
-                const top = app.task_rows()[0];
-                top.Drop().click();
-                $mol_assert_not(app.task_rows().includes(top));
-            },
-            'navigation'($) {
-                const app = $hyoo_todomvc.make({ $ });
-                app.Add().value('test title');
-                app.Add().done();
-                const task1 = app.task_rows()[0];
-                app.Add().value('test title 2');
-                app.Add().done();
-                const task2 = app.task_rows()[1];
-                task2.Complete().click();
-                $mol_assert_ok(app.task_rows().includes(task1));
-                $mol_assert_ok(app.task_rows().includes(task2));
-                $.$mol_state_arg.href(app.Filter_completed().uri());
-                $mol_assert_not(app.task_rows().includes(task1));
-                $mol_assert_ok(app.task_rows().includes(task2));
-                $.$mol_state_arg.href(app.Filter_active().uri());
-                $mol_assert_ok(app.task_rows().includes(task1));
-                $mol_assert_not(app.task_rows().includes(task2));
-                $.$mol_state_arg.href(app.Filter_all().uri());
-                $mol_assert_ok(app.task_rows().includes(task1));
-                $mol_assert_ok(app.task_rows().includes(task2));
-            },
-            'clear completed'($) {
-                const app = $hyoo_todomvc.make({ $ });
-                app.Add().value('test title');
-                app.Add().done();
-                const task1 = app.task_rows()[0];
-                app.Add().value('test title 2');
-                app.Add().done();
-                const task2 = app.task_rows()[1];
-                task2.Complete().click();
-                $mol_assert_ok(app.task_rows().includes(task1));
-                $mol_assert_ok(app.task_rows().includes(task2));
-                app.Sweep().click();
-                $mol_assert_ok(app.task_rows().includes(task1));
-                $mol_assert_not(app.task_rows().includes(task2));
-            },
-        });
-    })($$ = $_1.$$ || ($_1.$$ = {}));
-})($ || ($ = {}));
-//hyoo/todomvc/todomvc.test.ts
-;
-"use strict";
-//mol/type/equals/equals.test.ts
-;
-"use strict";
-//mol/type/equals/equals.ts
 ;
 "use strict";
 var $;
@@ -2422,6 +2103,30 @@ var $;
     })($$ = $_1.$$ || ($_1.$$ = {}));
 })($ || ($ = {}));
 //mol/view/tree/test/tree.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_deprecated(message) {
+        return (host, field, descr) => {
+            const value = descr.value;
+            let warned = false;
+            descr.value = function $mol_deprecated_wrapper(...args) {
+                if (!warned) {
+                    $$.$mol_log3_warn({
+                        place: `${host.constructor.name}::${field}`,
+                        message: `Deprecated`,
+                        hint: message,
+                    });
+                    warned = true;
+                }
+                return value.call(this, ...args);
+            };
+        };
+    }
+    $.$mol_deprecated = $mol_deprecated;
+})($ || ($ = {}));
+//mol/deprecated/deprecated.ts
 ;
 "use strict";
 var $;
@@ -2817,6 +2522,40 @@ var $;
 //mol/tree/tree.ts
 ;
 "use strict";
+var $;
+(function ($) {
+    $mol_test_mocks.push(context => {
+        class $mol_state_local_mock extends $mol_state_local {
+            static state = {};
+            static value(key, next = this.state[key]) {
+                return this.state[key] = (next || null);
+            }
+        }
+        __decorate([
+            $mol_mem_key
+        ], $mol_state_local_mock, "value", null);
+        context.$mol_state_local = $mol_state_local_mock;
+    });
+})($ || ($ = {}));
+//mol/state/local/local.mock.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'local get set delete'() {
+            var key = '$mol_state_local_test:' + Math.random();
+            $mol_assert_equal($mol_state_local.value(key), null);
+            $mol_state_local.value(key, 123);
+            $mol_assert_equal($mol_state_local.value(key), 123);
+            $mol_state_local.value(key, null);
+            $mol_assert_equal($mol_state_local.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+//mol/state/local/local.test.ts
+;
+"use strict";
 //node/node.ts
 ;
 "use strict";
@@ -2890,6 +2629,7 @@ var $;
         static relative(path) {
             throw new Error('Not implemented yet');
         }
+        static base = '';
         path() {
             return '.';
         }
@@ -2923,7 +2663,7 @@ var $;
                 return exists;
             if (next)
                 this.parent().exists(true);
-            this.ensure(next);
+            this.ensure();
             this.reset();
             return next;
         }
@@ -3203,7 +2943,7 @@ var $;
             }
             return this.constructor.absolute(res);
         }
-        ensure(next) {
+        ensure() {
             throw new Error('$mol_file_web.ensure() not implemented');
         }
         sub() {
@@ -3241,10 +2981,10 @@ var $;
             return 'en';
         }
         static lang(next) {
-            return $mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
+            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
         }
         static source(lang) {
-            return JSON.parse($mol_file.relative(`web.locale=${lang}.json`).text().toString());
+            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
         }
         static texts(lang, next) {
             if (next)
@@ -3580,39 +3320,421 @@ var $;
 ;
 "use strict";
 var $;
-(function ($) {
-    function $mol_promise() {
-        let done;
-        let fail;
-        const promise = new Promise((d, f) => {
-            done = d;
-            fail = f;
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $mol_test({
+            'handle clicks by default'($) {
+                let clicked = false;
+                const clicker = $mol_button.make({
+                    $,
+                    click: (event) => { clicked = true; },
+                });
+                const element = clicker.dom_tree();
+                const event = $mol_dom_context.document.createEvent('mouseevent');
+                event.initEvent('click', true, true);
+                element.dispatchEvent(event);
+                $mol_assert_ok(clicked);
+            },
+            'no handle clicks if disabled'($) {
+                let clicked = false;
+                const clicker = $mol_button.make({
+                    $,
+                    click: (event) => { clicked = true; },
+                    enabled: () => false,
+                });
+                const element = clicker.dom_tree();
+                const event = $mol_dom_context.document.createEvent('mouseevent');
+                event.initEvent('click', true, true);
+                element.dispatchEvent(event);
+                $mol_assert_not(clicked);
+            },
+            'Store error'($) {
+                const clicker = $mol_button.make({
+                    $,
+                    click: (event) => $.$mol_fail(new Error('Test error')),
+                });
+                const event = $mol_dom_context.document.createEvent('mouseevent');
+                $mol_assert_fail(() => clicker.event_activate(event), 'Test error');
+                $mol_assert_fail(() => clicker.status(), 'Test error');
+            },
         });
-        return Object.assign(promise, {
-            done,
-            fail,
-        });
-    }
-    $.$mol_promise = $mol_promise;
+    })($$ = $_1.$$ || ($_1.$$ = {}));
 })($ || ($ = {}));
-//mol/promise/promise.ts
+//mol/button/button.test.ts
+;
+"use strict";
+//mol/type/result/result.test.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    function $mol_wait_timeout_async(timeout) {
-        const promise = $mol_promise();
-        const task = new this.$mol_after_timeout(timeout, () => promise.done());
-        return Object.assign(promise, {
-            destructor: () => task.destructor()
-        });
+    class $mol_style_sheet_test1 extends $mol_view {
+        Item() { return new $mol_view; }
     }
-    $.$mol_wait_timeout_async = $mol_wait_timeout_async;
-    function $mol_wait_timeout(timeout) {
-        return this.$mol_wire_sync(this).$mol_wait_timeout_async(timeout);
+    $.$mol_style_sheet_test1 = $mol_style_sheet_test1;
+    class $mol_style_sheet_test2 extends $mol_view {
+        List() { return new $mol_style_sheet_test1; }
     }
-    $.$mol_wait_timeout = $mol_wait_timeout;
+    $.$mol_style_sheet_test2 = $mol_style_sheet_test2;
+    $mol_test({
+        'component block styles'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                display: 'block',
+                zIndex: 1,
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tdisplay: block;\n\tz-index: 1;\n}\n');
+        },
+        'various units'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const { px, per } = $mol_style_unit;
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                width: per(50),
+                height: px(50),
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\twidth: 50%;\n\theight: 50px;\n}\n');
+        },
+        'various functions'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const { calc } = $mol_style_func;
+            const { px, per } = $mol_style_unit;
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                width: calc(`${per(100)} - ${px(1)}`),
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\twidth: calc(100% - 1px);\n}\n');
+        },
+        'property groups'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const { px } = $mol_style_unit;
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                flex: {
+                    grow: 5
+                }
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tflex-grow: 5;\n}\n');
+        },
+        'property shorthand'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const { px } = $mol_style_unit;
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                padding: [px(5), 'auto']
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tpadding: 5px auto;\n}\n');
+        },
+        'sequenced values'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const { url } = $mol_style_func;
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                background: {
+                    image: [[url('foo')], [url('bar')]],
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tbackground-image: url("foo"),url("bar");\n}\n');
+        },
+        'sequenced structs'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const { rem } = $mol_style_unit;
+            const { hsla } = $mol_style_func;
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                box: {
+                    shadow: [
+                        {
+                            inset: true,
+                            x: 0,
+                            y: 0,
+                            blur: rem(.5),
+                            spread: 0,
+                            color: 'red',
+                        },
+                        {
+                            inset: false,
+                            x: 0,
+                            y: 0,
+                            blur: rem(.5),
+                            spread: 0,
+                            color: 'blue',
+                        },
+                    ],
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test] {\n\tbox-shadow: inset 0 0 0.5rem 0 red,0 0 0.5rem 0 blue;\n}\n');
+        },
+        'component block styles with pseudo class'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                ':focus': {
+                    color: 'red',
+                    display: 'block',
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test]:focus {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+        'component block styles with pseudo element'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                '::first-line': {
+                    color: 'red',
+                    display: 'block',
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test]::first-line {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+        'component block styles with media query'() {
+            class $mol_style_sheet_test extends $mol_view {
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                '@media': {
+                    'print': {
+                        color: 'red',
+                        display: 'block',
+                    },
+                },
+            });
+            $mol_assert_equal(sheet, '@media print {\n[mol_style_sheet_test] {\n\tcolor: red;\n\tdisplay: block;\n}\n}\n');
+        },
+        'component block styles with attribute value'() {
+            class $mol_style_sheet_test extends $mol_view {
+                attr() {
+                    return {
+                        mol_theme: '$mol_theme_dark'
+                    };
+                }
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                '@': {
+                    mol_theme: {
+                        '$mol_theme_dark': {
+                            color: 'red',
+                            display: 'block',
+                        },
+                    },
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test][mol_theme="$mol_theme_dark"] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+        'component element styles'() {
+            class $mol_style_sheet_test extends $mol_view {
+                Item() { return new $mol_view; }
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                Item: {
+                    color: 'red',
+                    display: 'block',
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test_item] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+        'component element of element styles'() {
+            const sheet = $mol_style_sheet($mol_style_sheet_test2, {
+                List: {
+                    Item: {
+                        color: 'red',
+                        display: 'block',
+                    },
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test2_list_item] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+        'component element styles with block attribute value'() {
+            class $mol_style_sheet_test extends $mol_view {
+                Item() { return new $mol_view; }
+                attr() {
+                    return {
+                        mol_theme: '$mol_theme_dark'
+                    };
+                }
+            }
+            const sheet = $mol_style_sheet($mol_style_sheet_test, {
+                '@': {
+                    mol_theme: {
+                        '$mol_theme_dark': {
+                            Item: {
+                                color: 'red',
+                            },
+                        },
+                    },
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test][mol_theme="$mol_theme_dark"] [mol_style_sheet_test_item] {\n\tcolor: red;\n}\n');
+        },
+        'inner component styles by class'() {
+            const sheet = $mol_style_sheet($mol_style_sheet_test2, {
+                $mol_style_sheet_test1: {
+                    color: 'red',
+                    display: 'block',
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test2] [mol_style_sheet_test1] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+        'child component styles by class'() {
+            const sheet = $mol_style_sheet($mol_style_sheet_test2, {
+                '>': {
+                    $mol_style_sheet_test1: {
+                        color: 'red',
+                        display: 'block',
+                    },
+                },
+            });
+            $mol_assert_equal(sheet, '[mol_style_sheet_test2] > [mol_style_sheet_test1] {\n\tcolor: red;\n\tdisplay: block;\n}\n');
+        },
+    });
 })($ || ($ = {}));
-//mol/wait/timeout/timeout.ts
+//mol/style/sheet/sheet.test.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push(context => {
+        class $mol_state_arg_mock extends $mol_state_arg {
+            static $ = context;
+            static href(next) { return next || ''; }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_state_arg_mock, "href", null);
+        context.$mol_state_arg = $mol_state_arg_mock;
+    });
+    $mol_test({
+        'args as dictionary'($) {
+            $.$mol_state_arg.href('#!foo=bar/xxx');
+            $mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
+            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!yyy/lol=123');
+        },
+        'one value from args'($) {
+            $.$mol_state_arg.href('#!foo=bar/xxx');
+            $mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
+            $mol_assert_equal($.$mol_state_arg.value('xxx'), '');
+            $.$mol_state_arg.value('foo', 'lol');
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=lol/xxx');
+            $.$mol_state_arg.value('foo', '');
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo/xxx');
+            $.$mol_state_arg.value('foo', null);
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!xxx');
+        },
+        'nested args'($) {
+            const base = new $.$mol_state_arg('nested.');
+            class Nested extends $mol_state_arg {
+                constructor(prefix) {
+                    super(base.prefix + prefix);
+                }
+                static value = (key, next) => base.value(key, next);
+            }
+            $.$mol_state_arg.href('#!foo=bar/nested.xxx=123');
+            $mol_assert_equal(Nested.value('foo'), null);
+            $mol_assert_equal(Nested.value('xxx'), '123');
+            Nested.value('foo', 'lol');
+            $mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#!foo=bar/nested.xxx=123/nested.foo=lol');
+        },
+    });
+})($ || ($ = {}));
+//mol/state/arg/arg.web.test.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $mol_test({
+            'task add'($) {
+                const app = $hyoo_todomvc.make({ $ });
+                const rows = app.task_rows();
+                const title = $mol_guid();
+                app.Add().value(title);
+                app.Add().done();
+                $mol_assert_equal(app.task_rows()[0].title(), title);
+                $mol_assert_equal(app.task_rows()[0].completed(), false);
+                $mol_assert_like(app.task_rows().slice(1), rows);
+                $mol_assert_equal(app.Add().value(), '');
+            },
+            'task rename'($) {
+                const title = $mol_guid();
+                save: {
+                    const app = $hyoo_todomvc.make({ $ });
+                    app.Add().value('test title');
+                    app.Add().done();
+                    app.task_rows()[0].Title().value(title);
+                }
+                load: {
+                    const app = $hyoo_todomvc.make({ $ });
+                    $mol_assert_equal(app.task_rows()[0].Title().value(), title);
+                }
+            },
+            'task toggle'($) {
+                save: {
+                    const app = $hyoo_todomvc.make({ $ });
+                    app.Add().value('test title');
+                    app.Add().done();
+                    $mol_assert_equal(app.task_rows()[0].Complete().checked(), false);
+                    app.task_rows()[0].Complete().click();
+                }
+                toggle: {
+                    const app = $hyoo_todomvc.make({ $ });
+                    $mol_assert_equal(app.task_rows()[0].Complete().checked(), true);
+                    app.task_rows()[0].Complete().click();
+                }
+                load: {
+                    const app = $hyoo_todomvc.make({ $ });
+                    $mol_assert_equal(app.task_rows()[0].Complete().checked(), false);
+                }
+            },
+            'task delete'($) {
+                const app = $hyoo_todomvc.make({ $ });
+                app.Add().value('test title');
+                app.Add().done();
+                const top = app.task_rows()[0];
+                top.Drop().click();
+                $mol_assert_not(app.task_rows().includes(top));
+            },
+            'navigation'($) {
+                const app = $hyoo_todomvc.make({ $ });
+                app.Add().value('test title');
+                app.Add().done();
+                const task1 = app.task_rows()[0];
+                app.Add().value('test title 2');
+                app.Add().done();
+                const task2 = app.task_rows()[1];
+                task2.Complete().click();
+                $mol_assert_ok(app.task_rows().includes(task1));
+                $mol_assert_ok(app.task_rows().includes(task2));
+                $.$mol_state_arg.href(app.Filter_completed().uri());
+                $mol_assert_not(app.task_rows().includes(task1));
+                $mol_assert_ok(app.task_rows().includes(task2));
+                $.$mol_state_arg.href(app.Filter_active().uri());
+                $mol_assert_ok(app.task_rows().includes(task1));
+                $mol_assert_not(app.task_rows().includes(task2));
+                $.$mol_state_arg.href(app.Filter_all().uri());
+                $mol_assert_ok(app.task_rows().includes(task1));
+                $mol_assert_ok(app.task_rows().includes(task2));
+            },
+            'clear completed'($) {
+                const app = $hyoo_todomvc.make({ $ });
+                app.Add().value('test title');
+                app.Add().done();
+                const task1 = app.task_rows()[0];
+                app.Add().value('test title 2');
+                app.Add().done();
+                const task2 = app.task_rows()[1];
+                task2.Complete().click();
+                $mol_assert_ok(app.task_rows().includes(task1));
+                $mol_assert_ok(app.task_rows().includes(task2));
+                app.Sweep().click();
+                $mol_assert_ok(app.task_rows().includes(task1));
+                $mol_assert_not(app.task_rows().includes(task2));
+            },
+        });
+    })($$ = $_1.$$ || ($_1.$$ = {}));
+})($ || ($ = {}));
+//hyoo/todomvc/todomvc.test.ts
 
 //# sourceMappingURL=web.test.js.map

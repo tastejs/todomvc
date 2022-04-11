@@ -19,7 +19,7 @@ $mol_string $mol_view
 		^
 		disabled <= disabled false
 		value <= value_changed?val <=> value?val \
-		placeholder <= hint \ 
+		placeholder <= hint_visible <= hint \
 		spellcheck <= spellcheck false
 		autocomplete <= autocomplete_native \
 		selectionEnd <= selection_end 0
@@ -100,12 +100,10 @@ $mol_check $mol_button_minor
 					<= title \
 
 $mol_scroll $mol_view
-	minimal_height 0
-	_event_scroll_timer?val null
+	scroll_top?val 0
+	scroll_left?val 0
 	field *
 		^
-		scrollTop <= scroll_top?val 0
-		scrollLeft <= scroll_left?val 0
 		tabIndex <= tabindex -1
 	event *
 		^

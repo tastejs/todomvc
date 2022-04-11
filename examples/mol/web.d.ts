@@ -75,7 +75,6 @@ declare namespace $ {
         static [Symbol.toPrimitive](): any;
         static toString(): any;
         destructor(): void;
-        [Symbol.toPrimitive](hint: string): any;
         toString(): any;
         toJSON(): any;
     }
@@ -195,43 +194,46 @@ declare namespace $ {
 
 declare namespace $ {
     enum $mol_wire_cursor {
-        stale,
-        doubt,
-        fresh,
-        solid
+        stale = -1,
+        doubt = -2,
+        fresh = -3,
+        final = -4
     }
 }
 
 declare namespace $ {
-    class $mol_wire_pub extends Array<$mol_wire_pub | number> {
+    class $mol_wire_pub extends Array<unknown> {
         static get [Symbol.species](): ArrayConstructor;
-        static affected: (number | $mol_wire_sub)[];
-        protected subs_from: number;
-        get subs(): $mol_wire_sub[];
-        on(sub: $mol_wire_pub, sub_pos: number): number;
-        off(sub_pos: number): void;
+        protected sub_from: number;
+        get sub_list(): readonly $mol_wire_sub[];
+        get sub_empty(): boolean;
+        sub_on(sub: $mol_wire_pub, pub_pos: number): number;
+        sub_off(sub_pos: number): void;
         reap(): void;
         promote(): void;
-        touch(): void;
-        emit(): void;
-        stale(): boolean;
-        affect(quant: number): boolean;
-        move(from_pos: number, to_pos: number): void;
-        repos(peer_pos: number, self_pos: number): void;
-        get alone(): boolean;
+        refresh(): void;
+        commit(): void;
+        emit(quant?: $mol_wire_cursor): void;
+        peer_move(from_pos: number, to_pos: number): void;
+        peer_repos(peer_pos: number, self_pos: number): void;
     }
 }
 
 declare namespace $ {
     interface $mol_wire_sub extends $mol_wire_pub {
-        begin(): $mol_wire_sub | null;
-        next(pub?: $mol_wire_pub): $mol_wire_pub | null;
-        end(sub: $mol_wire_pub | null): void;
+        track_on(): $mol_wire_sub | null;
+        track_next(pub?: $mol_wire_pub): $mol_wire_pub | null;
+        pub_off(pub_pos: number): void;
+        track_cut(sub: $mol_wire_pub | null): void;
+        track_off(sub: $mol_wire_pub | null): void;
+        absorb(quant: $mol_wire_cursor): void;
+        destructor(): void;
     }
 }
 
 declare namespace $ {
-    let $mol_wire_auto: $mol_wire_sub | null;
+    function $mol_wire_auto(next?: $mol_wire_sub | null): $mol_wire_sub | null;
+    const $mol_wire_affected: (number | $mol_wire_sub)[];
 }
 
 declare namespace $ {
@@ -264,21 +266,25 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_wire_pub_sub extends $mol_wire_pub implements $mol_wire_sub {
-        protected pubs_from: number;
+        protected pub_from: number;
         protected cursor: $mol_wire_cursor;
-        get pubs(): $mol_wire_pub[];
-        begin(): $mol_wire_sub | null;
+        get pub_list(): $mol_wire_pub[];
+        track_on(): $mol_wire_sub | null;
         promote(): void;
-        next(pub?: $mol_wire_pub): $mol_wire_pub | null;
-        end(sub: $mol_wire_sub | null): void;
+        track_next(pub?: $mol_wire_pub): $mol_wire_pub | null;
+        track_off(sub: $mol_wire_sub | null): void;
+        pub_off(sub_pos: number): void;
         destructor(): void;
-        forget(from?: number): void;
-        affect(quant: number): boolean;
-        get derived(): boolean;
+        track_cut(): void;
+        commit(): void;
+        commit_pubs(): void;
+        absorb(quant?: $mol_wire_cursor): void;
+        get pub_empty(): boolean;
     }
 }
 
 declare namespace $ {
+    let $mol_compare_deep_cache: WeakMap<any, WeakMap<any, boolean>>;
     function $mol_compare_deep<Value>(left: Value, right: Value): boolean;
 }
 
@@ -287,6 +293,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    const $mol_key_store: WeakMap<object, string>;
     function $mol_key<Value>(value: Value): string;
 }
 
@@ -294,6 +301,7 @@ declare namespace $ {
     class $mol_after_frame extends $mol_object2 {
         task: () => void;
         static _promise: Promise<void> | null;
+        static _timeout: any;
         static get promise(): Promise<void>;
         cancelled: boolean;
         promise: Promise<void>;
@@ -303,11 +311,23 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_wire_method<Host extends object, Args extends readonly any[], Result>(host: Host, field: PropertyKey, descr?: TypedPropertyDescriptor<(...args: Args) => Result>): {
+        value: (this: Host, ...args: Args) => Result;
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => (...args: Args) => Result) | undefined;
+        set?: ((value: (...args: Args) => Result) => void) | undefined;
+    };
+}
+
+declare namespace $ {
     class $mol_wire_fiber<Host, Args extends readonly unknown[], Result> extends $mol_wire_pub_sub {
-        readonly host: Host;
         readonly task: (this: Host, ...args: Args) => Result;
+        readonly host?: Host | undefined;
         static temp<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result, ...args: Args): $mol_wire_fiber<Host, [...Args], Result>;
-        static persist<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result, ...args: Args): $mol_wire_fiber<Host, [...Args], Result>;
+        static persist<Host, Args extends readonly unknown[], Result>(task: (this: Host, ...args: Args) => Result, keys: number): (host: Host, args: Args) => $mol_wire_fiber<Host, [...Args], Result>;
+        static warm: boolean;
         static planning: $mol_wire_fiber<any, any, any>[];
         static reaping: $mol_wire_fiber<any, any, any>[];
         static plan_task: $mol_after_frame | null;
@@ -315,62 +335,23 @@ declare namespace $ {
         static sync(): void;
         cache: Result | Error | Promise<Result | Error>;
         get args(): Args;
-        get result(): Result | undefined;
-        get persist(): boolean;
-        constructor(host: Host, task: (this: Host, ...args: Args) => Result, key: string, ...args: Args);
+        result(): Result | undefined;
+        persistent(): boolean;
+        field(): string;
+        constructor(id: string, task: (this: Host, ...args: Args) => Result, host?: Host | undefined, ...args: Args);
         destructor(): void;
-        solid(): void;
         plan(): void;
         reap(): void;
-        affect(quant: number): boolean;
-        touch(): void;
+        toString(): any;
+        toJSON(): any;
+        get $(): any;
+        emit(quant?: $mol_wire_cursor): void;
+        commit(): void;
+        refresh(): void;
         put(next: Result | Error | Promise<Result | Error>): Result | Error | Promise<Result | Error>;
-        sync(): Result extends Promise<infer Res> ? Res : Result;
+        recall(...args: Args): Result;
+        sync(): Awaited<Result>;
         async(): Promise<Result>;
-    }
-}
-
-declare namespace $ {
-    let $mol_wire_mem: <Keys extends number>(keys: Keys) => <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(proto: Host, name: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
-        value: (this: Host, ...args: any[]) => any;
-        enumerable?: boolean | undefined;
-        configurable?: boolean | undefined;
-        writable?: boolean | undefined;
-        get?: (() => Prop) | undefined;
-        set?: ((value: Prop) => void) | undefined;
-    };
-}
-
-declare namespace $ {
-    function $mol_wire_cache<Host extends object>(host: Host): { [key in keyof Host]: Host[key] extends (...args: infer Args) => any ? (...args: Args) => $mol_wire_fiber<Host, Args, ReturnType<Host[key]>> : never; };
-}
-
-declare namespace $ {
-    let $mol_mem: <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(proto: Host, name: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
-        value: (this: Host, ...args: any[]) => any;
-        enumerable?: boolean | undefined;
-        configurable?: boolean | undefined;
-        writable?: boolean | undefined;
-        get?: (() => Prop) | undefined;
-        set?: ((value: Prop) => void) | undefined;
-    };
-    let $mol_mem_key: <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(proto: Host, name: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
-        value: (this: Host, ...args: any[]) => any;
-        enumerable?: boolean | undefined;
-        configurable?: boolean | undefined;
-        writable?: boolean | undefined;
-        get?: (() => Prop) | undefined;
-        set?: ((value: Prop) => void) | undefined;
-    };
-    function $mol_mem_persist(): void;
-}
-
-declare namespace $ {
-    class $mol_window extends $mol_object {
-        static size(): {
-            width: number;
-            height: number;
-        };
     }
 }
 
@@ -380,6 +361,63 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_fail_log(error: unknown): boolean;
+}
+
+declare namespace $ {
+    function $mol_wire_mem<Keys extends number>(keys: Keys): <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(host: Host, field: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
+        value: NonNullable<Prop>;
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => Prop) | undefined;
+        set?: ((value: Prop) => void) | undefined;
+    };
+    function $mol_wire_mem_func<Keys extends number>(keys: Keys): <Result, Host, Args extends unknown[], Func extends (this: Host, ...args: Args) => Result>(func: Func) => Func;
+}
+
+declare namespace $ {
+    let $mol_mem: <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(host: Host, field: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
+        value: NonNullable<Prop>;
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => Prop) | undefined;
+        set?: ((value: Prop) => void) | undefined;
+    };
+    let $mol_mem_key: <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(host: Host, field: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
+        value: NonNullable<Prop>;
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => Prop) | undefined;
+        set?: ((value: Prop) => void) | undefined;
+    };
+    let $mol_mem_key2: <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(host: Host, field: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
+        value: NonNullable<Prop>;
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => Prop) | undefined;
+        set?: ((value: Prop) => void) | undefined;
+    };
+    let $mol_mem_key3: <Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (...args: any[]) => any>>(host: Host, field: Field, descr?: TypedPropertyDescriptor<Prop> | undefined) => {
+        value: NonNullable<Prop>;
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => Prop) | undefined;
+        set?: ((value: Prop) => void) | undefined;
+    };
+}
+
+declare namespace $ {
+    class $mol_window extends $mol_object {
+        static size(): {
+            width: number;
+            height: number;
+        };
+        static resizes(next?: Event): Event | undefined;
+    }
 }
 
 declare namespace $ {
@@ -393,6 +431,23 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_wrapper extends $mol_object2 {
+        static wrap: (task: (...ags: any[]) => any) => (...ags: any[]) => any;
+        static run<Result>(task: () => Result): Result;
+        static func<Args extends any[], Result, Host = void>(func: (this: Host, ...args: Args) => Result): (this: Host, ...args: Args) => Result;
+        static get class(): <Class extends new (...args: any[]) => any>(Class: Class) => Class;
+        static get method(): (obj: object, name: PropertyKey, descr: PropertyDescriptor) => PropertyDescriptor;
+        static get field(): <Host, Field extends keyof Host, Args extends any[], Result>(obj: Host, name: Field, descr: TypedPropertyDescriptor<Result>) => TypedPropertyDescriptor<Result>;
+    }
+}
+
+declare namespace $ {
+    class $mol_memo extends $mol_wrapper {
+        static wrap<This extends object, Value>(task: (this: This, next?: Value) => Value): (this: This, next?: Value | undefined) => Value | undefined;
+    }
 }
 
 declare namespace $ {
@@ -433,60 +488,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_wrapper extends $mol_object2 {
-        static wrap: (task: (...ags: any[]) => any) => (...ags: any[]) => any;
-        static run<Result>(task: () => Result): Result;
-        static func<Args extends any[], Result, Host = void>(func: (this: Host, ...args: Args) => Result): (this: Host, ...args: Args) => Result;
-        static get class(): <Class extends new (...args: any[]) => any>(Class: Class) => Class;
-        static get method(): (obj: object, name: PropertyKey, descr: PropertyDescriptor) => PropertyDescriptor;
-        static get field(): <Host, Field extends keyof Host, Args extends any[], Result>(obj: Host, name: Field, descr: TypedPropertyDescriptor<Result>) => TypedPropertyDescriptor<Result>;
-    }
-}
-
-declare namespace $ {
-    class $mol_memo extends $mol_wrapper {
-        static wrap<This extends object, Value>(task: (this: This, next?: Value) => Value): (this: This, next?: Value | undefined) => Value | undefined;
-    }
-}
-
-declare namespace $ {
     function $mol_func_name(this: $, func: Function): string;
     function $mol_func_name_from<Target extends Function>(target: Target, source: Function): Target;
-}
-
-declare namespace $ {
-    type $mol_log3_event<Fields> = {
-        [key in string]: unknown;
-    } & {
-        time?: string;
-        place: unknown;
-        message: string;
-    } & Fields;
-    type $mol_log3_logger<Fields, Res = void> = (this: $, event: $mol_log3_event<Fields>) => Res;
-    let $mol_log3_come: $mol_log3_logger<{}>;
-    let $mol_log3_done: $mol_log3_logger<{}>;
-    let $mol_log3_fail: $mol_log3_logger<{}>;
-    let $mol_log3_warn: $mol_log3_logger<{
-        hint: string;
-    }>;
-    let $mol_log3_rise: $mol_log3_logger<{}>;
-    let $mol_log3_area: $mol_log3_logger<{}, () => void>;
-    function $mol_log3_area_lazy(this: $, event: $mol_log3_event<{}>): () => void;
-    let $mol_log3_stack: (() => void)[];
 }
 
 declare namespace $ {
     type $mol_type_keys_extract<Input, Upper> = {
         [Field in keyof Input]: unknown extends Input[Field] ? never : Input[Field] extends never ? never : Input[Field] extends Upper ? Field : never;
     }[keyof Input];
-}
-
-declare namespace $ {
-    function $mol_log3_web_make(level: $mol_type_keys_extract<Console, Function>, color: string): (this: $, event: $mol_log3_event<{}>) => () => void;
-}
-
-declare namespace $ {
-    function $mol_deprecated(message: string): <Method extends (this: Host, ...args: readonly any[]) => any, Host extends { [key in Field]: Method; }, Field extends keyof Host>(host: Host, field: Field, descr: TypedPropertyDescriptor<Method>) => void;
 }
 
 declare namespace $ {
@@ -520,9 +529,10 @@ declare namespace $ {
         };
         dom_id(): any;
         dom_node(next?: Element): Element;
+        dom_final(): Element | undefined;
         dom_tree(next?: Element): Element;
         dom_node_actual(): Element;
-        auto(): void;
+        auto(): any;
         render(): void;
         static view_classes(): (typeof $mol_view)[];
         view_names_owned(): string[];
@@ -531,6 +541,9 @@ declare namespace $ {
             [key: string]: string | number | boolean | null;
         };
         attr(): {};
+        style_size(): {
+            [key: string]: string | number;
+        };
         style(): {
             [key: string]: string | number;
         };
@@ -538,9 +551,6 @@ declare namespace $ {
             [key: string]: any;
         };
         event(): {
-            [key: string]: (event: Event) => void;
-        };
-        event_async(): {
             [key: string]: (event: Event) => void;
         };
         plugins(): readonly $mol_view[];
@@ -831,6 +841,7 @@ declare namespace $ {
         value(val?: any): string;
         value_changed(val?: any): string;
         hint(): string;
+        hint_visible(): string;
         spellcheck(): boolean;
         autocomplete_native(): string;
         selection_end(): number;
@@ -878,6 +889,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_string extends $.$mol_string {
         event_change(next?: Event): void;
+        hint_visible(): string;
         disabled(): boolean;
         autocomplete_native(): "on" | "off";
         selection_watcher(): $mol_dom_listener;
@@ -936,7 +948,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_button extends $.$mol_button {
-        fiber(next?: $mol_wire_fiber<any, any, any> | null): $mol_wire_fiber<any, any, any> | null;
+        status(next?: null): null;
         disabled(): boolean;
         event_activate(next: Event): void;
         event_key_press(event: KeyboardEvent): void;
@@ -1122,26 +1134,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_wire_sync<Host extends object>(obj: Host): { [key in keyof Host]: Host[key] extends (...args: infer Args) => any ? (...args: Args) => Awaited<ReturnType<Host[key]>> : never; };
-}
-
-declare namespace $ {
-    function $mol_fiber_defer<Value = void>(calculate: () => Value): $mol_wire_fiber<{
-        [Symbol.toStringTag]: string;
-    }, [], Value>;
-    function $mol_fiber_root<Calculate extends (this: This, ...args: any[]) => Result, Result = void, This = void>(calculate: Calculate): Calculate;
-    function $mol_fiber_sync<Args extends any[], Value = void, This = void>(request: (this: This, ...args: Args) => PromiseLike<Value>): (...args: Args) => Value;
-    function $mol_fiber_warp(): Promise<void>;
-    class $mol_fiber_solid extends $mol_wrapper {
-        static func<This, Args extends any[], Result>(task: (this: This, ...args: Args) => Result): (this: This, ...args: Args) => Result;
-    }
-}
-
-declare namespace $ {
     class $mol_state_arg extends $mol_object {
         prefix: string;
         static href(next?: string): string;
         static href_normal(): string;
+        static href_absolute(): string;
         static dict(next?: {
             [key: string]: string | null;
         }): {
@@ -1177,7 +1174,6 @@ declare namespace $.$$ {
         uri(): string;
         uri_native(): URL;
         current(): boolean;
-        event_click(event?: Event): void;
         file_name(): string;
         minimal_height(): number;
         target(): '_self' | '_blank' | '_top' | '_parent' | string;
@@ -1232,44 +1228,16 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_scroll extends $mol_view {
-        minimal_height(): number;
-        _event_scroll_timer(val?: any): any;
+        scroll_top(val?: any): number;
+        scroll_left(val?: any): number;
         field(): {
-            scrollTop: number;
-            scrollLeft: number;
             tabIndex: number;
         };
         event(): {
             scroll: (event?: any) => any;
         };
-        scroll_top(val?: any): number;
-        scroll_left(val?: any): number;
         tabindex(): number;
         event_scroll(event?: any): any;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_session<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
-    }
-}
-
-declare namespace $ {
-    class $mol_after_timeout extends $mol_object2 {
-        delay: number;
-        task: () => void;
-        id: any;
-        constructor(delay: number, task: () => void);
-        destructor(): void;
     }
 }
 
@@ -1286,9 +1254,8 @@ declare namespace $.$$ {
 
 declare namespace $.$$ {
     class $mol_scroll extends $.$mol_scroll {
-        scroll_top(next?: number): number;
-        scroll_left(next?: number): number;
-        _event_scroll_timer(next?: $mol_after_timeout | null): $mol_after_timeout | null | undefined;
+        scroll_top(next?: number, cache?: 'cache'): number;
+        scroll_left(next?: number, cache?: 'cache'): number;
         event_scroll(next?: Event): void;
         minimal_height(): number;
         minimal_width(): number;
@@ -1312,6 +1279,14 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_support_css_overflow_anchor(this: $): boolean;
+}
+
+declare namespace $ {
+    function $mol_wire_probe<Value>(task: () => Value, next?: Value): Value | undefined;
+}
+
+declare namespace $ {
+    let $mol_mem_cached: typeof $mol_wire_probe;
 }
 
 declare namespace $ {
@@ -1403,21 +1378,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_mem_force extends Object {
-        constructor();
-        $mol_mem_force: boolean;
-        static $mol_mem_force: boolean;
-        static toString(): string;
-    }
-    class $mol_mem_force_cache extends $mol_mem_force {
-    }
-    class $mol_mem_force_update extends $mol_mem_force {
-    }
-    class $mol_mem_force_fail extends $mol_mem_force_cache {
-    }
-}
-
-declare namespace $ {
     class $mol_state_local<Value> extends $mol_object {
         static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
         static native(): Storage | {
@@ -1425,7 +1385,8 @@ declare namespace $ {
             setItem(key: string, value: string): void;
             removeItem(key: string): void;
         };
-        static value<Value>(key: string, next?: Value, force?: $mol_mem_force): Value | null;
+        static changes(next?: StorageEvent): StorageEvent | undefined;
+        static value<Value>(key: string, next?: Value | null): Value | null;
         prefix(): string;
         value(key: string, next?: Value): Value | null;
     }
