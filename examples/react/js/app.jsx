@@ -21,7 +21,9 @@ var app = app || {};
 			return {
 				nowShowing: app.ALL_TODOS,
 				editing: null,
-				newTodo: ''
+				newTodo: '',
+				sortByAsc: true,
+				errorMessage: ''
 			};
 		},
 
@@ -38,6 +40,21 @@ var app = app || {};
 		handleChange: function (event) {
 			this.setState({newTodo: event.target.value});
 		},
+		/**
+		 * @param {Object} todoObject 
+		 * @returns {boolean}
+		 */
+		validateIfTodoAlreadyExists: function (title) {
+			const titleAlreadyExist = this.props.model.todos.filter(todo => todo.title === title).length > 0;
+
+			if (titleAlreadyExist) {
+				this.setState({errorMessage: 'Todo already exists !'});
+				return false;
+			}
+
+			this.setState({errorMessage: ''});
+			return true;
+		},
 
 		handleNewTodoKeyDown: function (event) {
 			if (event.keyCode !== ENTER_KEY) {
@@ -48,7 +65,9 @@ var app = app || {};
 
 			var val = this.state.newTodo.trim();
 
-			if (val) {
+			const canAddTodo = this.validateIfTodoAlreadyExists(val);
+
+			if (val && canAddTodo) {
 				this.props.model.addTodo(val);
 				this.setState({newTodo: ''});
 			}
@@ -82,6 +101,15 @@ var app = app || {};
 
 		clearCompleted: function () {
 			this.props.model.clearCompleted();
+		},
+
+		sortByDate: function () {
+			// just assign with opposite value
+			this.setState({sortByAsc: !this.state.sortByAsc});
+
+			if(this.state.sortByAsc) return this.props.model.sortByDate('desc');
+
+			return this.props.model.sortByDate('asc');
 		},
 
 		render: function () {
@@ -127,7 +155,9 @@ var app = app || {};
 						count={activeTodoCount}
 						completedCount={completedCount}
 						nowShowing={this.state.nowShowing}
+						sortByAsc={this.state.sortByAsc}
 						onClearCompleted={this.clearCompleted}
+						onSort={this.sortByDate.bind(this)}
 					/>;
 			}
 
@@ -163,6 +193,7 @@ var app = app || {};
 							onChange={this.handleChange}
 							autoFocus={true}
 						/>
+						<label className="error">{this.state.errorMessage}</label>
 					</header>
 					{main}
 					{footer}

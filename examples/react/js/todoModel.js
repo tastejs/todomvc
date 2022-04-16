@@ -32,7 +32,8 @@ var app = app || {};
 		this.todos = this.todos.concat({
 			id: Utils.uuid(),
 			title: title,
-			completed: false
+			completed: false,
+			createdAt: new Date(),
 		});
 
 		this.inform();
@@ -80,6 +81,16 @@ var app = app || {};
 		this.todos = this.todos.filter(function (todo) {
 			return !todo.completed;
 		});
+
+		this.inform();
+	};
+
+	app.TodoModel.prototype.sortByDate = function (sort = 'asc') {
+		this.todos = this.todos.sort((current,previous) => {
+			return new Date(previous.createdAt) - new Date(current.createdAt);
+		});
+
+		if(sort === 'desc') this.todos.reverse();
 
 		this.inform();
 	};

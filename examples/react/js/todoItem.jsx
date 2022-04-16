@@ -75,13 +75,21 @@ var app = app || {};
 			}
 		},
 
+		/**
+		 * @param {string} date 
+		 * @return {string}
+		 */
+		formatDate: (date) => {
+			return new Date(date).toLocaleString();
+		},
+		
 		render: function () {
 			return (
 				<li className={classNames({
 					completed: this.props.todo.completed,
 					editing: this.props.editing
 				})}>
-					<div className="view">
+					<div className="box">
 						<input
 							className="toggle"
 							type="checkbox"
@@ -92,6 +100,7 @@ var app = app || {};
 							{this.props.todo.title}
 						</label>
 						<button className="destroy" onClick={this.props.onDestroy} />
+						<p className="bottom-right-content">{this.formatDate(this.props.todo.createdAt)}</p>
 					</div>
 					<input
 						ref="editField"

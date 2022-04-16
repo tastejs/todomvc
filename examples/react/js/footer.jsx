@@ -12,6 +12,7 @@ var app = app || {};
 		render: function () {
 			var activeTodoWord = app.Utils.pluralize(this.props.count, 'item');
 			var clearButton = null;
+			const totalTask = this.props.count + this.props.completedCount;
 
 			if (this.props.completedCount > 0) {
 				clearButton = (
@@ -24,10 +25,15 @@ var app = app || {};
 			}
 
 			var nowShowing = this.props.nowShowing;
+
+			const sortByAsc = this.props.sortByAsc;
+
+			const sortText = sortByAsc ? 'Sorted by Asc' : 'Sorted by Desc'
+
 			return (
 				<footer className="footer">
 					<span className="todo-count">
-						<strong>{this.props.count}</strong> {activeTodoWord} left
+						<strong>{this.props.count}</strong> / <strong>{totalTask}</strong> {activeTodoWord} left
 					</span>
 					<ul className="filters">
 						<li>
@@ -51,6 +57,11 @@ var app = app || {};
 								href="#/completed"
 								className={classNames({selected: nowShowing === app.COMPLETED_TODOS})}>
 									Completed
+							</a>
+						</li>
+						<li>
+							<a onClick={this.props.onSort}>
+									{sortText}
 							</a>
 						</li>
 					</ul>
