@@ -154,8 +154,8 @@ var $;
             $mol_assert_equal(dom.outerHTML, '<div>hello<strong>world</strong>!</div>');
         },
         'Function as component'() {
-            const Button = ({ hint }, target) => {
-                return $mol_jsx("button", { title: hint }, target());
+            const Button = (props, target) => {
+                return $mol_jsx("button", { title: props.hint }, target());
             };
             const dom = $mol_jsx(Button, { id: "/foo", hint: "click me" }, () => 'hey!');
             $mol_assert_equal(dom.outerHTML, '<button title="click me" id="/foo">hey!</button>');
