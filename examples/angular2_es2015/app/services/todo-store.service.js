@@ -10,7 +10,7 @@ export class TodoStoreService {
 		let persistedTodos = JSON.parse(localStorage.getItem('angular2-todos')) || [];
 
 		this.todos = persistedTodos.map((todo) => {
-			let ret = new TodoModel(todo.title);
+			let ret = new TodoModel(todo.title,todo.due);
 			ret.completed = todo.completed;
 			ret.uid = todo.uid;
 			return ret;
@@ -69,8 +69,8 @@ export class TodoStoreService {
 		}
 	}
 
-	add(title) {
-		this.todos.push(new TodoModel(title));
+	add(title,due) {
+		this.todos.push(new TodoModel(title,due));
 		this.persist();
 	}
 

@@ -18,7 +18,7 @@ export class TodoHeaderComponent {
 
 	addTodo() {
 		if (this.newTodo.trim().length && this.pickedDate) {
-			this._todoStore.add(this.newTodo);
+			this._todoStore.add(this.newTodo,this.pickedDate);
 			this.newTodo = '';
 		}else {
 			alert('please fill all the fields.')
