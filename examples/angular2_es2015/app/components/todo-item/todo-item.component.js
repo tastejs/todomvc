@@ -57,8 +57,9 @@ export class TodoItemComponent extends OnInit {
 			this.daysLeft = daysLeft + " days left"
 		}
 		else if(Number(daysLeft) === 0){
-
-			this.daysLeft = 24 - new Date().getHours()   + " hour left"; 	
+			
+			let hourLeft = 24 - new Date().getHours() ;
+			hourLeft < 10 ? this.daysLeft = hourLeft + " hour left" : this.daysLeft = hourLeft + " hours left"	
 		}
 		else {
 			this.daysLeft = daysLeft + " day left"
