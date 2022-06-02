@@ -57,7 +57,8 @@ export class TodoItemComponent extends OnInit {
 			this.daysLeft = daysLeft + " days left"
 		}
 		else if(Number(daysLeft) === 0){
-			this.daysLeft = new Date().getHours() - new Date(this.todo.due.toString()).getHours()  + " hour left"; 	
+
+			this.daysLeft = 24 - new Date().getHours()   + " hour left"; 	
 		}
 		else {
 			this.daysLeft = daysLeft + " day left"
@@ -66,14 +67,13 @@ export class TodoItemComponent extends OnInit {
 		
 	}
 	checkTimeLeft(){
-		let timeLeft = new Date(this.todo.toString()).getTime();
+		let timeLeft = new Date(this.todo.toString()).getTime() - new Date().getTime();
 
-		if(timeLeft<= new Date().getTime() ){
+		if(timeLeft<= 0 ){
 			this.dueCompleted = true
 		}else {
 			this.dueCompleted = false 
 		}
-		console.log(this.dueCompleted);
 	}
 	ngOnInit(){
 		this.checkDaysLeft();
