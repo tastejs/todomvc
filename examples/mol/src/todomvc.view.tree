@@ -1,75 +1,66 @@
 $hyoo_todomvc $mol_scroll
 	title \Todos
+	attr *
+		^
+		mol_theme \$mol_theme_light
 	sub /
-		<= Page $mol_list
-			rows /
-				<= Title $mol_view
-					minimal_height 176
-					sub /
-						<= title
-				<= Panel $mol_list
-					rows <= panels /
-						<= Head $mol_view
-							minimal_height 64
-							sub <= Head_content /
-								<= Head_complete $mol_check
-									enabled <= head_complete_enabled false
-									checked?val <=> completed_all?val false
-									title \❯
-								<= Add $hyoo_todomvc_add
-									value?val <=> task_title_new?val \
-									done?event <=> add?event null
-						<= List $mol_list
-							rows <= task_rows /$mol_view
-						<= Foot $mol_view
-							sub <= foot_content /
-								<= Pending $mol_view
-									sub /
-										<= pending_message \0 items left 
-								<= Filter $mol_bar
-									sub <= filterOptions /
-										<= Filter_all $mol_link
-											sub /
-												<= filter_all_label \All
-											arg *
-												completed null
-										<= Filter_active $mol_link
-											sub /
-												<= filter_active_label \Active
-											arg *
-												completed \false
-										<= Filter_completed $mol_link
-											sub /
-												<= filter_completed_label \Completed
-											arg *
-												completed \true
-								<= Sweep $mol_button_minor
-									enabled <= sweep_enabled true
-									click?event <=> sweep?event null
-									sub / <= sweep_label \Clear completed
-	Task_row!id $hyoo_todomvc_task_row
-		completed?val <=> task_completed!id?val false
-		title?val <=> task_title!id?val \
-		drop?event <=> task_drop!id?event null
+		<= Page $mol_list rows /
+			<= Title $mol_paragraph
+				minimal_height 176
+				title <= title
+			<= Panel $mol_list
+				rows <= panels /
+					<= Head $mol_view
+						minimal_height 64
+						sub <= Head_content /
+							<= Head_complete $mol_check
+								enabled <= head_complete_enabled false
+								checked? <=> completed_all? false
+								title \❯
+							<= Add $hyoo_todomvc_add
+								value? <=> task_title_new? \
+								done? <=> add? null
+					<= List $mol_list rows <= task_rows /$mol_view
+						<= Task_row*0 $hyoo_todomvc_task_row
+							completed? <=> task_completed*? false
+							title? <=> task_title*? \
+							drop? <=> task_drop*? null
+					<= Foot $mol_view sub <= foot_content /
+						<= Pending $mol_paragraph title <= pending_message \0 items left 
+						<= Filter $mol_bar
+							sub <= filterOptions /
+								<= Filter_all $mol_link
+									title \All
+									arg * completed null
+								<= Filter_active $mol_link
+									title \Active
+									arg * completed \false
+								<= Filter_completed $mol_link
+									title \Completed
+									arg * completed \true
+						<= Sweep $mol_button_minor
+							enabled <= sweep_enabled true
+							click? <=> sweep? null
+							sub / <= sweep_label \Clear completed
 
 $hyoo_todomvc_add $mol_string
 	hint \What needs to be done?
 	event *
 		^
-		keydown?event <=> press?event null
-	done?event null
+		keydown? <=> press? null
+	done? null
 
 $hyoo_todomvc_task_row $mol_view
 	minimal_height 64
-	sub /
-		<= Complete $mol_check
-			checked?val <=> completed?val false
-		<= Title $mol_string
-			hint <= title_hint \Task title
-			value?val <=> title?val \
-		<= Drop $mol_button_typed
-			sub / \✖
-			click?event <=> drop?event null
 	attr *
 		^
-		hyoo_todomvc_task_row_completed <= completed?val false
+		hyoo_todomvc_task_row_completed <= completed? false
+	sub /
+		<= Complete $mol_check
+			checked? <=> completed? false
+		<= Title $mol_string
+			hint <= title_hint \Task title
+			value? <=> title? \
+		<= Drop $mol_button_typed
+			sub / \✖
+			click? <=> drop? null

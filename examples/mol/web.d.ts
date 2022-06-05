@@ -14,20 +14,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    var $mol_dom_context: typeof globalThis;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    let $mol_report_bugsnag: string;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     const $mol_ambient_ref: unique symbol;
     type $mol_ambient_context = $;
     function $mol_ambient(this: $ | void, overrides: Partial<$>): $;
@@ -91,6 +77,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    var $mol_dom_context: typeof globalThis;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     function $mol_style_attach(id: string, text: string): HTMLStyleElement | null;
 }
 
@@ -146,7 +139,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type $mol_style_func_name = 'calc' | 'hsla' | 'rgba' | 'var' | 'clamp' | 'url';
+    type $mol_style_func_name = 'calc' | 'hsla' | 'rgba' | 'var' | 'clamp' | 'url' | 'scale';
     class $mol_style_func<Name extends $mol_style_func_name, Value = unknown> extends $mol_decor<Value> {
         readonly name: Name;
         constructor(name: Name, value: Value);
@@ -158,6 +151,7 @@ declare namespace $ {
         static hsla(hue: number, saturation: number, lightness: number, alpha: number): $mol_style_func<"hsla", (number | $mol_style_unit<"%">)[]>;
         static clamp(min: $mol_style_unit<any>, mid: $mol_style_unit<any>, max: $mol_style_unit<any>): $mol_style_func<"clamp", $mol_style_unit<any>[]>;
         static rgba(red: number, green: number, blue: number, alpha: number): $mol_style_func<"rgba", number[]>;
+        static scale(zoom: number): $mol_style_func<"scale", number[]>;
     }
 }
 
@@ -168,7 +162,9 @@ declare namespace $ {
     const $mol_theme: {
         back: $mol_style_func<"var", "--mol_theme_back">;
         hover: $mol_style_func<"var", "--mol_theme_hover">;
+        card: $mol_style_func<"var", "--mol_theme_card">;
         current: $mol_style_func<"var", "--mol_theme_current">;
+        special: $mol_style_func<"var", "--mol_theme_special">;
         text: $mol_style_func<"var", "--mol_theme_text">;
         control: $mol_style_func<"var", "--mol_theme_control">;
         shade: $mol_style_func<"var", "--mol_theme_shade">;
@@ -177,9 +173,6 @@ declare namespace $ {
         field: $mol_style_func<"var", "--mol_theme_field">;
         image: $mol_style_func<"var", "--mol_theme_image">;
     };
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -202,7 +195,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_wire_pub extends Array<unknown> {
+    class $mol_wire_pub extends Object {
+        data: unknown[];
         static get [Symbol.species](): ArrayConstructor;
         protected sub_from: number;
         get sub_list(): readonly $mol_wire_sub[];
@@ -211,8 +205,8 @@ declare namespace $ {
         sub_off(sub_pos: number): void;
         reap(): void;
         promote(): void;
-        refresh(): void;
-        commit(): void;
+        fresh(): void;
+        complete(): void;
         emit(quant?: $mol_wire_cursor): void;
         peer_move(from_pos: number, to_pos: number): void;
         peer_repos(peer_pos: number, self_pos: number): void;
@@ -276,16 +270,52 @@ declare namespace $ {
         pub_off(sub_pos: number): void;
         destructor(): void;
         track_cut(): void;
-        commit(): void;
-        commit_pubs(): void;
+        complete(): void;
+        complete_pubs(): void;
         absorb(quant?: $mol_wire_cursor): void;
         get pub_empty(): boolean;
     }
 }
 
 declare namespace $ {
-    let $mol_compare_deep_cache: WeakMap<any, WeakMap<any, boolean>>;
-    function $mol_compare_deep<Value>(left: Value, right: Value): boolean;
+    class $mol_after_frame extends $mol_object2 {
+        task: () => void;
+        static _promise: Promise<void> | null;
+        static get promise(): Promise<void>;
+        cancelled: boolean;
+        promise: Promise<void>;
+        constructor(task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    abstract class $mol_wire_fiber<Host, Args extends readonly unknown[], Result> extends $mol_wire_pub_sub {
+        readonly task: (this: Host, ...args: Args) => Result;
+        readonly host?: Host | undefined;
+        static warm: boolean;
+        static planning: Set<$mol_wire_fiber<any, any, any>>;
+        static reaping: Set<$mol_wire_fiber<any, any, any>>;
+        static plan_task: $mol_after_frame | null;
+        static plan(): void;
+        static sync(): void;
+        cache: Result | Error | Promise<Result | Error>;
+        get args(): Args;
+        result(): Result | undefined;
+        field(): string;
+        constructor(id: string, task: (this: Host, ...args: Args) => Result, host?: Host | undefined, args?: Args);
+        plan(): void;
+        reap(): void;
+        toString(): any;
+        toJSON(): any;
+        get $(): any;
+        emit(quant?: $mol_wire_cursor): void;
+        fresh(): void;
+        refresh(): void;
+        abstract put(next: Result | Error | Promise<Result | Error>): Result | Error | Promise<Result | Error>;
+        sync(): Awaited<Result>;
+        async(): Promise<Result>;
+    }
 }
 
 declare namespace $ {
@@ -298,15 +328,15 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_after_frame extends $mol_object2 {
-        task: () => void;
-        static _promise: Promise<void> | null;
-        static _timeout: any;
-        static get promise(): Promise<void>;
-        cancelled: boolean;
-        promise: Promise<void>;
-        constructor(task: () => void);
-        destructor(): void;
+    let $mol_compare_deep_cache: WeakMap<any, WeakMap<any, boolean>>;
+    function $mol_compare_deep<Value>(left: Value, right: Value): boolean;
+}
+
+declare namespace $ {
+    class $mol_wire_task<Host, Args extends readonly unknown[], Result> extends $mol_wire_fiber<Host, Args, Result> {
+        static getter<Host, Args extends readonly unknown[], Result>(task: (this: Host, ...args: Args) => Result): (host: Host, args: Args) => $mol_wire_task<Host, [...Args], Result>;
+        complete(): void;
+        put(next: Result | Error | Promise<Result | Error>): Error | Result | Promise<Error | Result>;
     }
 }
 
@@ -322,45 +352,16 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_wire_fiber<Host, Args extends readonly unknown[], Result> extends $mol_wire_pub_sub {
-        readonly task: (this: Host, ...args: Args) => Result;
-        readonly host?: Host | undefined;
-        static temp<Host, Args extends readonly unknown[], Result>(host: Host, task: (this: Host, ...args: Args) => Result, ...args: Args): $mol_wire_fiber<Host, [...Args], Result>;
-        static persist<Host, Args extends readonly unknown[], Result>(task: (this: Host, ...args: Args) => Result, keys: number): (host: Host, args: Args) => $mol_wire_fiber<Host, [...Args], Result>;
-        static warm: boolean;
-        static planning: $mol_wire_fiber<any, any, any>[];
-        static reaping: $mol_wire_fiber<any, any, any>[];
-        static plan_task: $mol_after_frame | null;
-        static plan(): void;
-        static sync(): void;
-        cache: Result | Error | Promise<Result | Error>;
-        get args(): Args;
-        result(): Result | undefined;
-        persistent(): boolean;
-        field(): string;
-        constructor(id: string, task: (this: Host, ...args: Args) => Result, host?: Host | undefined, ...args: Args);
+    class $mol_wire_atom<Host, Args extends readonly unknown[], Result> extends $mol_wire_fiber<Host, Args, Result> {
+        static getter<Host, Args extends readonly unknown[], Result>(task: (this: Host, ...args: Args) => Result, keys: number): (host: Host, args: Args) => $mol_wire_atom<Host, [...Args], Result>;
+        static watching: Set<$mol_wire_atom<any, any, any>>;
+        static watch(): void;
+        watch(): void;
+        resync(args: Args): Error | Result | Promise<Error | Result>;
+        once(): Awaited<Result>;
         destructor(): void;
-        plan(): void;
-        reap(): void;
-        toString(): any;
-        toJSON(): any;
-        get $(): any;
-        emit(quant?: $mol_wire_cursor): void;
-        commit(): void;
-        refresh(): void;
-        put(next: Result | Error | Promise<Result | Error>): Result | Error | Promise<Result | Error>;
-        recall(...args: Args): Result;
-        sync(): Awaited<Result>;
-        async(): Promise<Result>;
+        put(next: Result | Error | Promise<Result | Error>): Error | Result | Promise<Error | Result>;
     }
-}
-
-declare namespace $ {
-    function $mol_fail_catch(error: unknown): boolean;
-}
-
-declare namespace $ {
-    function $mol_fail_log(error: unknown): boolean;
 }
 
 declare namespace $ {
@@ -421,6 +422,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_fail_catch(error: unknown): boolean;
+}
+
+declare namespace $ {
+    function $mol_fail_log(error: unknown): boolean;
+}
+
+declare namespace $ {
     class $mol_view_selection extends $mol_object {
         static focused(next?: Element[]): Element[];
     }
@@ -455,6 +464,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_wire_watch(): void;
+}
+
+declare namespace $ {
     function $mol_const<Value>(value: Value): {
         (): Value;
         '()': Value;
@@ -468,7 +481,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_wire_async<Host extends object>(obj: Host): { [key in keyof Host]: Host[key] extends (...args: infer Args) => infer Res ? Res extends Promise<any> ? Host[key] : (...args: Args) => Promise<Res> : Host[key]; };
+    function $mol_wire_async<Host extends object>(obj: Host): (Host extends (...args: infer Args) => infer Res ? Res extends Promise<any> ? Host : (...args: Args) => Promise<Res> : {}) & { [key in keyof Host]: Host[key] extends (...args: infer Args_1) => infer Res_1 ? Res_1 extends Promise<any> ? Host[key] : (...args: Args_1) => Promise<Res_1> : Host[key]; };
 }
 
 declare namespace $ {
@@ -522,10 +535,13 @@ declare namespace $ {
         maximal_width(): number;
         minimal_height(): number;
         static watchers: Set<$mol_view>;
-        view_rect(): ClientRect | null;
-        view_rect_cache(next?: ClientRect | null): ClientRect | null;
-        view_rect_watcher(): {
-            destructor: () => boolean;
+        view_rect(): {
+            width: number;
+            height: number;
+            left: number;
+            right: number;
+            top: number;
+            bottom: number;
         };
         dom_id(): any;
         dom_node(next?: Element): Element;
@@ -918,8 +934,6 @@ declare namespace $ {
 declare namespace $ {
     class $mol_button extends $mol_view {
         enabled(): boolean;
-        minimal_height(): number;
-        minimal_width(): number;
         click(event?: any): any;
         event_click(event?: any): any;
         event(): {
@@ -939,7 +953,7 @@ declare namespace $ {
         disabled(): boolean;
         tab_index(): number;
         hint(): string;
-        hint_or_error(): string;
+        error(): string;
     }
 }
 
@@ -948,13 +962,12 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_button extends $.$mol_button {
-        status(next?: null): null;
+        status(next?: any[]): any[];
         disabled(): boolean;
         event_activate(next: Event): void;
         event_key_press(event: KeyboardEvent): void;
         tab_index(): number;
         error(): string;
-        hint_or_error(): string;
         sub_visible(): ($mol_view_content | $mol_speck)[];
     }
 }
@@ -1030,7 +1043,8 @@ declare namespace $ {
         whiteSpace?: 'normal' | 'nowrap' | 'break-spaces' | 'pre' | 'pre-wrap' | 'pre-line' | Common;
         webkitOverflowScrolling?: 'auto' | 'touch';
         scrollbar?: {
-            color?: readonly [Color, Color] | 'dark' | 'light' | 'auto' | Common;
+            color?: readonly [Color, Color] | 'auto' | Common;
+            width?: 'auto' | 'thin' | 'none' | Common;
         };
         scroll?: {
             snap?: {
@@ -1109,6 +1123,80 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+        font_size(): number;
+        font_family(): string;
+        style_size(): {};
+    }
+}
+
+declare namespace $ {
+    class $mol_after_timeout extends $mol_object2 {
+        delay: number;
+        task: () => void;
+        id: any;
+        constructor(delay: number, task: () => void);
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_time extends $mol_object {
+        static task(precision: number, reset?: null): $mol_after_timeout | $mol_after_frame;
+        static now(precision: number): number;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_svg extends $.$mol_svg {
+        computed_style(): CSSStyleDeclaration;
+        font_size(): number;
+        font_family(): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            viewBox: string;
+            preserveAspectRatio: string;
+        };
+        view_box(): string;
+        aspect(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            d: string;
+        };
+        geometry(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        minimal_width(): number;
+        minimal_height(): number;
+        sub(): readonly any[];
+        path(): string;
+        Path(): $mol_svg_path;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_link extends $mol_view {
         dom_name(): string;
         attr(): {
@@ -1182,6 +1270,8 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_button_typed extends $mol_button {
+        minimal_height(): number;
+        minimal_width(): number;
     }
 }
 
@@ -1263,6 +1353,28 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_paragraph extends $mol_view {
+        line_height(): number;
+        letter_width(): number;
+        width_limit(): number;
+        sub(): readonly any[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_paragraph extends $.$mol_paragraph {
+        maximal_width(): number;
+        width_limit(): number;
+        minimal_width(): number;
+        row_width(): number;
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
     class $mol_list extends $mol_view {
         render_visible_only(): boolean;
         render_over(): number;
@@ -1316,31 +1428,34 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_todomvc extends $mol_scroll {
         title(): string;
+        attr(): {
+            mol_theme: string;
+        };
         sub(): readonly any[];
-        Task_row(id: any): $hyoo_todomvc_task_row;
-        Title(): $mol_view;
+        Title(): $$.$mol_paragraph;
         head_complete_enabled(): boolean;
-        completed_all(val?: any): boolean;
+        completed_all(next?: any): boolean;
         Head_complete(): $$.$mol_check;
-        task_title_new(val?: any): string;
-        add(event?: any): any;
+        task_title_new(next?: any): string;
+        add(next?: any): any;
         Add(): $$.$hyoo_todomvc_add;
         Head_content(): readonly any[];
         Head(): $mol_view;
+        task_completed(id: any, next?: any): boolean;
+        task_title(id: any, next?: any): string;
+        task_drop(id: any, next?: any): any;
+        Task_row(id: any): $hyoo_todomvc_task_row;
         task_rows(): readonly $mol_view[];
         List(): $$.$mol_list;
         pending_message(): string;
-        Pending(): $mol_view;
-        filter_all_label(): string;
+        Pending(): $$.$mol_paragraph;
         Filter_all(): $$.$mol_link;
-        filter_active_label(): string;
         Filter_active(): $$.$mol_link;
-        filter_completed_label(): string;
         Filter_completed(): $$.$mol_link;
         filterOptions(): readonly any[];
         Filter(): $mol_bar;
         sweep_enabled(): boolean;
-        sweep(event?: any): any;
+        sweep(next?: any): any;
         sweep_label(): string;
         Sweep(): $mol_button_minor;
         foot_content(): readonly any[];
@@ -1348,31 +1463,28 @@ declare namespace $ {
         panels(): readonly any[];
         Panel(): $$.$mol_list;
         Page(): $$.$mol_list;
-        task_completed(id: any, val?: any): boolean;
-        task_title(id: any, val?: any): string;
-        task_drop(id: any, event?: any): any;
     }
     class $hyoo_todomvc_add extends $mol_string {
         hint(): string;
         event(): {
-            keydown: (event?: any) => any;
+            keydown: (next?: any) => any;
             input: (event?: any) => any;
         };
-        done(event?: any): any;
-        press(event?: any): any;
+        done(next?: any): any;
+        press(next?: any): any;
     }
     class $hyoo_todomvc_task_row extends $mol_view {
         minimal_height(): number;
-        sub(): readonly any[];
         attr(): {
             hyoo_todomvc_task_row_completed: boolean;
         };
-        completed(val?: any): boolean;
+        sub(): readonly any[];
+        completed(next?: any): boolean;
         Complete(): $$.$mol_check;
         title_hint(): string;
-        title(val?: any): string;
+        title(next?: any): string;
         Title(): $$.$mol_string;
-        drop(event?: any): any;
+        drop(next?: any): any;
         Drop(): $mol_button_typed;
     }
 }
