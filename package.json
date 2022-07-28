@@ -12,6 +12,7 @@
     "learn.json"
   ],
   "scripts": {
+    "cy:test-all": "npx cypress run",
     "test-server": "gulp test-server &",
     "server": "gulp test-server",
     "gulp": "gulp",

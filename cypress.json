@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:8000/examples/",
+  "baseUrl": "http://localhost:8000",
   "viewportWidth": 890,
   "numTestsKeptInMemory": 1,
   "projectId": "n4ynap"
