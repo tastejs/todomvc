@@ -3,3 +3,4 @@
 /dist
 /tooling/node_modules
 cypress/screenshots
+/examples/react/node_modules
