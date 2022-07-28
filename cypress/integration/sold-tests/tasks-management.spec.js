@@ -14,7 +14,9 @@ describe('SOLD.com Take home Accessment: Tasks Management', () => {
 			.check()
 
 		cy.get('.todo-list > li')
-			.should('have.class', 'completed')
+			.each((li) =>{
+				expect(li).to.have.class('completed')
+			})
 	})
 
 
@@ -24,13 +26,17 @@ describe('SOLD.com Take home Accessment: Tasks Management', () => {
 			.check()
 
 		cy.get('.todo-list > li')
-			.should('have.class', 'completed')
+			.each((li) => {
+				expect(li).to.have.class('completed')
+			})
 
 		cy.get('.toggle')
 			.uncheck()
 
 		cy.get('.todo-list > li')
-			.should('not.have.class', 'completed')
+			.each((li) => {
+				expect(li).not.to.have.class('completed')
+			})
 	})
 
 	// Test case 3
@@ -40,7 +46,7 @@ describe('SOLD.com Take home Accessment: Tasks Management', () => {
 	})
 
 	//Test case 4
-	it(`Using setup method, mark one of the todos as completed, click Clear Completed button, assert that marked item no longer exists` , () => {
+	it(`Using setup method, mark one of the todos as completed, then assert “Clear Completed” is available` , () => {
 		cy.get('.toggle')
 			.first()
 			.check()

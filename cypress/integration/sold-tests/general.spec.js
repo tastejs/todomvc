@@ -14,9 +14,8 @@ describe('SOLD.com Take Home Assessment: General', () => {
 
 	// Test case 2:
 	it('When page is initially opened, it should focus on the todo input field', () => {
-		cy.get('.new-todo')
-			.first()
-			.focus();
+		cy.focused()
+		.should('have.class', 'new-todo')
 	})
 
 	// Test case 3:
