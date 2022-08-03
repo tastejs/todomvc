@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf out",
+    "compile": "rollup -c ./rollup.config.js",
+    "watch": "npm run clean && npm run compile -- --watch"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
+    "lit": "^2.2.8",
+    "pwa-helpers": "^0.9.1",
+    "todomvc-app-css": "^2.4.2",
+    "todomvc-common": "^1.0.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "rollup": "^2.77.2"
+  }
+}

@@ -1150,6 +1150,46 @@
 			}]
 		}]
 	},
+	"lit": {
+		"name": "Lit",
+		"description": "Every Lit component is a native web component, with the superpower of interoperability.",
+		"homepage": "lit.dev",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/lit"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Documentation",
+				"url": "https://lit.dev/docs/"
+			}, {
+				"name": "Tutorials",
+				"url": "https://lit.dev/tutorials/"
+			}, {
+				"name": "Live examples",
+				"url": "https://lit.dev/playground/"
+			}, {
+				"name": "Lit Blog",
+				"url": "https://lit.dev/blog/"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "Lit Slack Workspace",
+				"url": "https://lit.dev/slack-invite/"
+			}, {
+				"name": "Twitter",
+				"url": "https://twitter.com/buildWithLit"
+			}, {
+				"name": "GitHub",
+				"url": "https://github.com/lit/lit/"
+			}, {
+				"name": "Stack Overflow",
+				"url": "https://stackoverflow.com/questions/tagged/lit+or+lit-html+or+lit-element"
+			}]
+		}]
+	},
 	"marionettejs": {
 		"name": "Backbone.Marionette",
 		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",
