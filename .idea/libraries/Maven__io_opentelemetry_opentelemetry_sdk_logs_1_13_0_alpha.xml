@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.opentelemetry:opentelemetry-sdk-logs:1.13.0-alpha">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/opentelemetry/opentelemetry-sdk-logs/1.13.0-alpha/opentelemetry-sdk-logs-1.13.0-alpha.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/io/opentelemetry/opentelemetry-sdk-logs/1.13.0-alpha/opentelemetry-sdk-logs-1.13.0-alpha-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/opentelemetry/opentelemetry-sdk-logs/1.13.0-alpha/opentelemetry-sdk-logs-1.13.0-alpha-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

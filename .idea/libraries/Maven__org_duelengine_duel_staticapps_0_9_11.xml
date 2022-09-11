@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.duelengine:duel-staticapps:0.9.11">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/duelengine/duel-staticapps/0.9.11/duel-staticapps-0.9.11.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/duelengine/duel-staticapps/0.9.11/duel-staticapps-0.9.11-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/duelengine/duel-staticapps/0.9.11/duel-staticapps-0.9.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

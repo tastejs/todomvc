@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.duelengine:duel-runtime:0.9.7">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/duelengine/duel-runtime/0.9.7/duel-runtime-0.9.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/duelengine/duel-runtime/0.9.7/duel-runtime-0.9.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/duelengine/duel-runtime/0.9.7/duel-runtime-0.9.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

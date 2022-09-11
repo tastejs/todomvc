@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.docker-java:docker-java-transport:3.2.13">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/docker-java/docker-java-transport/3.2.13/docker-java-transport-3.2.13.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/docker-java/docker-java-transport/3.2.13/docker-java-transport-3.2.13-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/docker-java/docker-java-transport/3.2.13/docker-java-transport-3.2.13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
