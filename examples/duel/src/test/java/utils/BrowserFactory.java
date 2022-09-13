@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import steps.PageInitializers;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,11 +34,13 @@ public class BrowserFactory {
 			driverPool.get().manage().deleteAllCookies();
 			//driverPool.get().manage().window().maximize();
 			driverPool.get().manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT, TimeUnit.SECONDS);
+			PageInitializers.initializePageObjects();
 		}
 		return driverPool.get();
 	}
 	public static void closeBrowser() {
 		driverPool.get().quit();
 		driverPool.remove();
+
 	}
 }
