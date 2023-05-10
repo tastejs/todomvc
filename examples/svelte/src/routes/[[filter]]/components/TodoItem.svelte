@@ -29,6 +29,10 @@ const handleBeginEdit = () => {
 };
 
 const finishEdit = () => {
+	if (!editing) {
+		return;
+	}
+
   editing = false;
   const trimedTitle = editingTodo.title?.trim?.();
   if (trimedTitle.length > 0) {
@@ -67,9 +71,9 @@ const handleEditKeydown = ({ keyCode }) => {
     <label on:dblclick={handleBeginEdit}>{todo.title}</label>
     <button class="destroy" on:click={handleRemove}></button>
   </div>
-  <input 
-    class="edit" 
-    type="text" 
+  <input
+    class="edit"
+    type="text"
     bind:value={editingTodo.title}
     use:focus={editing}
     on:keydown={handleEditKeydown}
