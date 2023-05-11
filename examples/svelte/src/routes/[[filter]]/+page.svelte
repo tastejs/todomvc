@@ -72,17 +72,6 @@ const onClearCompleted = () => {
 };
 
 const pluralized = (number) => `item${number !== 1 ? 's' : ''}`;
-
-const focus = (el) => {
-  return {
-    async update(params) {
-      if (params) {
-        await tick();
-        el.focus();
-      }
-    },
-  };
-};
 </script>
 
 <svelte:head>
