@@ -1,17 +1,26 @@
-<script>
+<script lang="ts" context="module">
+export type Events = {
+	complete: { completed: boolean; };
+	remove: TodoItem;
+	edit: TodoItem;
+};
+</script>
+
+<script lang="ts">
 import { createEventDispatcher, tick } from 'svelte';
 import { KeyCodes } from '../../../constants';
+import type { TodoItem } from '../../../types/todo';
 
-const dispatch = createEventDispatcher();
+const dispatch = createEventDispatcher<Events>();
 
-export let todo;
+export let todo: TodoItem;
 
 let editing = false;
 
 let editingTodo = { ...todo };
 
-const focus = (el) => ({
-  async update(params) {
+const focus = (el: HTMLElement) => ({
+  async update(params: boolean) {
     if (params) {
       await tick();
       el.focus();
@@ -19,7 +28,8 @@ const focus = (el) => ({
   },
 });
 
-const handleToggle = (event) => dispatch('complete', { completed: event.target.checked });
+const handleToggle = (event: HTMLElementEventMap['change']) =>
+	dispatch('complete', { completed: (event.target as HTMLInputElement)!.checked });
 
 const handleRemove = () => dispatch('remove', todo);
 
@@ -46,10 +56,10 @@ const cancelEdit = () => {
   editing = false;
 };
 
-const handleEditKeydown = ({ keyCode }) => {
+const handleEditKeydown = ({ keyCode }: KeyboardEvent) => {
   switch (keyCode) {
     case KeyCodes.Enter:
-      return finishEdit(todo);
+      return finishEdit();
     case KeyCodes.Escape:
       return cancelEdit();
   }
@@ -68,6 +78,7 @@ const handleEditKeydown = ({ keyCode }) => {
       checked={todo.completed}
       on:change={handleToggle}
     >
+    <!-- svelte-ignore a11y-label-has-associated-control -->
     <label on:dblclick={handleBeginEdit}>{todo.title}</label>
     <button class="destroy" on:click={handleRemove}></button>
   </div>

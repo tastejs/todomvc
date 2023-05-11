@@ -1,13 +1,15 @@
-<script>
-import { tick } from 'svelte';
+<script lang="ts">
 import { get } from 'svelte/store';
 import { localStorage } from '$lib/localStorage';
 import AddTodo from './components/AddTodo.svelte';
-import TodoItem from './components/TodoItem.svelte';
+import type { Events as AddTodoEvents } from './components/AddTodo.svelte';
+import TodoItemComponent from './components/TodoItem.svelte';
+import type { Events as TodoItemEvents } from './components/TodoItem.svelte';
+import type { TodoItem } from '../../types/todo';
 
 export let data;
 
-const filters = {
+const filters: Record<string, (todos: TodoItem[]) => TodoItem[]> = {
   all: (todos) => {
     return [...todos];
   },
@@ -21,7 +23,7 @@ const filters = {
 
 $: ({ currentFilter } = data);
 
-const todoStore = localStorage({ key: 'todos-svelte', initialValue: [] });
+const todoStore = localStorage<TodoItem[]>({ key: 'todos-svelte', initialValue: [] });
 
 let todos = get(todoStore);
 
@@ -37,7 +39,7 @@ $: hasFinishedTodos = filters.completed(todos).length > 0;
 
 $: allCompleted = filteredTodos.length > 0 && filteredTodos.every((x) => x.completed);
 
-const onNewTodo = ({ detail: { value: title } }) => {
+const onNewTodo = ({ detail: { value: title } }: CustomEvent<AddTodoEvents['newTodo']>) => {
   todos = [{
     id: id++,
     title,
@@ -45,25 +47,25 @@ const onNewTodo = ({ detail: { value: title } }) => {
   }, ...todos];
 };
 
-const onCompleteAll = (event) => {
-  todos = todos.map((x) => ({ ...x, completed: event.target.checked }));
+const onCompleteAll = (event: Event) => {
+  todos = todos.map((x) => ({ ...x, completed: (event.target as HTMLInputElement)!.checked }));
 };
 
-const handleToggleTodo = ({ detail: { completed } }, todo) => {
+const handleToggleTodo = ({ detail: { completed } }: CustomEvent<TodoItemEvents['complete']>, todo: TodoItem) => {
   const index = todos.findIndex((x) => x.id === todo.id);
   const newTodos = [...todos];
   newTodos.splice(index, 1, { ...todo, completed });
   todos = newTodos;
 };
 
-const handleEditTodo = ({ detail: todo }) => {
+const handleEditTodo = ({ detail: todo }: CustomEvent<TodoItemEvents['edit']>) => {
   const index = todos.findIndex((x) => x.id === todo.id);
   const newTodos = [...todos];
   newTodos.splice(index, 1, { ...todo });
   todos = newTodos;
 };
 
-const removeTodo = (record) => {
+const removeTodo = (record: TodoItem) => {
   todos = todos.filter((x) => x !== record);
 };
 
@@ -71,7 +73,7 @@ const onClearCompleted = () => {
   todos = filters.active(todos);
 };
 
-const pluralized = (number) => `item${number !== 1 ? 's' : ''}`;
+const pluralized = (number: number) => `item${number !== 1 ? 's' : ''}`;
 </script>
 
 <svelte:head>
@@ -97,7 +99,7 @@ const pluralized = (number) => `item${number !== 1 ? 's' : ''}`;
         <label for="toggle-all">Mark all as complete</label>
         <ul class="todo-list">
           {#each filteredTodos as todo (todo.id)}
-            <TodoItem
+            <TodoItemComponent
               todo={todo}
               on:complete={(event) => handleToggleTodo(event, todo)}
               on:remove={({ detail }) => removeTodo(detail)}

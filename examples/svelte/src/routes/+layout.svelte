@@ -4,5 +4,5 @@ import 'todomvc-app-css/index.css';
 </script>
 
 <div class="app">
-	<slot />
+  <slot />
 </div>
