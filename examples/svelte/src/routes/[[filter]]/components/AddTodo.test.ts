@@ -2,8 +2,9 @@ import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 import { render, screen, cleanup, type RenderResult } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
+import { bindListeners } from '../../../tests/utils';
 
-import AddTodo from './AddTodo.svelte';
+import AddTodo, { type Events } from './AddTodo.svelte';
 
 let rendered: RenderResult<AddTodo>;
 let user: ReturnType<typeof userEvent.setup>;
@@ -36,7 +37,9 @@ describe('<AddTodo>', () => {
 	it('should trigger newTodo when value is not empty or whitespace', async () => {
 		let newTodoTitle = '';
 		const onNewTodo = vi.fn((event) => newTodoTitle = event.detail.value);
-		rendered.component.$on('newTodo', onNewTodo);
+		bindListeners<Events>(rendered.component, {
+      newTodo: onNewTodo,
+    });
 
 		await user.type(newTodoInput(), 'Hello World!');
 		await user.keyboard('[Enter]');
@@ -48,7 +51,9 @@ describe('<AddTodo>', () => {
 	it('should trigger newTodo with trimed value', async () => {
 		let newTodoTitle = '';
 		const onNewTodo = vi.fn((event) => newTodoTitle = event.detail.value);
-		rendered.component.$on('newTodo', onNewTodo);
+		bindListeners<Events>(rendered.component, {
+      newTodo: onNewTodo,
+    });
 
 		await user.type(newTodoInput(), '[Space]Hello World![Space]');
 		await user.keyboard('[Enter]');
@@ -59,7 +64,9 @@ describe('<AddTodo>', () => {
 
 	it('should not trigger newTodo when value is empty or whitespace', async () => {
 		const onNewTodo = vi.fn();
-		rendered.component.$on('newTodo', onNewTodo);
+		bindListeners<Events>(rendered.component, {
+      newTodo: onNewTodo,
+    });
 
 		await user.click(newTodoInput());
 		await user.keyboard('[Space][Enter]');
