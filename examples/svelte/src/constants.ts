@@ -1,4 +1,4 @@
-export const KeyCodes: Record<string, number> = {
-  Enter: 13,
-	Escape: 27
+export const Keys: Record<string, KeyboardEvent['code']> = {
+  Enter: 'Enter',
+	Escape: 'Escape',
 };

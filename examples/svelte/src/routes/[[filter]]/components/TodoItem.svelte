@@ -8,7 +8,7 @@ export type Events = {
 
 <script lang="ts">
 import { createEventDispatcher, tick } from 'svelte';
-import { KeyCodes } from '../../../constants';
+import { Keys } from '../../../constants';
 import type { TodoItem } from '../../../types/todo';
 
 const dispatch = createEventDispatcher<Events>();
@@ -56,11 +56,11 @@ const cancelEdit = () => {
   editing = false;
 };
 
-const handleEditKeydown = ({ keyCode }: KeyboardEvent) => {
-  switch (keyCode) {
-    case KeyCodes.Enter:
+const handleEditKeydown = ({ code }: KeyboardEvent) => {
+  switch (code) {
+    case Keys.Enter:
       return finishEdit();
-    case KeyCodes.Escape:
+    case Keys.Escape:
       return cancelEdit();
   }
 };

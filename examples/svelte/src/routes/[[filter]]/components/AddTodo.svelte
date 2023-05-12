@@ -8,7 +8,7 @@ export type Events = {
 
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
-import { KeyCodes } from '../../../constants';
+import { Keys } from '../../../constants';
 
 const dispatch = createEventDispatcher<Events>();
 
@@ -16,7 +16,7 @@ let value = '';
 
 const onKeydown = (event: KeyboardEvent) => {
   const trimed = value?.trim?.();
-  if (event.keyCode === KeyCodes.Enter && trimed) {
+  if (event.code === Keys.Enter && trimed) {
     dispatch('newTodo', { value: trimed });
     value = '';
   }
