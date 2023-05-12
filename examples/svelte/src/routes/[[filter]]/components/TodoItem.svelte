@@ -46,7 +46,7 @@ const finishEdit = () => {
   editing = false;
   const trimedTitle = editingTodo.title?.trim?.();
   if (trimedTitle.length > 0) {
-    dispatch('edit', { ...editingTodo, title: trimedTitle, });
+    dispatch('edit', { ...editingTodo, title: trimedTitle, completed: false });
   } else {
     dispatch('remove', todo);
   }
