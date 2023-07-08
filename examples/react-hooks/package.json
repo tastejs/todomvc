@@ -10,14 +10,14 @@
     "react-dom": "^16.8.1",
     "react-hook-utils": "^1.0.6",
     "react-router-dom": "^4.4.0-beta.6",
-    "react-scripts": "2.1.5",
+    "react-scripts": "5.0.1",
     "todomvc-app-css": "^2.1.2",
     "use-onclickoutside": "^0.3.0",
     "use-react-router": "^1.0.3"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "jest": "23.6.0",
+    "jest": "29.6.1",
     "serve": "^10.0.2"
   },
   "scripts": {
