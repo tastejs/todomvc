@@ -47,7 +47,7 @@
     "gulp-useref": "^1.0.2",
     "gulp-vulcanize": "^1.0.0",
     "jshint-stylish": "^1.0.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.6",
     "npm-run-all": "^4.1.2",
     "pluralize": "^7.0.0",
     "psi": "^0.1.1",
