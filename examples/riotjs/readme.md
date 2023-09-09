@@ -4,18 +4,18 @@
 
 > Riot is against the current trend of boilerplate and unneeded complexity. The team think that a small, powerful API and concise syntax are extremely important things on a client-side library.
 
-> _[Riot.js - riotjs.com](http://riotjs.com/)_
+> _[Riot.js - riot.js.org](http://riot.js.org/)_
 
 
 ## Resources
 
-- [Website](http://riotjs.com/)
-- [Documentation](http://riotjs.com/guide/)
-- [FAQ](http://riotjs.com/faq/)
+- [Website](http://riot.js.org/)
+- [Documentation](http://riot.js.org/documentation/)
+- [FAQ](http://riot.js.org/faq/)
 
 ### Articles
 
-- [Compare Riot with React and Polymer](http://riotjs.com/compare/)
+- [Compare Riot with React and Polymer](http://v3.riotjs.vercel.app/compare/)
 - [The react tutorial for riot](https://juriansluiman.nl/article/154/the-react-tutorial-for-riot)
 
 ### Support
