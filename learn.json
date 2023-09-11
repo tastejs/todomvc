@@ -1731,6 +1731,22 @@
 			}]
 		}]
 	},
+	"svelte": {
+		"name": "Svelte",
+		"description": "Svelte is a new way to build web applications. It's a compiler that takes your declarative components and converts them into efficient JavaScript that surgically updates the DOM.",
+		"homepage": "svelte.dev",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/svelte/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://svelte.dev/docs/introduction"
+			}]
+		}]
+	},
 	"troopjs": {
 		"name": "TroopJS",
 		"description": "The simple js framework that does as little as possible, then stays out of the way.",
