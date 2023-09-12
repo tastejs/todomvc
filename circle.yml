@@ -66,6 +66,8 @@ jobs:
   flight:
     <<: *defaults
   # compiled-to-js frameworks
+  svelte:
+    <<: *defaults
   kotlin-react:
     <<: *defaults
   typescript-react:
@@ -166,6 +168,7 @@ workflows:
   compiled-to-js:
     jobs:
       # elm is not working very well
+      - svelte
       - typescript-react
       - binding-scala
       - angular-dart
