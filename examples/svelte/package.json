@@ -1,7 +1,7 @@
 {
     "name": "todomvc-svelte",
     "version": "1.0.0",
-    "description": "TodoMVC app written with Svelte.",
+    "description": "A TodoMVC app written with Svelte.",
     "engines": {
         "node": ">=18.13.0",
         "npm": ">=8.19.3"
