@@ -5,3 +5,4 @@
 /cypress/screenshots
 /cypress/videos
 /.tmp
+.DS_Store
