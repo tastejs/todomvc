@@ -2,7 +2,6 @@
     import { createEventDispatcher, tick } from 'svelte';
 
     export let item;
-    export let index;
 
     let editing = false;
     const dispatch = createEventDispatcher();
