@@ -40,12 +40,6 @@ class TodoItem extends HTMLElement {
         this.startEdit = this.startEdit.bind(this);
         this.stopEdit = this.stopEdit.bind(this);
         this.cancelEdit = this.cancelEdit.bind(this);
-
-        if (window.extraTodoItemCssToAdopt) {
-            let extraAdoptedStyleSheet = new CSSStyleSheet();
-            extraAdoptedStyleSheet.replaceSync(window.extraTodoItemCssToAdopt);
-            this.shadow.adoptedStyleSheets.push(extraAdoptedStyleSheet);
-        }
     }
 
     update(...args) {

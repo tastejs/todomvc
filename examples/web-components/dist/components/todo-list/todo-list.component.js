@@ -23,23 +23,14 @@ class TodoList extends HTMLElement {
         this.setAttribute("dir", this.htmlDirection);
         this.shadow.adoptedStyleSheets = [globalStyles, listStyles];
         this.shadow.append(node);
-        this.classList.add("show-priority");
-
-        if (window.extraTodoListCssToAdopt) {
-            let extraAdoptedStyleSheet = new CSSStyleSheet();
-            extraAdoptedStyleSheet.replaceSync(window.extraTodoListCssToAdopt);
-            this.shadow.adoptedStyleSheets.push(extraAdoptedStyleSheet);
-        }
     }
 
     addItem(entry) {
         const element = new TodoItem();
         Object.keys(entry).forEach((key) => element.setAttribute(key, entry[key]));
 
-        const elementIndex = this.#elements.length;
         this.#elements.push(element);
         this.listNode.append(element);
-        element.setAttribute("data-priority", 4 - (elementIndex % 5));
     }
 
     addItems(items) {
