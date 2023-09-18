@@ -1164,6 +1164,9 @@
 			"links": [{
 				"name": "Getting Started",
 				"url": "https://lit.dev/docs/getting-started/"
+			},{
+				"name": "Tutorials",
+				"url": "https://lit.dev/tutorials/"
 			}]
 		}]
 	},
