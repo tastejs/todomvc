@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="A TodoMVC workload app for Speedometer!" />
+        <title>TodoMVC: JavaScript Web Components</title>
+        <link rel="stylesheet" href="styles/global.css" />
+        <link rel="stylesheet" href="styles/header.css" />
+        <link rel="stylesheet" href="styles/footer.css" />
+        <!-- load these first, so that they are registered by the time the app components needs them -->
+        <script type="module" src="components/todo-topbar/todo-topbar.component.js"></script>
+        <script type="module" src="components/todo-list/todo-list.component.js"></script>
+        <script type="module" src="components/todo-bottombar/todo-bottombar.component.js"></script>
+        <script type="module" src="components/todo-app/todo-app.component.js"></script>
+    </head>
+
+    <body>
+        <header class="header">
+            <a href="#" style="text-decoration: none"><h1 class="title">todos</h1></a>
+        </header>
+        <todo-app></todo-app>
+        <footer class="footer">
+            <p class="footer-text">Click on input field to write your todo.</p>
+            <p class="footer-text">At least one character is needed to be a valid entry.</p>
+            <p class="footer-text">Press 'enter' to add the todo.</p>
+            <p class="footer-text">Double-click to edit a todo</p>
+        </footer>
+    </body>
+</html>
