@@ -1,0 +1,94 @@
+{
+    "name": "todomvc-lit",
+    "private": true,
+    "type": "module",
+    "engines": {
+        "node": ">=18.13.0",
+        "npm": ">=8.19.3"
+    },
+    "scripts": {
+        "serve": "wireit",
+        "dev": "wireit",
+        "build": "wireit",
+        "tsc": "wireit",
+        "rollup": "wireit",
+        "copy-index-html": "wireit"
+    },
+    "devDependencies": {
+        "@rollup/plugin-node-resolve": "^15.1.0",
+        "@rollup/plugin-terser": "^0.4.3",
+        "@rollup/plugin-typescript": "^11.1.1",
+        "rollup": "^2.79.1",
+        "rollup-plugin-minify-html-literals": "^1.2.6",
+        "@web/dev-server": "^0.2.1",
+        "typescript": "^5.0.4",
+        "wireit": "^0.9.5"
+    },
+    "dependencies": {
+        "lit": "^3.0.0-pre.0",
+        "tslib": "^2.5.2"
+    },
+    "wireit": {
+        "serve": {
+            "dependencies": [
+                "build"
+            ],
+            "files": [
+                "web-dev-server.config.js"
+            ],
+            "service": true,
+            "command": "wds"
+        },
+        "dev": {
+            "#comment": "like serve, only it doesn't do the slow rollup build",
+            "dependencies": [
+                "tsc"
+            ],
+            "files": [
+                "web-dev-server.config.js"
+            ],
+            "service": true,
+            "command": "wds"
+        },
+        "build": {
+            "dependencies": [
+                "tsc",
+                "rollup",
+                "copy-index-html"
+            ]
+        },
+        "tsc": {
+            "files": [
+                "src/**/*.ts",
+                "tsconfig.json"
+            ],
+            "output": [
+                "index.js",
+                "index.js.map",
+                "lib",
+                ".tsbuildinfo"
+            ],
+            "clean": false,
+            "command": "tsc"
+        },
+        "rollup": {
+            "files": [
+                "src/**/*.ts",
+                "rollup.config.mjs"
+            ],
+            "output": [
+                "dist/index.js"
+            ],
+            "command": "rollup --config rollup.config.mjs"
+        },
+        "copy-index-html": {
+            "command": "cp index.html dist/index.html",
+            "files": [
+                "index.html"
+            ],
+            "output": [
+                "dist/index.html"
+            ]
+        }
+    }
+}

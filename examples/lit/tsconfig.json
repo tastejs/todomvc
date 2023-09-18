@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "incremental": true,
+        "tsBuildInfoFile": "./.tsbuildinfo",
+        "target": "ES2022",
+        "module": "ES2022",
+        "lib": ["DOM", "DOM.Iterable"],
+        "rootDir": "./src",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "./",
+        "importHelpers": true,
+        "verbatimModuleSyntax": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "useUnknownInCatchVariables": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "skipLibCheck": true,
+        // Once standard decorators ship, we can remove these two.
+        "experimentalDecorators": true,
+        "useDefineForClassFields": false
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": []
+}
