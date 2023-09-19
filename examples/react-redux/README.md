@@ -1,4 +1,4 @@
-# Speedometer 3.0: TodoMVC: React-Redux
+# TodoMVC: React-Redux
 
 ## Description
 
