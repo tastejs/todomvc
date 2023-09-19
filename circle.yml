@@ -41,6 +41,8 @@ jobs:
     <<: *defaults
   react:
     <<: *defaults
+  preact:
+    <<: *defaults
   vue:
     <<: *defaults
   angularjs:
@@ -149,6 +151,7 @@ workflows:
     jobs:
       - backbone
       - dojo
+      - preact
       - react
       - vue
       - angularjs

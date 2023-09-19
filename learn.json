@@ -1474,6 +1474,25 @@
 			}]
 		}]
 	},
+	"preact": {
+		"name": "Preact",
+		"description": "Fast 3kB React alternative with the same modern API. Components & Virtual DOM.",
+		"homepage": "preactjs.com",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/preact/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://preactjs.com/guide/v10/getting-started"
+			}, {
+				"name": "Tutorial",
+				"url": "https://preactjs.com/tutorial/"
+			}]
+		}]
+	},
 	"react": {
 		"name": "React",
 		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
