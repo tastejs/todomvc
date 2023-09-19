@@ -41,6 +41,8 @@ jobs:
     <<: *defaults
   react:
     <<: *defaults
+  react-redux:
+    <<: *defaults
   vue:
     <<: *defaults
   angularjs:
@@ -150,6 +152,7 @@ workflows:
       - backbone
       - dojo
       - react
+      - react-redux
       - vue
       - angularjs
       - knockback

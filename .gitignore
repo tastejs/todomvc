@@ -2,4 +2,7 @@
 /bower_components
 /dist
 /tooling/node_modules
-cypress/screenshots
+/cypress/screenshots
+/cypress/videos
+/.tmp
+.DS_Store
