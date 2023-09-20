@@ -1523,6 +1523,22 @@
 			}]
 		}]
 	},
+	"react-redux": {
+		"name": "React Redux",
+		"description": "React Redux is maintained by the Redux team, and kept up-to-date with the latest APIs from Redux and React.",
+		"homepage": "react-redux.js.org/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/react-redux/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://react-redux.js.org/introduction/getting-started"
+			}]
+		}]
+	},
 	"reagent": {
 		"name": "Reagent",
 		"description": "Reagent provides a minimalistic interface between ClojureScript and React. It allows you to define efficient React components using nothing but plain ClojureScript functions and data, that describe your UI using a Hiccup-like syntax.",
