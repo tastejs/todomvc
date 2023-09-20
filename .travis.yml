@@ -185,6 +185,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=react-redux
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=reagent
       <<: *defaults
     - stage: test
@@ -194,6 +198,10 @@ jobs:
     - stage: test
       env:
         - CYPRESS_framework=scalajs-react
+      <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=svelte
       <<: *defaults
     - stage: test
       env:
@@ -221,5 +229,5 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=svelte
+        - CYPRESS_framework=lit
       <<: *defaults

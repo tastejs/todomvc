@@ -41,6 +41,8 @@ jobs:
     <<: *defaults
   react:
     <<: *defaults
+  react-redux:
+    <<: *defaults
   vue:
     <<: *defaults
   angularjs:
@@ -64,6 +66,8 @@ jobs:
   polymer:
     <<: *defaults
   flight:
+    <<: *defaults
+  lit:
     <<: *defaults
   # compiled-to-js frameworks
   svelte:
@@ -152,6 +156,7 @@ workflows:
       - backbone
       - dojo
       - react
+      - react-redux
       - vue
       - angularjs
       - knockback
@@ -164,6 +169,7 @@ workflows:
       - knockoutjs
       - polymer
       - flight
+      - lit
   # second tab - compiled-to-js frameworks
   compiled-to-js:
     jobs:
