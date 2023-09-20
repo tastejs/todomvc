@@ -2,7 +2,7 @@
 
 ## Description
 
-This application uses React in combination with Redux to implement a todo application.
+This application uses React in combination with Redux to implement the TodoMVC application.
 
 -   [React](https://reactjs.org/) is a JavaScript library for creating user interfaces.
 -   [Redux](https://redux.js.org/) centralizes your application's state.
@@ -11,14 +11,14 @@ This application uses React in combination with Redux to implement a todo applic
 ## Implementation details
 
 This implementation uses Redux to manage state and data flow of the application.
-The Redux pattern is similar to a mvc patter, with the main difference that Redux is unidirectional.
+The Redux pattern is similar to a mvc pattern, with the main difference that Redux is unidirectional.
 Redux uses actions to dispatch a change, which is captured by reducers that update a central store.
 Once the state in the store updates, the view receives the new state and can reflect those changes to the user.
 
 Redux:\
 Model: Redux store\
 View: React ui components\
-controller: React connected components + Redux reducers
+Controller: React connected components + Redux reducers
 
 MVC:\
 Model: maintains the data and behavior of an application\
@@ -27,7 +27,7 @@ Controller: serves as an interface between view & model components
 
 The storage solution uses an in-memory data object that implements a simple array to hold the todos.
 
-## Built steps
+## Build steps
 
 To build the static files, this application utilizes webpack. It minifies and optimizes output files and copies all necessary files to a `dist` folder.
 
