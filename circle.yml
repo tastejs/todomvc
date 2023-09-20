@@ -67,6 +67,8 @@ jobs:
     <<: *defaults
   flight:
     <<: *defaults
+  lit:
+    <<: *defaults
   # compiled-to-js frameworks
   kotlin-react:
     <<: *defaults
@@ -165,6 +167,7 @@ workflows:
       - knockoutjs
       - polymer
       - flight
+      - lit
   # second tab - compiled-to-js frameworks
   compiled-to-js:
     jobs:
