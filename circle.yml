@@ -39,9 +39,11 @@ jobs:
     <<: *defaults
   dojo:
     <<: *defaults
+  preact:
+    <<: *defaults
   react:
     <<: *defaults
-  preact:
+  react-redux:
     <<: *defaults
   vue:
     <<: *defaults
@@ -66,6 +68,8 @@ jobs:
   polymer:
     <<: *defaults
   flight:
+    <<: *defaults
+  lit:
     <<: *defaults
   # compiled-to-js frameworks
   kotlin-react:
@@ -153,6 +157,7 @@ workflows:
       - dojo
       - preact
       - react
+      - react-redux
       - vue
       - angularjs
       - knockback
@@ -165,6 +170,7 @@ workflows:
       - knockoutjs
       - polymer
       - flight
+      - lit
   # second tab - compiled-to-js frameworks
   compiled-to-js:
     jobs:

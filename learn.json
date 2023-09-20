@@ -1150,6 +1150,27 @@
 			}]
 		}]
 	},
+
+	"lit": {
+		"name": "Lit",
+		"description": "Lit is a simple library for building fast, lightweight web components.",
+		"homepage": "lit.dev",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/lit/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://lit.dev/docs/getting-started/"
+			},{
+				"name": "Tutorials",
+				"url": "https://lit.dev/tutorials/"
+			}]
+		}]
+	},
+
 	"marionettejs": {
 		"name": "Backbone.Marionette",
 		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",
@@ -1539,6 +1560,22 @@
 			}, {
 				"name": "IRC",
 				"url": "irc://chat.freenode.net/reactjs"
+			}]
+		}]
+	},
+	"react-redux": {
+		"name": "React Redux",
+		"description": "React Redux is maintained by the Redux team, and kept up-to-date with the latest APIs from Redux and React.",
+		"homepage": "react-redux.js.org/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/react-redux/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://react-redux.js.org/introduction/getting-started"
 			}]
 		}]
 	},

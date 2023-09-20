@@ -185,6 +185,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=react-redux
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=reagent
       <<: *defaults
     - stage: test
@@ -217,9 +221,13 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=preact
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=vue
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=preact
+        - CYPRESS_framework=lit
       <<: *defaults
