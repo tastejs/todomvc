@@ -1,0 +1,1 @@
+{ "ast": null, "code": "export class Todo {\n  constructor(id, title, completed) {\n    this.id = id;\n    this.title = title;\n    this.completed = completed;\n  }\n\n}", "map": null, "metadata": {}, "sourceType": "module" }

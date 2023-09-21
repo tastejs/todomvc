@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nexport function subscribeOn(scheduler, delay = 0) {\n  return operate((source, subscriber) => {\n    subscriber.add(scheduler.schedule(() => source.subscribe(subscriber), delay));\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["operate", "subscribeOn", "scheduler", "delay", "source", "subscriber", "add", "schedule", "subscribe"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/subscribeOn.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nexport function subscribeOn(scheduler, delay = 0) {\n    return operate((source, subscriber) => {\n        subscriber.add(scheduler.schedule(() => source.subscribe(subscriber), delay));\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,OAAO,SAASC,WAAT,CAAqBC,SAArB,EAAgCC,KAAK,GAAG,CAAxC,EAA2C;EAC9C,OAAOH,OAAO,CAAC,CAACI,MAAD,EAASC,UAAT,KAAwB;IACnCA,UAAU,CAACC,GAAX,CAAeJ,SAAS,CAACK,QAAV,CAAmB,MAAMH,MAAM,CAACI,SAAP,CAAiBH,UAAjB,CAAzB,EAAuDF,KAAvD,CAAf;EACH,CAFa,CAAd;AAGH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

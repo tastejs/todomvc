@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { concat } from '../observable/concat';\nimport { popScheduler } from '../util/args';\nimport { operate } from '../util/lift';\nexport function startWith(...values) {\n  const scheduler = popScheduler(values);\n  return operate((source, subscriber) => {\n    (scheduler ? concat(values, source, scheduler) : concat(values, source)).subscribe(subscriber);\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["concat", "popScheduler", "operate", "startWith", "values", "scheduler", "source", "subscriber", "subscribe"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/startWith.js"],
+        "sourcesContent": [
+            "import { concat } from '../observable/concat';\nimport { popScheduler } from '../util/args';\nimport { operate } from '../util/lift';\nexport function startWith(...values) {\n    const scheduler = popScheduler(values);\n    return operate((source, subscriber) => {\n        (scheduler ? concat(values, source, scheduler) : concat(values, source)).subscribe(subscriber);\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,MAAT,QAAuB,sBAAvB;AACA,SAASC,YAAT,QAA6B,cAA7B;AACA,SAASC,OAAT,QAAwB,cAAxB;AACA,OAAO,SAASC,SAAT,CAAmB,GAAGC,MAAtB,EAA8B;EACjC,MAAMC,SAAS,GAAGJ,YAAY,CAACG,MAAD,CAA9B;EACA,OAAOF,OAAO,CAAC,CAACI,MAAD,EAASC,UAAT,KAAwB;IACnC,CAACF,SAAS,GAAGL,MAAM,CAACI,MAAD,EAASE,MAAT,EAAiBD,SAAjB,CAAT,GAAuCL,MAAM,CAACI,MAAD,EAASE,MAAT,CAAvD,EAAyEE,SAAzE,CAAmFD,UAAnF;EACH,CAFa,CAAd;AAGH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

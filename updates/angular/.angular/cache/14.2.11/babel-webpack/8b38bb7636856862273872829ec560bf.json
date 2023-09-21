@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { concat } from '../observable/concat';\nimport { of } from '../observable/of';\nexport function endWith(...values) {\n  return source => concat(source, of(...values));\n} //# sourceMappingURL=endWith.js.map","map":null,"metadata":{},"sourceType":"module"}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { bindCallbackInternals } from './bindCallbackInternals';\nexport function bindCallback(callbackFunc, resultSelector, scheduler) {\n  return bindCallbackInternals(false, callbackFunc, resultSelector, scheduler);\n} //# sourceMappingURL=bindCallback.js.map","map":null,"metadata":{},"sourceType":"module"}

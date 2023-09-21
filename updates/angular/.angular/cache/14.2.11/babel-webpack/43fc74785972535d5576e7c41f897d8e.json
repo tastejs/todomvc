@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "let nextHandle = 1;\nlet resolved;\nconst activeHandles = {};\n\nfunction findAndClearHandle(handle) {\n  if (handle in activeHandles) {\n    delete activeHandles[handle];\n    return true;\n  }\n\n  return false;\n}\n\nexport const Immediate = {\n  setImmediate(cb) {\n    const handle = nextHandle++;\n    activeHandles[handle] = true;\n\n    if (!resolved) {\n      resolved = Promise.resolve();\n    }\n\n    resolved.then(() => findAndClearHandle(handle) && cb());\n    return handle;\n  },\n\n  clearImmediate(handle) {\n    findAndClearHandle(handle);\n  }\n\n};\nexport const TestTools = {\n  pending() {\n    return Object.keys(activeHandles).length;\n  }\n\n};",
+    "map": {
+        "version": 3,
+        "names": ["nextHandle", "resolved", "activeHandles", "findAndClearHandle", "handle", "Immediate", "setImmediate", "cb", "Promise", "resolve", "then", "clearImmediate", "TestTools", "pending", "Object", "keys", "length"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/Immediate.js"],
+        "sourcesContent": [
+            "let nextHandle = 1;\nlet resolved;\nconst activeHandles = {};\nfunction findAndClearHandle(handle) {\n    if (handle in activeHandles) {\n        delete activeHandles[handle];\n        return true;\n    }\n    return false;\n}\nexport const Immediate = {\n    setImmediate(cb) {\n        const handle = nextHandle++;\n        activeHandles[handle] = true;\n        if (!resolved) {\n            resolved = Promise.resolve();\n        }\n        resolved.then(() => findAndClearHandle(handle) && cb());\n        return handle;\n    },\n    clearImmediate(handle) {\n        findAndClearHandle(handle);\n    },\n};\nexport const TestTools = {\n    pending() {\n        return Object.keys(activeHandles).length;\n    }\n};\n"
+        ],
+        "mappings": "AAAA,IAAIA,UAAU,GAAG,CAAjB;AACA,IAAIC,QAAJ;AACA,MAAMC,aAAa,GAAG,EAAtB;;AACA,SAASC,kBAAT,CAA4BC,MAA5B,EAAoC;EAChC,IAAIA,MAAM,IAAIF,aAAd,EAA6B;IACzB,OAAOA,aAAa,CAACE,MAAD,CAApB;IACA,OAAO,IAAP;EACH;;EACD,OAAO,KAAP;AACH;;AACD,OAAO,MAAMC,SAAS,GAAG;EACrBC,YAAY,CAACC,EAAD,EAAK;IACb,MAAMH,MAAM,GAAGJ,UAAU,EAAzB;IACAE,aAAa,CAACE,MAAD,CAAb,GAAwB,IAAxB;;IACA,IAAI,CAACH,QAAL,EAAe;MACXA,QAAQ,GAAGO,OAAO,CAACC,OAAR,EAAX;IACH;;IACDR,QAAQ,CAACS,IAAT,CAAc,MAAMP,kBAAkB,CAACC,MAAD,CAAlB,IAA8BG,EAAE,EAApD;IACA,OAAOH,MAAP;EACH,CAToB;;EAUrBO,cAAc,CAACP,MAAD,EAAS;IACnBD,kBAAkB,CAACC,MAAD,CAAlB;EACH;;AAZoB,CAAlB;AAcP,OAAO,MAAMQ,SAAS,GAAG;EACrBC,OAAO,GAAG;IACN,OAAOC,MAAM,CAACC,IAAP,CAAYb,aAAZ,EAA2Bc,MAAlC;EACH;;AAHoB,CAAlB"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

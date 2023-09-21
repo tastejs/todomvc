@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { Observable } from '../Observable';\nimport { isFunction } from '../util/isFunction';\nexport function throwError(errorOrErrorFactory, scheduler) {\n  const errorFactory = isFunction(errorOrErrorFactory) ? errorOrErrorFactory : () => errorOrErrorFactory;\n\n  const init = subscriber => subscriber.error(errorFactory());\n\n  return new Observable(scheduler ? subscriber => scheduler.schedule(init, 0, subscriber) : init);\n}",
+    "map": {
+        "version": 3,
+        "names": ["Observable", "isFunction", "throwError", "errorOrErrorFactory", "scheduler", "errorFactory", "init", "subscriber", "error", "schedule"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/observable/throwError.js"],
+        "sourcesContent": [
+            "import { Observable } from '../Observable';\nimport { isFunction } from '../util/isFunction';\nexport function throwError(errorOrErrorFactory, scheduler) {\n    const errorFactory = isFunction(errorOrErrorFactory) ? errorOrErrorFactory : () => errorOrErrorFactory;\n    const init = (subscriber) => subscriber.error(errorFactory());\n    return new Observable(scheduler ? (subscriber) => scheduler.schedule(init, 0, subscriber) : init);\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,UAAT,QAA2B,eAA3B;AACA,SAASC,UAAT,QAA2B,oBAA3B;AACA,OAAO,SAASC,UAAT,CAAoBC,mBAApB,EAAyCC,SAAzC,EAAoD;EACvD,MAAMC,YAAY,GAAGJ,UAAU,CAACE,mBAAD,CAAV,GAAkCA,mBAAlC,GAAwD,MAAMA,mBAAnF;;EACA,MAAMG,IAAI,GAAIC,UAAD,IAAgBA,UAAU,CAACC,KAAX,CAAiBH,YAAY,EAA7B,CAA7B;;EACA,OAAO,IAAIL,UAAJ,CAAeI,SAAS,GAAIG,UAAD,IAAgBH,SAAS,CAACK,QAAV,CAAmBH,IAAnB,EAAyB,CAAzB,EAA4BC,UAA5B,CAAnB,GAA6DD,IAArF,CAAP;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

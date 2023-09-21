@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { Subject } from './Subject';\nexport class BehaviorSubject extends Subject {\n  constructor(_value) {\n    super();\n    this._value = _value;\n  }\n\n  get value() {\n    return this.getValue();\n  }\n\n  _subscribe(subscriber) {\n    const subscription = super._subscribe(subscriber);\n\n    !subscription.closed && subscriber.next(this._value);\n    return subscription;\n  }\n\n  getValue() {\n    const {\n      hasError,\n      thrownError,\n      _value\n    } = this;\n\n    if (hasError) {\n      throw thrownError;\n    }\n\n    this._throwIfClosed();\n\n    return _value;\n  }\n\n  next(value) {\n    super.next(this._value = value);\n  }\n\n}",
+    "map": {
+        "version": 3,
+        "names": ["Subject", "BehaviorSubject", "constructor", "_value", "value", "getValue", "_subscribe", "subscriber", "subscription", "closed", "next", "hasError", "thrownError", "_throwIfClosed"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/BehaviorSubject.js"],
+        "sourcesContent": [
+            "import { Subject } from './Subject';\nexport class BehaviorSubject extends Subject {\n    constructor(_value) {\n        super();\n        this._value = _value;\n    }\n    get value() {\n        return this.getValue();\n    }\n    _subscribe(subscriber) {\n        const subscription = super._subscribe(subscriber);\n        !subscription.closed && subscriber.next(this._value);\n        return subscription;\n    }\n    getValue() {\n        const { hasError, thrownError, _value } = this;\n        if (hasError) {\n            throw thrownError;\n        }\n        this._throwIfClosed();\n        return _value;\n    }\n    next(value) {\n        super.next((this._value = value));\n    }\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,WAAxB;AACA,OAAO,MAAMC,eAAN,SAA8BD,OAA9B,CAAsC;EACzCE,WAAW,CAACC,MAAD,EAAS;IAChB;IACA,KAAKA,MAAL,GAAcA,MAAd;EACH;;EACQ,IAALC,KAAK,GAAG;IACR,OAAO,KAAKC,QAAL,EAAP;EACH;;EACDC,UAAU,CAACC,UAAD,EAAa;IACnB,MAAMC,YAAY,GAAG,MAAMF,UAAN,CAAiBC,UAAjB,CAArB;;IACA,CAACC,YAAY,CAACC,MAAd,IAAwBF,UAAU,CAACG,IAAX,CAAgB,KAAKP,MAArB,CAAxB;IACA,OAAOK,YAAP;EACH;;EACDH,QAAQ,GAAG;IACP,MAAM;MAAEM,QAAF;MAAYC,WAAZ;MAAyBT;IAAzB,IAAoC,IAA1C;;IACA,IAAIQ,QAAJ,EAAc;MACV,MAAMC,WAAN;IACH;;IACD,KAAKC,cAAL;;IACA,OAAOV,MAAP;EACH;;EACDO,IAAI,CAACN,KAAD,EAAQ;IACR,MAAMM,IAAN,CAAY,KAAKP,MAAL,GAAcC,KAA1B;EACH;;AAvBwC"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

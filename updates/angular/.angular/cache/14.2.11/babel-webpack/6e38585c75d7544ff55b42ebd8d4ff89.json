@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "export function createErrorClass(createImpl) {\n  const _super = instance => {\n    Error.call(instance);\n    instance.stack = new Error().stack;\n  };\n\n  const ctorFunc = createImpl(_super);\n  ctorFunc.prototype = Object.create(Error.prototype);\n  ctorFunc.prototype.constructor = ctorFunc;\n  return ctorFunc;\n}",
+    "map": {
+        "version": 3,
+        "names": ["createErrorClass", "createImpl", "_super", "instance", "Error", "call", "stack", "ctorFunc", "prototype", "Object", "create", "constructor"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/createErrorClass.js"],
+        "sourcesContent": [
+            "export function createErrorClass(createImpl) {\n    const _super = (instance) => {\n        Error.call(instance);\n        instance.stack = new Error().stack;\n    };\n    const ctorFunc = createImpl(_super);\n    ctorFunc.prototype = Object.create(Error.prototype);\n    ctorFunc.prototype.constructor = ctorFunc;\n    return ctorFunc;\n}\n"
+        ],
+        "mappings": "AAAA,OAAO,SAASA,gBAAT,CAA0BC,UAA1B,EAAsC;EACzC,MAAMC,MAAM,GAAIC,QAAD,IAAc;IACzBC,KAAK,CAACC,IAAN,CAAWF,QAAX;IACAA,QAAQ,CAACG,KAAT,GAAiB,IAAIF,KAAJ,GAAYE,KAA7B;EACH,CAHD;;EAIA,MAAMC,QAAQ,GAAGN,UAAU,CAACC,MAAD,CAA3B;EACAK,QAAQ,CAACC,SAAT,GAAqBC,MAAM,CAACC,MAAP,CAAcN,KAAK,CAACI,SAApB,CAArB;EACAD,QAAQ,CAACC,SAAT,CAAmBG,WAAnB,GAAiCJ,QAAjC;EACA,OAAOA,QAAP;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

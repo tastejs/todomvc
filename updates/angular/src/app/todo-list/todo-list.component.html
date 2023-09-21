@@ -1,0 +1,9 @@
+<main class="main" *ngIf="todos.length > 0">
+    <div class="toggle-all-container">
+        <input class="toggle-all" type="checkbox" (change)="toggleAll($event)" [checked]="!activeTodos.length" />
+        <label class="toggle-all-label" htmlFor="toggle-all"> Toggle All Input </label>
+    </div>
+    <ul class="todo-list show-priority">
+        <app-todo-item *ngFor="let todo of todos; let i = index; trackBy: trackByItem" [todo]="todo" [index]="i" (deleteEvent)="removeTodo($event)"></app-todo-item>
+    </ul>
+</main>

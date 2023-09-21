@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function getSymbolIterator() {\n  if (typeof Symbol !== 'function' || !Symbol.iterator) {\n    return '@@iterator';\n  }\n\n  return Symbol.iterator;\n}\nexport const iterator = getSymbolIterator(); //# sourceMappingURL=iterator.js.map","map":null,"metadata":{},"sourceType":"module"}

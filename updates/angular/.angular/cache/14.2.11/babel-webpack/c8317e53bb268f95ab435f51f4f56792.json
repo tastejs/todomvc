@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { mergeMap } from './mergeMap';\nimport { identity } from '../util/identity';\nexport function mergeAll(concurrent = Infinity) {\n  return mergeMap(identity, concurrent);\n} //# sourceMappingURL=mergeAll.js.map","map":null,"metadata":{},"sourceType":"module"}

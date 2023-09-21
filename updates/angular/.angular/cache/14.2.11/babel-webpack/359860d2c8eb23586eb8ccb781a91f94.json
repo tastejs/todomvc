@@ -1,0 +1,32 @@
+{
+    "ast": null,
+    "code": "import { scheduleObservable } from './scheduleObservable';\nimport { schedulePromise } from './schedulePromise';\nimport { scheduleArray } from './scheduleArray';\nimport { scheduleIterable } from './scheduleIterable';\nimport { scheduleAsyncIterable } from './scheduleAsyncIterable';\nimport { isInteropObservable } from '../util/isInteropObservable';\nimport { isPromise } from '../util/isPromise';\nimport { isArrayLike } from '../util/isArrayLike';\nimport { isIterable } from '../util/isIterable';\nimport { isAsyncIterable } from '../util/isAsyncIterable';\nimport { createInvalidObservableTypeError } from '../util/throwUnobservableError';\nimport { isReadableStreamLike } from '../util/isReadableStreamLike';\nimport { scheduleReadableStreamLike } from './scheduleReadableStreamLike';\nexport function scheduled(input, scheduler) {\n  if (input != null) {\n    if (isInteropObservable(input)) {\n      return scheduleObservable(input, scheduler);\n    }\n\n    if (isArrayLike(input)) {\n      return scheduleArray(input, scheduler);\n    }\n\n    if (isPromise(input)) {\n      return schedulePromise(input, scheduler);\n    }\n\n    if (isAsyncIterable(input)) {\n      return scheduleAsyncIterable(input, scheduler);\n    }\n\n    if (isIterable(input)) {\n      return scheduleIterable(input, scheduler);\n    }\n\n    if (isReadableStreamLike(input)) {\n      return scheduleReadableStreamLike(input, scheduler);\n    }\n  }\n\n  throw createInvalidObservableTypeError(input);\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "scheduleObservable",
+            "schedulePromise",
+            "scheduleArray",
+            "scheduleIterable",
+            "scheduleAsyncIterable",
+            "isInteropObservable",
+            "isPromise",
+            "isArrayLike",
+            "isIterable",
+            "isAsyncIterable",
+            "createInvalidObservableTypeError",
+            "isReadableStreamLike",
+            "scheduleReadableStreamLike",
+            "scheduled",
+            "input",
+            "scheduler"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/scheduled/scheduled.js"],
+        "sourcesContent": [
+            "import { scheduleObservable } from './scheduleObservable';\nimport { schedulePromise } from './schedulePromise';\nimport { scheduleArray } from './scheduleArray';\nimport { scheduleIterable } from './scheduleIterable';\nimport { scheduleAsyncIterable } from './scheduleAsyncIterable';\nimport { isInteropObservable } from '../util/isInteropObservable';\nimport { isPromise } from '../util/isPromise';\nimport { isArrayLike } from '../util/isArrayLike';\nimport { isIterable } from '../util/isIterable';\nimport { isAsyncIterable } from '../util/isAsyncIterable';\nimport { createInvalidObservableTypeError } from '../util/throwUnobservableError';\nimport { isReadableStreamLike } from '../util/isReadableStreamLike';\nimport { scheduleReadableStreamLike } from './scheduleReadableStreamLike';\nexport function scheduled(input, scheduler) {\n    if (input != null) {\n        if (isInteropObservable(input)) {\n            return scheduleObservable(input, scheduler);\n        }\n        if (isArrayLike(input)) {\n            return scheduleArray(input, scheduler);\n        }\n        if (isPromise(input)) {\n            return schedulePromise(input, scheduler);\n        }\n        if (isAsyncIterable(input)) {\n            return scheduleAsyncIterable(input, scheduler);\n        }\n        if (isIterable(input)) {\n            return scheduleIterable(input, scheduler);\n        }\n        if (isReadableStreamLike(input)) {\n            return scheduleReadableStreamLike(input, scheduler);\n        }\n    }\n    throw createInvalidObservableTypeError(input);\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,kBAAT,QAAmC,sBAAnC;AACA,SAASC,eAAT,QAAgC,mBAAhC;AACA,SAASC,aAAT,QAA8B,iBAA9B;AACA,SAASC,gBAAT,QAAiC,oBAAjC;AACA,SAASC,qBAAT,QAAsC,yBAAtC;AACA,SAASC,mBAAT,QAAoC,6BAApC;AACA,SAASC,SAAT,QAA0B,mBAA1B;AACA,SAASC,WAAT,QAA4B,qBAA5B;AACA,SAASC,UAAT,QAA2B,oBAA3B;AACA,SAASC,eAAT,QAAgC,yBAAhC;AACA,SAASC,gCAAT,QAAiD,gCAAjD;AACA,SAASC,oBAAT,QAAqC,8BAArC;AACA,SAASC,0BAAT,QAA2C,8BAA3C;AACA,OAAO,SAASC,SAAT,CAAmBC,KAAnB,EAA0BC,SAA1B,EAAqC;EACxC,IAAID,KAAK,IAAI,IAAb,EAAmB;IACf,IAAIT,mBAAmB,CAACS,KAAD,CAAvB,EAAgC;MAC5B,OAAOd,kBAAkB,CAACc,KAAD,EAAQC,SAAR,CAAzB;IACH;;IACD,IAAIR,WAAW,CAACO,KAAD,CAAf,EAAwB;MACpB,OAAOZ,aAAa,CAACY,KAAD,EAAQC,SAAR,CAApB;IACH;;IACD,IAAIT,SAAS,CAACQ,KAAD,CAAb,EAAsB;MAClB,OAAOb,eAAe,CAACa,KAAD,EAAQC,SAAR,CAAtB;IACH;;IACD,IAAIN,eAAe,CAACK,KAAD,CAAnB,EAA4B;MACxB,OAAOV,qBAAqB,CAACU,KAAD,EAAQC,SAAR,CAA5B;IACH;;IACD,IAAIP,UAAU,CAACM,KAAD,CAAd,EAAuB;MACnB,OAAOX,gBAAgB,CAACW,KAAD,EAAQC,SAAR,CAAvB;IACH;;IACD,IAAIJ,oBAAoB,CAACG,KAAD,CAAxB,EAAiC;MAC7B,OAAOF,0BAA0B,CAACE,KAAD,EAAQC,SAAR,CAAjC;IACH;EACJ;;EACD,MAAML,gCAAgC,CAACI,KAAD,CAAtC;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "export function identity(x) {\n  return x;\n}",
+    "map": {
+        "version": 3,
+        "names": ["identity", "x"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/identity.js"],
+        "sourcesContent": ["export function identity(x) {\n    return x;\n}\n"],
+        "mappings": "AAAA,OAAO,SAASA,QAAT,CAAkBC,CAAlB,EAAqB;EACxB,OAAOA,CAAP;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { bindCallbackInternals } from './bindCallbackInternals';\nexport function bindCallback(callbackFunc, resultSelector, scheduler) {\n  return bindCallbackInternals(false, callbackFunc, resultSelector, scheduler);\n}",
+    "map": {
+        "version": 3,
+        "names": ["bindCallbackInternals", "bindCallback", "callbackFunc", "resultSelector", "scheduler"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/observable/bindCallback.js"],
+        "sourcesContent": [
+            "import { bindCallbackInternals } from './bindCallbackInternals';\nexport function bindCallback(callbackFunc, resultSelector, scheduler) {\n    return bindCallbackInternals(false, callbackFunc, resultSelector, scheduler);\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,qBAAT,QAAsC,yBAAtC;AACA,OAAO,SAASC,YAAT,CAAsBC,YAAtB,EAAoCC,cAApC,EAAoDC,SAApD,EAA+D;EAClE,OAAOJ,qBAAqB,CAAC,KAAD,EAAQE,YAAR,EAAsBC,cAAtB,EAAsCC,SAAtC,CAA5B;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nimport { createFind } from './find';\nexport function findIndex(predicate, thisArg) {\n  return operate(createFind(predicate, thisArg, 'index'));\n}",
+    "map": {
+        "version": 3,
+        "names": ["operate", "createFind", "findIndex", "predicate", "thisArg"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/findIndex.js"],
+        "sourcesContent": ["import { operate } from '../util/lift';\nimport { createFind } from './find';\nexport function findIndex(predicate, thisArg) {\n    return operate(createFind(predicate, thisArg, 'index'));\n}\n"],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,SAASC,UAAT,QAA2B,QAA3B;AACA,OAAO,SAASC,SAAT,CAAmBC,SAAnB,EAA8BC,OAA9B,EAAuC;EAC1C,OAAOJ,OAAO,CAACC,UAAU,CAACE,SAAD,EAAYC,OAAZ,EAAqB,OAArB,CAAX,CAAd;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "export function createInvalidObservableTypeError(input) {\n  return new TypeError(`You provided ${input !== null && typeof input === 'object' ? 'an invalid object' : `'${input}'`} where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable.`);\n}",
+    "map": {
+        "version": 3,
+        "names": ["createInvalidObservableTypeError", "input", "TypeError"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/throwUnobservableError.js"],
+        "sourcesContent": [
+            "export function createInvalidObservableTypeError(input) {\n    return new TypeError(`You provided ${input !== null && typeof input === 'object' ? 'an invalid object' : `'${input}'`} where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable.`);\n}\n"
+        ],
+        "mappings": "AAAA,OAAO,SAASA,gCAAT,CAA0CC,KAA1C,EAAiD;EACpD,OAAO,IAAIC,SAAJ,CAAe,gBAAeD,KAAK,KAAK,IAAV,IAAkB,OAAOA,KAAP,KAAiB,QAAnC,GAA8C,mBAA9C,GAAqE,IAAGA,KAAM,GAAG,0HAA/G,CAAP;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

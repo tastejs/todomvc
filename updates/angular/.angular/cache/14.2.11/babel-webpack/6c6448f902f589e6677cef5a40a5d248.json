@@ -1,0 +1,53 @@
+{
+    "ast": null,
+    "code": "import { innerFrom } from '../observable/innerFrom';\nimport { Subject } from '../Subject';\nimport { SafeSubscriber } from '../Subscriber';\nimport { operate } from '../util/lift';\nexport function share(options = {}) {\n  const {\n    connector = () => new Subject(),\n    resetOnError = true,\n    resetOnComplete = true,\n    resetOnRefCountZero = true\n  } = options;\n  return wrapperSource => {\n    let connection;\n    let resetConnection;\n    let subject;\n    let refCount = 0;\n    let hasCompleted = false;\n    let hasErrored = false;\n\n    const cancelReset = () => {\n      resetConnection === null || resetConnection === void 0 ? void 0 : resetConnection.unsubscribe();\n      resetConnection = undefined;\n    };\n\n    const reset = () => {\n      cancelReset();\n      connection = subject = undefined;\n      hasCompleted = hasErrored = false;\n    };\n\n    const resetAndUnsubscribe = () => {\n      const conn = connection;\n      reset();\n      conn === null || conn === void 0 ? void 0 : conn.unsubscribe();\n    };\n\n    return operate((source, subscriber) => {\n      refCount++;\n\n      if (!hasErrored && !hasCompleted) {\n        cancelReset();\n      }\n\n      const dest = subject = subject !== null && subject !== void 0 ? subject : connector();\n      subscriber.add(() => {\n        refCount--;\n\n        if (refCount === 0 && !hasErrored && !hasCompleted) {\n          resetConnection = handleReset(resetAndUnsubscribe, resetOnRefCountZero);\n        }\n      });\n      dest.subscribe(subscriber);\n\n      if (!connection && refCount > 0) {\n        connection = new SafeSubscriber({\n          next: value => dest.next(value),\n          error: err => {\n            hasErrored = true;\n            cancelReset();\n            resetConnection = handleReset(reset, resetOnError, err);\n            dest.error(err);\n          },\n          complete: () => {\n            hasCompleted = true;\n            cancelReset();\n            resetConnection = handleReset(reset, resetOnComplete);\n            dest.complete();\n          }\n        });\n        innerFrom(source).subscribe(connection);\n      }\n    })(wrapperSource);\n  };\n}\n\nfunction handleReset(reset, on, ...args) {\n  if (on === true) {\n    reset();\n    return;\n  }\n\n  if (on === false) {\n    return;\n  }\n\n  const onSubscriber = new SafeSubscriber({\n    next: () => {\n      onSubscriber.unsubscribe();\n      reset();\n    }\n  });\n  return on(...args).subscribe(onSubscriber);\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "innerFrom",
+            "Subject",
+            "SafeSubscriber",
+            "operate",
+            "share",
+            "options",
+            "connector",
+            "resetOnError",
+            "resetOnComplete",
+            "resetOnRefCountZero",
+            "wrapperSource",
+            "connection",
+            "resetConnection",
+            "subject",
+            "refCount",
+            "hasCompleted",
+            "hasErrored",
+            "cancelReset",
+            "unsubscribe",
+            "undefined",
+            "reset",
+            "resetAndUnsubscribe",
+            "conn",
+            "source",
+            "subscriber",
+            "dest",
+            "add",
+            "handleReset",
+            "subscribe",
+            "next",
+            "value",
+            "error",
+            "err",
+            "complete",
+            "on",
+            "args",
+            "onSubscriber"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/share.js"],
+        "sourcesContent": [
+            "import { innerFrom } from '../observable/innerFrom';\nimport { Subject } from '../Subject';\nimport { SafeSubscriber } from '../Subscriber';\nimport { operate } from '../util/lift';\nexport function share(options = {}) {\n    const { connector = () => new Subject(), resetOnError = true, resetOnComplete = true, resetOnRefCountZero = true } = options;\n    return (wrapperSource) => {\n        let connection;\n        let resetConnection;\n        let subject;\n        let refCount = 0;\n        let hasCompleted = false;\n        let hasErrored = false;\n        const cancelReset = () => {\n            resetConnection === null || resetConnection === void 0 ? void 0 : resetConnection.unsubscribe();\n            resetConnection = undefined;\n        };\n        const reset = () => {\n            cancelReset();\n            connection = subject = undefined;\n            hasCompleted = hasErrored = false;\n        };\n        const resetAndUnsubscribe = () => {\n            const conn = connection;\n            reset();\n            conn === null || conn === void 0 ? void 0 : conn.unsubscribe();\n        };\n        return operate((source, subscriber) => {\n            refCount++;\n            if (!hasErrored && !hasCompleted) {\n                cancelReset();\n            }\n            const dest = (subject = subject !== null && subject !== void 0 ? subject : connector());\n            subscriber.add(() => {\n                refCount--;\n                if (refCount === 0 && !hasErrored && !hasCompleted) {\n                    resetConnection = handleReset(resetAndUnsubscribe, resetOnRefCountZero);\n                }\n            });\n            dest.subscribe(subscriber);\n            if (!connection &&\n                refCount > 0) {\n                connection = new SafeSubscriber({\n                    next: (value) => dest.next(value),\n                    error: (err) => {\n                        hasErrored = true;\n                        cancelReset();\n                        resetConnection = handleReset(reset, resetOnError, err);\n                        dest.error(err);\n                    },\n                    complete: () => {\n                        hasCompleted = true;\n                        cancelReset();\n                        resetConnection = handleReset(reset, resetOnComplete);\n                        dest.complete();\n                    },\n                });\n                innerFrom(source).subscribe(connection);\n            }\n        })(wrapperSource);\n    };\n}\nfunction handleReset(reset, on, ...args) {\n    if (on === true) {\n        reset();\n        return;\n    }\n    if (on === false) {\n        return;\n    }\n    const onSubscriber = new SafeSubscriber({\n        next: () => {\n            onSubscriber.unsubscribe();\n            reset();\n        },\n    });\n    return on(...args).subscribe(onSubscriber);\n}\n"
+        ],
+        "mappings": "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"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { identity } from './identity';\nexport function pipe(...fns) {\n  return pipeFromArray(fns);\n}\nexport function pipeFromArray(fns) {\n  if (fns.length === 0) {\n    return identity;\n  }\n\n  if (fns.length === 1) {\n    return fns[0];\n  }\n\n  return function piped(input) {\n    return fns.reduce((prev, fn) => fn(prev), input);\n  };\n}",
+    "map": {
+        "version": 3,
+        "names": ["identity", "pipe", "fns", "pipeFromArray", "length", "piped", "input", "reduce", "prev", "fn"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/pipe.js"],
+        "sourcesContent": [
+            "import { identity } from './identity';\nexport function pipe(...fns) {\n    return pipeFromArray(fns);\n}\nexport function pipeFromArray(fns) {\n    if (fns.length === 0) {\n        return identity;\n    }\n    if (fns.length === 1) {\n        return fns[0];\n    }\n    return function piped(input) {\n        return fns.reduce((prev, fn) => fn(prev), input);\n    };\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,QAAT,QAAyB,YAAzB;AACA,OAAO,SAASC,IAAT,CAAc,GAAGC,GAAjB,EAAsB;EACzB,OAAOC,aAAa,CAACD,GAAD,CAApB;AACH;AACD,OAAO,SAASC,aAAT,CAAuBD,GAAvB,EAA4B;EAC/B,IAAIA,GAAG,CAACE,MAAJ,KAAe,CAAnB,EAAsB;IAClB,OAAOJ,QAAP;EACH;;EACD,IAAIE,GAAG,CAACE,MAAJ,KAAe,CAAnB,EAAsB;IAClB,OAAOF,GAAG,CAAC,CAAD,CAAV;EACH;;EACD,OAAO,SAASG,KAAT,CAAeC,KAAf,EAAsB;IACzB,OAAOJ,GAAG,CAACK,MAAJ,CAAW,CAACC,IAAD,EAAOC,EAAP,KAAcA,EAAE,CAACD,IAAD,CAA3B,EAAmCF,KAAnC,CAAP;EACH,CAFD;AAGH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

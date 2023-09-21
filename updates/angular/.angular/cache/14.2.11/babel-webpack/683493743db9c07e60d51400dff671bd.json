@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nimport { argsOrArgArray } from '../util/argsOrArgArray';\nimport { mergeAll } from './mergeAll';\nimport { popNumber, popScheduler } from '../util/args';\nimport { from } from '../observable/from';\nexport function merge(...args) {\n  const scheduler = popScheduler(args);\n  const concurrent = popNumber(args, Infinity);\n  args = argsOrArgArray(args);\n  return operate((source, subscriber) => {\n    mergeAll(concurrent)(from([source, ...args], scheduler)).subscribe(subscriber);\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["operate", "argsOrArgArray", "mergeAll", "popNumber", "popScheduler", "from", "merge", "args", "scheduler", "concurrent", "Infinity", "source", "subscriber", "subscribe"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/merge.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nimport { argsOrArgArray } from '../util/argsOrArgArray';\nimport { mergeAll } from './mergeAll';\nimport { popNumber, popScheduler } from '../util/args';\nimport { from } from '../observable/from';\nexport function merge(...args) {\n    const scheduler = popScheduler(args);\n    const concurrent = popNumber(args, Infinity);\n    args = argsOrArgArray(args);\n    return operate((source, subscriber) => {\n        mergeAll(concurrent)(from([source, ...args], scheduler)).subscribe(subscriber);\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,SAASC,cAAT,QAA+B,wBAA/B;AACA,SAASC,QAAT,QAAyB,YAAzB;AACA,SAASC,SAAT,EAAoBC,YAApB,QAAwC,cAAxC;AACA,SAASC,IAAT,QAAqB,oBAArB;AACA,OAAO,SAASC,KAAT,CAAe,GAAGC,IAAlB,EAAwB;EAC3B,MAAMC,SAAS,GAAGJ,YAAY,CAACG,IAAD,CAA9B;EACA,MAAME,UAAU,GAAGN,SAAS,CAACI,IAAD,EAAOG,QAAP,CAA5B;EACAH,IAAI,GAAGN,cAAc,CAACM,IAAD,CAArB;EACA,OAAOP,OAAO,CAAC,CAACW,MAAD,EAASC,UAAT,KAAwB;IACnCV,QAAQ,CAACO,UAAD,CAAR,CAAqBJ,IAAI,CAAC,CAACM,MAAD,EAAS,GAAGJ,IAAZ,CAAD,EAAoBC,SAApB,CAAzB,EAAyDK,SAAzD,CAAmED,UAAnE;EACH,CAFa,CAAd;AAGH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

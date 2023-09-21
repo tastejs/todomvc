@@ -1,0 +1,31 @@
+{
+    "ast": null,
+    "code": "import { __asyncGenerator, __await } from \"tslib\";\nimport { isFunction } from './isFunction';\nexport function readableStreamLikeToAsyncGenerator(readableStream) {\n  return __asyncGenerator(this, arguments, function* readableStreamLikeToAsyncGenerator_1() {\n    const reader = readableStream.getReader();\n\n    try {\n      while (true) {\n        const {\n          value,\n          done\n        } = yield __await(reader.read());\n\n        if (done) {\n          return yield __await(void 0);\n        }\n\n        yield yield __await(value);\n      }\n    } finally {\n      reader.releaseLock();\n    }\n  });\n}\nexport function isReadableStreamLike(obj) {\n  return isFunction(obj === null || obj === void 0 ? void 0 : obj.getReader);\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "__asyncGenerator",
+            "__await",
+            "isFunction",
+            "readableStreamLikeToAsyncGenerator",
+            "readableStream",
+            "arguments",
+            "readableStreamLikeToAsyncGenerator_1",
+            "reader",
+            "getReader",
+            "value",
+            "done",
+            "read",
+            "releaseLock",
+            "isReadableStreamLike",
+            "obj"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/isReadableStreamLike.js"],
+        "sourcesContent": [
+            "import { __asyncGenerator, __await } from \"tslib\";\nimport { isFunction } from './isFunction';\nexport function readableStreamLikeToAsyncGenerator(readableStream) {\n    return __asyncGenerator(this, arguments, function* readableStreamLikeToAsyncGenerator_1() {\n        const reader = readableStream.getReader();\n        try {\n            while (true) {\n                const { value, done } = yield __await(reader.read());\n                if (done) {\n                    return yield __await(void 0);\n                }\n                yield yield __await(value);\n            }\n        }\n        finally {\n            reader.releaseLock();\n        }\n    });\n}\nexport function isReadableStreamLike(obj) {\n    return isFunction(obj === null || obj === void 0 ? void 0 : obj.getReader);\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,gBAAT,EAA2BC,OAA3B,QAA0C,OAA1C;AACA,SAASC,UAAT,QAA2B,cAA3B;AACA,OAAO,SAASC,kCAAT,CAA4CC,cAA5C,EAA4D;EAC/D,OAAOJ,gBAAgB,CAAC,IAAD,EAAOK,SAAP,EAAkB,UAAUC,oCAAV,GAAiD;IACtF,MAAMC,MAAM,GAAGH,cAAc,CAACI,SAAf,EAAf;;IACA,IAAI;MACA,OAAO,IAAP,EAAa;QACT,MAAM;UAAEC,KAAF;UAASC;QAAT,IAAkB,MAAMT,OAAO,CAACM,MAAM,CAACI,IAAP,EAAD,CAArC;;QACA,IAAID,IAAJ,EAAU;UACN,OAAO,MAAMT,OAAO,CAAC,KAAK,CAAN,CAApB;QACH;;QACD,MAAM,MAAMA,OAAO,CAACQ,KAAD,CAAnB;MACH;IACJ,CARD,SASQ;MACJF,MAAM,CAACK,WAAP;IACH;EACJ,CAdsB,CAAvB;AAeH;AACD,OAAO,SAASC,oBAAT,CAA8BC,GAA9B,EAAmC;EACtC,OAAOZ,UAAU,CAACY,GAAG,KAAK,IAAR,IAAgBA,GAAG,KAAK,KAAK,CAA7B,GAAiC,KAAK,CAAtC,GAA0CA,GAAG,CAACN,SAA/C,CAAjB;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

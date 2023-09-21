@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { mergeMap } from './mergeMap';\nimport { isFunction } from '../util/isFunction';\nexport function concatMap(project, resultSelector) {\n  return isFunction(resultSelector) ? mergeMap(project, resultSelector, 1) : mergeMap(project, 1);\n}",
+    "map": {
+        "version": 3,
+        "names": ["mergeMap", "isFunction", "concatMap", "project", "resultSelector"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/concatMap.js"],
+        "sourcesContent": [
+            "import { mergeMap } from './mergeMap';\nimport { isFunction } from '../util/isFunction';\nexport function concatMap(project, resultSelector) {\n    return isFunction(resultSelector) ? mergeMap(project, resultSelector, 1) : mergeMap(project, 1);\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,QAAT,QAAyB,YAAzB;AACA,SAASC,UAAT,QAA2B,oBAA3B;AACA,OAAO,SAASC,SAAT,CAAmBC,OAAnB,EAA4BC,cAA5B,EAA4C;EAC/C,OAAOH,UAAU,CAACG,cAAD,CAAV,GAA6BJ,QAAQ,CAACG,OAAD,EAAUC,cAAV,EAA0B,CAA1B,CAArC,GAAoEJ,QAAQ,CAACG,OAAD,EAAU,CAAV,CAAnF;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

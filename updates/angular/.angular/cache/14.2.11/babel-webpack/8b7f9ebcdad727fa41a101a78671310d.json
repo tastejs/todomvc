@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { config } from '../config';\nimport { timeoutProvider } from '../scheduler/timeoutProvider';\nexport function reportUnhandledError(err) {\n  timeoutProvider.setTimeout(() => {\n    const {\n      onUnhandledError\n    } = config;\n\n    if (onUnhandledError) {\n      onUnhandledError(err);\n    } else {\n      throw err;\n    }\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["config", "timeoutProvider", "reportUnhandledError", "err", "setTimeout", "onUnhandledError"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/reportUnhandledError.js"],
+        "sourcesContent": [
+            "import { config } from '../config';\nimport { timeoutProvider } from '../scheduler/timeoutProvider';\nexport function reportUnhandledError(err) {\n    timeoutProvider.setTimeout(() => {\n        const { onUnhandledError } = config;\n        if (onUnhandledError) {\n            onUnhandledError(err);\n        }\n        else {\n            throw err;\n        }\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,MAAT,QAAuB,WAAvB;AACA,SAASC,eAAT,QAAgC,8BAAhC;AACA,OAAO,SAASC,oBAAT,CAA8BC,GAA9B,EAAmC;EACtCF,eAAe,CAACG,UAAhB,CAA2B,MAAM;IAC7B,MAAM;MAAEC;IAAF,IAAuBL,MAA7B;;IACA,IAAIK,gBAAJ,EAAsB;MAClBA,gBAAgB,CAACF,GAAD,CAAhB;IACH,CAFD,MAGK;MACD,MAAMA,GAAN;IACH;EACJ,CARD;AASH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

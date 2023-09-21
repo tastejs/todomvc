@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { EmptyError } from '../util/EmptyError';\nimport { filter } from './filter';\nimport { take } from './take';\nimport { defaultIfEmpty } from './defaultIfEmpty';\nimport { throwIfEmpty } from './throwIfEmpty';\nimport { identity } from '../util/identity';\nexport function first(predicate, defaultValue) {\n  const hasDefaultValue = arguments.length >= 2;\n  return source => source.pipe(predicate ? filter((v, i) => predicate(v, i, source)) : identity, take(1), hasDefaultValue ? defaultIfEmpty(defaultValue) : throwIfEmpty(() => new EmptyError()));\n}",
+    "map": {
+        "version": 3,
+        "names": ["EmptyError", "filter", "take", "defaultIfEmpty", "throwIfEmpty", "identity", "first", "predicate", "defaultValue", "hasDefaultValue", "arguments", "length", "source", "pipe", "v", "i"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/first.js"],
+        "sourcesContent": [
+            "import { EmptyError } from '../util/EmptyError';\nimport { filter } from './filter';\nimport { take } from './take';\nimport { defaultIfEmpty } from './defaultIfEmpty';\nimport { throwIfEmpty } from './throwIfEmpty';\nimport { identity } from '../util/identity';\nexport function first(predicate, defaultValue) {\n    const hasDefaultValue = arguments.length >= 2;\n    return (source) => source.pipe(predicate ? filter((v, i) => predicate(v, i, source)) : identity, take(1), hasDefaultValue ? defaultIfEmpty(defaultValue) : throwIfEmpty(() => new EmptyError()));\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,UAAT,QAA2B,oBAA3B;AACA,SAASC,MAAT,QAAuB,UAAvB;AACA,SAASC,IAAT,QAAqB,QAArB;AACA,SAASC,cAAT,QAA+B,kBAA/B;AACA,SAASC,YAAT,QAA6B,gBAA7B;AACA,SAASC,QAAT,QAAyB,kBAAzB;AACA,OAAO,SAASC,KAAT,CAAeC,SAAf,EAA0BC,YAA1B,EAAwC;EAC3C,MAAMC,eAAe,GAAGC,SAAS,CAACC,MAAV,IAAoB,CAA5C;EACA,OAAQC,MAAD,IAAYA,MAAM,CAACC,IAAP,CAAYN,SAAS,GAAGN,MAAM,CAAC,CAACa,CAAD,EAAIC,CAAJ,KAAUR,SAAS,CAACO,CAAD,EAAIC,CAAJ,EAAOH,MAAP,CAApB,CAAT,GAA+CP,QAApE,EAA8EH,IAAI,CAAC,CAAD,CAAlF,EAAuFO,eAAe,GAAGN,cAAc,CAACK,YAAD,CAAjB,GAAkCJ,YAAY,CAAC,MAAM,IAAIJ,UAAJ,EAAP,CAApJ,CAAnB;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

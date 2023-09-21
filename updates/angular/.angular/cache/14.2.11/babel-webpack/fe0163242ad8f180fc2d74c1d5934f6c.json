@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { operate } from '../util/lift';\nimport { createFind } from './find';\nexport function findIndex(predicate, thisArg) {\n  return operate(createFind(predicate, thisArg, 'index'));\n} //# sourceMappingURL=findIndex.js.map","map":null,"metadata":{},"sourceType":"module"}

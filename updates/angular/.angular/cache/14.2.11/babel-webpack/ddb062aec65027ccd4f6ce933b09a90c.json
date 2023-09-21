@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { Subject } from '../Subject';\nimport { Observable } from '../Observable';\nimport { defer } from './defer';\nconst DEFAULT_CONFIG = {\n  connector: () => new Subject(),\n  resetOnDisconnect: true\n};\nexport function connectable(source, config = DEFAULT_CONFIG) {\n  let connection = null;\n  const {\n    connector,\n    resetOnDisconnect = true\n  } = config;\n  let subject = connector();\n  const result = new Observable(subscriber => {\n    return subject.subscribe(subscriber);\n  });\n\n  result.connect = () => {\n    if (!connection || connection.closed) {\n      connection = defer(() => source).subscribe(subject);\n\n      if (resetOnDisconnect) {\n        connection.add(() => subject = connector());\n      }\n    }\n\n    return connection;\n  };\n\n  return result;\n}",
+    "map": {
+        "version": 3,
+        "names": ["Subject", "Observable", "defer", "DEFAULT_CONFIG", "connector", "resetOnDisconnect", "connectable", "source", "config", "connection", "subject", "result", "subscriber", "subscribe", "connect", "closed", "add"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/observable/connectable.js"],
+        "sourcesContent": [
+            "import { Subject } from '../Subject';\nimport { Observable } from '../Observable';\nimport { defer } from './defer';\nconst DEFAULT_CONFIG = {\n    connector: () => new Subject(),\n    resetOnDisconnect: true,\n};\nexport function connectable(source, config = DEFAULT_CONFIG) {\n    let connection = null;\n    const { connector, resetOnDisconnect = true } = config;\n    let subject = connector();\n    const result = new Observable((subscriber) => {\n        return subject.subscribe(subscriber);\n    });\n    result.connect = () => {\n        if (!connection || connection.closed) {\n            connection = defer(() => source).subscribe(subject);\n            if (resetOnDisconnect) {\n                connection.add(() => (subject = connector()));\n            }\n        }\n        return connection;\n    };\n    return result;\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,YAAxB;AACA,SAASC,UAAT,QAA2B,eAA3B;AACA,SAASC,KAAT,QAAsB,SAAtB;AACA,MAAMC,cAAc,GAAG;EACnBC,SAAS,EAAE,MAAM,IAAIJ,OAAJ,EADE;EAEnBK,iBAAiB,EAAE;AAFA,CAAvB;AAIA,OAAO,SAASC,WAAT,CAAqBC,MAArB,EAA6BC,MAAM,GAAGL,cAAtC,EAAsD;EACzD,IAAIM,UAAU,GAAG,IAAjB;EACA,MAAM;IAAEL,SAAF;IAAaC,iBAAiB,GAAG;EAAjC,IAA0CG,MAAhD;EACA,IAAIE,OAAO,GAAGN,SAAS,EAAvB;EACA,MAAMO,MAAM,GAAG,IAAIV,UAAJ,CAAgBW,UAAD,IAAgB;IAC1C,OAAOF,OAAO,CAACG,SAAR,CAAkBD,UAAlB,CAAP;EACH,CAFc,CAAf;;EAGAD,MAAM,CAACG,OAAP,GAAiB,MAAM;IACnB,IAAI,CAACL,UAAD,IAAeA,UAAU,CAACM,MAA9B,EAAsC;MAClCN,UAAU,GAAGP,KAAK,CAAC,MAAMK,MAAP,CAAL,CAAoBM,SAApB,CAA8BH,OAA9B,CAAb;;MACA,IAAIL,iBAAJ,EAAuB;QACnBI,UAAU,CAACO,GAAX,CAAe,MAAON,OAAO,GAAGN,SAAS,EAAzC;MACH;IACJ;;IACD,OAAOK,UAAP;EACH,CARD;;EASA,OAAOE,MAAP;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

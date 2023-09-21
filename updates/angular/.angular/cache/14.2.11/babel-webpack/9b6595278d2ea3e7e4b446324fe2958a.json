@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { map } from \"../operators/map\";\nconst {\n  isArray\n} = Array;\n\nfunction callOrApply(fn, args) {\n  return isArray(args) ? fn(...args) : fn(args);\n}\n\nexport function mapOneOrManyArgs(fn) {\n  return map(args => callOrApply(fn, args));\n}",
+    "map": {
+        "version": 3,
+        "names": ["map", "isArray", "Array", "callOrApply", "fn", "args", "mapOneOrManyArgs"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/mapOneOrManyArgs.js"],
+        "sourcesContent": [
+            "import { map } from \"../operators/map\";\nconst { isArray } = Array;\nfunction callOrApply(fn, args) {\n    return isArray(args) ? fn(...args) : fn(args);\n}\nexport function mapOneOrManyArgs(fn) {\n    return map(args => callOrApply(fn, args));\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,GAAT,QAAoB,kBAApB;AACA,MAAM;EAAEC;AAAF,IAAcC,KAApB;;AACA,SAASC,WAAT,CAAqBC,EAArB,EAAyBC,IAAzB,EAA+B;EAC3B,OAAOJ,OAAO,CAACI,IAAD,CAAP,GAAgBD,EAAE,CAAC,GAAGC,IAAJ,CAAlB,GAA8BD,EAAE,CAACC,IAAD,CAAvC;AACH;;AACD,OAAO,SAASC,gBAAT,CAA0BF,EAA1B,EAA8B;EACjC,OAAOJ,GAAG,CAACK,IAAI,IAAIF,WAAW,CAACC,EAAD,EAAKC,IAAL,CAApB,CAAV;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

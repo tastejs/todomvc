@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { defer } from './defer';\nexport function iif(condition, trueResult, falseResult) {\n  return defer(() => condition() ? trueResult : falseResult);\n}",
+    "map": {
+        "version": 3,
+        "names": ["defer", "iif", "condition", "trueResult", "falseResult"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/observable/iif.js"],
+        "sourcesContent": ["import { defer } from './defer';\nexport function iif(condition, trueResult, falseResult) {\n    return defer(() => (condition() ? trueResult : falseResult));\n}\n"],
+        "mappings": "AAAA,SAASA,KAAT,QAAsB,SAAtB;AACA,OAAO,SAASC,GAAT,CAAaC,SAAb,EAAwBC,UAAxB,EAAoCC,WAApC,EAAiD;EACpD,OAAOJ,KAAK,CAAC,MAAOE,SAAS,KAAKC,UAAL,GAAkBC,WAAnC,CAAZ;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

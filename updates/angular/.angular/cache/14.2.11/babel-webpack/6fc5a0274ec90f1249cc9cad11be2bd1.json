@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "export function arrRemove(arr, item) {\n  if (arr) {\n    const index = arr.indexOf(item);\n    0 <= index && arr.splice(index, 1);\n  }\n}",
+    "map": {
+        "version": 3,
+        "names": ["arrRemove", "arr", "item", "index", "indexOf", "splice"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/util/arrRemove.js"],
+        "sourcesContent": ["export function arrRemove(arr, item) {\n    if (arr) {\n        const index = arr.indexOf(item);\n        0 <= index && arr.splice(index, 1);\n    }\n}\n"],
+        "mappings": "AAAA,OAAO,SAASA,SAAT,CAAmBC,GAAnB,EAAwBC,IAAxB,EAA8B;EACjC,IAAID,GAAJ,EAAS;IACL,MAAME,KAAK,GAAGF,GAAG,CAACG,OAAJ,CAAYF,IAAZ,CAAd;IACA,KAAKC,KAAL,IAAcF,GAAG,CAACI,MAAJ,CAAWF,KAAX,EAAkB,CAAlB,CAAd;EACH;AACJ"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nexport function finalize(callback) {\n  return operate((source, subscriber) => {\n    try {\n      source.subscribe(subscriber);\n    } finally {\n      subscriber.add(callback);\n    }\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["operate", "finalize", "callback", "source", "subscriber", "subscribe", "add"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/finalize.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nexport function finalize(callback) {\n    return operate((source, subscriber) => {\n        try {\n            source.subscribe(subscriber);\n        }\n        finally {\n            subscriber.add(callback);\n        }\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,OAAO,SAASC,QAAT,CAAkBC,QAAlB,EAA4B;EAC/B,OAAOF,OAAO,CAAC,CAACG,MAAD,EAASC,UAAT,KAAwB;IACnC,IAAI;MACAD,MAAM,CAACE,SAAP,CAAiBD,UAAjB;IACH,CAFD,SAGQ;MACJA,UAAU,CAACE,GAAX,CAAeJ,QAAf;IACH;EACJ,CAPa,CAAd;AAQH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

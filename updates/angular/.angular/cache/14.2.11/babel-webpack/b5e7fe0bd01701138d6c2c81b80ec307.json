@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { merge } from './merge';\nexport function mergeWith(...otherSources) {\n  return merge(...otherSources);\n} //# sourceMappingURL=mergeWith.js.map","map":null,"metadata":{},"sourceType":"module"}

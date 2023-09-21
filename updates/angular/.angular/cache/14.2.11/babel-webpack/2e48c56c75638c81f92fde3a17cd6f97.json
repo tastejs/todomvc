@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { createErrorClass } from './createErrorClass';\nexport const NotFoundError = createErrorClass(_super => function NotFoundErrorImpl(message) {\n  _super(this);\n\n  this.name = 'NotFoundError';\n  this.message = message;\n}); //# sourceMappingURL=NotFoundError.js.map","map":null,"metadata":{},"sourceType":"module"}

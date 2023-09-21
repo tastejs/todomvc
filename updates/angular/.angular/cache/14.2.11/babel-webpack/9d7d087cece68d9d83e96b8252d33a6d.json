@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { BehaviorSubject } from '../BehaviorSubject';\nimport { ConnectableObservable } from '../observable/ConnectableObservable';\nexport function publishBehavior(initialValue) {\n  return source => {\n    const subject = new BehaviorSubject(initialValue);\n    return new ConnectableObservable(source, () => subject);\n  };\n}",
+    "map": {
+        "version": 3,
+        "names": ["BehaviorSubject", "ConnectableObservable", "publishBehavior", "initialValue", "source", "subject"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/publishBehavior.js"],
+        "sourcesContent": [
+            "import { BehaviorSubject } from '../BehaviorSubject';\nimport { ConnectableObservable } from '../observable/ConnectableObservable';\nexport function publishBehavior(initialValue) {\n    return (source) => {\n        const subject = new BehaviorSubject(initialValue);\n        return new ConnectableObservable(source, () => subject);\n    };\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,eAAT,QAAgC,oBAAhC;AACA,SAASC,qBAAT,QAAsC,qCAAtC;AACA,OAAO,SAASC,eAAT,CAAyBC,YAAzB,EAAuC;EAC1C,OAAQC,MAAD,IAAY;IACf,MAAMC,OAAO,GAAG,IAAIL,eAAJ,CAAoBG,YAApB,CAAhB;IACA,OAAO,IAAIF,qBAAJ,CAA0BG,MAA1B,EAAkC,MAAMC,OAAxC,CAAP;EACH,CAHD;AAIH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

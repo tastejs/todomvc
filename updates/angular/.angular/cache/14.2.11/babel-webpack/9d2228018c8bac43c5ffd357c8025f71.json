@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "export const dateTimestampProvider = {\n  now() {\n    return (dateTimestampProvider.delegate || Date).now();\n  },\n\n  delegate: undefined\n};",
+    "map": {
+        "version": 3,
+        "names": ["dateTimestampProvider", "now", "delegate", "Date", "undefined"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/scheduler/dateTimestampProvider.js"],
+        "sourcesContent": ["export const dateTimestampProvider = {\n    now() {\n        return (dateTimestampProvider.delegate || Date).now();\n    },\n    delegate: undefined,\n};\n"],
+        "mappings": "AAAA,OAAO,MAAMA,qBAAqB,GAAG;EACjCC,GAAG,GAAG;IACF,OAAO,CAACD,qBAAqB,CAACE,QAAtB,IAAkCC,IAAnC,EAAyCF,GAAzC,EAAP;EACH,CAHgC;;EAIjCC,QAAQ,EAAEE;AAJuB,CAA9B"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

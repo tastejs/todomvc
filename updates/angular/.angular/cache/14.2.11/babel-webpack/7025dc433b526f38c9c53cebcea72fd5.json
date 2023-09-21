@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { combineLatestInit } from '../observable/combineLatest';\nimport { operate } from '../util/lift';\nimport { argsOrArgArray } from '../util/argsOrArgArray';\nimport { mapOneOrManyArgs } from '../util/mapOneOrManyArgs';\nimport { pipe } from '../util/pipe';\nimport { popResultSelector } from '../util/args';\nexport function combineLatest(...args) {\n  const resultSelector = popResultSelector(args);\n  return resultSelector ? pipe(combineLatest(...args), mapOneOrManyArgs(resultSelector)) : operate((source, subscriber) => {\n    combineLatestInit([source, ...argsOrArgArray(args)])(subscriber);\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["combineLatestInit", "operate", "argsOrArgArray", "mapOneOrManyArgs", "pipe", "popResultSelector", "combineLatest", "args", "resultSelector", "source", "subscriber"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/combineLatest.js"],
+        "sourcesContent": [
+            "import { combineLatestInit } from '../observable/combineLatest';\nimport { operate } from '../util/lift';\nimport { argsOrArgArray } from '../util/argsOrArgArray';\nimport { mapOneOrManyArgs } from '../util/mapOneOrManyArgs';\nimport { pipe } from '../util/pipe';\nimport { popResultSelector } from '../util/args';\nexport function combineLatest(...args) {\n    const resultSelector = popResultSelector(args);\n    return resultSelector\n        ? pipe(combineLatest(...args), mapOneOrManyArgs(resultSelector))\n        : operate((source, subscriber) => {\n            combineLatestInit([source, ...argsOrArgArray(args)])(subscriber);\n        });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,iBAAT,QAAkC,6BAAlC;AACA,SAASC,OAAT,QAAwB,cAAxB;AACA,SAASC,cAAT,QAA+B,wBAA/B;AACA,SAASC,gBAAT,QAAiC,0BAAjC;AACA,SAASC,IAAT,QAAqB,cAArB;AACA,SAASC,iBAAT,QAAkC,cAAlC;AACA,OAAO,SAASC,aAAT,CAAuB,GAAGC,IAA1B,EAAgC;EACnC,MAAMC,cAAc,GAAGH,iBAAiB,CAACE,IAAD,CAAxC;EACA,OAAOC,cAAc,GACfJ,IAAI,CAACE,aAAa,CAAC,GAAGC,IAAJ,CAAd,EAAyBJ,gBAAgB,CAACK,cAAD,CAAzC,CADW,GAEfP,OAAO,CAAC,CAACQ,MAAD,EAASC,UAAT,KAAwB;IAC9BV,iBAAiB,CAAC,CAACS,MAAD,EAAS,GAAGP,cAAc,CAACK,IAAD,CAA1B,CAAD,CAAjB,CAAqDG,UAArD;EACH,CAFQ,CAFb;AAKH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

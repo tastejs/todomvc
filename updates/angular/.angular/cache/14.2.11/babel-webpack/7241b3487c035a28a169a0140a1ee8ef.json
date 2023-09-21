@@ -1,0 +1,35 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nimport { noop } from '../util/noop';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nimport { innerFrom } from '../observable/innerFrom';\nexport function bufferWhen(closingSelector) {\n  return operate((source, subscriber) => {\n    let buffer = null;\n    let closingSubscriber = null;\n\n    const openBuffer = () => {\n      closingSubscriber === null || closingSubscriber === void 0 ? void 0 : closingSubscriber.unsubscribe();\n      const b = buffer;\n      buffer = [];\n      b && subscriber.next(b);\n      innerFrom(closingSelector()).subscribe(closingSubscriber = createOperatorSubscriber(subscriber, openBuffer, noop));\n    };\n\n    openBuffer();\n    source.subscribe(createOperatorSubscriber(subscriber, value => buffer === null || buffer === void 0 ? void 0 : buffer.push(value), () => {\n      buffer && subscriber.next(buffer);\n      subscriber.complete();\n    }, undefined, () => buffer = closingSubscriber = null));\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "operate",
+            "noop",
+            "createOperatorSubscriber",
+            "innerFrom",
+            "bufferWhen",
+            "closingSelector",
+            "source",
+            "subscriber",
+            "buffer",
+            "closingSubscriber",
+            "openBuffer",
+            "unsubscribe",
+            "b",
+            "next",
+            "subscribe",
+            "value",
+            "push",
+            "complete",
+            "undefined"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/bufferWhen.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nimport { noop } from '../util/noop';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nimport { innerFrom } from '../observable/innerFrom';\nexport function bufferWhen(closingSelector) {\n    return operate((source, subscriber) => {\n        let buffer = null;\n        let closingSubscriber = null;\n        const openBuffer = () => {\n            closingSubscriber === null || closingSubscriber === void 0 ? void 0 : closingSubscriber.unsubscribe();\n            const b = buffer;\n            buffer = [];\n            b && subscriber.next(b);\n            innerFrom(closingSelector()).subscribe((closingSubscriber = createOperatorSubscriber(subscriber, openBuffer, noop)));\n        };\n        openBuffer();\n        source.subscribe(createOperatorSubscriber(subscriber, (value) => buffer === null || buffer === void 0 ? void 0 : buffer.push(value), () => {\n            buffer && subscriber.next(buffer);\n            subscriber.complete();\n        }, undefined, () => (buffer = closingSubscriber = null)));\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,SAASC,IAAT,QAAqB,cAArB;AACA,SAASC,wBAAT,QAAyC,sBAAzC;AACA,SAASC,SAAT,QAA0B,yBAA1B;AACA,OAAO,SAASC,UAAT,CAAoBC,eAApB,EAAqC;EACxC,OAAOL,OAAO,CAAC,CAACM,MAAD,EAASC,UAAT,KAAwB;IACnC,IAAIC,MAAM,GAAG,IAAb;IACA,IAAIC,iBAAiB,GAAG,IAAxB;;IACA,MAAMC,UAAU,GAAG,MAAM;MACrBD,iBAAiB,KAAK,IAAtB,IAA8BA,iBAAiB,KAAK,KAAK,CAAzD,GAA6D,KAAK,CAAlE,GAAsEA,iBAAiB,CAACE,WAAlB,EAAtE;MACA,MAAMC,CAAC,GAAGJ,MAAV;MACAA,MAAM,GAAG,EAAT;MACAI,CAAC,IAAIL,UAAU,CAACM,IAAX,CAAgBD,CAAhB,CAAL;MACAT,SAAS,CAACE,eAAe,EAAhB,CAAT,CAA6BS,SAA7B,CAAwCL,iBAAiB,GAAGP,wBAAwB,CAACK,UAAD,EAAaG,UAAb,EAAyBT,IAAzB,CAApF;IACH,CAND;;IAOAS,UAAU;IACVJ,MAAM,CAACQ,SAAP,CAAiBZ,wBAAwB,CAACK,UAAD,EAAcQ,KAAD,IAAWP,MAAM,KAAK,IAAX,IAAmBA,MAAM,KAAK,KAAK,CAAnC,GAAuC,KAAK,CAA5C,GAAgDA,MAAM,CAACQ,IAAP,CAAYD,KAAZ,CAAxE,EAA4F,MAAM;MACvIP,MAAM,IAAID,UAAU,CAACM,IAAX,CAAgBL,MAAhB,CAAV;MACAD,UAAU,CAACU,QAAX;IACH,CAHwC,EAGtCC,SAHsC,EAG3B,MAAOV,MAAM,GAAGC,iBAAiB,GAAG,IAHT,CAAzC;EAIH,CAfa,CAAd;AAgBH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

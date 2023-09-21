@@ -1,0 +1,36 @@
+{
+    "ast": null,
+    "code": "import { Subscriber } from '../Subscriber';\nexport function createOperatorSubscriber(destination, onNext, onComplete, onError, onFinalize) {\n  return new OperatorSubscriber(destination, onNext, onComplete, onError, onFinalize);\n}\nexport class OperatorSubscriber extends Subscriber {\n  constructor(destination, onNext, onComplete, onError, onFinalize, shouldUnsubscribe) {\n    super(destination);\n    this.onFinalize = onFinalize;\n    this.shouldUnsubscribe = shouldUnsubscribe;\n    this._next = onNext ? function (value) {\n      try {\n        onNext(value);\n      } catch (err) {\n        destination.error(err);\n      }\n    } : super._next;\n    this._error = onError ? function (err) {\n      try {\n        onError(err);\n      } catch (err) {\n        destination.error(err);\n      } finally {\n        this.unsubscribe();\n      }\n    } : super._error;\n    this._complete = onComplete ? function () {\n      try {\n        onComplete();\n      } catch (err) {\n        destination.error(err);\n      } finally {\n        this.unsubscribe();\n      }\n    } : super._complete;\n  }\n\n  unsubscribe() {\n    var _a;\n\n    if (!this.shouldUnsubscribe || this.shouldUnsubscribe()) {\n      const {\n        closed\n      } = this;\n      super.unsubscribe();\n      !closed && ((_a = this.onFinalize) === null || _a === void 0 ? void 0 : _a.call(this));\n    }\n  }\n\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "Subscriber",
+            "createOperatorSubscriber",
+            "destination",
+            "onNext",
+            "onComplete",
+            "onError",
+            "onFinalize",
+            "OperatorSubscriber",
+            "constructor",
+            "shouldUnsubscribe",
+            "_next",
+            "value",
+            "err",
+            "error",
+            "_error",
+            "unsubscribe",
+            "_complete",
+            "_a",
+            "closed",
+            "call"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/OperatorSubscriber.js"],
+        "sourcesContent": [
+            "import { Subscriber } from '../Subscriber';\nexport function createOperatorSubscriber(destination, onNext, onComplete, onError, onFinalize) {\n    return new OperatorSubscriber(destination, onNext, onComplete, onError, onFinalize);\n}\nexport class OperatorSubscriber extends Subscriber {\n    constructor(destination, onNext, onComplete, onError, onFinalize, shouldUnsubscribe) {\n        super(destination);\n        this.onFinalize = onFinalize;\n        this.shouldUnsubscribe = shouldUnsubscribe;\n        this._next = onNext\n            ? function (value) {\n                try {\n                    onNext(value);\n                }\n                catch (err) {\n                    destination.error(err);\n                }\n            }\n            : super._next;\n        this._error = onError\n            ? function (err) {\n                try {\n                    onError(err);\n                }\n                catch (err) {\n                    destination.error(err);\n                }\n                finally {\n                    this.unsubscribe();\n                }\n            }\n            : super._error;\n        this._complete = onComplete\n            ? function () {\n                try {\n                    onComplete();\n                }\n                catch (err) {\n                    destination.error(err);\n                }\n                finally {\n                    this.unsubscribe();\n                }\n            }\n            : super._complete;\n    }\n    unsubscribe() {\n        var _a;\n        if (!this.shouldUnsubscribe || this.shouldUnsubscribe()) {\n            const { closed } = this;\n            super.unsubscribe();\n            !closed && ((_a = this.onFinalize) === null || _a === void 0 ? void 0 : _a.call(this));\n        }\n    }\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,UAAT,QAA2B,eAA3B;AACA,OAAO,SAASC,wBAAT,CAAkCC,WAAlC,EAA+CC,MAA/C,EAAuDC,UAAvD,EAAmEC,OAAnE,EAA4EC,UAA5E,EAAwF;EAC3F,OAAO,IAAIC,kBAAJ,CAAuBL,WAAvB,EAAoCC,MAApC,EAA4CC,UAA5C,EAAwDC,OAAxD,EAAiEC,UAAjE,CAAP;AACH;AACD,OAAO,MAAMC,kBAAN,SAAiCP,UAAjC,CAA4C;EAC/CQ,WAAW,CAACN,WAAD,EAAcC,MAAd,EAAsBC,UAAtB,EAAkCC,OAAlC,EAA2CC,UAA3C,EAAuDG,iBAAvD,EAA0E;IACjF,MAAMP,WAAN;IACA,KAAKI,UAAL,GAAkBA,UAAlB;IACA,KAAKG,iBAAL,GAAyBA,iBAAzB;IACA,KAAKC,KAAL,GAAaP,MAAM,GACb,UAAUQ,KAAV,EAAiB;MACf,IAAI;QACAR,MAAM,CAACQ,KAAD,CAAN;MACH,CAFD,CAGA,OAAOC,GAAP,EAAY;QACRV,WAAW,CAACW,KAAZ,CAAkBD,GAAlB;MACH;IACJ,CARc,GASb,MAAMF,KATZ;IAUA,KAAKI,MAAL,GAAcT,OAAO,GACf,UAAUO,GAAV,EAAe;MACb,IAAI;QACAP,OAAO,CAACO,GAAD,CAAP;MACH,CAFD,CAGA,OAAOA,GAAP,EAAY;QACRV,WAAW,CAACW,KAAZ,CAAkBD,GAAlB;MACH,CALD,SAMQ;QACJ,KAAKG,WAAL;MACH;IACJ,CAXgB,GAYf,MAAMD,MAZZ;IAaA,KAAKE,SAAL,GAAiBZ,UAAU,GACrB,YAAY;MACV,IAAI;QACAA,UAAU;MACb,CAFD,CAGA,OAAOQ,GAAP,EAAY;QACRV,WAAW,CAACW,KAAZ,CAAkBD,GAAlB;MACH,CALD,SAMQ;QACJ,KAAKG,WAAL;MACH;IACJ,CAXsB,GAYrB,MAAMC,SAZZ;EAaH;;EACDD,WAAW,GAAG;IACV,IAAIE,EAAJ;;IACA,IAAI,CAAC,KAAKR,iBAAN,IAA2B,KAAKA,iBAAL,EAA/B,EAAyD;MACrD,MAAM;QAAES;MAAF,IAAa,IAAnB;MACA,MAAMH,WAAN;MACA,CAACG,MAAD,KAAY,CAACD,EAAE,GAAG,KAAKX,UAAX,MAA2B,IAA3B,IAAmCW,EAAE,KAAK,KAAK,CAA/C,GAAmD,KAAK,CAAxD,GAA4DA,EAAE,CAACE,IAAH,CAAQ,IAAR,CAAxE;IACH;EACJ;;AAjD8C"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

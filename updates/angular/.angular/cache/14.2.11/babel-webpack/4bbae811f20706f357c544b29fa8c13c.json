@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { zip } from './zip';\nexport function zipWith(...otherInputs) {\n  return zip(...otherInputs);\n}",
+    "map": {
+        "version": 3,
+        "names": ["zip", "zipWith", "otherInputs"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/zipWith.js"],
+        "sourcesContent": ["import { zip } from './zip';\nexport function zipWith(...otherInputs) {\n    return zip(...otherInputs);\n}\n"],
+        "mappings": "AAAA,SAASA,GAAT,QAAoB,OAApB;AACA,OAAO,SAASC,OAAT,CAAiB,GAAGC,WAApB,EAAiC;EACpC,OAAOF,GAAG,CAAC,GAAGE,WAAJ,CAAV;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

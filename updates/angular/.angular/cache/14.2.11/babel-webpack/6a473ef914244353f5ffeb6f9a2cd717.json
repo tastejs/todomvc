@@ -1,0 +1,35 @@
+{
+    "ast": null,
+    "code": "import { Observable } from '../Observable';\nimport { async as asyncScheduler } from '../scheduler/async';\nimport { isScheduler } from '../util/isScheduler';\nimport { isValidDate } from '../util/isDate';\nexport function timer(dueTime = 0, intervalOrScheduler, scheduler = asyncScheduler) {\n  let intervalDuration = -1;\n\n  if (intervalOrScheduler != null) {\n    if (isScheduler(intervalOrScheduler)) {\n      scheduler = intervalOrScheduler;\n    } else {\n      intervalDuration = intervalOrScheduler;\n    }\n  }\n\n  return new Observable(subscriber => {\n    let due = isValidDate(dueTime) ? +dueTime - scheduler.now() : dueTime;\n\n    if (due < 0) {\n      due = 0;\n    }\n\n    let n = 0;\n    return scheduler.schedule(function () {\n      if (!subscriber.closed) {\n        subscriber.next(n++);\n\n        if (0 <= intervalDuration) {\n          this.schedule(undefined, intervalDuration);\n        } else {\n          subscriber.complete();\n        }\n      }\n    }, due);\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "Observable",
+            "async",
+            "asyncScheduler",
+            "isScheduler",
+            "isValidDate",
+            "timer",
+            "dueTime",
+            "intervalOrScheduler",
+            "scheduler",
+            "intervalDuration",
+            "subscriber",
+            "due",
+            "now",
+            "n",
+            "schedule",
+            "closed",
+            "next",
+            "undefined",
+            "complete"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/observable/timer.js"],
+        "sourcesContent": [
+            "import { Observable } from '../Observable';\nimport { async as asyncScheduler } from '../scheduler/async';\nimport { isScheduler } from '../util/isScheduler';\nimport { isValidDate } from '../util/isDate';\nexport function timer(dueTime = 0, intervalOrScheduler, scheduler = asyncScheduler) {\n    let intervalDuration = -1;\n    if (intervalOrScheduler != null) {\n        if (isScheduler(intervalOrScheduler)) {\n            scheduler = intervalOrScheduler;\n        }\n        else {\n            intervalDuration = intervalOrScheduler;\n        }\n    }\n    return new Observable((subscriber) => {\n        let due = isValidDate(dueTime) ? +dueTime - scheduler.now() : dueTime;\n        if (due < 0) {\n            due = 0;\n        }\n        let n = 0;\n        return scheduler.schedule(function () {\n            if (!subscriber.closed) {\n                subscriber.next(n++);\n                if (0 <= intervalDuration) {\n                    this.schedule(undefined, intervalDuration);\n                }\n                else {\n                    subscriber.complete();\n                }\n            }\n        }, due);\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,UAAT,QAA2B,eAA3B;AACA,SAASC,KAAK,IAAIC,cAAlB,QAAwC,oBAAxC;AACA,SAASC,WAAT,QAA4B,qBAA5B;AACA,SAASC,WAAT,QAA4B,gBAA5B;AACA,OAAO,SAASC,KAAT,CAAeC,OAAO,GAAG,CAAzB,EAA4BC,mBAA5B,EAAiDC,SAAS,GAAGN,cAA7D,EAA6E;EAChF,IAAIO,gBAAgB,GAAG,CAAC,CAAxB;;EACA,IAAIF,mBAAmB,IAAI,IAA3B,EAAiC;IAC7B,IAAIJ,WAAW,CAACI,mBAAD,CAAf,EAAsC;MAClCC,SAAS,GAAGD,mBAAZ;IACH,CAFD,MAGK;MACDE,gBAAgB,GAAGF,mBAAnB;IACH;EACJ;;EACD,OAAO,IAAIP,UAAJ,CAAgBU,UAAD,IAAgB;IAClC,IAAIC,GAAG,GAAGP,WAAW,CAACE,OAAD,CAAX,GAAuB,CAACA,OAAD,GAAWE,SAAS,CAACI,GAAV,EAAlC,GAAoDN,OAA9D;;IACA,IAAIK,GAAG,GAAG,CAAV,EAAa;MACTA,GAAG,GAAG,CAAN;IACH;;IACD,IAAIE,CAAC,GAAG,CAAR;IACA,OAAOL,SAAS,CAACM,QAAV,CAAmB,YAAY;MAClC,IAAI,CAACJ,UAAU,CAACK,MAAhB,EAAwB;QACpBL,UAAU,CAACM,IAAX,CAAgBH,CAAC,EAAjB;;QACA,IAAI,KAAKJ,gBAAT,EAA2B;UACvB,KAAKK,QAAL,CAAcG,SAAd,EAAyBR,gBAAzB;QACH,CAFD,MAGK;UACDC,UAAU,CAACQ,QAAX;QACH;MACJ;IACJ,CAVM,EAUJP,GAVI,CAAP;EAWH,CAjBM,CAAP;AAkBH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

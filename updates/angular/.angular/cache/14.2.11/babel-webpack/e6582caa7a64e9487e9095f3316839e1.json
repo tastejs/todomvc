@@ -1,0 +1,34 @@
+{
+    "ast": null,
+    "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nexports.fromCodePoint = String.fromCodePoint || function (astralCodePoint) {\n  return String.fromCharCode(Math.floor((astralCodePoint - 65536) / 1024) + 55296, (astralCodePoint - 65536) % 1024 + 56320);\n};\n\nexports.getCodePoint = String.prototype.codePointAt ? function (input, position) {\n  return input.codePointAt(position);\n} : function (input, position) {\n  return (input.charCodeAt(position) - 55296) * 1024 + input.charCodeAt(position + 1) - 56320 + 65536;\n};\nexports.highSurrogateFrom = 55296;\nexports.highSurrogateTo = 56319;",
+    "map": {
+        "version": 3,
+        "names": [
+            "Object",
+            "defineProperty",
+            "exports",
+            "value",
+            "fromCodePoint",
+            "String",
+            "astralCodePoint",
+            "fromCharCode",
+            "Math",
+            "floor",
+            "getCodePoint",
+            "prototype",
+            "codePointAt",
+            "input",
+            "position",
+            "charCodeAt",
+            "highSurrogateFrom",
+            "highSurrogateTo"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/html-entities/lib/surrogate-pairs.js"],
+        "sourcesContent": [
+            "\"use strict\";Object.defineProperty(exports,\"__esModule\",{value:true});exports.fromCodePoint=String.fromCodePoint||function(astralCodePoint){return String.fromCharCode(Math.floor((astralCodePoint-65536)/1024)+55296,(astralCodePoint-65536)%1024+56320)};exports.getCodePoint=String.prototype.codePointAt?function(input,position){return input.codePointAt(position)}:function(input,position){return(input.charCodeAt(position)-55296)*1024+input.charCodeAt(position+1)-56320+65536};exports.highSurrogateFrom=55296;exports.highSurrogateTo=56319;"
+        ],
+        "mappings": "AAAA;;AAAaA,MAAM,CAACC,cAAP,CAAsBC,OAAtB,EAA8B,YAA9B,EAA2C;EAACC,KAAK,EAAC;AAAP,CAA3C;;AAAyDD,OAAO,CAACE,aAAR,GAAsBC,MAAM,CAACD,aAAP,IAAsB,UAASE,eAAT,EAAyB;EAAC,OAAOD,MAAM,CAACE,YAAP,CAAoBC,IAAI,CAACC,KAAL,CAAW,CAACH,eAAe,GAAC,KAAjB,IAAwB,IAAnC,IAAyC,KAA7D,EAAmE,CAACA,eAAe,GAAC,KAAjB,IAAwB,IAAxB,GAA6B,KAAhG,CAAP;AAA8G,CAApL;;AAAqLJ,OAAO,CAACQ,YAAR,GAAqBL,MAAM,CAACM,SAAP,CAAiBC,WAAjB,GAA6B,UAASC,KAAT,EAAeC,QAAf,EAAwB;EAAC,OAAOD,KAAK,CAACD,WAAN,CAAkBE,QAAlB,CAAP;AAAmC,CAAzF,GAA0F,UAASD,KAAT,EAAeC,QAAf,EAAwB;EAAC,OAAM,CAACD,KAAK,CAACE,UAAN,CAAiBD,QAAjB,IAA2B,KAA5B,IAAmC,IAAnC,GAAwCD,KAAK,CAACE,UAAN,CAAiBD,QAAQ,GAAC,CAA1B,CAAxC,GAAqE,KAArE,GAA2E,KAAjF;AAAuF,CAA/N;AAAgOZ,OAAO,CAACc,iBAAR,GAA0B,KAA1B;AAAgCd,OAAO,CAACe,eAAR,GAAwB,KAAxB"
+    },
+    "metadata": {},
+    "sourceType": "script"
+}

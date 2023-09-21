@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { Scheduler } from '../Scheduler';\nexport class AsyncScheduler extends Scheduler {\n  constructor(SchedulerAction, now = Scheduler.now) {\n    super(SchedulerAction, now);\n    this.actions = [];\n    this._active = false;\n  }\n\n  flush(action) {\n    const {\n      actions\n    } = this;\n\n    if (this._active) {\n      actions.push(action);\n      return;\n    }\n\n    let error;\n    this._active = true;\n\n    do {\n      if (error = action.execute(action.state, action.delay)) {\n        break;\n      }\n    } while (action = actions.shift());\n\n    this._active = false;\n\n    if (error) {\n      while (action = actions.shift()) {\n        action.unsubscribe();\n      }\n\n      throw error;\n    }\n  }\n\n}",
+    "map": {
+        "version": 3,
+        "names": ["Scheduler", "AsyncScheduler", "constructor", "SchedulerAction", "now", "actions", "_active", "flush", "action", "push", "error", "execute", "state", "delay", "shift", "unsubscribe"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/scheduler/AsyncScheduler.js"],
+        "sourcesContent": [
+            "import { Scheduler } from '../Scheduler';\nexport class AsyncScheduler extends Scheduler {\n    constructor(SchedulerAction, now = Scheduler.now) {\n        super(SchedulerAction, now);\n        this.actions = [];\n        this._active = false;\n    }\n    flush(action) {\n        const { actions } = this;\n        if (this._active) {\n            actions.push(action);\n            return;\n        }\n        let error;\n        this._active = true;\n        do {\n            if ((error = action.execute(action.state, action.delay))) {\n                break;\n            }\n        } while ((action = actions.shift()));\n        this._active = false;\n        if (error) {\n            while ((action = actions.shift())) {\n                action.unsubscribe();\n            }\n            throw error;\n        }\n    }\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,SAAT,QAA0B,cAA1B;AACA,OAAO,MAAMC,cAAN,SAA6BD,SAA7B,CAAuC;EAC1CE,WAAW,CAACC,eAAD,EAAkBC,GAAG,GAAGJ,SAAS,CAACI,GAAlC,EAAuC;IAC9C,MAAMD,eAAN,EAAuBC,GAAvB;IACA,KAAKC,OAAL,GAAe,EAAf;IACA,KAAKC,OAAL,GAAe,KAAf;EACH;;EACDC,KAAK,CAACC,MAAD,EAAS;IACV,MAAM;MAAEH;IAAF,IAAc,IAApB;;IACA,IAAI,KAAKC,OAAT,EAAkB;MACdD,OAAO,CAACI,IAAR,CAAaD,MAAb;MACA;IACH;;IACD,IAAIE,KAAJ;IACA,KAAKJ,OAAL,GAAe,IAAf;;IACA,GAAG;MACC,IAAKI,KAAK,GAAGF,MAAM,CAACG,OAAP,CAAeH,MAAM,CAACI,KAAtB,EAA6BJ,MAAM,CAACK,KAApC,CAAb,EAA0D;QACtD;MACH;IACJ,CAJD,QAIUL,MAAM,GAAGH,OAAO,CAACS,KAAR,EAJnB;;IAKA,KAAKR,OAAL,GAAe,KAAf;;IACA,IAAII,KAAJ,EAAW;MACP,OAAQF,MAAM,GAAGH,OAAO,CAACS,KAAR,EAAjB,EAAmC;QAC/BN,MAAM,CAACO,WAAP;MACH;;MACD,MAAML,KAAN;IACH;EACJ;;AA1ByC"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

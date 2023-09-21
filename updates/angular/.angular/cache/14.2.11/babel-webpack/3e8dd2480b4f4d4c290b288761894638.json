@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { concat } from '../observable/concat';\nimport { of } from '../observable/of';\nexport function endWith(...values) {\n  return source => concat(source, of(...values));\n}",
+    "map": {
+        "version": 3,
+        "names": ["concat", "of", "endWith", "values", "source"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/endWith.js"],
+        "sourcesContent": ["import { concat } from '../observable/concat';\nimport { of } from '../observable/of';\nexport function endWith(...values) {\n    return (source) => concat(source, of(...values));\n}\n"],
+        "mappings": "AAAA,SAASA,MAAT,QAAuB,sBAAvB;AACA,SAASC,EAAT,QAAmB,kBAAnB;AACA,OAAO,SAASC,OAAT,CAAiB,GAAGC,MAApB,EAA4B;EAC/B,OAAQC,MAAD,IAAYJ,MAAM,CAACI,MAAD,EAASH,EAAE,CAAC,GAAGE,MAAJ,CAAX,CAAzB;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

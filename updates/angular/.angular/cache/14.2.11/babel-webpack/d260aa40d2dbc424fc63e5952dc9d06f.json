@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nimport { noop } from '../util/noop';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function sample(notifier) {\n  return operate((source, subscriber) => {\n    let hasValue = false;\n    let lastValue = null;\n    source.subscribe(createOperatorSubscriber(subscriber, value => {\n      hasValue = true;\n      lastValue = value;\n    }));\n    notifier.subscribe(createOperatorSubscriber(subscriber, () => {\n      if (hasValue) {\n        hasValue = false;\n        const value = lastValue;\n        lastValue = null;\n        subscriber.next(value);\n      }\n    }, noop));\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["operate", "noop", "createOperatorSubscriber", "sample", "notifier", "source", "subscriber", "hasValue", "lastValue", "subscribe", "value", "next"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/sample.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nimport { noop } from '../util/noop';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function sample(notifier) {\n    return operate((source, subscriber) => {\n        let hasValue = false;\n        let lastValue = null;\n        source.subscribe(createOperatorSubscriber(subscriber, (value) => {\n            hasValue = true;\n            lastValue = value;\n        }));\n        notifier.subscribe(createOperatorSubscriber(subscriber, () => {\n            if (hasValue) {\n                hasValue = false;\n                const value = lastValue;\n                lastValue = null;\n                subscriber.next(value);\n            }\n        }, noop));\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,SAASC,IAAT,QAAqB,cAArB;AACA,SAASC,wBAAT,QAAyC,sBAAzC;AACA,OAAO,SAASC,MAAT,CAAgBC,QAAhB,EAA0B;EAC7B,OAAOJ,OAAO,CAAC,CAACK,MAAD,EAASC,UAAT,KAAwB;IACnC,IAAIC,QAAQ,GAAG,KAAf;IACA,IAAIC,SAAS,GAAG,IAAhB;IACAH,MAAM,CAACI,SAAP,CAAiBP,wBAAwB,CAACI,UAAD,EAAcI,KAAD,IAAW;MAC7DH,QAAQ,GAAG,IAAX;MACAC,SAAS,GAAGE,KAAZ;IACH,CAHwC,CAAzC;IAIAN,QAAQ,CAACK,SAAT,CAAmBP,wBAAwB,CAACI,UAAD,EAAa,MAAM;MAC1D,IAAIC,QAAJ,EAAc;QACVA,QAAQ,GAAG,KAAX;QACA,MAAMG,KAAK,GAAGF,SAAd;QACAA,SAAS,GAAG,IAAZ;QACAF,UAAU,CAACK,IAAX,CAAgBD,KAAhB;MACH;IACJ,CAP0C,EAOxCT,IAPwC,CAA3C;EAQH,CAfa,CAAd;AAgBH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

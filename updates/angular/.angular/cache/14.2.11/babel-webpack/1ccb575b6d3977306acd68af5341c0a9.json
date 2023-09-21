@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { async } from '../scheduler/async';\nimport { isValidDate } from '../util/isDate';\nimport { timeout } from './timeout';\nexport function timeoutWith(due, withObservable, scheduler) {\n  let first;\n  let each;\n\n  let _with;\n\n  scheduler = scheduler !== null && scheduler !== void 0 ? scheduler : async;\n\n  if (isValidDate(due)) {\n    first = due;\n  } else if (typeof due === 'number') {\n    each = due;\n  }\n\n  if (withObservable) {\n    _with = () => withObservable;\n  } else {\n    throw new TypeError('No observable provided to switch to');\n  }\n\n  if (first == null && each == null) {\n    throw new TypeError('No timeout provided.');\n  }\n\n  return timeout({\n    first,\n    each,\n    scheduler,\n    with: _with\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["async", "isValidDate", "timeout", "timeoutWith", "due", "withObservable", "scheduler", "first", "each", "_with", "TypeError", "with"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/timeoutWith.js"],
+        "sourcesContent": [
+            "import { async } from '../scheduler/async';\nimport { isValidDate } from '../util/isDate';\nimport { timeout } from './timeout';\nexport function timeoutWith(due, withObservable, scheduler) {\n    let first;\n    let each;\n    let _with;\n    scheduler = scheduler !== null && scheduler !== void 0 ? scheduler : async;\n    if (isValidDate(due)) {\n        first = due;\n    }\n    else if (typeof due === 'number') {\n        each = due;\n    }\n    if (withObservable) {\n        _with = () => withObservable;\n    }\n    else {\n        throw new TypeError('No observable provided to switch to');\n    }\n    if (first == null && each == null) {\n        throw new TypeError('No timeout provided.');\n    }\n    return timeout({\n        first,\n        each,\n        scheduler,\n        with: _with,\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,KAAT,QAAsB,oBAAtB;AACA,SAASC,WAAT,QAA4B,gBAA5B;AACA,SAASC,OAAT,QAAwB,WAAxB;AACA,OAAO,SAASC,WAAT,CAAqBC,GAArB,EAA0BC,cAA1B,EAA0CC,SAA1C,EAAqD;EACxD,IAAIC,KAAJ;EACA,IAAIC,IAAJ;;EACA,IAAIC,KAAJ;;EACAH,SAAS,GAAGA,SAAS,KAAK,IAAd,IAAsBA,SAAS,KAAK,KAAK,CAAzC,GAA6CA,SAA7C,GAAyDN,KAArE;;EACA,IAAIC,WAAW,CAACG,GAAD,CAAf,EAAsB;IAClBG,KAAK,GAAGH,GAAR;EACH,CAFD,MAGK,IAAI,OAAOA,GAAP,KAAe,QAAnB,EAA6B;IAC9BI,IAAI,GAAGJ,GAAP;EACH;;EACD,IAAIC,cAAJ,EAAoB;IAChBI,KAAK,GAAG,MAAMJ,cAAd;EACH,CAFD,MAGK;IACD,MAAM,IAAIK,SAAJ,CAAc,qCAAd,CAAN;EACH;;EACD,IAAIH,KAAK,IAAI,IAAT,IAAiBC,IAAI,IAAI,IAA7B,EAAmC;IAC/B,MAAM,IAAIE,SAAJ,CAAc,sBAAd,CAAN;EACH;;EACD,OAAOR,OAAO,CAAC;IACXK,KADW;IAEXC,IAFW;IAGXF,SAHW;IAIXK,IAAI,EAAEF;EAJK,CAAD,CAAd;AAMH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { map } from './map';\nexport function mapTo(value) {\n  return map(() => value);\n}",
+    "map": {
+        "version": 3,
+        "names": ["map", "mapTo", "value"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/mapTo.js"],
+        "sourcesContent": ["import { map } from './map';\nexport function mapTo(value) {\n    return map(() => value);\n}\n"],
+        "mappings": "AAAA,SAASA,GAAT,QAAoB,OAApB;AACA,OAAO,SAASC,KAAT,CAAeC,KAAf,EAAsB;EACzB,OAAOF,GAAG,CAAC,MAAME,KAAP,CAAV;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { executeSchedule } from '../util/executeSchedule';\nimport { operate } from '../util/lift';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function observeOn(scheduler, delay = 0) {\n  return operate((source, subscriber) => {\n    source.subscribe(createOperatorSubscriber(subscriber, value => executeSchedule(subscriber, scheduler, () => subscriber.next(value), delay), () => executeSchedule(subscriber, scheduler, () => subscriber.complete(), delay), err => executeSchedule(subscriber, scheduler, () => subscriber.error(err), delay)));\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": ["executeSchedule", "operate", "createOperatorSubscriber", "observeOn", "scheduler", "delay", "source", "subscriber", "subscribe", "value", "next", "complete", "err", "error"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/observeOn.js"],
+        "sourcesContent": [
+            "import { executeSchedule } from '../util/executeSchedule';\nimport { operate } from '../util/lift';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function observeOn(scheduler, delay = 0) {\n    return operate((source, subscriber) => {\n        source.subscribe(createOperatorSubscriber(subscriber, (value) => executeSchedule(subscriber, scheduler, () => subscriber.next(value), delay), () => executeSchedule(subscriber, scheduler, () => subscriber.complete(), delay), (err) => executeSchedule(subscriber, scheduler, () => subscriber.error(err), delay)));\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,eAAT,QAAgC,yBAAhC;AACA,SAASC,OAAT,QAAwB,cAAxB;AACA,SAASC,wBAAT,QAAyC,sBAAzC;AACA,OAAO,SAASC,SAAT,CAAmBC,SAAnB,EAA8BC,KAAK,GAAG,CAAtC,EAAyC;EAC5C,OAAOJ,OAAO,CAAC,CAACK,MAAD,EAASC,UAAT,KAAwB;IACnCD,MAAM,CAACE,SAAP,CAAiBN,wBAAwB,CAACK,UAAD,EAAcE,KAAD,IAAWT,eAAe,CAACO,UAAD,EAAaH,SAAb,EAAwB,MAAMG,UAAU,CAACG,IAAX,CAAgBD,KAAhB,CAA9B,EAAsDJ,KAAtD,CAAvC,EAAqG,MAAML,eAAe,CAACO,UAAD,EAAaH,SAAb,EAAwB,MAAMG,UAAU,CAACI,QAAX,EAA9B,EAAqDN,KAArD,CAA1H,EAAwLO,GAAD,IAASZ,eAAe,CAACO,UAAD,EAAaH,SAAb,EAAwB,MAAMG,UAAU,CAACM,KAAX,CAAiBD,GAAjB,CAA9B,EAAqDP,KAArD,CAA/M,CAAzC;EACH,CAFa,CAAd;AAGH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

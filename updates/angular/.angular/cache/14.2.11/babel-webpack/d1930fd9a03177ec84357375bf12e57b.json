@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { from } from './from';\nexport function pairs(obj, scheduler) {\n  return from(Object.entries(obj), scheduler);\n} //# sourceMappingURL=pairs.js.map","map":null,"metadata":{},"sourceType":"module"}

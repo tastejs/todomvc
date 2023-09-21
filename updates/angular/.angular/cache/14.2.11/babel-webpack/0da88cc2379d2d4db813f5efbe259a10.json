@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { concat } from './concat';\nexport function concatWith(...otherSources) {\n  return concat(...otherSources);\n}",
+    "map": {
+        "version": 3,
+        "names": ["concat", "concatWith", "otherSources"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/concatWith.js"],
+        "sourcesContent": ["import { concat } from './concat';\nexport function concatWith(...otherSources) {\n    return concat(...otherSources);\n}\n"],
+        "mappings": "AAAA,SAASA,MAAT,QAAuB,UAAvB;AACA,OAAO,SAASC,UAAT,CAAoB,GAAGC,YAAvB,EAAqC;EACxC,OAAOF,MAAM,CAAC,GAAGE,YAAJ,CAAb;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

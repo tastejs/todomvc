@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { scheduleAsyncIterable } from './scheduleAsyncIterable';\nimport { readableStreamLikeToAsyncGenerator } from '../util/isReadableStreamLike';\nexport function scheduleReadableStreamLike(input, scheduler) {\n  return scheduleAsyncIterable(readableStreamLikeToAsyncGenerator(input), scheduler);\n}",
+    "map": {
+        "version": 3,
+        "names": ["scheduleAsyncIterable", "readableStreamLikeToAsyncGenerator", "scheduleReadableStreamLike", "input", "scheduler"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/scheduled/scheduleReadableStreamLike.js"],
+        "sourcesContent": [
+            "import { scheduleAsyncIterable } from './scheduleAsyncIterable';\nimport { readableStreamLikeToAsyncGenerator } from '../util/isReadableStreamLike';\nexport function scheduleReadableStreamLike(input, scheduler) {\n    return scheduleAsyncIterable(readableStreamLikeToAsyncGenerator(input), scheduler);\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,qBAAT,QAAsC,yBAAtC;AACA,SAASC,kCAAT,QAAmD,8BAAnD;AACA,OAAO,SAASC,0BAAT,CAAoCC,KAApC,EAA2CC,SAA3C,EAAsD;EACzD,OAAOJ,qBAAqB,CAACC,kCAAkC,CAACE,KAAD,CAAnC,EAA4CC,SAA5C,CAA5B;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

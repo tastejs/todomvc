@@ -1,0 +1,7 @@
+{
+    "ast": null,
+    "code": "import { RouterModule } from '@angular/router';\nimport { AppComponent } from './app.component';\nimport * as i0 from \"@angular/core\";\nimport * as i1 from \"@angular/router\";\nconst routes = [{\n  path: 'all',\n  component: AppComponent\n}, {\n  path: 'active',\n  component: AppComponent\n}, {\n  path: 'completed',\n  component: AppComponent\n}, {\n  path: '',\n  redirectTo: '/all',\n  pathMatch: 'full'\n}];\nexport let AppRoutingModule = /*#__PURE__*/(() => {\n  class AppRoutingModule {}\n\n  AppRoutingModule.ɵfac = function AppRoutingModule_Factory(t) {\n    return new (t || AppRoutingModule)();\n  };\n\n  AppRoutingModule.ɵmod = /*@__PURE__*/i0.ɵɵdefineNgModule({\n    type: AppRoutingModule\n  });\n  AppRoutingModule.ɵinj = /*@__PURE__*/i0.ɵɵdefineInjector({\n    imports: [RouterModule.forRoot(routes, {\n      useHash: true\n    }), RouterModule]\n  });\n  return AppRoutingModule;\n})();",
+    "map": null,
+    "metadata": {},
+    "sourceType": "module"
+}

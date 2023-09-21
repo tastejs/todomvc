@@ -1,0 +1,13 @@
+{
+    "ast": null,
+    "code": "import { mergeMap } from './mergeMap';\nexport const flatMap = mergeMap;",
+    "map": {
+        "version": 3,
+        "names": ["mergeMap", "flatMap"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/flatMap.js"],
+        "sourcesContent": ["import { mergeMap } from './mergeMap';\nexport const flatMap = mergeMap;\n"],
+        "mappings": "AAAA,SAASA,QAAT,QAAyB,YAAzB;AACA,OAAO,MAAMC,OAAO,GAAGD,QAAhB"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

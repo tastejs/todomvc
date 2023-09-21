@@ -1,0 +1,53 @@
+{
+    "ast": null,
+    "code": "import { innerFrom } from '../observable/innerFrom';\nimport { Observable } from '../Observable';\nimport { mergeMap } from '../operators/mergeMap';\nimport { isArrayLike } from '../util/isArrayLike';\nimport { isFunction } from '../util/isFunction';\nimport { mapOneOrManyArgs } from '../util/mapOneOrManyArgs';\nconst nodeEventEmitterMethods = ['addListener', 'removeListener'];\nconst eventTargetMethods = ['addEventListener', 'removeEventListener'];\nconst jqueryMethods = ['on', 'off'];\nexport function fromEvent(target, eventName, options, resultSelector) {\n  if (isFunction(options)) {\n    resultSelector = options;\n    options = undefined;\n  }\n\n  if (resultSelector) {\n    return fromEvent(target, eventName, options).pipe(mapOneOrManyArgs(resultSelector));\n  }\n\n  const [add, remove] = isEventTarget(target) ? eventTargetMethods.map(methodName => handler => target[methodName](eventName, handler, options)) : isNodeStyleEventEmitter(target) ? nodeEventEmitterMethods.map(toCommonHandlerRegistry(target, eventName)) : isJQueryStyleEventEmitter(target) ? jqueryMethods.map(toCommonHandlerRegistry(target, eventName)) : [];\n\n  if (!add) {\n    if (isArrayLike(target)) {\n      return mergeMap(subTarget => fromEvent(subTarget, eventName, options))(innerFrom(target));\n    }\n  }\n\n  if (!add) {\n    throw new TypeError('Invalid event target');\n  }\n\n  return new Observable(subscriber => {\n    const handler = (...args) => subscriber.next(1 < args.length ? args : args[0]);\n\n    add(handler);\n    return () => remove(handler);\n  });\n}\n\nfunction toCommonHandlerRegistry(target, eventName) {\n  return methodName => handler => target[methodName](eventName, handler);\n}\n\nfunction isNodeStyleEventEmitter(target) {\n  return isFunction(target.addListener) && isFunction(target.removeListener);\n}\n\nfunction isJQueryStyleEventEmitter(target) {\n  return isFunction(target.on) && isFunction(target.off);\n}\n\nfunction isEventTarget(target) {\n  return isFunction(target.addEventListener) && isFunction(target.removeEventListener);\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "innerFrom",
+            "Observable",
+            "mergeMap",
+            "isArrayLike",
+            "isFunction",
+            "mapOneOrManyArgs",
+            "nodeEventEmitterMethods",
+            "eventTargetMethods",
+            "jqueryMethods",
+            "fromEvent",
+            "target",
+            "eventName",
+            "options",
+            "resultSelector",
+            "undefined",
+            "pipe",
+            "add",
+            "remove",
+            "isEventTarget",
+            "map",
+            "methodName",
+            "handler",
+            "isNodeStyleEventEmitter",
+            "toCommonHandlerRegistry",
+            "isJQueryStyleEventEmitter",
+            "subTarget",
+            "TypeError",
+            "subscriber",
+            "args",
+            "next",
+            "length",
+            "addListener",
+            "removeListener",
+            "on",
+            "off",
+            "addEventListener",
+            "removeEventListener"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/observable/fromEvent.js"],
+        "sourcesContent": [
+            "import { innerFrom } from '../observable/innerFrom';\nimport { Observable } from '../Observable';\nimport { mergeMap } from '../operators/mergeMap';\nimport { isArrayLike } from '../util/isArrayLike';\nimport { isFunction } from '../util/isFunction';\nimport { mapOneOrManyArgs } from '../util/mapOneOrManyArgs';\nconst nodeEventEmitterMethods = ['addListener', 'removeListener'];\nconst eventTargetMethods = ['addEventListener', 'removeEventListener'];\nconst jqueryMethods = ['on', 'off'];\nexport function fromEvent(target, eventName, options, resultSelector) {\n    if (isFunction(options)) {\n        resultSelector = options;\n        options = undefined;\n    }\n    if (resultSelector) {\n        return fromEvent(target, eventName, options).pipe(mapOneOrManyArgs(resultSelector));\n    }\n    const [add, remove] = isEventTarget(target)\n        ? eventTargetMethods.map((methodName) => (handler) => target[methodName](eventName, handler, options))\n        :\n            isNodeStyleEventEmitter(target)\n                ? nodeEventEmitterMethods.map(toCommonHandlerRegistry(target, eventName))\n                : isJQueryStyleEventEmitter(target)\n                    ? jqueryMethods.map(toCommonHandlerRegistry(target, eventName))\n                    : [];\n    if (!add) {\n        if (isArrayLike(target)) {\n            return mergeMap((subTarget) => fromEvent(subTarget, eventName, options))(innerFrom(target));\n        }\n    }\n    if (!add) {\n        throw new TypeError('Invalid event target');\n    }\n    return new Observable((subscriber) => {\n        const handler = (...args) => subscriber.next(1 < args.length ? args : args[0]);\n        add(handler);\n        return () => remove(handler);\n    });\n}\nfunction toCommonHandlerRegistry(target, eventName) {\n    return (methodName) => (handler) => target[methodName](eventName, handler);\n}\nfunction isNodeStyleEventEmitter(target) {\n    return isFunction(target.addListener) && isFunction(target.removeListener);\n}\nfunction isJQueryStyleEventEmitter(target) {\n    return isFunction(target.on) && isFunction(target.off);\n}\nfunction isEventTarget(target) {\n    return isFunction(target.addEventListener) && isFunction(target.removeEventListener);\n}\n"
+        ],
+        "mappings": "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"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

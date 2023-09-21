@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { Observable } from '../Observable';\nexport function fromSubscribable(subscribable) {\n  return new Observable(subscriber => subscribable.subscribe(subscriber));\n} //# sourceMappingURL=fromSubscribable.js.map","map":null,"metadata":{},"sourceType":"module"}

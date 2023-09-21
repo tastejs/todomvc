@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const config = {\n  onUnhandledError: null,\n  onStoppedNotification: null,\n  Promise: undefined,\n  useDeprecatedSynchronousErrorHandling: false,\n  useDeprecatedNextContext: false\n}; //# sourceMappingURL=config.js.map","map":null,"metadata":{},"sourceType":"module"}

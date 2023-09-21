@@ -1,0 +1,35 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nimport { innerFrom } from '../observable/innerFrom';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function audit(durationSelector) {\n  return operate((source, subscriber) => {\n    let hasValue = false;\n    let lastValue = null;\n    let durationSubscriber = null;\n    let isComplete = false;\n\n    const endDuration = () => {\n      durationSubscriber === null || durationSubscriber === void 0 ? void 0 : durationSubscriber.unsubscribe();\n      durationSubscriber = null;\n\n      if (hasValue) {\n        hasValue = false;\n        const value = lastValue;\n        lastValue = null;\n        subscriber.next(value);\n      }\n\n      isComplete && subscriber.complete();\n    };\n\n    const cleanupDuration = () => {\n      durationSubscriber = null;\n      isComplete && subscriber.complete();\n    };\n\n    source.subscribe(createOperatorSubscriber(subscriber, value => {\n      hasValue = true;\n      lastValue = value;\n\n      if (!durationSubscriber) {\n        innerFrom(durationSelector(value)).subscribe(durationSubscriber = createOperatorSubscriber(subscriber, endDuration, cleanupDuration));\n      }\n    }, () => {\n      isComplete = true;\n      (!hasValue || !durationSubscriber || durationSubscriber.closed) && subscriber.complete();\n    }));\n  });\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "operate",
+            "innerFrom",
+            "createOperatorSubscriber",
+            "audit",
+            "durationSelector",
+            "source",
+            "subscriber",
+            "hasValue",
+            "lastValue",
+            "durationSubscriber",
+            "isComplete",
+            "endDuration",
+            "unsubscribe",
+            "value",
+            "next",
+            "complete",
+            "cleanupDuration",
+            "subscribe",
+            "closed"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/audit.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nimport { innerFrom } from '../observable/innerFrom';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function audit(durationSelector) {\n    return operate((source, subscriber) => {\n        let hasValue = false;\n        let lastValue = null;\n        let durationSubscriber = null;\n        let isComplete = false;\n        const endDuration = () => {\n            durationSubscriber === null || durationSubscriber === void 0 ? void 0 : durationSubscriber.unsubscribe();\n            durationSubscriber = null;\n            if (hasValue) {\n                hasValue = false;\n                const value = lastValue;\n                lastValue = null;\n                subscriber.next(value);\n            }\n            isComplete && subscriber.complete();\n        };\n        const cleanupDuration = () => {\n            durationSubscriber = null;\n            isComplete && subscriber.complete();\n        };\n        source.subscribe(createOperatorSubscriber(subscriber, (value) => {\n            hasValue = true;\n            lastValue = value;\n            if (!durationSubscriber) {\n                innerFrom(durationSelector(value)).subscribe((durationSubscriber = createOperatorSubscriber(subscriber, endDuration, cleanupDuration)));\n            }\n        }, () => {\n            isComplete = true;\n            (!hasValue || !durationSubscriber || durationSubscriber.closed) && subscriber.complete();\n        }));\n    });\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,SAASC,SAAT,QAA0B,yBAA1B;AACA,SAASC,wBAAT,QAAyC,sBAAzC;AACA,OAAO,SAASC,KAAT,CAAeC,gBAAf,EAAiC;EACpC,OAAOJ,OAAO,CAAC,CAACK,MAAD,EAASC,UAAT,KAAwB;IACnC,IAAIC,QAAQ,GAAG,KAAf;IACA,IAAIC,SAAS,GAAG,IAAhB;IACA,IAAIC,kBAAkB,GAAG,IAAzB;IACA,IAAIC,UAAU,GAAG,KAAjB;;IACA,MAAMC,WAAW,GAAG,MAAM;MACtBF,kBAAkB,KAAK,IAAvB,IAA+BA,kBAAkB,KAAK,KAAK,CAA3D,GAA+D,KAAK,CAApE,GAAwEA,kBAAkB,CAACG,WAAnB,EAAxE;MACAH,kBAAkB,GAAG,IAArB;;MACA,IAAIF,QAAJ,EAAc;QACVA,QAAQ,GAAG,KAAX;QACA,MAAMM,KAAK,GAAGL,SAAd;QACAA,SAAS,GAAG,IAAZ;QACAF,UAAU,CAACQ,IAAX,CAAgBD,KAAhB;MACH;;MACDH,UAAU,IAAIJ,UAAU,CAACS,QAAX,EAAd;IACH,CAVD;;IAWA,MAAMC,eAAe,GAAG,MAAM;MAC1BP,kBAAkB,GAAG,IAArB;MACAC,UAAU,IAAIJ,UAAU,CAACS,QAAX,EAAd;IACH,CAHD;;IAIAV,MAAM,CAACY,SAAP,CAAiBf,wBAAwB,CAACI,UAAD,EAAcO,KAAD,IAAW;MAC7DN,QAAQ,GAAG,IAAX;MACAC,SAAS,GAAGK,KAAZ;;MACA,IAAI,CAACJ,kBAAL,EAAyB;QACrBR,SAAS,CAACG,gBAAgB,CAACS,KAAD,CAAjB,CAAT,CAAmCI,SAAnC,CAA8CR,kBAAkB,GAAGP,wBAAwB,CAACI,UAAD,EAAaK,WAAb,EAA0BK,eAA1B,CAA3F;MACH;IACJ,CANwC,EAMtC,MAAM;MACLN,UAAU,GAAG,IAAb;MACA,CAAC,CAACH,QAAD,IAAa,CAACE,kBAAd,IAAoCA,kBAAkB,CAACS,MAAxD,KAAmEZ,UAAU,CAACS,QAAX,EAAnE;IACH,CATwC,CAAzC;EAUH,CA9Ba,CAAd;AA+BH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

@@ -1,0 +1,42 @@
+{
+    "ast": null,
+    "code": "import { operate } from '../util/lift';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function sequenceEqual(compareTo, comparator = (a, b) => a === b) {\n  return operate((source, subscriber) => {\n    const aState = createState();\n    const bState = createState();\n\n    const emit = isEqual => {\n      subscriber.next(isEqual);\n      subscriber.complete();\n    };\n\n    const createSubscriber = (selfState, otherState) => {\n      const sequenceEqualSubscriber = createOperatorSubscriber(subscriber, a => {\n        const {\n          buffer,\n          complete\n        } = otherState;\n\n        if (buffer.length === 0) {\n          complete ? emit(false) : selfState.buffer.push(a);\n        } else {\n          !comparator(a, buffer.shift()) && emit(false);\n        }\n      }, () => {\n        selfState.complete = true;\n        const {\n          complete,\n          buffer\n        } = otherState;\n        complete && emit(buffer.length === 0);\n        sequenceEqualSubscriber === null || sequenceEqualSubscriber === void 0 ? void 0 : sequenceEqualSubscriber.unsubscribe();\n      });\n      return sequenceEqualSubscriber;\n    };\n\n    source.subscribe(createSubscriber(aState, bState));\n    compareTo.subscribe(createSubscriber(bState, aState));\n  });\n}\n\nfunction createState() {\n  return {\n    buffer: [],\n    complete: false\n  };\n}",
+    "map": {
+        "version": 3,
+        "names": [
+            "operate",
+            "createOperatorSubscriber",
+            "sequenceEqual",
+            "compareTo",
+            "comparator",
+            "a",
+            "b",
+            "source",
+            "subscriber",
+            "aState",
+            "createState",
+            "bState",
+            "emit",
+            "isEqual",
+            "next",
+            "complete",
+            "createSubscriber",
+            "selfState",
+            "otherState",
+            "sequenceEqualSubscriber",
+            "buffer",
+            "length",
+            "push",
+            "shift",
+            "unsubscribe",
+            "subscribe"
+        ],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/sequenceEqual.js"],
+        "sourcesContent": [
+            "import { operate } from '../util/lift';\nimport { createOperatorSubscriber } from './OperatorSubscriber';\nexport function sequenceEqual(compareTo, comparator = (a, b) => a === b) {\n    return operate((source, subscriber) => {\n        const aState = createState();\n        const bState = createState();\n        const emit = (isEqual) => {\n            subscriber.next(isEqual);\n            subscriber.complete();\n        };\n        const createSubscriber = (selfState, otherState) => {\n            const sequenceEqualSubscriber = createOperatorSubscriber(subscriber, (a) => {\n                const { buffer, complete } = otherState;\n                if (buffer.length === 0) {\n                    complete ? emit(false) : selfState.buffer.push(a);\n                }\n                else {\n                    !comparator(a, buffer.shift()) && emit(false);\n                }\n            }, () => {\n                selfState.complete = true;\n                const { complete, buffer } = otherState;\n                complete && emit(buffer.length === 0);\n                sequenceEqualSubscriber === null || sequenceEqualSubscriber === void 0 ? void 0 : sequenceEqualSubscriber.unsubscribe();\n            });\n            return sequenceEqualSubscriber;\n        };\n        source.subscribe(createSubscriber(aState, bState));\n        compareTo.subscribe(createSubscriber(bState, aState));\n    });\n}\nfunction createState() {\n    return {\n        buffer: [],\n        complete: false,\n    };\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,OAAT,QAAwB,cAAxB;AACA,SAASC,wBAAT,QAAyC,sBAAzC;AACA,OAAO,SAASC,aAAT,CAAuBC,SAAvB,EAAkCC,UAAU,GAAG,CAACC,CAAD,EAAIC,CAAJ,KAAUD,CAAC,KAAKC,CAA/D,EAAkE;EACrE,OAAON,OAAO,CAAC,CAACO,MAAD,EAASC,UAAT,KAAwB;IACnC,MAAMC,MAAM,GAAGC,WAAW,EAA1B;IACA,MAAMC,MAAM,GAAGD,WAAW,EAA1B;;IACA,MAAME,IAAI,GAAIC,OAAD,IAAa;MACtBL,UAAU,CAACM,IAAX,CAAgBD,OAAhB;MACAL,UAAU,CAACO,QAAX;IACH,CAHD;;IAIA,MAAMC,gBAAgB,GAAG,CAACC,SAAD,EAAYC,UAAZ,KAA2B;MAChD,MAAMC,uBAAuB,GAAGlB,wBAAwB,CAACO,UAAD,EAAcH,CAAD,IAAO;QACxE,MAAM;UAAEe,MAAF;UAAUL;QAAV,IAAuBG,UAA7B;;QACA,IAAIE,MAAM,CAACC,MAAP,KAAkB,CAAtB,EAAyB;UACrBN,QAAQ,GAAGH,IAAI,CAAC,KAAD,CAAP,GAAiBK,SAAS,CAACG,MAAV,CAAiBE,IAAjB,CAAsBjB,CAAtB,CAAzB;QACH,CAFD,MAGK;UACD,CAACD,UAAU,CAACC,CAAD,EAAIe,MAAM,CAACG,KAAP,EAAJ,CAAX,IAAkCX,IAAI,CAAC,KAAD,CAAtC;QACH;MACJ,CARuD,EAQrD,MAAM;QACLK,SAAS,CAACF,QAAV,GAAqB,IAArB;QACA,MAAM;UAAEA,QAAF;UAAYK;QAAZ,IAAuBF,UAA7B;QACAH,QAAQ,IAAIH,IAAI,CAACQ,MAAM,CAACC,MAAP,KAAkB,CAAnB,CAAhB;QACAF,uBAAuB,KAAK,IAA5B,IAAoCA,uBAAuB,KAAK,KAAK,CAArE,GAAyE,KAAK,CAA9E,GAAkFA,uBAAuB,CAACK,WAAxB,EAAlF;MACH,CAbuD,CAAxD;MAcA,OAAOL,uBAAP;IACH,CAhBD;;IAiBAZ,MAAM,CAACkB,SAAP,CAAiBT,gBAAgB,CAACP,MAAD,EAASE,MAAT,CAAjC;IACAR,SAAS,CAACsB,SAAV,CAAoBT,gBAAgB,CAACL,MAAD,EAASF,MAAT,CAApC;EACH,CA1Ba,CAAd;AA2BH;;AACD,SAASC,WAAT,GAAuB;EACnB,OAAO;IACHU,MAAM,EAAE,EADL;IAEHL,QAAQ,EAAE;EAFP,CAAP;AAIH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}

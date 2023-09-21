@@ -1,0 +1,15 @@
+{
+    "ast": null,
+    "code": "import { not } from '../util/not';\nimport { filter } from './filter';\nexport function partition(predicate, thisArg) {\n  return source => [filter(predicate, thisArg)(source), filter(not(predicate, thisArg))(source)];\n}",
+    "map": {
+        "version": 3,
+        "names": ["not", "filter", "partition", "predicate", "thisArg", "source"],
+        "sources": ["/Users/thorstenk/Desktop/FlashDesignory/Speedometer/resources/todomvc/architecture-examples/angular/node_modules/rxjs/dist/esm/internal/operators/partition.js"],
+        "sourcesContent": [
+            "import { not } from '../util/not';\nimport { filter } from './filter';\nexport function partition(predicate, thisArg) {\n    return (source) => [filter(predicate, thisArg)(source), filter(not(predicate, thisArg))(source)];\n}\n"
+        ],
+        "mappings": "AAAA,SAASA,GAAT,QAAoB,aAApB;AACA,SAASC,MAAT,QAAuB,UAAvB;AACA,OAAO,SAASC,SAAT,CAAmBC,SAAnB,EAA8BC,OAA9B,EAAuC;EAC1C,OAAQC,MAAD,IAAY,CAACJ,MAAM,CAACE,SAAD,EAAYC,OAAZ,CAAN,CAA2BC,MAA3B,CAAD,EAAqCJ,MAAM,CAACD,GAAG,CAACG,SAAD,EAAYC,OAAZ,CAAJ,CAAN,CAAgCC,MAAhC,CAArC,CAAnB;AACH"
+    },
+    "metadata": {},
+    "sourceType": "module"
+}
