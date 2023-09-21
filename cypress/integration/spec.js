@@ -54,12 +54,14 @@ const noLocalStorageCheck = {
   puremvc: true,
   'typescript-backbone': true,
   enyo_backbone: true,
-  foam: true
+  foam: true,
+  'vanilla-slim': true
 }
 
 const noLocalStorageSpyCheck = {
   canjs: true,
-  canjs_require: true
+  canjs_require: true,
+  'vanilla-slim': true
 }
 
 const noAppStartCheck = {

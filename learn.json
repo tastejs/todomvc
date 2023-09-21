@@ -953,6 +953,15 @@
 			"url": "examples/vanilla-es6"
 		}]
 	},
+	"vanilla-slim": {
+		"name": "JavaScript",
+		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
+		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
+		"examples": [{
+			"name": "Minimal JS Example",
+			"url": "examples/vanilla-slim"
+		}]
+	},
 	"js_of_ocaml": {
 		"name": "js_of_ocaml",
 		"description": "Js_of_ocaml is a compiler of OCaml bytecode to Javascript. It makes it possible to run Ocaml programs in a Web browser.",
