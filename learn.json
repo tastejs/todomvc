@@ -1500,8 +1500,8 @@
 		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
 		"homepage": "facebook.github.io/react",
 		"examples": [{
-			"name": "Example",
-			"url": "examples/react"
+			"name": "React",
+			"url": "updates/react/dist"
 		}, {
 			"name": "React + Backbone.js",
 			"url": "examples/react-backbone"
@@ -1518,29 +1518,23 @@
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Tutorial",
-				"url": "http://facebook.github.io/react/docs/tutorial.html"
+				"name": "Quick Start",
+				"url": "https://react.dev/learn"
 			}, {
+				"name": "API Reference",
+				"url": "https://react.dev/reference/react"
+			},{
 				"name": "Philosophy",
-				"url": "http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood"
+				"url": "https://petehuntsposts.quora.com/React-Under-the-Hood"
 			}, {
-				"name": "Support",
-				"url": "http://facebook.github.io/react/support.html"
-			}, {
-				"name": "Flux architecture example",
-				"url": "https://github.com/facebook/flux/tree/master/examples/flux-todomvc"
+				"name": "React Community",
+				"url": "https://react.dev/community"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
 				"name": "ReactJS on Stack Overflow",
 				"url": "https://stackoverflow.com/questions/tagged/reactjs"
-			}, {
-				"name": "Google Groups Mailing List",
-				"url": "https://groups.google.com/group/reactjs"
-			}, {
-				"name": "IRC",
-				"url": "irc://chat.freenode.net/reactjs"
 			}]
 		}]
 	},
