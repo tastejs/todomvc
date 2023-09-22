@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { operate } from '../util/lift';\nexport function finalize(callback) {\n  return operate((source, subscriber) => {\n    try {\n      source.subscribe(subscriber);\n    } finally {\n      subscriber.add(callback);\n    }\n  });\n} //# sourceMappingURL=finalize.js.map","map":null,"metadata":{},"sourceType":"module"}

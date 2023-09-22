@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { Observable } from '../Observable';\nimport { innerFrom } from './innerFrom';\nexport function defer(observableFactory) {\n  return new Observable(subscriber => {\n    innerFrom(observableFactory()).subscribe(subscriber);\n  });\n} //# sourceMappingURL=defer.js.map","map":null,"metadata":{},"sourceType":"module"}

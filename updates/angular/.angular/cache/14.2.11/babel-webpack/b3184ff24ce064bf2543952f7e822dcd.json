@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { Observable } from '../Observable';\nimport { isFunction } from './isFunction';\nexport function isObservable(obj) {\n  return !!obj && (obj instanceof Observable || isFunction(obj.lift) && isFunction(obj.subscribe));\n} //# sourceMappingURL=isObservable.js.map","map":null,"metadata":{},"sourceType":"module"}

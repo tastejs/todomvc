@@ -1,1 +1,0 @@
-{"ast":null,"code":"export function isValidDate(value) {\n  return value instanceof Date && !isNaN(value);\n} //# sourceMappingURL=isDate.js.map","map":null,"metadata":{},"sourceType":"module"}

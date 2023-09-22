@@ -1,1 +1,0 @@
-{"ast":null,"code":"export function arrRemove(arr, item) {\n  if (arr) {\n    const index = arr.indexOf(item);\n    0 <= index && arr.splice(index, 1);\n  }\n} //# sourceMappingURL=arrRemove.js.map","map":null,"metadata":{},"sourceType":"module"}

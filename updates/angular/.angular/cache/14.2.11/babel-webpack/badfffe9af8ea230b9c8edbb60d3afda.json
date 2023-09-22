@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { not } from '../util/not';\nimport { filter } from './filter';\nexport function partition(predicate, thisArg) {\n  return source => [filter(predicate, thisArg)(source), filter(not(predicate, thisArg))(source)];\n} //# sourceMappingURL=partition.js.map","map":null,"metadata":{},"sourceType":"module"}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { Observable } from '../Observable';\nimport { noop } from '../util/noop';\nexport const NEVER = new Observable(noop);\nexport function never() {\n  return NEVER;\n} //# sourceMappingURL=never.js.map","map":null,"metadata":{},"sourceType":"module"}

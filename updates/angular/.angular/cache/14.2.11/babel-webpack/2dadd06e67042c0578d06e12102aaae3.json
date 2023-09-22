@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { scanInternals } from './scanInternals';\nimport { operate } from '../util/lift';\nexport function reduce(accumulator, seed) {\n  return operate(scanInternals(accumulator, seed, arguments.length >= 2, false, true));\n} //# sourceMappingURL=reduce.js.map","map":null,"metadata":{},"sourceType":"module"}

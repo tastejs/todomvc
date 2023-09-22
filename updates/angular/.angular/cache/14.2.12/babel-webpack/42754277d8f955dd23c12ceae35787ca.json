@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { observable as Symbol_observable } from '../symbol/observable';\nimport { isFunction } from './isFunction';\nexport function isInteropObservable(input) {\n  return isFunction(input[Symbol_observable]);\n} //# sourceMappingURL=isInteropObservable.js.map","map":null,"metadata":{},"sourceType":"module"}

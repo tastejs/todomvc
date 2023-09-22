@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { map } from \"../operators/map\";\nconst {\n  isArray\n} = Array;\n\nfunction callOrApply(fn, args) {\n  return isArray(args) ? fn(...args) : fn(args);\n}\n\nexport function mapOneOrManyArgs(fn) {\n  return map(args => callOrApply(fn, args));\n} //# sourceMappingURL=mapOneOrManyArgs.js.map","map":null,"metadata":{},"sourceType":"module"}

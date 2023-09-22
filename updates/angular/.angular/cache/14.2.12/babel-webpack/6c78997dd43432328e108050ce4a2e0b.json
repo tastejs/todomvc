@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { scheduled } from '../scheduled/scheduled';\nimport { innerFrom } from './innerFrom';\nexport function from(input, scheduler) {\n  return scheduler ? scheduled(input, scheduler) : innerFrom(input);\n} //# sourceMappingURL=from.js.map","map":null,"metadata":{},"sourceType":"module"}

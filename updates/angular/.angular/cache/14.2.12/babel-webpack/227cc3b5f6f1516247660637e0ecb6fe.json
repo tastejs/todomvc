@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function not(pred, thisArg) {\n  return (value, index) => !pred.call(thisArg, value, index);\n} //# sourceMappingURL=not.js.map","map":null,"metadata":{},"sourceType":"module"}

@@ -22,3 +22,12 @@ but useful for people who use screen readers */
 .toggle-all-label {
     pointer-events: none;
 }
+
+app-todo-item {
+    display: block;
+    border-bottom: 1px solid #ededed;
+}
+
+app-todo-item:last-child {
+    border-bottom: none;
+}

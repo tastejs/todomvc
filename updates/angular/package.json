@@ -1,7 +1,7 @@
 {
     "name": "todomvc-angular",
     "version": "1.0.0",
-    "description": "TodoMVC app written with Angular.",
+    "description": "A TodoMVC written in Angular.",
     "private": true,
     "engines": {
         "node": ">=18.13.0",
@@ -10,7 +10,7 @@
     "scripts": {
         "ng": "ng",
         "dev": "ng serve",
-        "build": "ng build --base-href /resources/todomvc/architecture-examples/angular/dist/",
+        "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test"
     },

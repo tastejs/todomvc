@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { Subscription } from '../Subscription';\nexport class Action extends Subscription {\n  constructor(scheduler, work) {\n    super();\n  }\n\n  schedule(state, delay = 0) {\n    return this;\n  }\n\n} //# sourceMappingURL=Action.js.map","map":null,"metadata":{},"sourceType":"module"}

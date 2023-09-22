@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { argsOrArgArray } from '../util/argsOrArgArray';\nimport { raceWith } from './raceWith';\nexport function race(...args) {\n  return raceWith(...argsOrArgArray(args));\n} //# sourceMappingURL=race.js.map","map":null,"metadata":{},"sourceType":"module"}

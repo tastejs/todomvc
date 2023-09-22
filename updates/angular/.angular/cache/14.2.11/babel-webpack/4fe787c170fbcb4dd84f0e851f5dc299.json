@@ -1,1 +1,0 @@
-{"ast":null,"code":"export const dateTimestampProvider = {\n  now() {\n    return (dateTimestampProvider.delegate || Date).now();\n  },\n\n  delegate: undefined\n}; //# sourceMappingURL=dateTimestampProvider.js.map","map":null,"metadata":{},"sourceType":"module"}

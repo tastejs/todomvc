@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { createErrorClass } from './createErrorClass';\nexport const EmptyError = createErrorClass(_super => function EmptyErrorImpl() {\n  _super(this);\n\n  this.name = 'EmptyError';\n  this.message = 'no elements in sequence';\n}); //# sourceMappingURL=EmptyError.js.map","map":null,"metadata":{},"sourceType":"module"}

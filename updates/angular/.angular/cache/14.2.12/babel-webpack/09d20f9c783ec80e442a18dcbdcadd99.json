@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { operate } from '../util/lift';\nimport { scanInternals } from './scanInternals';\nexport function scan(accumulator, seed) {\n  return operate(scanInternals(accumulator, seed, arguments.length >= 2, true));\n} //# sourceMappingURL=scan.js.map","map":null,"metadata":{},"sourceType":"module"}

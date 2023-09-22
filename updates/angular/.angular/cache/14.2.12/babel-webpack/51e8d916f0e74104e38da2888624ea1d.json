@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { isFunction } from './isFunction';\nexport function isAsyncIterable(obj) {\n  return Symbol.asyncIterator && isFunction(obj === null || obj === void 0 ? void 0 : obj[Symbol.asyncIterator]);\n} //# sourceMappingURL=isAsyncIterable.js.map","map":null,"metadata":{},"sourceType":"module"}

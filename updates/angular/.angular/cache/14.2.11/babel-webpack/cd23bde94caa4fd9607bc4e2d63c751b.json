@@ -1,1 +1,0 @@
-{"ast":null,"code":"export function isFunction(value) {\n  return typeof value === 'function';\n} //# sourceMappingURL=isFunction.js.map","map":null,"metadata":{},"sourceType":"module"}

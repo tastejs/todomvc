@@ -1,4 +1,4 @@
-<li class="(todo.completed ? ' completed' : '') + (isEditing ? ' editing' : '')" [attr.data-priority]="4 - (index % 5)">
+<li [ngClass]="{ completed: todo.completed, editing: isEditing }">
     <div class="view">
         <input class="toggle" type="checkbox" (click)="toggleTodo()" [checked]="todo.completed" />
         <label (dblclick)="startEdit()">{{ todo.title }}</label>

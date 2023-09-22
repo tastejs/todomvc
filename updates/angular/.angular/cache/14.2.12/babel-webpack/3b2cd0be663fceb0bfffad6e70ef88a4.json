@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { zip } from './zip';\nexport function zipWith(...otherInputs) {\n  return zip(...otherInputs);\n} //# sourceMappingURL=zipWith.js.map","map":null,"metadata":{},"sourceType":"module"}

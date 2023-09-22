@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { mergeMap } from './mergeMap';\nimport { isFunction } from '../util/isFunction';\nexport function concatMap(project, resultSelector) {\n  return isFunction(resultSelector) ? mergeMap(project, resultSelector, 1) : mergeMap(project, 1);\n} //# sourceMappingURL=concatMap.js.map","map":null,"metadata":{},"sourceType":"module"}

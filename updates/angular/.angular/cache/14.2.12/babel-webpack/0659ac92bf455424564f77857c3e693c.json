@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { filter } from './filter';\nexport function skip(count) {\n  return filter((_, index) => count <= index);\n} //# sourceMappingURL=skip.js.map","map":null,"metadata":{},"sourceType":"module"}

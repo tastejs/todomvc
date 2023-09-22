@@ -1,7 +1,0 @@
-{
-    "ast": null,
-    "code": "import { BrowserModule } from '@angular/platform-browser';\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport * as i0 from \"@angular/core\";\nexport let AppModule = /*#__PURE__*/(() => {\n  class AppModule {}\n\n  AppModule.ɵfac = function AppModule_Factory(t) {\n    return new (t || AppModule)();\n  };\n\n  AppModule.ɵmod = /*@__PURE__*/i0.ɵɵdefineNgModule({\n    type: AppModule,\n    bootstrap: [AppComponent]\n  });\n  AppModule.ɵinj = /*@__PURE__*/i0.ɵɵdefineInjector({\n    imports: [BrowserModule, AppRoutingModule]\n  });\n  return AppModule;\n})();",
-    "map": null,
-    "metadata": {},
-    "sourceType": "module"
-}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { Subject } from '../Subject';\nimport { multicast } from './multicast';\nimport { connect } from './connect';\nexport function publish(selector) {\n  return selector ? source => connect(selector)(source) : source => multicast(new Subject())(source);\n} //# sourceMappingURL=publish.js.map","map":null,"metadata":{},"sourceType":"module"}

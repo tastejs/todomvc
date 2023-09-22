@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { asyncScheduler } from '../scheduler/async';\nimport { timer } from './timer';\nexport function interval(period = 0, scheduler = asyncScheduler) {\n  if (period < 0) {\n    period = 0;\n  }\n\n  return timer(period, period, scheduler);\n} //# sourceMappingURL=interval.js.map","map":null,"metadata":{},"sourceType":"module"}

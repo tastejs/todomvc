@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { isFunction } from './isFunction';\nexport function isScheduler(value) {\n  return value && isFunction(value.schedule);\n} //# sourceMappingURL=isScheduler.js.map","map":null,"metadata":{},"sourceType":"module"}

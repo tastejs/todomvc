@@ -1,1 +1,0 @@
-{"ast":null,"code":"import * as __NgCli_bootstrap_1 from \"@angular/platform-browser\";\nimport { AppModule } from \"./app/app.module\";\n\n__NgCli_bootstrap_1.platformBrowser().bootstrapModule(AppModule).catch(err => console.error(err));","map":null,"metadata":{},"sourceType":"module"}

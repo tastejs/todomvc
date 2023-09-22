@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nmodule.exports = function (i) {\n  return i[1];\n};","map":null,"metadata":{},"sourceType":"script"}
