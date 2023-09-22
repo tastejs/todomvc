@@ -5,7 +5,7 @@
             editing: this.editing,
         }"
     >
-        <div class="item-container">
+        <div class="view">
             <input type="checkbox" class="toggle" v-model="toggleModel" />
             <label @dblclick="startEdit">{{ todo.title }}</label>
             <button class="destroy" @click.prevent="deleteTodo"></button>
