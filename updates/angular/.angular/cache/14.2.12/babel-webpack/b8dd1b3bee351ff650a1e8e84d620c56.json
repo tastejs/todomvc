@@ -1,1 +1,0 @@
-{"ast":null,"code":"const {\n  isArray\n} = Array;\nexport function argsOrArgArray(args) {\n  return args.length === 1 && isArray(args[0]) ? args[0] : args;\n} //# sourceMappingURL=argsOrArgArray.js.map","map":null,"metadata":{},"sourceType":"module"}

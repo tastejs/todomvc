@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { zip as zipStatic } from '../observable/zip';\nimport { operate } from '../util/lift';\nexport function zip(...sources) {\n  return operate((source, subscriber) => {\n    zipStatic(source, ...sources).subscribe(subscriber);\n  });\n} //# sourceMappingURL=zip.js.map","map":null,"metadata":{},"sourceType":"module"}

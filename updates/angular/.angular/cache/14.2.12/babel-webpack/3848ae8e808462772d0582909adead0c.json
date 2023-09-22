@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { operate } from '../util/lift';\nexport function subscribeOn(scheduler, delay = 0) {\n  return operate((source, subscriber) => {\n    subscriber.add(scheduler.schedule(() => source.subscribe(subscriber), delay));\n  });\n} //# sourceMappingURL=subscribeOn.js.map","map":null,"metadata":{},"sourceType":"module"}

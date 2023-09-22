@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { distinctUntilChanged } from './distinctUntilChanged';\nexport function distinctUntilKeyChanged(key, compare) {\n  return distinctUntilChanged((x, y) => compare ? compare(x[key], y[key]) : x[key] === y[key]);\n} //# sourceMappingURL=distinctUntilKeyChanged.js.map","map":null,"metadata":{},"sourceType":"module"}

@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { isFunction } from \"./isFunction\";\nexport function isPromise(value) {\n  return isFunction(value === null || value === void 0 ? void 0 : value.then);\n} //# sourceMappingURL=isPromise.js.map","map":null,"metadata":{},"sourceType":"module"}

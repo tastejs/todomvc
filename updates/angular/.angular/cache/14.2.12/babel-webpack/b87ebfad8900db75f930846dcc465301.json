@@ -1,1 +1,0 @@
-{"ast":null,"code":"export const performanceTimestampProvider = {\n  now() {\n    return (performanceTimestampProvider.delegate || performance).now();\n  },\n\n  delegate: undefined\n}; //# sourceMappingURL=performanceTimestampProvider.js.map","map":null,"metadata":{},"sourceType":"module"}

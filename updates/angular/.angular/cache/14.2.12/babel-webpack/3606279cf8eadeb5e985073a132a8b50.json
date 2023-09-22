@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { reduce } from './reduce';\nimport { isFunction } from '../util/isFunction';\nexport function min(comparer) {\n  return reduce(isFunction(comparer) ? (x, y) => comparer(x, y) < 0 ? x : y : (x, y) => x < y ? x : y);\n} //# sourceMappingURL=min.js.map","map":null,"metadata":{},"sourceType":"module"}
