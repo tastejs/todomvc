@@ -273,7 +273,7 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Developing Backbone.js Applications",
-				"url": "http://addyosmani.github.io/backbone-fundamentals"
+				"url": "https://github.com/addyosmani/backbone-fundamentals"
 			}, {
 				"name": "Collection of tutorials, blog posts, and example sites",
 				"url": "https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites"
@@ -288,7 +288,7 @@
 				"url": "https://groups.google.com/forum/#!forum/backbonejs"
 			}, {
 				"name": "Backbone.js on Twitter",
-				"url": "http://twitter.com/documentcloud"
+				"url": "https://twitter.com/Backbonejs_"
 			}]
 		}]
 	},
