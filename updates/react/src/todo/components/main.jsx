@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { Item } from "./item";
 import classnames from "classnames";
 
+import { TOGGLE_ALL } from "../constants";
+
 export function Main({ todos, dispatch }) {
     const { pathname: route } = useLocation();
 
@@ -21,7 +23,7 @@ export function Main({ todos, dispatch }) {
         [todos, route]
     );
 
-    const toggleAll = useCallback((e) => dispatch({ type: "TOGGLE_ALL", payload: { completed: e.target.checked } }), [dispatch]);
+    const toggleAll = useCallback((e) => dispatch({ type: TOGGLE_ALL, payload: { completed: e.target.checked } }), [dispatch]);
 
     return (
         <main className="main" data-testid="main">

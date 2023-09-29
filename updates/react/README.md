@@ -1,4 +1,4 @@
-# Speedometer 3.0: TodoMVC: React
+# TodoMVC: React Hooks
 
 ## Description
 
@@ -8,17 +8,19 @@ This application uses React 17.0.2 to implement a todo application.
 
 ## Implementation details
 
+React focuses mainly on providing composable user interfaces to enable developers to build an appealing website or web app. React does not force the user to utilize a particular design pattern, but it does provide useful hooks to implement an MVC pattern, if desired. 
+
 React:\
-Model: todoReducer (reducer.js)\
+Model: Todo reducer (reducer.js)\
 View: React ui components\
-controller: App component + useReducer hook
+Controller: App component + useReducer hook
 
 MVC:\
-Model: maintains the data and behavior of an application\
-View: displays the model in the ui\
-Controller: serves as an interface between view & model components
+Model: Maintains the data and behavior of an application\
+View: Displays the model in the ui\
+Controller: Serves as an interface between view & model components
 
-## Built steps
+## Build steps
 
 To build the static files, this application utilizes webpack. It minifies and optimizes output files and copies all necessary files to a `dist` folder.
 
