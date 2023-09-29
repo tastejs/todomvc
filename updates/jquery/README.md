@@ -1,8 +1,7 @@
 # TodoMVC: jQuery
-
 ## Description
 
-This application uses jQuery to implement a todo application.
+This application uses jQuery (3.6.3) to implement a todo application.
 
 jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.
 
@@ -10,9 +9,10 @@ jQuery is a fast, small, and feature-rich JavaScript library. It makes things li
 
 ## Implementation details
 
-[TBD]
+In contrast to mv(*) patterns, this implementation keeps display, state and app logic all within one file.
+Many apps that utilize jQuery tend to keep most or all aspects within a single file for simplicity. 
 
-## Built steps
+## Build Steps
 
 A simple build script copies all necessary files to a `dist` folder.
 It does not rely on compilers or transpilers and serves raw html, css and js files to the user.
