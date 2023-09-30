@@ -1,11 +1,12 @@
-import Service from '@ember/service';
-import { TrackedObject } from 'tracked-built-ins';
 import { tracked } from '@glimmer/tracking';
+import Service from '@ember/service';
+
+import { TrackedObject } from 'tracked-built-ins';
 
 function load() {
   // localStorage has to be an array (required by the todomvc repo),
   // so let's convert to an object on id.
-  let list = JSON.parse(window.localStorage.getItem('todos') || '[]'));
+  let list = JSON.parse(window.localStorage.getItem('todos') || '[]');
 
   return list.reduce((indexed, todo) => {
     indexed[todo.id] = todo;
@@ -72,7 +73,7 @@ export default class Repo extends Service {
 		this.persist();
 	}
 
-	persist() {
-		window.localStorage.setItem('todos', JSON.stringify(this.data));
+	persist = () => {
+    save(this.data);
 	}
-});
+}
