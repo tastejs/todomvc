@@ -1,15 +1,15 @@
 import title from 'ember-page-title/helpers/page-title';
 import Route from 'ember-route-template';
-import App from 'todomvc/components/app';
 import Attribution from 'todomvc/components/attribution';
+import Layout from 'todomvc/components/layout';
 
 export default Route(
   <template>
     {{title "TodoMVC"}}
 
-    <App>
+    <Layout>
       {{outlet}}
-    </App>
+    </Layout>
 
     <Attribution />
   </template>

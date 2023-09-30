@@ -1,3 +1,12 @@
+/**
+  * This file is used to boot the application.
+  *
+  * We can also use it to import / setup other "initializing"
+  * things that wouldn't depend on user state.
+  */
+import 'todomvc-common/base.css';
+import 'todomvc-app-css/index.css';
+
 import Application from '@ember/application';
 
 import loadInitializers from 'ember-load-initializers';

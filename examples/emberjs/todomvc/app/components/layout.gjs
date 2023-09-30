@@ -1,3 +1,5 @@
+import { service } from 'ember-primitives';
+
 import Create from './create';
 import Footer from './footer';
 
@@ -15,8 +17,10 @@ function hasTodos(todos) {
 
     {{yield}}
 
-    {{#if (hasTodos @model)}}
-      <Footer />
-    {{/if}}
+    {{#let (service 'repo') as |repo|}}
+      {{#if (hasTodos repo.all)}}
+        <Footer />
+      {{/if}}
+    {{/let}}
   </section>
 </template>
