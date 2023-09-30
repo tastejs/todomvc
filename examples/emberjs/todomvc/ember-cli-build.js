@@ -2,13 +2,18 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
+/**
+  * Tweaks to this over the default:
+  * - enabled typescript
+  * - sourcemaps always on
+  */
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     // Add options here
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
     },
-    sorce,
+    sourcemap: true,
   });
 
   const { Webpack } = require('@embroider/webpack');
@@ -27,8 +32,11 @@ module.exports = function (defaults) {
       es: [],
     },
     // splitAtRoutes: ['route.name'], // can also be a RegExp
-    // packagerOptions: {
-    //    webpackConfig: { }
-    // }
+    packagerOptions: {
+       webpackConfig: {
+         // Highest fidelity
+         devtool: 'source-map'
+       }
+    }
   });
 };

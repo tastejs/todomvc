@@ -4,6 +4,8 @@
 
 > _[Ember.js - emberjs.com](http://emberjs.com)_
 
+\*Ember is not an MVC framework.
+
 ## Note for people updating this app.
 
 The `index.html` and the `assets` folder in the parent folder as simlinks into the items with the same names inside `dist`. The `dist` folder has to be checked in git and built for production.

@@ -4,7 +4,16 @@ module.exports = function (environment) {
   const ENV = {
     modulePrefix: 'todomvc',
     environment,
-    rootURL: '',
+    /**
+     * Default is:
+     *   rootURL: '/',
+     *   locationType: 'history'
+     *
+     * These settings are required by todomvc's (the repo) tests
+     */
+    // rootURL: '',
+    // locationType: 'none',
+    rootURL: '/',
     locationType: 'history',
     EmberENV: {
       EXTEND_PROTOTYPES: false,
