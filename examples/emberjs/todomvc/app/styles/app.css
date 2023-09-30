@@ -1,0 +1,132 @@
+/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+
+body {
+  --page-bg: rgb(235 235 235);
+  --page-font: rgb(40 35 35);
+  --main-bg: white;
+  --link-font: rgb(80 130 215);
+  --link-hover: rgb(20 70 155);
+  --logo-border: rgb(30 30 30);
+  --time-font: rgb(82 80 80);
+  --github-bg: rgb(20 20 20);
+  --github-border: rgb(90 90 90);
+  --github-font: white;
+  --github-hover: rgb(55 55 55);
+
+  font-family: Helvetica, Arial, sans-serif;
+  background: var(--page-bg);
+  color: var(--page-font);
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --page-bg: rgb(42 40 40);
+    --page-font: rgb(235 235 235);
+    --main-bg: rgb(4 2 2);
+    --link-font: rgb(120 170 255);
+    --logo-border: rgb(30 30 30);
+    --time-font: rgb(162 160 160);
+    --github-bg: rgb(230 230 230);
+    --github-border: #111;
+    --github-font: black;
+    --github-hover: rgb(255 255 255);
+  }
+}
+
+main {
+  background: var(--main-bg);
+  padding: 2rem 4rem 4rem;
+  border-radius: 0.75rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+header h1 {
+  margin-left: 1rem;
+}
+
+header img {
+  margin-left: 0;
+  border-radius: 1rem;
+  border: 1px solid var(--logo-border);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title h2 {
+  flex: 1;
+}
+
+.title aside {
+  color: var(--time-font);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  margin-bottom: 50px;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+li a {
+  color: var(--link-font);
+  grid-area: link;
+}
+
+li a:hover {
+  color: var(--link-hover);
+}
+
+li span {
+  grid-area: text;
+}
+
+a.github {
+  align-items: center;
+  color: var(--github-font);
+  background: var(--github-bg);
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--github-border);
+  padding-right: 1rem;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+}
+
+a.github img {
+  mix-blend-mode: difference;
+  max-height: 1.2rem;
+}
+
+a.github:hover {
+  background: var(--github-hover);
+}

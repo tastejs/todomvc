@@ -10,8 +10,10 @@ export default Service.extend({
 
 	add(attrs) {
 		let todo = Object.assign({ id: this.incrementProperty('lastId') }, attrs);
+
 		this.data.pushObject(todo);
 		this.persist();
+
 		return todo;
 	},
 
