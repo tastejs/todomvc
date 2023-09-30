@@ -23,7 +23,7 @@ function itemLabel(count) {
       <Filters />
 
       {{#if repo.completed.length}}
-        <button class="clear-completed" {{on "click" repo.clearCompleted}}>
+        <button class="clear-completed" type="button" {{on "click" repo.clearCompleted}}>
           Clear completed
         </button>
       {{/if}}

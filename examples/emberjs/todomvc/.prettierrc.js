@@ -1,13 +1,23 @@
 'use strict';
 
 module.exports = {
-  plugins: ['prettier-plugin-ember-template-tag'],
-  overrides: [
-    {
-      files: '*.{js,ts,gjs,gts}',
-      options: {
-        singleQuote: true,
-      },
-    },
-  ],
+	useTabs: true,
+	singleQuote: true,
+	printWidth: 100,
+	plugins: ['prettier-plugin-ember-template-tag'],
+	overrides: [
+		{
+			files: ['**/*.hbs'],
+			options: {
+				singleQuote: false,
+			},
+		},
+		{
+			files: ['**/*.gjs', '**/*.gts'],
+			plugins: ['prettier-plugin-ember-template-tag'],
+			options: {
+				templateSingleQuote: false,
+			},
+		},
+	],
 };

@@ -63,7 +63,7 @@ import { isBlank } from '@ember/utils';
       onchange={{action "toggleCompleted"}}
     >
     <label ondblclick={{action "startEditing"}}>{{todo.title}}</label>
-    <button class="destroy" onclick={{action "removeTodo"}}></button>
+    <button class="destroy" onclick={{action "removeTodo"}} type="button"></button>
   </div>
   <input
     class="edit"

@@ -2,16 +2,16 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 export default class ActiveTodos extends Route {
-  @service repo;
+	@service repo;
 
-  /**
-    * This should probably be renamed to "data"
-    * its under active development.
-    *
-    * In a real app you'd use this to load your
-    * _minimally required_ data to show the page.
-    */
-  model() {
-    return this.repo.active;
-  }
+	/**
+	 * This should probably be renamed to "data"
+	 * its under active development.
+	 *
+	 * In a real app you'd use this to load your
+	 * _minimally required_ data to show the page.
+	 */
+	model() {
+		return this.repo.active;
+	}
 }

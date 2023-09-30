@@ -1,22 +1,22 @@
-"use strict";
+'use strict';
 
 /**
  * ESLint is really complicated right now, so all of it is abstracted away.
  * Updates coming soon (and hopefully to the built-in ember experience).
  */
-const { configs } = require("@nullvoxpopuli/eslint-configs");
+const { configs } = require('@nullvoxpopuli/eslint-configs');
 
 const config = configs.ember();
 
-const hasTS = (globArray) => globArray.some((glob) => glob.includes("ts"));
+const hasTS = (globArray) => globArray.some((glob) => glob.includes('ts'));
 
 // Setup newer TS-aware lints
 function addTSProject(override) {
-  if (!hasTS(override.files)) return override;
+	if (!hasTS(override.files)) return override;
 
-  return {
-    ...override,
-    /**
+	return {
+		...override,
+		/**
     * This is how you tell @typescript-eslint to use your tsconfig.
     * However, for gts files, we get this:
     *
@@ -31,23 +31,23 @@ function addTSProject(override) {
 
       This is likely because we need to configure the TS parser to use glint instead of tsc
     */
-    // parserOptions: {
-    //   ...override.parserOptions,
-    //   extraFileExtensions: [".gts"],
-    //   project: path.join(__dirname, "./tsconfig.json"),
-    //   // TODO: try to set the Glint Program
-    //   //   https://typescript-eslint.io/packages/parser/
-    //   // program: import("@glint/core"),
-    // },
-    rules: {
-      ...override.rules,
-      // Disabled until the above issue is resolved
-      "@typescript-eslint/prefer-optional-chain": "off",
-    },
-  };
+		// parserOptions: {
+		//   ...override.parserOptions,
+		//   extraFileExtensions: [".gts"],
+		//   project: path.join(__dirname, "./tsconfig.json"),
+		//   // TODO: try to set the Glint Program
+		//   //   https://typescript-eslint.io/packages/parser/
+		//   // program: import("@glint/core"),
+		// },
+		rules: {
+			...override.rules,
+			// Disabled until the above issue is resolved
+			'@typescript-eslint/prefer-optional-chain': 'off',
+		},
+	};
 }
 
 module.exports = {
-  ...config,
-  overrides: [...config.overrides].map(addTSProject),
+	...config,
+	overrides: [...config.overrides].map(addTSProject),
 };
