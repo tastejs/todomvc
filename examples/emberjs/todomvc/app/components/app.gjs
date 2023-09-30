@@ -1,3 +1,4 @@
+import Create from './create';
 import Footer from './footer';
 
 function hasTodos(todos) {
@@ -8,12 +9,8 @@ function hasTodos(todos) {
   <section class="todoapp">
     <header class="header">
       <h1>todos</h1>
-      <input
-        class="new-todo"
-        onkeydown={{action "createTodo"}}
-        placeholder="What needs to be done?"
-        autofocus
-      >
+
+      <Create />
     </header>
 
     {{yield}}
@@ -22,6 +19,4 @@ function hasTodos(todos) {
       <Footer />
     {{/if}}
   </section>
-
-
 </template>

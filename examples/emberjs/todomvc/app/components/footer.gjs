@@ -1,13 +1,32 @@
+import { on } from '@ember/modifier';
+
+import { service } from 'ember-primitives';
+
+import Filters from './filters';
+
+function itemLabel(count) {
+  if (count === 0 || count > 1) {
+    return 'items';
+  }
+
+  return 'item';
+}
+
 <template>
-  <footer class="footer">
-    <span class="todo-count"><strong>{{remaining.length}}</strong> {{pluralize "item" remaining.length}} left</span>
-    <ul class="filters">
-      <li>{{#link-to "index" activeClass="selected"}}All{{/link-to}}</li>
-      <li>{{#link-to "active" activeClass="selected"}}Active{{/link-to}}</li>
-      <li>{{#link-to "completed" activeClass="selected"}}Completed{{/link-to}}</li>
-    </ul>
-    {{#if completed.length}}
-      <button class="clear-completed" onclick={{action "clearCompleted"}}>Clear completed</button>
-    {{/if}}
-  </footer>
+  {{#let (service 'repo') as |repo|}}
+    <footer class="footer">
+      <span class="todo-count">
+        <strong>{{repo.remaining.length}}</strong>
+       {{itemLabel repo.remaining.length}} left
+      </span>
+
+      <Filters />
+
+      {{#if repo.completed.length}}
+        <button class="clear-completed" {{on "click" repo.clearCompleted}}>
+          Clear completed
+        </button>
+      {{/if}}
+    </footer>
+  {{/let}}
 </template>
