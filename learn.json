@@ -20,6 +20,9 @@
 		}, {
 			"name": "Angular2",
 			"url": "examples/angular2"
+		}, {
+			"name": "Angular2 es2015",
+			"url": "examples/angular2_es2015"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -332,6 +335,16 @@
 			}]
 		}]
 	},
+	"effector": {
+		"name": "Effector",
+		"description": "The state manager",
+		"homepage": "https://effector.dev/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/effector/dist"
+		}],
+		"link_groups": []
+	},
 	"elm": {
 		"name": "Elm",
 		"description": "A functional reactive language for interactive applications",
@@ -542,6 +555,15 @@
 				"name": "cujoJS on Twitter",
 				"url": "http://twitter.com/cujojs"
 			}]
+		}]
+	},
+	"cyclejs": {
+		"name": "CycleJS",
+		"description": "A functional and reactive JavaScript framework for cleaner code",
+		"homepage": "https://cycle.js.org",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/cyclejs"
 		}]
 	},
 	"dijon": {
@@ -794,6 +816,25 @@
 			}]
 		}]
 	},
+	"flavour": {
+		"name": "TeaVM/Flavour",
+		"description": "TeaVM is an ahead-of-time compiler of Java bytecode to JavaScript.",
+		"homepage": "teavm.org",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/flavour"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Flavour on GitHub",
+				"url": "https://github.com/konsoletyper/teavm-flavour"
+			}, {
+				"name": "TeaVM on GitHub",
+				"url": "https://github.com/konsoletyper/teavm"
+			}]
+		}]
+	},
 	"flight": {
 		"name": "Flight",
 		"description": "Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.",
@@ -1035,6 +1076,16 @@
 				"url": "https://plus.google.com/102828491884671003608/posts"
 			}]
 		}]
+	},
+	"mol": {
+		"name": "$mol",
+		"description": "$mol - full reactive micromodular framework",
+		"homepage": "https://github.com/eigenmethod/mol",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/mol"
+		}],
+		"link_groups": []
 	},
 	"knockback": {
 		"name": "Knockback.js",
@@ -1761,6 +1812,16 @@
 				"url": "http://twitter.com/soundstep"
 			}]
 		}]
+	},
+	"svelte": {
+		"name": "SvelteJS",
+		"description": "The magical disappearing UI framework",
+		"homepage": "https://svelte.technology/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/svelte/public"
+		}],
+		"link_groups": []
 	},
 	"troopjs": {
 		"name": "TroopJS",

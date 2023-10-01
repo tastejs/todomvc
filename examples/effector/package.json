@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "dependencies": {
+    "effector": "^22.1.2",
+    "effector-dom": "0.0.15",
+    "effector-localstorage": "^0.5.3",
+    "parcel": "^2.0.1",
+    "serve": "^13.0.2",
+    "todomvc-app-css": "^2.4.1",
+    "todomvc-common": "^1.0.5"
+  }
+}

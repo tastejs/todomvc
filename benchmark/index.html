@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+
+<meta charset="utf-8" />
+
+<style>
+	html , body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		font: 12pt/1.25 "-apple-system", BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	}
+
+	@keyframes measure {
+		from {
+			outline : 1px solid black;
+		}
+		to {
+			outline : 1px solid white;
+		}
+	}
+
+	#sandbox {
+		border: none;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+<iframe id="sandbox"></iframe>
+
+<script>
+
+	if( window.parent === window ) document.location = 'https://bench.hyoo.ru/#bench=' + encodeURIComponent( location.href )
+
+	var metaData = {
+		title : {
+			'en' : 'ToDoMVC workflow benchmark' ,
+			'ru' : 'ToDoMVC - производительность работы' ,
+		} ,
+		descr : {
+			'en' : 'Sample applications is [ToDoMVC](https://github.com/hyoo-ru/todomvc/) implementations. Benchmark creates tasks in sequence, toggles completeness and then removes them.' ,
+			'ru' : 'Варианты реализаций [ToDoMVC](https://github.com/hyoo-ru/todomvc/) приложения для управления списком дел. В тесте замеряется время последовательного создания задач, переключения их завершённости и последующего их удаления.' ,
+		} ,
+		samples : {
+		} ,
+		params : {
+			'count' : {
+				title : {
+					'en' : 'Count of tasks' ,
+					'ru' : 'Число задач' ,
+				},
+				default : 200 ,
+				type : 'number' ,
+				precision : 50 ,
+			} ,
+			'blinks' : {
+				title : {
+					'en' : 'Complete all count' ,
+					'ru' : 'Число переключений всех' ,
+				},
+				default : 50 ,
+				type : 'number' ,
+				precision : 10 ,
+			}
+		} ,
+		steps : {
+			'start' : {
+				title : {
+					'en' : 'Load' ,
+					'ru' : 'Загрузка' ,
+				} ,
+			} ,
+			'fill' : {
+				title : {
+					'en' : 'Creating' ,
+					'ru' : 'Создание' ,
+				} ,
+			} ,
+			'complete' : {
+				title : {
+					'en' : 'Compliting' ,
+					'ru' : 'Завершение' ,
+				} ,
+			} ,
+			'clear' : {
+				title : {
+					'en' : 'Removing' ,
+					'ru' : 'Удаление' ,
+				} ,
+			} ,
+		} ,
+	}
+
+	var xhr = new XMLHttpRequest
+	xhr.open( 'get' , '../learn.json' , false )
+	xhr.send()
+	var learn = JSON.parse( xhr.responseText )
+
+	for( var lib in learn ) {
+		if( lib === 'templates' ) continue
+		learn[ lib ].examples.forEach( function( example ) {
+			if( !/^examples\/[-a-zA-Z0-9_\/]+$/.test( example.url ) ) return
+
+			metaData.samples[ example.url.replace( /(^examples\/|\/$)/g , '' ) ] = {
+				title : { 'en' : learn[ lib ].name + ' ' + example.name.replace( 'Example' , '' ) }
+			}
+		} )
+	}
+
+	var sandbox = document.getElementById( 'sandbox' )
+
+	var selector = {
+		adder : '#new-todo,.new-todo,.todo__new,[hyoo_todomvc_add]' ,
+		adderForm : '#todo-form,.todo-form,#header form' ,
+		completer : '.toggle-all,#toggle-all,[hyoo_todomvc_head_complete]' ,
+		dropper : '.destroy,[hyoo_todomvc_task_row_drop]' ,
+	}
+
+	function meta() {
+		done( metaData )
+	}
+
+	function start( sample ) {
+		var sandbox = document.getElementById( 'sandbox' )
+		localStorage.clear()
+		sandbox.src = 'about:blank'
+		setTimeout( function() {
+			var start = Date.now()
+			sandbox.src = '../examples/' + sample + '/'
+			sandbox.onload = function() {
+				step()
+				function step() {
+					if( sandbox.contentDocument.querySelector( selector.adder ) ) done( Date.now() - start + ' ms' )
+					else setTimeout( step , 10 )
+				}
+				sandbox.onload = null
+			}
+		} )
+	}
+
+	function fill( sample , params ) {
+		var adder = sandbox.contentDocument.querySelector( selector.adder )
+		var adderForm = sandbox.contentDocument.querySelector( selector.adderForm )
+		var i = 1
+		var start = Date.now()
+
+		step()
+		function step() {
+			adder.value = 'Something to do ' + i
+			adder.dispatchEvent( new Event( 'input' , { bubbles : true } ) )
+			adder.dispatchEvent( new Event( 'change' , { bubbles : true } ) )
+
+			var event = new Event( 'keydown' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'keypress' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'compositionend' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'keyup' , { bubbles : true } )
+			event.keyCode = 13
+			event.which = 13
+			event.key = 'Enter'
+			adder.dispatchEvent( event )
+
+			var event = new Event( 'blur' , { bubbles : true } )
+			adder.dispatchEvent( event )
+
+			if( adderForm ) {
+				var event = new Event( 'submit' , { bubbles : true } )
+				event.keyCode = 13
+				event.which = 13
+				event.key = 'Enter'
+				adderForm.dispatchEvent( event )
+			}
+
+			if( ++i <= params.count ) setImmediate( step )
+			else {
+				sandbox.addEventListener( 'animationend' , end )
+				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
+					sandbox.style.animation = 'measure .001s'
+				} ) } )
+				function end() { // wait for painting ends
+					done( Date.now() - start + ' ms' )
+					sandbox.style.animation = ''
+					sandbox.removeEventListener( 'animationend' , end )
+				}
+			}
+		}
+	}
+
+	function complete( sample , params ) {
+		var completer = sandbox.contentDocument.querySelector( selector.completer )
+		var i = 1
+		var start = Date.now()
+
+		step()
+		function step() {
+			completer.click()
+
+			if( ++i <= params.blinks ) setImmediate( step )
+			else {
+				sandbox.addEventListener( 'animationend' , end )
+				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
+					sandbox.style.animation = 'measure .001s'
+				} ) } )
+				function end() { // wait for painting ends
+					done( Date.now() - start + ' ms' )
+					sandbox.style.animation = ''
+					sandbox.removeEventListener( 'animationend' , end )
+				}
+			}
+		}
+	}
+
+	function clear( sample ) {
+		var start = Date.now()
+		var index = 0
+
+		step()
+		function step() {
+			var droppers = sandbox.contentDocument.querySelectorAll( selector.dropper )
+			if( !droppers.length ) {
+				sandbox.addEventListener( 'animationend' , end )
+				requestAnimationFrame( function(){ setTimeout( function() { // wait for message processed
+					sandbox.style.animation = 'measure .001s'
+				} ) } )
+				function end() {  // wait for painting ends
+					done( Date.now() - start + ' ms' )
+					sandbox.style.animation = ''
+					sandbox.removeEventListener( 'animationend' , end )
+				}
+				return
+			}
+
+			var dropper = droppers[ index++ % droppers.length ]
+
+			dropper.dispatchEvent( new MouseEvent( 'mousedown' , { bubbles : true } ) )
+			dropper.dispatchEvent( new MouseEvent( 'mouseup' , { bubbles : true } ) )
+			dropper.dispatchEvent( new MouseEvent( 'click' , { bubbles : true } ) )
+
+			setImmediate( step )
+		}
+	}
+
+	function done( result ) {
+		if( parent === window ) console.log( result )
+		else parent.postMessage( [ 'done' , result ] , '*' )
+	}
+
+	window.addEventListener( 'message' , function( event ) {
+		window[ event.data[0] ].apply( null , event.data.slice( 1 ) )
+	} )
+
+	var setImmediate_task
+	function setImmediate( task ) {
+		setImmediate_task = task
+		postMessage( [ 'setImmediate_task' ] , '*' )
+	}
+
+</script>

@@ -1,0 +1,58 @@
+<?import org.teavm.flavour.example.todomvc.TodoFilterType?>
+<?use todo:org.teavm.flavour.example.todomvc?>
+<section id="todoapp">
+  <header id="header">
+    <h1>todos</h1>
+    <form id="todo-form" event:submit="addTodo()">
+      <input id="new-todo" placeholder="What needs to be done?" html:value="newTodo" html:change="newTodo"
+             html:enabled="!saving" autofocus="autofocus">
+    </form>
+  </header>
+  <std:if condition="!todos.empty">
+    <section id="main">
+      <input id="toggle-all" type="checkbox" html:checked="allChecked" html:checked-change="markAll(it)">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="todo-list">
+        <std:foreach var="todo" in="filteredTodos">
+          <li attr:class="(todo.completed ? 'completed' : '') + (todo == editedTodo ? ' editing' : '')">
+            <div class="view">
+              <input class="toggle" type="checkbox" html:checked="todo.completed" html:checked-change="todo.completed">
+              <label event:dblclick="editTodo(todo)"><html:text value="todo.title"/></label>
+              <button class="destroy" event:click="removeTodo(todo)"></button>
+            </div>
+            <form event:submit="saveEdits(todo)">
+              <input class="edit" html:value="todo.title" html:change="todo.title" todo:escape="revertEdits(todo)"
+                     event:blur="saveEdits(todo)" todo:focus="todo == editedTodo">
+            </form>
+          </li>
+        </std:foreach>
+      </ul>
+    </section>
+    <footer id="footer">
+      <span id="todo-count"><strong><html:text value="remainingCount"/></strong>
+        <std:choose>
+          <std:option when="remainingCount == 1">item left</std:option>
+          <std:otherwise>items left</std:otherwise>
+        </std:choose>
+      </span>
+      <ul id="filters">
+        <li>
+          <a html:link="route(it).all()" attr:class="filterType == TodoFilterType.ALL ? 'selected' : ''">All</a>
+        </li>
+        <li>
+          <a html:link="route(it).active()" attr:class="filterType == TodoFilterType.ACTIVE ? 'selected' : ''">Active</a>
+        </li>
+        <li>
+          <a html:link="route(it).completed()" attr:class="filterType == TodoFilterType.COMPLETED ? 'selected' : ''">Completed</a>
+        </li>
+      </ul>
+      <std:if condition="completedCount > 0">
+        <button id="clear-completed" event:click="clearCompletedTodos()">Clear completed</button>
+      </std:if>
+    </footer>
+  </std:if>
+</section>
+<footer id="info">
+  <p>Double-click to edit a todo</p>
+  <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>

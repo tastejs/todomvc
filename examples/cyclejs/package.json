@@ -1,0 +1,52 @@
+{
+  "name": "todomvc-cycle",
+  "version": "0.0.0",
+  "author": "Andre Staltz",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:staltz/todomvc-cycle.git"
+  },
+  "license": "MIT",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Frederik Krautwald"
+    },
+    {
+      "name": "Kahlil Lechelt",
+      "email": "hello@kahlil.info"
+    }
+  ],
+  "dependencies": {
+    "@cycle/collection": "^0.3.0",
+    "@cycle/dom": "10.0.0-rc33",
+    "@cycle/history": "^4.0.0",
+    "@cycle/isolate": "1.4.x",
+    "@cycle/storage": "3.0.0-rc2",
+    "@cycle/xstream-run": "3.0.0",
+    "history": "^3.0.0",
+    "todomvc-app-css": "2.0.3",
+    "todomvc-common": "1.0.1",
+    "xstream": "^5.0.5"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "babelify": "^7.2.0",
+    "browserify": "12.0.1",
+    "live-server": "^0.9.0",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^1.4.0",
+    "uglify-js": "2.6.1",
+    "watchify": "^3.6.1"
+  },
+  "scripts": {
+    "build-debug": "mkdirp js && browserify src/app.js -t babelify --outfile js/app.js",
+    "watch:js": "mkdirp js && watchify src/app.js -t babelify --outfile js/app.js -dv",
+    "serve": "live-server ./",
+    "uglify": "uglifyjs js/app.js -o js/app.min.js",
+    "build": "npm run build-debug && npm run uglify",
+    "start": "npm-run-all --parallel watch:js serve"
+  }
+}
