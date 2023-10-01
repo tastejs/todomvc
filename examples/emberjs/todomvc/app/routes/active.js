@@ -12,6 +12,17 @@ export default class ActiveTodos extends Route {
 	 * _minimally required_ data to show the page.
 	 */
 	model() {
-		return this.repo.active;
+    let repo = this.repo;
+
+    /**
+      * We use a getter so that we make evaluation
+      * lazy, rather than evaluate (and detach from auto-tracking)
+      * in this function
+      */
+    return {
+      get todos() {
+        return repo.active;
+      }
+    }
 	}
 }

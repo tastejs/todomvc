@@ -1,54 +1,53 @@
-import Component from '@ember/component';
-import { computed, set } from '@ember/object';
-import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { on } from '@ember/modifier';
+import { service } from '@ember/service';
 
-// export default Component.extend({
-// 	repo: service(),
-// 	tagName: 'section',
-// 	classNames: ['main'],
-// 	canToggle: true,
-// 	allCompleted: computed('todos.@each.completed', function () {
-// 		return this.todos.isEvery('completed');
-// 	}),
+import Item from './todo-item';
 
-// 	actions: {
-// 		enableToggle() {
-// 			this.set('canToggle', true);
-// 		},
+export default class TodoList extends Component {
+  <template>
+    <section class="main">
+      {{#if @todos.length}}
+        {{#if this.canToggle}}
+          <input
+            id="toggle-all"
+            class="toggle-all"
+            type="checkbox"
+            checked={{this.areAllCompleted}}
+            {{on 'change' this.toggleAll}}
+          >
+          <label for="toggle-all">Mark all as complete</label>
+        {{/if}}
+        <ul class="todo-list">
+          {{#each @todos as |todo|}}
+            <Item
+              @todo={{todo}}
+              @onStartEdit={{this.disableToggle}}
+              @onEndEdit={{this.enableToggle }}
+            />
+          {{/each}}
+        </ul>
+      {{/if}}
+    </section>
+  </template>
 
-// 		disableToggle() {
-// 			this.set('canToggle', false);
-// 		},
+  @service repo;
 
-// 		toggleAll() {
-// 			let allCompleted = this.allCompleted;
+  @tracked canToggle = true;
 
-// 			this.todos.forEach(todo => set(todo, 'completed', !allCompleted));
-// 			this.repo.persist();
-// 		}
-// 	}
-// });
+  get areAllCompleted() {
+    return this.repo.completed.length === this.repo.all.length;
+  }
 
-<template>
-  {{#if todos.length}}
-    {{#if canToggle}}
-      <input
-        id="toggle-all"
-        class="toggle-all"
-        type="checkbox"
-        checked={{allCompleted}}
-        onchange={{action "toggleAll"}}
-      >
-      <label for="toggle-all">Mark all as complete</label>
-    {{/if}}
-    <ul class="todo-list">
-      {{#each todos as |todo|}}
-        {{todo-item
-          todo=todo
-          onStartEdit=(action "disableToggle")
-          onEndEdit=(action "enableToggle")
-        }}
-      {{/each}}
-    </ul>
-  {{/if}}
-</template>
+  toggleAll = () => {
+    let allCompleted = this.areAllCompleted;
+
+    this.args.todos.forEach(todo => todo.completed = !allCompleted);
+    this.repo.save();
+  }
+
+  enableToggle = () => this.canToggle = true;
+  disableToggle = () => this.canToggle = false;
+
+}

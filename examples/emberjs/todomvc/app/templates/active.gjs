@@ -6,7 +6,7 @@ export default Route(
   <template>
     {{title "Active"}}
 
-    <TodoList @todos={{@model}} />
+    <TodoList @todos={{@model.todos}} />
   </template>
 )
 

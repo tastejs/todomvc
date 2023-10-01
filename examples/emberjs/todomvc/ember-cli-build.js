@@ -25,12 +25,13 @@ module.exports = function (defaults) {
 		staticHelpers: true,
 		staticModifiers: true,
 		staticComponents: true,
-		staticEmberSource: true,
 		splitControllers: true,
 		splitRouteClasses: true,
-		amdCompatibility: {
-			es: [],
-		},
+    // the ember-inspector doesn't yet support this
+		// staticEmberSource: true,
+		// amdCompatibility: {
+		// 	es: [],
+		// },
 		// splitAtRoutes: ['route.name'], // can also be a RegExp
 		packagerOptions: {
 			webpackConfig: {

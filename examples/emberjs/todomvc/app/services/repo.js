@@ -1,7 +1,7 @@
-import { tracked } from '@glimmer/tracking';
+import { uniqueId } from '@ember/helper';
 import Service from '@ember/service';
 
-import { TrackedObject } from 'tracked-built-ins';
+import { TrackedMap, TrackedObject } from 'tracked-built-ins';
 
 function load() {
 	// localStorage has to be an array (required by the todomvc repo),
@@ -9,21 +9,19 @@ function load() {
 	let list = JSON.parse(window.localStorage.getItem('todos') || '[]');
 
 	return list.reduce((indexed, todo) => {
-		indexed[todo.id] = todo;
+		indexed.set(todo.id, new TrackedObject(todo));
 
 		return indexed;
-	}, new TrackedObject());
+	}, new TrackedMap());
 }
 
 function save(indexedData) {
-	let data = Object.values(indexedData);
+	let data = [...indexedData.values()];
 
 	window.localStorage.setItem('todos', JSON.stringify(data));
 }
 
 export default class Repo extends Service {
-	#lastId = 0;
-
 	/**
 	 * @type {{ [id: string]: {
 	 *   id: number,
@@ -31,14 +29,14 @@ export default class Repo extends Service {
 	 *   completed: boolean,
 	 * }}}
 	 */
-	@tracked data = new TrackedObject();
+	data = null;
 
 	load = () => {
 		this.data = load();
 	};
 
 	get all() {
-		return Object.values(this.data);
+    return [...this.data.values()];
 	}
 
 	get completed() {
@@ -59,17 +57,14 @@ export default class Repo extends Service {
 	};
 
 	add = (attrs) => {
-		let newId = this.#lastId++;
-		let todo = Object.assign({ id: newId }, attrs);
+		let newId = uniqueId();
 
-		this.data[newId] = todo;
+		this.data.set(newId, new TrackedObject({ ...attrs, id: newId }));
 		this.persist();
-
-		return todo;
 	};
 
 	delete = (todo) => {
-		delete this.data[todo.id];
+    this.data.delete(todo.id);
 		this.persist();
 	};
 

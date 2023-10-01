@@ -3,8 +3,8 @@ import TodoList from 'todomvc/components/todo-list';
 
 export default Route(
   <template>
-    {{#if @model.length}}
-      <TodoList @todos={{@model}} />
+    {{#if @model.todos.length}}
+      <TodoList @todos={{@model.todos}} />
     {{/if}}
   </template>
 )

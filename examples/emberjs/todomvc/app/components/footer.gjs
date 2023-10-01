@@ -28,5 +28,10 @@ function itemLabel(count) {
         </button>
       {{/if}}
     </footer>
+
+  {{!-- 
+    Looks like the latest todoMVC styles are broken?
+      or maybe the markup is supposed to change
+    --}}
   {{/let}}
 </template>

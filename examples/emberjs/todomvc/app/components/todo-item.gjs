@@ -1,75 +1,68 @@
-import Component from '@ember/component';
-import { set } from '@ember/object';
-import { scheduleOnce } from '@ember/runloop';
-import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
+import { on } from '@ember/modifier';
+import { service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 
-// export default Component.extend({
-// 	repo: service(),
-// 	tagName: 'li',
-// 	editing: false,
-// 	classNameBindings: ['todo.completed', 'editing'],
+export default class TodoItem extends Component {
+  <template>
+    <li class="{{if @todo.completed 'completed'}} {{if this.editing 'editing'}}">
+      <div class="view">
+        <input
+          class="toggle"
+          type="checkbox"
+          aria-label="Toggle the completion state of this todo"
+          checked={{@todo.completed}}
+          {{on 'change' this.toggleCompleted}}
+        >
+        <label {{on 'dblclick' this.startEditing}}>{{@todo.title}}</label>
+        <button class="destroy" {{on 'click' this.removeTodo}} type="button"></button>
+      </div>
+      <input
+        class="edit"
+        value={{@todo.title}}
+        {{on 'blur' this.doneEditing}}
+        {{on 'keydown' this.handleKeydown}}
+        autofocus
+      >
+    </li>
+  </template>
 
-// 	actions: {
-// 		startEditing() {
-// 			this.onStartEdit();
-// 			this.set('editing', true);
-// 			scheduleOnce('afterRender', this, 'focusInput');
-// 		},
+  @service repo;
 
-// 		doneEditing(todoTitle) {
-// 			if (!this.editing) { return; }
+  removeTodo = () => this.repo.delete(this.args.todo);
 
-// 			if (isBlank(todoTitle)) {
-// 				this.send('removeTodo');
-// 			} else {
-// 				this.set('todo.title', todoTitle.trim());
-// 				this.set('editing', false);
-// 				this.onEndEdit();
-// 			}
-// 		},
+  toggleCompleted = (event) => {
+      this.args.todo.completed = event.target.checked;
+			this.repo.persist();
+  }
 
-// 		handleKeydown(e) {
-// 			if (e.keyCode === 13) {
-// 				e.target.blur();
-// 			} else if (e.keyCode === 27) {
-// 				this.set('editing', false);
-// 			}
-// 		},
+  handleKeydown = (event) => {
+    if (event.keyCode === 13) {
+      event.target.blur();
+    } else if (e.keyCode === 27) {
+      this.editing = false;
+    }
+  }
 
-// 		toggleCompleted(e) {
-// 			let todo = this.todo;
+		startEditing = (event) => {
+			this.args.onStartEdit();
+      this.editing = true;
 
-// 			set(todo, 'completed', e.target.checked);
-// 			this.repo.persist();
-// 		},
+      event.closest('li')?.querySelector('input.edit').focus();
+		}
 
-// 		removeTodo() {
-// 			this.repo.delete(this.todo);
-// 		}
-// 	},
+  doneEditing = (event) => {
+			if (!this.editing) { return; }
 
-// 	focusInput() {
-// 		this.element.querySelector('input.edit').focus();
-// 	}
-// });
+      let todoTitle = event.target.value.trim();
 
-<template>
-  <div class="view">
-    <input
-      class="toggle"
-      type="checkbox"
-      checked={{todo.completed}}
-      onchange={{action "toggleCompleted"}}
-    >
-    <label ondblclick={{action "startEditing"}}>{{todo.title}}</label>
-    <button class="destroy" onclick={{action "removeTodo"}} type="button"></button>
-  </div>
-  <input
-    class="edit"
-    value={{todo.title}}
-    onblur={{action "doneEditing" value="target.value"}}
-    onkeydown={{action "handleKeydown"}}
-    autofocus
-  >
-</template>
+			if (isBlank(todoTitle)) {
+        this.removeTodo();
+			} else {
+        this.args.todo.title = todoTitle;
+        this.editing = false;
+				this.args.onEndEdit();
+			}
+  }
+
+}

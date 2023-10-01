@@ -4,6 +4,16 @@ import { service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 
 export default class Create extends Component {
+  <template>
+    <input
+      class="new-todo"
+      {{on 'keydown' this.createTodo}}
+      aria-label="What needs to be done?"
+      placeholder="What needs to be done?"
+      autofocus
+    >
+  </template>
+
   @service repo;
 
   // TODO: we should use a <form> instead of this.
@@ -19,13 +29,4 @@ export default class Create extends Component {
 				target.value = '';
 			}
   };
-
-  <template>
-    <input
-      class="new-todo"
-      {{on 'keydown' this.createTodo}}
-      placeholder="What needs to be done?"
-      autofocus
-    >
-  </template>
 }
