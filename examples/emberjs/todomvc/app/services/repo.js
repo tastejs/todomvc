@@ -23,11 +23,11 @@ function save(indexedData) {
 
 export default class Repo extends Service {
 	/**
-	 * @type {{ [id: string]: {
+	 * @type {Map<string, {
 	 *   id: number,
 	 *   title: string,
 	 *   completed: boolean,
-	 * }}}
+	 * }>}
 	 */
 	data = null;
 
