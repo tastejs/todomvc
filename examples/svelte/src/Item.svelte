@@ -1,10 +1,9 @@
 <script>
     import { createEventDispatcher, tick } from 'svelte';
+    const dispatch = createEventDispatcher();
 
     export let item;
-
     export let editing = false;
-    const dispatch = createEventDispatcher();
 
     function removeItem() {
         dispatch('removeItem');
