@@ -31,8 +31,8 @@
     function toggleAllItems(event) {
         const checked = event.target.checked;
         items = items.map((item) => ({
-        ...item,
-        completed: checked,
+            ...item,
+            completed: checked,
         }));
     }
 
