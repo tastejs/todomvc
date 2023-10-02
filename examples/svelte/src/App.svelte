@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import { router } from './router.js';
     import { uuid } from './utils.js';
 
