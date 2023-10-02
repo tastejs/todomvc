@@ -37,7 +37,7 @@
     }
 </script>
 
-<li class="{item.completed ? ' completed' : ''}{editing ? ' editing' : ''}">
+<li class:completed={item.completed} class:editing>
     <div class="view">
         <input class="toggle" type="checkbox" on:change={(event) => item.completed = event.target.checked} checked={item.completed} />
         <!-- svelte-ignore a11y-label-has-associated-control -->
