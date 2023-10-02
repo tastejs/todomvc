@@ -1,9 +1,9 @@
 /**
-  * This file is used to boot the application.
-  *
-  * We can also use it to import / setup other "initializing"
-  * things that wouldn't depend on user state.
-  */
+ * This file is used to boot the application.
+ *
+ * We can also use it to import / setup other "initializing"
+ * things that wouldn't depend on user state.
+ */
 import 'todomvc-common/base.css';
 import 'todomvc-app-css/index.css';
 

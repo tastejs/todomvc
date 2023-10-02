@@ -36,7 +36,7 @@ export default class Repo extends Service {
 	};
 
 	get all() {
-    return [...this.data.values()];
+		return [...this.data.values()];
 	}
 
 	get completed() {
@@ -64,7 +64,7 @@ export default class Repo extends Service {
 	};
 
 	delete = (todo) => {
-    this.data.delete(todo.id);
+		this.data.delete(todo.id);
 		this.persist();
 	};
 
