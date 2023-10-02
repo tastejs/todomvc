@@ -3,7 +3,7 @@
 
     export let item;
 
-    let editing = false;
+    export let editing = false;
     const dispatch = createEventDispatcher();
 
     function removeItem() {

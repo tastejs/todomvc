@@ -57,7 +57,7 @@
         </div>
         <ul class="todo-list">
             {#each filtered as item, index (item.id)}
-                <Item bind:item editing={editing} index={index} on:removeItem={() => removeItem(index)} />
+                <Item bind:item editing={editing} on:removeItem={() => removeItem(index)} />
             {/each}
         </ul>
 
