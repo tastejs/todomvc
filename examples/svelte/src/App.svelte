@@ -61,6 +61,6 @@
             {/each}
         </ul>
 
-        <Footer numActive={numActive} currentFilter={currentFilter} numCompleted={numCompleted} on:removeCompletedItems={removeCompletedItems} />
+        <Footer {numActive} {currentFilter} {numCompleted} on:removeCompletedItems={removeCompletedItems} />
     </main>
 {/if}
