@@ -40,7 +40,9 @@
         items = items.filter((item) => !item.completed);
     }
     
-    router(route => currentFilter = route).init();
+    onMount(() => {
+      router(route => currentFilter = route).init();
+    });
 
     $: filtered = currentFilter === "all" ? items : currentFilter === "completed" ? items.filter((item) => item.completed) : items.filter((item) => !item.completed);
     $: numActive = items.filter((item) => !item.completed).length;
