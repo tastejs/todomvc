@@ -1,7 +1,6 @@
 <script>
     import { onMount } from 'svelte';
     import { router } from './router.js';
-    import { uuid } from './utils.js';
 
     import Header from './Header.svelte';
     import Footer from './Footer.svelte';
@@ -16,7 +15,7 @@
 
     function addItem(event) {
         items.push({
-            id: uuid(),
+            id: crypto.randomUUID(), // This only works in secure-context.
             description: event.detail.text,
             completed: false,
         });
