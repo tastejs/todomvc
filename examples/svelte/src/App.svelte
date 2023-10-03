@@ -13,7 +13,6 @@
 
     let currentFilter = "all";
     let items = [];
-    let editing = null;
 
     function addItem(event) {
         items.push({
@@ -60,7 +59,7 @@
         </div>
         <ul class="todo-list">
             {#each filtered as item, index (item.id)}
-                <Item bind:item editing={editing} on:removeItem={() => removeItem(index)} />
+                <Item bind:item on:removeItem={() => removeItem(index)} />
             {/each}
         </ul>
 
