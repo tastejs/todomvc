@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import { isBlank } from '@ember/utils';
@@ -28,6 +29,7 @@ export default class TodoItem extends Component {
   </template>
 
   @service repo;
+  @tracked editing;
 
   removeTodo = () => this.repo.delete(this.args.todo);
 
