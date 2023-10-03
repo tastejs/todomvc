@@ -48,7 +48,7 @@ export default class TodoItem extends Component {
 			this.args.onStartEdit();
       this.editing = true;
 
-      event.closest('li')?.querySelector('input.edit').focus();
+      event.target.closest('li')?.querySelector('input.edit').focus();
 		}
 
   doneEditing = (event) => {
