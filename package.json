@@ -34,7 +34,7 @@
     "del": "^0.1.1",
     "figlet": "^1.2.0",
     "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^1.0.1",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-cache": "^0.2.0",
     "gulp-if": "^1.2.1",
     "gulp-imagemin": "3.0.0",
