@@ -201,6 +201,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=svelte
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=typescript-angular
       <<: *defaults
     - stage: test
