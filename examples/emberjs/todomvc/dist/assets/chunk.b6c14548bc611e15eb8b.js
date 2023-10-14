@@ -953,7 +953,7 @@ let TodoItem = (0,_ember_component__WEBPACK_IMPORTED_MODULE_4__.setComponentTemp
     (0,_home_nvp_Development_OpenSource_todomvc_examples_emberjs_todomvc_node_modules_pnpm_babel_runtime_7_23_1_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, "handleKeydown", event => {
       if (event.keyCode === 13) {
         event.target.blur();
-      } else if (e.keyCode === 27) {
+      } else if (event.keyCode === 27) {
         this.editing = false;
       }
     });
@@ -12705,4 +12705,4 @@ function getOverflowAncestors(node, list, traverseIframes) {
 /***/ })
 
 }]);
-//# sourceMappingURL=chunk.6b2cf1ef2f478d2a1d7d.js.map
+//# sourceMappingURL=chunk.b6c14548bc611e15eb8b.js.map

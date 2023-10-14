@@ -354,6 +354,13 @@ async function toggleAll() {
       await toggleAll();
       assert.deepEqual(getCompletedTodos(), []);
     });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('The global toggle will select all if not all are selected', async function (assert) {
+      assert.deepEqual(getCompletedTodos(), []);
+      await toggle('first todo');
+      assert.deepEqual(getCompletedTodos(), ['first todo']);
+      await toggleAll();
+      assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
+    });
   });
 });
 
@@ -15145,4 +15152,4 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /***/ })
 
 }]);
-//# sourceMappingURL=chunk.96e9db05e9b57ae46393.js.map
+//# sourceMappingURL=chunk.eae1aeaa95a1e45f43df.js.map

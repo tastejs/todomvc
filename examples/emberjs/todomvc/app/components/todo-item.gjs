@@ -45,7 +45,7 @@ export default class TodoItem extends Component {
   handleKeydown = (event) => {
     if (event.keyCode === 13) {
       event.target.blur();
-    } else if (e.keyCode === 27) {
+    } else if (event.keyCode === 27) {
       this.editing = false;
     }
   }

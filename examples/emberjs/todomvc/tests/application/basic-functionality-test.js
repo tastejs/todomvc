@@ -272,5 +272,15 @@ module('Behavior', function (hooks) {
 			await toggleAll();
 			assert.deepEqual(getCompletedTodos(), []);
 		});
+
+		test('The global toggle will select all if not all are selected', async function (assert) {
+			assert.deepEqual(getCompletedTodos(), []);
+
+			await toggle('first todo');
+			assert.deepEqual(getCompletedTodos(), ['first todo']);
+
+			await toggleAll();
+			assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
+		});
 	});
 });
