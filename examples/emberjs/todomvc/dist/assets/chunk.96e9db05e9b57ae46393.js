@@ -198,6 +198,9 @@ function getTodoText(todoElement) {
 function getTodosTexts() {
   return getTodos().map(todo => getTodoText(todo));
 }
+function getCompletedTodos() {
+  return getTodos().filter(todo => todo.classList.contains('completed')).map(todo => todo.querySelector('label')?.textContent?.trim());
+}
 async function addTodo(text) {
   await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.fillIn)('.new-todo', text);
   await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.triggerKeyEvent)('.new-todo', 'keydown', 'Enter');
@@ -210,9 +213,29 @@ async function edit(originalText, nextText) {
   ( true && !(element) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Could not find element with text: ${originalText}`, element));
   ( true && !(input) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Todo is missing the .edit input`, input));
   ( true && !(label) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Todo is missing the label`, label));
-  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.triggerEvent)(element, 'dblclick');
+  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.triggerEvent)(label, 'dblclick');
   await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.fillIn)(input, nextText);
-  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.triggerKeyEvent)(input, 'keydown', 'Enter');
+  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.blur)(input);
+}
+async function remove(text) {
+  let element = byText('.todo-list li .view', text);
+  ( true && !(element) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Could not find element with text: ${text}`, element));
+  let button = element.querySelector('button');
+  ( true && !(button) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Could not find delete button for todo with text: ${text}`, button));
+  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.click)(button);
+}
+async function toggle(text) {
+  let element = byText('.todo-list li .view', text);
+  ( true && !(element) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Could not find element with text: ${text}`, element));
+  let checkbox = element.querySelector('.toggle');
+  ( true && !(checkbox) && (0,_ember_debug__WEBPACK_IMPORTED_MODULE_0__.assert)(`Could not find checkbox for todo with text: ${text}`, checkbox));
+  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.click)(checkbox);
+}
+async function clearCompleted() {
+  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.click)('.clear-completed');
+}
+async function toggleAll() {
+  await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.click)('#toggle-all');
 }
 (0,qunit__WEBPACK_IMPORTED_MODULE_2__.module)('Behavior', function (hooks) {
   (0,ember_qunit__WEBPACK_IMPORTED_MODULE_3__.setupApplicationTest)(hooks);
@@ -277,6 +300,59 @@ async function edit(originalText, nextText) {
       assert.deepEqual(getTodosTexts(), ['first todo']);
       await edit('first todo', 'edited first todo');
       assert.deepEqual(getTodosTexts(), ['edited first todo']);
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('can be deleted', async function (assert) {
+      assert.deepEqual(getTodosTexts(), ['first todo']);
+      await remove('first todo');
+      assert.deepEqual(getTodosTexts(), []);
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('can be marked complete', async function (assert) {
+      assert.deepEqual(getTodosTexts(), ['first todo']);
+      await toggle('first todo');
+      await clickActive();
+      assert.deepEqual(getTodosTexts(), []);
+      await clickCompleted();
+      assert.deepEqual(getTodosTexts(), ['first todo']);
+      await clickAll();
+      assert.deepEqual(getTodosTexts(), ['first todo']);
+    });
+  });
+  (0,qunit__WEBPACK_IMPORTED_MODULE_2__.module)('two todos exist', function (hooks) {
+    hooks.beforeEach(async function () {
+      await (0,_ember_test_helpers__WEBPACK_IMPORTED_MODULE_1__.visit)('/');
+      await addTodo('first todo');
+      await addTodo('second todo');
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('default page is the "all" page', async function (assert) {
+      assert.strictEqual(activeFilter(), 'All', 'current filter is "All"');
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('Filters are rendered', async function (assert) {
+      assert.dom('.filters').exists();
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('All todos are initially not completed', async function (assert) {
+      assert.deepEqual(getCompletedTodos(), []);
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('The first todo is completed', async function (assert) {
+      await toggle('first todo');
+      assert.deepEqual(getCompletedTodos(), ['first todo']);
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('The second todo is completed', async function (assert) {
+      await toggle('second todo');
+      assert.deepEqual(getCompletedTodos(), ['second todo']);
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('All todos are completed', async function (assert) {
+      await toggle('first todo');
+      await toggle('second todo');
+      assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
+      await clearCompleted();
+      assert.deepEqual(getCompletedTodos(), [], 'clear completed clears the todos');
+    });
+    (0,qunit__WEBPACK_IMPORTED_MODULE_2__.test)('All todos are toggled twice', async function (assert) {
+      assert.deepEqual(getCompletedTodos(), []);
+      await toggleAll();
+      assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
+      await toggleAll();
+      assert.deepEqual(getCompletedTodos(), []);
     });
   });
 });
@@ -15069,4 +15145,4 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /***/ })
 
 }]);
-//# sourceMappingURL=chunk.d2531155445224028a3d.js.map
+//# sourceMappingURL=chunk.96e9db05e9b57ae46393.js.map

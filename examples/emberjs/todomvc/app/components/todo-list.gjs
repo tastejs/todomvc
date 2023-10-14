@@ -44,7 +44,7 @@ export default class TodoList extends Component {
     let allCompleted = this.areAllCompleted;
 
     this.args.todos.forEach(todo => todo.completed = !allCompleted);
-    this.repo.save();
+    this.repo.persist();
   }
 
   enableToggle = () => this.canToggle = true;

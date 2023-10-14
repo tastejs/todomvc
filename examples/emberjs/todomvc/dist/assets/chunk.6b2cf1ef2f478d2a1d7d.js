@@ -918,7 +918,11 @@ let TodoItem = (0,_ember_component__WEBPACK_IMPORTED_MODULE_4__.setComponentTemp
           {{on 'change' this.toggleCompleted}}
         >
         <label {{on 'dblclick' this.startEditing}}>{{@todo.title}}</label>
-        <button class="destroy" {{on 'click' this.removeTodo}} type="button" aria-label="Delete this todo"></button>
+        <button
+          class="destroy"
+          {{on 'click' this.removeTodo}}
+          type="button"
+          aria-label="Delete this todo"></button>
       </div>
       <input
         class="edit"
@@ -1066,7 +1070,7 @@ let TodoList = (0,_ember_component__WEBPACK_IMPORTED_MODULE_4__.setComponentTemp
     (0,_home_nvp_Development_OpenSource_todomvc_examples_emberjs_todomvc_node_modules_pnpm_babel_runtime_7_23_1_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, "toggleAll", () => {
       let allCompleted = this.areAllCompleted;
       this.args.todos.forEach(todo => todo.completed = !allCompleted);
-      this.repo.save();
+      this.repo.persist();
     });
     (0,_home_nvp_Development_OpenSource_todomvc_examples_emberjs_todomvc_node_modules_pnpm_babel_runtime_7_23_1_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, "enableToggle", () => this.canToggle = true);
     (0,_home_nvp_Development_OpenSource_todomvc_examples_emberjs_todomvc_node_modules_pnpm_babel_runtime_7_23_1_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, "disableToggle", () => this.canToggle = false);
@@ -12701,4 +12705,4 @@ function getOverflowAncestors(node, list, traverseIframes) {
 /***/ })
 
 }]);
-//# sourceMappingURL=chunk.544dc4e8927598e5f7d0.js.map
+//# sourceMappingURL=chunk.6b2cf1ef2f478d2a1d7d.js.map
