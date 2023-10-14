@@ -16,7 +16,11 @@ export default class TodoItem extends Component {
           {{on 'change' this.toggleCompleted}}
         >
         <label {{on 'dblclick' this.startEditing}}>{{@todo.title}}</label>
-        <button class="destroy" {{on 'click' this.removeTodo}} type="button"></button>
+        <button
+          class="destroy"
+          {{on 'click' this.removeTodo}}
+          type="button"
+          aria-label="Delete this todo"></button>
       </div>
       <input
         class="edit"
