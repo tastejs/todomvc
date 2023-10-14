@@ -55,9 +55,9 @@ function getTodosTexts() {
 }
 
 function getCompletedTodos() {
-  return getTodos()
-    .filter(todo => todo.classList.contains('completed'))
-    .map(todo => todo.querySelector('label')?.textContent?.trim());
+	return getTodos()
+		.filter((todo) => todo.classList.contains('completed'))
+		.map((todo) => todo.querySelector('label')?.textContent?.trim());
 }
 
 async function addTodo(text) {
@@ -105,11 +105,11 @@ async function toggle(text) {
 }
 
 async function clearCompleted() {
-  await click('.clear-completed');
+	await click('.clear-completed');
 }
 
 async function toggleAll() {
-  await click('#toggle-all');
+	await click('#toggle-all');
 }
 
 module('Behavior', function (hooks) {
@@ -223,7 +223,7 @@ module('Behavior', function (hooks) {
 		});
 	});
 
-  module('two todos exist', function (hooks) {
+	module('two todos exist', function (hooks) {
 		hooks.beforeEach(async function () {
 			await visit('/');
 
@@ -239,38 +239,38 @@ module('Behavior', function (hooks) {
 			assert.dom('.filters').exists();
 		});
 
-    test('All todos are initially not completed', async function (assert) {
-      assert.deepEqual(getCompletedTodos(), []);
-    });
+		test('All todos are initially not completed', async function (assert) {
+			assert.deepEqual(getCompletedTodos(), []);
+		});
 
-    test('The first todo is completed', async function (assert) {
-      await toggle('first todo');
+		test('The first todo is completed', async function (assert) {
+			await toggle('first todo');
 
-      assert.deepEqual(getCompletedTodos(), ['first todo']);
-    });
+			assert.deepEqual(getCompletedTodos(), ['first todo']);
+		});
 
-    test('The second todo is completed', async function (assert) {
-      await toggle('second todo');
+		test('The second todo is completed', async function (assert) {
+			await toggle('second todo');
 
-      assert.deepEqual(getCompletedTodos(), ['second todo']);
-    });
+			assert.deepEqual(getCompletedTodos(), ['second todo']);
+		});
 
-    test('All todos are completed', async function (assert) {
-      await toggle('first todo');
-      await toggle('second todo');
+		test('All todos are completed', async function (assert) {
+			await toggle('first todo');
+			await toggle('second todo');
 
-      assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
+			assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
 
-      await clearCompleted();
-      assert.deepEqual(getCompletedTodos(), [], 'clear completed clears the todos');
-    });
+			await clearCompleted();
+			assert.deepEqual(getCompletedTodos(), [], 'clear completed clears the todos');
+		});
 
-    test('All todos are toggled twice', async function (assert) {
-      assert.deepEqual(getCompletedTodos(), []);
-      await toggleAll();
-      assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
-      await toggleAll();
-      assert.deepEqual(getCompletedTodos(), []);
-    });
-  });
+		test('All todos are toggled twice', async function (assert) {
+			assert.deepEqual(getCompletedTodos(), []);
+			await toggleAll();
+			assert.deepEqual(getCompletedTodos(), ['first todo', 'second todo']);
+			await toggleAll();
+			assert.deepEqual(getCompletedTodos(), []);
+		});
+	});
 });
