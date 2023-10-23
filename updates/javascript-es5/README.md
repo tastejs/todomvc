@@ -8,11 +8,11 @@ JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programm
 
 [JavaScript - developer.mozilla.org](http://developer.mozilla.org/en-US/docs/JavaScript)
 
-## Implementation details
+## Implementation Details
 
 This implementation uses an explicit MVC pattern, with a clear file structure to reflect the architecture. The storage solution uses an in-memory data object that implements a simple array to hold the todos.
 
-## Built steps
+## Build Steps
 
 A simple build script copies all necessary files to a `dist` folder.
 It does not rely on compilers or transpilers and serves raw html, css and js files to the user.
@@ -30,7 +30,7 @@ The only requirement is an installation of Node, to be able to install dependenc
 * NPM (min version: 8.19.3)
 ```
 
-## Local preview
+## Local Preview
 
 ```
 terminal:
