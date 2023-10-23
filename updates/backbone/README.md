@@ -8,13 +8,13 @@ Backbone.js gives structure to web applications by providing models with key-val
 
 [backbonejs.org](https://backbonejs.org/)
 
-## Implementation details
+## Implementation Details
 
 Backbone.js uses a MV(\*) pattern, which is loosely based on the MVC or MVP patterns.
 
 Backbone.js:\
 Model: model files\
-View: html file in conjunction with underscore's templating solution\
+View: html file in conjunction with underscore's templating solution (see 'Notes')\
 Controller: view and router files
 
 MVC:\
@@ -22,9 +22,12 @@ Model: maintains the data and behavior of an application\
 View: displays the model in the ui\
 Controller: serves as an interface between view & model components
 
-The storage solution uses an in-memory data object (contained in the sync file).
+#### Notes
 
-## Built steps
+- The storage solution uses an in-memory data object (contained in the sync file).\
+- Underscore's `template` utility function compiles JavaScript templates into functions that can be evaluated for rendering ([source](https://underscorejs.org/#template)).
+
+## Build Steps
 
 A simple build script copies all necessary files to a `dist` folder.
 It does not rely on compilers or transpilers and serves raw html, css and js files to the user.
@@ -42,7 +45,7 @@ The only requirement is an installation of Node, to be able to install dependenc
 * NPM (min version: 8.19.3)
 ```
 
-## Local preview
+## Local Preview
 
 ```
 terminal:
