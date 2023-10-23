@@ -231,3 +231,7 @@ jobs:
       env:
         - CYPRESS_framework=lit
       <<: *defaults
+    - stage: test
+      env:
+        - CYPRESS_framework=web-components
+      <<: *defaults
