@@ -10,7 +10,12 @@
 		<section class="todoapp">
 			<header class="header">
 				<h1>todos</h1>
+			<div class="todo-entry">
 				<input class="new-todo" placeholder="What needs to be done?" autofocus>
+				<label for="dueDate">Due:</label>
+				<input class="due-date" type="date" id="dueDate">
+				<button class="update"></button>
+			</div>
 			</header>
 			<section class="main">
 				<input class="toggle-all" id="toggle-all" type="checkbox">
@@ -28,9 +33,14 @@
 			<div class="view">
 				<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
 				<label><%- title %></label>
+				<label class="item-due-date"><%- dueDate ? `Due: ${dueDate}` : '' %></label>
 				<button class="destroy"></button>
 			</div>
-			<input class="edit" value="<%- title %>">
+			<div class="edit">
+				<input value="<%- title %>" id="edit-value">
+				<input type="date" value="<%- dueDate %>" id="edit-due-date">
+				<button class="update"></button>
+			</div>
 		</script>
 		<script type="text/template" id="stats-template">
 			<span class="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>

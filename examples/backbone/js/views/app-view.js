@@ -20,8 +20,10 @@ var app = app || {};
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {
 			'keypress .new-todo': 'createOnEnter',
+			'keypress .due-date': 'createOnEnter',
 			'click .clear-completed': 'clearCompleted',
-			'click .toggle-all': 'toggleAllComplete'
+			'click .toggle-all': 'toggleAllComplete',
+			'click .update': 'createOnClick'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -30,6 +32,7 @@ var app = app || {};
 		initialize: function () {
 			this.allCheckbox = this.$('.toggle-all')[0];
 			this.$input = this.$('.new-todo');
+			this.$inputDueDate = this.$('.due-date');
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
@@ -72,7 +75,6 @@ var app = app || {};
 
 			this.allCheckbox.checked = !remaining;
 		},
-
 		// Add a single todo item to the list by creating a view for it, and
 		// appending its element to the `<ul>`.
 		addOne: function (todo) {
@@ -98,17 +100,31 @@ var app = app || {};
 		newAttributes: function () {
 			return {
 				title: this.$input.val().trim(),
+				dueDate: this.$inputDueDate.val(),
 				order: app.todos.nextOrder(),
 				completed: false
 			};
+		},
+		
+		// Create the model object, and clear UI values.
+		createObjectAndClearUI: function() {
+			app.todos.create(this.newAttributes());
+			this.$input.val('');
+			this.$inputDueDate.val('');
 		},
 
 		// If you hit return in the main input field, create new **Todo** model,
 		// persisting it to *localStorage*.
 		createOnEnter: function (e) {
 			if (e.which === ENTER_KEY && this.$input.val().trim()) {
-				app.todos.create(this.newAttributes());
-				this.$input.val('');
+				this.createObjectAndClearUI()
+			}
+		},
+		
+		// If you click the check mark, create new Todo model. 
+		createOnClick: function() {
+			if (this.$input.val().trim()) {
+				this.createObjectAndClearUI()
 			}
 		},
 

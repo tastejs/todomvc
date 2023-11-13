@@ -22,7 +22,7 @@ var app = app || {};
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
-			'blur .edit': 'close'
+			'click .update': 'close'
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since
@@ -51,8 +51,27 @@ var app = app || {};
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();
-			this.$input = this.$('.edit');
+			this.$input = this.$('#edit-value');
+			this.$inputDueDate = this.$('#edit-due-date')
+			this.assignDateClasses();
 			return this;
+		},
+		// Check dueDate against today's date and add/remove highlighting classes as needed
+		assignDateClasses: function() {
+			var today = new Date().toISOString().split('T')[0];
+			var dueDate = this.model.get('dueDate');
+		
+			// Remove classes initially.
+			this.$el.removeClass('due-today overdue');
+		
+			if (!this.model.get('completed')) {
+				// Add classes depending on due date if not completed.
+				if (dueDate === today) {
+					this.$el.addClass('due-today');
+				} else if (dueDate && dueDate < today) {
+					this.$el.addClass('overdue');
+				}
+			}
 		},
 
 		toggleVisible: function () {
@@ -68,6 +87,7 @@ var app = app || {};
 		// Toggle the `"completed"` state of the model.
 		toggleCompleted: function () {
 			this.model.toggle();
+			this.assignDateClasses();
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.
@@ -81,6 +101,7 @@ var app = app || {};
 		// Close the `"editing"` mode, saving changes to the todo.
 		close: function () {
 			var value = this.$input.val();
+			var dueDate = this.$inputDueDate.val()
 			var trimmedValue = value.trim();
 
 			// We don't want to handle blur events from an item that is no
@@ -91,8 +112,8 @@ var app = app || {};
 				return;
 			}
 
-			if (trimmedValue) {
-				this.model.save({ title: trimmedValue });
+			if (trimmedValue || dueDate) {
+				this.model.save({ title: trimmedValue, dueDate: dueDate });
 			} else {
 				this.clear();
 			}

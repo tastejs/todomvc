@@ -11,8 +11,10 @@ var app = app || {};
 	app.Todo = Backbone.Model.extend({
 		// Default attributes for the todo
 		// and ensure that each todo created has `title` and `completed` keys.
+		// added dueDate field for added functionality.
 		defaults: {
 			title: '',
+			dueDate: null,
 			completed: false
 		},
 
