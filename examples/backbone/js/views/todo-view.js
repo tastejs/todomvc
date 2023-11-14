@@ -48,14 +48,36 @@ var app = app || {};
 				return;
 			}
 
-			this.$el.html(this.template(this.model.toJSON()));
+			var modelData = this.model.toJSON()
+			// serialize priority value in DB to human-readable value.
+			modelData.priorityText = priorityMapping[modelData.priority] || "Unknown"
+			this.$el.html(this.template(modelData));
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();
 			this.$input = this.$('#edit-value');
 			this.$inputDueDate = this.$('#edit-due-date')
+			this.$inputPriority = this.$('#edit-priorityDropdown')
 			this.assignDateClasses();
+			this.assignPriorityClass();
 			return this;
 		},
+
+		// Assign priority class based on priority. 
+		assignPriorityClass: function() {
+			this.$el.removeClass(`${LOW} ${MED} ${HIGH}`)
+			switch(this.model.get('priority')){
+				case 0:
+					this.$el.addClass(LOW);
+					break;
+				case 1:
+					this.$el.addClass(MED);
+					break;
+				case 2:
+					this.$el.addClass(HIGH);
+					break;
+			}
+		},
+
 		// Check dueDate against today's date and add/remove highlighting classes as needed
 		assignDateClasses: function() {
 			var today = new Date().toISOString().split('T')[0];
@@ -103,6 +125,7 @@ var app = app || {};
 			var value = this.$input.val();
 			var dueDate = this.$inputDueDate.val()
 			var trimmedValue = value.trim();
+			var priority = parseInt(this.$inputPriority.val(), 10)
 
 			// We don't want to handle blur events from an item that is no
 			// longer being edited. Relying on the CSS class here has the
@@ -112,8 +135,9 @@ var app = app || {};
 				return;
 			}
 
-			if (trimmedValue || dueDate) {
-				this.model.save({ title: trimmedValue, dueDate: dueDate });
+			if (trimmedValue || dueDate || priority) {
+				this.model.save({ title: trimmedValue, dueDate: dueDate, priority: priority});
+				app.todos.sort();
 			} else {
 				this.clear();
 			}

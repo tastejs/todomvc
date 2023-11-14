@@ -15,6 +15,7 @@ var app = app || {};
 		defaults: {
 			title: '',
 			dueDate: null,
+			priority: 0,
 			completed: false
 		},
 

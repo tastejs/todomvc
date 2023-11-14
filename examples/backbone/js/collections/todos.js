@@ -32,8 +32,10 @@ var app = app || {};
 			return this.length ? this.last().get('order') + 1 : 1;
 		},
 
-		// Todos are sorted by their original insertion order.
-		comparator: 'order'
+		// Todos are sorted by their set priority first, then their original insertion order.
+		comparator: function(todo) {
+			return -todo.get('priority') * 100000000 + todo.get('order')
+		}
 	});
 
 	// Create our global collection of **Todos**.

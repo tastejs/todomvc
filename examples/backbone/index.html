@@ -14,6 +14,13 @@
 				<input class="new-todo" placeholder="What needs to be done?" autofocus>
 				<label for="dueDate">Due:</label>
 				<input class="due-date" type="date" id="dueDate">
+				<label for="priorityDropdown">Priority:</label>
+				<select class="priorityDropdown" id="priorityDropdown">
+					<option value=0 selected>Low</option>
+					<option value=1>Medium</option>
+					<option value=2>High</option>
+					<!-- Add more options as needed -->
+				</select>
 				<button class="update"></button>
 			</div>
 			</header>
@@ -33,12 +40,21 @@
 			<div class="view">
 				<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
 				<label><%- title %></label>
-				<label class="item-due-date"><%- dueDate ? `Due: ${dueDate}` : '' %></label>
+				<div class="meta-data">
+					<label class="item-due-date"><%- dueDate ? `Due: ${dueDate}` : '' %></label>
+					<label class="item-priority"><%- priorityText %></label>
+				</div>
 				<button class="destroy"></button>
 			</div>
 			<div class="edit">
 				<input value="<%- title %>" id="edit-value">
 				<input type="date" value="<%- dueDate %>" id="edit-due-date">
+				<select class="priorityDropdown" id="edit-priorityDropdown">
+					<option value=0 <%= priority == 0 ? 'selected' : '' %>>Low</option>
+					<option value=1 <%= priority == 1 ? 'selected' : '' %>>Medium</option>
+					<option value=2 <%= priority == 2 ? 'selected' : '' %>>High</option>
+					<!-- Add more options as needed -->
+				</select>
 				<button class="update"></button>
 			</div>
 		</script>

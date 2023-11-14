@@ -33,6 +33,7 @@ var app = app || {};
 			this.allCheckbox = this.$('.toggle-all')[0];
 			this.$input = this.$('.new-todo');
 			this.$inputDueDate = this.$('.due-date');
+			this.$inputPriority = this.$('.priorityDropdown')
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
@@ -42,6 +43,7 @@ var app = app || {};
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
 			this.listenTo(app.todos, 'all', _.debounce(this.render, 0));
+			this.listenTo(app.todos, 'sort', this.addAll);
 
 			// Suppresses 'add' events with {reset: true} and prevents the app view
 			// from being re-rendered for every model. Only renders when the 'reset'
@@ -101,6 +103,7 @@ var app = app || {};
 			return {
 				title: this.$input.val().trim(),
 				dueDate: this.$inputDueDate.val(),
+				priority: parseInt(this.$inputPriority.val(), 10),
 				order: app.todos.nextOrder(),
 				completed: false
 			};
@@ -109,6 +112,7 @@ var app = app || {};
 		// Create the model object, and clear UI values.
 		createObjectAndClearUI: function() {
 			app.todos.create(this.newAttributes());
+			app.todos.sort();
 			this.$input.val('');
 			this.$inputDueDate.val('');
 		},
