@@ -1,8 +1,8 @@
 {
 	"angular": {
 		"name": "Angular",
-		"description": "Angular is a development platform for building mobile and desktop web applications using TypeScript/JavaScript and other languages.",
-		"homepage": "https://angular.io/",
+		"description": "Angular is a web framework that empowers developers to build fast, reliable applications.",
+		"homepage": "https://angular.dev",
 		"examples": [{
 			"name": "Angular",
 			"url": "updates/angular"
@@ -11,7 +11,7 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Docs",
-				"url": "https://angular.io/docs"
+				"url": "https://angular.dev"
 			}]
 		}]
 	},
