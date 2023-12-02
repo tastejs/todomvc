@@ -4,7 +4,7 @@
 
 This application uses Angular version 14.2.11. to implement a todo application.
 
-[Angular](https://angular.io/) is a development platform, built on TypeScript. As a platform, Angular includes:
+[Angular](https://angular.dev) is a development platform, built on TypeScript. As a platform, Angular includes:
 
 - A component-based framework for building scalable web applications
 - A collection of well-integrated libraries that cover a wide variety of features, including routing, forms management, client-server communication, and more
