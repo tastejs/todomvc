@@ -1,34 +1,33 @@
-import { Component } from "@angular/core";
-import { Location } from "@angular/common";
-import { Todo } from "../todo";
-import { TodosService } from "../todos.service";
+import { Component, inject } from '@angular/core';
+import { Location } from '@angular/common';
+import { Todo, TodosService } from '../todos.service';
+import { TodoItemComponent } from '../todo-item/todo-item.component';
 
 @Component({
-    selector: "app-todo-list",
-    templateUrl: "./todo-list.component.html",
+    selector: 'app-todo-list',
+    standalone: true,
+    imports: [TodoItemComponent],
+    templateUrl: './todo-list.component.html',
 })
 export class TodoListComponent {
-    constructor(private todosService: TodosService, private location: Location) {}
+  private location = inject(Location);
+  private todosService = inject(TodosService);
 
-    get todos(): Todo[] {
-        const filter = this.location.path().split("/")[1] || "all";
-        return this.todosService.getItems(filter);
-    }
+  get todos(): Todo[] {
+    const filter = this.location.path().split('/')[1] || 'all';
+    return this.todosService.getItems(filter);
+  }
 
-    get activeTodos(): Todo[] {
-        return this.todosService.getItems("active");
-    }
+  get activeTodos(): Todo[] {
+    return this.todosService.getItems('active');
+  }
 
-    removeTodo(todo: Todo): void {
-        this.todosService.removeItem(todo);
-    }
+  removeTodo(todo: Todo): void {
+    this.todosService.removeItem(todo);
+  }
 
-    toggleAll(e: Event) {
-        const input = e.target as HTMLInputElement;
-        this.todosService.toggleAll(input.checked);
-    }
-
-    trackByItem(index: number, todo: Todo) {
-        return todo.id;
-    }
+  toggleAll(e: Event) {
+    const input = e.target as HTMLInputElement;
+    this.todosService.toggleAll(input.checked);
+  }
 }

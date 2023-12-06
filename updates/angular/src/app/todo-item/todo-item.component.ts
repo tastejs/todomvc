@@ -1,62 +1,57 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked, ChangeDetectionStrategy } from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { Todo } from "../todo";
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Todo } from '../todos.service';
 
 @Component({
-    selector: "app-todo-item",
-    templateUrl: "./todo-item.component.html",
-    // This strategy ensures that the item will only re-render when the todo data changes.
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-todo-item',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './todo-item.component.html',
 })
 export class TodoItemComponent implements AfterViewChecked {
-    @Input() todo: Todo = {
-        id: "",
-        title: "",
-        completed: false,
-    };
+  @Input({required: true}) todo!: Todo;
 
-    @Input() index: number = 0;
+  @Output() remove = new EventEmitter<Todo>();
 
-    @Output() deleteEvent = new EventEmitter<Todo>();
+  @ViewChild('todoInputRef') inputRef?: ElementRef;
 
-    @ViewChild("todoInputRef") inputRef: ElementRef | undefined;
+  title = '';
 
-    titleFormControl = new FormControl("");
+  isEditing = false;
 
-    isEditing = false;
+  toggleTodo(): void {
+    this.todo.completed = !this.todo.completed;
+  }
 
-    toggleTodo(): void {
-        this.todo.completed = !this.todo.completed;
+  removeTodo(): void {
+    this.remove.emit(this.todo);
+  }
+
+  startEdit() {
+    this.isEditing = true;
+  }
+
+  handleBlur(e: Event) {
+    this.isEditing = false;
+  }
+
+  handleFocus(e: Event) {
+    this.title = this.todo.title;
+  }
+
+  updateTodo() {
+    if (!this.title) {
+      this.remove.emit(this.todo);
+    } else {
+      this.todo.title = this.title;
     }
 
-    removeTodo(): void {
-        this.deleteEvent.emit(this.todo);
-    }
+    this.isEditing = false;
+  }
 
-    startEdit() {
-        this.isEditing = true;
+  ngAfterViewChecked(): void {
+    if (this.isEditing) {
+      this.inputRef?.nativeElement.focus();
     }
-
-    handleBlur(e: Event) {
-        this.isEditing = false;
-    }
-
-    handleFocus(e: Event) {
-        this.titleFormControl.setValue(this.todo.title);
-    }
-
-    updateTodo() {
-        const title = this.titleFormControl.getRawValue()?.trimEnd();
-        if (!title)
-            this.deleteEvent.emit(this.todo);
-        else
-            this.todo.title = title;
-
-        this.isEditing = false;
-    }
-
-    ngAfterViewChecked(): void {
-        if (this.isEditing)
-            this.inputRef?.nativeElement.focus();
-    }
+  }
 }
