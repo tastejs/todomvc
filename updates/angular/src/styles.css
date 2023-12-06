@@ -1,0 +1,33 @@
+/* used for things that should be hidden in the ui,
+but useful for people who use screen readers */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.toggle-all {
+  width: 40px !important;
+  height: 60px !important;
+  right: auto !important;
+}
+
+.toggle-all-label {
+  pointer-events: none;
+}
+
+app-todo-item {
+  display: block;
+  border-bottom: 1px solid #ededed;
+}
+
+app-todo-item:last-child {
+  border-bottom: none;
+}
