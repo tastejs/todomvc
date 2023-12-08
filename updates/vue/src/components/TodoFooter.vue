@@ -1,31 +1,22 @@
+<script setup>
+import { computed } from 'vue';
+import { useRoute, RouterLink } from 'vue-router';
+
+const props = defineProps(['todos']);
+const route = useRoute();
+const remaining = computed(() => props.todos.filter(todo => !todo.completed).length);
+</script>
+
 <template>
     <footer class="footer" v-show="todos.length > 0">
         <span class="todo-count">
-            <strong>{{ remaining }}</strong> {{ pluralizedWord }} left
+            <strong>{{ remaining }}</strong> {{ remaining === 1 ? "item" : "items" }} left
         </span>
         <ul class="filters">
-            <li><router-link to="/" :class="{ selected: route == 'all' }">All</router-link></li>
-            <li><router-link to="/active" :class="{ selected: route == 'active' }">Active</router-link></li>
-            <li><router-link to="/completed" :class="{ selected: route == 'completed' }">Completed</router-link></li>
+            <li><RouterLink to="/" :class="{ selected: route.name == 'all' }">All</RouterLink></li>
+            <li><RouterLink to="/active" :class="{ selected: route.name == 'active' }">Active</RouterLink></li>
+            <li><RouterLink to="/completed" :class="{ selected: route.name == 'completed' }">Completed</RouterLink></li>
         </ul>
-        <button class="clear-completed" v-show="completed" @click="$emit('delete-completed')">Clear Completed</button>
+        <button class="clear-completed" v-show="todos.some(todo => todo.completed)" @click="$emit('delete-completed')">Clear Completed</button>
     </footer>
 </template>
-
-<script>
-export default {
-    name: "TodoFooter",
-    props: {
-        todos: Array,
-        remaining: Number,
-        route: String,
-        completed: Number,
-    },
-    computed: {
-        pluralizedWord() {
-            return this.remaining === 1 ? "item" : "items";
-        },
-    },
-    emits: ["delete-completed"],
-};
-</script>

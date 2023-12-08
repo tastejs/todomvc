@@ -1,37 +1,28 @@
 {
-    "name": "todomvc-vue",
-    "version": "1.0.0",
-    "description": "A TodoMVC written in Vue.",
-    "private": true,
-    "engines": {
-        "node": ">=18.13.0",
-        "npm": ">=8.19.3"
-    },
-    "scripts": {
-        "dev": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
-    },
-    "dependencies": {
-        "core-js": "^3.8.3",
-        "todomvc-app-css": "^2.4.2",
-        "todomvc-common": "^1.0.5",
-        "vue": "^3.2.47",
-        "vue-router": "^4.1.6"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.12.16",
-        "@babel/eslint-parser": "^7.12.16",
-        "@vue/cli-plugin-babel": "~5.0.0",
-        "@vue/cli-plugin-eslint": "~5.0.0",
-        "@vue/cli-service": "~5.0.0",
-        "eslint": "^7.32.0",
-        "eslint-plugin-vue": "^8.0.3"
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not dead",
-        "not ie 11"
-    ]
+  "name": "todomvc-vue",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "todomvc-app-css": "^2.4.3",
+    "todomvc-common": "^1.0.5",
+    "vue": "^3.3.10",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@vitejs/plugin-vue": "^4.5.1",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "prettier": "^3.0.3",
+    "vite": "^5.0.5"
+  }
 }

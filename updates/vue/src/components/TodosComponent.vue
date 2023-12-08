@@ -1,27 +1,49 @@
-<template>
-    <TodoHeader @add-todo="addTodo" />
-    <main class="main" v-show="todos.length" v-cloak>
-        <div class="toggle-all-container">
-            <input type="checkbox" id="toggle-all-input" class="toggle-all" v-model="toggleAllModel" />
-            <label class="toggle-all-label" htmlFor="toggle-all-input"> Toggle All Input </label>
-        </div>
-        <ul class="todo-list">
-            <TodoItem v-for="(todo, index) in filteredTodos" :key="todo.id" :todo="todo" :index="index" @delete-todo="deleteTodo" @edit-todo="editTodo" @toggle-todo="toggleTodo" />
-        </ul>
-    </main>
-    <TodoFooter :todos="todos" @delete-completed="deleteCompleted" :remaining="activeTodos.length" :completed="completedTodos.length" :route="route" />
-</template>
+<script setup>
+import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-<script>
-import TodoHeader from "./TodoHeader.vue";
-import TodoFooter from "./TodoFooter.vue";
-import TodoItem from "./TodoItem.vue";
+import TodoFooter from './TodoFooter.vue';
+import TodoHeader from './TodoHeader.vue';
+import TodoItem from './TodoItem.vue';
+
+const todos = ref([]);
+const route = useRoute();
+
+const filters = {
+    all: (todos) => todos,
+    active: (todos) => todos.value.filter((todo) => !todo.completed),
+    completed: (todos) => todos.value.filter((todo) => todo.completed),
+};
+
+const activeTodos = computed(() => filters.active(todos));
+const completedTodos = computed(() => filters.completed(todos));
+const filteredTodos = computed(() => {
+    switch(route.name) {
+        case "active":
+            return activeTodos;
+        case "completed":
+            return completedTodos;
+        default:
+            return todos;
+    }
+});
+
+const toggleAllModel = computed({
+    get() {
+        return activeTodos.value.length === 0;
+    },
+    set(value) {
+        todos.value.forEach((todo) => {
+            todo.completed = value;
+        });
+    },
+});
 
 function uuid() {
     let uuid = "";
     for (let i = 0; i < 32; i++) {
         let random = (Math.random() * 16) | 0;
-        // prettier-ignore
+
         if (i === 8 || i === 12 || i === 16 || i === 20)
             uuid += "-";
 
@@ -30,79 +52,42 @@ function uuid() {
     return uuid;
 }
 
-const filters = {
-    all: (todos) => todos,
-    active: (todos) => todos.filter((todo) => !todo.completed),
-    completed: (todos) => todos.filter((todo) => todo.completed),
+function addTodo(value) {
+    todos.value.push({
+        completed: false,
+        title: value,
+        id: uuid(),
+    })
+}
+
+function deleteTodo(todo) {
+    todos.value = todos.value.filter((t) => t !== todo);
+}
+
+function toggleTodo(todo, value) {
+    todo.completed = value;
 };
 
-export default {
-    components: {
-        TodoHeader,
-        TodoFooter,
-        TodoItem,
-    },
-    data() {
-        return {
-            todos: [],
-        };
-    },
-    methods: {
-        addTodo(value) {
-            this.todos.push({
-                completed: false,
-                title: value,
-                id: uuid(),
-            });
-        },
-        toggleTodo(todo, value) {
-            todo.completed = value;
-        },
-        deleteTodo(todo) {
-            this.todos = this.todos.filter((t) => t !== todo);
-        },
-        editTodo(todo, value) {
-            // prettier-ignore
-            if (todo)
-                todo.title = value;
-        },
-        deleteCompleted() {
-            this.todos = this.activeTodos;
-        },
-    },
-    computed: {
-        activeTodos() {
-            return filters.active(this.todos);
-        },
-        completedTodos() {
-            return filters.completed(this.todos);
-        },
-        filteredTodos() {
-            switch (this.$route.name) {
-                case "active":
-                    return this.activeTodos;
-                case "completed":
-                    return this.completedTodos;
-            }
-            return this.todos;
-        },
-        route() {
-            return this.$route.name;
-        },
-        toggleAllModel: {
-            get() {
-                return this.activeTodos.length === 0;
-            },
-            set(value) {
-                this.todos.forEach((todo) => {
-                    todo.completed = value;
-                });
-            },
-        },
-    },
-};
+function editTodo(todo, value) {
+    todo.title = value;
+}
+
+function deleteCompleted() {
+    todos.value = todos.value.filter(todo => !todo.completed);
+}
 </script>
 
-<style src="./todos-component.css"></style>
-<style src="../../node_modules/todomvc-common/base.css"></style>
-<style src="../../node_modules/todomvc-app-css/index.css"></style>
+<template>
+    <TodoHeader @add-todo="addTodo" />
+    <main class="main" v-show="todos.length > 0">
+        <div class="toggle-all-container">
+            <input type="checkbox" id="toggle-all-input" class="toggle-all" v-model="toggleAllModel" :disabled="filteredTodos.value.length === 0"/>
+            <label class="toggle-all-label" htmlFor="toggle-all-input"> Toggle All Input </label>
+        </div>
+        <ul class="todo-list">
+            <TodoItem v-for="(todo, index) in filteredTodos.value" :key="todo.id" :todo="todo" :index="index"
+                @delete-todo="deleteTodo" @edit-todo="editTodo" @toggle-todo="toggleTodo" />
+        </ul>
+    </main>
+    <TodoFooter :todos="todos" @delete-completed="deleteCompleted" />
+</template>

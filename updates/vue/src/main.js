@@ -1,9 +1,13 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
+import './assets/main.css'
+import '../node_modules/todomvc-app-css/index.css';
+import '../node_modules/todomvc-common/base.css'
 
-const app = createApp(App);
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
 
-app.use(router);
+const app = createApp(App)
 
-app.mount(".todoapp");
+app.use(router)
+
+app.mount('.todoapp')

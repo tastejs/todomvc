@@ -2,7 +2,7 @@
 
 ## Description
 
-This application uses Vue.js 3.2.47 to implement the TodoMVC application.
+This application uses Vue.js 3.3.10 to implement the TodoMVC application.
 
 -   [Vue.js](https://vuejs.org/) provides efficient MVVM data bindings with a simple and flexible API. It uses plain JavaScript object models, DOM-based templating and extendable directives and filters..
 
@@ -15,27 +15,34 @@ Model: maintains the data and behavior of an application\
 View: displays the model in the ui\
 Controller: serves as an interface between view & model components
 
-## Built steps
+## Recommended IDE Setup
 
-To build the static files, this application utilizes webpack. It minifies and optimizes output files and copies all necessary files to a `dist` folder.
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
 ```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
 npm run build
 ```
 
-## Requirements
+### Lint with [ESLint](https://eslint.org/)
 
-The only requirement is an installation of Node, to be able to install dependencies and run scripts to serve a local server.
-
-```
-* Node (min version: 18.13.0)
-* NPM (min version: 8.19.3)
-```
-
-## Local preview
-
-```
-terminal:
-1. npm install
-2. npm run dev
+```sh
+npm run lint
 ```
