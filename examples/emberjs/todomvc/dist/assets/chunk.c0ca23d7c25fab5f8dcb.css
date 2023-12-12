@@ -140,7 +140,7 @@ hr {
 	}
 }
 
-@charset "utf-8";
+@charset 'utf-8';
 
 html,
 body {
@@ -353,7 +353,7 @@ body {
 }
 
 .todo-list li label {
-	word-break: break-all;
+	overflow-wrap: break-word;
 	padding: 15px 15px 15px 60px;
 	display: block;
 	line-height: 1.2;
@@ -535,4 +535,4 @@ html .clear-completed:active {
 }
 
 
-/*# sourceMappingURL=chunk.52c27e9e579e700f57bd.css.map*/
+/*# sourceMappingURL=chunk.c0ca23d7c25fab5f8dcb.css.map*/
