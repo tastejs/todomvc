@@ -1,6 +1,6 @@
 import { on } from '@ember/modifier';
 
-import { service } from 'ember-primitives';
+import { service } from 'ember-primitives/helpers';
 
 import Filters from './filters';
 
