@@ -25,8 +25,7 @@ module.exports = function (defaults) {
 		staticHelpers: true,
 		staticModifiers: true,
 		staticComponents: true,
-		splitControllers: true,
-		splitRouteClasses: true,
+		staticEmberSource: true,
 		// the ember-inspector doesn't yet support this
 		// staticEmberSource: true,
 		// amdCompatibility: {
