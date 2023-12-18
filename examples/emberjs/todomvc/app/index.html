@@ -1,23 +1,24 @@
 <!doctype html>
-<html language="en" data-framework="emberjs">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ember • TodoMVC</title>
+<html lang="en" data-framework="ember">
+	<head>
+		<meta charset="utf-8" />
+		<title>TodoMVC: Ember</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    {{content-for "head"}}
+		{{content-for "head"}}
 
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/todomvc.css">
+		<link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css" />
+		<link integrity="" rel="stylesheet" href="{{rootURL}}assets/todomvc.css" />
 
-    {{content-for "head-footer"}}
-  </head>
-  <body>
-    {{content-for "body"}}
+		{{content-for "head-footer"}}
+	</head>
+	<body>
+		{{content-for "body"}}
 
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/todomvc.js"></script>
+		<script src="{{rootURL}}assets/vendor.js"></script>
+		<script src="{{rootURL}}assets/todomvc.js"></script>
 
-    {{content-for "body-footer"}}
-  </body>
+		{{content-for "body-footer"}}
+	</body>
 </html>
