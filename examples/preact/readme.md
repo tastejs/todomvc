@@ -2,23 +2,23 @@ TodoMVC: Preact
 
 ## Description
 
-This application uses Preact 10.11.3 to implement a todo application.
+This application uses Preact 10.11.3 to implement the TodoMVC application.
 
 -   [Preact](https://preactjs.com/) Fast 3kB alternative to React with the same modern API.
 
 ## Implementation details
 
 Preact:\
-Model: model.js\
-View: ui components\
-controller: app.js
+Model: TodoModel (model.js}\
+View: Preact ui components\
+controller: App (app.js)
 
 MVC:\
 Model: maintains the data and behavior of an application\
 View: displays the model in the ui\
 Controller: serves as an interface between view & model components
 
-## Built steps
+## Build steps
 
 ```
 terminal:
