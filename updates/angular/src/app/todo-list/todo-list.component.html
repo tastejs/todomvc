@@ -1,0 +1,13 @@
+@if (todos.length > 0) {
+  <main class="main">
+    <div class="toggle-all-container">
+      <input class="toggle-all" type="checkbox" (change)="toggleAll($event)" [checked]="!activeTodos.length" />
+      <label class="toggle-all-label" htmlFor="toggle-all">Toggle All Input</label>
+    </div>
+    <ul class="todo-list">
+      @for (todo of todos; track todo) {
+        <app-todo-item [todo]="todo" (remove)="removeTodo($event)" />
+      }
+    </ul>
+  </main>
+}

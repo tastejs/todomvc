@@ -1,4 +1,20 @@
 {
+	"angular": {
+		"name": "Angular",
+		"description": "Angular is a web framework that empowers developers to build fast, reliable applications.",
+		"homepage": "https://angular.dev",
+		"examples": [{
+			"name": "Angular",
+			"url": "updates/angular"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Docs",
+				"url": "https://angular.dev"
+			}]
+		}]
+	},
 	"angularjs": {
 		"name": "AngularJS",
 		"description": "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.",
@@ -273,7 +289,7 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Developing Backbone.js Applications",
-				"url": "http://addyosmani.github.io/backbone-fundamentals"
+				"url": "https://github.com/addyosmani/backbone-fundamentals"
 			}, {
 				"name": "Collection of tutorials, blog posts, and example sites",
 				"url": "https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites"
@@ -288,7 +304,7 @@
 				"url": "https://groups.google.com/forum/#!forum/backbonejs"
 			}, {
 				"name": "Backbone.js on Twitter",
-				"url": "http://twitter.com/documentcloud"
+				"url": "https://twitter.com/Backbonejs_"
 			}]
 		}]
 	},
@@ -1519,8 +1535,8 @@
 		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
 		"homepage": "facebook.github.io/react",
 		"examples": [{
-			"name": "Example",
-			"url": "examples/react"
+			"name": "React",
+			"url": "updates/react/dist"
 		}, {
 			"name": "React + Backbone.js",
 			"url": "examples/react-backbone"
@@ -1537,29 +1553,23 @@
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Tutorial",
-				"url": "http://facebook.github.io/react/docs/tutorial.html"
+				"name": "Quick Start",
+				"url": "https://react.dev/learn"
 			}, {
+				"name": "API Reference",
+				"url": "https://react.dev/reference/react"
+			},{
 				"name": "Philosophy",
-				"url": "http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood"
+				"url": "https://petehuntsposts.quora.com/React-Under-the-Hood"
 			}, {
-				"name": "Support",
-				"url": "http://facebook.github.io/react/support.html"
-			}, {
-				"name": "Flux architecture example",
-				"url": "https://github.com/facebook/flux/tree/master/examples/flux-todomvc"
+				"name": "React Community",
+				"url": "https://react.dev/community"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
 				"name": "ReactJS on Stack Overflow",
 				"url": "https://stackoverflow.com/questions/tagged/reactjs"
-			}, {
-				"name": "Google Groups Mailing List",
-				"url": "https://groups.google.com/group/reactjs"
-			}, {
-				"name": "IRC",
-				"url": "irc://chat.freenode.net/reactjs"
 			}]
 		}]
 	},
@@ -1784,6 +1794,22 @@
 			}, {
 				"name": "soma.js on Twitter",
 				"url": "http://twitter.com/soundstep"
+			}]
+		}]
+	},
+	"svelte": {
+		"name": "Svelte",
+		"description": "Svelte is a new way to build web applications. It's a compiler that takes your declarative components and converts them into efficient JavaScript that surgically updates the DOM.",
+		"homepage": "svelte.dev",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/svelte/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://svelte.dev/docs/introduction"
 			}]
 		}]
 	},

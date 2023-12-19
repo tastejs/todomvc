@@ -2,27 +2,41 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {
-    // Add options here
-  });
+/**
+ * Tweaks to this over the default:
+ * - enabled typescript
+ * - sourcemaps always on
+ */
+module.exports = function (defaults) {
+	const app = new EmberApp(defaults, {
+		// Add options here
+		'ember-cli-babel': {
+			enableTypeScriptTransform: true,
+		},
+		sourcemap: true,
+	});
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
+	const { Webpack } = require('@embroider/webpack');
 
-  app.import('node_modules/todomvc-common/base.css');
-  app.import('node_modules/todomvc-app-css/index.css');
-  app.import('node_modules/todomvc-common/base.js'); // This includes the code that will display the "learn" sidebar
-
-	return app.toTree();
+	return require('@embroider/compat').compatBuild(app, Webpack, {
+		extraPublicTrees: [],
+		staticAddonTrees: true,
+		staticAddonTestSupportTrees: true,
+		staticHelpers: true,
+		staticModifiers: true,
+		staticComponents: true,
+		staticEmberSource: true,
+		// the ember-inspector doesn't yet support this
+		// staticEmberSource: true,
+		// amdCompatibility: {
+		// 	es: [],
+		// },
+		// splitAtRoutes: ['route.name'], // can also be a RegExp
+		packagerOptions: {
+			webpackConfig: {
+				// Highest fidelity
+				devtool: 'source-map',
+			},
+		},
+	});
 };
