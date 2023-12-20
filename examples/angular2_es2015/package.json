@@ -3,8 +3,8 @@
   "version": "3.0.0",
   "main": "app/main.js",
   "scripts": {
-    "start": "http-server -a 0.0.0.0 -p 9000",
-    "bundle": "webpack app/main.js ./main.bundle.js --config webpack.config.js --watch -d"
+    "start": "npm run bundle && http-server -a 0.0.0.0 -p 9000",
+    "bundle": "webpack app/main.js ./main.bundle.js --config webpack.config.js  -d"
   },
   "repository": {
     "type": "git",
