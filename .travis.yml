@@ -225,6 +225,10 @@ jobs:
       <<: *defaults
     - stage: test
       env:
+        - CYPRESS_framework=preact
+      <<: *defaults
+    - stage: test
+      env:
         - CYPRESS_framework=vue
       <<: *defaults
     - stage: test
