@@ -965,8 +965,8 @@
 		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla ES6 Example",
-			"url": "examples/vanilla-es6"
+			"name": "Vanilla JavaScript (ES6) Example",
+			"url": "examples/javascript-es6/dist/"
 		}]
 	},
 	"js_of_ocaml": {
