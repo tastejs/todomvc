@@ -1,29 +1,48 @@
-# Vue.js TodoMVC Example
+# TodoMVC: Vue
 
-> Vue.js is a library for building interactive web interfaces.
-It provides data-driven, nestable view components with a simple and flexible API.
+## Description
 
-> _[Vue.js - vuejs.org](http://vuejs.org)_
+This application uses Vue.js 3.3.10 to implement the TodoMVC application.
 
-## Learning Vue.js
+-   [Vue.js](https://vuejs.org/) provides efficient MVVM data bindings with a simple and flexible API. It uses plain JavaScript object models, DOM-based templating and extendable directives and filters..
 
-The [Vue.js website](http://vuejs.org/) is a great resource to get started.
+## Implementation details
 
-Here are some links you may find helpful:
+Vue.js is focused on the ViewModel layer of the MVVM pattern. It connects the View and the Model via two way data bindings. Actual DOM manipulations and output formatting are abstracted away into Directives and Filters.
 
-* [Official Guide](http://vuejs.org/guide/)
-* [API Reference](http://vuejs.org/api/)
-* [Examples](http://vuejs.org/examples/)
-* [Building Larger Apps with Vue.js](http://v1.vuejs.org/guide/application.html)
+MVC:\
+Model: maintains the data and behavior of an application\
+View: displays the model in the ui\
+Controller: serves as an interface between view & model components
 
-Get help from other Vue.js users:
+## Recommended IDE Setup
 
-* [Vue.js on Twitter](https://twitter.com/vuejs)
-* [Vue.js on Gitter](https://gitter.im/vuejs/vue)
-* [Vue.js Forum](http://forum.vuejs.org)
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+## Customize configuration
 
-## Credit
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-This TodoMVC application was created by [Evan You](http://evanyou.me).
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
