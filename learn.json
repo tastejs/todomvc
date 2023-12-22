@@ -1546,9 +1546,6 @@
 		}, {
 			"name": "TypeScript + React",
 			"url": "examples/typescript-react"
-		}, {
-			"name": "React + Alt",
-			"url": "examples/react-alt"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
