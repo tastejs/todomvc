@@ -956,8 +956,8 @@
 		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla JavaScript Example",
-			"url": "examples/vanillajs"
+			"name": "Vanilla JavaScript (ES5) Example",
+			"url": "examples/javascript-es5/dist/"
 		}]
 	},
   	"es6": {
