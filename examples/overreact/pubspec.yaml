@@ -1,0 +1,21 @@
+name: todomvc_overreact
+version: 1.0.0
+description: TodoMVC app written with OverReact
+environment:
+  sdk: ">=1.19.1"
+dependencies:
+  browser: ">=0.10.0 <0.11.0"
+  over_react: "^1.4.0"
+  react: "^3.1.0"
+  quiver: any
+dev_dependencies:
+  dart_to_js_script_rewriter: "^1.0.1"
+  sass: "^0.4.2"
+transformers:
+  - sass:
+      $include: ["web/**"]
+      executable: sassc
+  - over_react
+  # Reminder: dart2js should come after any other transformers that touch Dart code
+  - $dart2js:
+      commandLineOptions: [--enable-enum]
