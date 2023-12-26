@@ -51,7 +51,7 @@ const mainFrameworks = [
   'flight'
 ]
 
-const problematicFrameworks = ['scalajs-react', 'js_of_ocaml', 'flight']
+const problematicFrameworks = ['js_of_ocaml', 'flight']
 
 const frameworksToTest = args.framework
   ? args.framework

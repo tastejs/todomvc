@@ -74,8 +74,6 @@ jobs:
   # compiled-to-js frameworks
   svelte:
     <<: *defaults
-  kotlin-react:
-    <<: *defaults
   typescript-react:
     <<: *defaults
   binding-scala:
@@ -96,8 +94,6 @@ jobs:
     <<: *defaults
   typescript-angular:
     <<: *defaults
-  scalajs-react:
-    <<: *defaults
   # labs
   chaplin-brunch:
     <<: *defaults
@@ -116,8 +112,6 @@ jobs:
   puremvc:
     <<: *defaults
   exoskeleton:
-    <<: *defaults
-  react-backbone:
     <<: *defaults
   angular2:
     <<: *defaults
@@ -188,8 +182,6 @@ workflows:
       - humble
       - closure
       - typescript-angular
-      - scalajs-react
-      - kotlin-react
   # third tab - labs
   labs:
     jobs:
@@ -204,7 +196,6 @@ workflows:
       - sammyjs
       - puremvc
       - exoskeleton
-      - react-backbone
       - angular2
       - knockoutjs_require
       - durandal
