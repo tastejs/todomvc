@@ -3,7 +3,6 @@ var excludedFrameworks = [
   // not worth testing via a generic mechanism
   'gwt',
   // these implementations cannot be run offline, because they are hosted
-  'firebase-angular',
   'meteor',
   // YUI is a special case here, it is not hosted, but fetches JS files dynamically
   'yui',
