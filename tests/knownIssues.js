@@ -45,10 +45,6 @@ module.exports = [
 
   // 'rappidjs, should remove the item if an empty text string was entered',
 
-  // this seems like an error in Cypress itself
-  // ReferenceError: command is not defined
-  'react-backbone, should save edits on blur',
-
   // need to debug ember events - but need to rebuild the app,
   // since it is minified code
   'emberjs, should allow me to edit an item',

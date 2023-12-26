@@ -50,7 +50,6 @@ const noLocalStorageCheck = {
   reagent: true,
   rappidjs: true,
   exoskeleton: true,
-  'react-backbone': true,
   puremvc: true,
   'typescript-backbone': true,
   enyo_backbone: true,
@@ -265,10 +264,8 @@ const checkNumberOfCompletedTodosInLocalStorage = n => {
               }
               // MOST apps use "completed" property to mark task
               // canjs uses "complete" property, 😡
-              // scalajs-react uses "isCompleted"
               const completed = Cypress._.filter(items, { completed: true }).
-                concat(Cypress._.filter(items, { complete: true })).
-                concat(Cypress._.filter(items, { isCompleted: true }))
+                concat(Cypress._.filter(items, { complete: true }))
               return completed.length === n
             } catch (e) {
               return

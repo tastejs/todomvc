@@ -153,10 +153,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=kotlin-react
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=lavaca_require
       <<: *defaults
     - stage: test
@@ -181,10 +177,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - CYPRESS_framework=react-backbone
-      <<: *defaults
-    - stage: test
-      env:
         - CYPRESS_framework=react-redux
       <<: *defaults
     - stage: test
@@ -194,10 +186,6 @@ jobs:
     - stage: test
       env:
         - CYPRESS_framework=riotjs
-      <<: *defaults
-    - stage: test
-      env:
-        - CYPRESS_framework=scalajs-react
       <<: *defaults
     - stage: test
       env:

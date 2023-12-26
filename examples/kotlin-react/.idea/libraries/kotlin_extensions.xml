@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="kotlin-extensions" type="kotlin.js">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/node_modules/@jetbrains/kotlin-extensions/build/classes/main" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -1538,12 +1538,6 @@
 			"name": "React",
 			"url": "updates/react/dist"
 		}, {
-			"name": "React + Backbone.js",
-			"url": "examples/react-backbone"
-		}, {
-			"name": "Scala.js + React",
-			"url": "examples/scalajs-react"
-		}, {
 			"name": "TypeScript + React",
 			"url": "examples/typescript-react"
 		}],
@@ -1651,46 +1645,6 @@
 			"links": [{
 				"name": "Gitter chat room",
 				"url": "https://gitter.im/riot/riot"
-			}]
-		}]
-	},
-  	"scalajs-react": {
-		"name": "scalajs-react",
-		"description": "Facebook's React on Scala.js.",
-		"homepage": "github.com/japgolly/scalajs-react/",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/scalajs-react"
-		}, {
-			"name": "React",
-			"url": "examples/react"
-		}, {
-			"name": "React & Backbone.js",
-			"url": "examples/react-backbone"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Scalajs-React documentation",
-				"url": "https://github.com/japgolly/scalajs-react/"
-			}, {
-				"name": "Scala",
-				"url": "https://www.scala-lang.org/"
-			}, {
-				"name": "Scala.js",
-				"url": "http://www.scala-js.org/"
-			}, {
-				"name": "React tutorial",
-				"url": "https://reactjs.org/tutorial/tutorial.html"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Scala-React Gitter",
-				"url": "https://gitter.im/japgolly/scalajs-react"
-			}, {
-				"name": "Scala on Stack Overflow",
-				"url": "https://stackoverflow.com/questions/tagged/scala"
 			}]
 		}]
 	},
