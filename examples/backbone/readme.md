@@ -1,29 +1,56 @@
-# Backbone.js TodoMVC Example
+# TodoMVC: Backbone
 
-> Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.
+## Description
 
-> _[Backbone.js - backbonejs.org](http://backbonejs.org)_
+This application uses Backbone to implement a todo application.
 
+Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.
 
-## Learning Backbone.js
+[backbonejs.org](https://backbonejs.org/)
 
-The [Backbone.js website](http://backbonejs.org) is a great resource for getting started.
+## Implementation Details
 
-Here are some links you may find helpful:
+Backbone.js uses a MV(\*) pattern, which is loosely based on the MVC or MVP patterns.
 
-* [Annotated source code](http://backbonejs.org/docs/backbone.html)
-* [Applications built with Backbone.js](http://backbonejs.org/#examples)
-* [FAQ](http://backbonejs.org/#faq)
+Backbone.js:\
+Model: model files\
+View: html file in conjunction with underscore's templating solution (see 'Notes')\
+Controller: view and router files
 
-Articles and guides from the community:
+MVC:\
+Model: maintains the data and behavior of an application\
+View: displays the model in the ui\
+Controller: serves as an interface between view & model components
 
-* [Developing Backbone.js Applications](http://addyosmani.github.io/backbone-fundamentals)
-* [Collection of tutorials, blog posts, and example sites](https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites)
+#### Notes
 
-Get help from other Backbone.js users:
+- The storage solution uses an in-memory data object (contained in the sync file).\
+- Underscore's `template` utility function compiles JavaScript templates into functions that can be evaluated for rendering ([source](https://underscorejs.org/#template)).
 
-* [Backbone.js on StackOverflow](http://stackoverflow.com/questions/tagged/backbone.js)
-* [Google Groups mailing list](https://groups.google.com/forum/#!forum/backbonejs)
-* [Backbone.js on Twitter](http://twitter.com/documentcloud)
+## Build Steps
 
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+A simple build script copies all necessary files to a `dist` folder.
+It does not rely on compilers or transpilers and serves raw html, css and js files to the user.
+
+```
+npm run build
+```
+
+## Requirements
+
+The only requirement is an installation of Node, to be able to install dependencies and run scripts to serve a local server.
+
+```
+* Node (min version: 18.13.0)
+* NPM (min version: 8.19.3)
+```
+
+## Local Preview
+
+```
+terminal:
+1. npm install
+2. npm run dev
+browser:
+1. http://localhost:7001/
+```
