@@ -1003,7 +1003,7 @@
 		"homepage": "jquery.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/jquery"
+			"url": "examples/jquery/dist"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

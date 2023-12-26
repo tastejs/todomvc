@@ -1,33 +1,41 @@
-# jQuery TodoMVC Example
+# TodoMVC: jQuery
+## Description
 
-> jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.
+This application uses jQuery (3.6.3) to implement a todo application.
 
-> _[jQuery - jquery.com](http://jquery.com)_
+jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.
 
+[jQuery.com](https://jquery.com/)
 
-## Learning jQuery
+## Implementation details
 
-The [jQuery website](http://jquery.com) is a great resource for getting started.
+In contrast to mv(*) patterns, this implementation keeps display, state and app logic all within one file.
+Many apps that utilize jQuery tend to keep most or all aspects within a single file for simplicity. 
 
-Here are some links you may find helpful:
+## Build Steps
 
-* [Learning Center](http://learn.jquery.com/)
-* [API Reference](http://api.jquery.com)
-* [Plugins](http://plugins.jquery.com)
-* [Browser Support](http://jquery.com/browser-support)
-* [Blog](http://blog.jquery.com)
+A simple build script copies all necessary files to a `dist` folder.
+It does not rely on compilers or transpilers and serves raw html, css and js files to the user.
 
-Articles and guides from the community:
+```
+npm run build
+```
 
-* [Try jQuery](http://try.jquery.com)
-* [jQuery Annotated Source](http://github.com/robflaherty/jquery-annotated-source)
-* [10 Things I Learned From the jQuery Source](http://paulirish.com/2010/10-things-i-learned-from-the-jquery-source)
+## Requirements
 
-Get help from other jQuery users:
+The only requirement is an installation of Node, to be able to install dependencies and run scripts to serve a local server.
 
-* [jQuery on StackOverflow](http://stackoverflow.com/questions/tagged/jquery)
-* [Forums](http://forum.jquery.com)
-* [jQuery on Twitter](http://twitter.com/jquery)
-* [jQuery on Google +](https://plus.google.com/102828491884671003608/posts)
+```
+* Node (min version: 18.13.0)
+* NPM (min version: 8.19.3)
+```
 
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+## Local preview
+
+```
+terminal:
+1. npm install
+2. npm run dev
+browser:
+1. http://localhost:7001/
+```

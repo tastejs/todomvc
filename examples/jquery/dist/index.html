@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>TodoMVC: jQuery</title>
-        <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-        <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-        <link rel="stylesheet" href="src/app.css">
+        <link rel="stylesheet" href="base.css">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="app.css">
     </head>
     <body>
         <section id="todoapp" class="todoapp">
@@ -28,6 +28,7 @@
         <footer id="info" class="info">
             <p>Double-click to edit a todo</p>
             <p>Created by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+            <p>Updated by the TodoMVC Team</p>
             <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
         </footer>
         <script id="todo-template" type="text/x-handlebars-template">
@@ -58,9 +59,9 @@
             {{#if completedTodos}}<button class="clear-completed">Clear completed</button>{{/if}}
         </script>
         <!-- <script src="node_modules/todomvc-common/base.js"></script> -->
-        <script src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
-        <script src="node_modules/director/build/director.min.js"></script>
-        <script src="src/app.js"></script>
+        <script src="jquery.min.js"></script>
+        <script src="handlebars.min.js"></script>
+        <script src="director.min.js"></script>
+        <script src="app.js"></script>
     </body>
 </html>
