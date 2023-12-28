@@ -1574,7 +1574,7 @@
 	"riotjs": {
 		"name": "Riot.js",
 		"description": "Riot.js is a React-like user interface micro-library.",
-		"homepage": "riotjs.com",
+		"homepage": "riot.js.org",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/riotjs"
@@ -1583,10 +1583,10 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Documentation",
-				"url": "http://riotjs.com/guide/"
+				"url": "http://riot.js.org/documentation/"
 			}, {
 				"name": "API Reference",
-				"url": "http://riotjs.com/api/"
+				"url": "http://riot.js.org/api/"
 			}, {
 				"name": "Examples",
 				"url": "https://github.com/riot/riot#demos"
