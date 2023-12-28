@@ -5,7 +5,7 @@
 		"homepage": "https://angular.dev",
 		"examples": [{
 			"name": "Angular",
-			"url": "updates/angular"
+			"url": "examples/angular"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1490,7 +1490,7 @@
 		"homepage": "facebook.github.io/react",
 		"examples": [{
 			"name": "React",
-			"url": "updates/react/dist"
+			"url": "examples/react/dist"
 		}, {
 			"name": "TypeScript + React",
 			"url": "examples/typescript-react"

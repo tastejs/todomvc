@@ -1,4 +1,4 @@
-# TodoMVC: React Hooks
+# TodoMVC: React
 
 ## Description
 
