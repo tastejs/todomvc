@@ -215,7 +215,7 @@ header nav a:not(:last-child) {
 	margin: 5px;
 	white-space: nowrap;
 	line-height: 50px;
-    display: inline-block;
+	display: inline-block;
 }
 
 .credit a img {
