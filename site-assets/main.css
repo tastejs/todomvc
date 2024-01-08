@@ -210,11 +210,11 @@ header nav a:not(:last-child) {
 	transition: max-height 0.7s ease-out;
 }
 
-#news-expander {
+.simple-dropdown {
 	display: none;
 }
 
-#news-expander:checked ~ .collapsed {
+.simple-dropdown:checked ~ .collapsed {
 	max-height: 999px;
 	transition: max-height 0.7s ease-in;
 }
