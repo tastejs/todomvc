@@ -1,5 +1,43 @@
 # Changelog
 
+## 1.4
+
+- New examples:
+    - Angular 17
+    - Lit
+    - Preact
+    - React Redux
+    - Svelte
+    - Web Components
+
+- Updated examples:
+    - Backbone
+    - Ember
+    - jQuery
+    - React
+    - Vue
+    - JavaScript ES5 (vanilla)
+    - JavaScript ES6 (vanilla ES6)
+
+- Removed examples:
+    - Angular 2
+    - Angular 2 / ES2015
+    - Angular JS
+    - Firebase Angular
+    - Kotlin React
+    - React Alt
+    - React Backbone
+    - React hooks
+    - Scalajs React
+
+- General updates:
+    - remove `Router` badge on home page
+    - add `New` badge for new / updated examples
+    - update avatars in readme and on index page
+    - pin node version to run locally
+
+## 1.3.1
+
 New since 1.3:
 	- Kotlin-react
 
