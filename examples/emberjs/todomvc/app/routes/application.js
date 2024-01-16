@@ -1,9 +1,16 @@
-import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
-export default Route.extend({
-	repo: service(),
-	model() {
-		return this.repo.findAll();
+/**
+ * Handles app boot and general app one-time setup things.
+ */
+export default class Application extends Route {
+	@service repo;
+
+	beforeModel() {
+		/**
+		 * Load from localStorage
+		 */
+		this.repo.load();
 	}
-});
+}

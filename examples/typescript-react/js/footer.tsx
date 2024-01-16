@@ -4,9 +4,10 @@
 /*jshint newcap:false */
 /*global React */
 
-/// <reference path="../typings/tsd.d.ts" />
 /// <reference path="./interfaces.d.ts"/>
 
+import * as classNames from "classnames";
+import * as React from "react";
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from "./constants";
 import { Utils } from "./utils";
 

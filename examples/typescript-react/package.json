@@ -1,10 +1,23 @@
 {
   "private": true,
+  "scripts": {
+    "build": "./node_modules/typescript/bin/tsc -p ./js/ && node ./node_modules/browserify/bin/cmd ./js/app.js -o ./js/bundle.js",
+    "start": "node ./serve.js"
+  },
   "dependencies": {
-    "classnames": "^2.1.5",
+    "@types/classnames": "^2.2.6",
+    "@types/react": "^16.7.0",
+    "@types/react-dom": "^16.0.11",
+    "classnames": "^2.2.6",
     "director": "^1.2.0",
-    "react": "^0.13.3",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "node-static": "^0.7.11",
+    "typescript": "^2.9.2"
   }
 }

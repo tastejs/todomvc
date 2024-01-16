@@ -1,6 +1,0 @@
-<div class="view">
-  <input type="checkbox" class="toggle" checked={{todo.completed}} onchange={{action 'toggleCompleted'}}>
-  <label ondblclick={{action 'startEditing'}}>{{todo.title}}</label>
-  <button onclick={{action 'removeTodo'}} class="destroy"></button>
-</div>
-<input type="text" class="edit" value={{todo.title}} onblur={{action 'doneEditing' value='target.value'}} onkeydown={{action 'handleKeydown'}} autofocus>

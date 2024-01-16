@@ -45,7 +45,7 @@ a,
 a:hover,
 .link:hover {
 	color: #431919;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 p {
@@ -131,19 +131,26 @@ header nav a:not(:last-child) {
 	margin: 0;
 	padding: 0;
 	font-size: 17px;
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 .applist li {
-	padding: 10px 0;
-	width: 160px;
+	margin: 10px 0;
 }
 
 .applist a {
 	position: relative; /* popover */
+}
+
+.applist-item {
+	padding: 4px;
+    display: block;
+	border-radius: 4px;
+}
+
+.applist-item:hover {
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .applist-intro {
@@ -151,22 +158,29 @@ header nav a:not(:last-child) {
 	font-style: italic;
 }
 
-.applist .routing::after,
-.applist .label,
-.legend .label {
-	content: 'R';
-	position: relative;
-	top: -3px;
-	font-size: 9px;
-	padding: 1px 3px 1px;
-	background-color: rgba(0, 0, 0, .1);
-	border-radius: 3px;
+.badge {
 	font-weight: bold;
-	line-height: 13px;
+	font-size: 11px;
 	color: #777;
 	vertical-align: middle;
 	white-space: nowrap;
 	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
+	padding: 2px 4px;
+	background-color: rgba(0, 0, 0, .1);
+	border-radius: 3px;
+}
+
+.link + .badge {
+	margin-left: 5px;
+}
+
+.badge:not(:last-child) {
+	margin-right: 5px;
+}
+
+.badge[data-color="green"]  {
+	background-color: green;
+	color: white;
 }
 
 .applist .labs a,
@@ -174,16 +188,12 @@ header nav a:not(:last-child) {
 	color: #582C42;
 }
 
-.applist a:hover .label {
-	text-decoration: none !important;
-	color: red;
-}
-
 .legend {
 	margin-top: 20px;
 	margin-left: 0;
 	padding: 0;
 	list-style-type: none;
+	line-height: 0;
 }
 
 .legend li {
@@ -200,11 +210,11 @@ header nav a:not(:last-child) {
 	transition: max-height 0.7s ease-out;
 }
 
-#news-expander {
+.simple-dropdown {
 	display: none;
 }
 
-#news-expander:checked ~ .collapsed {
+.simple-dropdown:checked ~ .collapsed {
 	max-height: 999px;
 	transition: max-height 0.7s ease-in;
 }
@@ -216,6 +226,8 @@ header nav a:not(:last-child) {
 .credit a {
 	margin: 5px;
 	white-space: nowrap;
+	line-height: 50px;
+	display: inline-block;
 }
 
 .credit a img {
@@ -337,10 +349,7 @@ a.zocial {
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
+	user-select: none;
 	position: relative;
 	border-radius: .3em;
 }
@@ -348,6 +357,16 @@ a.zocial {
 @media (max-width: 480px) {
 	.credit a {
 		display: block;
+	}
+
+	.applist {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 770px) {
+	.applist {
+		grid-template-columns: 1fr 1fr;
 	}
 }
 

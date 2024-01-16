@@ -1,11 +1,25 @@
 {
-  "private": true,
-  "dependencies": {
-    "backbone": "^1.1.2",
-    "backbone.localstorage": "^1.1.16",
-    "jquery": "^2.1.3",
-    "todomvc-app-css": "^2.0.0",
-    "todomvc-common": "^1.0.1",
-    "underscore": "^1.7.0"
-  }
+    "name": "todomvc-backbone",
+    "version": "1.0.0",
+    "description": "A TodoMVC written in Backbone.",
+    "engines": {
+        "node": ">=18.13.0",
+        "npm": ">=8.19.3"
+    },
+    "private": true,
+    "scripts": {
+        "build": "node scripts/build.js",
+        "dev": "http-server ./ -p 7001 -c-1 --cors",
+        "serve": "http-server ./dist -p 7002 -c-1 --cors"
+    },
+    "dependencies": {
+        "backbone": "^1.4.1",
+        "jquery": "^3.6.4",
+        "todomvc-app-css": "^2.4.2",
+        "todomvc-common": "^1.0.5",
+        "underscore": "^1.13.6"
+    },
+    "devDependencies": {
+        "http-server": "^14.1.1"
+    }
 }

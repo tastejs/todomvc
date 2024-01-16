@@ -1,4 +1,4 @@
-/*jshint strict:false */
+﻿/*jshint strict:false */
 /*global enyo:false, ToDo:false */
 enyo.kind({
 	kind: 'enyo.Router',

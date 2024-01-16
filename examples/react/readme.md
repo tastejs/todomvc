@@ -1,37 +1,42 @@
-# React TodoMVC Example
+# TodoMVC: React
 
-> React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.
+## Description
 
-> _[React - facebook.github.io/react](http://facebook.github.io/react)_
+This application uses React 17.0.2 to implement a todo application.
 
+-   [React](https://reactjs.org/) is a JavaScript library for creating user interfaces.
 
-## Learning React
+## Implementation details
 
-The [React getting started documentation](http://facebook.github.io/react/docs/getting-started.html) is a great way to get started.
+React focuses mainly on providing composable user interfaces to enable developers to build an appealing website or web app. React does not force the user to utilize a particular design pattern, but it does provide useful hooks to implement an MVC pattern, if desired. 
 
-Here are some links you may find helpful:
+React:\
+Model: Todo reducer (reducer.js)\
+View: React ui components\
+Controller: App component + useReducer hook
 
-* [Documentation](http://facebook.github.io/react/docs/getting-started.html)
-* [API Reference](http://facebook.github.io/react/docs/reference.html)
-* [Blog](http://facebook.github.io/react/blog/)
-* [React on GitHub](https://github.com/facebook/react)
-* [Support](http://facebook.github.io/react/support.html)
+MVC:\
+Model: Maintains the data and behavior of an application\
+View: Displays the model in the ui\
+Controller: Serves as an interface between view & model components
 
-Articles and guides from the community:
+## Build steps
 
-* [How is Facebook's React JavaScript library](http://www.quora.com/React-JS-Library/How-is-Facebooks-React-JavaScript-library)
-* [React: Under the hood](http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood)
+To build the static files, this application utilizes webpack. It minifies and optimizes output files and copies all necessary files to a `dist` folder.
 
-Get help from other React users:
+## Requirements
 
-* [React on StackOverflow](http://stackoverflow.com/questions/tagged/reactjs)
-* [Discussion Forum](https://discuss.reactjs.org/)
+The only requirement is an installation of Node, to be able to install dependencies and run scripts to serve a local server.
 
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+```
+* Node (min version: 18.13.0)
+* NPM (min version: 8.19.3)
+```
 
+## Local preview
 
-## Running
-
-The app is built with [JSX](http://facebook.github.io/react/docs/jsx-in-depth.html) and compiled at runtime for a lighter and more fun code reading experience. As stated in the link, JSX is not mandatory.
-
-To run the app, spin up an HTTP server (e.g. `python -m SimpleHTTPServer`) and visit http://localhost/.../myexample/.
+```
+terminal:
+1. npm install
+2. npm run start
+```

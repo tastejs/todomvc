@@ -1,10 +1,20 @@
 {
+  "name": "todomvc-jquery",
+  "description": "A TodoMVC written in jQuery.",
   "private": true,
+  "scripts": {
+    "dev": "http-server ./ -p 7001 -c-1 --cors",
+    "build": "node scripts/build.js",
+    "serve": "http-server ./dist -p 7002 -c-1 --cors"
+  },
   "dependencies": {
     "director": "~1.2.2",
-    "handlebars": "~2.0.0",
-    "jquery": "~2.1.1",
-    "todomvc-app-css": "^2.1.0",
-    "todomvc-common": "~1.0.1"
+    "handlebars": "^4.0.6",
+    "jquery": "^3.6.3",
+    "todomvc-app-css": "^2.4.2",
+    "todomvc-common": "^1.0.5"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }

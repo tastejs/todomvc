@@ -1,14 +1,22 @@
-import Application from '@ember/application';
-import Resolver from './resolver';
-import loadInitializers from 'ember-load-initializers';
-import config from './config/environment';
+/**
+ * This file is used to boot the application.
+ *
+ * We can also use it to import / setup other "initializing"
+ * things that wouldn't depend on user state.
+ */
+import 'todomvc-common/base.css';
+import 'todomvc-app-css/index.css';
 
-const App = Application.extend({
-  modulePrefix: config.modulePrefix,
-  podModulePrefix: config.podModulePrefix,
-  Resolver
-});
+import Application from '@ember/application';
+
+import loadInitializers from 'ember-load-initializers';
+import Resolver from 'ember-resolver';
+import config from 'todomvc/config/environment';
+
+export default class App extends Application {
+	modulePrefix = config.modulePrefix;
+	podModulePrefix = config.podModulePrefix;
+	Resolver = Resolver;
+}
 
 loadInitializers(App, config.modulePrefix);
-
-export default App;

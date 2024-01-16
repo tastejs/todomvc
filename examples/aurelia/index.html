@@ -1,29 +1,73 @@
 <!doctype html>
 <html lang="en" data-framework="aurelia">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aurelia • TodoMVC</title>
-  <link rel="stylesheet" type="text/css" href="jspm_packages/npm/todomvc-common@1.0.2/base.css">
-  <link rel="stylesheet" type="text/css" href="jspm_packages/npm/todomvc-app-css@2.0.4/index.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Aurelia • TodoMVC</title>
+	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 </head>
+
 <body>
-  <section class="todoapp" aurelia-app="main">
-    <!-- this is where Aurelia will fill out the content -->
-  </section>
-
-  <footer class="info">
-    <p>Double-click to edit a todo</p>
-    <p>Created by <a href="http://marcelhoyer.de">Marcel Hoyer</a></p>
-    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-  </footer>
-
+	<section class="todoapp">
+		<!-- Declare the filteredTodos and activeTodos computed properties inline using <let>. See: https://aurelia.io/docs/templating/custom-elements#declarative-computed-values -->
+		<let
+			filtered-todos.bind="todos | filterTodo :filter :todos.length :filterVersion"
+			active-todos.bind="todos | filterTodo :'active' :todos.length :filterVersion"></let>
+		<header class="header">
+			<h1>todos</h1>
+			<form submit.trigger="addNewTodo()">
+				<input class="new-todo" placeholder="What needs to be done?" focus.one-time="true" value.bind="newTodoTitle">
+			</form>
+		</header>
+		<section class="main" show.bind="filteredTodos.length">
+			<input id="toggle-all" class="toggle-all" type="checkbox" change.trigger="toggleAll()">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list">
+				<li repeat.for="todo of filteredTodos" class="${todo.isCompleted ? 'completed' : ''} ${todo.isEditing ? 'editing' : ''}">
+					<div class="view">
+						<input class="toggle" type="checkbox" checked.to-view="todo.isCompleted" change.trigger="toggleTodo(todo)">
+						<label dblclick.delegate="beginEdit(todo)" textcontent.bind="todo.title"></label>
+						<button click.delegate="deleteTodo(todo)" class="destroy"></button>
+					</div>
+					<input class="edit" value.bind="todo.tempTitle" focus.to-view="todo.isEditing" blur.trigger="cancelEdit(todo)" keyup.trigger="handleKeyup(todo, $event)">
+				</li>
+			</ul>
+		</section>
+		<footer class="footer" show.bind="todos.length">
+			<span class="todo-count">
+				<strong textcontent.bind="activeTodos.length"></strong>
+				<span textcontent="${activeTodos.length === 1 ? 'item' : 'items'} left"></span>
+			</span>
+			<ul class="filters">
+				<li><a href="#/" class="${!filter ? 'selected' : ''}">All</a></li>
+				<li><a href="#/active" class="${filter === 'active' ? 'selected' : ''}">Active</a></li>
+				<li><a href="#/completed" class="${filter === 'completed' ? 'selected' : ''}">Completed</a></li>
+			</ul>
+			<button class="clear-completed" click.delegate="clearCompletedTodos()" show.bind="todos.length > activeTodos.length">
+				Clear completed
+			</button>
+		</footer>
+	</section>
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="http://marcelhoyer.de">Marcel Hoyer</a></p>
+		<p>Enhanced by <a href="https://github.com/bigopon">bigopon</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
   <!-- Scripts here. Don't remove ↓ -->
-  <script src="jspm_packages/npm/todomvc-common@1.0.2/base.js"></script>
-  <script src="jspm_packages/system.js"></script>
-  <script src="config.js"></script>
+  <script src="node_modules/todomvc-common/base.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise"></script>
+  <script src="node_modules/aurelia-script/dist/aurelia_no_loader.es5.umd.min.js"></script>
+  <script src="app.js"></script>
   <script>
-    System.import('aurelia-bootstrapper');
+    au.enhance({
+      root: App, // Pass in a class / constructor function to let Aurelia DI instantiate it. You can also pass in a regular object.
+      // host: document.body, // (this is the default by convention, you can also manually pass in the host element)
+      resources: [FilterTodoValueConverter] // Specify components here that need to be available globally
+    });
   </script>
 </body>
+
 </html>

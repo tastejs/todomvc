@@ -1,4 +1,20 @@
 {
+	"angular": {
+		"name": "Angular",
+		"description": "Angular is a web framework that empowers developers to build fast, reliable applications.",
+		"homepage": "https://angular.dev",
+		"examples": [{
+			"name": "Angular",
+			"url": "examples/angular"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Docs",
+				"url": "https://angular.dev"
+			}]
+		}]
+	},
 	"angularjs": {
 		"name": "AngularJS",
 		"description": "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.",
@@ -212,10 +228,10 @@
 			"heading": "Official Resources",
 			"links": [{
 				"name": "Get started",
-				"url": "http://aurelia.io/get-started.html"
+				"url": "https://aurelia.io/docs/tutorials/creating-a-todo-app/"
 			}, {
 				"name": "Docs",
-				"url": "http://aurelia.io/docs.html"
+				"url": "https://aurelia.io/docs/"
 			}, {
 				"name": "Aurelia on GitHub",
 				"url": "https://github.com/aurelia"
@@ -224,13 +240,19 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Blog",
-				"url": "http://blog.durandal.io/"
+				"url": "https://aurelia.io/blog/"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
-				"name": "Aurelia dicussions on Gitter",
+				"name": "Aurelia Discourse forum",
+				"url": "https://discourse.aurelia.io"
+			}, {
+				"name": "Aurelia discussions on Gitter",
 				"url": "https://gitter.im/Aurelia/Discuss"
+			}, {
+				"name": "Aurelia Twitter account",
+				"url": "https://twitter.com/AureliaEffect"
 			}]
 		}]
 	},
@@ -267,7 +289,7 @@
 			"heading": "Articles and Guides",
 			"links": [{
 				"name": "Developing Backbone.js Applications",
-				"url": "http://addyosmani.github.io/backbone-fundamentals"
+				"url": "https://github.com/addyosmani/backbone-fundamentals"
 			}, {
 				"name": "Collection of tutorials, blog posts, and example sites",
 				"url": "https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites"
@@ -282,7 +304,7 @@
 				"url": "https://groups.google.com/forum/#!forum/backbonejs"
 			}, {
 				"name": "Backbone.js on Twitter",
-				"url": "http://twitter.com/documentcloud"
+				"url": "https://twitter.com/Backbonejs_"
 			}]
 		}]
 	},
@@ -538,55 +560,6 @@
 			}]
 		}]
 	},
-	"dart": {
-		"name": "Dart",
-		"description": "Dart is a class-based, object-oriented language with lexical scoping, closures, and optional static typing. Dart helps you build structured modern web apps and is easy to learn for a wide range of developers.",
-		"homepage": "dartlang.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/vanilladart/web"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "https://www.dartlang.org/docs/dart-up-and-running/contents/ch01.html"
-			}, {
-				"name": "API Reference",
-				"url": "http://api.dartlang.org/docs/releases/latest"
-			}, {
-				"name": "A Tour of the Dart Language",
-				"url": "http://www.dartlang.org/docs/dart-up-and-running/contents/ch02.html"
-			}, {
-				"name": "Articles",
-				"url": "http://www.dartlang.org/articles"
-			}, {
-				"name": "Tutorials",
-				"url": "http://www.dartlang.org/docs/tutorials"
-			}, {
-				"name": "FAQ",
-				"url": "http://www.dartlang.org/support/faq.html"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Getting started with Google Dart",
-				"url": "http://www.techrepublic.com/blog/webmaster/getting-started-with-google-dart/931"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Dart on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/dart"
-			}, {
-				"name": "Dart on Twitter",
-				"url": "http://twitter.com/dart_lang"
-			}, {
-				"name": "Dart on Google+",
-				"url": "https://plus.google.com/+dartlang/posts"
-			}]
-		}]
-	},
 	"dijon": {
 		"name": "Dijon",
 		"description": "An IOC/DI framework in Javascript, inspired by Robotlegs and Swiftsuspenders.",
@@ -679,14 +652,11 @@
 	},
 	"emberjs": {
 		"name": "Ember.js",
-		"description": "A framework for creating ambitious web applications.",
+		"description": "A framework for ambitious web developers.",
 		"homepage": "emberjs.com",
 		"examples": [{
 			"name": "Example",
 			"url": "examples/emberjs"
-		}, {
-			"name": "Require.js & Ember.js",
-			"url": "examples/emberjs_require"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -697,9 +667,6 @@
 				"name": "API Reference",
 				"url": "http://emberjs.com/api"
 			}, {
-				"name": "Screencast - Building an App with Ember.js",
-				"url": "https://www.youtube.com/watch?v=Ga99hMi7wfY"
-			}, {
 				"name": "Applications built with Ember.js",
 				"url": "http://emberjs.com/ember-users"
 			}, {
@@ -707,25 +674,16 @@
 				"url": "http://emberjs.com/blog"
 			}]
 		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Getting Into Ember.js",
-				"url": "http://net.tutsplus.com/tutorials/javascript-ajax/getting-into-ember-js"
-			}, {
-				"name": "EmberWatch",
-				"url": "http://emberwatch.com"
-			}]
-		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Ember.js Community",
+				"url": "https://emberjs.com/community/"
+			}, {
 				"name": "Ember.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ember.js"
 			}, {
 				"name": "Ember.js on Twitter",
 				"url": "http://twitter.com/emberjs"
-			}, {
-				"name": "Ember.js on Google+",
-				"url": "https://plus.google.com/communities/106387049790387471205"
 			}]
 		}]
 	},
@@ -803,52 +761,6 @@
 			}, {
 				"name": "Exoskeleton's author on Twitter",
 				"url": "http://twitter.com/paulmillr"
-			}]
-		}]
-	},
-	"firebase": {
-		"name": "Firebase",
-		"description": "Firebase is a scalable realtime backend that lets you build apps fast without managing servers.",
-		"homepage": "firebase.com",
-		"examples": [{
-			"name": "Firebase + AngularJS Realtime Example",
-			"url": "examples/firebase-angular"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "AngularFire Site",
-				"url": "http://angularfire.com/"
-			}, {
-				"name": "Documentation & Examples",
-				"url": "https://www.firebase.com/docs/"
-			}, {
-				"name": "Blog",
-				"url": "https://www.firebase.com/blog/"
-			}, {
-				"name": "Firebase on GitHub",
-				"url": "http://firebase.github.io"
-			}, {
-				"name": "Tutorial",
-				"url": "https://www.firebase.com/tutorial/"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Firebase + Angular Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/firebase-angular"
-			}, {
-				"name": "Firebase on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/firebase"
-			}, {
-				"name": "Firebase on Twitter",
-				"url": "http://twitter.com/Firebase"
-			}, {
-				"name": "Firebase on Facebook",
-				"url": "http://facebook.com/Firebase"
-			}, {
-				"name": "Firebase on Google+",
-				"url": "https://plus.google.com/115330003035930967645/posts"
 			}]
 		}]
 	},
@@ -998,8 +910,8 @@
 		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla JavaScript Example",
-			"url": "examples/vanillajs"
+			"name": "Vanilla JavaScript (ES5) Example",
+			"url": "examples/javascript-es5/dist/"
 		}]
 	},
   	"es6": {
@@ -1007,8 +919,8 @@
 		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla ES6 Example",
-			"url": "examples/vanilla-es6"
+			"name": "Vanilla JavaScript (ES6) Example",
+			"url": "examples/javascript-es6/dist/"
 		}]
 	},
 	"js_of_ocaml": {
@@ -1045,7 +957,7 @@
 		"homepage": "jquery.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/jquery"
+			"url": "examples/jquery/dist"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1091,49 +1003,6 @@
 			}, {
 				"name": "jQuery on Google+",
 				"url": "https://plus.google.com/102828491884671003608/posts"
-			}]
-		}]
-	},
-	"kendo": {
-		"name": "Kendo UI",
-		"description": "Comprehensive HTML5/JavaScript framework for modern web and mobile app development.",
-		"homepage": "kendoui.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/kendo"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://docs.kendoui.com"
-			}, {
-				"name": "API Reference",
-				"url": "http://docs.kendoui.com/api/dataviz/chart"
-			}, {
-				"name": "What is Kendo UI",
-				"url": "http://docs.kendoui.com/getting-started/introduction"
-			}, {
-				"name": "Applications built with Kendo UI",
-				"url": "http://demos.kendoui.com"
-			}, {
-				"name": "Blog",
-				"url": "http://www.kendoui.com/blogs.aspx"
-			}, {
-				"name": "FAQ",
-				"url": "http://www.kendoui.com/faq/faq.aspx"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Kendo UI on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/kendo-ui"
-			}, {
-				"name": "Kendo UI on Twitter",
-				"url": "http://twitter.com/kendoui"
-			}, {
-				"name": "Kendo UI on Google+",
-				"url": "https://plus.google.com/117798269023828336983/posts"
 			}]
 		}]
 	},
@@ -1251,6 +1120,27 @@
 			}]
 		}]
 	},
+
+	"lit": {
+		"name": "Lit",
+		"description": "Lit is a simple library for building fast, lightweight web components.",
+		"homepage": "lit.dev",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/lit/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://lit.dev/docs/getting-started/"
+			},{
+				"name": "Tutorials",
+				"url": "https://lit.dev/tutorials/"
+			}]
+		}]
+	},
+
 	"marionettejs": {
 		"name": "Backbone.Marionette",
 		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",
@@ -1575,52 +1465,72 @@
 			}]
 		}]
 	},
+	"preact": {
+		"name": "Preact",
+		"description": "Fast 3kB React alternative with the same modern API. Components & Virtual DOM.",
+		"homepage": "preactjs.com",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/preact/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://preactjs.com/guide/v10/getting-started"
+			}, {
+				"name": "Tutorial",
+				"url": "https://preactjs.com/tutorial/"
+			}]
+		}]
+	},
 	"react": {
 		"name": "React",
 		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
 		"homepage": "facebook.github.io/react",
 		"examples": [{
-			"name": "Example",
-			"url": "examples/react"
-		}, {
-			"name": "React + Backbone.js",
-			"url": "examples/react-backbone"
-		}, {
-			"name": "Scala.js + React",
-			"url": "examples/scalajs-react"
+			"name": "React",
+			"url": "examples/react/dist"
 		}, {
 			"name": "TypeScript + React",
 			"url": "examples/typescript-react"
-		}, {
-			"name": "React + Alt",
-			"url": "examples/react-alt"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Tutorial",
-				"url": "http://facebook.github.io/react/docs/tutorial.html"
+				"name": "Quick Start",
+				"url": "https://react.dev/learn"
 			}, {
+				"name": "API Reference",
+				"url": "https://react.dev/reference/react"
+			},{
 				"name": "Philosophy",
-				"url": "http://www.quora.com/Pete-Hunt/Posts/React-Under-the-Hood"
+				"url": "https://petehuntsposts.quora.com/React-Under-the-Hood"
 			}, {
-				"name": "Support",
-				"url": "http://facebook.github.io/react/support.html"
-			}, {
-				"name": "Flux architecture example",
-				"url": "https://github.com/facebook/flux/tree/master/examples/flux-todomvc"
+				"name": "React Community",
+				"url": "https://react.dev/community"
 			}]
 		}, {
 			"heading": "Community",
 			"links": [{
 				"name": "ReactJS on Stack Overflow",
 				"url": "https://stackoverflow.com/questions/tagged/reactjs"
-			}, {
-				"name": "Google Groups Mailing List",
-				"url": "https://groups.google.com/group/reactjs"
-			}, {
-				"name": "IRC",
-				"url": "irc://chat.freenode.net/reactjs"
+			}]
+		}]
+	},
+	"react-redux": {
+		"name": "React Redux",
+		"description": "React Redux is maintained by the Redux team, and kept up-to-date with the latest APIs from Redux and React.",
+		"homepage": "react-redux.js.org/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/react-redux/dist"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Getting Started",
+				"url": "https://react-redux.js.org/introduction/getting-started"
 			}]
 		}]
 	},
@@ -1692,117 +1602,6 @@
 			}]
 		}]
 	},
-	"sammyjs": {
-		"name": "Sammy.js",
-		"description": "A small web framework with class.",
-		"homepage": "sammyjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/sammyjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://sammyjs.org/intro"
-			}, {
-				"name": "Documentation",
-				"url": "http://sammyjs.org/docs"
-			}, {
-				"name": "Wiki",
-				"url": "http://sammyjs.org/wiki"
-			}, {
-				"name": "FAQ",
-				"url": "http://sammyjs.org/faq"
-			}, {
-				"name": "Sammy.js on GitHub",
-				"url": "http://github.com/quirkey/sammy"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Sammy.js For RESTful Evented JavaScript",
-				"url": "http://churchm.ag/sammy-js-for-restful-evented-javascript"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Mailing list on Google Groups",
-				"url": "http://groups.google.com/group/sammyjs"
-			}, {
-				"name": "Sammy.js on Twitter",
-				"url": "http://twitter.com/sammy_js"
-			}]
-		}]
-	},
-	"sapui5": {
-		"name": "SAPUI5",
-		"description": "SAP's HTML5-based UI technology that allows you to build rich, interactive Web applications.",
-		"homepage": "scn.sap.com/community/developer-center/front-end",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/sapui5"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://scn.sap.com/community/developer-center/front-end/blog/2013/03/19/how-to-build-testable-sapui5-applications"
-			}, {
-				"name": "Getting Started",
-				"url": "https://sapui5.netweaver.ondemand.com/"
-			}, {
-				"name": "API Reference",
-				"url": "https://sapui5.netweaver.ondemand.com/sdk/#content/Overview.html"
-			}, {
-				"name": "Twitter Search",
-				"url": "https://twitter.com/search?q=%23sapui5"
-			}, {
-				"name": "OpenUI5 Twitter",
-				"url": "https://twitter.com/OpenUI5"
-			}]
-		}]
-	},
-  	"scalajs-react": {
-		"name": "scalajs-react",
-		"description": "Facebook's React on Scala.js.",
-		"homepage": "github.com/japgolly/scalajs-react/",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/scalajs-react"
-		}, {
-			"name": "React",
-			"url": "examples/react"
-		}, {
-			"name": "React & Backbone.js",
-			"url": "examples/react-backbone"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Scalajs-React documentation",
-				"url": "https://github.com/japgolly/scalajs-react/"
-			}, {
-				"name": "Scala",
-				"url": "https://www.scala-lang.org/"
-			}, {
-				"name": "Scala.js",
-				"url": "http://www.scala-js.org/"
-			}, {
-				"name": "React tutorial",
-				"url": "https://reactjs.org/tutorial/tutorial.html"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Scala-React Gitter",
-				"url": "https://gitter.im/japgolly/scalajs-react"
-			}, {
-				"name": "Scala on Stack Overflow",
-				"url": "https://stackoverflow.com/questions/tagged/scala"
-			}]
-		}]
-	},
 	"binding-scala": {
 		"name": "Binding.scala",
 		"description": "Binding.scala is a Reactive Web Frameworks that helps you create complicated interactive web pages with very simple code base. <br/>This Binding.scala's TodoMVC application has the least code size among all the TodoMVC implementations, only one source file, 154 lines of code!",
@@ -1863,41 +1662,6 @@
 			}]
 		}]
 	},
-	"socketstream": {
-		"name": "SocketStream",
-		"description": "SocketStream 0.3 is a fast, modular Node.js web framework dedicated to building realtime single-page apps.",
-		"homepage": "socketstream.org",
-		"examples": [{
-			"name": "Real-time Example",
-			"url": "examples/socketstream/README.md",
-			"source_url": "examples/socketstream"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Tour",
-				"url": "http://www.socketstream.org/tour"
-			}, {
-				"name": "SocketStream on GitHub",
-				"url": "https://github.com/socketstream"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Video - Owen Barnes introduces SocketStream",
-				"url": "http://www.infoq.com/presentations/SocketStream"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "SocketStream on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/socketstream"
-			}, {
-				"name": "SocketStream on Twitter",
-				"url": "http://twitter.com/socketstream"
-			}]
-		}]
-	},
 	"somajs": {
 		"name": "soma.js",
 		"description": "soma.js is a framework created to build scalable and maintainable javascript applications.",
@@ -1938,43 +1702,19 @@
 			}]
 		}]
 	},
-	"spine": {
-		"name": "Spine.js",
-		"description": "Build Awesome JavaScript MVC Applications.",
-		"homepage": "spinejs.com",
+	"svelte": {
+		"name": "Svelte",
+		"description": "Svelte is a new way to build web applications. It's a compiler that takes your declarative components and converts them into efficient JavaScript that surgically updates the DOM.",
+		"homepage": "svelte.dev",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/spine"
+			"url": "examples/svelte/dist"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
 			"links": [{
-				"name": "Documentation",
-				"url": "http://spinejs.com/docs/"
-			}, {
-				"name": "Step by Step Tutorials",
-				"url": "http://spinejs.com/docs/example"
-			}, {
-				"name": "API Reference",
-				"url": "http://spinejs.com/api/index"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Building JavaScript Web Apps With MVC & Spine.js",
-				"url": "http://addyosmani.com/blog/building-apps-spinejs"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Spine on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/spine.js"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/spinejs"
-			}, {
-				"name": "Spine's author, Alex MacCaw, on Twitter",
-				"url": "http://twitter.com/maccman"
+				"name": "Getting Started",
+				"url": "https://svelte.dev/docs/introduction"
 			}]
 		}]
 	},
