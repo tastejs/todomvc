@@ -1,40 +1,53 @@
-# Ember.js TodoMVC Example using Ember 5.3
+# todomvc
 
-> A framework for creating ambitious web applications.
+## Prerequisites
 
-> _[Ember.js - emberjs.com](http://emberjs.com)_
+You will need the following things properly installed on your computer.
 
-\*Ember is not an MVC framework.
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) (with npm)
+- [Ember CLI](https://cli.emberjs.com/release/)
+- [Google Chrome](https://google.com/chrome/)
 
-## Note for people updating this app.
+## Installation
 
-The `index.html` and the `assets` folder in the parent folder as simlinks into the items with the same names inside `dist`. The `dist` folder has to be checked in git and built for production.
+- `git clone <repository-url>` this repository
+- `cd todomvc`
+- `pnpm install`
 
-You can develop this project as a standard Ember application:
+## Running / Development
 
-```bash
-$ cd todomvc
-$ pnpm install
-$ pnpm start
-```
-Build Ember TodoMVC for production:
+- `ember serve`
+- Visit your app at [http://localhost:4200](http://localhost:4200).
+- Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
-```bash
-$ pnpm build 
-```
+### Code Generators
 
-Run Cypress Test:
+Make use of the many generators for code, try `ember help generate` for more details
 
-```bash
-# Run this command from the root folder of this repository
-$ npm install
-$ npm run server
+### Running Tests
 
-# Run in a separated terminal
-$ CYPRESS_framework=emberjs npm run cy:open
-```
+- `ember test`
+- `ember test --server`
 
-### Ember Notes
+### Linting
 
-* The `rootURL` param in `config/environment.js` should keep as empty string.
+- `pnpm run lint`
+- `pnpm lint:fix`
 
+### Building
+
+- `ember build` (development)
+- `ember build --environment production` (production)
+
+### Deploying
+
+Specify what it takes to deploy your app.
+
+## Further Reading / Useful Links
+
+- [ember.js](https://emberjs.com/)
+- [ember-cli](https://cli.emberjs.com/release/)
+- Development Browser Extensions
+  - [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+  - [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)

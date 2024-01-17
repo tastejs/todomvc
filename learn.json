@@ -406,7 +406,7 @@
 		"homepage": "emberjs.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/emberjs"
+			"url": "examples/emberjs/dist/"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
