@@ -11,9 +11,7 @@ module.exports = function (environment) {
 		 *
 		 * These settings are required by todomvc's (the repo) tests
 		 */
-		// rootURL: '',
-		// locationType: 'none',
-		rootURL: '/',
+		rootURL: '/examples/ember/',
 		locationType: 'history',
 		EmberENV: {
 			EXTEND_PROTOTYPES: false,
