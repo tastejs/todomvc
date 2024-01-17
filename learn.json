@@ -15,87 +15,6 @@
 			}]
 		}]
 	},
-	"angularjs": {
-		"name": "AngularJS",
-		"description": "HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.",
-		"homepage": "angularjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/angularjs"
-		}, {
-			"name": "Require.js & AngularJS",
-			"url": "examples/angularjs_require"
-		}, {
-			"name": "TypeScript & AngularJS",
-			"url": "examples/typescript-angular"
-		}, {
-			"name": "Google Cloud Platform + Express",
-			"url": "http://gcloud-todos.appspot.com",
-			"source_url": "https://github.com/GoogleCloudPlatform/gcloud-node-todos",
-			"type": "backend"
-		}, {
-			"name": "Angular2",
-			"url": "examples/angular2"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Tutorial",
-				"url": "http://docs.angularjs.org/tutorial"
-			}, {
-				"name": "API Reference",
-				"url": "http://docs.angularjs.org/api"
-			}, {
-				"name": "Developer Guide",
-				"url": "http://docs.angularjs.org/guide"
-			}, {
-				"name": "Applications built with AngularJS",
-				"url": "https://www.madewithangular.com/"
-			}, {
-				"name": "Blog",
-				"url": "http://blog.angularjs.org"
-			}, {
-				"name": "FAQ",
-				"url": "http://docs.angularjs.org/misc/faq"
-			}, {
-				"name": "Videos",
-				"url": "https://www.youtube.com/user/angularjs"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Code School AngularJS course",
-				"url": "https://www.codeschool.com/courses/shaping-up-with-angular-js"
-			}, {
-				"name": "5 Awesome AngularJS Features",
-				"url": "http://net.tutsplus.com/tutorials/javascript-ajax/5-awesome-angularjs-features"
-			}, {
-				"name": "Using Yeoman with AngularJS",
-				"url": "http://briantford.com/blog/angular-yeoman.html"
-			}, {
-				"name": "me&ngular - an introduction to MVW",
-				"url": "http://stephenplusplus.github.io/meangular"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Walkthroughs and Tutorials on YouTube",
-				"url": "http://www.youtube.com/playlist?list=PL1w1q3fL4pmgqpzb-XhG7Clgi67d_OHXz"
-			}, {
-				"name": "Google Groups mailing list",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/angular"
-			}, {
-				"name": "angularjs on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/angularjs"
-			}, {
-				"name": "AngularJS on Twitter",
-				"url": "https://twitter.com/angularjs"
-			}, {
-				"name": "AngularjS on Google+",
-				"url": "https://plus.google.com/+AngularJS/posts"
-			}]
-		}]
-	},
 	"angulardart": {
 		"name": "AngularDart",
 		"description": "Dart is a class-based, object-oriented language with lexical scoping, closures, and optional static typing. AngularDart is a port of Angular to Dart.",
@@ -133,86 +52,6 @@
 			}, {
 				"name": "Bugtracker on GitHub",
 				"url": "https://github.com/angular/angular.dart/issues?state=open"
-			}]
-		}]
-	},
-	"ariatemplates": {
-		"name": "Aria Templates",
-		"description": "Aria Templates (aka AT) is an application framework written in JavaScript for building rich and large-scaled enterprise web applications.",
-		"homepage": "ariatemplates.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/ariatemplates"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://ariatemplates.com/usermanual"
-			}, {
-				"name": "API Reference",
-				"url": "http://ariatemplates.com/aria/guide/apps/apidocs"
-			}, {
-				"name": "Guides",
-				"url": "http://ariatemplates.com/guides"
-			}, {
-				"name": "Blog",
-				"url": "http://ariatemplates.com/blog"
-			}, {
-				"name": "FAQ",
-				"url": "http://ariatemplates.com/faq"
-			}, {
-				"name": "Aria Templates on GitHub",
-				"url": "https://github.com/ariatemplates"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Aria Templates on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/ariatemplates"
-			}, {
-				"name": "Forums",
-				"url": "http://ariatemplates.com/forum"
-			}, {
-				"name": "Aria Templates on Twitter",
-				"url": "http://twitter.com/ariatemplates"
-			}]
-		}]
-	},
-	"atmajs": {
-		"name": "Atma.js",
-		"description": "HMVC and the component-based architecture for building client, server or hybrid applications",
-		"homepage": "atmajs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/atmajs/"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Get Started",
-				"url": "http://atmajs.com/get/github"
-			}, {
-				"name": "Atma.js on GitHub",
-				"url": "https://github.com/atmajs"
-			}, {
-				"name": "Atma.js DevTool",
-				"url": "https://chrome.google.com/webstore/detail/atmajs-devtool/bpaepkmcmoablpdahclhdceapndfhdpo"
-			}]
-		}, {
-			"heading": "Overview",
-			"links": [{
-				"name": "Libraries",
-				"url": "https://github.com/tastejs/todomvc/blob/gh-pages/examples/atmajs/readme.md"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Atma.js on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/atmajs"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/atmajs"
 			}]
 		}]
 	},
@@ -308,46 +147,6 @@
 			}]
 		}]
 	},
-	"ampersand": {
-		"name": "Ampersand.js",
-		"description": "A highly modular, loosely coupled, non-frameworky framework for building advanced JavaScript apps.",
-		"homepage": "ampersandjs.com",
-		"examples": [{
-			"name": "Architecture Example",
-			"url": "examples/ampersand"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Project Site",
-				"url": "http://ampersandjs.com"
-			}, {
-				"name": "Guides",
-				"url": "http://ampersandjs.com/learn"
-			}, {
-				"name": "API Reference",
-				"url": "http://ampersandjs.com/docs"
-			}, {
-				"name": "Curated Front-end Modules",
-				"url": "http://tools.ampersandjs.com"
-			}, {
-				"name": "#&yet IRC Channel on Freenode",
-				"url": "https://botbot.me/freenode/andyet/"
-			}]
-		}, {
-			"heading": "Related Materials",
-			"links": [{
-				"name": "Human JavaScript (free online book)",
-				"url": "http://learn.humanjavascript.com"
-			}, {
-				"name": "Introducing Ampersand Blogpost",
-				"url": "http://blog.andyet.com/2014/06/25/introducing-ampersand-js/"
-			}, {
-				"name": "&yet – The team behind Ampersand.js",
-				"url": "http://andyet.com"
-			}]
-		}]
-	},
 	"elm": {
 		"name": "Elm",
 		"description": "A functional reactive language for interactive applications",
@@ -428,55 +227,6 @@
 			}, {
 				"name": "#canjs IRC",
 				"url": "http://webchat.freenode.net/?channels=canjs"
-			}]
-		}]
-	},
-	"chaplin": {
-		"name": "Chaplin",
-		"description": "Chaplin is an architecture for JavaScript applications using the Backbone.js library. Chaplin addresses Backbone’s limitations by providing a lightweight and flexible structure that features well-proven design patterns and best practices.",
-		"homepage": "chaplinjs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/chaplin-brunch/public"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Getting Started",
-				"url": "http://docs.chaplinjs.org/getting_started.html"
-			}, {
-				"name": "Documentation",
-				"url": "http://docs.chaplinjs.org"
-			}, {
-				"name": "Annotated Source Code",
-				"url": "http://chaplinjs.org/annotated/chaplin.html"
-			}, {
-				"name": "Applications built with Chaplin",
-				"url": "http://chaplinjs.org/examples.html"
-			}, {
-				"name": "Cookbook",
-				"url": "https://github.com/chaplinjs/chaplin/wiki/Cookbook"
-			}, {
-				"name": "Chaplin on GitHub",
-				"url": "https://github.com/chaplinjs"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "JavaScript MVC frameworks: A Comparison of Marionette and Chaplin",
-				"url": "http://9elements.com/io/index.php/comparison-of-marionette-and-chaplin"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Support forum on ost.io",
-				"url": "http://ost.io/@chaplinjs/chaplin"
-			}, {
-				"name": "Chaplin on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/chaplinjs"
-			}, {
-				"name": "Chaplin on Twitter",
-				"url": "http://twitter.com/chaplinjs"
 			}]
 		}]
 	},
@@ -764,82 +514,6 @@
 			}]
 		}]
 	},
-	"flight": {
-		"name": "Flight",
-		"description": "Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.",
-		"homepage": "flightjs.github.io",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/flight"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "GitHub",
-				"url": "https://github.com/flightjs/flight"
-			}, {
-				"name": "Demo Application",
-				"url": "http://flightjs.github.io/example-app/"
-			}, {
-				"name": "Installation",
-				"url": "https://github.com/flightjs/flight/blob/master/README.md#installation"
-			}, {
-				"name": "Collection of Flight components",
-				"url": "http://flight-components.jit.su/"
-			}, {
-				"name": "Flight on Twitter",
-				"url": "https://twitter.com/flightjs"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Introducing Flight: a web application framework",
-				"url": "https://blog.twitter.com/2013/introducing-flight-a-web-application-framework"
-			}, {
-				"name": "Building Web Applications with Flight",
-				"url": "http://simplebutgood.net/building-web-applications-with-flight-part-1/"
-			}, {
-				"name": "Building a chat app with @flight",
-				"url": "http://blog.stefanritter.com/post/81767869139/building-a-chat-app-with-flight-part-1"
-			}, {
-				"name": "Redesigning Search at Airbnb",
-				"url": "http://nerds.airbnb.com/redesigning-search/"
-			}, {
-				"name": "Flight Mixins",
-				"url": "http://kenneth.kufluk.com/blog/2014/01/flight-mixins/"
-			}, {
-				"name": "Flight at TweetDeck",
-				"url": "https://blog.twitter.com/2013/flight-at-tweetdeck"
-			}, {
-				"name": "How Flight Plays Well With non-Flight JS",
-				"url": "http://www.retailmenot.com/corp/eng/posts/2014/08/28/how-flight-plays-well-with-non-flight-js/"
-			}, {
-				"name": "Learning to Fly — Twitter Flight and Mixins",
-				"url": "https://speakerdeck.com/anguscroll/learning-to-fly-twitter-flight-and-mixins-1"
-			}]
-		}, {
-			"heading":"Videos",
-			"links":[{
-				"name": "Dan Webb: Flight.js [JSConfUS 2013]",
-				"url": "https://www.youtube.com/watch?v=4WRmFp8jZjc"
-			}, {
-				"name": "MountainWest JavaScript 2014",
-				"url": "https://www.youtube.com/watch?v=PrcvUZGuUa8"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/twitter-flight"
-			}, {
-				"name": "Flight's Google Group",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/twitter-flight"
-			}, {
-				"name": "Flight on Freenode IRC (#flightjs)",
-				"url": "http://webchat.freenode.net/?channels=flightjs"
-			}]
-		}]
-	},
 	"gwt": {
 		"name": "Google Web Toolkit",
 		"description": "Google Web Toolkit (GWT) is a development toolkit for building and optimizing complex browser-based applications. GWT is used by many products at Google, including Google AdWords and Orkut. It's open source, completely free, and used by thousands of developers around the world.",
@@ -883,30 +557,8 @@
 			}]
 		}]
 	},
-	"humble": {
-		"name": "Humble + GopherJS",
-		"description": "Humble is a collection of loosely-coupled tools designed to build client-side and hybrid web applications using GopherJS, which compiles Go code to JavaScript.",
-		"homepage": "https://github.com/go-humble/humble",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/humble"
-		}],
-		"link_groups": [{
-			"heading": "Resources",
-			"links": [{
-				"name": "Source Code and Documentation",
-				"url": "https://github.com/go-humble"
-			}, {
-				"name": "GopherJS on Stack Overflow",
-				"url": "http://stackoverflow.com/search?q=gopherjs"
-			}, {
-				"name": "GopherJS Google Group",
-				"url": "https://groups.google.com/forum/#!forum/gopherjs"
-			}]
-		}]
-	},
-	"javascript": {
-		"name": "JavaScript",
+	"es5": {
+		"name": "JavaScript ES5",
 		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
@@ -915,7 +567,7 @@
 		}]
 	},
   	"es6": {
-		"name": "ECMAScript 6",
+		"name": "JavaScript ES6",
 		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
@@ -1187,65 +839,6 @@
 			}]
 		}]
 	},
-	"meteor": {
-		"name": "Meteor",
-		"description": "Meteor is an open-source platform for building top-quality web apps in a fraction of the time, whether you're an expert developer or just getting started.",
-		"homepage": "meteor.com",
-		"examples": [{
-			"name": "Real-time Example",
-			"url": "http://todomvcapp.meteor.com",
-			"source_url": "examples/meteor"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://docs.meteor.com"
-			}, {
-				"name": "Applications built with Meteor",
-				"url": "http://madewith.meteor.com"
-			}, {
-				"name": "Examples",
-				"url": "http://meteor.com/examples"
-			}, {
-				"name": "Blog",
-				"url": "http://meteor.com/blog"
-			}, {
-				"name": "FAQ",
-				"url": "http://meteor.com/faq"
-			}, {
-				"name": "Meteor on GitHub",
-				"url": "https://github.com/meteor"
-			}, {
-				"name": "Meteor on YouTube",
-				"url": "http://www.youtube.com/user/MeteorVideos"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "Learn Meteor Fundamentals and Best Practices",
-				"url": "http://andrewscala.com/meteor"
-			}, {
-				"name": "Introduction to Realtime Web with Meteor and Node.js",
-				"url": "http://www.andrewmunsell.com/blog/introduction-to-realtime-web-meteor-and-nodejs"
-			}, {
-				"name": "Confessions of a Meteor Newb",
-				"url": "http://blog.jerodsanto.net/2012/04/confessions-of-a-meteor-newb"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Meteor on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/meteor"
-			}, {
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/?fromgroups#!forum/meteor-core"
-			}, {
-				"name": "Meteor on Twitter",
-				"url": "http://twitter.com/meteorjs"
-			}]
-		}]
-	},
 	"mithril": {
 		"name": "Mithril",
 		"description": "Mithril is a modern client-side Javascript framework for building Single Page Applications. It's small (< 8kb gzip), fast and provides routing and XHR utilities out of the box.",
@@ -1283,28 +876,6 @@
 			}, {
 				"name": "Recipies and Snippets",
 				"url": "https://github.com/MithrilJS/mithril.js/wiki/Recipes-and-Snippets"
-			}]
-		}]
-	},
-	"olives": {
-		"name": "Olives.js",
-		"description": "A JS Framework for creating realtime and scalable applications. Based on Emily.js and socket.io.",
-		"homepage": "flams.github.io/olives",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/olives"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://flams.github.io/olives/docs/latest"
-			}, {
-				"name": "Applications built with Olives.js",
-				"url": "http://flams.github.io/olives/#liveexamples"
-			}, {
-				"name": "Olives.js on GitHub",
-				"url": "https://github.com/flams/olives"
 			}]
 		}]
 	},
@@ -1351,49 +922,6 @@
 			}]
 		}]
 	},
-	"puremvc": {
-		"name": "PureMVC",
-		"description": "PureMVC is a lightweight framework for creating applications based upon the classic Model, View and Controller concept.",
-		"homepage": "puremvc.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/puremvc"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Documentation",
-				"url": "http://puremvc.org/content/view/98/189"
-			}, {
-				"name": "Applications built with PureMVC",
-				"url": "http://puremvc.org/content/blogsection/9/176"
-			}, {
-				"name": "FAQ",
-				"url": "http://puremvc.org/content/section/3/188"
-			}, {
-				"name": "PureMVC on GitHub",
-				"url": "https://github.com/puremvc"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "PureMVC Performance Test",
-				"url": "http://blog.kaegi.net/puremvc-performance-test-compared-to-using-no-framework"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "PureMVC on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/puremvc"
-			}, {
-				"name": "PureMVC on Twitter",
-				"url": "http://twitter.com/puremvc"
-			}, {
-				"name": "PureMVC on Google+",
-				"url": "https://plus.google.com/+puremvc/posts"
-			}]
-		}]
-	},
 	"ractive": {
 		"name": "Ractive.js",
 		"description": "Ractive is a next-generation DOM manipulation library for creating reactive user interfaces, optimised for developer sanity. It was originally developed to create interactive news applications at theguardian.com.",
@@ -1428,40 +956,6 @@
 			}, {
 				"name": "Ractive.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ractivejs"
-			}]
-		}]
-	},
-	"rappidjs": {
-		"name": "rAppid.js",
-		"description": "The declarative Rich Internet Application Javascript MVC Framework.",
-		"homepage": "rappidjs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/rappidjs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "API Reference",
-				"url": "http://www.rappidjs.com/#/api"
-			}, {
-				"name": "Wiki",
-				"url": "http://www.rappidjs.com/#/wiki"
-			}, {
-				"name": "UI Components",
-				"url": "http://www.rappidjs.com/#/ui"
-			}, {
-				"name": "Blog",
-				"url": "http://blog.rappidjs.com"
-			}, {
-				"name": "rAppid.js on GitHub",
-				"url": "https://github.com/rappid/rAppid.js"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "rAppid.js on Twitter",
-				"url": "http://twitter.com/rappidjs"
 			}]
 		}]
 	},
@@ -1611,11 +1105,6 @@
 			"name": "This TodoMVC application",
 			"url": "examples/binding-scala",
 			"source_url": "https://github.com/ThoughtWorksInc/todo"
-		}, {
-			"type": "backend",
-			"name": "Other live DEMOs",
-			"url": "https://thoughtworksinc.github.io/Binding.scala/",
-			"source_url": "https://github.com/ThoughtWorksInc/Binding.scala-website"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1634,74 +1123,6 @@
 			}]
 		}]
 	},
-	"serenadejs": {
-		"name": "Serenade.js",
-		"description": "Serenade.js is a client side framework built on the MVC pattern. It makes it simple to create rich client side applications by freeing you from having to keep the DOM up to date with your data through powerful data bindings.",
-		"homepage": "serenadejs.org",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/serenadejs"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Introduction",
-				"url": "http://serenadejs.org/introduction.html"
-			}, {
-				"name": "Applications built with Serenade.js",
-				"url": "http://serenade.herokuapp.com"
-			}, {
-				"name": "Serenade.js on GitHub",
-				"url": "https://github.com/elabs/serenade.js"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Serenade.js on Twitter",
-				"url": "http://twitter.com/serenadejs"
-			}]
-		}]
-	},
-	"somajs": {
-		"name": "soma.js",
-		"description": "soma.js is a framework created to build scalable and maintainable javascript applications.",
-		"homepage": "somajs.github.io/somajs",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/somajs"
-		}, {
-			"name": "Require.js & soma.js",
-			"url": "examples/somajs_require"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Slides: Introduction",
-				"url": "http://somajs.github.io/somajs/#/1"
-			}, {
-				"name": "Quick Start",
-				"url": "http://somajs.github.io/somajs/site/#quick-start"
-			}, {
-				"name": "Demos",
-				"url": "http://somajs.github.io/somajs/site/#demos"
-			}, {
-				"name": "Blog",
-				"url": "http://www.soundstep.com/blog"
-			}, {
-				"name": "soma.js on GitHub",
-				"url": "https://github.com/somajs/somajs"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "Mailing list on Google Groups",
-				"url": "https://groups.google.com/forum/#!forum/somajs"
-			}, {
-				"name": "soma.js on Twitter",
-				"url": "http://twitter.com/soundstep"
-			}]
-		}]
-	},
 	"svelte": {
 		"name": "Svelte",
 		"description": "Svelte is a new way to build web applications. It's a compiler that takes your declarative components and converts them into efficient JavaScript that surgically updates the DOM.",
@@ -1715,25 +1136,6 @@
 			"links": [{
 				"name": "Getting Started",
 				"url": "https://svelte.dev/docs/introduction"
-			}]
-		}]
-	},
-	"troopjs": {
-		"name": "TroopJS",
-		"description": "The simple js framework that does as little as possible, then stays out of the way.",
-		"homepage": "troopjs.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/troopjs_require"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "TODOs Application (latest)",
-				"url": "https://github.com/troopjs/troopjs-todos"
-			}, {
-				"name": "TroopJS on GitHub",
-				"url": "https://github.com/troopjs"
 			}]
 		}]
 	},
@@ -1801,7 +1203,7 @@
 		"homepage": "vuejs.org",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/vue"
+			"url": "examples/vue/dist"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
