@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Utils = (function () {
-    function Utils() {
-    }
-    Utils.uuid = function () {
+exports.Utils = void 0;
+class Utils {
+    static uuid() {
+        /*jshint bitwise:false */
         var i, random;
         var uuid = '';
         for (i = 0; i < 32; i++) {
@@ -15,22 +15,18 @@ var Utils = (function () {
                 .toString(16);
         }
         return uuid;
-    };
-    Utils.pluralize = function (count, word) {
+    }
+    static pluralize(count, word) {
         return count === 1 ? word : word + 's';
-    };
-    Utils.store = function (namespace, data) {
+    }
+    static store(namespace, data) {
         if (data) {
             return localStorage.setItem(namespace, JSON.stringify(data));
         }
         var store = localStorage.getItem(namespace);
         return (store && JSON.parse(store)) || [];
-    };
-    Utils.extend = function () {
-        var objs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            objs[_i] = arguments[_i];
-        }
+    }
+    static extend(...objs) {
         var newObj = {};
         for (var i = 0; i < objs.length; i++) {
             var obj = objs[i];
@@ -41,7 +37,6 @@ var Utils = (function () {
             }
         }
         return newObj;
-    };
-    return Utils;
-}());
+    }
+}
 exports.Utils = Utils;

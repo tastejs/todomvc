@@ -1,48 +1,74 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var classNames = require("classnames");
-var React = require("react");
-var constants_1 = require("./constants");
-var utils_1 = require("./utils");
-var TodoFooter = (function (_super) {
-    __extends(TodoFooter, _super);
-    function TodoFooter() {
-        return _super !== null && _super.apply(this, arguments) || this;
+/*jshint quotmark:false */
+/*jshint white:false */
+/*jshint trailing:false */
+/*jshint newcap:false */
+/*global React */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
     }
-    TodoFooter.prototype.render = function () {
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TodoFooter = void 0;
+/// <reference path="./interfaces.d.ts"/>
+const classNames = __importStar(require("classnames"));
+const React = __importStar(require("react"));
+const constants_1 = require("./constants");
+const utils_1 = require("./utils");
+class TodoFooter extends React.Component {
+    render() {
         var activeTodoWord = utils_1.Utils.pluralize(this.props.count, 'item');
         var clearButton = null;
         if (this.props.completedCount > 0) {
-            clearButton = (React.createElement("button", { className: "clear-completed", onClick: this.props.onClearCompleted }, "Clear completed"));
+            clearButton = (<button className="clear-completed" onClick={this.props.onClearCompleted}>
+          Clear completed
+        </button>);
         }
-        var nowShowing = this.props.nowShowing;
-        return (React.createElement("footer", { className: "footer" },
-            React.createElement("span", { className: "todo-count" },
-                React.createElement("strong", null, this.props.count),
-                " ",
-                activeTodoWord,
-                " left"),
-            React.createElement("ul", { className: "filters" },
-                React.createElement("li", null,
-                    React.createElement("a", { href: "#/", className: classNames({ selected: nowShowing === constants_1.ALL_TODOS }) }, "All")),
-                ' ',
-                React.createElement("li", null,
-                    React.createElement("a", { href: "#/active", className: classNames({ selected: nowShowing === constants_1.ACTIVE_TODOS }) }, "Active")),
-                ' ',
-                React.createElement("li", null,
-                    React.createElement("a", { href: "#/completed", className: classNames({ selected: nowShowing === constants_1.COMPLETED_TODOS }) }, "Completed"))),
-            clearButton));
-    };
-    return TodoFooter;
-}(React.Component));
+        const nowShowing = this.props.nowShowing;
+        return (<footer className="footer">
+        <span className="todo-count">
+          <strong>{this.props.count}</strong> {activeTodoWord} left
+        </span>
+        <ul className="filters">
+          <li>
+            <a href="#/" className={classNames({ selected: nowShowing === constants_1.ALL_TODOS })}>
+                All
+            </a>
+          </li>
+          {' '}
+          <li>
+            <a href="#/active" className={classNames({ selected: nowShowing === constants_1.ACTIVE_TODOS })}>
+                Active
+            </a>
+          </li>
+          {' '}
+          <li>
+            <a href="#/completed" className={classNames({ selected: nowShowing === constants_1.COMPLETED_TODOS })}>
+                Completed
+            </a>
+          </li>
+        </ul>
+        {clearButton}
+      </footer>);
+    }
+}
 exports.TodoFooter = TodoFooter;

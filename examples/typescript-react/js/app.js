@@ -1,32 +1,49 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/*jshint quotmark:false */
+/*jshint white:false */
+/*jshint trailing:false */
+/*jshint newcap:false */
+/*global React, Router*/
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var ReactDOM = require("react-dom");
-var todoModel_1 = require("./todoModel");
-var footer_1 = require("./footer");
-var todoItem_1 = require("./todoItem");
-var constants_1 = require("./constants");
-var TodoApp = (function (_super) {
-    __extends(TodoApp, _super);
-    function TodoApp(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
+/// <reference path="./interfaces.d.ts"/>
+const React = __importStar(require("react"));
+const ReactDOM = __importStar(require("react-dom"));
+const todoModel_1 = require("./todoModel");
+const footer_1 = require("./footer");
+const todoItem_1 = require("./todoItem");
+const constants_1 = require("./constants");
+class TodoApp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             nowShowing: constants_1.ALL_TODOS,
             editing: null
         };
-        return _this;
     }
-    TodoApp.prototype.componentDidMount = function () {
+    componentDidMount() {
         var setState = this.setState;
         var router = Router({
             '/': setState.bind(this, { nowShowing: constants_1.ALL_TODOS }),
@@ -34,8 +51,8 @@ var TodoApp = (function (_super) {
             '/completed': setState.bind(this, { nowShowing: constants_1.COMPLETED_TODOS })
         });
         router.init('/');
-    };
-    TodoApp.prototype.handleNewTodoKeyDown = function (event) {
+    }
+    handleNewTodoKeyDown(event) {
         if (event.keyCode !== constants_1.ENTER_KEY) {
             return;
         }
@@ -45,38 +62,37 @@ var TodoApp = (function (_super) {
             this.props.model.addTodo(val);
             ReactDOM.findDOMNode(this.refs["newField"]).value = '';
         }
-    };
-    TodoApp.prototype.toggleAll = function (event) {
+    }
+    toggleAll(event) {
         var target = event.target;
         var checked = target.checked;
         this.props.model.toggleAll(checked);
-    };
-    TodoApp.prototype.toggle = function (todoToToggle) {
+    }
+    toggle(todoToToggle) {
         this.props.model.toggle(todoToToggle);
-    };
-    TodoApp.prototype.destroy = function (todo) {
+    }
+    destroy(todo) {
         this.props.model.destroy(todo);
-    };
-    TodoApp.prototype.edit = function (todo) {
+    }
+    edit(todo) {
         this.setState({ editing: todo.id });
-    };
-    TodoApp.prototype.save = function (todoToSave, text) {
+    }
+    save(todoToSave, text) {
         this.props.model.save(todoToSave, text);
         this.setState({ editing: null });
-    };
-    TodoApp.prototype.cancel = function () {
+    }
+    cancel() {
         this.setState({ editing: null });
-    };
-    TodoApp.prototype.clearCompleted = function () {
+    }
+    clearCompleted() {
         this.props.model.clearCompleted();
-    };
-    TodoApp.prototype.render = function () {
-        var _this = this;
+    }
+    render() {
         var footer;
         var main;
-        var todos = this.props.model.todos;
-        var shownTodos = todos.filter(function (todo) {
-            switch (_this.state.nowShowing) {
+        const todos = this.props.model.todos;
+        var shownTodos = todos.filter((todo) => {
+            switch (this.state.nowShowing) {
                 case constants_1.ACTIVE_TODOS:
                     return !todo.completed;
                 case constants_1.COMPLETED_TODOS:
@@ -85,35 +101,45 @@ var TodoApp = (function (_super) {
                     return true;
             }
         });
-        var todoItems = shownTodos.map(function (todo) {
-            return (React.createElement(todoItem_1.TodoItem, { key: todo.id, todo: todo, onToggle: _this.toggle.bind(_this, todo), onDestroy: _this.destroy.bind(_this, todo), onEdit: _this.edit.bind(_this, todo), editing: _this.state.editing === todo.id, onSave: _this.save.bind(_this, todo), onCancel: function (e) { return _this.cancel(); } }));
+        var todoItems = shownTodos.map((todo) => {
+            return (<todoItem_1.TodoItem key={todo.id} todo={todo} onToggle={this.toggle.bind(this, todo)} onDestroy={this.destroy.bind(this, todo)} onEdit={this.edit.bind(this, todo)} editing={this.state.editing === todo.id} onSave={this.save.bind(this, todo)} onCancel={e => this.cancel()}/>);
         });
+        // Note: It's usually better to use immutable data structures since they're
+        // easier to reason about and React works very well with them. That's why
+        // we use map(), filter() and reduce() everywhere instead of mutating the
+        // array or todo items themselves.
         var activeTodoCount = todos.reduce(function (accum, todo) {
             return todo.completed ? accum : accum + 1;
         }, 0);
         var completedCount = todos.length - activeTodoCount;
         if (activeTodoCount || completedCount) {
             footer =
-                React.createElement(footer_1.TodoFooter, { count: activeTodoCount, completedCount: completedCount, nowShowing: this.state.nowShowing, onClearCompleted: function (e) { return _this.clearCompleted(); } });
+                <footer_1.TodoFooter count={activeTodoCount} completedCount={completedCount} nowShowing={this.state.nowShowing} onClearCompleted={e => this.clearCompleted()}/>;
         }
         if (todos.length) {
-            main = (React.createElement("section", { className: "main" },
-                React.createElement("input", { id: "toggle-all", className: "toggle-all", type: "checkbox", onChange: function (e) { return _this.toggleAll(e); }, checked: activeTodoCount === 0 }),
-                React.createElement("label", { htmlFor: "toggle-all" }, "Mark all as complete"),
-                React.createElement("ul", { className: "todo-list" }, todoItems)));
+            main = (<section className="main">
+          <input id="toggle-all" className="toggle-all" type="checkbox" onChange={e => this.toggleAll(e)} checked={activeTodoCount === 0}/>
+          <label htmlFor="toggle-all">
+            Mark all as complete
+          </label>
+          <ul className="todo-list">
+            {todoItems}
+          </ul>
+        </section>);
         }
-        return (React.createElement("div", null,
-            React.createElement("header", { className: "header" },
-                React.createElement("h1", null, "todos"),
-                React.createElement("input", { ref: "newField", className: "new-todo", placeholder: "What needs to be done?", onKeyDown: function (e) { return _this.handleNewTodoKeyDown(e); }, autoFocus: true })),
-            main,
-            footer));
-    };
-    return TodoApp;
-}(React.Component));
+        return (<div>
+        <header className="header">
+          <h1>todos</h1>
+          <input ref="newField" className="new-todo" placeholder="What needs to be done?" onKeyDown={e => this.handleNewTodoKeyDown(e)} autoFocus={true}/>
+        </header>
+        {main}
+        {footer}
+      </div>);
+    }
+}
 var model = new todoModel_1.TodoModel('react-todos');
 function render() {
-    ReactDOM.render(React.createElement(TodoApp, { model: model }), document.getElementsByClassName('todoapp')[0]);
+    ReactDOM.render(<TodoApp model={model}/>, document.getElementsByClassName('todoapp')[0]);
 }
 model.subscribe(render);
 render();
