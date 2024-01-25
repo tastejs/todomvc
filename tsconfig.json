@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"rootDir": "./ai-review",
+		"outDir": "./dist",
+		"target": "es6",
+		"module": "commonjs",
+		"strict": true,
+		"noImplicitAny": true,
+		"esModuleInterop": true,
+	},
+	"exclude": ["node_modules", "**/*.test.ts", "examples"]
+}

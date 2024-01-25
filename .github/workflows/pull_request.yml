@@ -1,0 +1,21 @@
+name: PR Review
+
+on:
+    pull_request:
+        types: [ labeled ]
+
+jobs:
+    review:
+        if: ${{ github.event.label.name == 'ai-review' }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v3
+
+            - name: AI Code Reviewer
+              uses: ./.github/actions/review
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  AI_API_KEY: ${{ secrets.AI_API_KEY }}
+                  AI_API_MODEL: "gpt-4"
+                  exclude: "**/*.json, **/*.md" # Optional: exclude patterns separated by commas

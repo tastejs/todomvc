@@ -15,6 +15,8 @@
     "learn.json"
   ],
   "scripts": {
+    "build-action": "tsc --project ./tsconfig.json",
+    "package-action": "ncc build ./dist/main.js -o .github/actions/review/dist --license licenses.txt",
     "test-server": "gulp test-server &",
     "server": "gulp test-server",
     "gulp": "gulp",
@@ -26,9 +28,16 @@
     "test:all": "node tests/cya.js"
   },
   "dependencies": {
-    "express": "^4.10.0"
+    "express": "^4.10.0",
+    "@actions/core": "^1.10.0",
+    "@octokit/rest": "^19.0.7",
+    "minimatch": "^7.4.2",
+    "openai": "^4.20.1",
+    "parse-diff": "^0.11.1",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.36.1",
     "@bahmutov/print-env": "^1.0.1",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
