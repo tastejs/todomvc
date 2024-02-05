@@ -575,6 +575,15 @@
 			"url": "examples/javascript-es6/dist/"
 		}]
 	},
+	"tag": {
+		"name": "Tag",
+		"description": "Tag is a light-weight library currently incubating at Netflix. The main goals are portability through declaration, approachability with a limited volcabulary, and adhereing to web-first principles.",
+		"homepage": "https://thelanding.page/tag",
+		"examples": [{
+			"name": "Tag Example",
+			"url": "examples/tag"
+		}]
+	},
 	"js_of_ocaml": {
 		"name": "js_of_ocaml",
 		"description": "Js_of_ocaml is a compiler of OCaml bytecode to Javascript. It makes it possible to run Ocaml programs in a Web browser.",
