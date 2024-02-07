@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "@alpinejs/focus": "^3.11.1",
+    "alpinejs": "^3.11.1",
+    "director": "^1.2.8",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  }
+}
