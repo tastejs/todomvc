@@ -1,0 +1,12 @@
+{
+  "name": "js-r5mnzv",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "jskick": "^0.9.92",
+    "director": "^1.2.8",
+    "jquery": "^3.3.1",
+    "todomvc-app-css": "^2.1.2",
+    "todomvc-common": "^1.0.5"
+  }
+}
