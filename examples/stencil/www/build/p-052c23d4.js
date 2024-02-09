@@ -1,0 +1,1 @@
+function t(t,r){return 1===t?r:r+"s"}function r(t,r){if(r)return localStorage.setItem(t,JSON.stringify(r));let n=localStorage.getItem(t);return n&&JSON.parse(n)||[]}function n(){let t,r,n="";for(t=0;t<32;t++)r=16*Math.random()|0,8!==t&&12!==t&&16!==t&&20!==t||(n+="-"),n+=(12===t?4:16===t?3&r|8:r).toString(16);return n}export{t as p,r as s,n as u}

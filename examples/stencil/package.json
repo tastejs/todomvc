@@ -1,0 +1,37 @@
+{
+  "name": "todo-mvc-stencil",
+  "version": "1.0.0",
+  "description": "Todo MVC implementation using Stencil",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/stencil-comp/stencil-comp.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "devDependencies": {
+    "@stencil/core": "^1.12.2",
+    "@types/jest": "24.9.1",
+    "@types/puppeteer": "2.0.1",
+    "jest": "24.9.0",
+    "jest-cli": "24.9.0",
+    "puppeteer": "2.1.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "todomvc-common": "^1.0.5"
+  }
+}

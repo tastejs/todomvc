@@ -1,0 +1,1 @@
+import{b as o}from"./p-8cf04e16.js";import{p as t}from"./p-537d9519.js";t().then(t=>o([["p-ca8086a1",[[1,"todo-app",{model:[16],newTodo:[32],editing:[32],nowShowing:[32]}],[1,"todo-footer",{count:[2],completedCount:[2,"completed-count"],nowShowing:[1,"now-showing"]}],[1,"todo-item",{todo:[16],editing:[4],editText:[32]}]]]],t));
