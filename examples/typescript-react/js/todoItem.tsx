@@ -21,7 +21,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   }
 
   public handleSubmit(event : React.FormEvent) {
-    var val = this.state.editText.trim();
+    const val = this.state.editText.trim();
     if (val) {
       this.props.onSave(val);
       this.setState({editText: val});
@@ -31,8 +31,9 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   }
 
   public handleEdit() {
+		const { todo } = this.props;
     this.props.onEdit();
-    this.setState({editText: this.props.todo.title});
+    this.setState({ editText: todo.title });
   }
 
   public handleKeyDown(event : React.KeyboardEvent) {
@@ -44,9 +45,9 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
     }
   }
 
-  public handleChange(event : React.FormEvent) {
-    var input : any = event.target;
-    this.setState({ editText : input.value });
+  public handleChange({ target } : React.FormEvent) {
+		const input: any = target;
+		this.setState({ editText : input.value });
   }
 
   /**
@@ -72,8 +73,8 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
    */
   public componentDidUpdate(prevProps : ITodoItemProps) {
     if (!prevProps.editing && this.props.editing) {
-      var node = (ReactDOM.findDOMNode(this.refs["editField"]) as HTMLInputElement);
-      node.focus();
+			const node = (ReactDOM.findDOMNode(this.refs["editField"]) as HTMLInputElement);
+			node.focus();
       node.setSelectionRange(node.value.length, node.value.length);
     }
   }
@@ -85,6 +86,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
         editing: this.props.editing
       })}>
         <div className="view">
+					aso
           <input
             className="toggle"
             type="checkbox"
