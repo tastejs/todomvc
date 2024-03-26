@@ -23,7 +23,7 @@
     "test:all": "node tests/cya.js"
   },
   "dependencies": {
-    "express": "^4.10.0"
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "@bahmutov/print-env": "^1.0.1",
