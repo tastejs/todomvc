@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "command": "npm",
+  "args": [
+    "run"
+  ],
+  "isShellCommand": true,
+  "showOutput": "always",
+  "tasks": [
+    {
+      "taskName": "compile", "isTestCommand": true
+    },
+    {
+      "taskName": "build", "isBuildCommand": true
+    },
+    {
+      "taskName": "vscode-install"
+    }
+  ]
+}
