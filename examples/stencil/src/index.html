@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" data-framework="stencil">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+
+  <link rel="stylesheet" type="text/css" href="../node_modules/todomvc-common/base.css">
+  <link rel="stylesheet" type="text/css" href="../src/index.css"/>
+
+  <script type="module" src="./build/stencil-comp.esm.js"></script>
+  <script nomodule src="./build/stencil-comp.js"></script>
+  <script src="../node_modules/todomvc-common/base.js"></script>
+</head>
+<body>
+
+  <todo-app ></todo-app>
+  <footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Created by <a href="http://github.com/yoavaa/">yoavaa</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
+
+  <script type="module">
+    import {TodoModelImpl} from './build/index.esm.js'
+
+    const todoListElement = document.querySelector('todo-app');
+    todoListElement.model = new TodoModelImpl('todo-app');
+    todoListElement.model.subscribe(() => {
+      let model = todoListElement.model;
+      todoListElement.model = null;
+      todoListElement.model = model;
+    })
+
+  </script>
+</body>
+</html>
