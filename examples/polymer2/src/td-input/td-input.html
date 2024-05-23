@@ -1,0 +1,88 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="td-input">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<slot></slot>
+	</template>
+	<script>
+		class TdInput extends Polymer.Element {
+			static get is() { return 'td-input'; }
+			static get properties() {
+				return {
+					input: {
+						type: Object,
+						value: null
+					}
+				};
+			}
+
+			constructor() {
+				super();
+		    this._lightChildrenObserver = new MutationObserver(() => {
+		    	this.updateDynamicSlots();
+		    });
+				this._keyupActionListener = this._keyupAction.bind(this);
+				this._keypressActionListener = this._keypressAction.bind(this);
+			}
+
+			connectedCallback() {
+				super.connectedCallback();
+
+				this._lightChildrenObserver.observe(this, { childList: true });
+		    this.updateDynamicSlots();
+			}
+
+			disconnectedCallback() {
+				this._lightChildrenObserver.disconnect();
+				super.disconnectedCallback();
+			}
+
+			updateDynamicSlots() {
+				const input = this.querySelector('input');
+				if (input !== this.input) {
+					if (this.input) {
+						this.input.removeEventListener('keyup', this._keyupActionListener);
+						this.input.removeEventListener('keypress', this._keypressActionListener);
+					}
+
+					if (input) {
+						input.addEventListener('keyup', this._keyupActionListener);
+						input.addEventListener('keypress', this._keypressActionListener);
+						this.input = input;
+					}
+				}
+			}
+
+			focus() {
+				if (this.input) {
+					this.input.focus();
+				}
+			}
+
+			_keypressAction(e, detail, sender) {
+				var ENTER_KEY = 13;
+
+				// Listen for enter on keypress but esc on keyup, because
+				// IE doesn't fire keyup for enter.
+				if (e.keyCode === ENTER_KEY) {
+					this.dispatchEvent(new CustomEvent('td-input-commit'), {bubbles: true});
+				}
+			}
+
+			_keyupAction(e, detail, sender) {
+				var ESC_KEY = 27;
+
+				if (e.keyCode === ESC_KEY) {
+					this.dispatchEvent(new CustomEvent('td-input-cancel'), {bubbles: true});
+				}
+			}
+		}
+
+		window.customElements.define(TdInput.is, TdInput);
+	</script>
+</dom-module>

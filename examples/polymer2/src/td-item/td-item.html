@@ -1,0 +1,88 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../bower_components/polymer/lib/utils/render-status.html">
+<link rel="import" href="../no-shadow.html">
+<link rel="import" href="../td-input/td-input.html">
+
+<dom-module id="td-item">
+	<template>
+		<li class$="[[_getLiClassList(item.completed, editing)]]">
+			<template is="dom-if" if="{{!editing}}">
+				<div on-dblclick="_editAction">
+					<input type="checkbox" class="toggle"
+								 checked="{{item.completed::change}}">
+					<label>{{item.title}}</label>
+					<button class="destroy" on-tap="_destroyAction"></button>
+				</div>
+			</template>
+			<template is="dom-if" if="{{editing}}">
+				<td-input on-td-input-commit="_commitAction"
+							    on-td-input-cancel="_cancelAction">
+				  <input id="edit" class="edit" value="{{_editingValue::input}}" on-blur="_onBlur">
+				</td-input>
+			</template>
+		</li>
+	</template>
+	<script>
+		class TdItem extends window.NoShadow(Polymer.GestureEventListeners(Polymer.Element)) {
+			static get is() { return 'td-item'; }
+			static get properties() {
+				return {
+					editing: {
+						type: Boolean,
+						value: false
+					},
+					item: {
+						type: Object,
+						value: () => {}
+					}
+				};
+			}
+
+			_getLiClassList(completed, editing) {
+				const classes = [];
+				if (completed) {
+					classes.push('completed');
+				}
+				if (editing) {
+					classes.push('editing');
+				}
+				return classes.join(' ');
+			}
+
+			_onBlur () {
+				this._commitAction();
+				this.editing = false;
+			}
+
+			_editAction () {
+				this.editing = true;
+				this._editingValue = this.item.title;
+				// Wait one tick template to stamp.
+				Polymer.RenderStatus.afterNextRender(this, () => {
+					this.querySelector('#edit').focus();
+				});
+			}
+
+			_commitAction () {
+				if (this.editing) {
+					this.editing = false;
+					this.set('item.title', this._editingValue.trim());
+					if (this.item.title === '') {
+						this._destroyAction();
+					}
+				}
+			}
+
+			_cancelAction () {
+				this.editing = false;
+			}
+
+			_destroyAction () {
+				this.dispatchEvent(new CustomEvent('td-destroy-item', {detail: this.item, bubbles: true}));
+			}
+		}
+
+		window.customElements.define(TdItem.is, TdItem);
+	</script>
+</dom-module>

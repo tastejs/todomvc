@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/lib/utils/mixin.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<script>
+(function() {
+
+  'use strict';
+
+  /**
+   * NoShadow is a Polymer Element mixin that preventsusing Shadow DOM
+   * when stampting the element template. The entire custom element's template
+   * gets inserted into the containing document as the light DOM children of
+   * the custom element tag.
+   *
+   * In the scope of this app not using Shadow DOM is necessary to use the
+   * common TodoMVC styles from todomvc-app-css.
+   */
+  window.NoShadow = Polymer.dedupingMixin(superClass => {
+
+    class NoShadow extends superClass {
+      _attachDom(dom) {
+        return this.appendChild(dom);
+      }
+    }
+
+    return NoShadow;
+
+  });
+
+})();
+</script>
