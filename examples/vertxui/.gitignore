@@ -1,0 +1,8 @@
+/target/
+/.settings/
+/.vertx/
+/build/
+/gwt-unitCache/
+.project
+.classpath
+/bin/
