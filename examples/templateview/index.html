@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<title>TempalteView</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-app-css@2.1.0/index.css">
+
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/morphdom@2.3.3/dist/morphdom-umd.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.1/nunjucks.min.js"></script>
+<script type="text/javascript" src="https://howardroark.github.io/TemplateView/vendor/templateview/templateview.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+
+<script type="text/javascript" src="script.js"></script>
+
+<script type="text/template" id="mainView" data-prepend-to="body">
+    <div class="container">
+        <section class="todoapp">
+            <header class="header">
+                <h1>todos</h1>
+            </header>
+            <section class="main" {% if allItems == 0 %}style="display: none;"{% endif %}>
+                <input class="toggle-all" id="toggle-all" type="checkbox" {% if activeItems == 0 and allItems != 0 %}checked{% endif %}>
+                <ul class="todo-list"></ul>
+            </section>
+            <footer class="footer" {% if allItems == 0 %}style="display: none;"{% endif %}>
+                <span class="todo-count"><strong>{{ activeItems }}</strong> item{% if activeItems > 1 %}s{% endif %} left</span>
+                <ul class="filters">
+                    <li>
+                        <a {% if filter == "all" %}class="selected"{% endif %} href="#/">All</a>
+                    </li>
+                    <li>
+                        <a {% if filter == "active" %}class="selected"{% endif %} href="#/active">Active</a>
+                    </li>
+                    <li>
+                        <a {% if filter == "completed" %}class="selected"{% endif %} href="#/completed">Completed</a>
+                    </li>
+                </ul>
+                <button class="clear-completed" {% if activeItems >= allItems %}style="display: none;"{% endif %}>Clear completed</button>
+            </footer>
+        </section>
+        <footer class="info">
+            <p>Double-click to edit a todo</p>
+            <p>Built with <a href="https://github.com/howardroark/TemplateView">TemplateView</a> for <a href="http://todomvc.com">TodoMVC</a></p>
+        </footer>
+    </div>
+</script>
+
+<script type="text/template" id="formView" data-insert-after="& header h1">
+    <form>
+        <input class="new-todo" placeholder="What needs to be done?" autofocus="" />
+    </form>
+</script>
+
+<script type="text/template" id="itemView" data-append-to="& .todo-list">
+    {% if status == filter or filter == 'all' %}
+        {% set display = 'block' %}
+    {% else %}
+        {% set display = 'none' %}
+    {% endif %}
+    <li class="{{ status }}" style="display: {{ display }};">
+        <div class="view">
+            <input class="toggle" type="checkbox" {% if status == "completed" %}checked{% endif %}>
+            <label>{{ label }}</label>
+            <button class="destroy"></button>
+        </div>
+        <form class="editForm">
+            <input class="edit" value="{{ label }}">
+        </form>
+    </li>
+</script>
