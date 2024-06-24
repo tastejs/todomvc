@@ -1018,7 +1018,7 @@
 		"homepage": "react-redux.js.org/",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/react-redux/dist"
+			"url": "examples/react-redux"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",

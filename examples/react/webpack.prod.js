@@ -18,7 +18,7 @@ module.exports = merge(common, {
 			patterns: [
 			  { from: "./node_modules/todomvc-common/base.js", to: "base.js" },
 			],
-		  }),
+		}),
     ],
     module: {
         rules: [

@@ -4,7 +4,9 @@ import { Provider } from "react-redux";
 import { HashRouter, Route } from "react-router-dom";
 import App from "./app";
 import reducer from "./reducers";
+
 import "todomvc-app-css/index.css";
+import "todomvc-common/base.css";
 
 const store = createStore(reducer);
 
