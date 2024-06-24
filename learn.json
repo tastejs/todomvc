@@ -1203,7 +1203,7 @@
 		"homepage": "vuejs.org",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/vue/dist"
+			"url": "examples/vue"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
