@@ -984,7 +984,7 @@
 		"homepage": "facebook.github.io/react",
 		"examples": [{
 			"name": "React",
-			"url": "examples/react/dist"
+			"url": "examples/react"
 		}, {
 			"name": "TypeScript + React",
 			"url": "examples/typescript-react"
