@@ -557,13 +557,13 @@
 			}]
 		}]
 	},
-	"es5": {
+	"javascript-es5": {
 		"name": "JavaScript ES5",
 		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla JavaScript (ES5) Example",
-			"url": "examples/javascript-es5/dist/"
+			"name": "Example",
+			"url": "examples/javascript-es5"
 		}]
 	},
   	"es6": {
@@ -609,7 +609,7 @@
 		"homepage": "jquery.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/jquery/dist"
+			"url": "examples/jquery"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
