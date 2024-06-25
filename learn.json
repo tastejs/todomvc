@@ -965,7 +965,7 @@
 		"homepage": "preactjs.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/preact/dist"
+			"url": "examples/preact"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
