@@ -1266,6 +1266,15 @@
 			}]
 		}]
 	},
+	"web-components": {
+		"name": "Web Components",
+		"description": "Web Components is a suite of different technologies allowing you to create reusable custom elements — with their functionality encapsulated away from the rest of your code — and utilize them in your web apps.",
+		"homepage": "developer.mozilla.org/en-US/docs/Web/API/Web_components",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/web-components"
+		}]
+	},
 	"webrx": {
 		"name": "WebRx",
 		"description": "WebRx is a browser-based MVVM-Framework written in Typescript that combines functional-reactive programming with declarative Data-Binding and Templating.",

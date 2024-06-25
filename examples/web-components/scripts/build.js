@@ -15,6 +15,8 @@ const filesToMove = {
         { src: `${stylesSource}global.css`, dest: `${stylesTarget}global.css` },
         { src: `${stylesSource}header.css`, dest: `${stylesTarget}header.css` },
         { src: `${stylesSource}footer.css`, dest: `${stylesTarget}footer.css` },
+		{ src: "node_modules/todomvc-common/base.js", dest: `./base.js` },
+		{ src: "node_modules/todomvc-common/base.css", dest: `${stylesTarget}base.css` },
     ],
     app: [
         { src: `${stylesSource}global.constructable.js`, dest: `${stylesTarget}global.constructable.js` },

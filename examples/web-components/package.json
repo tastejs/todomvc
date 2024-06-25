@@ -16,6 +16,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "http-server": "^14.1.1"
+        "http-server": "^14.1.1",
+        "todomvc-common": "^1.0.5"
     }
 }
