@@ -5,6 +5,7 @@ import Store from "./store";
 import Template from "./template";
 
 import "todomvc-app-css/index.css";
+import "todomvc-common/base.css";
 import "./app.css";
 
 let todo;
