@@ -21,6 +21,7 @@
         "@web/dev-server": "^0.2.1",
         "rollup": "^2.79.1",
         "rollup-plugin-minify-html-literals": "^1.2.6",
+        "todomvc-common": "^1.0.5",
         "typescript": "^5.0.4",
         "wireit": "^0.14.0"
     },
@@ -54,7 +55,9 @@
             "dependencies": [
                 "tsc",
                 "rollup",
-                "copy-index-html"
+                "copy-index-html",
+                "copy-base-js",
+                "copy-base-css"
             ]
         },
         "tsc": {
@@ -89,6 +92,24 @@
             "output": [
                 "dist/index.html"
             ]
-        }
+        },
+        "copy-base-js": {
+            "command": "cp node_modules/todomvc-common/base.js dist/base.js",
+            "files": [
+                "node_modules/todomvc-common/base.js"
+            ],
+            "output": [
+                "dist/base.js"
+            ]
+        },
+        "copy-base-css": {
+            "command": "cp node_modules/todomvc-common/base.css dist/base.css",
+            "files": [
+                "node_modules/todomvc-common/base.css"
+            ],
+            "output": [
+                "dist/base.css"
+            ]
+      }
     }
 }
