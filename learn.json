@@ -779,7 +779,7 @@
 		"homepage": "lit.dev",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/lit/dist"
+			"url": "examples/lit"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1129,7 +1129,7 @@
 		"homepage": "svelte.dev",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/svelte/dist"
+			"url": "examples/svelte"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
