@@ -2,7 +2,7 @@
 	"angular": {
 		"name": "Angular",
 		"description": "Angular is a web framework that empowers developers to build fast, reliable applications.",
-		"homepage": "https://angular.dev",
+		"homepage": "angular.dev",
 		"examples": [{
 			"name": "Angular",
 			"url": "examples/angular"

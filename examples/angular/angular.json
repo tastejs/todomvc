@@ -34,7 +34,9 @@
               "node_modules/todomvc-app-css/index.css",
               "node_modules/todomvc-common/base.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/todomvc-common/base.js"
+            ]
           },
           "configurations": {
             "production": {
