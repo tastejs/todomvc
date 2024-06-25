@@ -7,7 +7,14 @@ const targetDirectory = "./dist";
 
 const htmlFile = "index.html";
 
-const filesToMove = ["node_modules/todomvc-common/base.css", "node_modules/todomvc-app-css/index.css", "node_modules/jquery/dist/jquery.min.js", "node_modules/handlebars/dist/handlebars.min.js", "node_modules/director/build/director.min.js"];
+const filesToMove = [
+	"node_modules/todomvc-common/base.css",
+	"node_modules/todomvc-app-css/index.css",
+	"node_modules/jquery/dist/jquery.min.js",
+	"node_modules/handlebars/dist/handlebars.min.js",
+	"node_modules/director/build/director.min.js",
+	"node_modules/todomvc-common/base.js",
+];
 
 const copy = async (src, dest) => {
     await fs.copyFile(src, dest);
@@ -38,12 +45,12 @@ const build = async () => {
 
     // remove base paths from files to move
     for (let i = 0; i < filesToMove.length; i++)
-        html = html.replace(filesToMove[i], path.basename(filesToMove[i]));
+        html = html.replaceAll(filesToMove[i], path.basename(filesToMove[i]));
 
     // remove basePath from source directory
     const basePath = `${path.basename(sourceDirectory)}/`;
     const re = new RegExp(basePath, "g");
-    html = html.replace(re, "");
+    html = html.replaceAll(re, "");
 
     // write html files
     await fs.writeFile(`${targetDirectory}/${htmlFile}`, html);
