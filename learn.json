@@ -2,7 +2,7 @@
 	"angular": {
 		"name": "Angular",
 		"description": "Angular is a web framework that empowers developers to build fast, reliable applications.",
-		"homepage": "https://angular.dev",
+		"homepage": "angular.dev",
 		"examples": [{
 			"name": "Angular",
 			"url": "examples/angular"
@@ -95,7 +95,7 @@
 			}]
 		}]
 	},
-	"backbonejs": {
+	"backbone": {
 		"name": "Backbone.js",
 		"description": "Backbone.js gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface.",
 		"homepage": "backbonejs.org",
@@ -557,50 +557,22 @@
 			}]
 		}]
 	},
-	"es5": {
+	"javascript-es5": {
 		"name": "JavaScript ES5",
 		"description": "JavaScript® (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, most known as the scripting language for Web pages, but used in many non-browser environments as well such as node.js or Apache CouchDB.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla JavaScript (ES5) Example",
-			"url": "examples/javascript-es5/dist/"
+			"name": "Example",
+			"url": "examples/javascript-es5"
 		}]
 	},
-  	"es6": {
+  	"javascript-es6": {
 		"name": "JavaScript ES6",
 		"description": "The ECMAScript 6 (ES2015) standard was ratified in 2015 following years of work standardizing improvements to ECMAScript 3. The committee introduced a wide variety of improvements such as arrow functions, const declarations, and native Promises.",
 		"homepage": "developer.mozilla.org/en-US/docs/JavaScript",
 		"examples": [{
-			"name": "Vanilla JavaScript (ES6) Example",
-			"url": "examples/javascript-es6/dist/"
-		}]
-	},
-	"js_of_ocaml": {
-		"name": "js_of_ocaml",
-		"description": "Js_of_ocaml is a compiler of OCaml bytecode to Javascript. It makes it possible to run Ocaml programs in a Web browser.",
-		"homepage": "ocsigen.org/js_of_ocaml/",
-		"examples": [{
 			"name": "Example",
-			"url": "examples/js_of_ocaml"
-		}],
-		"link_groups": [{
-			"heading": "Resources",
-			"links": [{
-				"name": "Manual",
-				"url": "https://ocsigen.org/js_of_ocaml/manual/"
-			}, {
-				"name": "GitHub",
-				"url": "https://github.com/ocsigen/js_of_ocaml"
-			}, {
-				"name": "StackOverflow",
-				"url": "https://stackoverflow.com/questions/tagged/js-of-ocaml"
-			}]
-		}, {
-			"heading": "Articles and Guides",
-			"links": [{
-				"name": "TodoMVC: a reactive version",
-				"url": "https://ocsigen.github.io/blog/2015/10/07/react-example-todomvc/"
-			}]
+			"url": "examples/javascript-es6"
 		}]
 	},
 	"jquery": {
@@ -609,7 +581,7 @@
 		"homepage": "jquery.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/jquery/dist"
+			"url": "examples/jquery"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -652,9 +624,71 @@
 			}, {
 				"name": "jQuery on Twitter",
 				"url": "http://twitter.com/jquery"
+			}]
+		}]
+	},
+	"js_of_ocaml": {
+		"name": "js_of_ocaml",
+		"description": "Js_of_ocaml is a compiler of OCaml bytecode to Javascript. It makes it possible to run Ocaml programs in a Web browser.",
+		"homepage": "ocsigen.org/js_of_ocaml/",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/js_of_ocaml"
+		}],
+		"link_groups": [{
+			"heading": "Resources",
+			"links": [{
+				"name": "Manual",
+				"url": "https://ocsigen.org/js_of_ocaml/manual/"
 			}, {
-				"name": "jQuery on Google+",
-				"url": "https://plus.google.com/102828491884671003608/posts"
+				"name": "GitHub",
+				"url": "https://github.com/ocsigen/js_of_ocaml"
+			}, {
+				"name": "StackOverflow",
+				"url": "https://stackoverflow.com/questions/tagged/js-of-ocaml"
+			}]
+		}, {
+			"heading": "Articles and Guides",
+			"links": [{
+				"name": "TodoMVC: a reactive version",
+				"url": "https://ocsigen.github.io/blog/2015/10/07/react-example-todomvc/"
+			}]
+		}]
+	},
+	"jsblocks": {
+		"name": "jsblocks",
+		"description": "From simple user interfaces to complex single-page applications using faster, server-side rendered and easy to learn framework",
+		"homepage": "jsblocks.com",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/jsblocks"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "Official Website",
+				"url": "http://jsblocks.com"
+			}, {
+				"name": "API Reference",
+				"url": "http://jsblocks.com/api"
+			}, {
+				"name": "Documentation",
+				"url": "http://jsblocks.com/learn"
+			}, {
+				"name": "Shopping Example",
+				"url": "https://github.com/astoilkov/jsblocks-shopping-example"
+			}]
+		}, {
+			"heading": "Community",
+			"links": [{
+				"name": "jsblocks on Gitter",
+				"url": "https://gitter.im/astoilkov/jsblocks?utm_source=github_link"
+			}, {
+				"name": "jsblocks on Twitter",
+				"url": "http://twitter.com/jsblocks"
+			}, {
+				"name": "jsblocks on Stack Overflow",
+				"url": "http://stackoverflow.com/questions/tagged/jsblocks"
 			}]
 		}]
 	},
@@ -772,14 +806,13 @@
 			}]
 		}]
 	},
-
 	"lit": {
 		"name": "Lit",
 		"description": "Lit is a simple library for building fast, lightweight web components.",
 		"homepage": "lit.dev",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/lit/dist"
+			"url": "examples/lit"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -792,7 +825,6 @@
 			}]
 		}]
 	},
-
 	"marionettejs": {
 		"name": "Backbone.Marionette",
 		"description": "Marionette simplifies your Backbone application code with robust views and architecture solutions.",
@@ -965,7 +997,7 @@
 		"homepage": "preactjs.com",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/preact/dist"
+			"url": "examples/preact"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -984,7 +1016,7 @@
 		"homepage": "facebook.github.io/react",
 		"examples": [{
 			"name": "React",
-			"url": "examples/react/dist"
+			"url": "examples/react"
 		}, {
 			"name": "TypeScript + React",
 			"url": "examples/typescript-react"
@@ -1018,7 +1050,7 @@
 		"homepage": "react-redux.js.org/",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/react-redux/dist"
+			"url": "examples/react-redux"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1129,7 +1161,7 @@
 		"homepage": "svelte.dev",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/svelte/dist"
+			"url": "examples/svelte"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1203,7 +1235,7 @@
 		"homepage": "vuejs.org",
 		"examples": [{
 			"name": "Example",
-			"url": "examples/vue/dist"
+			"url": "examples/vue"
 		}],
 		"link_groups": [{
 			"heading": "Official Resources",
@@ -1232,6 +1264,15 @@
 				"name": "Discussions on GitHub",
 				"url": "https://github.com/vuejs/Discussion/issues"
 			}]
+		}]
+	},
+	"web-components": {
+		"name": "Web Components",
+		"description": "Web Components is a suite of different technologies allowing you to create reusable custom elements — with their functionality encapsulated away from the rest of your code — and utilize them in your web apps.",
+		"homepage": "developer.mozilla.org/en-US/docs/Web/API/Web_components",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/web-components"
 		}]
 	},
 	"webrx": {
@@ -1283,43 +1324,6 @@
 				}]
 			}]
 		}}]
-	},
-	"jsblocks": {
-		"name": "jsblocks",
-		"description": "From simple user interfaces to complex single-page applications using faster, server-side rendered and easy to learn framework",
-		"homepage": "jsblocks.com",
-		"examples": [{
-			"name": "Example",
-			"url": "examples/jsblocks"
-		}],
-		"link_groups": [{
-			"heading": "Official Resources",
-			"links": [{
-				"name": "Official Website",
-				"url": "http://jsblocks.com"
-			}, {
-				"name": "API Reference",
-				"url": "http://jsblocks.com/api"
-			}, {
-				"name": "Documentation",
-				"url": "http://jsblocks.com/learn"
-			}, {
-				"name": "Shopping Example",
-				"url": "https://github.com/astoilkov/jsblocks-shopping-example"
-			}]
-		}, {
-			"heading": "Community",
-			"links": [{
-				"name": "jsblocks on Gitter",
-				"url": "https://gitter.im/astoilkov/jsblocks?utm_source=github_link"
-			}, {
-				"name": "jsblocks on Twitter",
-				"url": "http://twitter.com/jsblocks"
-			}, {
-				"name": "jsblocks on Stack Overflow",
-				"url": "http://stackoverflow.com/questions/tagged/jsblocks"
-			}]
-		}]
 	},
 	"templates": {
 		"todomvc": "<header> <h3><%= name %></h3> <span class=\"source-links\"> <% if (typeof examples !== 'undefined') { %> <% examples.forEach(function (example) { %> <h5><%= example.name %></h5> <% if (!location.href.match(example.url + '/')) { %> <a class=\"demo-link\" data-type=\"<%= example.type === 'backend' ? 'external' : 'local' %>\" href=\"<%= example.url %>\">Demo</a>, <% } if (example.type === 'backend') { %><a href=\"<%= example.source_url %>\"><% } else { %><a href=\"https://github.com/tastejs/todomvc/tree/gh-pages/<%= example.source_url ? example.source_url : example.url %>\"><% } %>Source</a> <% }); %> <% } %> </span> </header> <hr> <blockquote class=\"quote speech-bubble\"> <p><%= description %></p> <footer> <a href=\"http://<%= homepage %>\"><%= name %></a> </footer> </blockquote> <% if (typeof link_groups !== 'undefined') { %> <hr> <% link_groups.forEach(function (link_group) { %> <h4><%= link_group.heading %></h4> <ul> <% link_group.links.forEach(function (link) { %> <li> <a href=\"<%= link.url %>\"><%= link.name %></a> </li> <% }); %> </ul> <% }); %> <% } %> <footer> <hr> <em>If you have other helpful links to share, or find any of the links above no longer work, please <a href=\"https://github.com/tastejs/todomvc/issues\">let us know</a>.</em> </footer>",

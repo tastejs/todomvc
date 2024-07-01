@@ -9,6 +9,7 @@ const htmlFile = "index.html";
 
 const filesToMove = [
     "node_modules/todomvc-common/base.css",
+	"node_modules/todomvc-common/base.js",
     "node_modules/todomvc-app-css/index.css",
     "node_modules/jquery/dist/jquery.min.js",
     "node_modules/underscore/underscore-min.js",

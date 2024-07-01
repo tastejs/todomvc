@@ -17,6 +17,7 @@
         "todomvc-common": "^1.0.5"
     },
     "devDependencies": {
+        "copy-webpack-plugin": "^12.0.2",
         "css-loader": "^6.7.3",
         "css-minimizer-webpack-plugin": "^4.2.2",
         "html-webpack-plugin": "^5.5.0",

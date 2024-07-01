@@ -45,7 +45,10 @@ export default {
         }),
         commonjs(),
         copy({
-            targets: [{ src: "public/index.html", dest: "dist/" }],
+            targets: [
+				{ src: "public/index.html", dest: "dist/" },
+				{ src: "node_modules/todomvc-common/base.js", dest: "dist/" }
+			],
         }),
         production && terser(),
     ],

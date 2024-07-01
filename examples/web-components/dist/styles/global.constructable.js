@@ -16,8 +16,6 @@ body {
     line-height: 1.4em;
     background: #f5f5f5;
     color: #111;
-    min-width: 300px;
-    max-width: 582px;
     margin: 0 auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

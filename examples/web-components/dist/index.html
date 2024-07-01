@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-framework="web-components">>
+<html lang="en" data-framework="web-components">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="styles/global.css" />
         <link rel="stylesheet" href="styles/header.css" />
         <link rel="stylesheet" href="styles/footer.css" />
+		<link rel="stylesheet" href="styles/base.css" />
         <!-- load these first, so that they are registered by the time the app components needs them -->
         <script type="module" src="components/todo-topbar/todo-topbar.component.js"></script>
         <script type="module" src="components/todo-list/todo-list.component.js"></script>
@@ -19,11 +20,12 @@
         <header class="header">
             <a href="#" style="text-decoration: none"><h1 class="title">todos</h1></a>
         </header>
-        <todo-app></todo-app>
+        <todo-app class="todo-app"></todo-app>
         <footer class="footer">
             <p class="footer-text">Double-click to edit a todo</p>
 			<p class="footer-text">Created by the TodoMVC Team</p>
 			<p class="footer-text">Part of <a href="http://todomvc.com">TodoMVC</a></p>
         </footer>
+		<script src="./base.js"></script>
     </body>
 </html>
