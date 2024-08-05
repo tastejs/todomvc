@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>NX • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<todo-app class="todoapp" cloak>
+			<header class="header">
+				<h1>todos</h1>
+				<input #keyup="todos.create($event) & key 'enter'" class="new-todo"
+					placeholder="What needs to be done?" autocomplete="off" autofocus>
+			</header>
+			<section class="main" @hidden="!todos.all.length">
+				<input class="toggle-all" type="checkbox" name="todos.allCompleted" bind>
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list" @repeat="todos[status]" repeat-value="todo">
+					<li @class="{completed: todo.completed, editing: todo.editing}">
+						<div class="view">
+							<input class="toggle" type="checkbox" name="todo.completed" bind>
+							<label #dblclick="todo.editing = true">@{todo.title}</label>
+							<button #click="todos.remove(todo)" class="destroy"></button>
+						</div>
+						<input is="todo-input" class="edit" @todo="todo"
+							#blur,keyup="todos.edit(todo, $event) & key 'enter'"
+							#keyup="todo.editing = false & key 'esc'">
+					</li>
+				</ul>
+			</section>
+			<footer class="footer" @hidden="!todos.all.length">
+				<span class="todo-count">@{todos.active.length | unit 'item'} left</span>
+				<ul class="filters">
+					<li><a @class="{selected: status === 'all'}" #click="status = 'all'">All</a></li>
+					<li><a @class="{selected: status === 'active'}" #click="status = 'active'">Active</a></li>
+					<li><a @class="{selected: status === 'completed'}" #click="status = 'completed'">Completed</a></li>
+				</ul>
+				<button class="clear-completed" @hidden="!todos.completed.length" #click="todos.clearCompleted()">
+					Clear completed
+				</button>
+			</footer>
+		</todo-app>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="https://github.com/solkimicreb">Bertalan Miklos</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/nx-framework/nx-alpha.4.0.0.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/input.js"></script>
+	</body>
+</html>
