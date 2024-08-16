@@ -4,7 +4,7 @@ We have created this short spec to help you create awesome and consistent todo a
 
 ## Template Application
 
-Our [template](https://github.com/tastejs/todomvc-app-template/) should be used as the base when implementing a todo app. Before implementing, we recommend that you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/examples/backbone) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
+Our [template](https://github.com/tastejs/todomvc-app-template/) should be used as the base when implementing a todo app. Before implementing, we recommend that you interact with some of the other apps to see how they're built and how they behave. Check out the [Backbone app](http://todomvc.com/examples/backbone/dist) if you need a reference implementation. If something is unclear or could be improved, [let us know](https://github.com/tastejs/todomvc/issues).
 
 ## Structure
 
