@@ -4,14 +4,13 @@ import Attribution from 'todomvc/components/attribution';
 import Layout from 'todomvc/components/layout';
 
 export default Route(
-  <template>
-    {{title "TodoMVC"}}
+	<template>
+		{{title "TodoMVC"}}
 
-    <Layout>
-      {{outlet}}
-    </Layout>
+		<Layout>
+			{{outlet}}
+		</Layout>
 
-    <Attribution />
-  </template>
-)
-
+		<Attribution />
+	</template>,
+);

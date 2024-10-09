@@ -3,10 +3,9 @@ import Route from 'ember-route-template';
 import TodoList from 'todomvc/components/todo-list';
 
 export default Route(
-  <template>
-    {{title "Active"}}
+	<template>
+		{{title "Active"}}
 
-    <TodoList @todos={{@model.todos}} />
-  </template>
-)
-
+		<TodoList @todos={{@model.todos}} />
+	</template>,
+);
