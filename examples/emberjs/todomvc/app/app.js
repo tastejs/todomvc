@@ -5,6 +5,7 @@
  * things that wouldn't depend on user state.
  */
 import 'todomvc-common/base.css';
+import 'todomvc-common/base.js';
 import 'todomvc-app-css/index.css';
 
 import Application from '@ember/application';
