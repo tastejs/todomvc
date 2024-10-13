@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Alpine.js • TodoMVC</title>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+</head>
+
+<body>
+    <section
+        x-data="data"
+        x-init="$watch('todos', (todos) => {
+            todoStorage.save(todos);
+        })"
+        class="todoapp"
+    >
+        <header class="header">
+            <h1>todos</h1>
+            <input x-model="newTodo" @keyup.enter="addTodo" class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" />
+        </header>
+        <section x-show="todos.length" class="main">
+            <input @change="checkAllTodos" id="toggle-all" class="toggle-all" type="checkbox" />
+
+            <label for="toggle-all">Mark all as complete</label>
+
+            <ul class="todo-list">
+                <template x-for="todo in filteredTodos">
+                    <li :class="{ completed: todo.completed, editing: todo.editing }" class="todo">
+                        <div class="view">
+                            <input x-model="todo.completed" class="toggle" type="checkbox" />
+
+                            <label x-text="todo.title" x-show="!todo.editing" @dblclick="editTodo(todo)"></label>
+
+                            <button @click="removeTodo(todo.index)" class="destroy"></button>
+                        </div>
+
+                        <input x-show="todo.editing" x-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.escape="cancelEdit(todo)" class="edit" type="text">
+                    </li>
+                </template>
+            </ul>
+        </section>
+
+        <footer v-show="todos.length" class="footer">
+            <span class="todo-count">
+                <strong x-text="remaining"></strong> <span x-text="pluralize('item', remaining)"></span> left
+            </span>
+            <ul class="filters">
+                <li><a @click="visibility = 'all'" :class="{ selected: visibility == 'all' }">All</a></li>
+                <li><a @click="visibility = 'active'" :class="{ selected: visibility == 'active' }">Active</a></li>
+                <li><a @click="visibility = 'completed'" :class="{ selected: visibility == 'completed' }">Completed</a></li>
+            </ul>
+            <button @click="removeCompleted" x-show="todos.length > remaining" class="clear-completed">
+                Clear completed
+            </button>
+        </footer>
+    </section>
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="https://twitter.com/i_mansoorkhan">Mansoor Khan</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+
+    <script defer src="node_modules/alpinejs/dist/cdn.min.js"></script>
+    <script>
+        window.STORAGE_KEY = 'todos-alpinejs';
+
+        window.todoStorage = {
+            fetch: () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
+            save: (todos) => localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+        };
+
+        function data() {
+            var filters = {
+                all: (todos) => todos,
+                active: (todos) => todos.filter(todo => !todo.completed),
+                completed: (todos) => todos.filter(todo => todo.completed)
+            };
+
+            return {
+                todos: todoStorage.fetch(),
+                newTodo: '',
+                beforeEditCache: '',
+                visibility: 'all',
+
+                get filteredTodos () {
+                    return filters[this.visibility](this.todos);
+                },
+
+                get remaining() {
+                    return filters.active(this.todos).length;
+                },
+
+                pluralize(word, count) {
+                    return word + (count === 1 ? '' : 's');
+                },
+
+                addTodo() {
+                    if(this.newTodo.trim().length == 0) {
+                        return;
+                    }
+
+                    this.todos.push({
+                        title: this.newTodo,
+                        completed: false,
+                        editing: false,
+                    });
+
+                    this.newTodo = '';
+                },
+
+                removeTodo(index) {
+                    this.todos.splice(index, 1);
+                },
+
+                editTodo(todo) {
+                    this.beforeEditCache = todo.title;
+                    todo.editing = true;
+                },
+
+                doneEdit(todo) {
+                    if(todo.title.trim() == '') {
+                        todo.title = this.beforeEditCache;
+                    }
+
+                    todo.editing = false;
+                },
+
+                cancelEdit(todo) {
+                    todo.title = this.beforeEditCache;
+                    todo.editing = false;
+                },
+
+                removeCompleted() {
+                    this.todos = filters.active(this.todos);
+                },
+
+                checkAllTodos() {
+                    this.todos.forEach((todo) => todo.completed = event.target.checked);
+                },
+            }
+        }
+    </script>
+</body>
+
+</html>
