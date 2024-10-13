@@ -3,10 +3,10 @@ class Utils {
 
   public static uuid() : string {
     /*jshint bitwise:false */
-    var i, random;
-    var uuid = '';
+		let i, random;
+		let uuid = '';
 
-    for (i = 0; i < 32; i++) {
+		for (i = 0; i < 32; i++) {
       random = Math.random() * 16 | 0;
       if (i === 8 || i === 12 || i === 16 || i === 20) {
         uuid += '-';
@@ -27,15 +27,15 @@ class Utils {
       return localStorage.setItem(namespace, JSON.stringify(data));
     }
 
-    var store = localStorage.getItem(namespace);
-    return (store && JSON.parse(store)) || [];
+		const store = localStorage.getItem(namespace);
+		return (store && JSON.parse(store)) || [];
   }
 
   public static extend(...objs : any[]) : any {
-    var newObj = {};
-    for (var i = 0; i < objs.length; i++) {
-      var obj = objs[i];
-      for (var key in obj) {
+		const newObj = {};
+		for (let i = 0; i < objs.length; i++) {
+			const obj = objs[i];
+			for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
           newObj[key] = obj[key];
         }
