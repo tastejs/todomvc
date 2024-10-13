@@ -2,35 +2,38 @@
 /*global m */
 var app = app || {};
 
-app.footer = function (ctrl) {
-	var amountCompleted = ctrl.amountCompleted();
-	var amountActive = ctrl.list.length - amountCompleted;
+app.FooterView = {
+	view: function (vnode) {
+		var amountCompleted = vnode.attrs.amountCompleted;
+		var amountActive = vnode.attrs.list.length - amountCompleted;
 
-	return m('footer.footer', [
-		m('span.todo-count', [
-			m('strong', amountActive), ' item' + (amountActive !== 1 ? 's' : '') + ' left'
-		]),
-		m('ul.filters', [
-			m('li', [
-				m('a[href=/]', {
-					config: m.route,
-					class: ctrl.filter() === '' ? 'selected' : ''
-				}, 'All')
+		return m('footer.footer', [
+			m('span.todo-count', [
+				m('strong', amountActive), ' item', amountActive !== 1 ? 's' : '', ' left'
 			]),
-			m('li', [
-				m('a[href=/active]', {
-					config: m.route,
-					class: ctrl.filter() === 'active' ? 'selected' : ''
-				}, 'Active')
+			m('ul.filters', [
+				m('li', [
+					m(m.route.Link, {
+						href: '/',
+						class: vnode.attrs.filter === '' ? 'selected' : ''
+					}, 'All')
+				]),
+				m('li', [
+					m(m.route.Link, {
+						href: '/active',
+						class: vnode.attrs.filter === 'active' ? 'selected' : ''
+					}, 'Active')
+				]),
+				m('li', [
+					m(m.route.Link, {
+						href: '/completed',
+						class: vnode.attrs.filter === 'completed' ? 'selected' : ''
+					}, 'Completed')
+				])
 			]),
-			m('li', [
-				m('a[href=/completed]', {
-					config: m.route,
-					class: ctrl.filter() === 'completed' ? 'selected' : ''
-				}, 'Completed')
-			])
-		]), ctrl.amountCompleted() === 0 ? '' : m('button.clear-completed', {
-			onclick: ctrl.clearCompleted.bind(ctrl)
-		}, 'Clear completed')
-	]);
+			amountCompleted === 0 ? '' : m('button.clear-completed', {
+				onclick: vnode.attrs.clearCompleted
+			}, 'Clear completed')
+		]);
+	}
 };

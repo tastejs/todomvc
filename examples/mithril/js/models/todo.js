@@ -1,5 +1,4 @@
 'use strict';
-/*global m */
 var app = app || {};
 
 var uniqueId = (function () {
@@ -11,8 +10,8 @@ var uniqueId = (function () {
 
 // Todo Model
 app.Todo = function (data) {
-	this.title = m.prop(data.title);
-	this.completed = m.prop(data.completed || false);
-	this.editing = m.prop(data.editing || false);
+	this.title = data.title;
+	this.completed = data.completed || false;
+	this.editing = data.editing || false;
 	this.key = uniqueId();
 };
