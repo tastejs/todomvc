@@ -2,10 +2,8 @@
 
 # Compile OCaml source file to OCaml bytecode
 ocamlbuild -use-ocamlfind \
-	-tags "warn(-40)" \
-	-pkgs lwt.syntax,js_of_ocaml,js_of_ocaml.syntax,js_of_ocaml.tyxml,tyxml,js_of_ocaml.deriving,js_of_ocaml.deriving.syntax,deriving \
-	-syntax camlp4o \
+	-pkgs lwt_ppx,js_of_ocaml-lwt,js_of_ocaml-ppx,js_of_ocaml-tyxml,tyxml,js_of_ocaml.deriving,js_of_ocaml-ppx_deriving_json,deriving \
 	todomvc.byte ;
 
 # Build JS code from the OCaml bytecode
-js_of_ocaml +weak.js --opt 3 -o js/todomvc.js todomvc.byte
+js_of_ocaml --opt 3 -o js/todomvc.js todomvc.byte
