@@ -400,7 +400,7 @@
 			}]
 		}]
 	},
-	"emberjs": {
+	"ember": {
 		"name": "Ember.js",
 		"description": "A framework for ambitious web developers.",
 		"homepage": "emberjs.com",
@@ -448,7 +448,7 @@
 				"url": "https://bsky.app/profile/emberjs.com"
 			}, {
 				"name": "Mastodon",
-				"url": "https://hachyderm.io/@emberjs",
+				"url": "https://hachyderm.io/@emberjs"
 			}, {
 				"name": "Ember.js on X/Twitter",
 				"url": "http://x.com/emberjs"
