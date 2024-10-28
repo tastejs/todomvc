@@ -400,7 +400,7 @@
 			}]
 		}]
 	},
-	"emberjs": {
+	"ember": {
 		"name": "Ember.js",
 		"description": "A framework for ambitious web developers.",
 		"homepage": "emberjs.com",
@@ -424,16 +424,40 @@
 				"url": "http://emberjs.com/blog"
 			}]
 		}, {
+			"heading": "Intertactive",
+			"links": [{
+				"name": "Intertactive Tutorial",
+				"url": "https://tutorial.glimdown.com"
+			}, {
+				"name": "One-file REPL / Playground",
+				"url": "https://limber.glimdown.com"
+			}, {
+				"name": "Stackblitz (JavaScript)",
+				"url": "https://stackblitz.com/github/ember-cli/editor-output/tree/stackblitz-app-output"
+			}, {
+				"name": "Stackblitz (TypeScript)",
+				"url": "https://stackblitz.com/github/ember-cli/editor-output/tree/stackblitz-app-output-typescript"
+			}]
+		}, {
 			"heading": "Community",
 			"links": [{
+				"name": "Discord",
+				"url": "https://discord.gg/emberjs"
+			}, {
+				"name": "BlueSky",
+				"url": "https://bsky.app/profile/emberjs.com"
+			}, {
+				"name": "Mastodon",
+				"url": "https://hachyderm.io/@emberjs"
+			}, {
+				"name": "Ember.js on X/Twitter",
+				"url": "http://x.com/emberjs"
+			}, {
 				"name": "Ember.js Community",
 				"url": "https://emberjs.com/community/"
 			}, {
 				"name": "Ember.js on Stack Overflow",
 				"url": "http://stackoverflow.com/questions/tagged/ember.js"
-			}, {
-				"name": "Ember.js on Twitter",
-				"url": "http://twitter.com/emberjs"
 			}]
 		}]
 	},
