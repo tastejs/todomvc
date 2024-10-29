@@ -1,0 +1,38 @@
+<% if (allTodos.length) { %>
+<% var itemsLeftText = activeTodos.length === 1 ?
+'item left!' : 'items left!' %>
+
+<footer class="footer">
+	<span class="todo-count"
+		><strong><%= activeTodos.length %></strong>
+		<%= itemsLeftText %></span
+	>
+	<ul class="filters" hx-target=".todos">
+		<li>
+			<a class="<%= filter === 'all' ? 'selected' : ''%>" href="?filter=all"
+				>All</a
+			>
+		</li>
+		<li>
+			<a
+				class="<%= filter === 'active' ? 'selected' : ''%>"
+				href="?filter=active"
+				>Active</a
+			>
+		</li>
+		<li>
+			<a
+				class="<%= filter === 'completed' ? 'selected' : ''%>"
+				href="?filter=completed"
+				>Completed</a
+			>
+		</li>
+	</ul>
+	<!-- Hidden if no completed items are left ↓ -->
+	<% if(completedTodos.length) { %>
+	<button class="clear-completed" hx-delete="/todos/completed">
+		Clear completed
+	</button>
+	<% } %>
+</footer>
+<% } %>

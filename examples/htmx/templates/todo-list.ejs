@@ -1,0 +1,17 @@
+<section class="main">
+	<% if (filteredTodos.length) { %> 
+		<input 
+			id="toggle-all" 
+			class="toggle-all" 
+			name="toggle-all" 
+			type="checkbox" 
+			hx-patch="/todos/toggle" 
+			<%= filteredTodos.some(todo=>todo.status === 'active') ? '' : 'checked' %> 
+		/>
+	<label for="toggle-all">Mark all as complete</label>
+	<% } %>
+	<ul class="todo-list">
+		<% filteredTodos.forEach((todo)=> { %> <%- include('single-todo', { todo }) %> <%
+		}); %>
+	</ul>
+</section>

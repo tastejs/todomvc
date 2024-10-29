@@ -1,0 +1,14 @@
+{
+	"plugins": ["prettier-plugin-ejs"],
+	"singleQuote": true,
+	"trailingComma": "es5",
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": "*.ejs",
+			"options": {
+				"parser": "html"
+			}
+		}
+	]
+}
