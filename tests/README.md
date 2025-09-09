@@ -187,3 +187,7 @@ Very briefly, the tests are designed as follows:
 - `allTest.js` - A simple file that locates all of the framework examples, and runs the tests for each.
 
 **NOTE:** All of the WebdriverJS methods return promises and are executed asynchronously. However, you do not have to 'chain' them using `then`, they are instead automagically added to a queue, then executed. This means that if you add non-WebdriverJS operations (asserts, log messages) these will not be executed at the point you might expect. This is why `TestOperations.js` uses an explicit `then` each time it asserts.
+
+
+
+//.gitignore
