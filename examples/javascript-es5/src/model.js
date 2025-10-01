@@ -78,7 +78,7 @@
      * @param {function} callback The callback to fire when the removal is complete.
      */
     Model.prototype.remove = function (id, callback) {
-        this.storage.remove(id, callback);
+        return this.storage.remove(id, callback);
     };
 
     /**
