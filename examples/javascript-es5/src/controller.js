@@ -151,9 +151,9 @@
         var self = this;
         self.model.remove(id, function () {
             self.view.render("removeItem", id);
-        });
 
-        self._filter();
+            self._filter();
+        });
     };
 
     /**
@@ -165,9 +165,9 @@
             data.forEach(function (item) {
                 self.removeItem(item.id);
             });
-        });
 
-        self._filter();
+            self._filter();
+        });
     };
 
     /**
@@ -186,10 +186,10 @@
                 id: id,
                 completed: completed,
             });
-        });
 
-        if (!silent)
-            self._filter();
+            if (!silent)
+                self._filter();
+        });
     };
 
     /**
@@ -202,9 +202,9 @@
             data.forEach(function (item) {
                 self.toggleComplete(item.id, completed, true);
             });
-        });
 
-        self._filter();
+            self._filter();
+        });
     };
 
     /**
