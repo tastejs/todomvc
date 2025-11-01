@@ -11,7 +11,10 @@ common options
       -DGHCJS_OLD
   elif arch(javascript)
     cpp-options:
+      -DGHCJS_BROWSER
       -DGHCJS_NEW
+    ld-options:
+      -sEXPORTED_RUNTIME_METHODS=HEAP8
   elif arch(wasm32)
     ghc-options:
       -Wall -no-hs-main -optl-mexec-model=reactor "-optl-Wl,--export=hs_start" -ddump-splices

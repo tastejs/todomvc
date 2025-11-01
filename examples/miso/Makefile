@@ -1,22 +1,16 @@
-.PHONY= update build optim
+.PHONY= update build
 
-all: clean update build optim
+all: clean update build
 
 update:
-	wasm32-wasi-cabal update
+	cabal update --with-ghc=javascript-unknown-ghcjs-ghc --with-hc-pkg=javascript-unknown-ghcjs-ghc-pkg
 
 build:
-	wasm32-wasi-cabal build 
-	$(eval my_wasm=$(shell wasm32-wasi-cabal list-bin app | tail -n 1))
-	$(shell wasm32-wasi-ghc --print-libdir)/post-link.mjs --input $(my_wasm) --output ghc_wasm_jsffi.js
-	cp -v $(my_wasm)* .
-
-optim:
-	wasm-opt -all -O2 app.wasm -o app.wasm
-	wasm-tools strip -o app.wasm app.wasm
+	cabal build --with-ghc=javascript-unknown-ghcjs-ghc --with-hc-pkg=javascript-unknown-ghcjs-ghc-pkg
+	cp -v ./dist-newstyle/build/javascript-ghcjs/ghc-9.12.2/miso-todomvc-0.1/x/app/build/app/app.jsexe/all.js .
 
 serve:
 	http-server .
 
 clean:
-	rm -rf dist-newstyle public
+	cabal clean

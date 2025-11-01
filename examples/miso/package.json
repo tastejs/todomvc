@@ -5,6 +5,6 @@
     "todomvc-common": "^1.0.5"
   },
   "scripts": {
-    "build": "nix develop .#wasm --experimental-features 'nix-command flakes' --command bash -c 'make'"
+    "build": "nix develop .#ghcjs --experimental-features 'nix-command flakes' --command bash -c 'make'"
   }
 }
