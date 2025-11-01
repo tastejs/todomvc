@@ -6,3 +6,4 @@
 /cypress/videos
 /.tmp
 .DS_Store
+dist-newstyle/

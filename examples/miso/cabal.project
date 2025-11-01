@@ -1,0 +1,12 @@
+packages:
+  .
+
+allow-newer:
+  all:base
+
+flags: +template-haskell
+
+source-repository-package
+  type: git
+  location: https://github.com/dmjio/miso
+  tag: a9b7467993a22dc0d0a842695f6cadf2a0a01923
