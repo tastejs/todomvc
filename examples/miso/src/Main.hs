@@ -161,12 +161,7 @@ updateModel = \case
     modify $ \m -> m { visibility = v }
 ----------------------------------------------------------------------------
 filterMap :: [a] -> (a -> Bool) -> (a -> a) -> [a]
-filterMap xs predicate f = go' xs
-  where
-    go' [] = []
-    go' (y : ys)
-        | predicate y = f y : go' ys
-        | otherwise = y : go' ys
+filterMap xs predicate f = [ if predicate x then f x else x | x <- xs ]
 ----------------------------------------------------------------------------
 viewModel :: Model -> View model Msg
 viewModel m@Model{..} =

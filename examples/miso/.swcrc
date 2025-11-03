@@ -1,0 +1,8 @@
+{
+  "jsc": {
+    "minify": {
+      "compress": true, // equivalent to {}
+      "mangle": true
+    },
+  }
+}
