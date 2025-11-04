@@ -1,8 +1,13 @@
 {
+  // Enable minification
+  "minify": true,
+  // Optional, configure minification options
   "jsc": {
     "minify": {
-      "compress": true, // equivalent to {}
+      "compress": {
+        "unused": true
+      },
       "mangle": true
-    },
+    }
   }
 }
