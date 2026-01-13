@@ -31,7 +31,7 @@ export function Input({ onSubmit, placeholder, label, defaultValue, onBlur }) {
                 if (!hasValidMin(value, 2))
                     return;
 
-                onSubmit(sanitize(value));
+                onSubmit(value);
                 e.target.value = "";
             }
         },

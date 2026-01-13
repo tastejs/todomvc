@@ -21,17 +21,21 @@ export const Item = memo(function Item({ todo, dispatch, index }) {
         setIsWritable(false);
     }, []);
 
-    const handleUpdate = useCallback(
-        (title) => {
-            if (title.length === 0)
-                removeItem(id);
-            else
-                updateItem(id, title);
+   const handleUpdate = useCallback(
+    (title) => {
+        const trimmed = title.trim();
 
-            setIsWritable(false);
-        },
-        [id, removeItem, updateItem]
-    );
+        if (!trimmed) {
+            removeItem(id);
+        } else {
+            updateItem(id, trimmed);
+        }
+
+        setIsWritable(false);
+    },
+    [id, removeItem, updateItem]
+);
+
 
     return (
         <li className={classnames({ completed: todo.completed })} data-testid="todo-item">
