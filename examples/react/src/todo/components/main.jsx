@@ -7,39 +7,59 @@ import classnames from "classnames";
 import { TOGGLE_ALL } from "../constants";
 
 export function Main({ todos, dispatch }) {
-    const { pathname: route } = useLocation();
+	const { pathname: route } = useLocation();
 
-    const visibleTodos = useMemo(
-        () =>
-            todos.filter((todo) => {
-                if (route === "/active")
-                    return !todo.completed;
+	const visibleTodos = useMemo(
+		() =>
+			todos.filter((todo) => {
+				if (route === "/active") return !todo.completed;
 
-                if (route === "/completed")
-                    return todo.completed;
+				if (route === "/completed") return todo.completed;
 
-                return todo;
-            }),
-        [todos, route]
-    );
+				return todo;
+			}),
+		[todos, route],
+	);
 
-    const toggleAll = useCallback((e) => dispatch({ type: TOGGLE_ALL, payload: { completed: e.target.checked } }), [dispatch]);
+	const toggleAll = useCallback(
+		(e) =>
+			dispatch({ type: TOGGLE_ALL, payload: { completed: e.target.checked } }),
+		[dispatch],
+	);
 
-    return (
-        <main className="main" data-testid="main">
-            {visibleTodos.length > 0 ? (
-                <div className="toggle-all-container">
-                    <input className="toggle-all" type="checkbox" id="toggle-all" data-testid="toggle-all" checked={visibleTodos.every((todo) => todo.completed)} onChange={toggleAll} />
-                    <label className="toggle-all-label" htmlFor="toggle-all">
-                        Toggle All Input
-                    </label>
-                </div>
-            ) : null}
-            <ul className={classnames("todo-list")} data-testid="todo-list">
-                {visibleTodos.map((todo, index) => (
-                    <Item todo={todo} key={todo.id} dispatch={dispatch} index={index} />
-                ))}
-            </ul>
-        </main>
-    );
+	const emptyMessage =
+		route === "/active"
+			? "No active todos"
+			: route === "/completed"
+				? "No completed todos"
+				: "No todos yet";
+
+	return (
+		<main className="main" data-testid="main">
+			{visibleTodos.length > 0 ? (
+				<div className="toggle-all-container">
+					<input
+						className="toggle-all"
+						type="checkbox"
+						id="toggle-all"
+						data-testid="toggle-all"
+						checked={visibleTodos.every((todo) => todo.completed)}
+						onChange={toggleAll}
+					/>
+					<label className="toggle-all-label" htmlFor="toggle-all">
+						Toggle All Input
+					</label>
+				</div>
+			) : null}
+			{visibleTodos.length === 0 ? (
+				<p className="empty-state">{emptyMessage}</p>
+			) : (
+				<ul className={classnames("todo-list")} data-testid="todo-list">
+					{visibleTodos.map((todo, index) => (
+						<Item todo={todo} key={todo.id} dispatch={dispatch} index={index} />
+					))}
+				</ul>
+			)}
+		</main>
+	);
 }
