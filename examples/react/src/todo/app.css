@@ -22,3 +22,10 @@ but useful for people who use screen readers */
 .toggle-all-label {
     pointer-events: none;
 }
+
+.empty-state {
+    padding: 20px 0;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
