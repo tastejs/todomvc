@@ -9,7 +9,7 @@ body {
 	font-weight: 300;
 	line-height: 1.5;
 	width: auto;
-	background: #fafafa;
+	background: #fff9e5;
 	color: #353535;
 	font-smoothing: antialiased;
 }
@@ -220,7 +220,7 @@ header nav a:not(:last-child) {
 }
 
 .credit {
-	text-align: center;
+	text-align: left;
 }
 
 .credit a {
@@ -231,7 +231,7 @@ header nav a:not(:last-child) {
 }
 
 .credit a img {
-	border-radius: 3px;
+	border-radius: 50%;
 	margin-right: 5px;
 }
 
@@ -249,8 +249,20 @@ header nav a:not(:last-child) {
 
 .popover-title a {
 	font-size: 13px;
+	color: #df2c35;
 	position: absolute;
+	padding: 0 10px;
+	background-color: #ded9d9;
+	border: 1px solid #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 	right: 20px;
+}
+
+.popover-title a:hover {
+	color: #b5242b;
+	background-color: #afaeae;
+	background-color: #efeeee;
 }
 
 .quote {
@@ -289,7 +301,13 @@ header nav a:not(:last-child) {
 }
 
 .quote footer img {
-	border-radius: 3px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 5px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	border: 2px solid #ddd;
 }
 
 .quote footer a {
@@ -313,47 +331,61 @@ header nav a:not(:last-child) {
 	border-top-color: rgba(0, 0, 0, .04);
 }
 
-.zocial.red {
-	background-color: #b12d2b;
-}
-
-.zocial.gray {
-	background-color: rgba(0, 0, 0, .5);
-}
-
-.zocial.ltgray {
-	color: inherit;
-	text-shadow: none;
-}
-
-.zocial.ltgray strong {
-	color: #B83F45;
-}
-
-.zocial.small {
-	font-size: 12px;
-	padding: 2px 10px;
-}
-
 .zocial,
 a.zocial {
 	background: #f4f4f4;
-	border: 1px solid #777;
-	border-color: rgba(0, 0, 0, 0.2);
-	border-bottom-color: #333;
-	border-bottom-color: rgba(0, 0, 0, 0.4);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 	color: white;
 	cursor: pointer;
 	display: inline-block;
-	padding: 6px 10px;
+	padding: 8px 14px;
 	text-align: center;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 	user-select: none;
-	position: relative;
-	border-radius: .3em;
+	border-radius: 6px;
+	font-size: 16px;
+	transition: all 0.2s ease;
 }
 
+/*Red button (Download)*/
+.zocial.red {
+	background-color: #b12d2b;
+}
+
+/*Light gray buttons*/
+.zocial.ltgray {
+	background-color: #e6e6e6;
+	color: #333;
+	text-shadow: none;
+}
+
+/*HOVER STATES*/
+.zocial:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.zocial.red:hover {
+	background-color: #de3f3c;
+}
+
+.zocial.ltgray:hover {
+	background-color: #d4d4d4;
+	color: #000;
+}
+
+/*Click effect */
+.zocial:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Spacing between buttons */
+header nav a:not(:last-child) {
+	margin-right: 8px;
+}
 @media (max-width: 480px) {
 	.credit a {
 		display: block;
