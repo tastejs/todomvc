@@ -2,8 +2,9 @@
 {-# LANGUAGE CPP                #-}
 {-# LANGUAGE LambdaCase         #-}
 {-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE RecordWildCards    #-}
 {-# LANGUAGE DeriveAnyClass     #-}
+{-# LANGUAGE TemplateHaskell    #-}
+{-# LANGUAGE RecordWildCards    #-}
 {-# LANGUAGE OverloadedStrings  #-}
 {-# LANGUAGE DerivingStrategies #-}
 -----------------------------------------------------------------------------
@@ -17,61 +18,61 @@
 ----------------------------------------------------------------------------
 module Main where
 ----------------------------------------------------------------------------
-import           Control.Monad.State
-import           Data.Aeson hiding (Object)
+import           Control.Category ((.))
+import           Control.Monad
+import qualified Data.IntMap as IM
+import           Data.IntMap (IntMap)
 import           Data.Bool
 import           GHC.Generics
+import           Prelude hiding ((.))
 ----------------------------------------------------------------------------
-import           Miso
+import           Miso hiding (at)
 import           Miso.Html
+import           Miso.Lens
+import           Miso.Lens.TH
 import           Miso.Html.Property hiding (label_)
 import qualified Miso.String as S
 import qualified Miso.CSS as CSS
 ----------------------------------------------------------------------------
 default (MisoString)
 ----------------------------------------------------------------------------
-#ifdef WASM
-foreign export javascript "hs_start" main :: IO ()
-#endif
-----------------------------------------------------------------------------
 data Model
   = Model
-  { entries :: [Entry]
-  , field :: MisoString
-  , uid :: Int
-  , visibility :: MisoString
-  , step :: Bool
+  { _entries :: IntMap Entry
+  , _field :: MisoString
+  , _uid :: Int
+  , _visibility :: MisoString
+  , _step :: Bool
   } deriving stock (Show, Generic, Eq)
-    deriving anyclass (FromJSON, ToJSON)
 ----------------------------------------------------------------------------
 data Entry
   = Entry
-  { description :: MisoString
-  , completed :: Bool
-  , editing :: Bool
-  , eid :: Int
-  , focussed :: Bool
+  { _description :: MisoString
+  , _completed :: Bool
+  , _editing :: Bool
+  , _focussed :: Bool
   } deriving stock (Show, Generic, Eq)
-    deriving anyclass (FromJSON, ToJSON)
+----------------------------------------------------------------------------
+$(makeLenses ''Entry)
+$(makeLenses ''Model)
 ----------------------------------------------------------------------------
 emptyModel :: Model
 emptyModel
   = Model
-  { entries = []
-  , visibility = "All"
-  , field = mempty
-  , uid = 0
-  , step = False
+  { _entries = mempty
+  , _visibility = "All"
+  , _field = mempty
+  , _uid = 0
+  , _step = False
   }
 ----------------------------------------------------------------------------
-newEntry :: MisoString -> Int -> Entry
-newEntry desc eid
+newEntry :: MisoString -> Entry
+newEntry desc
   = Entry
-  { description = desc
-  , completed = False
-  , editing = False
-  , eid = eid
-  , focussed = False
+  { _description = desc
+  , _completed = False
+  , _editing = False
+  , _focussed = False
   }
 ----------------------------------------------------------------------------
 data Msg
@@ -89,95 +90,77 @@ data Msg
   | FocusOnInput
   deriving (Show)
 ----------------------------------------------------------------------------
+#ifdef WASM
+#ifndef INTERACTIVE
+foreign export javascript "hs_start" main :: IO ()
+#endif
+#endif
+----------------------------------------------------------------------------
 main :: IO ()
-main = run (startApp app)
+main = startApp (defaultEvents <> keyboardEvents) app
 ----------------------------------------------------------------------------
 app :: App Model Msg
 app = (component emptyModel updateModel viewModel)
-  { events = defaultEvents <> keyboardEvents
-  , initialAction = Just FocusOnInput
-#ifdef VANILLA
-  -- dmj: when using vanilla GHC append the styles to <head> in dev mode
+  { mount = Just FocusOnInput
+#ifdef INTERACTIVE
+  -- dmj: when using WASM repl mode append styles to <head> in dev mode
   , styles =
-      [ Href "https://cdn.jsdelivr.net/npm/todomvc-common@1.0.5/base.min.css"
-      , Href "https://cdn.jsdelivr.net/npm/todomvc-app-css@2.4.3/index.min.css"
+      [ Href "https://cdn.jsdelivr.net/npm/todomvc-common@1.0.5/base.min.css" False
+      , Href "https://cdn.jsdelivr.net/npm/todomvc-app-css@2.4.3/index.min.css" False
       ]
 #endif
   }
 ----------------------------------------------------------------------------
-updateModel :: Msg -> Transition Model Msg
+updateModel :: Msg -> Effect parent Model Msg
 updateModel = \case
   NoOp ->
     pure ()
   FocusOnInput ->
     io_ (focus "input-box")
   CurrentTime time ->
-    io_ $ consoleLog $ S.ms (show time)
+    io_ $ consoleLog (S.ms time)
   Add -> do
-    model@Model{..} <- get
-    put model
-      { uid = uid + 1
-      , field = mempty
-      , entries = entries <> [newEntry field uid | not $ S.null field]
-      }
-  UpdateField str ->
-    modify update
-      where
-        update m = m { field = str }
-  EditingEntry id' isEditing ->
-    modify $ \m ->
-      m { entries =
-            filterMap (entries m) (\t -> eid t == id') $ \t ->
-              t { editing = isEditing
-                , focussed = isEditing
-                }
-        }
-  UpdateEntry id' task ->
-    modify $ \m -> m
-      { entries = filterMap (entries m) ((== id') . eid) $ \t ->
-          t { description = task }
-      }
-  Delete id' -> 
-    modify $ \m -> m
-     { entries = filter (\t -> eid t /= id') (entries m)
-     }
+    value <- use field
+    unless (S.null value) $ do
+      field .= mempty
+      uid += 1
+      nextId <- use uid
+      entries %= IM.insert nextId (newEntry value)
+  UpdateField str -> do
+    field .= str
+  EditingEntry idx isEditing ->
+    entries . at idx %?= (\e ->
+      e & editing .~ isEditing
+        & focussed .~ isEditing)
+  UpdateEntry idx task ->
+    entries . at idx %?= do
+      description .~ task
+  Delete idx ->
+    entries . at idx .= Nothing
   DeleteComplete ->
-    modify $ \m -> m
-      { entries = filter (not . completed) (entries m)
-      }
-  Check id' isCompleted ->
-    modify $ \m -> m
-      { entries =
-          filterMap (entries m) (\t -> eid t == id') $ \t ->
-            t { completed = isCompleted }
-      }
+    entries %= IM.filter (\entry -> not (entry ^. completed))
+  Check idx isCompleted ->
+    entries . at idx %?= do completed .~ isCompleted
   CheckAll isCompleted ->
-    modify $ \m -> m
-      { entries =
-          filterMap (entries m) (const True) $ \t ->
-            t { completed = isCompleted }
-      }
+    entries %= IM.map (\entry -> entry & completed .~ isCompleted)
   ChangeVisibility v ->
-    modify $ \m -> m { visibility = v }
-----------------------------------------------------------------------------
-filterMap :: [a] -> (a -> Bool) -> (a -> a) -> [a]
-filterMap xs predicate f = [ if predicate x then f x else x | x <- xs ]
+    visibility .= v
 ----------------------------------------------------------------------------
 viewModel :: Model -> View model Msg
-viewModel m@Model{..} =
+viewModel m =
     div_
         [ class_ "todomvc-wrapper"
         ]
         [ section_
             [class_ "todoapp"]
-            [ viewInput m field
-            , viewEntries visibility entries
-            , viewControls m visibility entries
+            [ viewInput m (m ^. field)
+            , viewEntries (m ^. visibility) (IM.toList (m ^. entries))
+            , viewControls m (m ^. visibility) (IM.toList (m ^. entries))
             ]
         , infoFooter
         ]
 ----------------------------------------------------------------------------
-viewEntries :: MisoString -> [Entry] -> View model Msg
+viewEntries :: MisoString -> [(Int, Entry)] -> View model Msg
 viewEntries visibility entries =
     section_
         [ class_ "main"
@@ -195,27 +178,23 @@ viewEntries visibility entries =
             [for_ "toggle-all"]
             [text $ S.pack "Mark all as complete"]
         , ul_ [class_ "todo-list"] $
-            flip map (filter isVisible entries) $ \t ->
-                viewKeyedEntry t
+            filter isVisible entries <&> viewEntry
         ]
   where
     cssVisibility = bool "visible" "hidden" (null entries)
-    allCompleted = all completed entries
-    isVisible Entry{..} =
+    allCompleted = all _completed (snd <$> entries)
+    isVisible (_, Entry {..}) =
         case visibility of
-            "Completed" -> completed
-            "Active" -> not completed
+            "Completed" -> _completed
+            "Active" -> not _completed
             _ -> True
 ----------------------------------------------------------------------------
-viewKeyedEntry :: Entry -> View model Msg
-viewKeyedEntry = viewEntry
-----------------------------------------------------------------------------
-viewEntry :: Entry -> View model Msg
-viewEntry Entry{..} =
+viewEntry :: (Int, Entry) -> View model Msg
+viewEntry (eid, Entry{..}) =
     li_
         [ class_ $
             S.intercalate " " $
-                ["completed" | completed] <> ["editing" | editing]
+                ["completed" | _completed] <> ["editing" | _editing]
         , key_ eid
         ]
         [ div_
@@ -223,12 +202,12 @@ viewEntry Entry{..} =
             [ input_
                 [ class_ "toggle"
                 , type_ "checkbox"
-                , checked_ completed
-                , onClick $ Check eid (not completed)
+                , checked_ _completed
+                , onClick $ Check eid (not _completed)
                 ]
             , label_
                 [onDoubleClick (EditingEntry eid True) ]
-                [text description]
+                [text _description]
             , button_
                 [ class_ "destroy"
                 , onClick $ Delete eid
@@ -237,7 +216,7 @@ viewEntry Entry{..} =
             ]
         , input_
             [ class_ "edit"
-            , value_ description
+            , value_ _description
             , name_ "title"
             , id_ ("todo-" <> S.ms eid)
             , onInput (UpdateEntry eid)
@@ -246,7 +225,7 @@ viewEntry Entry{..} =
             ]
         ]
 ----------------------------------------------------------------------------
-viewControls :: Model -> MisoString -> [Entry] -> View model Msg
+viewControls :: Model -> MisoString -> [(Int,Entry)] -> View model Msg
 viewControls model visibility entries =
     footer_
         [ class_ "footer"
@@ -257,7 +236,7 @@ viewControls model visibility entries =
         , viewControlsClear model entriesCompleted
         ]
   where
-    entriesCompleted = length . filter completed $ entries
+    entriesCompleted = length . filter (_completed . snd) $ entries
     entriesLeft = length entries - entriesCompleted
 ----------------------------------------------------------------------------
 viewControlsCount :: Int -> View model Msg
@@ -297,7 +276,7 @@ viewControlsClear :: Model -> Int -> View model Msg
 viewControlsClear _ entriesCompleted =
     button_
         [ class_ "clear-completed"
-        , prop "hidden" (entriesCompleted == 0)
+        , hidden_ (entriesCompleted == 0)
         , onClick DeleteComplete
         ]
         [text $ "Clear completed (" <> S.ms entriesCompleted <> ")"]
