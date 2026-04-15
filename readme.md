@@ -11,8 +11,9 @@ Developers these days are spoiled with choice when it comes to selecting an MV\*
 
 Backbone, Ember, AngularJS... the list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
 
-To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV\* frameworks of today.
+To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV\* concepts in most of the popular JavaScript MV\* frameworks of today.
 
+hello from smit!
 
 ## Team
 
@@ -73,17 +74,16 @@ It is meant to be used as a gateway to reviewing how a basic application using a
 
 Also, please keep in mind that TodoMVC is not the perfect way to compare the size of different frameworks. We intentionally use the unminified versions to make reading the source code easier.
 
-
 ## Getting Involved
 
 Whilst we enjoy implementing and improving existing Todo apps, we're always interested in speaking to framework authors (and users) wishing to share Todo app implementations in their framework/solution of choice.
 
 Check out our [contribution docs](contributing.md) for more info.
 
-
 ## License
 
 Everything in this repo is MIT License unless otherwise specified.
 
 [MIT](license.md) © Addy Osmani, Sindre Sorhus, Pascal Hartig, Stephen Sawchuk.
+
 ## Demo
