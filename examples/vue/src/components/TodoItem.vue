@@ -1,12 +1,22 @@
 <script setup>
 import { ref, nextTick, computed } from 'vue'
 
+const TAG_COLORS = {
+    personal: '#2ecc71',
+    work: '#3498db',
+    urgent: '#e74c3c'
+};
+
 const props = defineProps(['todo', 'index']);
 const emit = defineEmits(['delete-todo', 'edit-todo']);
 
 const editing = ref(false);
 const editInput = ref(null);
 const editText = ref("");
+
+const tagColor = computed(() => {
+    return TAG_COLORS[props.todo.tag] || TAG_COLORS.personal;
+});
 
 const editModel = computed({
     get() {
@@ -63,6 +73,7 @@ function updateTodo() {
         }"
     >
         <div class="view">
+            <span class="tag-dot" :style="{ backgroundColor: tagColor }" :title="todo.tag === 'personal' ? '个人' : todo.tag === 'work' ? '工作' : '紧急'"></span>
             <input type="checkbox" class="toggle" v-model="toggleModel" />
             <label @dblclick="startEdit">{{ todo.title }}</label>
             <button class="destroy" @click.prevent="deleteTodo"></button>
@@ -73,3 +84,23 @@ function updateTodo() {
         </div>
     </li>
 </template>
+
+<style scoped>
+.view {
+    display: flex;
+    align-items: center;
+}
+
+.tag-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 8px 0 12px;
+    flex-shrink: 0;
+    cursor: default;
+}
+
+.toggle {
+    margin: 0 !important;
+}
+</style>
