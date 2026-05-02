@@ -76,18 +76,17 @@ export class TodoApp extends LitElement {
     }
 
     override render() {
+        const empty = this.todoList.all.length === 0;
         return html`<section>
             <header class="header">
                 <h1>todos</h1>
                 <todo-form .todoList=${this.todoList}></todo-form>
             </header>
-            <main class="main">
+            <main class="${classMap({ main: true, hidden: empty })}">
                 <todo-list class="show-priority" .todoList=${this.todoList}></todo-list>
             </main>
             <todo-footer
-                class="${classMap({
-        hidden: this.todoList.all.length === 0,
-    })}"
+                class="${classMap({ hidden: empty })}"
                 .todoList=${this.todoList}
             ></todo-footer>
         </section>`;

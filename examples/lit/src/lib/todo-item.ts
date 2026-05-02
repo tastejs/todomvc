@@ -3,6 +3,7 @@ import { customElement } from "lit/decorators/custom-element.js";
 import { property } from "lit/decorators/property.js";
 import { state } from "lit/decorators/state.js";
 import { classMap } from "lit/directives/class-map.js";
+import { ref } from "lit/directives/ref.js";
 
 import { todoStyles } from "./todo.css.js";
 import { DeleteTodoEvent, EditTodoEvent } from "./events.js";
@@ -153,9 +154,19 @@ export class TodoItem extends LitElement {
                 <div class="view">
                     <input class="toggle" type="checkbox" .checked=${this.completed ?? false} @change=${this.#toggleTodo} />
                     <label @dblclick=${this.#beginEdit}> ${this.text} </label>
-                    <button @click=${this.#deleteTodo} class="destroy"></button>
+                    <button @click=${this.#deleteTodo} class="destroy" aria-label="Delete todo"></button>
                 </div>
-                <input class="edit" type="text" @change=${this.#finishEdit} @keyup=${this.#captureEscape} @blur=${this.#abortEdit} .value=${this.text ?? ""} />
+                ${this.isEditing
+        ? html`<input
+                              class="edit"
+                              type="text"
+                              aria-label="Edit todo"
+                              @keydown=${this.#onEditKeydown}
+                              @blur=${this.#commitEdit}
+                              .value=${this.text ?? ""}
+                              ${ref((el) => (el as HTMLInputElement | undefined)?.focus())}
+                          />`
+        : ""}
             </li>
         `;
     }
@@ -172,20 +183,29 @@ export class TodoItem extends LitElement {
         this.isEditing = true;
     }
 
-    #finishEdit(e: Event) {
-        const el = e.target as HTMLInputElement;
-        const text = el.value;
-        this.dispatchEvent(new EditTodoEvent({ id: this.todoId, text }));
+    #onEditKeydown = (e: KeyboardEvent) => {
+        if (e.key === "Enter") {
+            (e.currentTarget as HTMLInputElement).blur();
+        } else if (e.key === "Escape") {
+            this.#cancelEdit(e);
+        }
+    };
+
+    #commitEdit = (e: Event) => {
+        if (!this.isEditing) return;
+        const text = (e.target as HTMLInputElement).value.trim();
         this.isEditing = false;
-    }
+        if (text.length === 0) {
+            this.dispatchEvent(new DeleteTodoEvent(this.todoId));
+        } else {
+            this.dispatchEvent(new EditTodoEvent({ id: this.todoId, text }));
+        }
+    };
 
-    #captureEscape(e: KeyboardEvent) {
-        if (e.key === "escape")
-            this.#abortEdit(e);
-    }
-
-    #abortEdit(e: Event) {
-        const input = e.target as HTMLInputElement;
-        input.value = this.text ?? "";
-    }
+    #cancelEdit = (e: Event) => {
+        // Reset the input value so when blur fires it sees the original
+        // text and the commit becomes a no-op edit.
+        (e.target as HTMLInputElement).value = this.text ?? "";
+        this.isEditing = false;
+    };
 }
