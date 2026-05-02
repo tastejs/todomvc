@@ -11,7 +11,7 @@
 // https://github.com/tastejs/todomvc/blob/master/tests/test.js
 // ***********************************************
 
-import createTodoCommands from '../support'
+import createTodoCommands from '../support/e2e'
 import knownIssues from '../../tests/knownIssues'
 
 /* global cy, Cypress */
@@ -31,34 +31,62 @@ if (!framework) {
   )
 }
 
+// Apps whose runnable index.html is not at examples/<name>/index.html.
+// Frameworks with a build step land their entry point in dist/ (or
+// dist/browser/ for Angular's application builder); legacy examples
+// occasionally use web/ or public/.
 const frameworkFolders = {
   ampersand: 'ampersand/',
+  angular: 'angular/dist/browser',
   'angular-dart': 'angular-dart/web',
   'chaplin-brunch': 'chaplin-brunch/public',
   duel: 'duel/www',
+  emberjs: 'emberjs/todomvc',
+  'javascript-es6': 'javascript-es6/dist',
+  lit: 'lit/dist',
+  preact: 'preact/dist',
+  react: 'react/dist',
+  'react-redux': 'react-redux/dist',
+  svelte: 'svelte/dist',
+  vue: 'vue/dist',
 }
 const getExampleFolder = framework => frameworkFolders[framework] || framework
 
+// Apps where the spec should not assert anything about localStorage
+// contents - either because they persist nothing (most of the modern
+// rebuilds are in-memory only) or because their on-disk format is
+// inscrutable.
 const noLocalStorageCheck = {
+  angular: true,
   backbone: true,
   backbone_marionette: true,
   backbone_require: true,
-  knockback: true,
-  flight: true,
-  serenadejs: true,
-  js_of_ocaml: true,
-  reagent: true,
-  rappidjs: true,
-  exoskeleton: true,
-  puremvc: true,
-  'typescript-backbone': true,
   enyo_backbone: true,
-  foam: true
+  exoskeleton: true,
+  flight: true,
+  foam: true,
+  js_of_ocaml: true,
+  knockback: true,
+  lit: true,
+  preact: true,
+  puremvc: true,
+  rappidjs: true,
+  react: true,
+  'react-redux': true,
+  reagent: true,
+  serenadejs: true,
+  svelte: true,
+  'typescript-backbone': true,
+  vue: true,
 }
 
+// Apps where we should also skip the spy assertion that
+// localStorage.setItem was called - same set of in-memory apps as
+// above, plus the canjs quirk.
 const noLocalStorageSpyCheck = {
+  ...noLocalStorageCheck,
   canjs: true,
-  canjs_require: true
+  canjs_require: true,
 }
 
 const noAppStartCheck = {
@@ -112,34 +140,42 @@ function skipTestsWithKnownIssues () {
   // take suite chain into account, thus just hides the
   // tests with known issues
   const removeCommas = s => s.replace(/,/g, '')
+  // Match the framework name as a token, not a substring — matching as a
+  // substring caused e.g. `angular` to inherit every `angularjs_require`
+  // entry. Each known-issue line is "TodoMVC - <framework>, <suite>, <test>"
+  // (or just "<framework>, <test>"), so a comma-bounded match is enough.
+  const fw = framework.toLowerCase()
   const issueNames = knownIssues
     .map(Cypress._.toLower)
-    .filter(name => name.includes(framework))
+    .filter(name => name.includes(`- ${fw},`) || name.startsWith(`${fw},`))
     .map(removeCommas)
   console.log('framework %s has %d issue(s)', framework, issueNames.length)
 
   const realIt = window.it
-  window.it = function (name, cb) {
+  // Wrap `it` so a test whose lower-cased title matches a known-issue
+  // entry registers as a pending test (still shows up in the report,
+  // but doesn't run). The legacy code called `realIt.skip(name, cb)`
+  // which works in Mocha < 10 but throws in Cypress 12+'s Mocha 10
+  // ("Cannot set properties of undefined (setting 'body')"); the
+  // equivalent in modern Mocha is `it(name, function () { this.skip() })`.
+  function wrapped (name, cb) {
     if (typeof name === 'function') {
-      // using it(cb) form without title
       cb = name
       name = cb.name
     }
     if (!cb) {
-      // nothing to do - skipped test, just title
       return
     }
-    name = name.toLowerCase()
-    const issue = issueNames.find(issueName => issueName.endsWith(name))
+    const issue = issueNames.find(issueName => issueName.endsWith(name.toLowerCase()))
     if (issue) {
       console.log('test "%s" has a known issue', name)
-      return realIt.skip(name, cb)
-    } else {
-      return realIt.apply(null, arguments)
+      return realIt(name, function () { this.skip() })
     }
+    return realIt.call(this, name, cb)
   }
-  window.it.skip = realIt.skip
-  window.it.only = realIt.only
+  wrapped.skip = realIt.skip.bind(realIt)
+  wrapped.only = realIt.only.bind(realIt)
+  window.it = wrapped
 }
 skipTestsWithKnownIssues()
 
@@ -442,20 +478,33 @@ Cypress._.times(N, () => {
       // how to determine if we need to use ids or classes?
       // it is painful to have both types of elements in the
       // same tests - because our assertions often use `.should('have.class', ...)`
-      cy.contains('h1', 'todos').should('be.visible')
+      // Some apps capitalise the heading ("Todos"); match either form.
+      cy.contains('h1', /^todos$/i).should('be.visible')
+      // Walk the document INCLUDING shadow roots — web-component apps
+      // (lit, polymer) keep their UI inside a shadow tree, so a plain
+      // doc.querySelector misses them. Returns the first element that
+      // matches `selector` anywhere in the light or shadow DOM.
+      const findDeep = (root, selector) => {
+        if (root.querySelector?.(selector)) return true
+        const candidates = root.querySelectorAll?.('*') || []
+        for (const el of candidates) {
+          if (el.shadowRoot && findDeep(el.shadowRoot, selector)) return true
+        }
+        return false
+      }
       cy.document().then(doc => {
         if (framework in usesIDSelectors) {
           setSelectors(usesIDSelectors[framework])
           createTodoCommands(usesIDSelectors[framework])
-        } else if (doc.querySelector('input#new-todo') && doc.querySelector('input.new-todo')) {
+        } else if (findDeep(doc, 'input#new-todo') && findDeep(doc, 'input.new-todo')) {
           throw new Error(
             'Cannot determine what kind of selectors this app uses. Add it to usesIDSelectors.'
           )
-        } else if (doc.querySelector('input#new-todo')) {
+        } else if (findDeep(doc, 'input#new-todo')) {
           cy.log('app uses ID selectors')
           setSelectors(true)
           createTodoCommands(true)
-        } else if (doc.querySelector('input.new-todo')) {
+        } else if (findDeep(doc, 'input.new-todo')) {
           cy.log('app uses class selectors')
           setSelectors(false)
           createTodoCommands(false)
