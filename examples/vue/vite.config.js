@@ -9,11 +9,12 @@ export default defineConfig({
   base: "./",
   plugins: [
     vue(),
-		viteStaticCopy({
+    viteStaticCopy({
       targets: [
         {
           src: 'node_modules/todomvc-common/base.js',
           dest: '.',
+          rename: { stripBase: true },
         },
       ],
     }),
