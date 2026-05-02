@@ -14,35 +14,39 @@ function Item({ todo }) {
         setEditing(false);
     };
 
-    const view = editing ? (
-        <TextInput text={todo.text} editing onSave={handleSave} />
-    ) : (
-        <div className="view">
-            <input
-                className="toggle"
-                type="checkbox"
-                data-testid="todo-item-toggle"
-                checked={todo.completed}
-                onChange={() => dispatch(toggleTodo(todo.id))}
-            />
-            <label onDoubleClick={() => setEditing(true)} data-testid="todo-item-label">
-                {todo.text}
-            </label>
-            <button
-                className="destroy"
-                data-testid="todo-item-button"
-                aria-label="Delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-            />
-        </div>
-    );
+    const handleCancel = () => setEditing(false);
 
     return (
         <li
             className={classnames({ completed: todo.completed, editing })}
             data-testid="todo-item"
         >
-            {view}
+            <div className="view">
+                <input
+                    className="toggle"
+                    type="checkbox"
+                    data-testid="todo-item-toggle"
+                    checked={todo.completed}
+                    onChange={() => dispatch(toggleTodo(todo.id))}
+                />
+                <label onDoubleClick={() => setEditing(true)} data-testid="todo-item-label">
+                    {todo.text}
+                </label>
+                <button
+                    className="destroy"
+                    data-testid="todo-item-button"
+                    aria-label="Delete todo"
+                    onClick={() => dispatch(deleteTodo(todo.id))}
+                />
+            </div>
+            {editing && (
+                <TextInput
+                    text={todo.text}
+                    editing
+                    onSave={handleSave}
+                    onCancel={handleCancel}
+                />
+            )}
         </li>
     );
 }

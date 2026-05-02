@@ -1,18 +1,37 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import classnames from "classnames";
 
-export default function TextInput({ onSave, text = "", placeholder, editing = false, newTodo = false }) {
+export default function TextInput({
+    onSave,
+    onCancel,
+    text = "",
+    placeholder,
+    editing = false,
+    newTodo = false,
+}) {
     const [value, setValue] = useState(text);
+    const cancelled = useRef(false);
 
-    const handleSubmit = (e) => {
-        if (e.key !== "Enter") return;
-        onSave(e.target.value.trim());
+    const submit = () => {
+        if (cancelled.current) {
+            cancelled.current = false;
+            return;
+        }
+        onSave(value.trim());
         if (newTodo) setValue("");
     };
 
-    const handleBlur = (e) => {
-        // If this input is used in the Header, call onSave to create a new todo.
-        if (!newTodo) onSave(e.target.value);
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            submit();
+        } else if (e.key === "Escape" && editing && onCancel) {
+            cancelled.current = true;
+            onCancel();
+        }
+    };
+
+    const handleBlur = () => {
+        if (!newTodo) submit();
     };
 
     return (
@@ -21,11 +40,12 @@ export default function TextInput({ onSave, text = "", placeholder, editing = fa
             type="text"
             data-testid="text-input"
             placeholder={placeholder}
+            aria-label={editing ? "Edit todo" : "New todo"}
             autoFocus
             value={value}
             onBlur={handleBlur}
             onChange={(e) => setValue(e.target.value)}
-            onKeyDown={handleSubmit}
+            onKeyDown={handleKeyDown}
         />
     );
 }

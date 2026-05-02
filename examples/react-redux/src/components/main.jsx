@@ -17,34 +17,36 @@ export default function Main() {
     const visibleTodos = useSelector(selectVisibleTodos(location.pathname));
     const completedCount = useSelector(selectCompletedCount);
     const activeCount = todos.length - completedCount;
-
-    if (todos.length === 0) return null;
+    const empty = todos.length === 0;
 
     return (
-        <main className="main" data-testid="main">
-            <div className="toggle-all-container">
-                <input
-                    id="toggle-all"
-                    className="toggle-all"
-                    type="checkbox"
-                    data-testid="toggle-all"
-                    checked={completedCount === todos.length}
-                    onChange={() => dispatch(toggleAll())}
-                />
-                <label className="toggle-all-label" htmlFor="toggle-all">
-                    Toggle All Input
-                </label>
-            </div>
-            <ul className="todo-list" data-testid="todo-list">
-                {visibleTodos.map((todo) => (
-                    <Item key={todo.id} todo={todo} />
-                ))}
-            </ul>
+        <>
+            <main className="main" data-testid="main" hidden={empty}>
+                <div className="toggle-all-container">
+                    <input
+                        id="toggle-all"
+                        className="toggle-all"
+                        type="checkbox"
+                        data-testid="toggle-all"
+                        checked={!empty && completedCount === todos.length}
+                        onChange={() => dispatch(toggleAll())}
+                    />
+                    <label className="toggle-all-label" htmlFor="toggle-all">
+                        Toggle All Input
+                    </label>
+                </div>
+                <ul className="todo-list" data-testid="todo-list">
+                    {visibleTodos.map((todo) => (
+                        <Item key={todo.id} todo={todo} />
+                    ))}
+                </ul>
+            </main>
             <Footer
                 completedCount={completedCount}
                 activeCount={activeCount}
                 filter={location.pathname}
+                hidden={empty}
             />
-        </main>
+        </>
     );
 }

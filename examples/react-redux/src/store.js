@@ -42,13 +42,14 @@ export const store = configureStore({
 });
 
 export const FILTERS = {
+    "/": (todos) => todos,
     "/all": (todos) => todos,
     "/active": (todos) => todos.filter((t) => !t.completed),
     "/completed": (todos) => todos.filter((t) => t.completed),
 };
 
 export const selectVisibleTodos = (pathname) => (state) =>
-    (FILTERS[pathname] ?? FILTERS["/all"])(state.todos);
+    (FILTERS[pathname] ?? FILTERS["/"])(state.todos);
 
 export const selectCompletedCount = (state) =>
     state.todos.filter((todo) => todo.completed).length;
