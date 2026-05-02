@@ -17,6 +17,6 @@ const remaining = computed(() => props.todos.filter(todo => !todo.completed).len
             <li><RouterLink to="/active" :class="{ selected: route.name == 'active' }">Active</RouterLink></li>
             <li><RouterLink to="/completed" :class="{ selected: route.name == 'completed' }">Completed</RouterLink></li>
         </ul>
-        <button class="clear-completed" v-show="todos.some(todo => todo.completed)" @click="$emit('delete-completed')">Clear Completed</button>
+        <button class="clear-completed" v-show="todos.some(todo => todo.completed)" @click="$emit('delete-completed')">Clear completed</button>
     </footer>
 </template>
