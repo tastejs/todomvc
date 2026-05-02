@@ -1,20 +1,17 @@
-import { render } from "react-dom";
-import { createStore } from "redux";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { HashRouter, Route } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+
 import App from "./app";
-import reducer from "./reducers";
+import { store } from "./store";
 
 import "todomvc-app-css/index.css";
 import "todomvc-common/base.css";
 
-const store = createStore(reducer);
-
-render(
+createRoot(document.getElementById("root")).render(
     <Provider store={store}>
         <HashRouter>
-            <Route path="*" component={App} />
+            <App />
         </HashRouter>
-    </Provider>,
-    document.getElementById("root")
+    </Provider>
 );

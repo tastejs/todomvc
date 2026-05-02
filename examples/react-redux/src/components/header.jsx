@@ -1,23 +1,18 @@
-import { Component } from "react";
-import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import TextInput from "./text-input";
+import { addTodo } from "../store";
 
-export default class Header extends Component {
-    static propTypes = {
-        addTodo: PropTypes.func.isRequired,
+export default function Header() {
+    const dispatch = useDispatch();
+
+    const handleSave = (text) => {
+        if (text.length !== 0) dispatch(addTodo(text));
     };
 
-    handleSave = (text) => {
-        if (text.length !== 0)
-            this.props.addTodo(text);
-    };
-
-    render() {
-        return (
-            <header className="header" data-testid="header">
-                <h1>todos</h1>
-                <TextInput newTodo onSave={this.handleSave} placeholder="What needs to be done?" />
-            </header>
-        );
-    }
+    return (
+        <header className="header" data-testid="header">
+            <h1>todos</h1>
+            <TextInput newTodo onSave={handleSave} placeholder="What needs to be done?" />
+        </header>
+    );
 }
