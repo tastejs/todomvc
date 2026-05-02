@@ -1,8 +1,8 @@
 <script>
-    let { numActive, currentFilter, numCompleted, onRemoveCompletedItems } = $props();
+    let { numActive, currentFilter, numCompleted, onRemoveCompletedItems, hidden = false } = $props();
 </script>
 
-<footer class="footer">
+<footer class="footer" {hidden}>
     <span class="todo-count">
         <strong>{numActive}</strong>
         {numActive === 1 ? "item" : "items"} left
@@ -14,7 +14,7 @@
         <li><a class:selected={currentFilter === "completed"} href="#/completed">Completed</a></li>
     </ul>
 
-    {#if numCompleted}
-        <button class="clear-completed" onclick={onRemoveCompletedItems}> Clear completed </button>
-    {/if}
+    <button class="clear-completed" onclick={onRemoveCompletedItems} hidden={numCompleted === 0}>
+        Clear completed
+    </button>
 </footer>

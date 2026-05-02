@@ -3,8 +3,8 @@
 
     function addItem(e) {
         if (e.key !== 'Enter') return;
-        const text = e.target.value;
-        if (!text) return;
+        const text = e.target.value.trim();
+        if (text.length === 0) return;
         onAddItem(text);
         e.target.value = "";
     }

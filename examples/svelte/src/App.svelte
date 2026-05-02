@@ -53,18 +53,16 @@
 
 <Header onAddItem={addItem} />
 
-{#if items.length > 0}
-    <main class="main">
-        <div class="toggle-all-container">
-            <input id="toggle-all" class="toggle-all" type="checkbox" onchange={toggleAllItems} checked={numCompleted === items.length} />
-            <label for="toggle-all">Mark all as complete</label>
-        </div>
-        <ul class="todo-list">
-            {#each filtered as item (item.id)}
-                <Item {item} onRemoveItem={() => removeItem(item.id)} />
-            {/each}
-        </ul>
+<main class="main" hidden={items.length === 0}>
+    <div class="toggle-all-container">
+        <input id="toggle-all" class="toggle-all" type="checkbox" onchange={toggleAllItems} checked={items.length > 0 && numCompleted === items.length} />
+        <label for="toggle-all">Mark all as complete</label>
+    </div>
+    <ul class="todo-list">
+        {#each filtered as item (item.id)}
+            <Item {item} onRemoveItem={() => removeItem(item.id)} />
+        {/each}
+    </ul>
+</main>
 
-        <Footer {numActive} {currentFilter} {numCompleted} onRemoveCompletedItems={removeCompletedItems} />
-    </main>
-{/if}
+<Footer {numActive} {currentFilter} {numCompleted} onRemoveCompletedItems={removeCompletedItems} hidden={items.length === 0} />

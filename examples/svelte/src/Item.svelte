@@ -42,9 +42,13 @@
     </div>
 
     {#if editing}
-        <div class="input-container">
-            <input value={item.description} id="edit-todo-input" class="edit" onkeydown={handleEdit} onblur={updateItem} use:focusInput />
-            <label class="visually-hidden" for="edit-todo-input">Edit Todo Input</label>
-        </div>
+        <input
+            value={item.description}
+            class="edit"
+            aria-label="Edit todo"
+            onkeydown={handleEdit}
+            onblur={updateItem}
+            use:focusInput
+        />
     {/if}
 </li>
