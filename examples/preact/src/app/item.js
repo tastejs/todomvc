@@ -27,10 +27,14 @@ export default function TodoItem({ onSave, onRemove, onToggle, todo, index }) {
     }
 
     function handleKeyDown(e) {
-        if (e.key === "Escape")
+        if (e.key === "Escape") {
+            // Reset before blur so the about-to-fire blur->handleSubmit
+            // saves the original text (i.e. cancels).
+            e.target.value = todo.title;
             setEditing(false);
-        else if (e.key === "Enter")
+        } else if (e.key === "Enter") {
             handleSubmit(e);
+        }
     }
 
     function handleDoubleClick() {
@@ -51,15 +55,17 @@ export default function TodoItem({ onSave, onRemove, onToggle, todo, index }) {
             <div class="view">
                 <input class="toggle" type="checkbox" checked={todo.completed} onChange={handleToggle} />
                 <label onDblClick={handleDoubleClick}>{todo.title}</label>
-                <button class="destroy" onClick={handleRemove} />
+                <button class="destroy" aria-label="Delete todo" onClick={handleRemove} />
             </div>
             {editing
-                ? <div class="input-container">
-                    <input class="edit" id="edit-todo-input" ref={inputRef} onBlur={handleSubmit} onKeyDown={handleKeyDown} defaultValue={todo.title} />
-                    <label class="visually-hidden" htmlFor="edit-todo-input">
-                        Edit Todo Input{" "}
-                    </label>
-                </div>
+                ? <input
+                    class="edit"
+                    aria-label="Edit todo"
+                    ref={inputRef}
+                    onBlur={handleSubmit}
+                    onKeyDown={handleKeyDown}
+                    defaultValue={todo.title}
+                />
                 : null}
         </li>
     );
