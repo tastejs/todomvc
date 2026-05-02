@@ -1,49 +1,41 @@
 import { useCallback } from "react";
 
-const sanitize = (string) => {
-    const map = {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#x27;",
-        "/": "&#x2F;",
-    };
-    const reg = /[&<>"'/]/gi;
-    return string.replace(reg, (match) => map[match]);
-};
-
-const hasValidMin = (value, min) => {
-    return value.length >= min;
-};
-
-export function Input({ onSubmit, placeholder, label, defaultValue, onBlur }) {
-    const handleBlur = useCallback(() => {
-        if (onBlur)
-            onBlur();
-    }, [onBlur]);
+export function Input({ onSubmit, placeholder, label, defaultValue, onBlur, editing = false }) {
+    const handleBlur = useCallback(
+        (e) => {
+            if (!onBlur) return;
+            const value = e.target.value.trim();
+            onBlur(value);
+        },
+        [onBlur]
+    );
 
     const handleKeyDown = useCallback(
         (e) => {
-            if (e.key === "Enter") {
-                const value = e.target.value.trim();
-
-                if (!hasValidMin(value, 2))
-                    return;
-
-                onSubmit(sanitize(value));
-                e.target.value = "";
-            }
+            if (e.key !== "Enter") return;
+            const value = e.target.value.trim();
+            // For new-todo, ignore empty submits. For edit, an empty
+            // submit means "delete this todo" — let the parent decide.
+            if (!editing && value.length === 0) return;
+            onSubmit(value);
+            // Only clear the new-todo input on submit; the edit input is
+            // about to unmount so leave it alone.
+            if (!editing) e.target.value = "";
         },
-        [onSubmit]
+        [onSubmit, editing]
     );
 
     return (
-        <div className="input-container">
-            <input className="new-todo" id="todo-input" type="text" data-testid="text-input" autoFocus placeholder={placeholder} defaultValue={defaultValue} onBlur={handleBlur} onKeyDown={handleKeyDown} />
-            <label className="visually-hidden" htmlFor="todo-input">
-                {label}
-            </label>
-        </div>
+        <input
+            className={editing ? "edit" : "new-todo"}
+            type="text"
+            data-testid="text-input"
+            autoFocus
+            aria-label={label}
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+        />
     );
 }
