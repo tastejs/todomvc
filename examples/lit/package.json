@@ -3,8 +3,8 @@
     "private": true,
     "type": "module",
     "engines": {
-        "node": ">=18.13.0",
-        "npm": ">=8.19.3"
+        "node": ">=20.19.0",
+        "npm": ">=10.0.0"
     },
     "scripts": {
         "serve": "wireit",
@@ -15,19 +15,19 @@
         "copy-index-html": "wireit"
     },
     "devDependencies": {
-        "@rollup/plugin-node-resolve": "^15.1.0",
-        "@rollup/plugin-terser": "^0.4.3",
-        "@rollup/plugin-typescript": "^11.1.1",
-        "@web/dev-server": "^0.2.1",
-        "rollup": "^2.79.1",
-        "rollup-plugin-minify-html-literals": "^1.2.6",
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "@rollup/plugin-terser": "^1.0.0",
+        "@rollup/plugin-typescript": "^12.3.0",
+        "@web/dev-server": "^0.4.6",
+        "rollup": "^4.60.2",
+        "rollup-plugin-html-literals": "^2.0.1",
         "todomvc-common": "^1.0.5",
-        "typescript": "^5.0.4",
-        "wireit": "^0.14.0"
+        "tslib": "^2.8.1",
+        "typescript": "^5.9.3",
+        "wireit": "^0.14.12"
     },
     "dependencies": {
-        "lit": "^3.0.0-pre.0",
-        "tslib": "^2.5.2"
+        "lit": "^3.3.2"
     },
     "wireit": {
         "serve": {
@@ -85,7 +85,7 @@
             "command": "rollup --config rollup.config.mjs"
         },
         "copy-index-html": {
-            "command": "cp index.html dist/index.html",
+            "command": "mkdir -p dist && cp index.html dist/index.html",
             "files": [
                 "index.html"
             ],
@@ -94,7 +94,7 @@
             ]
         },
         "copy-base-js": {
-            "command": "cp node_modules/todomvc-common/base.js dist/base.js",
+            "command": "mkdir -p dist && cp node_modules/todomvc-common/base.js dist/base.js",
             "files": [
                 "node_modules/todomvc-common/base.js"
             ],
@@ -103,13 +103,13 @@
             ]
         },
         "copy-base-css": {
-            "command": "cp node_modules/todomvc-common/base.css dist/base.css",
+            "command": "mkdir -p dist && cp node_modules/todomvc-common/base.css dist/base.css",
             "files": [
                 "node_modules/todomvc-common/base.css"
             ],
             "output": [
                 "dist/base.css"
             ]
-      }
+        }
     }
 }

@@ -1,6 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
-import minifyHTML from "rollup-plugin-minify-html-literals";
+import htmlLiterals from "rollup-plugin-html-literals";
 import typescript from "@rollup/plugin-typescript";
 
 export default {
@@ -14,12 +14,11 @@ export default {
         // Resolve bare module specifiers to relative paths
         resolve(),
         // Minify HTML template literals
-        minifyHTML.default(),
+        htmlLiterals(),
         // Minify JS
         terser({
             ecma: 2022,
             module: true,
-            warnings: true,
         }),
     ],
     input: "src/index.ts",
