@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     import { router } from './router.js';
 
     import Header from './Header.svelte';
@@ -10,58 +9,62 @@
     import "todomvc-app-css/index.css";
     import "todomvc-common/base.css";
 
-    let currentFilter = "all";
-    let items = [];
+    let currentFilter = $state("all");
+    let items = $state([]);
 
-    function addItem(event) {
+    function addItem(text) {
         items.push({
             id: crypto.randomUUID(), // This only works in secure-context.
-            description: event.detail.text,
+            description: text,
             completed: false,
         });
-        items = items;
     }
 
-    function removeItem(index) {
-        items.splice(index, 1);
-        items = items;
+    function removeItem(id) {
+        const index = items.findIndex((item) => item.id === id);
+        if (index !== -1) items.splice(index, 1);
     }
 
     function toggleAllItems(event) {
         const checked = event.target.checked;
-        items = items.map((item) => ({
-            ...item,
-            completed: checked,
-        }));
+        for (const item of items) {
+            item.completed = checked;
+        }
     }
 
     function removeCompletedItems() {
         items = items.filter((item) => !item.completed);
     }
-    
-    onMount(() => {
-      router(route => currentFilter = route).init();
+
+    $effect(() => {
+        router((route) => (currentFilter = route)).init();
     });
 
-    $: filtered = currentFilter === "all" ? items : currentFilter === "completed" ? items.filter((item) => item.completed) : items.filter((item) => !item.completed);
-    $: numActive = items.filter((item) => !item.completed).length;
-    $: numCompleted = items.filter((item) => item.completed).length;
+    const filtered = $derived(
+        currentFilter === "all"
+            ? items
+            : currentFilter === "completed"
+                ? items.filter((item) => item.completed)
+                : items.filter((item) => !item.completed)
+    );
+    const numActive = $derived(items.filter((item) => !item.completed).length);
+    const numCompleted = $derived(items.filter((item) => item.completed).length);
 </script>
 
-<Header on:addItem={addItem} />
+<Header onAddItem={addItem} />
 
 {#if items.length > 0}
     <main class="main">
         <div class="toggle-all-container">
-            <input id="toggle-all" class="toggle-all" type="checkbox" on:change={toggleAllItems} checked={numCompleted === items.length} />
+            <input id="toggle-all" class="toggle-all" type="checkbox" onchange={toggleAllItems} checked={numCompleted === items.length} />
             <label for="toggle-all">Mark all as complete</label>
         </div>
         <ul class="todo-list">
-            {#each filtered as item, index (item.id)}
-                <Item bind:item on:removeItem={() => removeItem(index)} />
+            {#each filtered as item (item.id)}
+                <Item {item} onRemoveItem={() => removeItem(item.id)} />
             {/each}
         </ul>
 
-        <Footer {numActive} {currentFilter} {numCompleted} on:removeCompletedItems={removeCompletedItems} />
+        <Footer {numActive} {currentFilter} {numCompleted} onRemoveCompletedItems={removeCompletedItems} />
     </main>
 {/if}

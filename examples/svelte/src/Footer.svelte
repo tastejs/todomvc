@@ -1,15 +1,5 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-
-    export let numActive;
-    export let currentFilter;
-    export let numCompleted;
-
-    const dispatch = createEventDispatcher();
-
-    function removeCompletedItems(e) {
-        dispatch('removeCompletedItems');
-    }
+    let { numActive, currentFilter, numCompleted, onRemoveCompletedItems } = $props();
 </script>
 
 <footer class="footer">
@@ -25,6 +15,6 @@
     </ul>
 
     {#if numCompleted}
-        <button class="clear-completed" on:click={removeCompletedItems}> Clear completed </button>
+        <button class="clear-completed" onclick={onRemoveCompletedItems}> Clear completed </button>
     {/if}
 </footer>

@@ -1,24 +1,18 @@
 <script>
-    import { createEventDispatcher, tick } from 'svelte';
+    import { tick } from 'svelte';
 
-    export let item;
+    let { item, onRemoveItem } = $props();
 
-    const dispatch = createEventDispatcher();
-    
-    let editing = false;
-
-    function removeItem() {
-        dispatch('removeItem');
-    }
+    let editing = $state(false);
 
     function startEdit() {
-       editing = true;
+        editing = true;
     }
 
     function handleEdit(event) {
         if (event.key === "Enter")
             event.target.blur();
-        else if (event.key === "Escape") 
+        else if (event.key === "Escape")
             editing = false;
     }
 
@@ -28,7 +22,7 @@
         if (value.length) {
             item.description = value;
         } else {
-          removeItem();
+            onRemoveItem();
         }
         editing = false;
     }
@@ -41,15 +35,15 @@
 
 <li class:completed={item.completed} class:editing>
     <div class="view">
-        <input class="toggle" type="checkbox" on:change={(event) => item.completed = event.target.checked} checked={item.completed} />
-        <!-- svelte-ignore a11y-label-has-associated-control -->
-        <label on:dblclick={startEdit}>{item.description}</label>
-        <button on:click={removeItem} class="destroy" />
+        <input class="toggle" type="checkbox" onchange={(event) => item.completed = event.target.checked} checked={item.completed} />
+        <!-- svelte-ignore a11y_label_has_associated_control -->
+        <label ondblclick={startEdit}>{item.description}</label>
+        <button onclick={onRemoveItem} class="destroy" aria-label="Delete"></button>
     </div>
 
     {#if editing}
         <div class="input-container">
-            <input value={item.description} id="edit-todo-input" class="edit" on:keydown={handleEdit} on:blur={updateItem} use:focusInput />
+            <input value={item.description} id="edit-todo-input" class="edit" onkeydown={handleEdit} onblur={updateItem} use:focusInput />
             <label class="visually-hidden" for="edit-todo-input">Edit Todo Input</label>
         </div>
     {/if}
