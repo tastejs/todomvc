@@ -14,11 +14,10 @@ export class HeaderComponent {
   title = '';
 
   addTodo() {
-    if (this.title) {
-      this.todosService.addItem(this.title);
-
-      // Reset title to clear input field.
-      this.title = '';
-    }
+    const text = this.title.trim();
+    if (text.length === 0) return;
+    this.todosService.addItem(text);
+    // Reset title to clear input field.
+    this.title = '';
   }
 }

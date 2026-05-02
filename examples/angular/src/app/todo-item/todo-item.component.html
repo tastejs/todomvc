@@ -1,19 +1,18 @@
 <li [class.completed]="todo.completed" [class.editing]="isEditing">
-  <div class="view">
-      <input class="toggle" type="checkbox" (click)="toggleTodo()" [checked]="todo.completed" />
-      <label (dblclick)="startEdit()">{{ todo.title }}</label>
-      <button class="destroy" (click)="removeTodo()"></button>
-  </div>
-  @if (isEditing) {
-    <div class="input-container">
-        <input #todoInputRef class="edit" id="edit-todo-input"
-          [(ngModel)]="title"
-          (focus)="handleFocus($event)"
-          (blur)="handleBlur($event)"
-          (keyup.enter)="updateTodo()" />
-        <label class="visually-hidden" htmlFor="edit-todo-input">
-          Edit Todo title
-        </label>
+    <div class="view">
+        <input class="toggle" type="checkbox" (change)="toggleTodo()" [checked]="todo.completed" />
+        <label (dblclick)="startEdit()">{{ todo.title }}</label>
+        <button class="destroy" aria-label="Delete todo" (click)="removeTodo()"></button>
     </div>
-  }
+    @if (isEditing) {
+        <input
+            #todoInputRef
+            class="edit"
+            aria-label="Edit todo"
+            [(ngModel)]="title"
+            (focus)="handleFocus($event)"
+            (blur)="commitEdit()"
+            (keyup.enter)="commitEdit()"
+            (keyup.escape)="cancelEdit()" />
+    }
 </li>

@@ -27,7 +27,13 @@ export class TodosService {
     }
 
     toggleAll(completed: boolean): void {
-      this.todos = this.todos.map((todo) => ({ ...todo, completed }));
+      // Mutate in place so the rendered <li> elements aren't replaced.
+      // Replacing the array with new todo objects would force Angular to
+      // recreate every <app-todo-item>, which detaches DOM nodes that
+      // tests (or external observers) may already hold references to.
+      for (const todo of this.todos) {
+        todo.completed = completed;
+      }
     }
 
     getItems(type = 'all'): Todo[] {
