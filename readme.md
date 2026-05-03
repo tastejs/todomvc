@@ -1,17 +1,63 @@
 # ![TodoMVC](media/logo.png)
 
-> Helping you select an MV\* framework
+> Helping you select a JavaScript framework
 
 ### [Website](http://todomvc.com)&nbsp;&nbsp;&nbsp;&nbsp;[Blog](http://blog.tastejs.com)&nbsp;&nbsp;&nbsp;&nbsp;[TasteJS](http://tastejs.com)
 
-[![Build Status](https://travis-ci.org/tastejs/todomvc.svg)](https://travis-ci.org/tastejs/todomvc)
-[![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://dashboard.cypress.io/#/projects/n4ynap/runs)
+Developers have a number of choices today when it comes to selecting a JavaScript framework or UI library for building scalable web apps.
 
-Developers these days are spoiled with choice when it comes to selecting an MV\* framework for structuring and organizing JavaScript web apps.
+React, Vue, Svelte, Angular, Solid, Lit... the list of solutions continues to grow, but just how do you decide on which to use in a sea of so many options?
 
-Backbone, Ember, AngularJS... the list of new and stable solutions goes on and on, but just how do you decide on which to use in a sea of so many options?
+To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented in most of the popular JavaScript frameworks of the day. Each example is functionally identical and follows the same [app specification](app-spec.md), so you can compare syntax, structure, and idioms side by side on equal footing.
 
-To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV\* frameworks of today.
+TodoMVC has been the de-facto teaching example for UI frameworks for over a decade, and forms the core of the cross-browser [Speedometer](https://browserbench.org/Speedometer3.1/) benchmark used by every major browser engine to optimize UI performance.
+
+
+## Examples
+
+The actively maintained examples in this repo are kept current with their framework's latest stable line. As of TodoMVC 2.0:
+
+- [React 19](examples/react)
+- [Vue 3.5](examples/vue)
+- [Angular 21](examples/angular)
+- [Svelte 5](examples/svelte) (with runes)
+- [Preact 10](examples/preact)
+- [Lit 3.3](examples/lit)
+- [React Redux 9](examples/react-redux) (with Redux Toolkit 2)
+
+Plenty of legacy framework showcases also live in `examples/` for historical reference. See the [website](http://todomvc.com) for the full list.
+
+
+## Build a TodoMVC App with Your AI Coding Agent
+
+The [app spec](app-spec.md) is plain Markdown and reads cleanly into any modern AI coding agent (Claude Code, Cursor, GitHub Copilot, Codex, Gemini Code Assist, Aider, and so on). To generate a fresh implementation in a framework or language that isn't on the list above, drop this prompt into your agent of choice:
+
+```
+Build a TodoMVC app following this spec https://raw.githubusercontent.com/tastejs/todomvc/refs/heads/master/app-spec.md in React
+```
+
+Replace `React` with `Vue`, `Svelte`, `Angular`, `Solid`, `Lit`, `Preact`, `Qwik`, or any framework or language you want to evaluate. The result follows the same behavioural surface every example in this repo implements (add, edit, toggle, filter, route, clear completed), so it's directly comparable to the reference apps.
+
+
+## Running the examples and tests
+
+Each example builds and serves itself. Most modern apps use Vite, webpack, or rollup; cd into an example, install, and run:
+
+```sh
+$ cd examples/react
+$ npm install
+$ npm run build
+$ npm run serve
+```
+
+To run the Cypress test suite against the maintained examples:
+
+```sh
+$ npm install
+$ npm run test:all
+```
+
+`npm run test:all` defaults to the curated modern set. Pass `--all` to sweep every example in `examples/`, or `--framework=react` to target a single one. See [tests/README.md](tests/README.md) for details.
 
 
 ## Team
@@ -67,7 +113,7 @@ Gianni is a programmer and designer currently working as the Chief Rigger at Met
 
 <img align="right" width="230" height="230" src="media/icon-small.png">
 
-TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of MV\* frameworks. Whilst we hope that this project can offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of a framework's potential capability.
+TodoMVC has been called many things including the 'Speed-dating' and 'Rosetta Stone' of JavaScript frameworks. Whilst we hope that this project can offer assistance in deciding what frameworks are worth spending more time looking at, remember that the Todo application offers a limited view of a framework's potential capability.
 
 It is meant to be used as a gateway to reviewing how a basic application using a framework may be structured, and we heavily recommend investing time researching a solution in more depth before opting to use it.
 
