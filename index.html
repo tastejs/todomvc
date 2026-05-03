@@ -420,6 +420,25 @@
 				</div>
 			</div>
 			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Build a TodoMVC App with Your AI Coding Agent</h2>
+					<p>Want a TodoMVC implementation in a framework that isn't on this page yet, or one that exactly matches your team's stack? The TodoMVC app spec is plain Markdown and reads cleanly into any modern AI coding agent (Claude Code, Cursor, GitHub Copilot, Codex, Gemini Code Assist, Aider, and so on). Drop the line below into your agent of choice and swap in the framework you want:</p>
+					<pre><code>Build a TodoMVC app following this spec https://raw.githubusercontent.com/tastejs/todomvc/refs/heads/master/app-spec.md in React</code></pre>
+					<p>Replace <code>React</code> with <code>Vue</code>, <code>Svelte</code>, <code>Angular</code>, <code>Solid</code>, <code>Lit</code>, <code>Preact</code>, <code>Qwik</code>, or any framework or language you want to evaluate. The spec covers the same behavioural surface every example on this page implements (add, edit, toggle, filter, route, clear completed), so the result is directly comparable to the reference apps above.</p>
+					<p>This makes TodoMVC useful as both a teaching artifact and a benchmarkable prompt: a quick way to feel out how a new framework reads, or how a given AI agent handles a non-trivial-but-bounded UI task.</p>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Industry Impact</h2>
+					<p>TodoMVC was created in 2011 to give developers a single, consistent application they could re-implement in any framework, side by side, on equal footing. Over the years since, the humble Todo app has become the de-facto teaching example for UI frameworks and component-driven architecture: it is small enough to fit in a single screen of code, but large enough to exercise state management, list rendering, routing, persistence, editing, and event handling. That has made it the reference point developers reach for when learning a new framework, and the reference point framework authors reach for when explaining theirs.</p>
+					<p>Major engineering organizations across the industry use TodoMVC apps in onboarding, internal training, conference talks, framework documentation, and live demos: from teams at <strong>Google</strong>, <strong>Apple</strong>, <strong>Microsoft</strong>, and <strong>Meta</strong> to research groups at <strong>OpenAI</strong> and the wider open-source community. If you have ever sat through "here is how this framework feels", odds are good the example on screen was a TodoMVC app.</p>
+					<p>TodoMVC has also become foundational to how the web platform itself is measured. Since <strong>Speedometer 1.0</strong>, the cross-browser benchmark every major browser engine uses to optimize UI performance has been built around TodoMVC implementations. Each generation of Speedometer has expanded that core: <a href="https://webkit.org/blog/8063/speedometer-2-0-a-benchmark-for-modern-web-app-responsiveness/" target="_blank">Speedometer 2.0</a> rebuilt the suite around modernized TodoMVC apps in the popular frameworks of the day, and <a href="https://webkit.org/blog/15131/speedometer-3-0-the-best-way-yet-to-measure-browser-performance/" target="_blank">Speedometer 3.0</a> further expanded the workloads to better reflect the modern web. Improvements to JavaScript engines, layout, rendering, and DOM performance in Chromium, WebKit, and Gecko are routinely validated against TodoMVC code paths. The project's reach goes well beyond the apps you see on this page.</p>
+				</div>
+			</div>
+			<hr>
 			<footer class="credit">
 				<p>Brought to you by
 					<a href="https://github.com/addyosmani"><img src="https://avatars.githubusercontent.com/u/110953?v=4&s=80" width="40" height="40" alt="Addy Osmani">Addy</a>
