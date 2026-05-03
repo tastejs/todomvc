@@ -61,15 +61,25 @@ export default function App() {
         model.toggleAll(e.target.checked);
     }
 
+    const hasItems = model.getTodos().length > 0;
     return (
         <>
             <TodoHeader onKeyDown={handleKeyDown} />
-            {model.getTodos().length > 0
-                ? <>
-                    <TodoMain todos={model.getTodos()} route={route} onChange={toggleAll} onToggle={model.toggleItem} onRemove={model.removeItem} onSave={model.updateItem} />
-                    <TodoFooter todos={model.getTodos()} route={route} onClearCompleted={model.clearCompleted} />
-                </>
-                : null}
+            <TodoMain
+                todos={model.getTodos()}
+                route={route}
+                onChange={toggleAll}
+                onToggle={model.toggleItem}
+                onRemove={model.removeItem}
+                onSave={model.updateItem}
+                hidden={!hasItems}
+            />
+            <TodoFooter
+                todos={model.getTodos()}
+                route={route}
+                onClearCompleted={model.clearCompleted}
+                hidden={!hasItems}
+            />
         </>
     );
 }

@@ -43,16 +43,10 @@
 			"heading": "Community",
 			"links": [{
 				"name": "Framework Name on StackOverflow",
-				"url": "http://stackoverflow.com/questions/tagged/__"
+				"url": "https://stackoverflow.com/questions/tagged/__"
 			}, {
-				"name": "Mailing list on Google Groups",
-				"url": ""
-			}, {
-				"name": "Framework Name on Twitter",
-				"url": "http://twitter.com/__"
-			}, {
-				"name": "Framework Name on Google +",
-				"url": "http://google.com/+__"
+				"name": "Framework Name on X",
+				"url": "https://x.com/__"
 			}]
 		}]
 	}

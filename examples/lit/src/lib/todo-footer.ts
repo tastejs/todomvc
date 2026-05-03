@@ -106,17 +106,18 @@ export class TodoFooter extends LitElement {
             filter: "completed",
             selectedFilter: this.todoList?.filter,
         });
+        const activeCount = this.todoList?.active.length ?? 0;
         return html`
             <span class="todo-count">
-                <strong>${this.todoList?.active.length}</strong>
-                items left
+                <strong>${activeCount}</strong>
+                ${activeCount === 1 ? "item" : "items"} left
             </span>
             <ul class="filters">
                 <li>${allFilter}</li>
                 <li>${activeFilter}</li>
                 <li>${completedFilter}</li>
             </ul>
-            ${(this.todoList?.completed.length ?? 0) > 0 ? html`<button @click=${this.#onClearCompletedClick} class="clear-completed">Clear Completed</button>` : nothing}
+            ${(this.todoList?.completed.length ?? 0) > 0 ? html`<button @click=${this.#onClearCompletedClick} class="clear-completed">Clear completed</button>` : nothing}
         `;
     }
 

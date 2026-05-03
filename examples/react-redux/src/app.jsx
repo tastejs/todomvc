@@ -1,5 +1,5 @@
-import Header from "./containers/header-container";
-import Main from "./containers/main-container";
+import Header from "./components/header";
+import Main from "./components/main";
 
 import "./styles/app.css";
 

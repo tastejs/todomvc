@@ -1,7 +1,7 @@
 {
 	"angular": {
 		"name": "Angular",
-		"description": "Angular is a web framework that empowers developers to build fast, reliable applications.",
+		"description": "Angular is a TypeScript-first web framework for building fast, reliable applications. The modern toolchain (standalone components, signals, the @angular/build builder, zoneless change detection by default in v21+) keeps the framework current while preserving the structured, opinionated developer experience Angular is known for.",
 		"homepage": "angular.dev",
 		"examples": [{
 			"name": "Angular",
@@ -832,7 +832,7 @@
 	},
 	"lit": {
 		"name": "Lit",
-		"description": "Lit is a simple library for building fast, lightweight web components.",
+		"description": "Lit is a simple library for building fast, lightweight web components. It pairs reactive properties and declarative HTML templates with the standard Custom Elements and Shadow DOM APIs, so components are first-class browser citizens that work across any framework or none.",
 		"homepage": "lit.dev",
 		"examples": [{
 			"name": "Example",
@@ -1017,7 +1017,7 @@
 	},
 	"preact": {
 		"name": "Preact",
-		"description": "Fast 3kB React alternative with the same modern API. Components & Virtual DOM.",
+		"description": "A fast 3kB alternative to React with the same modern hooks API. Preact ships small, runs close to the metal, and works as a drop-in replacement for many React projects.",
 		"homepage": "preactjs.com",
 		"examples": [{
 			"name": "Example",
@@ -1036,7 +1036,7 @@
 	},
 	"react": {
 		"name": "React",
-		"description": "React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.",
+		"description": "React is a JavaScript library for building user interfaces. You compose UI from function components and describe state with hooks; React handles the rendering and keeps the UI in sync as state changes. The modern ecosystem (createRoot, Suspense, Server Components) builds on the same component model.",
 		"homepage": "facebook.github.io/react",
 		"examples": [{
 			"name": "React",
@@ -1070,7 +1070,7 @@
 	},
 	"react-redux": {
 		"name": "React Redux",
-		"description": "React Redux is maintained by the Redux team, and kept up-to-date with the latest APIs from Redux and React.",
+		"description": "The official React bindings for Redux. The TodoMVC example pairs React Redux with Redux Toolkit (createSlice, configureStore) for the modern, recommended way to use Redux in a React app.",
 		"homepage": "react-redux.js.org/",
 		"examples": [{
 			"name": "Example",
@@ -1181,7 +1181,7 @@
 	},
 	"svelte": {
 		"name": "Svelte",
-		"description": "Svelte is a new way to build web applications. It's a compiler that takes your declarative components and converts them into efficient JavaScript that surgically updates the DOM.",
+		"description": "Svelte is a UI framework that shifts work out of the browser and into a compile step. Components describe what the UI should look like and Svelte generates the imperative code that surgically updates the DOM. Svelte 5 introduces runes ($state, $derived, $effect, $props) for explicit, fine-grained reactivity.",
 		"homepage": "svelte.dev",
 		"examples": [{
 			"name": "Example",
@@ -1255,7 +1255,7 @@
 	},
 	"vue": {
 		"name": "Vue.js",
-		"description": "Vue.js provides efficient MVVM data bindings with a simple and flexible API. It uses plain JavaScript object models, DOM-based templating and extendable directives and filters.",
+		"description": "Vue is an approachable, progressive framework for building user interfaces. Components are authored as Single-File Components, with reactive state via the Composition API and `<script setup>`.",
 		"homepage": "vuejs.org",
 		"examples": [{
 			"name": "Example",

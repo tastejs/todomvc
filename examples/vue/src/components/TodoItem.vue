@@ -1,75 +1,58 @@
 <script setup>
-import { ref, nextTick, computed } from 'vue'
+import { ref, nextTick } from 'vue'
 
-const props = defineProps(['todo', 'index']);
-const emit = defineEmits(['delete-todo', 'edit-todo']);
+const props = defineProps(['todo']);
+const emit = defineEmits(['delete-todo', 'edit-todo', 'toggle-todo']);
 
 const editing = ref(false);
 const editInput = ref(null);
-const editText = ref("");
+const draft = ref('');
 
-const editModel = computed({
-    get() {
-        return props.todo.title;
-    },
-    set(value) {
-        editText.value = value;
-    },
-});
-
-const toggleModel = computed({
-    get() {
-        return props.todo.completed;
-    },
-    set(value) {
-        emit("toggle-todo", props.todo, value);
-    },
-});
-
-function startEdit() {
-    editing.value = true;
-    nextTick(() => {
-        editInput.value.focus();
-    });
+function onToggle(event) {
+    emit('toggle-todo', props.todo, event.target.checked);
 }
 
-function finishEdit() {
+function startEdit() {
+    draft.value = props.todo.title;
+    editing.value = true;
+    nextTick(() => editInput.value?.focus());
+}
+
+function commitEdit() {
+    if (!editing.value) return;
     editing.value = false;
-     if (editText.value.trim().length === 0)
-        deleteTodo();
-    else
-        updateTodo();
+    const text = draft.value.trim();
+    if (text.length === 0) emit('delete-todo', props.todo);
+    else emit('edit-todo', props.todo, text);
 }
 
 function cancelEdit() {
     editing.value = false;
+    draft.value = props.todo.title;
 }
 
 function deleteTodo() {
-    emit("delete-todo", props.todo);
-}
-
-function updateTodo() {
-    emit("edit-todo", props.todo, editText.value);
-    editText.value = "";
+    emit('delete-todo', props.todo);
 }
 </script>
 
 <template>
-    <li
-        :class="{
-            completed: todo.completed,
-            editing: editing,
-        }"
-    >
+    <li :class="{ completed: todo.completed, editing }">
         <div class="view">
-            <input type="checkbox" class="toggle" v-model="toggleModel" />
+            <input type="checkbox" class="toggle" :checked="todo.completed" @change="onToggle" />
             <label @dblclick="startEdit">{{ todo.title }}</label>
             <button class="destroy" @click.prevent="deleteTodo"></button>
         </div>
-        <div class="input-container">
-            <input id="edit-todo-input" ref="editInput" type="text" class="edit" v-model="editModel" @keyup.enter="finishEdit" @blur="cancelEdit"/>
-            <label class="visually-hidden" for="edit-todo-input">Edit Todo Input</label>
-        </div>
+        <input
+            v-if="editing"
+            ref="editInput"
+            type="text"
+            class="edit"
+            aria-label="Edit todo"
+            v-model="draft"
+            @keyup.enter="commitEdit"
+            @keyup.escape="cancelEdit"
+            @blur="commitEdit"
+        />
     </li>
 </template>

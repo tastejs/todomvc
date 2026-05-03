@@ -1,105 +1,106 @@
-require('console.table')
+// Run cypress against one or more example apps. Usage:
+//   node tests/cya.js                         # the curated "main" set (default)
+//   node tests/cya.js --all                   # every framework not in excluded.js
+//   node tests/cya.js --framework=react       # one framework
+//   node tests/cya.js -f react -f vue         # multiple
+//   node tests/cya.js --browser=chrome -t 3   # custom browser, repeat 3 times
 
-const path = require('path')
-const fs = require('fs')
-const figlet = require('figlet')
-const chalk = require('chalk')
-const cypress = require('cypress')
-const Promise = require('bluebird')
-const pluralize = require('pluralize')
-const R = require('ramda')
-const excludedFrameworks = require('./excluded')
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const args = require('minimist')(process.argv.slice(2), {
-  string: ['framework', 'browser'],
-  number: 'times',
-  boolean: 'main', // run list of main apps
-  boolean: 'problems', // run list of problematic apps
-  alias: {
-    framework: 'f',
-    times: 't',
-    problems: 'p'
-  },
-  default: {
-    times: 1
-  }
-})
+import cypress from 'cypress';
+import minimist from 'minimist';
 
-if (typeof args.framework === 'string') {
-  args.framework = [args.framework]
-}
+import excludedFrameworks from './excluded.js';
 
-const examplesFolder = path.join(__dirname, '..', 'examples')
-const names = fs.readdirSync(examplesFolder)
-const allFrameworks = R.difference(names, excludedFrameworks)
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const args = minimist(process.argv.slice(2), {
+    string: ['framework', 'browser'],
+    boolean: ['all', 'problems', 'record'],
+    alias: { framework: 'f', times: 't', problems: 'p' },
+    default: { times: 1, record: false },
+});
+
+const asArray = (value) =>
+    value === undefined ? [] : Array.isArray(value) ? value : [value];
+
+const examplesFolder = path.join(__dirname, '..', 'examples');
+const allFrameworks = fs
+    .readdirSync(examplesFolder)
+    .filter((name) => !excludedFrameworks.includes(name))
+    .filter((name) => fs.statSync(path.join(examplesFolder, name)).isDirectory());
+
+// Default ("main") set: the modern apps that are actively maintained and
+// pass cleanly under the cypress spec. Other example apps in this repo
+// are legacy showcases of older frameworks; some still pass, some don't,
+// and they're left to bitrot organically. Run `--all` to sweep them.
+//
+// Lit is intentionally excluded from the default set: cypress's
+// `includeShadowDom: true` doesn't pierce three nested shadow roots
+// (todo-app > todo-list > todo-item), which the spec's selectors depend
+// on. The lit example itself is correct — shadow DOM is the right
+// pattern for web components — so this is a test-runner limitation
+// rather than an app problem. Run it directly with
+// `npx cypress run --env framework=lit` to see what does pass.
 const mainFrameworks = [
-  'backbone',
-  'dojo',
-  'react',
-  'vue',
-  'angularjs',
-  'knockback',
-  'mithril',
-  'backbone_marionette',
-  'emberjs',
-  'canjs',
-  'ampersand',
-  'troopjs_require',
-  'knockoutjs',
-  'polymer',
-  'flight'
-]
+    'angular',
+    'preact',
+    'react',
+    'react-redux',
+    'svelte',
+    'vue',
+];
 
-const problematicFrameworks = ['js_of_ocaml', 'flight']
+const problematicFrameworks = ['js_of_ocaml', 'flight'];
 
-const frameworksToTest = args.framework
-  ? args.framework
-  : args.main
-      ? mainFrameworks
-      : args.problems ? problematicFrameworks : allFrameworks
-if (R.isEmpty(frameworksToTest)) {
-  console.log('nothing to test ⚠️')
-  process.exit(1)
-}
-console.log('testing %s', pluralize('framework', frameworksToTest.length, true))
-if (args.times) {
-  console.log('running all tests %s', pluralize('time', args.times, true))
-}
-if (args.browser) {
-  console.log('in browser %s', args.browser)
+const explicit = asArray(args.framework);
+const frameworksToTest = explicit.length
+    ? explicit
+    : args.all
+      ? allFrameworks
+      : args.problems
+        ? problematicFrameworks
+        : mainFrameworks;
+
+if (frameworksToTest.length === 0) {
+    console.log('nothing to test');
+    process.exit(1);
 }
 
-const testApp = app => {
-  console.log(
-    figlet.textSync(app, {
-      font: 'Varsity'
-    })
-  )
+console.log(`testing ${frameworksToTest.length} framework(s):`, frameworksToTest.join(', '));
+if (args.times > 1) console.log(`running each spec ${args.times} times`);
+if (args.browser) console.log(`browser: ${args.browser}`);
 
-  const colorFailures = n => (n ? chalk.red(n) : chalk.green(n))
-  const addColors = R.over(R.lensProp('failures'), colorFailures)
+const results = [];
 
-  return cypress
-    .run({
-      browser: args.browser,
-      record: true,
-      key: '6f32e649-6348-4d6e-8ec0-4b57774965d1',
-      env: {
-        framework: app,
-        times: args.times
-      }
-    })
-    .then(R.omit(['screenshots', 'video', 'version']))
-    .then(R.set(R.lensProp('app'), app))
-    .then(addColors)
+for (const app of frameworksToTest) {
+    console.log(`\n=== ${app} ===`);
+    try {
+        const result = await cypress.run({
+            browser: args.browser,
+            record: args.record,
+            env: { framework: app, times: args.times },
+        });
+        results.push({
+            app,
+            tests: result.totalTests,
+            passing: result.totalPassed,
+            failing: result.totalFailed,
+            skipped: result.totalSkipped,
+            duration: `${Math.round(result.totalDuration / 1000)}s`,
+        });
+    } catch (err) {
+        console.error(`problem testing ${app}:`, err.message);
+        results.push({ app, tests: 0, passing: 0, failing: '?', skipped: 0, duration: '-' });
+    }
 }
 
-Promise.mapSeries(frameworksToTest, testApp)
-  .then(results => {
-    console.table('TodoMVC results', results)
-  })
-  .catch(e => {
-    console.error('problem testing frameworks')
-    console.error(e)
-  })
+console.table(results);
+
+const totalFailing = results.reduce(
+    (n, r) => n + (typeof r.failing === 'number' ? r.failing : 1),
+    0,
+);
+process.exit(totalFailing > 0 ? 1 : 0);

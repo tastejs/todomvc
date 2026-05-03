@@ -1,5 +1,37 @@
 # Changelog
 
+## 2.0
+
+- Framework versions brought up to current stable lines (idiomatic code for each):
+    - React 17 → 19 (createRoot, react-router 7, modern webpack stack)
+    - Vue 3.3 → 3.5 (Vite 8, plugin-vue 6)
+    - Angular 17 → 21 (new `@angular/build` builder, dropped karma)
+    - Svelte 4 → 5 (full migration to runes: `$state`, `$derived`, `$effect`, `$props`)
+    - Preact 10.13 → 10.29 (Rollup 4)
+    - Lit 3.0-pre → 3.3.2 (proper stable release)
+    - React Redux modernized to Redux Toolkit 2 + react-redux 9 (function components + hooks throughout)
+
+- Test infrastructure modernized:
+    - Replaced gulp 3 (broken on modern Node) with a small Express server
+    - Cypress 3 → 15 with current config layout (`cypress.config.js`, `cypress/e2e/`)
+    - Modernized the multi-app runner; default `npm run test:all` now sweeps the curated modern set, with `--all` for the full legacy sweep
+    - Deleted dead Selenium scaffolding from 2014
+
+- ~20 spec deviations caught and fixed across the maintained apps:
+    - Hidden-when-empty: `<main>` and `<footer>` now stay in DOM and toggle `hidden` instead of returning null
+    - Trim-on-save in headers and edit fields
+    - Save-on-blur, Escape-to-cancel, with proper Mocha 10 / Cypress 12+ behavior
+    - "Clear Completed" → "Clear completed" (spec-correct)
+    - aria-label on edit inputs and destroy buttons (replacing always-rendered visually-hidden labels)
+    - Toggle-all no longer starts checked on an empty list
+
+- Site content refresh:
+    - Updated framework descriptions in learn.json (React, Vue, Svelte, Lit, Angular, Preact, React Redux)
+    - Removed dead Google+ widget and Universal Analytics snippet
+    - Renamed "JavaScript ES6" example to "Modern JavaScript"
+    - Updated Speedometer link to 3.1
+    - Refreshed intro copy and "What's new" section for the 2026 ecosystem
+
 ## 1.4
 
 - New examples:

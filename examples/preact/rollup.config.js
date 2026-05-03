@@ -11,44 +11,31 @@ const production = !process.env.ROLLUP_WATCH;
 
 export default {
     input: "src/index.js",
-    output: [
-        {
-            file: "dist/app.js",
-            format: "iife",
-            sourcemap: true,
-        },
-    ],
+    output: {
+        file: "dist/app.js",
+        format: "iife",
+        sourcemap: true,
+    },
     plugins: [
-        css({
-            minify: true,
-        }),
+        css({ minify: true, output: "app.css" }),
         babel({
+            babelHelpers: "bundled",
             babelrc: false,
             presets: [
                 ["@babel/preset-env", { targets: "defaults" }],
-                ["@babel/preset-react", { runtime: "automatic" }],
-            ],
-            plugins: [
                 [
-                    "@babel/plugin-transform-react-jsx",
-                    {
-                        pragma: "h",
-                        pragmaFrag: "Fragment",
-                    },
+                    "@babel/preset-react",
+                    { runtime: "automatic", importSource: "preact" },
                 ],
             ],
         }),
-        resolve({
-            jsnext: true,
-            main: true,
-            browser: true,
-        }),
+        resolve({ browser: true }),
         commonjs(),
         copy({
             targets: [
-				{ src: "public/index.html", dest: "dist/" },
-				{ src: "node_modules/todomvc-common/base.js", dest: "dist/" }
-			],
+                { src: "public/index.html", dest: "dist/" },
+                { src: "node_modules/todomvc-common/base.js", dest: "dist/" },
+            ],
         }),
         production && terser(),
     ],

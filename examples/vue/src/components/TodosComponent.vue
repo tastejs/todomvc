@@ -85,7 +85,7 @@ function deleteCompleted() {
             <label class="toggle-all-label" htmlFor="toggle-all-input"> Toggle All Input </label>
         </div>
         <ul class="todo-list">
-            <TodoItem v-for="(todo, index) in filteredTodos.value" :key="todo.id" :todo="todo" :index="index"
+            <TodoItem v-for="todo in filteredTodos.value" :key="todo.id" :todo="todo"
                 @delete-todo="deleteTodo" @edit-todo="editTodo" @toggle-todo="toggleTodo" />
         </ul>
     </main>

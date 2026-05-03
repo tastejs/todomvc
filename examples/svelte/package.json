@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "A TodoMVC app written with Svelte.",
     "engines": {
-        "node": ">=18.13.0",
-        "npm": ">=8.19.3"
+        "node": ">=20.19.0",
+        "npm": ">=10.0.0"
     },
     "private": true,
     "type": "module",
@@ -14,13 +14,13 @@
         "serve": "npm run build && vite preview"
     },
     "dependencies": {
-        "todomvc-app-css": "^2.4.2",
+        "todomvc-app-css": "^2.4.3",
         "todomvc-common": "^1.0.5"
     },
     "devDependencies": {
-        "@sveltejs/vite-plugin-svelte": "^3.1.1",
-        "svelte": "^4.2.0",
-        "vite": "^5.3.1",
-        "vite-plugin-static-copy": "^1.0.5"
+        "@sveltejs/vite-plugin-svelte": "^7.0.0",
+        "svelte": "^5.55.5",
+        "vite": "^8.0.10",
+        "vite-plugin-static-copy": "^4.1.0"
     }
 }

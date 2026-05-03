@@ -1,56 +1,51 @@
-import { Component } from "react";
+import { useState, useRef } from "react";
 import classnames from "classnames";
-import PropTypes from "prop-types";
 
-export default class TextInput extends Component {
-    static propTypes = {
-        onSave: PropTypes.func.isRequired,
-        text: PropTypes.string,
-        placeholder: PropTypes.string,
-        editing: PropTypes.bool, // input is used in Item to edit the todo.
-        newTodo: PropTypes.bool, // input is used in Header to create a todo.
+export default function TextInput({
+    onSave,
+    onCancel,
+    text = "",
+    placeholder,
+    editing = false,
+    newTodo = false,
+}) {
+    const [value, setValue] = useState(text);
+    const cancelled = useRef(false);
+
+    const submit = () => {
+        if (cancelled.current) {
+            cancelled.current = false;
+            return;
+        }
+        onSave(value.trim());
+        if (newTodo) setValue("");
     };
 
-    state = {
-        text: this.props.text || "",
-    };
-
-    handleSubmit = (e) => {
-        const text = e.target.value.trim();
+    const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-            this.props.onSave(text);
-            if (this.props.newTodo)
-                this.setState({ text: "" });
+            submit();
+        } else if (e.key === "Escape" && editing && onCancel) {
+            cancelled.current = true;
+            onCancel();
         }
     };
 
-    handleChange = (e) => {
-        this.setState({ text: e.target.value });
+    const handleBlur = () => {
+        if (!newTodo) submit();
     };
 
-    handleBlur = (e) => {
-        // If this input is used in the Header, call onSave to create a new todo.
-
-        if (!this.props.newTodo)
-            this.props.onSave(e.target.value);
-    };
-
-    render() {
-        return (
-            <input
-                className={classnames({
-                    edit: this.props.editing,
-                    "new-todo": this.props.newTodo,
-                })}
-                type="text"
-                data-testid="text-input"
-                placeholder={this.props.placeholder}
-                autoFocus
-                value={this.state.text}
-                onBlur={this.handleBlur}
-                onChange={this.handleChange}
-                onKeyDown={this.handleSubmit}
-            />
-        );
-    }
+    return (
+        <input
+            className={classnames({ edit: editing, "new-todo": newTodo })}
+            type="text"
+            data-testid="text-input"
+            placeholder={placeholder}
+            aria-label={editing ? "Edit todo" : "New todo"}
+            autoFocus
+            value={value}
+            onBlur={handleBlur}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+        />
+    );
 }
