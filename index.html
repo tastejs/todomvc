@@ -3,17 +3,17 @@
 	<head>
 		<meta charset="utf-8">
 		<title>TodoMVC</title>
-		<meta name="description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS and many more">
+		<meta name="description" content="Helping you select a JavaScript framework - the same Todo app implemented in React, Vue, Svelte, Angular, Lit, Preact and many more">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:title" content="TodoMVC">
 		<meta name="twitter:site" content="@TasteJS">
-		<meta name="twitter:description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS and many more">
+		<meta name="twitter:description" content="Helping you select a JavaScript framework - the same Todo app implemented in React, Vue, Svelte, Angular, Lit, Preact and many more">
 		<meta name="twitter:image" content="https://raw.githubusercontent.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png">
 		<meta property="og:url" content="http://todomvc.com">
 		<meta property="og:title" content="TodoMVC">
 		<meta property="og:image" content="https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png">
-		<meta property="og:description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS and many more">
+		<meta property="og:description" content="Helping you select a JavaScript framework - the same Todo app implemented in React, Vue, Svelte, Angular, Lit, Preact and many more">
 		<link rel="shortcut icon" href="site-assets/favicon.ico">
 		<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 		<!-- build:remove -->
@@ -45,12 +45,11 @@
 				<div class="col-md-4">
 					<h2>Introduction</h2>
 					<p>Developers have a number of choices today when it comes to selecting a JavaScript framework or UI library for building scalable web apps.</p>
-					<p>React / Next.js, Vue / Nuxt, Angular…the list of solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
-					<p>To help you understand the options, we created TodoMVC - a project which has offered the same Todo applications implemented in popular JavaScript frameworks for the last decade.</p>
-					<p>TodoMVC is useful for comparing syntax and solutions, is officially used in cross-browser benchmarks (e.g. <a href="https://browserbench.org/Speedometer3.0/" target="_blank">Speedometer</a>) and aims to stay up to date as trends change over time.</p>
+					<p>React, Vue, Svelte, Angular, Solid, Lit…the list of solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
+					<p>To help you understand the options, we created TodoMVC - a project which has offered the same Todo applications implemented in popular JavaScript frameworks for over a decade.</p>
+					<p>TodoMVC is useful for comparing syntax and solutions, is officially used in cross-browser benchmarks (e.g. <a href="https://browserbench.org/Speedometer3.1/" target="_blank">Speedometer</a>) and aims to stay up to date as trends change over time.</p>
 					<a href="https://twitter.com/tastejs" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
-					<a href="https://twitter.com/share" class="twitter-share-button" data-via="tastejs" data-url="http://todomvc.com" data-text="TodoMVC - Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, and more"></a>
-					<div class="g-plusone" data-size="medium" data-annotation="none" data-href="http://todomvc.com"></div>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-via="tastejs" data-url="http://todomvc.com" data-text="TodoMVC - Helping you select a JavaScript framework - the same Todo app in React, Vue, Svelte, Angular and more"></a>
 				</div>
 				<div class="col-md-8">
 					<h2>Examples</h2>
@@ -332,8 +331,8 @@
 							</a>
 						</li>
 						<li>
-							<a class="applist-item" href="examples/javascript-es6/dist/" data-source="https://developer.mozilla.org/en/JavaScript" data-content="Just ECMAScript 6 and DOM APIs. Uses Webpack to bundle / optimize.">
-								<span class="link">JavaScript ES6</span>
+							<a class="applist-item" href="examples/javascript-es6/dist/" data-source="https://developer.mozilla.org/en/JavaScript" data-content="Modern JavaScript and DOM APIs only — no framework, no library. Uses webpack to bundle and optimize.">
+								<span class="link">Modern JavaScript</span>
 								<span class="badge" data-color="green">New</span>
 							</a>
 						</li>
@@ -374,40 +373,34 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-4">
-					<h2>New in 1.4</h2>
+					<h2>New in 2.0</h2>
 					<ul class="whats-new">
-						<li><h4>New Additions ✨</h4>
+						<li><h4>Framework Updates 🚀</h4>
 							<div>
-								<p>To stay representative of frameworks & language features used on the web, we added a few new example apps.</p>
-								<label class="link" for="new-expander">Examples ▼</label>
-								<input type="checkbox" id="new-expander" class="simple-dropdown">
-								<ul class="collapsed" id="new-apps">
-									<li><a href="examples/angular/dist/browser/">Angular 17</a></li>
-									<li><a href="examples/lit/dist/">Lit</a></li>
-									<li><a href="examples/preact/dist/">Preact</a></li>
-									<li><a href="examples/react-redux/dist/">React Redux</a></li>
-									<li><a href="examples/svelte/dist/">Svelte</a></li>
-									<li><a href="examples/web-components/dist/">Web Components</a></li>
-								</ul>
-							</div>
-						</li>
-						<li><h4>Updated Versions 🧹</h4>
-							<div>
-								<p>Some updates to examples that were out-of-date, but still widely used on the web.</p>
+								<p>Each of the actively-maintained example apps has been brought up to its current stable line, with idiomatic code for the modern version.</p>
 								<label class="link" for="updated-expander">Examples ▼</label>
 								<input type="checkbox" id="updated-expander" class="simple-dropdown">
-								<ul class="collapsed" id="new-apps">
-									<li><a href="examples/backbone/dist/">Backbone</a></li>
-									<li><a href="examples/emberjs/todomvc/dist/">Ember</a></li>
-									<li><a href="examples/jquery/dist/">jQuery</a></li>
-									<li><a href="examples/react/dist/">React</a></li>
-									<li><a href="examples/vue/dist/">Vue</a></li>
-									<li><a href="examples/javascript-es5/">JavaScript ES5</a></li>
-									<li><a href="examples/javascript-es6/">JavaScript ES6</a></li>
+								<ul class="collapsed" id="updated-apps">
+									<li><a href="examples/angular/dist/browser/">Angular 21</a> (new <code>@angular/build</code> builder)</li>
+									<li><a href="examples/react/dist/">React 19</a> (createRoot, react-router 7)</li>
+									<li><a href="examples/vue/dist/">Vue 3.5</a> (Vite 8)</li>
+									<li><a href="examples/svelte/dist/">Svelte 5</a> (full runes migration)</li>
+									<li><a href="examples/preact/dist/">Preact 10.29</a></li>
+									<li><a href="examples/lit/dist/">Lit 3.3</a></li>
+									<li><a href="examples/react-redux/dist/">React Redux 9</a> with Redux Toolkit 2</li>
 								</ul>
 							</div>
 						</li>
-						<li>Misc. updates to the homepage.</li>
+						<li><h4>Test Suite Modernization 🧪</h4>
+							<div>
+								<p>The Cypress test suite is functional again on current Node and now drives the official TodoMVC behavioural spec across every maintained app. Around twenty real spec deviations (trim on save, save on blur, escape handling, accessibility labels, "Clear completed" capitalisation) were caught and fixed along the way.</p>
+							</div>
+						</li>
+						<li><h4>Tooling Cleanup 🧹</h4>
+							<div>
+								<p>Dropped gulp 3, Selenium scaffolding, Bower-only deps, and other long-stale infrastructure from the test path. <code>npm run test:all</code> works on a fresh clone again.</p>
+							</div>
+						</li>
 					</ul>
 				</div>
 				<div class="col-md-4">
@@ -446,7 +439,5 @@
 		<script src="site-assets/main.js"></script>
 		<!-- endbuild -->
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		<script>(function(){var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script>
-		<script>var _gaq=[['_setAccount','UA-31081062-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>
 	</body>
 </html>
