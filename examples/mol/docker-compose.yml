@@ -1,0 +1,11 @@
+services:
+  todomvc-mol:
+    build: .
+    ports:
+      - "9080:9080"
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    command: "npm start"
+
+    # http://localhost:9080/todomvc/-/test.html

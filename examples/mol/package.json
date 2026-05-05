@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "scripts": {
+        "start": "docker compose up --build",
+        "stop": "docker compose down"
+    }
+}
