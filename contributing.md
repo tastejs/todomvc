@@ -4,6 +4,53 @@ We're happy to accept contributions in the form of new apps, bug fixes, issues a
 
 Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms.
 
+# Contributing Bug Fixes, Documentation, and Improvements
+
+In addition to submitting new apps, we welcome contributions that improve the existing codebase and documentation. These contributions are often a great way to get familiar with the project.
+
+## Types of contributions we welcome
+
+-Bug fixes in existing examples or site code.
+
+-Documentation improvements (README files, guides, comments).
+
+-Refactoring or cleanup that improves readability or maintainability.
+
+-Accessibility improvements.
+
+-Performance improvements.
+
+-Tooling or configuration improvements related to development or testing.
+
+## Getting started
+
+-Check the issue tracker for existing issues, especially those labeled as bugs or documentation.
+
+-If you plan to work on an existing issue, please leave a comment to let others know you are working on it.
+
+-For small fixes (such as typos or minor documentation improvements), opening a pull request directly is fine.
+
+## Development workflow
+
+-Create a topic branch from master for your work.
+
+-Make sure your changes are focused and scoped to a single concern.
+
+-Follow the existing code style and structure of the area you are modifying.
+
+-Where applicable, verify your changes locally before submitting a pull request.
+
+## Submitting your pull request
+
+-Squash your commits before submitting.
+
+-Clearly describe what your change does and why it is needed.
+
+-If your change affects behavior or UI, include relevant details (and screenshots where appropriate).
+
+-Reference any related issues in your pull request description.
+
+Smaller contributions are highly appreciated and help keep TodoMVC accurate, accessible, and useful for the community.
 
 ## Considerations before submitting a new app
 
