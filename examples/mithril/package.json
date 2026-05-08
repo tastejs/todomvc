@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "mithril": "~0.2.0",
+    "mithril": "^2.2.8",
     "todomvc-app-css": "^2.1.0",
     "todomvc-common": "^1.0.1"
   }
