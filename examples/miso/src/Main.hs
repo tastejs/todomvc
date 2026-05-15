@@ -128,10 +128,11 @@ updateModel = \case
       entries %= IM.insert nextId (newEntry value)
   UpdateField str -> do
     field .= str
-  EditingEntry idx isEditing ->
+  EditingEntry idx isEditing -> do
     entries . at idx %?= (\e ->
       e & editing .~ isEditing
         & focussed .~ isEditing)
+    when isEditing $ io_ (focus ("todo-" <> S.ms idx))				
   UpdateEntry idx task ->
     entries . at idx %?= do
       description .~ task
