@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "swc": "^1.0.11",
+    "todomvc-app-css": "^2.4.3",
+    "todomvc-common": "^1.0.5"
+  },
+  "scripts": {
+    "build": "nix develop .#ghcjs --experimental-features 'nix-command flakes' --command bash -c 'make'"
+  }
+}

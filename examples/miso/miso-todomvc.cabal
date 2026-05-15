@@ -1,0 +1,39 @@
+cabal-version:          3.0
+name:                   miso-todomvc
+version:                0.1
+
+common options
+  if impl(ghcjs) || arch(javascript)
+    cpp-options:
+      -DGHCJS_BOTH
+  if impl(ghcjs)
+    cpp-options:
+      -DGHCJS_OLD
+  elif arch(javascript)
+    cpp-options:
+      -DGHCJS_BROWSER
+      -DGHCJS_NEW
+    ld-options:
+      -sEXPORTED_RUNTIME_METHODS=HEAP8
+  elif arch(wasm32)
+    ghc-options:
+      -Wall -no-hs-main -optl-mexec-model=reactor "-optl-Wl,--export=hs_start" -ddump-splices
+    cpp-options:
+       -DWASM
+  else
+    cpp-options:
+      -DVANILLA
+
+executable app
+  import:
+    options
+  hs-source-dirs:
+    src
+  main-is:
+    Main.hs
+  build-depends:
+    base, miso, mtl, containers
+  default-language:
+    GHC2021
+  default-extensions:
+    CPP TemplateHaskell
