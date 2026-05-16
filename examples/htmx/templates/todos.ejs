@@ -1,0 +1,9 @@
+<section
+	class="todos"
+	hx-get="/todos?filter=<%= filter %>"
+	hx-trigger="todoCreated from:body, todoDeleted from:body, allToggled from:body, singleToggled from:body"
+	hx-swap="outerHTML"
+>
+	<%- include('./todo-list') %>
+	<%- include('./footer') %>
+</section>

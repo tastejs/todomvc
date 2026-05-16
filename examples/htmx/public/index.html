@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="todomvc-common/base.css" />
+		<link rel="stylesheet" href="todomvc-app-css/index.css" />
+	</head>
+	<body>
+		<section
+			class="todoapp"
+			hx-get="/todos?filter=all"
+			hx-trigger="load"
+			hx-select=".main"
+		>
+			<header class="header">
+				<h1>todos</h1>
+				<form hx-post="/todos">
+					<input
+						class="new-todo"
+						name="label"
+						placeholder="What needs to be done?"
+						autofocus
+					/>
+				</form>
+			</header>
+			<section class="main">
+				<div id="toggleAll"></div>
+				<ul id="todo-list" class="todo-list"></ul>
+			</section>
+			<!-- This footer should be hidden by default and shown when there are todos -->
+			<footer id="footer"></footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://todomvc.com">Matti Bar-Zeev</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<!-- Scripts here. Don't remove ↓ -->
+		<script src="js/htmx.min.js"></script>
+		<script src="todomvc-common/base.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

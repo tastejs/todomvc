@@ -1,0 +1,26 @@
+<li class="<%= todo.status %>">
+	<div class="view">
+		<input name="completed" class="toggle" type="checkbox"
+		hx-patch="/todos/toggle/<%= todo.id %>" hx-target="closest li"
+		hx-swap="outerHTML" <%= todo.status === 'completed' ? 'checked' : '' %> />
+		<label
+			hx-on:dblclick="this.closest('li').classList.replace('<%= todo.status %>', 'editing');this.closest('li').querySelector('.edit').focus();"
+			><%= todo.label %></label
+		>
+		<button
+			class="destroy"
+			hx-delete="/todos/<%= todo.id %>"
+			hx-target=".todoapp"
+			hx-swap="outerHTML"
+		></button>
+	</div>
+	<input
+		class="edit"
+		name="label"
+		value="<%= todo.label %>"
+		hx-on:blur="this.closest('li').classList.replace('editing', '<%= todo.status %>');"
+		hx-patch="/todos/edit/<%= todo.id %>"
+		hx-target="closest li"
+		hx-swap="outerHTML"
+	/>
+</li>
