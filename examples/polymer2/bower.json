@@ -1,0 +1,17 @@
+{
+  "name": "TodoMVC",
+  "description": "Polymer 2 TodoMVC Example",
+  "main": "index.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "todomvc-common": "^1.0.3",
+    "todomvc-app-css": "^2.1.0",
+    "app-storage": "^2.0.2",
+    "iron-selector": "^2.0.0",
+    "iron-location": "^2.0.1"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1.0.7"
+  }
+}

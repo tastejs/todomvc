@@ -1,0 +1,153 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../no-shadow.html">
+<link rel="import" href="../td-input/td-input.html">
+<link rel="import" href="../td-item/td-item.html">
+
+<dom-module id="td-todos">
+	<template>
+		<style>
+			td-todos {
+				display: block;
+			}
+		</style>
+		<iron-location hash="{{route}}"></iron-location>
+		<section class="todoapp">
+			<td-input on-td-input-commit="addTodoAction"
+								on-td-input-cancel="cancelAddTodoAction">
+				<input id="new-todo" class="new-todo" placeholder="What needs to be done?" autofocus>
+			</td-input>
+
+			<template is="dom-if" if="{{items.length}}">
+				<section class="main">
+					<input class="toggle-all" type="checkbox" checked="[[allCompleted]]"
+								 on-change="toggleAllCompletedAction">
+					<label for="toggle-all">Mark all as complete</label>
+					<ul class="todo-list" on-td-destroy-item="destroyItemAction">
+						<template is="dom-repeat" items="{{items}}"
+											filter="{{matchesFilter(route)}}" observe="completed"
+											initial-count="10">
+							<td-item item="{{item}}"></td-item>
+						</template>
+					</ul>
+				</section>
+
+				<footer class="footer">
+					<span class="todo-count">
+						<strong>{{activeCount}}</strong>
+						<span>{{_computeItemsLeft(activeCount)}}</span><span> left</span>
+					</span>
+
+					<iron-selector class="filters" selected="{{route}}" attr-for-selected="route">
+						<li route="/">
+							<a href="#/" class$="{{_computeLinkClass(route, '/', '')}}">All</a>
+						</li>
+						<li route="/active">
+							<a href="#/active" class$="{{_computeLinkClass(route, '/active')}}">Active</a>
+						</li>
+						<li route="/completed">
+							<a href="#/completed" class$="{{_computeLinkClass(route, '/completed')}}">Completed</a>
+						</li>
+					</iron-selector>
+
+					<template is="dom-if" if="{{anyCompleted}}">
+						<button class="clear-completed" on-tap="clearCompletedAction"
+										style="visibility:visible">Clear completed</button>
+					</template>
+
+				</footer>
+			</template>
+
+		</section>
+	</template>
+	<script>
+		class TdTodos extends window.NoShadow(Polymer.GestureEventListeners(Polymer.Element)) {
+			static get is() { return 'td-todos'; }
+			static get properties() {
+				return {
+					items: {
+						type: Array
+					},
+					model: {
+						type: Object
+					},
+					modelId: {
+						type: String
+					},
+					route: {
+						type: String
+					},
+					allCompleted: {
+						type: Boolean,
+						computed: '_computeAllCompleted(anyCompleted, activeCount)'
+					},
+					activeCount: {
+						type: Number,
+						computed: '_computeActiveCount(items, items.*)'
+					},
+					anyCompleted: {
+						type: Boolean,
+						computed: '_computeAnyCompleted(items, items.*)'
+					}
+				};
+			}
+
+			connectedCallback() {
+				this.model = document.getElementById(this.modelId);
+				super.connectedCallback();
+			}
+
+			_computeLinkClass(currRoute, ...routes) {
+				return routes.some(route => currRoute === route) ? 'selected' : '';
+			}
+
+			_computeAnyCompleted(items) {
+				return this.model ? this.model.getCompletedCount() > 0 : false;
+			}
+
+			_computeActiveCount(items) {
+				return this.model ? this.model.getActiveCount() : 0;
+			}
+
+			_computeAllCompleted(anyCompleted, activeCount) {
+				return anyCompleted && !activeCount;
+			}
+
+			_computeItemsLeft(count) {
+				return count < 2 ? 'item' : 'items';
+			}
+
+			matchesFilter(route) {
+				const filter = route.substr(1);
+				return function(item, index, array) {
+					return this.model ? this.model.matchesFilter(item, filter) : false;
+				}.bind(this);
+			}
+
+			addTodoAction () {
+				this.model.newItem(this.$['new-todo'].value);
+				this.$['new-todo'].value = '';
+			}
+
+			cancelAddTodoAction () {
+				this.$['new-todo'].value = '';
+			}
+
+			destroyItemAction(e, detail) {
+				this.model.destroyItem(detail);
+			}
+
+			toggleAllCompletedAction(e) {
+				this.model.setItemsCompleted(e.target.checked);
+			}
+
+			clearCompletedAction () {
+				this.model.clearCompletedItems();
+			}
+		}
+
+		window.customElements.define(TdTodos.is, TdTodos);
+	</script>
+</dom-module>

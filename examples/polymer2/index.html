@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-framework="polymer-2">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>Polymer 2 • TodoMVC</title>
+    <meta name="description" content="Polymer 2 TodoMVC Example">
+
+    <!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="manifest.json">
+
+    <script>
+      if (!window.customElements) { document.write('<!--'); }
+    </script>
+    <script type="text/javascript" src="bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+    <!--! do not remove -->
+    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="stylesheet" href="bower_components/todomvc-app-css/index.css">
+
+    <!-- use individual HTML imports for development -->
+    <!--
+    <link rel="import" href="bower_components/polymer/lib/elements/dom-bind.html">
+    <link rel="import" href="src/td-model/td-model.html">
+    <link rel="import" href="src/td-todos/td-todos.html">
+    -->
+
+    <!-- use one combined and bundled HTML import for production -->
+    <link rel="import" href="bundle.html">
+  </head>
+  <body>
+    <div class="todoapp">
+      <header class="header">
+        <h1>todos</h1>
+      </header>
+      <dom-bind>
+        <template>
+          <td-model id="model" items="{{todos}}"></td-model>
+          <td-todos model-id="model" items="{{todos}}"></td-todos>
+        </template>
+      </dom-bind>
+    </div>
+    <footer class="info">
+      <p>Double-click to edit a todo</p>
+      <p>Created by <a href="https://github.com/vlukashov">Viktor Lukashov</a></p>
+      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+
+    <link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+    <script src="bower_components/todomvc-common/base.js"></script>
+  </body>
+</html>
