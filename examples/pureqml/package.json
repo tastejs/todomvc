@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "pureqml-controls": "^1.0.2"
+  }
+}
