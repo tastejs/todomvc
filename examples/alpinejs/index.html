@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Alpine.js • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<section class="todoapp"
+			x-data="todoapp()"
+			x-init="initTodoApp"
+		>
+			<header class="header">
+				<h1>todos</h1>
+				<input
+					class="new-todo"
+					placeholder="What needs to be done?"
+					x-model="newTodoTitle"
+					@keyup.enter="add()"
+					autofocus>
+			</header>
+			<section class="main" x-show="todos.length">
+				<input
+					id="toggle-all"
+					class="toggle-all"
+					type="checkbox"
+					@click="toggleAllCompleted"
+					:checked="active.length == 0"
+				>
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+					<template x-for="todo in filteredTodos">
+						<li :class="{ completed : todo.completed, editing : editingTodo == todo }">
+							<div class="view">
+								<input
+									class="toggle"
+									type="checkbox"
+									x-model="todo.completed"
+								>
+								<label
+									x-text="todo.title"
+									@dblclick.prevent="edit(todo)"
+								></label>
+								<button class="destroy" @click="remove(todo)"></button>
+							</div>
+							<input
+								class="edit"
+								x-model="todo.editingBuffer"
+								@keyup.enter="saveEdit()"
+								@click.away="saveEdit()"
+								@keyup.escape="cancelEdit()"
+								x-trap="editingTodo == todo"
+							>
+							<!-- x-trap uses the alpinejs/focus plugin -->
+						</li>
+					</template>
+				</ul>
+			</section>
+			<footer class="footer" x-show="todos.length">
+				<span class="todo-count">
+					<strong x-text="active.length"></strong>
+					<span x-text="active.length == 1 ? 'item' : 'items'"></span> left
+				</span>
+				<ul class="filters">
+					<li>
+						<a
+							href="#/"
+							:class="{ selected : visibility == 'all' }"
+						>All</a>
+					</li>
+					<li>
+						<a
+							href="#/active"
+							:class="{ selected : visibility == 'active' }"
+						>Active</a>
+					</li>
+					<li>
+						<a
+							href="#/completed"
+							:class="{ selected : visibility == 'completed' }"
+						>Completed</a>
+					</li>
+				</ul>
+				<button
+					class="clear-completed"
+					x-show="completed.length"
+					@click="removeCompleted()"
+				>Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Created by <a href="https://github.com/gabystallo">gabystallo</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/director/build/director.min.js"></script>
+		<script defer src="node_modules/@alpinejs/focus/dist/cdn.min.js"></script>
+		<script defer src="node_modules/alpinejs/dist/cdn.min.js"></script>
+		<script src="js/storage.js"></script>
+		<script src="js/router.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
