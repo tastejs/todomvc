@@ -1,0 +1,46 @@
+<section class="todoapp" kick-app>
+			<header class="header">
+				<h1>todos</h1>
+				<input class="new-todo" @="current" ^#enter="add" placeholder="What needs to be done?" autofocuss>
+			</header>
+			<section class="main" +="hasTodos">
+				<input id="toggle-all" class="toggle-all" ^change="markCompleted" @x="allCompleted" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+					<li *todo="filteredTodos" .completed="todo.completed" .editing="todo.editing">
+						<div class="view">
+							<input class="toggle" @x="todo.completed" type="checkbox" ^@="filter(todo)">
+							<label :="todo.title" ^^="editItem(todo)"></label>
+							<button class="destroy" ^="remove(todo)"></button>
+						</div>
+						<input class="edit" @="todo.title"
+             valueUpdate='afterkeydown'
+             ^#enter="saveEditing(todo)" ^#escape="cancelEditing(todo)" selectAndFocus="editing" ^blur="saveEditing(todo)">
+					</li>
+				</ul>
+			</section>
+			<footer class="footer" +="showFooter">
+				<span class="todo-count">
+					<strong :="remainingCount">0</strong>
+					<span :="getLabel(remainingCount, todos)"></span> left
+				</span>
+				<ul class="filters">
+					<li>
+						<a .selected="showMode('all')" ^="setMode('All', mode)" href="#/all">All</a>
+					</li>
+					<li>
+						<a .selected="showMode('active', mode)" ^="setMode('active')" href="#/active">Active</a>
+					</li>
+					<li>
+						<a .selected="showMode('completed', mode)"
+            ^="setMode('completed')"  href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<button class="clear-completed" +="completedCount" ^="removeCompleted(completedCount)">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by <a href="https://github.com/radkick/jskick-todomvc">Ritesh Pahwa</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
