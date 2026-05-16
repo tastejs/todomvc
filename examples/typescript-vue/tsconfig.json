@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "module": "es6", 
+    "target": "es5",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true, 
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "pretty": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015",
+      "es2015.promise"
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@src/*": ["./*"],
+      "@components": ["./components/index.ts"],
+      "@images/*": ["./assets/images/*"],
+      "@icons/*": ["./assets/icons/*"],
+      "@views": ["./components/views/index.ts"],
+      "@validators": ["./utils/validators.ts"],
+      "@methods": ["./utils/methods.ts"],
+      "@filters": ["./utils/filters.ts"],
+      "@types": ["./typings/index.ts"],
+      "@store": ["./store/index.ts"]
+    },
+    "sourceMap": true, 
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "typings/browser.d.ts",
+    "typings/browser",
+    "node_modules" 
+  ],
+  "compileOnSave": true
+}
