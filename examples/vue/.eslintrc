@@ -1,11 +1,35 @@
 {
-    "root": true,
-    "env": {
-        "node": true
-    },
-    "extends": ["plugin:vue/vue3-essential", "eslint:recommended"],
-    "parserOptions": {
-        "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:vue/vue3-recommended"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "plugins": [
+       ["@babel/plugin-syntax-jsx"]
+      ]
+    }
+  },
+  "rules": {
+    "indent": ["error", "tab"],
+    "vue/html-indent": ["error", "tab"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "camelcase": ["error", { "properties": "never" }],
+    "eqeqeq": ["error", "always"],
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
 }

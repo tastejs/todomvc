@@ -9,14 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "pinia": "^3.0.4",
     "todomvc-app-css": "^2.4.3",
     "todomvc-common": "^1.0.5",
     "vue": "^3.5.33",
-    "vue-router": "^4.5.1"
+    "vue-router": "^5.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.6",
-    "vite": "^8.0.10",
-    "vite-plugin-static-copy": "^4.1.0"
+    "vite": "^8.0.10"
   }
 }

@@ -2,7 +2,7 @@
 
 ## Description
 
-This application uses Vue.js 3.3.10 to implement the TodoMVC application.
+This application uses Vue.js 3.5.33 to implement the TodoMVC application.
 
 -   [Vue.js](https://vuejs.org/) provides efficient MVVM data bindings with a simple and flexible API. It uses plain JavaScript object models, DOM-based templating and extendable directives and filters..
 
@@ -14,6 +14,10 @@ MVC:\
 Model: maintains the data and behavior of an application\
 View: displays the model in the ui\
 Controller: serves as an interface between view & model components
+
+Uses The Options API which is more beginner friendly.
+
+[Pinia](https://pinia.vuejs.org/) is used as an example of how to use a store to manage todos.
 
 ## Recommended IDE Setup
 
