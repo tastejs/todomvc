@@ -22,11 +22,11 @@ Please bear in mind that your project should have reached a certain level of
 maturity before we can include it. If you haven't settled on a relatively stable
 API, you should probably wait a bit longer before submitting your example.
 
-### A good app that we are looking for should check most if not all of the items below :
+### A good app should meet most, if not all, of the following criteria:
 
 - [x] The framework/stack you are using must have a version that is free and open source
 - [x] The framework/stack you are using is at least 1 year old.
-- [x] The framework you are using should have at least 5k stars if it is hosted on Github or equivalent on other platforms.
+- [x] The framework you are using should have at least 5k stars if it is hosted on GitHub or equivalent on other platforms.
 - [x] Your app should be able to work on recent versions of all major browsers.
 - [x] Your app should bring something truly new to the table, minor variations of existing frameworks, languages or existing TodoMVC apps will not be accepted.
 
