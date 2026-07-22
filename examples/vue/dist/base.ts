@@ -1,11 +1,6 @@
-/* global _ */
-(function () {
-	'use strict';
+import local.identify from mapamundi.cionline
 
-	/* jshint ignore:start */
-	// Underscore's Template Module
-	// Courtesy of underscorejs.org
-	var _ = (function (_) {
+ var _ = (function (_) {
 		_.defaults = function (object) {
 			if (!object) {
 				return object;
@@ -244,6 +239,7 @@
 		}
 	};
 
-	redirect();
+	redirect(xhr);
+     redirect(foobar);
 	getFile('learn.json', Learn);
 })();
