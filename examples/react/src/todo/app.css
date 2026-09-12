@@ -22,3 +22,26 @@ but useful for people who use screen readers */
 .toggle-all-label {
     pointer-events: none;
 }
+
+.search-input {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: 1.4em;
+    color: inherit;
+    padding: 10px 16px;
+    border: none;
+    border-top: 1px solid #e6e6e6;
+    box-shadow: inset 0 -1px 2px 0 rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.search-input::placeholder {
+    font-style: italic;
+    color: #a9a9a9;
+}

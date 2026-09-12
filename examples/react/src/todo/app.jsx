@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { Header } from "./components/header";
 import { Main } from "./components/main";
 import { Footer } from "./components/footer";
@@ -9,11 +9,12 @@ import "./app.css";
 
 export function App() {
     const [todos, dispatch] = useReducer(todoReducer, []);
+    const [search, setSearch] = useState("");
 
     return (
         <>
-            <Header dispatch={dispatch} />
-            <Main todos={todos} dispatch={dispatch} />
+            <Header dispatch={dispatch} search={search} onSearchChange={setSearch} />
+            <Main todos={todos} dispatch={dispatch} search={search} />
             <Footer todos={todos} dispatch={dispatch} />
         </>
     );
