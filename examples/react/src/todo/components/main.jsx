@@ -5,21 +5,24 @@ import { Item } from "./item";
 
 import { TOGGLE_ALL } from "../constants";
 
-export function Main({ todos, dispatch }) {
+export function Main({ todos, dispatch, search }) {
     const { pathname: route } = useLocation();
 
     const visibleTodos = useMemo(
         () =>
             todos.filter((todo) => {
-                if (route === "/active")
-                    return !todo.completed;
+                if (route === "/active" && todo.completed)
+                    return false;
 
-                if (route === "/completed")
-                    return todo.completed;
+                if (route === "/completed" && !todo.completed)
+                    return false;
 
-                return todo;
+                if (search && !todo.title.toLowerCase().includes(search.toLowerCase()))
+                    return false;
+
+                return true;
             }),
-        [todos, route]
+        [todos, route, search]
     );
 
     const toggleAll = useCallback((e) => dispatch({ type: TOGGLE_ALL, payload: { completed: e.target.checked } }), [dispatch]);
