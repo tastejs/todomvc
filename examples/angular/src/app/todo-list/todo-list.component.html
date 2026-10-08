@@ -1,7 +1,7 @@
 <main class="main" [hidden]="todos.length === 0">
   <div class="toggle-all-container">
     <input class="toggle-all" type="checkbox" (change)="toggleAll($event)" [checked]="todos.length > 0 && !activeTodos.length" />
-    <label class="toggle-all-label" htmlFor="toggle-all">Toggle All Input</label>
+    <label class="toggle-all-label" htmlFor="toggle-all">Toggle  Input</label>
   </div>
   <ul class="todo-list">
     @for (todo of todos; track todo) {
