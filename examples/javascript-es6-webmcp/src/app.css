@@ -18,3 +18,18 @@
 .toggle-graph:focus svg path {
     fill: black;
 }
+
+/*
+ * WebMCP: an agent has filled the add_todo form and is about to submit it.
+ * @supports keeps browsers without WebMCP from seeing unknown pseudo-classes.
+ */
+@supports selector(:tool-form-active) {
+    form:tool-form-active {
+        outline: 2px solid #E9453E;
+        outline-offset: -2px;
+    }
+
+    form:tool-form-active .new-todo {
+        background: rgba(233, 69, 62, 0.06);
+    }
+}
