@@ -44,3 +44,49 @@ terminal:
 browser:
 1. http://localhost:7001/
 ```
+
+## WebMCP
+
+This example exposes the app to AI agents in the browser through
+[WebMCP](https://developer.chrome.com/docs/ai/webmcp). An agent can add, list,
+complete, rename and delete to-dos, switch the filter and clear finished ones.
+Every tool calls the same code as the UI, so the page updates while the agent works.
+
+Without WebMCP (`'modelContext' in document` is false) the app behaves exactly as before.
+
+| Tool | Kind | What it does |
+| --- | --- | --- |
+| `add_todo` | declarative (`<form toolname>`) | Adds one to-do |
+| `list_todos` | `registerTool()`, read-only | Lists to-dos as JSON with `id`, `title`, `completed` |
+| `toggle_todo` | `registerTool()` | Marks a to-do done or not done, by id |
+| `edit_todo` | `registerTool()` | Renames a to-do, by id |
+| `delete_todo` | `registerTool()`, consequential | Deletes a to-do, by id |
+| `set_filter` | `registerTool()` | Shows `all`, `active` or `completed` |
+| `clear_completed` | `registerTool()`, consequential | Deletes every completed to-do; only registered while there are some |
+
+The declarative tool is in `src/index.html` (submit handler in `src/view.js`);
+the imperative tools are in `src/webmcp.js`.
+
+### Try it
+
+1. In Chrome, open `chrome://flags/#enable-webmcp-testing`, set it to **Enabled**
+   and relaunch.
+2. Serve the app on localhost:
+
+    ```
+    npm install
+    npm run dev
+    ```
+
+3. Install the example agent extension,
+   [GoogleChromeLabs/webmcp-extension](https://github.com/GoogleChromeLabs/webmcp-extension),
+   and set it up as its README describes.
+4. Open the app, open the extension and try these prompts in order:
+
+    - "Add milk, eggs and bread"
+    - "I bought the milk"
+    - "What's still left to do?"
+    - "Clean up the finished ones"
+
+    `clear_completed` only exists once something is completed, so the last prompt
+    works after the second one.
