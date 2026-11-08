@@ -5,8 +5,7 @@
  * Every tool calls the same controller methods the UI calls, so the page
  * re-renders exactly as if the user had clicked.
  *
- * Without WebMCP (no `modelContext` on document) nothing here runs and the
- * app behaves exactly as before.
+ * Without WebMCP (no `modelContext` on document) nothing here runs.
  *
  * Docs: https://developer.chrome.com/docs/ai/webmcp/imperative-api
  */

@@ -30,7 +30,7 @@ Plenty of legacy framework showcases also live in `examples/` for historical ref
 
 ## Let AI Agents Use a TodoMVC App with WebMCP
 
-[`examples/javascript-es6-webmcp`](examples/javascript-es6-webmcp) is the [JavaScript ES6 example](examples/javascript-es6) with [WebMCP](https://developer.chrome.com/docs/ai/webmcp) added: the page offers tools that an AI agent in the browser can call to add, list, complete, rename and delete to-dos, change the filter and clear finished ones. The UI updates as the agent works, and without WebMCP the app behaves exactly like the original.
+[`examples/javascript-es6-webmcp`](examples/javascript-es6-webmcp) is the [JavaScript ES6 example](examples/javascript-es6) with [WebMCP](https://developer.chrome.com/docs/ai/webmcp) added: the page offers tools that an AI agent in the browser can call to add, list, complete, rename and delete to-dos, change the filter and clear finished ones. The UI updates as the agent works, and without WebMCP the app works like the original, except that a new to-do is added with Enter only, as the [app spec](app-spec.md) describes.
 
 It shows both halves of the API:
 

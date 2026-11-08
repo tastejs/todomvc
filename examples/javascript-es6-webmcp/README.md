@@ -52,7 +52,10 @@ This example exposes the app to AI agents in the browser through
 complete, rename and delete to-dos, switch the filter and clear finished ones.
 Every tool calls the same code as the UI, so the page updates while the agent works.
 
-Without WebMCP (`'modelContext' in document` is false) the app behaves exactly as before.
+Without WebMCP (`'modelContext' in document` is false) no tools are registered and the app
+works like the original, with one difference: a new to-do is added by pressing Enter only,
+not when the input loses focus, as the [app spec](../../app-spec.md#new-todo) describes. Submitting
+the form is the single path that adds a to-do, for people and agents alike.
 
 | Tool | Kind | What it does |
 | --- | --- | --- |

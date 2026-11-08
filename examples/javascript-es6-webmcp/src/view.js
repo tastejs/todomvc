@@ -55,16 +55,6 @@ const _editItemDone = (id, title) => {
     });
 };
 
-// True while an agent has filled the add_todo form and not yet submitted it.
-// matches() throws on a pseudo-class the browser doesn't know (no WebMCP).
-const _agentIsFilling = (form) => {
-    try {
-        return form.matches(":tool-form-active");
-    } catch {
-        return false;
-    }
-};
-
 const _itemId = (element) => {
     const li = $parent(element, "li");
     return parseInt(li.dataset.id, 10);
@@ -151,23 +141,22 @@ export default class View {
     bindCallback(event, handler) {
         switch (event) {
             case "newTodo":
-                // A person adds a to-do through "change" (Enter or blur), as before.
-                $on(this.$newTodo, "change", () => {
-                    if (!_agentIsFilling(this.$newTodoForm))
-                        handler(this.$newTodo.value);
-                });
-                // An agent adds one through the add_todo form tool (WebMCP).
-                // Never call form.reset() here: it fires "toolcancel".
+                // Submitting the form is the only way a to-do is added: a person
+                // presses Enter, an agent calls the add_todo tool (WebMCP).
+                // Never listen for "change": Chrome fires it while filling the form
+                // for an agent, before submit. Never call form.reset(): it fires
+                // "toolcancel".
                 $on(this.$newTodoForm, "submit", (e) => {
                     e.preventDefault();
 
-                    if (!e.agentInvoked)
-                        return;
-
                     const item = handler(this.$newTodo.value);
-                    e.respondWith(Promise.resolve(item
-                        ? `Added the to-do with id ${item.id}.`
-                        : "Nothing was added because the title was empty. Call add_todo again with the to-do's text in \"title\"."));
+                    this.render("clearNewTodo");
+
+                    if (e.agentInvoked) {
+                        e.respondWith(Promise.resolve(item
+                            ? `Added the to-do with id ${item.id}.`
+                            : "Nothing was added because the title was empty. Call add_todo again with the to-do's text in \"title\"."));
+                    }
                 });
                 break;
             case "removeCompleted":
