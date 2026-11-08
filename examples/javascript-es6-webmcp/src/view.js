@@ -86,6 +86,11 @@ export default class View {
         this.$toggleAllInput = qs(".toggle-all");
         this.$toggleAll = qs(".toggle-all-label");
         this.$newTodo = qs(".new-todo");
+        this.$newTodoForm = qs(".new-todo-form");
+
+        // The input's "change" event still adds the to-do (on Enter and on blur,
+        // as before). The form only exists so the page never navigates.
+        $on(this.$newTodoForm, "submit", (e) => e.preventDefault());
 
         this.render = this.render.bind(this);
         this.bindCallback = this.bindCallback.bind(this);
