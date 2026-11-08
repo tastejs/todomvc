@@ -53,6 +53,16 @@ const _editItemDone = (id, title) => {
     });
 };
 
+// True while an agent has filled the add_todo form and not yet submitted it.
+// matches() throws on a pseudo-class the browser doesn't know (no WebMCP).
+const _agentIsFilling = (form) => {
+    try {
+        return form.matches(":tool-form-active");
+    } catch {
+        return false;
+    }
+};
+
 const _itemId = (element) => {
     const li = $parent(element, "li");
     return parseInt(li.dataset.id, 10);
@@ -87,10 +97,6 @@ export default class View {
         this.$toggleAll = qs(".toggle-all-label");
         this.$newTodo = qs(".new-todo");
         this.$newTodoForm = qs(".new-todo-form");
-
-        // The input's "change" event still adds the to-do (on Enter and on blur,
-        // as before). The form only exists so the page never navigates.
-        $on(this.$newTodoForm, "submit", (e) => e.preventDefault());
 
         this.render = this.render.bind(this);
         this.bindCallback = this.bindCallback.bind(this);
@@ -143,7 +149,24 @@ export default class View {
     bindCallback(event, handler) {
         switch (event) {
             case "newTodo":
-                $on(this.$newTodo, "change", () => handler(this.$newTodo.value));
+                // A person adds a to-do through "change" (Enter or blur), as before.
+                $on(this.$newTodo, "change", () => {
+                    if (!_agentIsFilling(this.$newTodoForm))
+                        handler(this.$newTodo.value);
+                });
+                // An agent adds one through the add_todo form tool (WebMCP).
+                // Never call form.reset() here: it fires "toolcancel".
+                $on(this.$newTodoForm, "submit", (e) => {
+                    e.preventDefault();
+
+                    if (!e.agentInvoked)
+                        return;
+
+                    const item = handler(this.$newTodo.value);
+                    e.respondWith(Promise.resolve(item
+                        ? `Added the to-do with id ${item.id}.`
+                        : "Nothing was added because the title was empty. Call add_todo again with the to-do's text in \"title\"."));
+                });
                 break;
             case "removeCompleted":
                 $on(this.$clearCompleted, "click", handler);

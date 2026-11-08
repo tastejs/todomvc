@@ -10,8 +10,12 @@
         <section class="todoapp">
             <header class="header">
                 <h1>todos</h1>
-                <form class="new-todo-form">
-                    <input class="new-todo" placeholder="What needs to be done?" autofocus />
+                <form class="new-todo-form"
+                      toolname="add_todo"
+                      tooldescription="Add one to-do to the list. To add several, call it once per item."
+                      toolautosubmit>
+                    <input class="new-todo" name="title" placeholder="What needs to be done?" autofocus
+                           toolparamdescription="The text of the to-do, for example: Buy milk" />
                 </form>
             </header>
             <main class="main">

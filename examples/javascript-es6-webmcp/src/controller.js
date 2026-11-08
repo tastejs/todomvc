@@ -52,15 +52,21 @@ class Controller {
     /**
      * An event to fire whenever you want to add an item. Simply pass in the event
      * object and it'll handle the DOM insertion and saving of the new item.
+     *
+     * @returns {object|null} The new item, or null when the title is empty.
      */
     addItem(title) {
         if (title.trim() === "")
-            return;
+            return null;
 
-        this.model.create(title, () => {
+        let created = null;
+        this.model.create(title, ([item]) => {
+            created = item;
             this.view.render("clearNewTodo");
             this._filter(true);
         });
+
+        return created;
     }
 
     /*
