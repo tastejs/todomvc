@@ -29,6 +29,29 @@ export function initWebMCP(todo) {
     register(editTodo(todo), signal);
     register(deleteTodo(todo), signal);
     register(setFilter(), signal);
+    offerClearCompleted(todo, signal);
+}
+
+// clear_completed exists only while there is something to clear, so the
+// agent never sees a tool that can't do anything.
+function offerClearCompleted(todo, signal) {
+    let registration = null; // an AbortController while the tool is registered
+
+    const sync = ({ completed }) => {
+        if (signal.aborted)
+            return;
+
+        if (completed > 0 && !registration) {
+            registration = new AbortController();
+            register(clearCompleted(todo), AbortSignal.any([signal, registration.signal]));
+        } else if (completed === 0 && registration) {
+            registration.abort();
+            registration = null;
+        }
+    };
+
+    todo.controller.onCountChange(sync);
+    todo.model.getCount(sync);
 }
 
 async function register(tool, signal) {
@@ -175,5 +198,23 @@ const setFilter = () => ({
         return filter === "all"
             ? "The page now shows all to-dos."
             : `The page now shows ${filter} to-dos only.`;
+    },
+});
+
+const clearCompleted = ({ model, controller }) => ({
+    name: "clear_completed",
+    description: "Delete every completed to-do for good. Active to-dos are kept.",
+    inputSchema: { type: "object", properties: {} },
+    annotations: {
+        consequentialHint: true, // there is no undo
+    },
+    async execute() {
+        const done = await new Promise((resolve) => model.read({ completed: true }, resolve));
+        if (done.length === 0)
+            return "There are no completed to-dos to clear.";
+
+        // What the "Clear completed" button calls.
+        controller.removeCompletedItems();
+        return `Deleted ${done.length} completed to-do${done.length === 1 ? "" : "s"}.`;
     },
 });

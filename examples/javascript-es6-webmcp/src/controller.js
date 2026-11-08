@@ -16,6 +16,16 @@ class Controller {
         this.view.bindCallback("itemToggle", (item) => this.toggleComplete(item.id, item.completed));
         this.view.bindCallback("removeCompleted", () => this.removeCompletedItems());
         this.view.bindCallback("toggleAll", (status) => this.toggleAll(status.completed));
+
+        this._countListeners = [];
+    }
+
+    /**
+     * Calls listener with { active, completed, total } after every change.
+     * WebMCP uses it to offer clear_completed only while it can do something.
+     */
+    onCountChange(listener) {
+        this._countListeners.push(listener);
     }
 
     /**
@@ -170,6 +180,9 @@ class Controller {
             this.view.render("clearCompletedButton", { completed, visible });
             this.view.render("toggleAll", { checked });
             this.view.render("contentBlockVisibility", { visible: todos.total > 0 });
+
+            for (const listener of this._countListeners)
+                listener(todos);
         });
     }
 
