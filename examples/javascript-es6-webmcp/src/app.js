@@ -3,6 +3,7 @@ import Controller from "./controller";
 import Model from "./model";
 import Store from "./store";
 import Template from "./template";
+import { initWebMCP } from "./webmcp";
 
 import "todomvc-app-css/index.css";
 import "todomvc-common/base.css";
@@ -16,6 +17,7 @@ const onHashChange = () => {
 const onLoad = () => {
     todo = new Todo("javascript-es6-webpack");
     onHashChange();
+    initWebMCP(todo);
 };
 
 function Todo(name) {
