@@ -43,8 +43,10 @@ const _editItemDone = (id, title) => {
     if (!listItem)
         return;
 
+    // No edit box when the title was changed without the UI (WebMCP edit_todo).
     const input = qs("input.edit", listItem);
-    listItem.removeChild(input);
+    if (input)
+        listItem.removeChild(input);
 
     listItem.className = listItem.className.replace(" editing", "");
 
