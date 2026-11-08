@@ -28,6 +28,7 @@ export function initWebMCP(todo) {
     register(toggleTodo(todo), signal);
     register(editTodo(todo), signal);
     register(deleteTodo(todo), signal);
+    register(setFilter(), signal);
 }
 
 async function register(tool, signal) {
@@ -144,5 +145,35 @@ const deleteTodo = ({ model, controller }) => ({
 
         controller.removeItem(todo.id);
         return `To-do ${todo.id} has been deleted.`;
+    },
+});
+
+// The routes behind the All / Active / Completed links.
+const FILTERS = { all: "#/", active: "#/active", completed: "#/completed" };
+
+const setFilter = () => ({
+    name: "set_filter",
+    description: "Choose which to-dos the page shows: all of them, only active (not done) ones, " +
+        "or only completed ones. It changes the view, not the to-dos.",
+    inputSchema: {
+        type: "object",
+        properties: {
+            filter: {
+                type: "string",
+                enum: Object.keys(FILTERS),
+                description: "all, active or completed.",
+            },
+        },
+        required: ["filter"],
+    },
+    async execute({ filter }) {
+        if (!Object.hasOwn(FILTERS, filter))
+            return `Unknown filter ${JSON.stringify(filter)}. Use one of: all, active, completed.`;
+
+        // Same as clicking the link: the app's hashchange handler re-renders.
+        document.location.hash = FILTERS[filter];
+        return filter === "all"
+            ? "The page now shows all to-dos."
+            : `The page now shows ${filter} to-dos only.`;
     },
 });
