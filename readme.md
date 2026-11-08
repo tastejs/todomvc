@@ -28,6 +28,18 @@ The actively maintained examples in this repo are kept current with their framew
 Plenty of legacy framework showcases also live in `examples/` for historical reference. See the [website](http://todomvc.com) for the full list.
 
 
+## Let AI Agents Use a TodoMVC App with WebMCP
+
+[`examples/javascript-es6-webmcp`](examples/javascript-es6-webmcp) is the [JavaScript ES6 example](examples/javascript-es6) with [WebMCP](https://developer.chrome.com/docs/ai/webmcp) added: the page offers tools that an AI agent in the browser can call to add, list, complete, rename and delete to-dos, change the filter and clear finished ones. The UI updates as the agent works, and without WebMCP the app works like the original, except that a new to-do is added with Enter only, as the [app spec](app-spec.md) describes.
+
+It shows both halves of the API:
+
+- **Declarative:** the new-todo `<form>` becomes the `add_todo` tool through HTML attributes alone.
+- **Imperative:** the other tools are registered with `document.modelContext.registerTool()`, and `clear_completed` is only registered while there are completed to-dos.
+
+To try it, see the example's [README](examples/javascript-es6-webmcp/README.md#webmcp).
+
+
 ## Build a TodoMVC App with Your AI Coding Agent
 
 The [app spec](app-spec.md) is plain Markdown and reads cleanly into any modern AI coding agent (Claude Code, Cursor, GitHub Copilot, Codex, Gemini Code Assist, Aider, and so on). To generate a fresh implementation in a framework or language that isn't on the list above, drop this prompt into your agent of choice:

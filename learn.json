@@ -599,6 +599,28 @@
 			"url": "examples/javascript-es6"
 		}]
 	},
+	"javascript-es6-webmcp": {
+		"name": "JavaScript ES6 + WebMCP",
+		"description": "The JavaScript ES6 example, also exposed to AI agents in the browser through WebMCP: a proposed web standard that lets a page offer tools an agent can call, declared in HTML forms or registered from JavaScript.",
+		"homepage": "developer.chrome.com/docs/ai/webmcp",
+		"examples": [{
+			"name": "Example",
+			"url": "examples/javascript-es6-webmcp"
+		}],
+		"link_groups": [{
+			"heading": "Official Resources",
+			"links": [{
+				"name": "WebMCP overview",
+				"url": "https://developer.chrome.com/docs/ai/webmcp"
+			}, {
+				"name": "Imperative API",
+				"url": "https://developer.chrome.com/docs/ai/webmcp/imperative-api"
+			}, {
+				"name": "Declarative API",
+				"url": "https://developer.chrome.com/docs/ai/webmcp/declarative-api"
+			}]
+		}]
+	},
 	"jquery": {
 		"name": "jQuery",
 		"description": "jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript.",
