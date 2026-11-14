@@ -52,7 +52,7 @@ app.controller = function () {
 		todo.editing(true);
 	};
 
-	this.doneEditing = function (todo, index) {
+	this.doneEditing = function (todo) {
 		if (!todo.editing()) {
 			return;
 		}
@@ -60,7 +60,10 @@ app.controller = function () {
 		todo.editing(false);
 		todo.title(todo.title().trim());
 		if (!todo.title()) {
-			this.list.splice(index, 1);
+			var index = this.list.indexOf(todo);
+			if (index !== -1) {
+				this.list.splice(index, 1);
+			}
 		}
 		app.storage.put(this.list);
 	};
@@ -74,8 +77,11 @@ app.controller = function () {
 		this.title('');
 	};
 
-	this.remove = function (key) {
-		this.list.splice(key, 1);
+	this.remove = function (todo) {
+		var index = this.list.indexOf(todo);
+		if (index !== -1) {
+			this.list.splice(index, 1);
+		}
 		app.storage.put(this.list);
 	};
 
