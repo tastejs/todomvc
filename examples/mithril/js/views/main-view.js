@@ -66,12 +66,12 @@ app.view = (function () {
 									ondblclick: ctrl.edit.bind(ctrl, task)
 								}, task.title()),
 								m('button.destroy', {
-									onclick: ctrl.remove.bind(ctrl, index)
+									onclick: ctrl.remove.bind(ctrl, task)
 								})
 							]), m('input.edit', {
 								value: task.title(),
 								onkeyup: app.watchInput(
-									ctrl.doneEditing.bind(ctrl, task, index),
+									ctrl.doneEditing.bind(ctrl, task),
 									ctrl.cancelEditing.bind(ctrl, task)
 								),
 								oninput: m.withAttr('value', function (value) {
@@ -83,7 +83,7 @@ app.view = (function () {
 										element.focus();
 									}
 								},
-								onblur: ctrl.doneEditing.bind(ctrl, task, index)
+								onblur: ctrl.doneEditing.bind(ctrl, task)
 							})
 						]);
 					})
