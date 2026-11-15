@@ -113,7 +113,7 @@
                 self.$main.style.display = self.$footer.style.display = parameter.visible ? "block" : "none";
             },
             toggleAll: function () {
-                self.$toggleAll.checked = parameter.checked;
+                self.$toggleAllInput.checked = parameter.checked;
             },
             setFilter: function () {
                 self._setFilter(parameter);
