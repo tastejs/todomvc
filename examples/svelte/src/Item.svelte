@@ -18,7 +18,7 @@
 
     function updateItem(event) {
         if (!editing) return;
-        const { value } = event.target;
+        const value = event.target.value.trim();
         if (value.length) {
             item.description = value;
         } else {
